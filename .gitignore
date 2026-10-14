@@ -1,0 +1,14 @@
+# Pliki systemowe
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Edytory
+.vscode/
+.idea/
+*.swp
+
+# Kopie zapasowe danych (eksporty z aplikacji) — nie wrzucaj ich do repozytorium
+english-levels-content-*.json
+english-levels-progress-*.json
+english-levels-uszkodzone-*.txt

@@ -1,0 +1,140 @@
+# Instrukcja dla nauczyciela
+
+## 1. Jak otworzyć stronę
+
+1. Otwórz folder `english-levels-map`.
+2. Kliknij dwukrotnie plik **`index.html`**. Strona otworzy się w domyślnej przeglądarce. Internet ani żaden program nie są potrzebne.
+
+Najlepiej działają aktualne wersje przeglądarek Chrome, Edge, Firefox i Safari. Strona jest przeznaczona na komputer z szerokim ekranem.
+
+## 2. Jak zbudowana jest strona
+
+- **Lewy pasek:** poziomy A1–C2. Przy każdym poziomie jest pasek postępu i licznik „X / Y umiem” dla aktualnie wybranej kategorii.
+- **Na dole lewego paska:** przełącznik **Tryb edycji** i przycisk **Dane** (kopie zapasowe).
+- **Prawa część:** wybrany poziom, czyli opis, kategorie, **Essentials** (lista umiejętności z polem „Umiem”) i **Tematy**.
+
+Uczeń korzysta ze strony w trybie podglądu. Może tylko zaznaczać „Umiem” i odkrywać odpowiedzi do ćwiczeń.
+
+## 3. Dodawanie treści (tryb edycji)
+
+Włącz **Tryb edycji** w lewym dolnym rogu. Przy elementach pojawią się pola i małe przyciski:
+
+| Przycisk | Działanie |
+|---|---|
+| **+ Dodaj …** | dodaje nowy element |
+| **↑ / ↓** | przesuwa element w górę lub w dół |
+| **← / →** | przesuwa kategorię lub temat w lewo lub w prawo |
+| **✕** / **Usuń …** | usuwa element (zawsze po potwierdzeniu) |
+
+Wszystko zapisuje się **automatycznie**. Pod przełącznikiem widać napis „Zapisano o …”.
+
+### Opis poziomu
+Pole „Krótki opis poziomu” pod dużym kodem poziomu. Jest opcjonalne. Pusty opis nie wyświetla się uczniowi.
+
+### Kategorie
+Kategorie (np. „Gramatyka i czasy”) są **wspólne dla wszystkich poziomów**, a treść jest osobna dla każdego poziomu.
+- **+ Kategoria** dodaje nową kategorię (np. „Słownictwo”, „Pisanie”).
+- **Zmień nazwę**, **← →** i **Usuń kategorię** działają na aktualnie wybranej kategorii.
+- Uwaga: usunięcie kategorii kasuje jej treść na **wszystkich** poziomach.
+
+### Essentials
+Lista najważniejszych umiejętności poziomu w danej kategorii.
+- **+ Dodaj punkt** dodaje punkt, potem wpisujesz jego treść.
+- Pole **Umiem** zaznacza uczeń. Paski postępu zmieniają się od razu.
+
+### Tematy
+- **+ Dodaj temat** tworzy nowy temat i ustawia kursor w polu „Nazwa”.
+- Każdy temat ma sekcje: **Nazwa, Zasada, Wzór, Przykłady, Typowe błędy, Ćwiczenia**.
+- **Wzór** jest pisany czcionką o stałej szerokości, a odstępy zostają zachowane, co przydaje się do schematów zdań.
+- **Typowe błędy:** zdanie błędne, zdanie poprawne i opcjonalna notatka.
+- **Ćwiczenia:** polecenie i opcjonalna odpowiedź. Uczeń widzi odpowiedź dopiero po kliknięciu „Pokaż odpowiedź”.
+- Sekcje, których nie wypełnisz, nie wyświetlają się uczniowi.
+
+### Formatowanie tekstu
+- Nowa linia (Enter) zostaje zachowana.
+- `**tekst**` wyświetli się jako **pogrubienie**.
+- Inne znaczniki (np. HTML) wyświetlają się jako zwykły tekst.
+
+Po skończeniu pracy **wyłącz Tryb edycji**, żeby zobaczyć stronę tak, jak zobaczy ją uczeń.
+
+## 4. Kopie zapasowe (menu „Dane”)
+
+> **Dane zapisują się tylko w tej przeglądarce na tym komputerze.** Wyczyszczenie danych przeglądarki, inna przeglądarka albo inny komputer oznaczają brak treści. Dlatego **rób eksport co jakiś czas**.
+
+Treści i postęp ucznia są zapisywane **osobno**:
+
+| Opcja | Co robi |
+|---|---|
+| **Eksportuj treści** | pobiera plik `english-levels-content-RRRR-MM-DD.json` (kategorie, essentials, tematy) |
+| **Importuj treści…** | wczytuje taki plik. Najpierw pokazuje, co zawiera, i prosi o potwierdzenie. **Nie rusza postępu ucznia.** |
+| **Eksportuj postęp** | pobiera plik `english-levels-progress-RRRR-MM-DD.json` (zaznaczenia „Umiem”) |
+| **Importuj postęp…** | wczytuje taki plik (z potwierdzeniem) |
+| **Zresetuj postęp** | usuwa wszystkie zaznaczenia „Umiem” |
+| **Zresetuj wszystko** | usuwa treści i postęp (wymaga dwóch potwierdzeń) |
+
+Przechowuj pliki kopii w bezpiecznym miejscu, np. na dysku w chmurze albo na pendrivie.
+
+## 5. Przenoszenie danych na inny komputer lub do innej przeglądarki
+
+1. Na starym komputerze: **Dane → Eksportuj treści** (i ewentualnie **Eksportuj postęp**).
+2. Skopiuj folder strony i pliki `.json` na nowy komputer.
+3. Na nowym komputerze otwórz `index.html` i wybierz **Dane → Importuj treści…** (oraz **Importuj postęp…**).
+
+Każdy uczeń ma postęp zapisany w swojej przeglądarce. Jeśli uczniowie korzystają z własnych komputerów, każdy zaznacza „Umiem” u siebie.
+
+## 6. Gdy coś pójdzie nie tak
+
+- Jeśli zapisane dane są uszkodzone, strona pokaże komunikat z przyciskiem **Importuj kopię treści…**. Wybierz ostatni plik eksportu.
+- Jeśli pojawi się ostrzeżenie, że pamięć przeglądarki jest niedostępna (np. w trybie prywatnym), zmiany nie będą zapisywane. Otwórz stronę w zwykłym oknie przeglądarki.
+
+## 7. Publikacja na GitHub Pages
+
+Dzięki temu strona będzie dostępna pod adresem internetowym, np. `https://twoja-nazwa.github.io/english-levels-map/`.
+
+### Krok 1: konto i Git
+1. Załóż darmowe konto na <https://github.com>.
+2. Zainstaluj Git: <https://git-scm.com/downloads>.
+
+### Krok 2: repozytorium lokalne
+W tym projekcie repozytorium jest już zainicjowane, a pierwszy commit już istnieje. Gdybyś zaczynać od zera, otwórz terminal w folderze `english-levels-map` i wpisz:
+
+```bash
+git init
+git add .
+git commit -m "Pierwsza wersja"
+```
+
+### Krok 3: repozytorium na GitHubie
+1. Na GitHubie kliknij **New repository**.
+2. Nazwa: `english-levels-map`. Widoczność: **Public** (darmowe GitHub Pages wymaga publicznego repozytorium).
+3. **Nie** zaznaczaj „Add a README”. Kliknij **Create repository**.
+
+### Krok 4: wysłanie plików
+W terminalu, w folderze projektu (zamień `TWOJA-NAZWA` na swoją nazwę użytkownika):
+
+```bash
+git branch -M main
+git remote add origin https://github.com/TWOJA-NAZWA/english-levels-map.git
+git push -u origin main
+```
+
+### Krok 5: włączenie Pages
+1. W repozytorium na GitHubie wejdź w **Settings → Pages**.
+2. W polu **Source** wybierz **Deploy from a branch**.
+3. Branch: **main**, folder: **/ (root)**. Kliknij **Save**.
+4. Po 1–2 minutach strona będzie dostępna pod adresem pokazanym na górze tej zakładki.
+
+### Krok 6: aktualizacje kodu
+Po zmianach w plikach strony:
+
+```bash
+git add .
+git commit -m "Opis zmiany"
+git push
+```
+
+> ⚠️ **Ważne: dane w `localStorage` są osobne dla każdej przeglądarki i każdego adresu strony.**
+> Treści wpisane w wersji otwartej z dysku (`file://…`) **nie pojawią się automatycznie** na GitHub Pages (`https://…github.io/…`) i odwrotnie.
+> Po przeniesieniu strony zrób **Dane → Eksportuj treści** w starej wersji, a potem **Dane → Importuj treści…** w nowej.
+>
+> Pliki eksportu nie są wysyłane na GitHub (blokuje to `.gitignore`). Każda osoba, która otwiera stronę na swoim komputerze, zaczyna od pustego szkieletu. Żeby zobaczyć treści, musi zaimportować u siebie plik treści.
