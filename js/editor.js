@@ -34,11 +34,13 @@ window.ELM = window.ELM || {};
     return cat ? app().getBucket(ELM.state.ui.levelId, cat.id) : null;
   }
 
-  /** Usuwa zaznaczenia „Umiem” dla podanych id punktów. */
+  /** Usuwa zaznaczenia „Umiem” dla podanych id punktów we wszystkich profilach. */
   function forgetProgress(ids) {
     let changed = false;
-    ids.forEach(function (id) {
-      if (ELM.state.progress[id]) { delete ELM.state.progress[id]; changed = true; }
+    ELM.state.profiles.profiles.forEach(function (profile) {
+      ids.forEach(function (id) {
+        if (profile.progress[id]) { delete profile.progress[id]; changed = true; }
+      });
     });
     if (changed) app().saveProgressNow();
   }
@@ -134,7 +136,7 @@ window.ELM = window.ELM || {};
       title: "Usunąć punkt?",
       message: U.isBlank(item.text)
         ? "Ten pusty punkt zostanie usunięty."
-        : "Punkt „" + shorten(item.text) + "” zostanie usunięty razem z zaznaczeniem „Umiem”.",
+        : "Punkt „" + shorten(item.text) + "” zostanie usunięty razem z zaznaczeniami „Umiem” we wszystkich profilach.",
       confirmLabel: "Usuń punkt"
     }).then(function (ok) {
       if (!ok) return;

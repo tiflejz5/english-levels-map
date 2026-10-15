@@ -6,7 +6,7 @@
   <!-- Tylko jasny motyw: przeglądarka nie będzie przyciemniać pól formularzy -->
   <meta name="color-scheme" content="light">
   <title>English Levels Map (A1–C2)</title>
-  <link rel="stylesheet" href="css/style.css?v=2">
+  <link rel="stylesheet" href="css/style.css?v=3">
 </head>
 <body>
   <noscript>
@@ -37,23 +37,26 @@
 
     <!-- PRAWA CZĘŚĆ: treść wybranego poziomu -->
     <main class="main" id="main" tabindex="-1">
+      <!-- Górny pasek: wybór profilu (prawy górny róg), rysuje js/profiles.js -->
+      <div class="topbar" id="topbar"></div>
       <div class="banners" id="banners"></div>
       <div class="view" id="view"></div>
     </main>
   </div>
 
   <!-- Skrypty ładowane po kolei (bez modułów ES, żeby działało z file://).
-       ?v=2 to numer wersji: po zmianie plików JS/CSS zwiększ go wszędzie,
+       ?v=3 to numer wersji: po zmianie plików JS/CSS zwiększ go wszędzie,
        żeby przeglądarki nie użyły starych kopii z pamięci podręcznej. -->
-  <script src="js/utils.js?v=2"></script>
-  <script src="js/default-data.js?v=2"></script>
+  <script src="js/utils.js?v=3"></script>
+  <script src="js/default-data.js?v=3"></script>
   <!-- Bazowa lista umiejętności; usuń tę linię, aby startować od pustego szkieletu -->
-  <script src="js/base-content.js?v=2"></script>
-  <script src="js/store.js?v=2"></script>
-  <script src="js/dialogs.js?v=2"></script>
-  <script src="js/render.js?v=2"></script>
-  <script src="js/editor.js?v=2"></script>
-  <script src="js/data-menu.js?v=2"></script>
-  <script src="js/app.js?v=2"></script>
+  <script src="js/base-content.js?v=3"></script>
+  <script src="js/store.js?v=3"></script>
+  <script src="js/dialogs.js?v=3"></script>
+  <script src="js/render.js?v=3"></script>
+  <script src="js/editor.js?v=3"></script>
+  <script src="js/profiles.js?v=3"></script>
+  <script src="js/data-menu.js?v=3"></script>
+  <script src="js/app.js?v=3"></script>
 </body>
 </html>

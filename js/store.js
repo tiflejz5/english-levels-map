@@ -2,10 +2,12 @@
  * store.js — zapis i odczyt danych (localStorage), migracja,
  * walidacja oraz przygotowanie plików eksportu/importu.
  *
- * Dane trzymamy pod DWOMA osobnymi kluczami, żeby import treści
- * nie kasował postępu ucznia (i odwrotnie):
+ * Treści i postęp trzymamy pod osobnymi kluczami, żeby import treści
+ * nie kasował postępu (i odwrotnie):
  *   elm_content_v1  — treści: kategorie, essentials, tematy
- *   elm_progress_v1 — postęp ucznia: { "id_punktu": true, ... }
+ *   elm_profiles_v1 — profile, każdy z własnym postępem { "id_punktu": true }
+ *   elm_progress_v1 — STARY zapis postępu (przed profilami); czytany tylko
+ *                     raz, przy migracji do pierwszego profilu
  * Dodatkowo elm_ui_v1 pamięta tylko wybrany poziom/kategorię/temat.
  */
 window.ELM = window.ELM || {};
@@ -17,6 +19,7 @@ window.ELM = window.ELM || {};
 
   const CONTENT_KEY = "elm_content_v1";
   const PROGRESS_KEY = "elm_progress_v1";
+  const PROFILES_KEY = "elm_profiles_v1";
   const UI_KEY = "elm_ui_v1";
   // Tu trafia kopia uszkodzonych danych, zanim zaczniemy od nowa
   const CORRUPT_BACKUP_KEY = "elm_content_corrupt_backup";
@@ -212,20 +215,62 @@ window.ELM = window.ELM || {};
     return writeRaw(CONTENT_KEY, JSON.stringify(data));
   }
 
-  /** Wczytuje postęp; uszkodzony postęp → pusty, z flagą „corrupt”. */
-  function loadProgress() {
-    const raw = readRaw(PROGRESS_KEY);
-    if (raw === null) return { status: "new", data: {} };
+  // ---------- Profile (każdy profil ma własny postęp) ----------
+
+  /**
+   * Sprawdza listę profili i zwraca jej czystą kopię:
+   *   { version: 1, activeId, profiles: [{ id, name, progress: { id: true } }] }
+   */
+  function normalizeProfiles(raw) {
+    if (!U.isPlainObject(raw) || !Array.isArray(raw.profiles)) {
+      throw new Error("Brak listy profili („profiles”).");
+    }
+    const seen = new Set();
+    const profiles = raw.profiles.filter(U.isPlainObject).map(function (p) {
+      let id = typeof p.id === "string" ? p.id.trim() : "";
+      if (!id || seen.has(id)) id = U.uid("p");
+      seen.add(id);
+      return {
+        id: id,
+        name: str(p.name).trim() || "Profil bez nazwy",
+        progress: U.isPlainObject(p.progress) ? normalizeProgress(p.progress) : {}
+      };
+    });
+    if (!profiles.length) throw new Error("Lista profili jest pusta.");
+    const activeId = profiles.some(function (p) { return p.id === raw.activeId; }) ? raw.activeId : profiles[0].id;
+    return { version: 1, activeId: activeId, profiles: profiles };
+  }
+
+  /**
+   * Wczytuje profile. Zwraca { status: "new" | "ok" | "corrupt", data, migrated }.
+   * Przy pierwszym uruchomieniu tej wersji dotychczasowy pojedynczy postęp
+   * (klucz elm_progress_v1) trafia do pierwszego profilu. Stary klucz zostaje
+   * nietknięty jako kopia.
+   */
+  function loadProfiles() {
+    const raw = readRaw(PROFILES_KEY);
+    if (raw === null) {
+      const data = ELM.createDefaultProfiles();
+      let migrated = 0;
+      const old = readRaw(PROGRESS_KEY);
+      if (old !== null) {
+        try {
+          data.profiles[0].progress = normalizeProgress(JSON.parse(old));
+          migrated = Object.keys(data.profiles[0].progress).length;
+        } catch (e) { /* uszkodzony stary postęp — pomijamy */ }
+      }
+      return { status: "new", data: data, migrated: migrated };
+    }
     try {
-      return { status: "ok", data: normalizeProgress(JSON.parse(raw)) };
+      return { status: "ok", data: normalizeProfiles(JSON.parse(raw)) };
     } catch (e) {
-      writeRaw(PROGRESS_KEY + "_corrupt_backup", raw);
-      return { status: "corrupt", data: {} };
+      writeRaw(PROFILES_KEY + "_corrupt_backup", raw);
+      return { status: "corrupt", data: ELM.createDefaultProfiles() };
     }
   }
 
-  function saveProgress(progress) {
-    return writeRaw(PROGRESS_KEY, JSON.stringify(progress));
+  function saveProfiles(profilesData) {
+    return writeRaw(PROFILES_KEY, JSON.stringify(profilesData));
   }
 
   /** Stan interfejsu (wybrany poziom itd.). Błędy ignorujemy — to tylko wygoda. */
@@ -256,7 +301,7 @@ window.ELM = window.ELM || {};
   /** Usuwa wszystkie dane aplikacji z tej przeglądarki. */
   function clearAll() {
     try {
-      [CONTENT_KEY, PROGRESS_KEY, UI_KEY].forEach(function (k) { window.localStorage.removeItem(k); });
+      [CONTENT_KEY, PROGRESS_KEY, PROFILES_KEY, UI_KEY].forEach(function (k) { window.localStorage.removeItem(k); });
     } catch (e) { /* brak dostępu — nic do usunięcia */ }
   }
 
@@ -304,7 +349,11 @@ window.ELM = window.ELM || {};
     return normalizeContent(migrate(data));
   }
 
-  /** Odczytuje i sprawdza plik z postępem. */
+  /**
+   * Odczytuje i sprawdza plik z postępem. Zwraca:
+   *   { type: "profiles", data }    — nowy format: wszystkie profile z postępem
+   *   { type: "single", progress }  — stary format: postęp jednej osoby
+   */
   function parseProgressImport(text) {
     const obj = parseJSON(text);
     if (U.isPlainObject(obj) && (obj.kind === "content" || Array.isArray(obj.categories))) {
@@ -312,7 +361,8 @@ window.ELM = window.ELM || {};
     }
     const data = U.isPlainObject(obj) && obj.app === APP_ID && obj.kind === "progress" ? obj.data : obj;
     if (!U.isPlainObject(data)) throw new Error("Plik nie zawiera poprawnego zapisu postępu.");
-    return normalizeProgress(data);
+    if (Array.isArray(data.profiles)) return { type: "profiles", data: normalizeProfiles(data) };
+    return { type: "single", progress: normalizeProgress(data) };
   }
 
   ELM.store = {
@@ -323,8 +373,8 @@ window.ELM = window.ELM || {};
     isContentEmpty: isContentEmpty,
     loadContent: loadContent,
     saveContent: saveContent,
-    loadProgress: loadProgress,
-    saveProgress: saveProgress,
+    loadProfiles: loadProfiles,
+    saveProfiles: saveProfiles,
     loadUI: loadUI,
     saveUI: saveUI,
     backupCorrupt: backupCorrupt,

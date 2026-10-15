@@ -107,7 +107,7 @@ button, input, textarea, select { font: inherit; color: inherit; }
 .view {
   max-width: 980px;
   margin: 0 auto;
-  padding: 48px 56px 96px;
+  padding: 12px 56px 96px;
 }
 
 /* ===================== SIDEBAR ===================== */
@@ -609,6 +609,7 @@ textarea.field { resize: vertical; min-height: 42px; overflow: hidden; }
   font-size: 14px;
 }
 .banner-text { flex: 1; }
+.banner.is-info { background: var(--accent-soft); border: 1px solid #cfe2f8; }
 .banner.is-warning { background: var(--warning-soft); border: 1px solid #f3dca2; }
 .banner.is-error { background: var(--danger-soft); border: 1px solid #f1c3c8; }
 
@@ -665,3 +666,95 @@ textarea.field { resize: vertical; min-height: 42px; overflow: hidden; }
 .data-group-title { font-size: 15px; font-weight: 600; }
 .data-group-desc { font-size: 13px; color: var(--text-2); margin: 2px 0 12px; }
 .data-group-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* ===================== PROFILE (prawy górny róg) ===================== */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  justify-content: flex-end;
+  padding: 14px 28px;
+  background: rgba(255, 255, 255, 0.85);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  backdrop-filter: saturate(180%) blur(16px);
+}
+.profile-switcher { position: relative; }
+
+.profile-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 14px 5px 5px;
+  border: 1px solid var(--border);
+  border-radius: 980px;
+  background: var(--bg);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  text-align: left;
+  transition: background var(--transition), border-color var(--transition);
+}
+.profile-btn:hover { background: var(--bg-soft); }
+.profile-btn[aria-expanded="true"] { border-color: var(--accent); }
+.profile-btn-text { display: flex; flex-direction: column; line-height: 1.2; }
+.profile-btn-label { font-size: 11px; color: var(--text-2); }
+.profile-btn-name { font-size: 14px; font-weight: 600; max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.profile-caret { font-size: 11px; color: var(--text-2); margin-left: 2px; }
+
+.avatar {
+  display: grid;
+  place-content: center;
+  width: 32px; height: 32px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.avatar.is-small-text { font-size: 12px; letter-spacing: -0.02em; }
+
+.profile-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 320px;
+  padding: 8px;
+  border: 1px solid var(--border-soft);
+  border-radius: 16px;
+  background: var(--bg);
+  box-shadow: var(--shadow-lg);
+  animation: dialog-in 160ms ease;
+}
+.profile-menu.is-editing { width: 440px; }
+.profile-menu-title {
+  padding: 6px 10px 8px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-2);
+}
+.profile-row { display: flex; align-items: center; gap: 6px; }
+.profile-item {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 10px 7px 7px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  transition: background var(--transition);
+}
+.profile-item:hover { background: var(--bg-soft); }
+.profile-item.is-active { background: var(--accent-soft); }
+.profile-item-name { flex: 1; min-width: 0; font-size: 15px; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.profile-item-count { font-size: 12px; color: var(--text-2); white-space: nowrap; }
+.profile-check { width: 14px; color: var(--accent); font-weight: 700; text-align: center; }
+.profile-add { margin: 8px 4px 2px; }
+.profile-menu-hint { padding: 8px 10px 4px; font-size: 12px; color: var(--text-2); border-top: 1px solid var(--border-soft); margin-top: 6px; }

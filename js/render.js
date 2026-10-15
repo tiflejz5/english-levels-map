@@ -571,6 +571,7 @@ window.ELM = window.ELM || {};
   ELM.render = {
     renderSidebar: renderSidebar,
     renderMain: renderMain,
-    updateEssentialsProgress: updateEssentialsProgress
+    updateEssentialsProgress: updateEssentialsProgress,
+    iconBtn: iconBtn
   };
 })(window.ELM);

@@ -24,9 +24,16 @@ Lista ma trzy kategorie:
 
 - **Lewy pasek:** poziomy A1–C2. Przy każdym poziomie jest pasek postępu i licznik „X / Y umiem” dla aktualnie wybranej kategorii.
 - **Na dole lewego paska:** przełącznik **Tryb edycji** i przycisk **Dane** (kopie zapasowe).
+- **Prawy górny róg:** wybór **profilu**, czyli osoby lub klasy, której postęp śledzisz.
 - **Prawa część:** wybrany poziom, czyli opis, kategorie, **Essentials** (lista umiejętności z polem „Umiem”) i **Tematy**.
 
 Uczeń korzysta ze strony w trybie podglądu. Może tylko zaznaczać „Umiem” i odkrywać odpowiedzi do ćwiczeń.
+
+### Profile
+Każdy profil (na start: **Adam, Klasa 1, Klasa 4, Klasa 6**) ma **własne zaznaczenia „Umiem”**. Treść jest wspólna dla wszystkich profili.
+- Kliknij przycisk profilu w prawym górnym rogu i wybierz profil z listy. Przy każdym widać, ile punktów ma zaznaczonych.
+- Paski postępu i liczniki zawsze pokazują postęp **wybranego** profilu.
+- W **Trybie edycji** w tym samym menu możesz dodać profil (**+ Nowy profil**), zmienić jego nazwę (**✎**), przesunąć go (**↑ ↓**) albo usunąć (**✕**, razem z jego postępem, po potwierdzeniu). Zawsze musi zostać co najmniej jeden profil.
 
 ## 3. Dodawanie treści (tryb edycji)
 
@@ -74,26 +81,26 @@ Po skończeniu pracy **wyłącz Tryb edycji**, żeby zobaczyć stronę tak, jak 
 
 > **Dane zapisują się tylko w tej przeglądarce na tym komputerze.** Wyczyszczenie danych przeglądarki, inna przeglądarka albo inny komputer oznaczają brak treści. Dlatego **rób eksport co jakiś czas**.
 
-Treści i postęp ucznia są zapisywane **osobno**:
+Treści oraz profile z postępem są zapisywane **osobno**:
 
 | Opcja | Co robi |
 |---|---|
 | **Eksportuj treści** | pobiera plik `english-levels-content-RRRR-MM-DD.json` (kategorie, essentials, tematy) |
-| **Importuj treści…** | wczytuje taki plik. Najpierw pokazuje, co zawiera, i prosi o potwierdzenie. **Nie rusza postępu ucznia.** |
-| **Eksportuj postęp** | pobiera plik `english-levels-progress-RRRR-MM-DD.json` (zaznaczenia „Umiem”) |
-| **Importuj postęp…** | wczytuje taki plik (z potwierdzeniem) |
-| **Zresetuj postęp** | usuwa wszystkie zaznaczenia „Umiem” |
-| **Zresetuj wszystko** | usuwa treści i postęp (wymaga dwóch potwierdzeń) |
+| **Importuj treści…** | wczytuje taki plik. Najpierw pokazuje, co zawiera, i prosi o potwierdzenie. **Nie rusza profili ani postępu.** |
+| **Eksportuj profile i postęp** | pobiera plik `english-levels-progress-RRRR-MM-DD.json` ze wszystkimi profilami i ich zaznaczeniami „Umiem” |
+| **Importuj profile i postęp…** | wczytuje taki plik i zastępuje wszystkie profile (z potwierdzeniem). Plik ze starszej wersji strony (bez profili) trafia do aktualnie wybranego profilu. |
+| **Zresetuj postęp profilu „…”** | usuwa zaznaczenia „Umiem” tylko wybranego profilu |
+| **Zresetuj wszystko** | przywraca listę bazową i domyślne profile bez postępu (wymaga dwóch potwierdzeń) |
 
 Przechowuj pliki kopii w bezpiecznym miejscu, np. na dysku w chmurze albo na pendrivie.
 
 ## 5. Przenoszenie danych na inny komputer lub do innej przeglądarki
 
-1. Na starym komputerze: **Dane → Eksportuj treści** (i ewentualnie **Eksportuj postęp**).
+1. Na starym komputerze: **Dane → Eksportuj treści** (i ewentualnie **Eksportuj profile i postęp**).
 2. Skopiuj folder strony i pliki `.json` na nowy komputer.
-3. Na nowym komputerze otwórz `index.html` i wybierz **Dane → Importuj treści…** (oraz **Importuj postęp…**).
+3. Na nowym komputerze otwórz `index.html` i wybierz **Dane → Importuj treści…** (oraz **Importuj profile i postęp…**).
 
-Każdy uczeń ma postęp zapisany w swojej przeglądarce. Jeśli uczniowie korzystają z własnych komputerów, każdy zaznacza „Umiem” u siebie.
+Profile i postęp są zapisane w przeglądarce, w której je zaznaczasz. Jeśli uczniowie korzystają z własnych komputerów, każdy ma u siebie osobny zestaw profili.
 
 ## 6. Gdy coś pójdzie nie tak
 

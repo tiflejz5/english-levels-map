@@ -3,7 +3,8 @@
  *
  * ELM.state przechowuje wszystko, co aplikacja wie w danej chwili:
  *   content  — treści (zapisywane w elm_content_v1)
- *   progress — zaznaczone „Umiem” (zapisywane w elm_progress_v1)
+ *   profiles — profile z osobnym postępem (zapisywane w elm_profiles_v1)
+ *   progress — postęp AKTYWNEGO profilu (odnośnik do profiles…progress)
  *   ui       — wybrany poziom / kategoria / temat (elm_ui_v1)
  *   editMode — czy włączony jest tryb edycji (zawsze startuje wyłączony)
  */
@@ -19,6 +20,7 @@ window.ELM = window.ELM || {};
 
   const state = ELM.state = {
     content: null,
+    profiles: null,
     progress: {},
     ui: { levelId: "A1", categoryId: null, topics: {} },
     editMode: false,
@@ -39,6 +41,8 @@ window.ELM = window.ELM || {};
       if (!state.storageOk) {
         // Bez localStorage aplikacja działa, ale tylko do zamknięcia karty
         state.content = ELM.createDefaultData();
+        state.profiles = ELM.createDefaultProfiles();
+        syncProgress();
         addBanner("error", "Pamięć przeglądarki (localStorage) jest niedostępna, więc zmiany NIE będą zapisywane. " +
           "Sprawdź ustawienia przeglądarki (np. tryb prywatny, blokada plików cookie). Możesz zaimportować kopię i korzystać ze strony do zamknięcia karty.",
           { label: "Importuj kopię…", onClick: function () { ELM.dataMenu.importContent(); } });
@@ -47,10 +51,15 @@ window.ELM = window.ELM || {};
         return;
       }
 
-      const progress = ELM.store.loadProgress();
-      state.progress = progress.data;
-      if (progress.status === "corrupt") {
-        addBanner("warning", "Zapisany postęp ucznia był uszkodzony i został wyzerowany. Jeśli masz kopię, zaimportuj ją w menu „Dane”.");
+      const prof = ELM.store.loadProfiles();
+      state.profiles = prof.data;
+      syncProgress();
+      if (prof.status === "new") ELM.store.saveProfiles(state.profiles);
+      if (prof.migrated) {
+        addBanner("info", "Wprowadzono profile. Dotychczasowe zaznaczenia „Umiem” (" + prof.migrated + ") przypisano do profilu „" + state.profiles.profiles[0].name + "”.");
+      }
+      if (prof.status === "corrupt") {
+        addBanner("warning", "Zapisane profile były uszkodzone i zostały przywrócone do domyślnych. Jeśli masz kopię, zaimportuj ją w menu „Dane”.");
       }
 
       state.ui = ELM.store.loadUI();
@@ -77,6 +86,7 @@ window.ELM = window.ELM || {};
   }
 
   function bindStaticEvents() {
+    ELM.profiles.bindEvents();
     document.getElementById("edit-toggle").addEventListener("change", function (e) {
       setEditMode(e.target.checked);
     });
@@ -179,6 +189,7 @@ window.ELM = window.ELM || {};
   // =====================================================================
 
   function renderAll(opts) {
+    ELM.profiles.render();
     ELM.render.renderSidebar();
     ELM.render.renderMain(opts);
   }
@@ -227,9 +238,10 @@ window.ELM = window.ELM || {};
     if (saveTimer) saveContentNow();
   }
 
+  /** Zapisuje profile (razem z postępem każdego z nich). */
   function saveProgressNow() {
     if (!state.storageOk) return;
-    const res = ELM.store.saveProgress(state.progress);
+    const res = ELM.store.saveProfiles(state.profiles);
     if (!res.ok) setSaveStatus("Nie zapisano postępu! " + res.error, true);
   }
 
@@ -275,18 +287,65 @@ window.ELM = window.ELM || {};
     renderAll({ resetScroll: true });
   }
 
+  /** Zastępuje postęp AKTYWNEGO profilu. */
   function replaceProgress(progress) {
-    state.progress = progress;
+    getActiveProfile().progress = progress;
+    profilesChanged();
+  }
+
+  /** Zastępuje wszystkie profile (import / reset). */
+  function replaceProfiles(profilesData) {
+    state.profiles = profilesData;
+    profilesChanged();
+  }
+
+  // =====================================================================
+  // PROFILE
+  // =====================================================================
+
+  function getActiveProfile() {
+    const p = state.profiles;
+    return p.profiles.find(function (x) { return x.id === p.activeId; }) || p.profiles[0];
+  }
+
+  /** Ustawia state.progress na postęp aktywnego profilu. */
+  function syncProgress() {
+    const active = getActiveProfile();
+    state.profiles.activeId = active.id;
+    state.progress = active.progress;
+  }
+
+  function selectProfile(profileId) {
+    state.profiles.activeId = profileId;
+    profilesChanged();
+  }
+
+  /** Po każdej zmianie profili: przelicz, zapisz, przerysuj. */
+  function profilesChanged() {
+    syncProgress();
     saveProgressNow();
-    if (state.content) refreshProgress();
-    if (state.content) renderMainOnly(); // odśwież checkboxy
+    if (state.content) renderAll();
+  }
+
+  /** Liczba zaznaczonych „Umiem” w profilu (tylko istniejące, niepuste punkty). */
+  function countDone(progress) {
+    if (!state.content) return 0;
+    let n = 0;
+    state.content.levels.forEach(function (level) {
+      Object.keys(level.content).forEach(function (catId) {
+        level.content[catId].essentials.forEach(function (e) {
+          if (progress[e.id] === true && !U.isBlank(e.text)) n++;
+        });
+      });
+    });
+    return n;
   }
 
   // =====================================================================
   // KOMUNIKATY I EKRANY BŁĘDÓW
   // =====================================================================
 
-  /** Baner nad treścią. type: "warning" | "error". */
+  /** Baner nad treścią. type: "info" | "warning" | "error". */
   function addBanner(type, text, action) {
     const banner = el("div", { class: "banner is-" + type, role: type === "error" ? "alert" : "status" }, [
       el("span", { class: "banner-text", text: text }),
@@ -390,7 +449,12 @@ window.ELM = window.ELM || {};
     commit: commit,
     setProgress: setProgress,
     replaceContent: replaceContent,
-    replaceProgress: replaceProgress
+    replaceProgress: replaceProgress,
+    replaceProfiles: replaceProfiles,
+    getActiveProfile: getActiveProfile,
+    selectProfile: selectProfile,
+    profilesChanged: profilesChanged,
+    countDone: countDone
   };
 
   // Start po wczytaniu strony

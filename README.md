@@ -22,6 +22,7 @@ english-levels-map/
 │  ├─ base-content.js    bazowa lista umiejętności (niezbędnik A1–C2)
 │  ├─ store.js           localStorage, migracja, walidacja, eksport/import
 │  ├─ dialogs.js         okna potwierdzeń / pytań (zamiast confirm/prompt)
+│  ├─ profiles.js        przełącznik profili (prawy górny róg) i zarządzanie nimi
 │  ├─ render.js          rysowanie widoków (podgląd i tryb edycji)
 │  ├─ editor.js          operacje trybu edycji (dodaj, przesuń, usuń)
 │  ├─ data-menu.js       menu „Dane”: eksport, import, reset
@@ -38,7 +39,8 @@ Skrypty są zwykłymi `<script src>` ładowanymi po kolei. Każdy plik dopisuje 
 | Klucz localStorage | Zawartość |
 |---|---|
 | `elm_content_v1`  | treści: `{ version, categories[], levels[] }` |
-| `elm_progress_v1` | postęp ucznia: `{ "<id punktu essentials>": true }` |
+| `elm_profiles_v1` | profile: `{ version, activeId, profiles: [{ id, name, progress: { "<id punktu essentials>": true } }] }` |
+| `elm_progress_v1` | stary zapis postępu (sprzed profili); przy pierwszym starcie trafia do pierwszego profilu, potem nie jest używany |
 | `elm_ui_v1`       | tylko wygoda: wybrany poziom, kategoria i temat |
 
 Kształt treści:
@@ -106,3 +108,4 @@ Treść użytkownika trafia do strony wyłącznie przez `textContent` lub `value
 - **Brak localStorage:** aplikacja działa do zamknięcia karty i wyświetla wyraźne ostrzeżenie.
 - **Dodatkowe pliki JS** (`utils.js`, `dialogs.js`, `data-menu.js`) powstały, żeby żaden plik nie był za duży.
 - **Lista bazowa zamiast pustego szkieletu:** jeśli przeglądarka ma zapisany *nietknięty* pusty szkielet z poprzedniej wersji strony (jedna kategoria `cat_grammar`, zero treści), przy starcie zostaje on zastąpiony listą bazową. Własne treści nauczyciela nigdy nie są w ten sposób nadpisywane.
+- **Profile:** domyślne profile (Adam, Klasa 1, Klasa 4, Klasa 6) są w `ELM.DEFAULT_PROFILES` w `js/default-data.js`. Wybór profilu działa zawsze, a dodawanie, zmiana nazwy, kolejność i usuwanie tylko w trybie edycji. Usunięcie punktu essentials czyści jego „Umiem” we wszystkich profilach. Plik eksportu postępu zawiera wszystkie profile, a import starego pliku (bez profili) trafia do aktywnego profilu.

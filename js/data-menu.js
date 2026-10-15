@@ -42,12 +42,12 @@ window.ELM = window.ELM || {};
           action("Eksportuj treści", exportContent, "btn-primary"),
           action("Importuj treści…", importContent)
         ]),
-        group("Postęp ucznia", "Zaznaczenia „Umiem”. Zapisywane osobno, więc import treści ich nie kasuje.", [
-          action("Eksportuj postęp", exportProgress, "btn-primary"),
-          action("Importuj postęp…", importProgress)
+        group("Profile i postęp", "Wszystkie profile z ich zaznaczeniami „Umiem”. Zapisywane osobno, więc import treści ich nie kasuje.", [
+          action("Eksportuj profile i postęp", exportProgress, "btn-primary"),
+          action("Importuj profile i postęp…", importProgress)
         ]),
         group("Reset", "Operacje nieodwracalne. Najpierw zrób eksport.", [
-          action("Zresetuj postęp", resetProgress, "btn-danger"),
+          action("Zresetuj postęp profilu „" + app().getActiveProfile().name + "”", resetProgress, "btn-danger"),
           action("Zresetuj wszystko", resetAll, "btn-danger")
         ])
       ],
@@ -68,7 +68,7 @@ window.ELM = window.ELM || {};
   function exportProgress() {
     ELM.store.downloadJSON(
       "english-levels-progress-" + U.dateStamp() + ".json",
-      ELM.store.wrapExport("progress", ELM.state.progress)
+      ELM.store.wrapExport("progress", ELM.state.profiles)
     );
   }
 
@@ -105,7 +105,7 @@ window.ELM = window.ELM || {};
     return ELM.dialogs.confirm({
       title: "Zastąpić obecne treści?",
       message: "Plik zawiera: kategorie: " + s.categories + ", punkty essentials: " + s.essentials + ", tematy: " + s.topics + ".\n\n" +
-        "Obecne treści w tej przeglądarce zostaną nadpisane. Postęp ucznia pozostanie bez zmian.",
+        "Obecne treści w tej przeglądarce zostaną nadpisane. Profile i ich postęp pozostaną bez zmian.",
       confirmLabel: "Importuj i nadpisz"
     }).then(function (ok) {
       if (!ok) return false;
@@ -119,21 +119,34 @@ window.ELM = window.ELM || {};
     pickFileText().then(importProgressText);
   }
 
+  /**
+   * Import postępu. Nowy format (profile) zastępuje wszystkie profile.
+   * Stary format (postęp jednej osoby) trafia do aktywnego profilu.
+   */
   function importProgressText(text) {
-    let progress;
+    let parsed;
     try {
-      progress = ELM.store.parseProgressImport(text);
+      parsed = ELM.store.parseProgressImport(text);
     } catch (e) {
       return ELM.dialogs.alert({ title: "Nie można zaimportować postępu", message: e.message });
     }
+    const active = app().getActiveProfile();
+    const isProfiles = parsed.type === "profiles";
+    const message = isProfiles
+      ? "Plik zawiera profile (" + parsed.data.profiles.length + "): " +
+        parsed.data.profiles.map(function (p) { return p.name; }).join(", ") +
+        ".\n\nWszystkie obecne profile i ich postęp w tej przeglądarce zostaną zastąpione."
+      : "Plik zawiera postęp jednej osoby (starszy format), zaznaczeń „Umiem”: " + Object.keys(parsed.progress).length +
+        ".\n\nZostanie wczytany do profilu „" + active.name + "” i zastąpi jego obecny postęp.";
     return ELM.dialogs.confirm({
-      title: "Zastąpić obecny postęp?",
-      message: "Plik zawiera zaznaczeń „Umiem”: " + Object.keys(progress).length + ".\n\nObecny postęp ucznia w tej przeglądarce zostanie nadpisany.",
+      title: isProfiles ? "Zastąpić profile?" : "Zastąpić postęp profilu?",
+      message: message,
       confirmLabel: "Importuj i nadpisz"
     }).then(function (ok) {
       if (!ok) return false;
-      app().replaceProgress(progress);
-      ELM.dialogs.alert({ title: "Gotowe", message: "Postęp ucznia został zaimportowany." });
+      if (isProfiles) app().replaceProfiles(parsed.data);
+      else app().replaceProgress(parsed.progress);
+      ELM.dialogs.alert({ title: "Gotowe", message: "Postęp został zaimportowany." });
       return true;
     });
   }
@@ -151,10 +164,11 @@ window.ELM = window.ELM || {};
 
   // ---------- Reset ----------
 
+  /** Czyści postęp tylko aktywnego profilu. */
   function resetProgress() {
     ELM.dialogs.confirm({
-      title: "Zresetować postęp ucznia?",
-      message: "Wszystkie zaznaczenia „Umiem” zostaną usunięte. Treści pozostaną bez zmian.",
+      title: "Zresetować postęp profilu?",
+      message: "Wszystkie zaznaczenia „Umiem” profilu „" + app().getActiveProfile().name + "” zostaną usunięte. Inne profile i treści pozostaną bez zmian.",
       confirmLabel: "Zresetuj postęp"
     }).then(function (ok) {
       if (ok) app().replaceProgress({});
@@ -165,7 +179,7 @@ window.ELM = window.ELM || {};
   function resetAll() {
     ELM.dialogs.confirm({
       title: "Zresetować wszystko?",
-      message: "Zostaną usunięte WSZYSTKIE treści (kategorie, essentials, tematy) oraz postęp ucznia. Aplikacja wróci do bazowej listy umiejętności (stan jak przy pierwszym otwarciu).",
+      message: "Zostaną usunięte WSZYSTKIE treści (kategorie, essentials, tematy) oraz wszystkie profile z ich postępem. Aplikacja wróci do stanu jak przy pierwszym otwarciu: bazowej listy umiejętności i domyślnych profili.",
       confirmLabel: "Dalej"
     }).then(function (ok) {
       if (!ok) return false;
@@ -177,7 +191,7 @@ window.ELM = window.ELM || {};
     }).then(function (ok) {
       if (!ok) return;
       ELM.store.clearAll();
-      app().replaceProgress({});
+      app().replaceProfiles(ELM.createDefaultProfiles());
       app().replaceContent(ELM.createDefaultData());
     });
   }
