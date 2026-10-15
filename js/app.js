@@ -61,6 +61,12 @@ window.ELM = window.ELM || {};
         return;
       }
       state.content = loaded.data;
+      // Zapisany pusty szkielet (np. z wcześniejszej wizyty) zastępujemy bazową listą.
+      // Nie ma w nim żadnej treści, więc nic nie ginie.
+      if (loaded.status === "ok" && ELM.BASE_CONTENT && ELM.store.isContentEmpty(state.content)) {
+        state.content = ELM.createDefaultData();
+        ELM.store.saveContent(state.content);
+      }
       if (loaded.status === "new") ELM.store.saveContent(state.content);
 
       fixUi();
@@ -306,7 +312,7 @@ window.ELM = window.ELM || {};
     view.replaceChildren(el("div", { class: "error-screen" }, [
       el("h1", { text: "Nie udało się wczytać zapisanych treści" }),
       el("p", { text: "Dane zapisane w tej przeglądarce są uszkodzone lub mają nieznany format. Nic nie zostało jeszcze usunięte." }),
-      el("p", { text: "Najlepiej zaimportuj ostatnią kopię zapasową (plik english-levels-content-….json). Możesz też pobrać uszkodzone dane do pliku albo zacząć od pustego szkieletu." }),
+      el("p", { text: "Najlepiej zaimportuj ostatnią kopię zapasową (plik english-levels-content-….json). Możesz też pobrać uszkodzone dane do pliku albo zacząć od nowa od listy bazowej." }),
       el("div", { class: "error-details", text: "Szczegóły: " + loaded.error }),
       el("div", { class: "error-actions" }, [
         el("button", {
@@ -335,8 +341,8 @@ window.ELM = window.ELM || {};
           class: "btn btn-danger",
           onclick: function () {
             ELM.dialogs.confirm({
-              title: "Zacząć od pustego szkieletu?",
-              message: "Uszkodzone dane zostaną odłożone w kopii awaryjnej (klucz elm_content_corrupt_backup), a aplikacja wystartuje od pustego szkieletu. Postęp ucznia zostaje.",
+              title: "Zacząć od listy bazowej?",
+              message: "Uszkodzone dane zostaną odłożone w kopii awaryjnej (klucz elm_content_corrupt_backup), a aplikacja wystartuje od listy bazowej. Postęp ucznia zostaje.",
               confirmLabel: "Zacznij od nowa"
             }).then(function (ok) {
               if (!ok) return;
@@ -344,7 +350,7 @@ window.ELM = window.ELM || {};
               replaceContent(ELM.createDefaultData());
             });
           }
-        }, "Zacznij od pustego szkieletu")
+        }, "Zacznij od listy bazowej")
       ])
     ]));
   }

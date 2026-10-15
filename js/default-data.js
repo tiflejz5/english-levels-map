@@ -1,11 +1,11 @@
 /*
- * default-data.js — PUSTY szkielet danych startowych.
+ * default-data.js — dane startowe.
  *
- * Używany, gdy w przeglądarce nie ma jeszcze zapisanych treści
+ * Używane, gdy w przeglądarce nie ma jeszcze zapisanych treści
  * (pierwsze uruchomienie) oraz po „Zresetuj wszystko”.
  *
- * Celowo NIE zawiera żadnych treści merytorycznych. Całą zawartość
- * dodaje nauczyciel w trybie edycji.
+ * Jeśli dołączony jest js/base-content.js, startujemy od bazowej listy
+ * umiejętności. Bez niego startujemy od pustego szkieletu (poniżej).
  */
 window.ELM = window.ELM || {};
 
@@ -25,8 +25,17 @@ window.ELM = window.ELM || {};
     { id: "cat_grammar", name: "Gramatyka i czasy" }
   ];
 
-  /** Zwraca NOWĄ kopię pustego szkieletu danych. */
+  /**
+   * Dane startowe: bazowa lista z js/base-content.js (jeśli jest dołączona),
+   * w przeciwnym razie pusty szkielet. Zawsze zwraca NOWĄ kopię.
+   */
   ELM.createDefaultData = function () {
+    if (ELM.BASE_CONTENT) return JSON.parse(JSON.stringify(ELM.BASE_CONTENT));
+    return ELM.createEmptyData();
+  };
+
+  /** Zwraca NOWĄ kopię pustego szkieletu danych. */
+  ELM.createEmptyData = function () {
     const data = {
       version: 1,
       categories: ELM.DEFAULT_CATEGORIES.map(function (c) {

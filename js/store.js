@@ -161,6 +161,24 @@ window.ELM = window.ELM || {};
     return { version: CURRENT_VERSION, categories: categories, levels: levels };
   }
 
+  /**
+   * true, jeśli dane to nietknięty pusty szkielet: brak opisów poziomów,
+   * punktów essentials i tematów. Taki szkielet zapisywała przy pierwszym
+   * otwarciu starsza wersja strony (bez bazowej listy).
+   */
+  function isContentEmpty(data) {
+    // Tylko dokładnie stary szkielet: jedna kategoria „cat_grammar”
+    // (żeby nie przywracać bazy komuś, kto celowo wyczyścił własne treści)
+    if (data.categories.length !== 1 || data.categories[0].id !== "cat_grammar") return false;
+    return data.levels.every(function (level) {
+      if (!U.isBlank(level.description)) return false;
+      return Object.keys(level.content).every(function (catId) {
+        const b = level.content[catId];
+        return !b.essentials.length && !b.topics.length;
+      });
+    });
+  }
+
   /** Postęp: zostawiamy tylko wpisy „id → true”. */
   function normalizeProgress(raw) {
     if (!U.isPlainObject(raw)) throw new Error("Postęp nie jest obiektem.");
@@ -175,7 +193,7 @@ window.ELM = window.ELM || {};
 
   /**
    * Wczytuje treści. Zwraca:
-   *   { status: "new",     data }  — brak zapisu, pusty szkielet
+   *   { status: "new",     data }  — brak zapisu, dane startowe (lista bazowa)
    *   { status: "ok",      data }
    *   { status: "corrupt", error, raw } — dane uszkodzone
    */
@@ -302,6 +320,7 @@ window.ELM = window.ELM || {};
     isStorageAvailable: isStorageAvailable,
     migrate: migrate,
     normalizeContent: normalizeContent,
+    isContentEmpty: isContentEmpty,
     loadContent: loadContent,
     saveContent: saveContent,
     loadProgress: loadProgress,

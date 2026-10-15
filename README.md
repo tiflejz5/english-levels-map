@@ -1,6 +1,6 @@
 # English Levels Map (A1–C2)
 
-Edytowalna strona dla nauczyciela angielskiego: lista tego, co uczeń powinien umieć na każdym poziomie CEFR (A1–C2), z możliwością odhaczania „Umiem”. Startuje jako **pusty szkielet**: sześć poziomów i jedna kategoria „Gramatyka i czasy”. Całą treść dodaje nauczyciel w trybie edycji.
+Edytowalna strona dla nauczyciela angielskiego: lista tego, co uczeń powinien umieć na każdym poziomie CEFR (A1–C2), z możliwością odhaczania „Umiem”. Startuje od **bazowej listy** „Angielski A1–C2: niezbędnik do rozmowy” (`js/base-content.js`): trzy kategorie (Gramatyka i czasy, Funkcje komunikacyjne, Słownictwo) i opisy poziomów. Nauczyciel może ją dowolnie edytować w trybie edycji.
 
 Czysty HTML + CSS + JavaScript. Bez frameworków, bez npm, bez budowania i bez internetu.
 
@@ -18,7 +18,8 @@ english-levels-map/
 ├─ css/style.css         wygląd; kolory (także kolory poziomów) jako zmienne w :root
 ├─ js/
 │  ├─ utils.js           tworzenie DOM bez innerHTML, **pogrubienie**, id, daty
-│  ├─ default-data.js    pusty szkielet danych (poziomy + kategorie domyślne)
+│  ├─ default-data.js    dane startowe: lista bazowa albo pusty szkielet
+│  ├─ base-content.js    bazowa lista umiejętności (niezbędnik A1–C2)
 │  ├─ store.js           localStorage, migracja, walidacja, eksport/import
 │  ├─ dialogs.js         okna potwierdzeń / pytań (zamiast confirm/prompt)
 │  ├─ render.js          rysowanie widoków (podgląd i tryb edycji)
@@ -70,6 +71,8 @@ Kształt treści:
 
 ## Jak rozbudować
 
+**Zmiana listy bazowej dla wszystkich** (np. na GitHub Pages): w aplikacji zrób **Dane → Eksportuj treści**, a potem w `js/base-content.js` zastąp obiekt po `window.ELM.BASE_CONTENT =` zawartością pola `"data"` z pliku eksportu. Nowa baza wczyta się w przeglądarkach, które nie mają jeszcze własnych zapisanych treści. Pozostali mogą ją wczytać przez import albo „Zresetuj wszystko”. Usunięcie `<script src="js/base-content.js">` z `index.html` przywraca start od pustego szkieletu.
+
 **Kolejna kategoria domyślna:** w `js/default-data.js` dopisz do `ELM.DEFAULT_CATEGORIES`:
 
 ```js
@@ -97,6 +100,7 @@ Treść użytkownika trafia do strony wyłącznie przez `textContent` lub `value
 - **Postęp liczy tylko niepuste punkty essentials,** a puste punkty nie są pokazywane w podglądzie.
 - **Usunięcie punktu essentials lub kategorii** usuwa też związane z nimi zaznaczenia „Umiem”.
 - **Usuwanie zawsze wymaga potwierdzenia,** także pustych elementów list. Reset całości wymaga dwóch potwierdzeń.
-- **Uszkodzone dane:** zamiast białego ekranu pojawia się ekran z opcjami: import kopii, pobranie uszkodzonych danych i start od pustego szkieletu. Stara treść trafia wtedy do klucza `elm_content_corrupt_backup`.
+- **Uszkodzone dane:** zamiast białego ekranu pojawia się ekran z opcjami: import kopii, pobranie uszkodzonych danych i start od listy bazowej. Stara treść trafia wtedy do klucza `elm_content_corrupt_backup`.
 - **Brak localStorage:** aplikacja działa do zamknięcia karty i wyświetla wyraźne ostrzeżenie.
 - **Dodatkowe pliki JS** (`utils.js`, `dialogs.js`, `data-menu.js`) powstały, żeby żaden plik nie był za duży.
+- **Lista bazowa zamiast pustego szkieletu:** jeśli przeglądarka ma zapisany *nietknięty* pusty szkielet z poprzedniej wersji strony (jedna kategoria `cat_grammar`, zero treści), przy starcie zostaje on zastąpiony listą bazową. Własne treści nauczyciela nigdy nie są w ten sposób nadpisywane.

@@ -165,7 +165,7 @@ window.ELM = window.ELM || {};
   function resetAll() {
     ELM.dialogs.confirm({
       title: "Zresetować wszystko?",
-      message: "Zostaną usunięte WSZYSTKIE treści (kategorie, essentials, tematy) oraz postęp ucznia. Aplikacja wróci do pustego szkieletu.",
+      message: "Zostaną usunięte WSZYSTKIE treści (kategorie, essentials, tematy) oraz postęp ucznia. Aplikacja wróci do bazowej listy umiejętności (stan jak przy pierwszym otwarciu).",
       confirmLabel: "Dalej"
     }).then(function (ok) {
       if (!ok) return false;

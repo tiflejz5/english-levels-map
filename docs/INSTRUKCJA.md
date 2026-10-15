@@ -7,11 +7,13 @@
 
 Najlepiej działają aktualne wersje przeglądarek Chrome, Edge, Firefox i Safari. Strona jest przeznaczona na komputer z szerokim ekranem.
 
-### Gotowa lista „Niezbędnik do rozmowy”
+### Lista bazowa „Niezbędnik do rozmowy”
 
-W folderze `dane/` jest plik **`niezbednik-A1-C2.json`** z listą umiejętności dla wszystkich poziomów. Żeby go wczytać, wybierz **Dane → Importuj treści…** i wskaż ten plik. Import zastępuje obecne treści, więc jeśli masz już własne, najpierw zrób **Eksportuj treści**.
+Przy pierwszym otwarciu strona ma już wczytaną listę umiejętności dla wszystkich poziomów. To **baza do edycji**: w trybie edycji możesz zmieniać, dodawać, usuwać i przesuwać każdy punkt. Twoje zmiany zapisują się w przeglądarce.
 
-Po imporcie strona ma trzy kategorie:
+Do tej listy wraca opcja **Dane → Zresetuj wszystko**. Ta sama lista jest też w pliku `dane/niezbednik-A1-C2.json`. Możesz go zaimportować (**Dane → Importuj treści…**), żeby przywrócić bazę bez kasowania postępu ucznia.
+
+Lista ma trzy kategorie:
 - **Gramatyka i czasy**: punkty z bloków „Czasy” i „Gramatyka”,
 - **Funkcje komunikacyjne**,
 - **Słownictwo**: zasób słów oraz każdy obszar tematyczny jako osobny punkt.
@@ -148,4 +150,4 @@ git push
 > Treści wpisane w wersji otwartej z dysku (`file://…`) **nie pojawią się automatycznie** na GitHub Pages (`https://…github.io/…`) i odwrotnie.
 > Po przeniesieniu strony zrób **Dane → Eksportuj treści** w starej wersji, a potem **Dane → Importuj treści…** w nowej.
 >
-> Pliki eksportu nie są wysyłane na GitHub (blokuje to `.gitignore`). Każda osoba, która otwiera stronę na swoim komputerze, zaczyna od pustego szkieletu. Żeby zobaczyć treści, musi zaimportować u siebie plik treści.
+> Pliki eksportu nie są wysyłane na GitHub (blokuje to `.gitignore`). Każda osoba, która otwiera stronę na swoim komputerze, zaczyna od listy bazowej (niezbędnik A1–C2). Twoje własne zmiany zobaczy dopiero po zaimportowaniu Twojego pliku treści albo po wpisaniu ich do `js/base-content.js` (patrz README).
