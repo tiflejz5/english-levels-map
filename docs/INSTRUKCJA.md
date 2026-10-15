@@ -7,6 +7,17 @@
 
 Najlepiej działają aktualne wersje przeglądarek Chrome, Edge, Firefox i Safari. Strona jest przeznaczona na komputer z szerokim ekranem.
 
+### Gotowa lista „Niezbędnik do rozmowy”
+
+W folderze `dane/` jest plik **`niezbednik-A1-C2.json`** z listą umiejętności dla wszystkich poziomów. Żeby go wczytać, wybierz **Dane → Importuj treści…** i wskaż ten plik. Import zastępuje obecne treści, więc jeśli masz już własne, najpierw zrób **Eksportuj treści**.
+
+Po imporcie strona ma trzy kategorie:
+- **Gramatyka i czasy**: punkty z bloków „Czasy” i „Gramatyka”,
+- **Funkcje komunikacyjne**,
+- **Słownictwo**: zasób słów oraz każdy obszar tematyczny jako osobny punkt.
+
+„Cel” i nazwa każdego poziomu (np. „Początkujący”) trafiają do opisu poziomu.
+
 ## 2. Jak zbudowana jest strona
 
 - **Lewy pasek:** poziomy A1–C2. Przy każdym poziomie jest pasek postępu i licznik „X / Y umiem” dla aktualnie wybranej kategorii.
