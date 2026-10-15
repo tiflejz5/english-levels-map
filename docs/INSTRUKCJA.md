@@ -29,6 +29,13 @@ Lista ma trzy kategorie:
 
 Uczeń korzysta ze strony w trybie podglądu. Może tylko zaznaczać „Umiem” i odkrywać odpowiedzi do ćwiczeń.
 
+### Podstrony z wyjaśnieniami (Niezbędnik)
+Przy punktach, które mają podstronę, tekst jest linkiem ze strzałką **›** (na razie poziom A1). Po kliknięciu otwiera się podstrona z zasadą, tabelami, przykładami, typowymi błędami i ćwiczeniem.
+- **← Wróć do listy** przenosi z powrotem do tego samego miejsca na liście. Działa też przycisk Wstecz w przeglądarce.
+- Przełącznik **Umiem** na podstronie to ten sam stan co na liście, dla wybranego profilu.
+- **Pokaż odpowiedzi** odkrywa odpowiedzi do ćwiczenia.
+- Treść podstron pochodzi z plików `.md` w folderze `niezbednik/` i nie jest edytowana w aplikacji. Opis dodawania kolejnych poziomów jest w README.
+
 ### Profile
 Każdy profil (na start: **Adam, Klasa 1, Klasa 4, Klasa 6**) ma **własne zaznaczenia „Umiem”**. Treść jest wspólna dla wszystkich profili.
 - Kliknij przycisk profilu w prawym górnym rogu i wybierz profil z listy. Przy każdym widać, ile punktów ma zaznaczonych.

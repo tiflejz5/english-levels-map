@@ -7,6 +7,7 @@
  *   progress — postęp AKTYWNEGO profilu (odnośnik do profiles…progress)
  *   ui       — wybrany poziom / kategoria / temat (elm_ui_v1)
  *   editMode — czy włączony jest tryb edycji (zawsze startuje wyłączony)
+ *   route    — otwarta podstrona niezbędnika ({ file }) albo null = lista
  */
 window.ELM = window.ELM || {};
 
@@ -24,7 +25,9 @@ window.ELM = window.ELM || {};
     progress: {},
     ui: { levelId: "A1", categoryId: null, topics: {} },
     editMode: false,
-    storageOk: true
+    storageOk: true,
+    route: null,
+    listScroll: 0 // pozycja przewinięcia listy, przywracana po powrocie z podstrony
   };
 
   let saveTimer = null;
@@ -47,6 +50,7 @@ window.ELM = window.ELM || {};
           "Sprawdź ustawienia przeglądarki (np. tryb prywatny, blokada plików cookie). Możesz zaimportować kopię i korzystać ze strony do zamknięcia karty.",
           { label: "Importuj kopię…", onClick: function () { ELM.dataMenu.importContent(); } });
         fixUi();
+        applyRoute();
         renderAll();
         return;
       }
@@ -79,6 +83,7 @@ window.ELM = window.ELM || {};
       if (loaded.status === "new") ELM.store.saveContent(state.content);
 
       fixUi();
+      applyRoute();
       renderAll();
     } catch (err) {
       showFatal(err);
@@ -95,6 +100,8 @@ window.ELM = window.ELM || {};
     });
     // Zapisz zaległe zmiany przy zamykaniu / chowaniu karty
     window.addEventListener("beforeunload", flushSave);
+    // Podstrony niezbędnika: adresy #/a1/… (zmiana adresu = zmiana widoku)
+    window.addEventListener("hashchange", onRoute);
     document.addEventListener("visibilitychange", function () {
       if (document.visibilityState === "hidden") flushSave();
     });
@@ -161,7 +168,52 @@ window.ELM = window.ELM || {};
     flushSave();
     state.ui.levelId = levelId;
     saveUI();
+    if (state.route) {
+      // Z podstrony: wracamy do listy wybranego poziomu
+      state.listScroll = 0;
+      location.hash = "";
+      return;
+    }
     renderAll({ resetScroll: true });
+  }
+
+  // =====================================================================
+  // PODSTRONY (routing przez #)
+  // =====================================================================
+
+  /** Odczytuje adres i ustawia state.route (oraz poziom podstrony w sidebarze). */
+  function applyRoute() {
+    state.route = ELM.niezbednik.parseRoute(location.hash);
+    if (state.route) {
+      const found = ELM.niezbednik.findItem(state.route.file);
+      if (found && ELM.LEVEL_IDS.indexOf(found.level) !== -1) state.ui.levelId = found.level;
+    }
+  }
+
+  /** Reakcja na zmianę adresu (link do podstrony, „Wróć”, przycisk Wstecz). */
+  function onRoute() {
+    if (!state.content) return;
+    flushSave();
+    const wasPage = !!state.route;
+    if (!wasPage) state.listScroll = document.getElementById("main").scrollTop;
+    applyRoute();
+    if (state.route) {
+      renderAll();
+    } else {
+      document.title = "English Levels Map (A1–C2)";
+      renderAll({ scrollTop: wasPage ? state.listScroll : undefined });
+    }
+  }
+
+  /** Powrót z podstrony do listy (poziom + kategoria punktu). */
+  function goToList(target) {
+    if (target.levelId) state.ui.levelId = target.levelId;
+    if (target.categoryId && state.content.categories.some(function (c) { return c.id === target.categoryId; })) {
+      state.ui.categoryId = target.categoryId;
+    }
+    saveUI();
+    if (location.hash) location.hash = "";
+    else onRoute();
   }
 
   function selectCategory(catId) {
@@ -438,6 +490,7 @@ window.ELM = window.ELM || {};
     getStats: getStats,
     getActiveTopic: getActiveTopic,
     selectLevel: selectLevel,
+    goToList: goToList,
     selectCategory: selectCategory,
     selectTopic: selectTopic,
     setEditMode: setEditMode,

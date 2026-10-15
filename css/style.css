@@ -758,3 +758,97 @@ textarea.field { resize: vertical; min-height: 42px; overflow: hidden; }
 .profile-check { width: 14px; color: var(--accent); font-weight: 700; text-align: center; }
 .profile-add { margin: 8px 4px 2px; }
 .profile-menu-hint { padding: 8px 10px 4px; font-size: 12px; color: var(--text-2); border-top: 1px solid var(--border-soft); margin-top: 6px; }
+
+/* ===================== LINKI DO PODSTRON NA LIŚCIE ===================== */
+.ess-link {
+  color: inherit;
+  text-decoration: none;
+  border-radius: 4px;
+}
+.ess-link:hover { color: var(--accent); }
+.ess-link:hover .ess-link-arrow { transform: translateX(3px); }
+.ess-link-arrow {
+  display: inline-block;
+  margin-left: 6px;
+  color: var(--accent);
+  font-weight: 600;
+  transition: transform var(--transition);
+}
+.ess-page-link {
+  flex-shrink: 0;
+  padding-top: 9px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--accent);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.ess-page-link:hover { text-decoration: underline; }
+
+/* ===================== PODSTRONA NIEZBĘDNIKA ===================== */
+.page-view { max-width: 860px; }
+.page-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+.back-btn { margin-left: -12px; }
+.page-crumb {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-2);
+}
+.page-head .umiem { margin-left: auto; }
+.umiem-lg { padding: 6px 16px 6px 8px; font-size: 15px; }
+.umiem-lg input { width: 24px; height: 24px; }
+.page-edit-hint { margin-bottom: 20px; }
+.page-foot { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border-soft); }
+
+/* Treść Markdown */
+.md { font-size: 17px; line-height: 1.6; }
+.md h1 { font-size: 40px; font-weight: 700; letter-spacing: -0.025em; line-height: 1.15; margin-bottom: 16px; }
+.md h1 + p { font-size: 19px; color: var(--text-2); }
+.md h2 { font-size: 24px; font-weight: 600; letter-spacing: -0.015em; margin-bottom: 14px; }
+.md h3, .md h4 { font-size: 18px; font-weight: 600; margin: 20px 0 8px; }
+.md p { margin: 0 0 14px; }
+.md ul, .md ol { margin: 0 0 14px; padding-left: 24px; }
+.md li { margin-bottom: 6px; }
+.md li > ul, .md li > ol { margin: 6px 0 0; }
+.md strong { font-weight: 650; }
+.md code { font-family: var(--font-mono); font-size: 0.9em; padding: 1px 6px; border-radius: 6px; background: var(--bg-soft); }
+.md hr { border: 0; border-top: 1px solid var(--border-soft); margin: 28px 0; }
+.md-section { margin-top: 40px; }
+
+.md blockquote {
+  margin: 0 0 16px;
+  padding: 16px 20px;
+  border-left: 4px solid var(--lvl, var(--accent));
+  border-radius: 0 var(--radius) var(--radius) 0;
+  background: var(--lvl-soft, var(--bg-soft));
+}
+.md blockquote p { margin: 0; line-height: 1.75; }
+
+.md-table-wrap {
+  margin: 0 0 18px;
+  overflow-x: auto;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+}
+.md table { width: 100%; border-collapse: collapse; font-size: 15px; }
+.md th, .md td { padding: 10px 14px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--border-soft); }
+.md th { background: var(--bg-soft); font-size: 13px; font-weight: 600; color: var(--text-2); }
+.md tbody tr:last-child td { border-bottom: 0; }
+.md tbody tr:hover td { background: #fafafc; }
+
+.md-section.is-answers {
+  padding: 20px 24px;
+  border-radius: var(--radius-lg);
+  background: var(--bg-soft);
+}
+.md-section.is-answers h2 { margin-bottom: 12px; }
+.md-answers { margin-top: 16px; }
+.md-answers > :last-child { margin-bottom: 0; }

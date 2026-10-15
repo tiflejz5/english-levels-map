@@ -23,6 +23,8 @@ english-levels-map/
 │  ├─ store.js           localStorage, migracja, walidacja, eksport/import
 │  ├─ dialogs.js         okna potwierdzeń / pytań (zamiast confirm/prompt)
 │  ├─ profiles.js        przełącznik profili (prawy górny róg) i zarządzanie nimi
+│  ├─ markdown.js        mały renderer Markdown (tabele GFM, listy, cytaty, **/*)
+│  ├─ niezbednik.js      podstrony niezbędnika: routing #/a1/…, dopasowanie, widok
 │  ├─ render.js          rysowanie widoków (podgląd i tryb edycji)
 │  ├─ editor.js          operacje trybu edycji (dodaj, przesuń, usuń)
 │  ├─ data-menu.js       menu „Dane”: eksport, import, reset
@@ -70,6 +72,31 @@ Kształt treści:
 - `store.migrate(data)` sprawdza `version`. Przy zmianie struktury podnieś `CURRENT_VERSION` w `store.js` i dopisz krok migracji.
 - `store.normalizeContent(data)` waliduje dane przy starcie i przy imporcie. Poważne błędy zatrzymują wczytywanie z opisem po polsku, drobne braki (pola, id) są uzupełniane.
 - Pliki eksportu mają opakowanie `{ app, kind: "content" | "progress", version, exportedAt, data }`. Import przyjmuje też same „gołe” dane.
+
+## Podstrony „Niezbędnika” (folder `niezbednik/`)
+
+```
+niezbednik/
+├─ index.json            manifest: poziom → punkty { id, category, file, label }
+├─ a1/*.md               podstrony A1 (frontmatter: id, level, category, order, title, summary)
+└─ niezbednik-dane.js    GENEROWANY: index.json + treść wszystkich .md w jednym pliku JS
+tools/zbuduj-niezbednik.js   skrypt, który tworzy niezbednik-dane.js
+```
+
+- **Adresy:** `index.html#/a1/czasy-present-simple`, czyli ścieżka pliku bez `.md`. Routing działa przez `#`, bo strona działa z dysku (`file://`) i na GitHub Pages bez serwera.
+- **Dlaczego plik `.js`, a nie wczytywanie `.md`:** przeglądarki blokują `fetch()` plików przy `file://`, a plik `.js` wczyta się zawsze.
+- **Dopasowanie punktu listy do podstrony** (liczone na bieżąco): najpierw dokładnie po tekście (`label` = tekst punktu), a jeśli się nie uda, po pozycji w obrębie kategorii (`order` z frontmatter). Kategorie z `index.json` są przypisane do kategorii aplikacji w `CATEGORY_MAP` w `js/niezbednik.js`. W konsoli przeglądarki `ELM.niezbednik.report()` pokazuje wynik dopasowania.
+- **Linki** pojawiają się tylko przy punktach, dla których istnieje plik `.md`. Wejście pod adres podstrony bez pliku pokazuje „Ta podstrona będzie dostępna wkrótce”.
+- Na podstronie przełącznik **Umiem** zmienia ten sam stan co checkbox na liście, dla aktywnego profilu. Sekcje `## Odpowiedzi` i `## Przykładowe odpowiedzi` są ukryte pod przyciskiem „Pokaż odpowiedzi”.
+
+**Dodanie kolejnego poziomu (np. A2):**
+
+1. Skopiuj pliki do `niezbednik/a2/` i upewnij się, że są wpisane w `niezbednik/index.json`.
+2. Uruchom (wymaga Node.js):
+   ```bash
+   node tools/zbuduj-niezbednik.js
+   ```
+3. Zwiększ numer `?v=…` w `index.html`, zrób commit i push.
 
 ## Jak rozbudować
 

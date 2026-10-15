@@ -144,6 +144,9 @@ window.ELM = window.ELM || {};
 
   function renderMain(opts) {
     opts = opts || {};
+    // Otwarta podstrona niezbędnika zamiast listy
+    if (ELM.state.route) return ELM.niezbednik.renderPage(ELM.state.route);
+    ELM.niezbednik.computeLinks();
     const main = document.getElementById("main");
     const view = document.getElementById("view");
     const scroll = opts.resetScroll ? 0 : main.scrollTop;
@@ -152,6 +155,7 @@ window.ELM = window.ELM || {};
 
     document.body.classList.toggle("is-editing", isEdit());
     view.className = "view lvl-" + level.id;
+    delete view.dataset.file;
     view.replaceChildren();
 
     view.appendChild(renderLevelHeader(level));
@@ -169,7 +173,7 @@ window.ELM = window.ELM || {};
 
     // Wysokość pól tekstowych liczona po wstawieniu do strony
     view.querySelectorAll("textarea").forEach(U.autoGrow);
-    main.scrollTop = scroll;
+    main.scrollTop = typeof opts.scrollTop === "number" ? opts.scrollTop : scroll;
 
     if (opts.focusId) {
       const target = view.querySelector('[data-focus-id="' + CSS.escape(opts.focusId) + '"]');
@@ -272,6 +276,7 @@ window.ELM = window.ELM || {};
     visible.forEach(function (item) {
       const done = progress[item.id] === true;
       const textId = "ess-text-" + item.id;
+      const pageLink = ELM.niezbednik.linkForEssential(item.id);
       const checkbox = el("label", { class: "umiem" }, [
         el("input", {
           type: "checkbox",
@@ -300,13 +305,25 @@ window.ELM = window.ELM || {};
         li = el("li", { class: "ess-item edit-row" + (done ? " is-done" : "") }, [
           checkbox,
           field,
+          pageLink ? el("a", {
+            class: "ess-page-link",
+            href: ELM.niezbednik.routeOf(pageLink.item),
+            title: "Otwórz podstronę",
+            onclick: rememberScroll
+          }, "Podstrona ›") : null,
           rowControls(list, index, function () { editor().deleteEssential(index); }, {
             up: "Przesuń punkt w górę", down: "Przesuń punkt w dół", remove: "Usuń punkt"
           })
         ]);
       } else {
-        li = el("li", { class: "ess-item" + (done ? " is-done" : "") }, [
-          el("div", { class: "ess-text", id: textId }, U.formatText(item.text)),
+        li = el("li", { class: "ess-item" + (done ? " is-done" : "") + (pageLink ? " has-page" : "") }, [
+          el("div", { class: "ess-text", id: textId }, pageLink
+            // Punkt z podstroną: tekst jest linkiem
+            ? el("a", { class: "ess-link", href: ELM.niezbednik.routeOf(pageLink.item), onclick: rememberScroll }, [
+                U.formatText(item.text),
+                el("span", { class: "ess-link-arrow", "aria-hidden": "true", text: "›" })
+              ])
+            : U.formatText(item.text)),
           checkbox
         ]);
       }
@@ -319,6 +336,11 @@ window.ELM = window.ELM || {};
         textBtn("+ Dodaj punkt", function () { editor().addEssential(); }, "btn-ghost")));
     }
     return section;
+  }
+
+  /** Zapamiętuje przewinięcie listy przed przejściem na podstronę. */
+  function rememberScroll() {
+    ELM.state.listScroll = document.getElementById("main").scrollTop;
   }
 
   function progressLabel(stats) {
