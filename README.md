@@ -71,6 +71,8 @@ Kształt treści:
 
 ## Jak rozbudować
 
+**Po każdej zmianie plików JS/CSS** zwiększ numer `?v=…` przy wszystkich `<script>` i `<link>` w `index.html`. GitHub Pages pozwala przeglądarkom trzymać pliki w pamięci podręcznej do 10 minut, a bez nowego numeru mogłyby załadować mieszankę starych i nowych plików.
+
 **Zmiana listy bazowej dla wszystkich** (np. na GitHub Pages): w aplikacji zrób **Dane → Eksportuj treści**, a potem w `js/base-content.js` zastąp obiekt po `window.ELM.BASE_CONTENT =` zawartością pola `"data"` z pliku eksportu. Nowa baza wczyta się w przeglądarkach, które nie mają jeszcze własnych zapisanych treści. Pozostali mogą ją wczytać przez import albo „Zresetuj wszystko”. Usunięcie `<script src="js/base-content.js">` z `index.html` przywraca start od pustego szkieletu.
 
 **Kolejna kategoria domyślna:** w `js/default-data.js` dopisz do `ELM.DEFAULT_CATEGORIES`:
