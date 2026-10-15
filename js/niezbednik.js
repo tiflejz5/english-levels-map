@@ -199,7 +199,10 @@ window.ELM = window.ELM || {};
 
     const doc = ELM.markdown.parse(data().pages[found.item.file]);
     const info = links.byFile[found.item.file];
-    const categoryName = data().index.categories[found.item.category] || "";
+    // Nazwa kategorii: najpierw własna nazwa poziomu (categoryLabels), potem ogólna
+    const levelEntry = data().index.levels.find(function (l) { return l.level === found.level; }) || {};
+    const categoryName = (levelEntry.categoryLabels || {})[found.item.category] ||
+      data().index.categories[found.item.category] || "";
 
     view.appendChild(el("div", { class: "page-head" }, [
       back,

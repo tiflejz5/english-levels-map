@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "categories": {
     "czasy": "Czasy",
     "gramatyka": "Gramatyka",
@@ -10,77 +10,697 @@
     {
       "level": "A1",
       "items": [
-        { "id": "a1-czasy-present-simple", "category": "czasy", "file": "a1/czasy-present-simple.md", "label": "Present Simple – fakty i rutyna (I live in Wrocław. She works at a bank.)" },
-        { "id": "a1-czasy-present-continuous", "category": "czasy", "file": "a1/czasy-present-continuous.md", "label": "Present Continuous – co dzieje się teraz (I'm reading.)" },
-        { "id": "a1-czasy-was-were", "category": "czasy", "file": "a1/czasy-was-were.md", "label": "Czasownik to be w przeszłości: was / were (I was at home.)" },
-        { "id": "a1-czasy-going-to", "category": "czasy", "file": "a1/czasy-going-to.md", "label": "going to – najprostsze plany (I'm going to visit my mum.)" },
-        { "id": "a1-gramatyka-to-be-have-got", "category": "gramatyka", "file": "a1/gramatyka-to-be-have-got.md", "label": "to be i have got we wszystkich formach (twierdzenia, przeczenia, pytania)" },
-        { "id": "a1-gramatyka-zaimki", "category": "gramatyka", "file": "a1/gramatyka-zaimki.md", "label": "Zaimki osobowe (I, you, he…) i dzierżawcze (my, your, his…)" },
-        { "id": "a1-gramatyka-przedimki", "category": "gramatyka", "file": "a1/gramatyka-przedimki.md", "label": "Przedimki a / an / the – podstawy" },
-        { "id": "a1-gramatyka-liczba-mnoga", "category": "gramatyka", "file": "a1/gramatyka-liczba-mnoga.md", "label": "Liczba mnoga rzeczowników, w tym nieregularne (man → men, child → children)" },
-        { "id": "a1-gramatyka-there-is-there-are", "category": "gramatyka", "file": "a1/gramatyka-there-is-there-are.md", "label": "There is / there are" },
-        { "id": "a1-gramatyka-this-that-these-those", "category": "gramatyka", "file": "a1/gramatyka-this-that-these-those.md", "label": "This / that / these / those" },
-        { "id": "a1-gramatyka-can-cant", "category": "gramatyka", "file": "a1/gramatyka-can-cant.md", "label": "Can / can't – umiejętności i prośby" },
-        { "id": "a1-gramatyka-pytania-wh", "category": "gramatyka", "file": "a1/gramatyka-pytania-wh.md", "label": "Pytania z what, where, when, who, how much, how old" },
-        { "id": "a1-gramatyka-przyimki-miejsca-czasu", "category": "gramatyka", "file": "a1/gramatyka-przyimki-miejsca-czasu.md", "label": "Przyimki miejsca (in, on, under, next to) i czasu (at 5 o'clock, on Monday, in July)" },
-        { "id": "a1-gramatyka-szyk-zdania", "category": "gramatyka", "file": "a1/gramatyka-szyk-zdania.md", "label": "Szyk zdania: podmiot + orzeczenie + dopełnienie" },
-        { "id": "a1-funkcje-przedstawianie-sie", "category": "funkcje", "file": "a1/funkcje-przedstawianie-sie.md", "label": "Przywitać się, pożegnać, przedstawić siebie i innych" },
-        { "id": "a1-funkcje-dane-osobowe", "category": "funkcje", "file": "a1/funkcje-dane-osobowe.md", "label": "Podać imię, wiek, skąd jesteś, czym się zajmujesz" },
-        { "id": "a1-funkcje-liczby-godzina-data", "category": "funkcje", "file": "a1/funkcje-liczby-godzina-data.md", "label": "Przeliterować imię, podać numer telefonu, godzinę, datę" },
-        { "id": "a1-funkcje-zamawianie", "category": "funkcje", "file": "a1/funkcje-zamawianie.md", "label": "Zamówić coś w kawiarni, zapytać o cenę" },
-        { "id": "a1-funkcje-prosba-o-powtorzenie", "category": "funkcje", "file": "a1/funkcje-prosba-o-powtorzenie.md", "label": "Poprosić o powtórzenie: Sorry, can you repeat that? Can you speak more slowly?" },
-        { "id": "a1-funkcje-lubie-nie-lubie", "category": "funkcje", "file": "a1/funkcje-lubie-nie-lubie.md", "label": "Powiedzieć, co lubisz i czego nie (I like…, I don't like…)" },
-        { "id": "a1-slownictwo", "category": "slownictwo", "file": "a1/slownictwo.md", "label": "Liczby, dni, miesiące, kolory, rodzina, jedzenie, dom, zawody, codzienne czynności" }
+        {
+          "id": "a1-czasy-present-simple",
+          "category": "czasy",
+          "file": "a1/czasy-present-simple.md",
+          "label": "Present Simple – fakty i rutyna (I live in Wrocław. She works at a bank.)"
+        },
+        {
+          "id": "a1-czasy-present-continuous",
+          "category": "czasy",
+          "file": "a1/czasy-present-continuous.md",
+          "label": "Present Continuous – co dzieje się teraz (I'm reading.)"
+        },
+        {
+          "id": "a1-czasy-was-were",
+          "category": "czasy",
+          "file": "a1/czasy-was-were.md",
+          "label": "Czasownik to be w przeszłości: was / were (I was at home.)"
+        },
+        {
+          "id": "a1-czasy-going-to",
+          "category": "czasy",
+          "file": "a1/czasy-going-to.md",
+          "label": "going to – najprostsze plany (I'm going to visit my mum.)"
+        },
+        {
+          "id": "a1-gramatyka-to-be-have-got",
+          "category": "gramatyka",
+          "file": "a1/gramatyka-to-be-have-got.md",
+          "label": "to be i have got we wszystkich formach (twierdzenia, przeczenia, pytania)"
+        },
+        {
+          "id": "a1-gramatyka-zaimki",
+          "category": "gramatyka",
+          "file": "a1/gramatyka-zaimki.md",
+          "label": "Zaimki osobowe (I, you, he…) i dzierżawcze (my, your, his…)"
+        },
+        {
+          "id": "a1-gramatyka-przedimki",
+          "category": "gramatyka",
+          "file": "a1/gramatyka-przedimki.md",
+          "label": "Przedimki a / an / the – podstawy"
+        },
+        {
+          "id": "a1-gramatyka-liczba-mnoga",
+          "category": "gramatyka",
+          "file": "a1/gramatyka-liczba-mnoga.md",
+          "label": "Liczba mnoga rzeczowników, w tym nieregularne (man → men, child → children)"
+        },
+        {
+          "id": "a1-gramatyka-there-is-there-are",
+          "category": "gramatyka",
+          "file": "a1/gramatyka-there-is-there-are.md",
+          "label": "There is / there are"
+        },
+        {
+          "id": "a1-gramatyka-this-that-these-those",
+          "category": "gramatyka",
+          "file": "a1/gramatyka-this-that-these-those.md",
+          "label": "This / that / these / those"
+        },
+        {
+          "id": "a1-gramatyka-can-cant",
+          "category": "gramatyka",
+          "file": "a1/gramatyka-can-cant.md",
+          "label": "Can / can't – umiejętności i prośby"
+        },
+        {
+          "id": "a1-gramatyka-pytania-wh",
+          "category": "gramatyka",
+          "file": "a1/gramatyka-pytania-wh.md",
+          "label": "Pytania z what, where, when, who, how much, how old"
+        },
+        {
+          "id": "a1-gramatyka-przyimki-miejsca-czasu",
+          "category": "gramatyka",
+          "file": "a1/gramatyka-przyimki-miejsca-czasu.md",
+          "label": "Przyimki miejsca (in, on, under, next to) i czasu (at 5 o'clock, on Monday, in July)"
+        },
+        {
+          "id": "a1-gramatyka-szyk-zdania",
+          "category": "gramatyka",
+          "file": "a1/gramatyka-szyk-zdania.md",
+          "label": "Szyk zdania: podmiot + orzeczenie + dopełnienie"
+        },
+        {
+          "id": "a1-funkcje-przedstawianie-sie",
+          "category": "funkcje",
+          "file": "a1/funkcje-przedstawianie-sie.md",
+          "label": "Przywitać się, pożegnać, przedstawić siebie i innych"
+        },
+        {
+          "id": "a1-funkcje-dane-osobowe",
+          "category": "funkcje",
+          "file": "a1/funkcje-dane-osobowe.md",
+          "label": "Podać imię, wiek, skąd jesteś, czym się zajmujesz"
+        },
+        {
+          "id": "a1-funkcje-liczby-godzina-data",
+          "category": "funkcje",
+          "file": "a1/funkcje-liczby-godzina-data.md",
+          "label": "Przeliterować imię, podać numer telefonu, godzinę, datę"
+        },
+        {
+          "id": "a1-funkcje-zamawianie",
+          "category": "funkcje",
+          "file": "a1/funkcje-zamawianie.md",
+          "label": "Zamówić coś w kawiarni, zapytać o cenę"
+        },
+        {
+          "id": "a1-funkcje-prosba-o-powtorzenie",
+          "category": "funkcje",
+          "file": "a1/funkcje-prosba-o-powtorzenie.md",
+          "label": "Poprosić o powtórzenie: Sorry, can you repeat that? Can you speak more slowly?"
+        },
+        {
+          "id": "a1-funkcje-lubie-nie-lubie",
+          "category": "funkcje",
+          "file": "a1/funkcje-lubie-nie-lubie.md",
+          "label": "Powiedzieć, co lubisz i czego nie (I like…, I don't like…)"
+        },
+        {
+          "id": "a1-slownictwo",
+          "category": "slownictwo",
+          "file": "a1/slownictwo.md",
+          "label": "Liczby, dni, miesiące, kolory, rodzina, jedzenie, dom, zawody, codzienne czynności"
+        }
       ]
     },
     {
       "level": "A2",
       "items": [
-        { "id": "a2-czasy-past-simple", "category": "czasy", "file": "a2/czasy-past-simple.md", "label": "Past Simple – czasowniki regularne i ok. 50 najczęstszych nieregularnych (went, saw, had, made)" },
-        { "id": "a2-czasy-past-continuous", "category": "czasy", "file": "a2/czasy-past-continuous.md", "label": "Past Continuous – tło wydarzeń (I was cooking when he called.)" },
-        { "id": "a2-czasy-present-perfect-doswiadczenia", "category": "czasy", "file": "a2/czasy-present-perfect-doswiadczenia.md", "label": "Present Perfect – doświadczenia (Have you ever been to London?), just / already / yet" },
-        { "id": "a2-czasy-future-will", "category": "czasy", "file": "a2/czasy-future-will.md", "label": "Future z will – decyzje spontaniczne i przewidywania" },
-        { "id": "a2-czasy-present-continuous-plany", "category": "czasy", "file": "a2/czasy-present-continuous-plany.md", "label": "Present Continuous dla ustalonych planów (I'm meeting Tom tomorrow.)" },
-        { "id": "a2-gramatyka-stopniowanie-przymiotnikow", "category": "gramatyka", "file": "a2/gramatyka-stopniowanie-przymiotnikow.md", "label": "Stopniowanie przymiotników (bigger, the biggest, more interesting)" },
-        { "id": "a2-gramatyka-przyslowki-czestotliwosci", "category": "gramatyka", "file": "a2/gramatyka-przyslowki-czestotliwosci.md", "label": "Przysłówki częstotliwości (always, usually, sometimes, never) i ich miejsce w zdaniu" },
-        { "id": "a2-gramatyka-policzalne-niepoliczalne", "category": "gramatyka", "file": "a2/gramatyka-policzalne-niepoliczalne.md", "label": "Rzeczowniki policzalne i niepoliczalne: some / any, much / many, a lot of" },
-        { "id": "a2-gramatyka-modalne-must-should", "category": "gramatyka", "file": "a2/gramatyka-modalne-must-should.md", "label": "Czasowniki modalne: must, have to, should, could" },
-        { "id": "a2-gramatyka-pytania-o-podmiot", "category": "gramatyka", "file": "a2/gramatyka-pytania-o-podmiot.md", "label": "Pytania o podmiot (Who called you?) vs. o dopełnienie (Who did you call?)" },
-        { "id": "a2-gramatyka-spojniki", "category": "gramatyka", "file": "a2/gramatyka-spojniki.md", "label": "Spójniki: and, but, because, so, then" },
-        { "id": "a2-gramatyka-czasownik-ing-to", "category": "gramatyka", "file": "a2/gramatyka-czasownik-ing-to.md", "label": "Czasownik + -ing / to (I like swimming, I want to go)" },
-        { "id": "a2-funkcje-opowiadanie-o-weekendzie", "category": "funkcje", "file": "a2/funkcje-opowiadanie-o-weekendzie.md", "label": "Opowiedzieć, co robiłeś w weekend / na wakacjach" },
-        { "id": "a2-funkcje-propozycje-zaproszenia", "category": "funkcje", "file": "a2/funkcje-propozycje-zaproszenia.md", "label": "Zaproponować coś, przyjąć lub odrzucić zaproszenie (Would you like to…? Let's… How about…?)" },
-        { "id": "a2-funkcje-pytanie-o-droge", "category": "funkcje", "file": "a2/funkcje-pytanie-o-droge.md", "label": "Zapytać o drogę i ją wyjaśnić" },
-        { "id": "a2-funkcje-bilety-rezerwacje", "category": "funkcje", "file": "a2/funkcje-bilety-rezerwacje.md", "label": "Kupić bilet, zarezerwować stolik, zgłosić prosty problem" },
-        { "id": "a2-funkcje-opisywanie", "category": "funkcje", "file": "a2/funkcje-opisywanie.md", "label": "Opisać osobę, miejsce, mieszkanie" },
-        { "id": "a2-funkcje-porownywanie-preferencje", "category": "funkcje", "file": "a2/funkcje-porownywanie-preferencje.md", "label": "Porównać dwie rzeczy i powiedzieć, co wolisz" },
-        { "id": "a2-slownictwo", "category": "slownictwo", "file": "a2/slownictwo.md", "label": "Podróże, zakupy, zdrowie, pogoda, praca, czas wolny, ubrania, uczucia, podstawowe phrasal verbs (get up, turn on, look for)" }
+        {
+          "id": "a2-czasy-past-simple",
+          "category": "czasy",
+          "file": "a2/czasy-past-simple.md",
+          "label": "Past Simple – czasowniki regularne i ok. 50 najczęstszych nieregularnych (went, saw, had, made)"
+        },
+        {
+          "id": "a2-czasy-past-continuous",
+          "category": "czasy",
+          "file": "a2/czasy-past-continuous.md",
+          "label": "Past Continuous – tło wydarzeń (I was cooking when he called.)"
+        },
+        {
+          "id": "a2-czasy-present-perfect-doswiadczenia",
+          "category": "czasy",
+          "file": "a2/czasy-present-perfect-doswiadczenia.md",
+          "label": "Present Perfect – doświadczenia (Have you ever been to London?), just / already / yet"
+        },
+        {
+          "id": "a2-czasy-future-will",
+          "category": "czasy",
+          "file": "a2/czasy-future-will.md",
+          "label": "Future z will – decyzje spontaniczne i przewidywania"
+        },
+        {
+          "id": "a2-czasy-present-continuous-plany",
+          "category": "czasy",
+          "file": "a2/czasy-present-continuous-plany.md",
+          "label": "Present Continuous dla ustalonych planów (I'm meeting Tom tomorrow.)"
+        },
+        {
+          "id": "a2-gramatyka-stopniowanie-przymiotnikow",
+          "category": "gramatyka",
+          "file": "a2/gramatyka-stopniowanie-przymiotnikow.md",
+          "label": "Stopniowanie przymiotników (bigger, the biggest, more interesting)"
+        },
+        {
+          "id": "a2-gramatyka-przyslowki-czestotliwosci",
+          "category": "gramatyka",
+          "file": "a2/gramatyka-przyslowki-czestotliwosci.md",
+          "label": "Przysłówki częstotliwości (always, usually, sometimes, never) i ich miejsce w zdaniu"
+        },
+        {
+          "id": "a2-gramatyka-policzalne-niepoliczalne",
+          "category": "gramatyka",
+          "file": "a2/gramatyka-policzalne-niepoliczalne.md",
+          "label": "Rzeczowniki policzalne i niepoliczalne: some / any, much / many, a lot of"
+        },
+        {
+          "id": "a2-gramatyka-modalne-must-should",
+          "category": "gramatyka",
+          "file": "a2/gramatyka-modalne-must-should.md",
+          "label": "Czasowniki modalne: must, have to, should, could"
+        },
+        {
+          "id": "a2-gramatyka-pytania-o-podmiot",
+          "category": "gramatyka",
+          "file": "a2/gramatyka-pytania-o-podmiot.md",
+          "label": "Pytania o podmiot (Who called you?) vs. o dopełnienie (Who did you call?)"
+        },
+        {
+          "id": "a2-gramatyka-spojniki",
+          "category": "gramatyka",
+          "file": "a2/gramatyka-spojniki.md",
+          "label": "Spójniki: and, but, because, so, then"
+        },
+        {
+          "id": "a2-gramatyka-czasownik-ing-to",
+          "category": "gramatyka",
+          "file": "a2/gramatyka-czasownik-ing-to.md",
+          "label": "Czasownik + -ing / to (I like swimming, I want to go)"
+        },
+        {
+          "id": "a2-funkcje-opowiadanie-o-weekendzie",
+          "category": "funkcje",
+          "file": "a2/funkcje-opowiadanie-o-weekendzie.md",
+          "label": "Opowiedzieć, co robiłeś w weekend / na wakacjach"
+        },
+        {
+          "id": "a2-funkcje-propozycje-zaproszenia",
+          "category": "funkcje",
+          "file": "a2/funkcje-propozycje-zaproszenia.md",
+          "label": "Zaproponować coś, przyjąć lub odrzucić zaproszenie (Would you like to…? Let's… How about…?)"
+        },
+        {
+          "id": "a2-funkcje-pytanie-o-droge",
+          "category": "funkcje",
+          "file": "a2/funkcje-pytanie-o-droge.md",
+          "label": "Zapytać o drogę i ją wyjaśnić"
+        },
+        {
+          "id": "a2-funkcje-bilety-rezerwacje",
+          "category": "funkcje",
+          "file": "a2/funkcje-bilety-rezerwacje.md",
+          "label": "Kupić bilet, zarezerwować stolik, zgłosić prosty problem"
+        },
+        {
+          "id": "a2-funkcje-opisywanie",
+          "category": "funkcje",
+          "file": "a2/funkcje-opisywanie.md",
+          "label": "Opisać osobę, miejsce, mieszkanie"
+        },
+        {
+          "id": "a2-funkcje-porownywanie-preferencje",
+          "category": "funkcje",
+          "file": "a2/funkcje-porownywanie-preferencje.md",
+          "label": "Porównać dwie rzeczy i powiedzieć, co wolisz"
+        },
+        {
+          "id": "a2-slownictwo",
+          "category": "slownictwo",
+          "file": "a2/slownictwo.md",
+          "label": "Podróże, zakupy, zdrowie, pogoda, praca, czas wolny, ubrania, uczucia, podstawowe phrasal verbs (get up, turn on, look for)"
+        }
       ]
     },
     {
       "level": "B1",
       "items": [
-        { "id": "b1-czasy-present-perfect-vs-past-simple", "category": "czasy", "file": "b1/czasy-present-perfect-vs-past-simple.md", "label": "Present Perfect vs. Past Simple – świadomy wybór (I've lived here for 3 years vs. I lived there in 2019)" },
-        { "id": "b1-czasy-present-perfect-continuous", "category": "czasy", "file": "b1/czasy-present-perfect-continuous.md", "label": "Present Perfect Continuous (I've been waiting for an hour.)" },
-        { "id": "b1-czasy-past-perfect", "category": "czasy", "file": "b1/czasy-past-perfect.md", "label": "Past Perfect – co stało się wcześniej (When I arrived, the film had started.)" },
-        { "id": "b1-czasy-wybor-formy-przyszlej", "category": "czasy", "file": "b1/czasy-wybor-formy-przyszlej.md", "label": "will vs. going to vs. Present Continuous – wybór formy przyszłej" },
-        { "id": "b1-czasy-used-to", "category": "czasy", "file": "b1/czasy-used-to.md", "label": "used to – dawne nawyki (I used to play football.)" },
-        { "id": "b1-gramatyka-conditionals-0-1-2", "category": "gramatyka", "file": "b1/gramatyka-conditionals-0-1-2.md", "label": "Zero, First i Second Conditional (If I had more time, I would travel.)" },
-        { "id": "b1-gramatyka-strona-bierna", "category": "gramatyka", "file": "b1/gramatyka-strona-bierna.md", "label": "Strona bierna w czasach podstawowych (The house was built in 1920.)" },
-        { "id": "b1-gramatyka-mowa-zalezna", "category": "gramatyka", "file": "b1/gramatyka-mowa-zalezna.md", "label": "Mowa zależna – podstawy (She said she was tired.)" },
-        { "id": "b1-gramatyka-zdania-wzgledne", "category": "gramatyka", "file": "b1/gramatyka-zdania-wzgledne.md", "label": "Zdania względne: who, which, that, where" },
-        { "id": "b1-gramatyka-modalne-przypuszczenia", "category": "gramatyka", "file": "b1/gramatyka-modalne-przypuszczenia.md", "label": "Modalne do przypuszczeń: might, may, must, can't (He must be tired.)" },
-        { "id": "b1-gramatyka-pytania-posrednie", "category": "gramatyka", "file": "b1/gramatyka-pytania-posrednie.md", "label": "Pytania pośrednie (Could you tell me where the station is?)" },
-        { "id": "b1-gramatyka-too-enough-so-such", "category": "gramatyka", "file": "b1/gramatyka-too-enough-so-such.md", "label": "too / enough, so / such" },
-        { "id": "b1-funkcje-opinia", "category": "funkcje", "file": "b1/funkcje-opinia.md", "label": "Wyrazić i uzasadnić opinię (I think…, In my opinion…, because…)" },
-        { "id": "b1-funkcje-zgoda-niezgoda", "category": "funkcje", "file": "b1/funkcje-zgoda-niezgoda.md", "label": "Zgodzić się i nie zgodzić uprzejmie (I see your point, but…)" },
-        { "id": "b1-funkcje-opowiadanie-historii", "category": "funkcje", "file": "b1/funkcje-opowiadanie-historii.md", "label": "Opowiedzieć historię z początkiem, rozwinięciem i końcem" },
-        { "id": "b1-funkcje-plany-marzenia", "category": "funkcje", "file": "b1/funkcje-plany-marzenia.md", "label": "Opisać plany, marzenia, ambicje" },
-        { "id": "b1-funkcje-rady", "category": "funkcje", "file": "b1/funkcje-rady.md", "label": "Dać radę i o nią poprosić" },
-        { "id": "b1-funkcje-skargi", "category": "funkcje", "file": "b1/funkcje-skargi.md", "label": "Złożyć skargę, wyjaśnić nieporozumienie" },
-        { "id": "b1-funkcje-strategie-ratunkowe", "category": "funkcje", "file": "b1/funkcje-strategie-ratunkowe.md", "label": "Strategie ratunkowe: obejść brakujące słowo (It's a kind of…, the thing you use to…), poprosić o wyjaśnienie" },
-        { "id": "b1-funkcje-podtrzymywanie-rozmowy", "category": "funkcje", "file": "b1/funkcje-podtrzymywanie-rozmowy.md", "label": "Utrzymać rozmowę: pytania zwrotne, Really? That's interesting! What happened next?" },
-        { "id": "b1-slownictwo", "category": "slownictwo", "file": "b1/slownictwo.md", "label": "Praca i edukacja, media, technologia, środowisko, relacje, emocje, częste kolokacje (make a decision, do homework), więcej phrasal verbs, łączniki (however, although, first of all)" }
+        {
+          "id": "b1-czasy-present-perfect-vs-past-simple",
+          "category": "czasy",
+          "file": "b1/czasy-present-perfect-vs-past-simple.md",
+          "label": "Present Perfect vs. Past Simple – świadomy wybór (I've lived here for 3 years vs. I lived there in 2019)"
+        },
+        {
+          "id": "b1-czasy-present-perfect-continuous",
+          "category": "czasy",
+          "file": "b1/czasy-present-perfect-continuous.md",
+          "label": "Present Perfect Continuous (I've been waiting for an hour.)"
+        },
+        {
+          "id": "b1-czasy-past-perfect",
+          "category": "czasy",
+          "file": "b1/czasy-past-perfect.md",
+          "label": "Past Perfect – co stało się wcześniej (When I arrived, the film had started.)"
+        },
+        {
+          "id": "b1-czasy-wybor-formy-przyszlej",
+          "category": "czasy",
+          "file": "b1/czasy-wybor-formy-przyszlej.md",
+          "label": "will vs. going to vs. Present Continuous – wybór formy przyszłej"
+        },
+        {
+          "id": "b1-czasy-used-to",
+          "category": "czasy",
+          "file": "b1/czasy-used-to.md",
+          "label": "used to – dawne nawyki (I used to play football.)"
+        },
+        {
+          "id": "b1-gramatyka-conditionals-0-1-2",
+          "category": "gramatyka",
+          "file": "b1/gramatyka-conditionals-0-1-2.md",
+          "label": "Zero, First i Second Conditional (If I had more time, I would travel.)"
+        },
+        {
+          "id": "b1-gramatyka-strona-bierna",
+          "category": "gramatyka",
+          "file": "b1/gramatyka-strona-bierna.md",
+          "label": "Strona bierna w czasach podstawowych (The house was built in 1920.)"
+        },
+        {
+          "id": "b1-gramatyka-mowa-zalezna",
+          "category": "gramatyka",
+          "file": "b1/gramatyka-mowa-zalezna.md",
+          "label": "Mowa zależna – podstawy (She said she was tired.)"
+        },
+        {
+          "id": "b1-gramatyka-zdania-wzgledne",
+          "category": "gramatyka",
+          "file": "b1/gramatyka-zdania-wzgledne.md",
+          "label": "Zdania względne: who, which, that, where"
+        },
+        {
+          "id": "b1-gramatyka-modalne-przypuszczenia",
+          "category": "gramatyka",
+          "file": "b1/gramatyka-modalne-przypuszczenia.md",
+          "label": "Modalne do przypuszczeń: might, may, must, can't (He must be tired.)"
+        },
+        {
+          "id": "b1-gramatyka-pytania-posrednie",
+          "category": "gramatyka",
+          "file": "b1/gramatyka-pytania-posrednie.md",
+          "label": "Pytania pośrednie (Could you tell me where the station is?)"
+        },
+        {
+          "id": "b1-gramatyka-too-enough-so-such",
+          "category": "gramatyka",
+          "file": "b1/gramatyka-too-enough-so-such.md",
+          "label": "too / enough, so / such"
+        },
+        {
+          "id": "b1-funkcje-opinia",
+          "category": "funkcje",
+          "file": "b1/funkcje-opinia.md",
+          "label": "Wyrazić i uzasadnić opinię (I think…, In my opinion…, because…)"
+        },
+        {
+          "id": "b1-funkcje-zgoda-niezgoda",
+          "category": "funkcje",
+          "file": "b1/funkcje-zgoda-niezgoda.md",
+          "label": "Zgodzić się i nie zgodzić uprzejmie (I see your point, but…)"
+        },
+        {
+          "id": "b1-funkcje-opowiadanie-historii",
+          "category": "funkcje",
+          "file": "b1/funkcje-opowiadanie-historii.md",
+          "label": "Opowiedzieć historię z początkiem, rozwinięciem i końcem"
+        },
+        {
+          "id": "b1-funkcje-plany-marzenia",
+          "category": "funkcje",
+          "file": "b1/funkcje-plany-marzenia.md",
+          "label": "Opisać plany, marzenia, ambicje"
+        },
+        {
+          "id": "b1-funkcje-rady",
+          "category": "funkcje",
+          "file": "b1/funkcje-rady.md",
+          "label": "Dać radę i o nią poprosić"
+        },
+        {
+          "id": "b1-funkcje-skargi",
+          "category": "funkcje",
+          "file": "b1/funkcje-skargi.md",
+          "label": "Złożyć skargę, wyjaśnić nieporozumienie"
+        },
+        {
+          "id": "b1-funkcje-strategie-ratunkowe",
+          "category": "funkcje",
+          "file": "b1/funkcje-strategie-ratunkowe.md",
+          "label": "Strategie ratunkowe: obejść brakujące słowo (It's a kind of…, the thing you use to…), poprosić o wyjaśnienie"
+        },
+        {
+          "id": "b1-funkcje-podtrzymywanie-rozmowy",
+          "category": "funkcje",
+          "file": "b1/funkcje-podtrzymywanie-rozmowy.md",
+          "label": "Utrzymać rozmowę: pytania zwrotne, Really? That's interesting! What happened next?"
+        },
+        {
+          "id": "b1-slownictwo",
+          "category": "slownictwo",
+          "file": "b1/slownictwo.md",
+          "label": "Praca i edukacja, media, technologia, środowisko, relacje, emocje, częste kolokacje (make a decision, do homework), więcej phrasal verbs, łączniki (however, although, first of all)"
+        }
+      ]
+    },
+    {
+      "level": "B2",
+      "items": [
+        {
+          "id": "b2-czasy-future-continuous-perfect",
+          "category": "czasy",
+          "file": "b2/czasy-future-continuous-perfect.md",
+          "label": "Wszystkie 12 czasów aktywnie, w tym Future Continuous (This time tomorrow I'll be flying) i Future Perfect (I'll have finished by 5)"
+        },
+        {
+          "id": "b2-czasy-past-perfect-continuous",
+          "category": "czasy",
+          "file": "b2/czasy-past-perfect-continuous.md",
+          "label": "Past Perfect Continuous (She had been working there for years before…)"
+        },
+        {
+          "id": "b2-czasy-laczenie-czasow",
+          "category": "czasy",
+          "file": "b2/czasy-laczenie-czasow.md",
+          "label": "Swobodne łączenie czasów w jednej opowieści"
+        },
+        {
+          "id": "b2-gramatyka-third-mixed-conditionals",
+          "category": "gramatyka",
+          "file": "b2/gramatyka-third-mixed-conditionals.md",
+          "label": "Third Conditional i mixed conditionals (If I had studied, I would be a doctor now.)"
+        },
+        {
+          "id": "b2-gramatyka-wish-if-only",
+          "category": "gramatyka",
+          "file": "b2/gramatyka-wish-if-only.md",
+          "label": "wish / if only (I wish I had more time. I wish I hadn't said that.)"
+        },
+        {
+          "id": "b2-gramatyka-modalne-przeszlosc",
+          "category": "gramatyka",
+          "file": "b2/gramatyka-modalne-przeszlosc.md",
+          "label": "Modalne w przeszłości: should have, could have, must have, might have"
+        },
+        {
+          "id": "b2-gramatyka-strona-bierna-have-something-done",
+          "category": "gramatyka",
+          "file": "b2/gramatyka-strona-bierna-have-something-done.md",
+          "label": "Strona bierna we wszystkich czasach + have something done"
+        },
+        {
+          "id": "b2-gramatyka-mowa-zalezna-pelna",
+          "category": "gramatyka",
+          "file": "b2/gramatyka-mowa-zalezna-pelna.md",
+          "label": "Pełna mowa zależna: następstwo czasów, pytania, polecenia, czasowniki raportujące (suggest, deny, admit)"
+        },
+        {
+          "id": "b2-gramatyka-zdania-wzgledne-niedefiniujace",
+          "category": "gramatyka",
+          "file": "b2/gramatyka-zdania-wzgledne-niedefiniujace.md",
+          "label": "Zdania względne definiujące i niedefiniujące (z przecinkami)"
+        },
+        {
+          "id": "b2-gramatyka-przyczyna-przeciwienstwo",
+          "category": "gramatyka",
+          "file": "b2/gramatyka-przyczyna-przeciwienstwo.md",
+          "label": "Konstrukcje przyczyny i przeciwieństwa: despite, in spite of, whereas, even though"
+        },
+        {
+          "id": "b2-gramatyka-gerund-infinitive-zmiana-znaczenia",
+          "category": "gramatyka",
+          "file": "b2/gramatyka-gerund-infinitive-zmiana-znaczenia.md",
+          "label": "Gerund vs. infinitive ze zmianą znaczenia (stop doing / stop to do, remember, try)"
+        },
+        {
+          "id": "b2-funkcje-argumentowanie",
+          "category": "funkcje",
+          "file": "b2/funkcje-argumentowanie.md",
+          "label": "Argumentować: przedstawić za i przeciw, zbić kontrargument"
+        },
+        {
+          "id": "b2-funkcje-spekulowanie",
+          "category": "funkcje",
+          "file": "b2/funkcje-spekulowanie.md",
+          "label": "Spekulować o przeszłości i przyszłości"
+        },
+        {
+          "id": "b2-funkcje-negocjowanie",
+          "category": "funkcje",
+          "file": "b2/funkcje-negocjowanie.md",
+          "label": "Negocjować, przekonywać, osiągać kompromis"
+        },
+        {
+          "id": "b2-funkcje-spotkanie-rozmowa-o-prace",
+          "category": "funkcje",
+          "file": "b2/funkcje-spotkanie-rozmowa-o-prace.md",
+          "label": "Prowadzić spotkanie lub rozmowę o pracę"
+        },
+        {
+          "id": "b2-funkcje-przerywanie",
+          "category": "funkcje",
+          "file": "b2/funkcje-przerywanie.md",
+          "label": "Przerwać uprzejmie i odzyskać głos (Sorry to interrupt, but… / As I was saying…)"
+        },
+        {
+          "id": "b2-funkcje-lagodzenie",
+          "category": "funkcje",
+          "file": "b2/funkcje-lagodzenie.md",
+          "label": "Złagodzić wypowiedź (I'm not sure that's entirely right. It might be better to…)"
+        },
+        {
+          "id": "b2-funkcje-rozumienie-akcentow",
+          "category": "funkcje",
+          "file": "b2/funkcje-rozumienie-akcentow.md",
+          "label": "Rozumieć różne akcenty i tempo naturalnej mowy, filmy bez napisów na znane tematy"
+        },
+        {
+          "id": "b2-slownictwo",
+          "category": "slownictwo",
+          "file": "b2/slownictwo.md",
+          "label": "Kolokacje, idiomy codzienne (a piece of cake, on the same page), phrasal verbs z kilkoma znaczeniami, słowotwórstwo (prefiksy i sufiksy), różnica rejestru formalnego i potocznego"
+        }
+      ]
+    },
+    {
+      "level": "C1",
+      "categoryLabels": {
+        "czasy": "Czasy i aspekt"
+      },
+      "items": [
+        {
+          "id": "c1-czasy-dystans-grzecznosc",
+          "category": "czasy",
+          "file": "c1/czasy-dystans-grzecznosc.md",
+          "label": "Czasy użyte stylistycznie: Past Continuous / Past Simple dla grzeczności (I was wondering if…, I wanted to ask…)"
+        },
+        {
+          "id": "c1-czasy-narracja-present",
+          "category": "czasy",
+          "file": "c1/czasy-narracja-present.md",
+          "label": "Present Simple i Continuous w narracji i streszczeniach (So he walks into the room and…)"
+        },
+        {
+          "id": "c1-czasy-be-to-about-to",
+          "category": "czasy",
+          "file": "c1/czasy-be-to-about-to.md",
+          "label": "be to / be about to / be on the verge of – formy przyszłe w rejestrze formalnym"
+        },
+        {
+          "id": "c1-gramatyka-inwersja",
+          "category": "gramatyka",
+          "file": "c1/gramatyka-inwersja.md",
+          "label": "Inwersja dla emfazy (Never have I seen…, Not only did she…, Hardly had we…)"
+        },
+        {
+          "id": "c1-gramatyka-cleft-sentences",
+          "category": "gramatyka",
+          "file": "c1/gramatyka-cleft-sentences.md",
+          "label": "Zdania rozszczepione – cleft sentences (What I need is…, It was John who…)"
+        },
+        {
+          "id": "c1-gramatyka-warunkowe-bez-if",
+          "category": "gramatyka",
+          "file": "c1/gramatyka-warunkowe-bez-if.md",
+          "label": "Okresy warunkowe bez if (Had I known…, Should you need…, Were it not for…)"
+        },
+        {
+          "id": "c1-gramatyka-konstrukcje-imieslowowe",
+          "category": "gramatyka",
+          "file": "c1/gramatyka-konstrukcje-imieslowowe.md",
+          "label": "Konstrukcje imiesłowowe (Having finished the report, she left.)"
+        },
+        {
+          "id": "c1-gramatyka-nominalizacja",
+          "category": "gramatyka",
+          "file": "c1/gramatyka-nominalizacja.md",
+          "label": "Nominalizacja w języku formalnym (the implementation of… zamiast we implemented…)"
+        },
+        {
+          "id": "c1-gramatyka-elipsa-substytucja",
+          "category": "gramatyka",
+          "file": "c1/gramatyka-elipsa-substytucja.md",
+          "label": "Elipsa i substytucja (I hope so, I'd love to, Neither do I)"
+        },
+        {
+          "id": "c1-gramatyka-strona-bierna-bezosobowa",
+          "category": "gramatyka",
+          "file": "c1/gramatyka-strona-bierna-bezosobowa.md",
+          "label": "Strona bierna bezosobowa (It is said that…, He is believed to have…)"
+        },
+        {
+          "id": "c1-funkcje-rejestr",
+          "category": "funkcje",
+          "file": "c1/funkcje-rejestr.md",
+          "label": "Dostosowywać rejestr do sytuacji i rozmówcy – od luźnej rozmowy do prezentacji"
+        },
+        {
+          "id": "c1-funkcje-hedging",
+          "category": "funkcje",
+          "file": "c1/funkcje-hedging.md",
+          "label": "Hedging – ostrożne formułowanie tez (It would seem that…, arguably, to some extent)"
+        },
+        {
+          "id": "c1-funkcje-odcienie-opinii-ironia",
+          "category": "funkcje",
+          "file": "c1/funkcje-odcienie-opinii-ironia.md",
+          "label": "Wyrażać subtelne odcienie opinii, ironię, dystans"
+        },
+        {
+          "id": "c1-funkcje-prezentacje",
+          "category": "funkcje",
+          "file": "c1/funkcje-prezentacje.md",
+          "label": "Prowadzić prezentację, odpowiadać na trudne pytania na żywo"
+        },
+        {
+          "id": "c1-funkcje-implikacje-podteksty",
+          "category": "funkcje",
+          "file": "c1/funkcje-implikacje-podteksty.md",
+          "label": "Rozumieć implikacje i podteksty, humor i aluzje"
+        },
+        {
+          "id": "c1-funkcje-parafrazowanie",
+          "category": "funkcje",
+          "file": "c1/funkcje-parafrazowanie.md",
+          "label": "Parafrazować i streszczać cudze argumenty"
+        },
+        {
+          "id": "c1-funkcje-markery-dyskursu",
+          "category": "funkcje",
+          "file": "c1/funkcje-markery-dyskursu.md",
+          "label": "Korzystać z markerów dyskursu (Having said that…, That being the case…, On a related note…)"
+        },
+        {
+          "id": "c1-slownictwo",
+          "category": "slownictwo",
+          "file": "c1/slownictwo.md",
+          "label": "Precyzyjne synonimy z różnicą znaczenia, idiomy i wyrażenia przenośne, słownictwo specjalistyczne z własnej branży, kolokacje akademickie (draw a conclusion, pose a threat)"
+        }
+      ]
+    },
+    {
+      "level": "C2",
+      "categoryLabels": {
+        "gramatyka": "Gramatyka i styl"
+      },
+      "items": [
+        {
+          "id": "c2-gramatyka-kontrola-pod-presja",
+          "category": "gramatyka",
+          "file": "c2/gramatyka-kontrola-pod-presja.md",
+          "label": "Pełna kontrola wszystkich struktur bez błędów systemowych, także pod presją"
+        },
+        {
+          "id": "c2-gramatyka-lamanie-regul",
+          "category": "gramatyka",
+          "file": "c2/gramatyka-lamanie-regul.md",
+          "label": "Świadome łamanie reguł dla efektu (język potoczny, slang, skróty w mowie)"
+        },
+        {
+          "id": "c2-gramatyka-subjunctive",
+          "category": "gramatyka",
+          "file": "c2/gramatyka-subjunctive.md",
+          "label": "Subjunctive (I suggest that he be informed. If need be…)"
+        },
+        {
+          "id": "c2-gramatyka-inwersja-fronting",
+          "category": "gramatyka",
+          "file": "c2/gramatyka-inwersja-fronting.md",
+          "label": "Zaawansowana inwersja i fronting (Strange as it may seem…, Much as I'd like to…)"
+        },
+        {
+          "id": "c2-gramatyka-rejestry-skrajne",
+          "category": "gramatyka",
+          "file": "c2/gramatyka-rejestry-skrajne.md",
+          "label": "Rejestry skrajne: od prawniczego i akademickiego po slang i dialekty"
+        },
+        {
+          "id": "c2-funkcje-plynnosc-intonacja",
+          "category": "funkcje",
+          "file": "c2/funkcje-plynnosc-intonacja.md",
+          "label": "Mówić płynnie bez zauważalnego szukania słów, z naturalną intonacją i rytmem"
+        },
+        {
+          "id": "c2-funkcje-przeformulowanie",
+          "category": "funkcje",
+          "file": "c2/funkcje-przeformulowanie.md",
+          "label": "Przeformułować myśl w locie, gdy rozmówca nie rozumie, bez gubienia wątku"
+        },
+        {
+          "id": "c2-funkcje-rozumienie-akcenty-gry-slow",
+          "category": "funkcje",
+          "file": "c2/funkcje-rozumienie-akcenty-gry-slow.md",
+          "label": "Rozumieć szybką mowę, mocne akcenty regionalne, gry słów, kontekst kulturowy"
+        },
+        {
+          "id": "c2-funkcje-trudne-rozmowy",
+          "category": "funkcje",
+          "file": "c2/funkcje-trudne-rozmowy.md",
+          "label": "Prowadzić negocjacje, mediacje, trudne rozmowy (zwolnienie, konflikt) z wyczuciem tonu"
+        },
+        {
+          "id": "c2-funkcje-humor-ironia-understatement",
+          "category": "funkcje",
+          "file": "c2/funkcje-humor-ironia-understatement.md",
+          "label": "Używać humoru, ironii, niedopowiedzenia (understatement) jak native speaker"
+        },
+        {
+          "id": "c2-funkcje-tlumaczenie-mediacja",
+          "category": "funkcje",
+          "file": "c2/funkcje-tlumaczenie-mediacja.md",
+          "label": "Tłumaczyć i streszczać złożone treści między polskim a angielskim"
+        },
+        {
+          "id": "c2-slownictwo",
+          "category": "slownictwo",
+          "file": "c2/slownictwo.md",
+          "label": "Idiomy, przysłowia, odniesienia kulturowe, archaizmy i neologizmy, słownictwo literackie, precyzyjne konotacje (slim vs. skinny vs. scrawny)"
+        }
       ]
     }
   ]

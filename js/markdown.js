@@ -182,7 +182,6 @@ window.ELM = window.ELM || {};
   // FORMATOWANIE W LINII (**pogrubienie**, *kursywa*, `kod`)
   // =====================================================================
 
-  const PUNCT = /[\p{P}\p{S}]/u;
   const SPACE = /\s/;
 
   /** Tekst → fragment DOM. */
@@ -216,8 +215,11 @@ window.ELM = window.ELM || {};
         while (j < text.length && text[j] === "*") j++;
         const before = i > 0 ? text[i - 1] : " ";
         const after = j < text.length ? text[j] : " ";
-        const left = !SPACE.test(after) && (!PUNCT.test(after) || SPACE.test(before) || PUNCT.test(before));
-        const right = !SPACE.test(before) && (!PUNCT.test(before) || SPACE.test(after) || PUNCT.test(after));
+        // Łagodniej niż CommonMark: gwiazdki obok znaku interpunkcyjnego też
+        // mogą otwierać/zamykać, np. I**'ve been** albo brother**, who…,**
+        // (ściśle wg specyfikacji pokazałyby się jako zwykłe gwiazdki).
+        const left = !SPACE.test(after);
+        const right = !SPACE.test(before);
         if (buf) { nodes.push({ t: "text", v: buf }); buf = ""; }
         nodes.push({ t: "delim", n: j - i, orig: j - i, open: left, close: right });
         i = j;

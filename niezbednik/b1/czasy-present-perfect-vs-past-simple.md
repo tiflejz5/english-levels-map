@@ -4,7 +4,7 @@ level: B1
 category: czasy
 order: 1
 title: Present Perfect vs. Past Simple
-summary: Świadomy wybór: „mieszkam tu od 3 lat” czy „mieszkałem tam w 2019”.
+summary: Świadomy wybór – „mieszkam tu od 3 lat” czy „mieszkałem tam w 2019”.
 ---
 
 # Present Perfect czy Past Simple?

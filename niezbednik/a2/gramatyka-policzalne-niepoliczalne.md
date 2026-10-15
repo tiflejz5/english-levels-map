@@ -4,7 +4,7 @@ level: A2
 category: gramatyka
 order: 3
 title: Rzeczowniki policzalne i niepoliczalne – some / any, much / many, a lot of
-summary: Jak mówić o ilości: trochę, dużo, ile.
+summary: Jak mówić o ilości – trochę, dużo, ile.
 ---
 
 # Policzalne i niepoliczalne

@@ -4,7 +4,7 @@ level: A2
 category: funkcje
 order: 4
 title: Kupić bilet, zarezerwować stolik, zgłosić prosty problem
-summary: Załatwianie spraw w podróży: dworzec, restauracja, hotel.
+summary: Załatwianie spraw w podróży – dworzec, restauracja, hotel.
 ---
 
 # Bilety, rezerwacje i proste problemy
