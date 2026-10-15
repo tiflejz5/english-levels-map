@@ -4,11 +4,13 @@
  *
  * Treści i postęp trzymamy pod osobnymi kluczami, żeby import treści
  * nie kasował postępu (i odwrotnie):
- *   elm_content_v1  — treści: kategorie, essentials, tematy
+ *   elm_content_v1  — treści: kategorie, opisy poziomów, essentials
+ *                     (pole „topics” to pozostałość po usuniętej funkcji
+ *                     „Tematy” — zostaje, żeby stare kopie dalej się wczytywały)
  *   elm_profiles_v1 — profile, każdy z własnym postępem { "id_punktu": true }
  *   elm_progress_v1 — STARY zapis postępu (przed profilami); czytany tylko
  *                     raz, przy migracji do pierwszego profilu
- * Dodatkowo elm_ui_v1 pamięta tylko wybrany poziom/kategorię/temat.
+ * Dodatkowo elm_ui_v1 pamięta tylko wybrany poziom i kategorię.
  */
 window.ELM = window.ELM || {};
 
@@ -275,14 +277,13 @@ window.ELM = window.ELM || {};
 
   /** Stan interfejsu (wybrany poziom itd.). Błędy ignorujemy — to tylko wygoda. */
   function loadUI() {
-    const fallback = { levelId: ELM.LEVEL_IDS[0], categoryId: null, topics: {} };
+    const fallback = { levelId: ELM.LEVEL_IDS[0], categoryId: null };
     try {
       const ui = JSON.parse(readRaw(UI_KEY) || "null");
       if (!U.isPlainObject(ui)) return fallback;
       return {
         levelId: typeof ui.levelId === "string" ? ui.levelId : fallback.levelId,
-        categoryId: typeof ui.categoryId === "string" ? ui.categoryId : null,
-        topics: U.isPlainObject(ui.topics) ? ui.topics : {}
+        categoryId: typeof ui.categoryId === "string" ? ui.categoryId : null
       };
     } catch (e) {
       return fallback;

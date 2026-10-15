@@ -43,7 +43,7 @@ Skrypty są zwykłymi `<script src>` ładowanymi po kolei. Każdy plik dopisuje 
 | `elm_content_v1`  | treści: `{ version, categories[], levels[] }` |
 | `elm_profiles_v1` | profile: `{ version, activeId, profiles: [{ id, name, progress: { "<id punktu essentials>": true } }] }` |
 | `elm_progress_v1` | stary zapis postępu (sprzed profili); przy pierwszym starcie trafia do pierwszego profilu, potem nie jest używany |
-| `elm_ui_v1`       | tylko wygoda: wybrany poziom, kategoria i temat |
+| `elm_ui_v1`       | tylko wygoda: wybrany poziom i kategoria |
 
 Kształt treści:
 
@@ -56,12 +56,7 @@ Kształt treści:
     content: {
       "cat_grammar": {
         essentials: [{ id: "e_…", text: "" }],
-        topics: [{
-          id: "t_…", title: "", rule: "", formula: "",
-          examples:  [{ id: "x_…",  text: "" }],
-          mistakes:  [{ id: "m_…",  wrong: "", correct: "", note: "" }],
-          exercises: [{ id: "ex_…", prompt: "", answer: "" }]
-        }]
+        topics: []   // pozostałość po usuniętej funkcji „Tematy” (patrz niżej)
       }
     }
   }]
@@ -91,7 +86,7 @@ tools/zbuduj-niezbednik.js   skrypt, który tworzy niezbednik-dane.js
   - `#/a1/czasy-present-simple`: podstrona punktu (ścieżka pliku bez `.md`).
   Logo „English Levels Map” w lewym górnym rogu zawsze prowadzi do `#/`.
 - **Strona główna:** w tabeli „Poziomy w skrócie” kody A1–C2 w pierwszej kolumnie są automatycznie zamieniane na linki do poziomów. Linki Markdown `[tekst](https://…)` otwierają się w nowej karcie, a dozwolone są tylko adresy `https://`, `http://`, `mailto:` i `#/…`.
-- **Podsumowanie poziomu** zastępuje pustą sekcję „Tematy”. Własne tematy nauczyciela nadal działają: sekcja „Tematy” pojawia się pod podsumowaniem w trybie edycji, a w podglądzie tylko wtedy, gdy na danym poziomie i w danej kategorii są jakieś tematy.
+- **Podsumowanie poziomu** jest wyświetlane pod listą punktów na każdej stronie poziomu.
 - **Dlaczego plik `.js`, a nie wczytywanie `.md`:** przeglądarki blokują `fetch()` plików przy `file://`, a plik `.js` wczyta się zawsze.
 - **Dopasowanie punktu listy do podstrony** (liczone na bieżąco): najpierw dokładnie po tekście (`label` = tekst punktu), a jeśli się nie uda, po pozycji w obrębie kategorii (`order` z frontmatter). Kategorie z `index.json` są przypisane do kategorii aplikacji w `CATEGORY_MAP` w `js/niezbednik.js`. W konsoli przeglądarki `ELM.niezbednik.report()` pokazuje wynik dopasowania.
 - **Linki** pojawiają się tylko przy punktach, dla których istnieje plik `.md`. Obecnie wszystkie 110 punktów A1–C2 ma pliki. Gdyby w `index.json` pojawił się wpis bez pliku, punkt nie dostanie linku, a adres podstrony pokaże komunikat o braku pliku.
@@ -125,7 +120,7 @@ Działa to tylko dla nowych danych i po „Zresetuj wszystko”. W istniejących
 
 **Kolory poziomów:** zmienne `--lvl-a1`, `--lvl-a1-soft` itd. na początku `css/style.css`.
 
-**Nowa sekcja tematu:** dodaj pole w `normalizeTopic` (`store.js`), w `addTopic` (`editor.js`) i narysuj je w `renderTopic` (`render.js`). Jeśli stare dane wymagają przekształcenia, podnieś wersję i dopisz migrację.
+**Usunięta funkcja „Tematy”:** wcześniej nauczyciel mógł dodawać własne tematy (zasada, wzór, przykłady, błędy, ćwiczenia). Zastąpiły je podsumowania poziomów i podstrony niezbędnika, a cały kod tej funkcji został usunięty. W danych zostało tylko pole `topics`, które `store.js` nadal sprawdza, żeby starsze kopie zapasowe wczytywały się bez błędów. Nie jest nigdzie wyświetlane.
 
 ## Bezpieczeństwo
 

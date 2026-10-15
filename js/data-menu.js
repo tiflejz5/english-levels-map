@@ -38,7 +38,7 @@ window.ELM = window.ELM || {};
       className: "data-dialog",
       body: [
         el("p", { class: "data-hint", text: "Dane zapisują się w tej przeglądarce. Rób eksport co jakiś czas i przechowuj pliki w bezpiecznym miejscu." }),
-        group("Treści", "Kategorie, opisy poziomów, essentials i tematy.", [
+        group("Treści", "Kategorie, opisy poziomów i punkty essentials.", [
           action("Eksportuj treści", exportContent, "btn-primary"),
           action("Importuj treści…", importContent)
         ]),
@@ -104,7 +104,7 @@ window.ELM = window.ELM || {};
     const s = summarize(data);
     return ELM.dialogs.confirm({
       title: "Zastąpić obecne treści?",
-      message: "Plik zawiera: kategorie: " + s.categories + ", punkty essentials: " + s.essentials + ", tematy: " + s.topics + ".\n\n" +
+      message: "Plik zawiera: kategorie: " + s.categories + ", punkty essentials: " + s.essentials + ".\n\n" +
         "Obecne treści w tej przeglądarce zostaną nadpisane. Profile i ich postęp pozostaną bez zmian.",
       confirmLabel: "Importuj i nadpisz"
     }).then(function (ok) {
@@ -152,11 +152,10 @@ window.ELM = window.ELM || {};
   }
 
   function summarize(data) {
-    const s = { categories: data.categories.length, essentials: 0, topics: 0 };
+    const s = { categories: data.categories.length, essentials: 0 };
     data.levels.forEach(function (level) {
       Object.keys(level.content).forEach(function (catId) {
         s.essentials += level.content[catId].essentials.length;
-        s.topics += level.content[catId].topics.length;
       });
     });
     return s;
@@ -179,7 +178,7 @@ window.ELM = window.ELM || {};
   function resetAll() {
     ELM.dialogs.confirm({
       title: "Zresetować wszystko?",
-      message: "Zostaną usunięte WSZYSTKIE treści (kategorie, essentials, tematy) oraz wszystkie profile z ich postępem. Aplikacja wróci do stanu jak przy pierwszym otwarciu: bazowej listy umiejętności i domyślnych profili.",
+      message: "Zostaną usunięte WSZYSTKIE treści (kategorie, essentials) oraz wszystkie profile z ich postępem. Aplikacja wróci do stanu jak przy pierwszym otwarciu: bazowej listy umiejętności i domyślnych profili.",
       confirmLabel: "Dalej"
     }).then(function (ok) {
       if (!ok) return false;

@@ -27,7 +27,7 @@ Lista ma trzy kategorie:
 - **Lewy pasek:** poziomy A1–C2. Przy każdym poziomie jest pasek postępu i licznik „X / Y umiem” dla aktualnie wybranej kategorii.
 - **Na dole lewego paska:** przełącznik **Tryb edycji** i przycisk **Dane** (kopie zapasowe).
 - **Prawy górny róg:** wybór **profilu**, czyli osoby lub klasy, której postęp śledzisz.
-- **Prawa część:** wybrany poziom, czyli opis, kategorie, **Essentials** (lista umiejętności z polem „Umiem”) i **Tematy**.
+- **Prawa część:** wybrany poziom, czyli opis, kategorie, **Essentials** (lista umiejętności z polem „Umiem”) i **podsumowanie poziomu**.
 
 Uczeń korzysta ze strony w trybie podglądu. Może tylko zaznaczać „Umiem” i odkrywać odpowiedzi do ćwiczeń.
 
@@ -52,7 +52,7 @@ Włącz **Tryb edycji** w lewym dolnym rogu. Przy elementach pojawią się pola 
 |---|---|
 | **+ Dodaj …** | dodaje nowy element |
 | **↑ / ↓** | przesuwa element w górę lub w dół |
-| **← / →** | przesuwa kategorię lub temat w lewo lub w prawo |
+| **← / →** | przesuwa kategorię w lewo lub w prawo |
 | **✕** / **Usuń …** | usuwa element (zawsze po potwierdzeniu) |
 
 Wszystko zapisuje się **automatycznie**. Pod przełącznikiem widać napis „Zapisano o …”.
@@ -71,14 +71,6 @@ Lista najważniejszych umiejętności poziomu w danej kategorii.
 - **+ Dodaj punkt** dodaje punkt, potem wpisujesz jego treść.
 - Pole **Umiem** zaznacza uczeń. Paski postępu zmieniają się od razu.
 
-### Tematy
-- **+ Dodaj temat** tworzy nowy temat i ustawia kursor w polu „Nazwa”.
-- Każdy temat ma sekcje: **Nazwa, Zasada, Wzór, Przykłady, Typowe błędy, Ćwiczenia**.
-- **Wzór** jest pisany czcionką o stałej szerokości, a odstępy zostają zachowane, co przydaje się do schematów zdań.
-- **Typowe błędy:** zdanie błędne, zdanie poprawne i opcjonalna notatka.
-- **Ćwiczenia:** polecenie i opcjonalna odpowiedź. Uczeń widzi odpowiedź dopiero po kliknięciu „Pokaż odpowiedź”.
-- Sekcje, których nie wypełnisz, nie wyświetlają się uczniowi.
-
 ### Formatowanie tekstu
 - Nowa linia (Enter) zostaje zachowana.
 - `**tekst**` wyświetli się jako **pogrubienie**.
@@ -94,7 +86,7 @@ Treści oraz profile z postępem są zapisywane **osobno**:
 
 | Opcja | Co robi |
 |---|---|
-| **Eksportuj treści** | pobiera plik `english-levels-content-RRRR-MM-DD.json` (kategorie, essentials, tematy) |
+| **Eksportuj treści** | pobiera plik `english-levels-content-RRRR-MM-DD.json` (kategorie, opisy poziomów, essentials) |
 | **Importuj treści…** | wczytuje taki plik. Najpierw pokazuje, co zawiera, i prosi o potwierdzenie. **Nie rusza profili ani postępu.** |
 | **Eksportuj profile i postęp** | pobiera plik `english-levels-progress-RRRR-MM-DD.json` ze wszystkimi profilami i ich zaznaczeniami „Umiem” |
 | **Importuj profile i postęp…** | wczytuje taki plik i zastępuje wszystkie profile (z potwierdzeniem). Plik ze starszej wersji strony (bez profili) trafia do aktualnie wybranego profilu. |

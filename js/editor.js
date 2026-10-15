@@ -1,7 +1,6 @@
 /*
  * editor.js — operacje trybu edycji: dodawanie, zmiana nazwy,
- * przesuwanie i usuwanie kategorii, punktów essentials, tematów
- * oraz elementów list (przykłady, błędy, ćwiczenia).
+ * przesuwanie i usuwanie kategorii oraz punktów essentials.
  *
  * Edycja samego tekstu odbywa się bezpośrednio w polach (render.js),
  * tutaj są tylko zmiany struktury. Po każdej zmianie wywołujemy
@@ -96,7 +95,7 @@ window.ELM = window.ELM || {};
     const cat = list[index];
     ELM.dialogs.confirm({
       title: "Usunąć kategorię?",
-      message: "Kategoria „" + (cat.name || "Bez nazwy") + "” zostanie usunięta razem z całą jej treścią (essentials i tematy) na WSZYSTKICH poziomach A1–C2. Tej operacji nie można cofnąć.",
+      message: "Kategoria „" + (cat.name || "Bez nazwy") + "” zostanie usunięta razem z całą jej treścią (punkty essentials) na WSZYSTKICH poziomach A1–C2. Tej operacji nie można cofnąć.",
       confirmLabel: "Usuń kategorię"
     }).then(function (ok) {
       if (!ok) return;
@@ -147,78 +146,11 @@ window.ELM = window.ELM || {};
   }
 
   // =====================================================================
-  // TEMATY
+  // KOLEJNOŚĆ PUNKTÓW (strzałki ↑ ↓ przy essentials)
   // =====================================================================
-
-  function addTopic() {
-    const bucket = currentBucket();
-    if (!bucket) return;
-    const topic = {
-      id: U.uid("t"),
-      title: "",
-      rule: "",
-      formula: "",
-      examples: [],
-      mistakes: [],
-      exercises: []
-    };
-    bucket.topics.push(topic);
-    app().selectTopic(topic.id, { silent: true });
-    app().commit({ focusId: topic.id }); // kursor od razu w polu „Nazwa”
-  }
-
-  function moveTopic(topicId, dir) {
-    const bucket = currentBucket();
-    if (!bucket) return;
-    const index = bucket.topics.findIndex(function (t) { return t.id === topicId; });
-    if (index !== -1 && swap(bucket.topics, index, dir)) app().commit();
-  }
-
-  function deleteTopic(topicId) {
-    const bucket = currentBucket();
-    if (!bucket) return;
-    const index = bucket.topics.findIndex(function (t) { return t.id === topicId; });
-    if (index === -1) return;
-    const topic = bucket.topics[index];
-    ELM.dialogs.confirm({
-      title: "Usunąć temat?",
-      message: "Temat „" + (U.isBlank(topic.title) ? "bez nazwy" : shorten(topic.title)) + "” zostanie usunięty razem ze wszystkimi sekcjami (zasada, wzór, przykłady, błędy, ćwiczenia).",
-      confirmLabel: "Usuń temat"
-    }).then(function (ok) {
-      if (!ok) return;
-      bucket.topics.splice(index, 1);
-      const next = bucket.topics[Math.min(index, bucket.topics.length - 1)];
-      if (next) app().selectTopic(next.id, { silent: true });
-      app().commit();
-    });
-  }
-
-  // =====================================================================
-  // ELEMENTY LIST (przykłady, typowe błędy, ćwiczenia, essentials)
-  // =====================================================================
-
-  function addItem(list, item) {
-    list.push(item);
-    app().commit({ focusId: item.id });
-  }
 
   function moveItem(list, index, dir) {
     if (swap(list, index, dir)) app().commit({ focusId: list[index + dir].id });
-  }
-
-  function deleteItem(list, index, what) {
-    if (!list[index]) return;
-    const item = list[index];
-    ELM.dialogs.confirm({
-      title: "Usunąć element?",
-      message: "Czy na pewno usunąć " + (what || "ten element") + "?",
-      confirmLabel: "Usuń"
-    }).then(function (ok) {
-      if (!ok) return;
-      const i = list.indexOf(item);
-      if (i !== -1) list.splice(i, 1);
-      app().commit();
-    });
   }
 
   /** Skraca długi tekst do komunikatu potwierdzenia. */
@@ -234,11 +166,6 @@ window.ELM = window.ELM || {};
     deleteCategory: deleteCategory,
     addEssential: addEssential,
     deleteEssential: deleteEssential,
-    addTopic: addTopic,
-    moveTopic: moveTopic,
-    deleteTopic: deleteTopic,
-    addItem: addItem,
-    moveItem: moveItem,
-    deleteItem: deleteItem
+    moveItem: moveItem
   };
 })(window.ELM);

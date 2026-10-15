@@ -5,7 +5,7 @@
  *   content  — treści (zapisywane w elm_content_v1)
  *   profiles — profile z osobnym postępem (zapisywane w elm_profiles_v1)
  *   progress — postęp AKTYWNEGO profilu (odnośnik do profiles…progress)
- *   ui       — wybrany poziom / kategoria / temat (elm_ui_v1)
+ *   ui       — wybrany poziom / kategoria (elm_ui_v1)
  *   editMode — czy włączony jest tryb edycji (zawsze startuje wyłączony)
  *   view     — co jest wyświetlane: "home" (strona główna, adres #/),
  *              "level" (lista poziomu, #/a1) albo "page" (podstrona, #/a1/…)
@@ -25,7 +25,7 @@ window.ELM = window.ELM || {};
     content: null,
     profiles: null,
     progress: {},
-    ui: { levelId: "A1", categoryId: null, topics: {} },
+    ui: { levelId: "A1", categoryId: null },
     editMode: false,
     storageOk: true,
     view: "home",
@@ -118,7 +118,6 @@ window.ELM = window.ELM || {};
     if (!cats.some(function (c) { return c.id === ui.categoryId; })) {
       ui.categoryId = cats.length ? cats[0].id : null;
     }
-    if (!U.isPlainObject(ui.topics)) ui.topics = {};
   }
 
   // =====================================================================
@@ -151,16 +150,6 @@ window.ELM = window.ELM || {};
     const done = items.filter(function (e) { return state.progress[e.id] === true; }).length;
     const total = items.length;
     return { done: done, total: total, percent: total ? Math.round((done / total) * 100) : 0 };
-  }
-
-  function topicKey() {
-    return state.ui.levelId + "|" + state.ui.categoryId;
-  }
-
-  /** Wybrany temat w bieżącym poziomie i kategorii (domyślnie pierwszy). */
-  function getActiveTopic(bucket) {
-    const id = state.ui.topics[topicKey()];
-    return bucket.topics.find(function (t) { return t.id === id; }) || bucket.topics[0] || null;
   }
 
   // =====================================================================
@@ -243,13 +232,6 @@ window.ELM = window.ELM || {};
     state.ui.categoryId = catId;
     saveUI();
     renderAll();
-  }
-
-  /** opts.silent = tylko zapamiętaj wybór, bez przerysowania. */
-  function selectTopic(topicId, opts) {
-    state.ui.topics[topicKey()] = topicId;
-    saveUI();
-    if (!opts || !opts.silent) renderMainOnly();
   }
 
   function setEditMode(on) {
@@ -510,12 +492,10 @@ window.ELM = window.ELM || {};
     getActiveCategory: getActiveCategory,
     getBucket: getBucket,
     getStats: getStats,
-    getActiveTopic: getActiveTopic,
     selectLevel: selectLevel,
     levelHash: levelHash,
     goToList: goToList,
     selectCategory: selectCategory,
-    selectTopic: selectTopic,
     setEditMode: setEditMode,
     refreshProgress: refreshProgress,
     scheduleSave: scheduleSave,
