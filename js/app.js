@@ -7,7 +7,9 @@
  *   progress — postęp AKTYWNEGO profilu (odnośnik do profiles…progress)
  *   ui       — wybrany poziom / kategoria / temat (elm_ui_v1)
  *   editMode — czy włączony jest tryb edycji (zawsze startuje wyłączony)
- *   route    — otwarta podstrona niezbędnika ({ file }) albo null = lista
+ *   view     — co jest wyświetlane: "home" (strona główna, adres #/),
+ *              "level" (lista poziomu, #/a1) albo "page" (podstrona, #/a1/…)
+ *   route    — otwarta podstrona niezbędnika ({ file }) albo null
  */
 window.ELM = window.ELM || {};
 
@@ -26,6 +28,7 @@ window.ELM = window.ELM || {};
     ui: { levelId: "A1", categoryId: null, topics: {} },
     editMode: false,
     storageOk: true,
+    view: "home",
     route: null,
     listScroll: 0 // pozycja przewinięcia listy, przywracana po powrocie z podstrony
   };
@@ -164,44 +167,62 @@ window.ELM = window.ELM || {};
   // NAWIGACJA
   // =====================================================================
 
+  /** Adres listy poziomu, np. "#/a1". */
+  function levelHash(levelId) {
+    return "#/" + String(levelId).toLowerCase();
+  }
+
+  /** Przejście do listy poziomu (sidebar). Zmienia adres na #/a1 itd. */
   function selectLevel(levelId) {
     flushSave();
     state.ui.levelId = levelId;
     saveUI();
-    if (state.route) {
-      // Z podstrony: wracamy do listy wybranego poziomu
-      state.listScroll = 0;
-      location.hash = "";
-      return;
-    }
-    renderAll({ resetScroll: true });
+    state.listScroll = 0;
+    if (location.hash === levelHash(levelId)) renderAll({ resetScroll: true });
+    else location.hash = levelHash(levelId);
   }
 
   // =====================================================================
-  // PODSTRONY (routing przez #)
+  // ADRESY (routing przez #)
+  //   ""  lub "#/"        → strona główna
+  //   "#/a1" … "#/c2"     → lista poziomu
+  //   "#/a1/<podstrona>"  → podstrona punktu (niezbędnik)
   // =====================================================================
 
-  /** Odczytuje adres i ustawia state.route (oraz poziom podstrony w sidebarze). */
+  /** Odczytuje adres i ustawia state.view, state.route i wybrany poziom. */
   function applyRoute() {
-    state.route = ELM.niezbednik.parseRoute(location.hash);
-    if (state.route) {
-      const found = ELM.niezbednik.findItem(state.route.file);
-      if (found && ELM.LEVEL_IDS.indexOf(found.level) !== -1) state.ui.levelId = found.level;
+    const hash = location.hash || "";
+    const level = /^#\/([abcABC][12])\/?$/.exec(hash);
+    state.route = null;
+
+    if (!hash || hash === "#" || hash === "#/") {
+      state.view = "home";
+    } else if (level) {
+      state.view = "level";
+      state.ui.levelId = level[1].toUpperCase();
+    } else {
+      state.route = ELM.niezbednik.parseRoute(hash);
+      state.view = state.route ? "page" : "home";
+      if (state.route) {
+        const found = ELM.niezbednik.findItem(state.route.file);
+        if (found && ELM.LEVEL_IDS.indexOf(found.level) !== -1) state.ui.levelId = found.level;
+      }
     }
   }
 
-  /** Reakcja na zmianę adresu (link do podstrony, „Wróć”, przycisk Wstecz). */
+  /** Reakcja na zmianę adresu (linki, „Wróć”, logo, przycisk Wstecz). */
   function onRoute() {
     if (!state.content) return;
     flushSave();
-    const wasPage = !!state.route;
-    if (!wasPage) state.listScroll = document.getElementById("main").scrollTop;
+    const previous = state.view;
+    if (previous === "level") state.listScroll = U.getScroll();
     applyRoute();
-    if (state.route) {
-      renderAll();
+    saveUI();
+    if (state.view !== "page") document.title = "English Levels Map (A1–C2)";
+    if (state.view === "level" && previous === "page") {
+      renderAll({ scrollTop: state.listScroll }); // powrót z podstrony: to samo miejsce listy
     } else {
-      document.title = "English Levels Map (A1–C2)";
-      renderAll({ scrollTop: wasPage ? state.listScroll : undefined });
+      renderAll({ resetScroll: true });
     }
   }
 
@@ -212,8 +233,9 @@ window.ELM = window.ELM || {};
       state.ui.categoryId = target.categoryId;
     }
     saveUI();
-    if (location.hash) location.hash = "";
-    else onRoute();
+    const hash = levelHash(state.ui.levelId);
+    if (location.hash === hash) onRoute();
+    else location.hash = hash;
   }
 
   function selectCategory(catId) {
@@ -490,6 +512,7 @@ window.ELM = window.ELM || {};
     getStats: getStats,
     getActiveTopic: getActiveTopic,
     selectLevel: selectLevel,
+    levelHash: levelHash,
     goToList: goToList,
     selectCategory: selectCategory,
     selectTopic: selectTopic,

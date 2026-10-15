@@ -78,12 +78,20 @@ Kształt treści:
 ```
 niezbednik/
 ├─ index.json            manifest: poziom → punkty { id, category, file, label }
-├─ a1/*.md               podstrony A1 (frontmatter: id, level, category, order, title, summary)
-└─ niezbednik-dane.js    GENEROWANY: index.json + treść wszystkich .md w jednym pliku JS
+├─ a1/ … c2/*.md         podstrony punktów (frontmatter: id, level, category, order, title, summary)
+├─ podsumowania/<poziom>.md   podsumowanie wyświetlane pod listą poziomu
+├─ strona-glowna.md      treść strony głównej
+└─ niezbednik-dane.js    GENEROWANY: wszystkie powyższe .md w jednym pliku JS
 tools/zbuduj-niezbednik.js   skrypt, który tworzy niezbednik-dane.js
 ```
 
-- **Adresy:** `index.html#/a1/czasy-present-simple`, czyli ścieżka pliku bez `.md`. Routing działa przez `#`, bo strona działa z dysku (`file://`) i na GitHub Pages bez serwera.
+- **Adresy** (routing przez `#`, bo strona działa z dysku `file://` i na GitHub Pages bez serwera):
+  - `index.html` albo `#/`: strona główna (`strona-glowna.md`),
+  - `#/a1` … `#/c2`: lista poziomu z podsumowaniem pod spodem,
+  - `#/a1/czasy-present-simple`: podstrona punktu (ścieżka pliku bez `.md`).
+  Logo „English Levels Map” w lewym górnym rogu zawsze prowadzi do `#/`.
+- **Strona główna:** w tabeli „Poziomy w skrócie” kody A1–C2 w pierwszej kolumnie są automatycznie zamieniane na linki do poziomów. Linki Markdown `[tekst](https://…)` otwierają się w nowej karcie, a dozwolone są tylko adresy `https://`, `http://`, `mailto:` i `#/…`.
+- **Podsumowanie poziomu** zastępuje pustą sekcję „Tematy”. Własne tematy nauczyciela nadal działają: sekcja „Tematy” pojawia się pod podsumowaniem w trybie edycji, a w podglądzie tylko wtedy, gdy na danym poziomie i w danej kategorii są jakieś tematy.
 - **Dlaczego plik `.js`, a nie wczytywanie `.md`:** przeglądarki blokują `fetch()` plików przy `file://`, a plik `.js` wczyta się zawsze.
 - **Dopasowanie punktu listy do podstrony** (liczone na bieżąco): najpierw dokładnie po tekście (`label` = tekst punktu), a jeśli się nie uda, po pozycji w obrębie kategorii (`order` z frontmatter). Kategorie z `index.json` są przypisane do kategorii aplikacji w `CATEGORY_MAP` w `js/niezbednik.js`. W konsoli przeglądarki `ELM.niezbednik.report()` pokazuje wynik dopasowania.
 - **Linki** pojawiają się tylko przy punktach, dla których istnieje plik `.md`. Obecnie wszystkie 110 punktów A1–C2 ma pliki. Gdyby w `index.json` pojawił się wpis bez pliku, punkt nie dostanie linku, a adres podstrony pokaże komunikat o braku pliku.
@@ -124,6 +132,8 @@ Działa to tylko dla nowych danych i po „Zresetuj wszystko”. W istniejących
 Treść użytkownika trafia do strony wyłącznie przez `textContent` lub `value`. Kod nigdy nie używa `innerHTML` na danych. `**pogrubienie**` jest zamieniane na elementy `<strong>` tworzone przez `createElement`, więc wpisany HTML (np. `<script>`) wyświetla się jako zwykły tekst.
 
 ## Decyzje projektowe
+
+- **Telefon:** poniżej 760 px szerokości pasek poziomów jest nad treścią (przewijany w poziomie), przewija się cała strona, a tabele przewijają się w poziomie wewnątrz swojej ramki. Na komputerze układ się nie zmienia.
 
 - **Edycja inline:** w trybie edycji pola są edytowalne bezpośrednio na stronie. Zapis następuje automatycznie 400 ms po ostatnim naciśnięciu klawisza, a zmiany struktury zapisują się od razu. Nazwę kategorii podaje się w małym oknie, bo nie da się jej edytować wewnątrz przełącznika segmentowego.
 - **Puste stany w podglądzie** nie mają przycisku dodawania, żeby tryb podglądu był zupełnie wolny od kontrolek edycji. Zamiast przycisku jest podpowiedź „Włącz Tryb edycji…”. Przycisk „+ Dodaj pierwszy…” pojawia się w trybie edycji.

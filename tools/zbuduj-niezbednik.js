@@ -11,6 +11,10 @@
  * Dodanie kolejnego poziomu (np. A2): wrzuć pliki do niezbednik/a2/,
  * upewnij się, że są wpisane w niezbednik/index.json, uruchom skrypt.
  * Wpisy z index.json bez pliku .md są pomijane (punkt nie dostanie linku).
+ *
+ * Dodatkowo (jeśli istnieją):
+ *   niezbednik/podsumowania/<poziom>.md — podsumowanie pod listą poziomu,
+ *   niezbednik/strona-glowna.md         — treść strony głównej.
  */
 "use strict";
 
@@ -42,6 +46,23 @@ index.levels.forEach(function (level) {
   });
 });
 
+function readMd(file) {
+  return fs.readFileSync(file, "utf8").replace(/^﻿/, "").replace(/\r\n/g, "\n");
+}
+
+// Podsumowania poziomów: klucz = kod poziomu (A1…C2) z nazwy pliku
+const summaries = {};
+const summariesDir = path.join(ROOT, "podsumowania");
+if (fs.existsSync(summariesDir)) {
+  fs.readdirSync(summariesDir).filter(function (f) { return /\.md$/i.test(f); }).sort().forEach(function (f) {
+    summaries[f.replace(/\.md$/i, "").toUpperCase()] = readMd(path.join(summariesDir, f));
+  });
+}
+
+// Strona główna
+const homeFile = path.join(ROOT, "strona-glowna.md");
+const home = fs.existsSync(homeFile) ? readMd(homeFile) : null;
+
 const header =
   "/*\n" +
   " * PLIK GENEROWANY AUTOMATYCZNIE — nie edytuj ręcznie.\n" +
@@ -50,10 +71,11 @@ const header =
   " */\n";
 
 const body = "window.ELM = window.ELM || {};\nwindow.ELM.NIEZBEDNIK = " +
-  JSON.stringify({ index: index, pages: pages }, null, 1) + ";\n";
+  JSON.stringify({ index: index, pages: pages, summaries: summaries, home: home }, null, 1) + ";\n";
 
 fs.writeFileSync(OUT, header + body, "utf8");
 
 console.log("Zapisano: " + path.relative(process.cwd(), OUT));
 console.log("Podstrony: " + Object.keys(pages).length + ", wpisy bez pliku: " + missing.length);
+console.log("Podsumowania: " + (Object.keys(summaries).join(", ") || "brak") + "; strona główna: " + (home ? "tak" : "brak"));
 warnings.forEach(function (w) { console.log("UWAGA: " + w); });

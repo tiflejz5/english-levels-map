@@ -120,7 +120,8 @@ window.ELM = window.ELM || {};
     list.replaceChildren();
     st.content.levels.forEach(function (level) {
       const stats = app().getStats(level.id, cat ? cat.id : null);
-      const active = level.id === st.ui.levelId;
+      // Na stronie głównej żaden poziom nie jest wyróżniony
+      const active = st.view !== "home" && level.id === st.ui.levelId;
       list.appendChild(el("button", {
         type: "button",
         class: "level-item lvl-" + level.id + (active ? " is-active" : ""),
@@ -144,12 +145,12 @@ window.ELM = window.ELM || {};
 
   function renderMain(opts) {
     opts = opts || {};
-    // Otwarta podstrona niezbędnika zamiast listy
+    // Strona główna albo otwarta podstrona niezbędnika zamiast listy
+    if (ELM.state.view === "home") return ELM.niezbednik.renderHome();
     if (ELM.state.route) return ELM.niezbednik.renderPage(ELM.state.route);
     ELM.niezbednik.computeLinks();
-    const main = document.getElementById("main");
     const view = document.getElementById("view");
-    const scroll = opts.resetScroll ? 0 : main.scrollTop;
+    const scroll = opts.resetScroll ? 0 : U.getScroll();
     const level = app().getActiveLevel();
     const cat = app().getActiveCategory();
 
@@ -168,12 +169,21 @@ window.ELM = window.ELM || {};
     } else {
       const bucket = app().getBucket(level.id, cat.id);
       view.appendChild(renderEssentials(level, cat, bucket));
-      view.appendChild(renderTopics(level, cat, bucket));
+      // Pod listą: podsumowanie poziomu (niezbednik/podsumowania/<poziom>.md).
+      // Własne tematy nauczyciela nadal działają: sekcja „Tematy” jest widoczna
+      // w trybie edycji, a w podglądzie tylko wtedy, gdy jakieś tematy istnieją.
+      const summary = ELM.niezbednik.renderSummary(level.id);
+      if (summary) {
+        view.appendChild(summary);
+        if (isEdit() || bucket.topics.length) view.appendChild(renderTopics(level, cat, bucket));
+      } else {
+        view.appendChild(renderTopics(level, cat, bucket));
+      }
     }
 
     // Wysokość pól tekstowych liczona po wstawieniu do strony
     view.querySelectorAll("textarea").forEach(U.autoGrow);
-    main.scrollTop = typeof opts.scrollTop === "number" ? opts.scrollTop : scroll;
+    U.setScroll(typeof opts.scrollTop === "number" ? opts.scrollTop : scroll);
 
     if (opts.focusId) {
       const target = view.querySelector('[data-focus-id="' + CSS.escape(opts.focusId) + '"]');
@@ -340,7 +350,7 @@ window.ELM = window.ELM || {};
 
   /** Zapamiętuje przewinięcie listy przed przejściem na podstronę. */
   function rememberScroll() {
-    ELM.state.listScroll = document.getElementById("main").scrollTop;
+    ELM.state.listScroll = U.getScroll();
   }
 
   function progressLabel(stats) {

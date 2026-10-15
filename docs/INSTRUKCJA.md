@@ -22,6 +22,8 @@ Lista ma trzy kategorie:
 
 ## 2. Jak zbudowana jest strona
 
+- **Strona główna** (po otwarciu strony albo po kliknięciu „English Levels Map” w lewym górnym rogu): opis, tabela poziomów z linkami i orientacyjny czas nauki.
+- **Strona poziomu** (np. `#/a1`): lista umiejętności, a pod nią **podsumowanie poziomu**.
 - **Lewy pasek:** poziomy A1–C2. Przy każdym poziomie jest pasek postępu i licznik „X / Y umiem” dla aktualnie wybranej kategorii.
 - **Na dole lewego paska:** przełącznik **Tryb edycji** i przycisk **Dane** (kopie zapasowe).
 - **Prawy górny róg:** wybór **profilu**, czyli osoby lub klasy, której postęp śledzisz.

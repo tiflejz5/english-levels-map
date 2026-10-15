@@ -122,7 +122,17 @@ button, input, textarea, select { font: inherit; color: inherit; }
 }
 
 .sidebar-brand { padding: 0 8px 14px; }
-.brand-title { font-weight: 600; font-size: 17px; letter-spacing: -0.01em; }
+.brand-title {
+  display: inline-block;
+  font-weight: 600;
+  font-size: 17px;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  text-decoration: none;
+  border-radius: 6px;
+  transition: color var(--transition);
+}
+a.brand-title:hover { color: var(--accent); }
 .brand-sub { font-size: 13px; color: var(--text-2); margin-top: 2px; }
 
 .level-list {
@@ -852,3 +862,86 @@ textarea.field { resize: vertical; min-height: 42px; overflow: hidden; }
 .md-section.is-answers h2 { margin-bottom: 12px; }
 .md-answers { margin-top: 16px; }
 .md-answers > :last-child { margin-bottom: 0; }
+
+/* ===================== PODSUMOWANIE POZIOMU ===================== */
+.level-summary { font-size: 16px; }
+.level-summary .md-section { margin-top: 0; }
+.level-summary h2.section-title { margin-bottom: 18px; }
+.level-summary .md-subhead {
+  margin: 22px 0 8px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-2);
+}
+.level-summary .md-subhead strong { font-weight: 600; }
+.level-summary .md-section > .md-subhead:first-of-type { margin-top: 0; }
+.level-summary ul { padding-left: 20px; }
+.level-summary li { margin-bottom: 8px; }
+.level-summary p:last-child { margin-bottom: 0; }
+
+/* ===================== STRONA GŁÓWNA ===================== */
+.home-view { max-width: 860px; }
+.home-view .md { padding-top: 12px; }
+.home-view .md h1 { font-size: 48px; }
+.level-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px 4px 10px;
+  border-radius: 980px;
+  background: var(--lvl-soft);
+  color: var(--text);
+  font-weight: 650;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: box-shadow var(--transition), color var(--transition);
+}
+.level-link:hover { color: var(--accent); box-shadow: 0 0 0 1.5px var(--lvl); }
+.md a:not(.level-link) { color: var(--accent); }
+
+/* ===================== TELEFON (wąski ekran) ===================== */
+@media (max-width: 760px) {
+  html, body { height: auto; }
+  .app { display: block; min-width: 0; height: auto; }
+
+  /* Pasek poziomów nad treścią, przewijany w poziomie */
+  .sidebar {
+    height: auto;
+    padding: 14px 16px 12px;
+    border-right: 0;
+    border-bottom: 1px solid var(--border-soft);
+    overflow: visible;
+  }
+  .sidebar-brand { padding: 0 0 10px; }
+  .level-list { flex-direction: row; gap: 6px; overflow-x: auto; padding-bottom: 4px; }
+  .level-item { flex: 0 0 auto; width: auto; min-width: 96px; padding: 8px 12px; gap: 5px; }
+  .level-item.is-active::before { display: none; }
+  .level-code { font-size: 18px; }
+  .sidebar-footer { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin-top: 10px; padding-top: 10px; }
+  .sidebar-footer .btn-block { width: auto; }
+  .save-status { min-height: 0; }
+  .hint { flex-basis: 100%; }
+
+  /* Treść: przewija się cała strona */
+  .main { height: auto; overflow: visible; }
+  .topbar { padding: 10px 16px; }
+  .banners { padding: 12px 16px 0; }
+  .view { padding: 8px 16px 64px; }
+  .level-title { font-size: 40px; }
+  .card, .topic { padding: 20px 16px; }
+  .section-head { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .ess-item { padding: 10px 6px; gap: 10px; }
+  .page-head { flex-wrap: wrap; }
+
+  .md { font-size: 16px; }
+  .md h1, .home-view .md h1 { font-size: 30px; }
+  .md h2 { font-size: 21px; }
+  /* Tabele: przewijanie w poziomie wewnątrz ramki zamiast poszerzania strony */
+  .md-table-wrap { -webkit-overflow-scrolling: touch; }
+  .md table { min-width: 520px; }
+  .md th, .md td { padding: 8px 10px; }
+
+  .profile-menu { width: min(320px, calc(100vw - 32px)); }
+  .profile-menu.is-editing { width: calc(100vw - 32px); }
+}

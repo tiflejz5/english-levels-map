@@ -168,13 +168,12 @@ window.ELM = window.ELM || {};
 
   function renderPage(route) {
     const view = document.getElementById("view");
-    const main = document.getElementById("main");
     computeLinks();
 
     const found = findItem(route.file);
     const levelId = found ? found.level : ELM.state.ui.levelId;
     // Ta sama podstrona przerysowana (np. zmiana profilu) → zostaw przewinięcie
-    const keepScroll = view.dataset.file === route.file ? main.scrollTop : 0;
+    const keepScroll = view.dataset.file === route.file ? U.getScroll() : 0;
     document.body.classList.toggle("is-editing", ELM.state.editMode);
     view.className = "view page-view lvl-" + levelId;
     view.dataset.file = route.file;
@@ -187,7 +186,7 @@ window.ELM = window.ELM || {};
     }, "← Wróć do listy " + levelId);
 
     if (!found || !hasPage(found.item)) {
-      main.scrollTop = 0;
+      U.setScroll(0);
       view.appendChild(el("div", { class: "page-head" }, back));
       view.appendChild(el("div", { class: "empty-state" }, [
         el("p", { class: "empty-state-text", text: found ? "Brak pliku z treścią tej podstrony." : "Nie znaleziono takiej podstrony." }),
@@ -228,7 +227,77 @@ window.ELM = window.ELM || {};
     }, "← Wróć do listy " + found.level)));
 
     document.title = (doc.meta.title || found.item.label) + " · English Levels Map";
-    main.scrollTop = keepScroll;
+    U.setScroll(keepScroll);
+  }
+
+  // =====================================================================
+  // PODSUMOWANIE POZIOMU (niezbednik/podsumowania/<poziom>.md)
+  // =====================================================================
+
+  /** Karta z podsumowaniem poziomu albo null, gdy nie ma pliku. */
+  function renderSummary(levelId) {
+    const d = data();
+    const text = d && d.summaries && d.summaries[levelId];
+    if (!text) return null;
+    const doc = ELM.markdown.parse(text);
+    const section = el("section", { class: "card level-summary md", "aria-labelledby": "summary-title" },
+      ELM.markdown.render(doc.blocks));
+    // Nagłówek z pliku („## Podsumowanie poziomu A1”) jest tytułem sekcji
+    const h2 = section.querySelector("h2");
+    if (h2) { h2.id = "summary-title"; h2.classList.add("section-title"); }
+    markSubheads(section);
+    return section;
+  }
+
+  /** Akapity złożone z samego pogrubienia (np. „**Kluczowe myśli**”) → śródtytuły. */
+  function markSubheads(root) {
+    root.querySelectorAll("p").forEach(function (p) {
+      if (p.childNodes.length === 1 && p.firstChild.nodeName === "STRONG") p.classList.add("md-subhead");
+    });
+  }
+
+  // =====================================================================
+  // STRONA GŁÓWNA (niezbednik/strona-glowna.md), adres #/
+  // =====================================================================
+
+  function renderHome() {
+    const view = document.getElementById("view");
+    const keepScroll = view.dataset.file === "#home" ? U.getScroll() : 0;
+    document.body.classList.toggle("is-editing", ELM.state.editMode);
+    view.className = "view home-view";
+    view.dataset.file = "#home";
+    view.replaceChildren();
+    document.title = "English Levels Map (A1–C2)";
+
+    const d = data();
+    if (!d || !d.home) {
+      view.appendChild(el("div", { class: "empty-state" },
+        el("p", { class: "empty-state-text", text: "Wybierz poziom z listy po lewej." })));
+      return;
+    }
+    const doc = ELM.markdown.parse(d.home);
+    const article = el("article", { class: "md home" }, ELM.markdown.render(doc.blocks));
+    linkLevelTable(article);
+    view.appendChild(article);
+    U.setScroll(keepScroll);
+  }
+
+  /** W tabeli „Poziomy w skrócie” kody A1…C2 w 1. kolumnie stają się linkami do poziomów. */
+  function linkLevelTable(root) {
+    root.querySelectorAll(".md-section").forEach(function (section) {
+      const h2 = section.querySelector("h2");
+      if (!h2 || h2.textContent.trim().toLowerCase() !== "poziomy w skrócie") return;
+      section.querySelectorAll("tbody tr").forEach(function (tr) {
+        const cell = tr.cells[0];
+        const code = cell ? cell.textContent.trim().toUpperCase() : "";
+        if (ELM.LEVEL_IDS.indexOf(code) === -1) return;
+        cell.replaceChildren(el("a", {
+          class: "level-link lvl-" + code,
+          href: ELM.app.levelHash(code),
+          "aria-label": "Przejdź do poziomu " + code
+        }, [el("span", { class: "level-dot", "aria-hidden": "true" }), code]));
+      });
+    });
   }
 
   /** Przełącznik „Umiem” — ten sam stan co checkbox na liście (aktywny profil). */
@@ -269,6 +338,8 @@ window.ELM = window.ELM || {};
     computeLinks: computeLinks,
     linkForEssential: linkForEssential,
     renderPage: renderPage,
+    renderSummary: renderSummary,
+    renderHome: renderHome,
     report: report
   };
 })(window.ELM);

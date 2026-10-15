@@ -6,7 +6,8 @@
  *   - listy punktowane i numerowane (także zagnieżdżone wcięciem),
  *   - tabele GFM (| a | b | + wiersz | --- |),
  *   - cytaty > (każda linia osobno — dobre do dialogów),
- *   - **pogrubienie**, *kursywa*, ***oba***, `kod`, linia ---.
+ *   - **pogrubienie**, *kursywa*, ***oba***, `kod`, linia ---,
+ *   - linki [tekst](https://…) oraz wewnętrzne [tekst](#/a1).
  *
  * BEZPIECZEŃSTWO: wynik budujemy z elementów DOM i węzłów tekstowych.
  * Surowy HTML z pliku .md NIE jest interpretowany (pokaże się jako tekst).
@@ -189,9 +190,33 @@ window.ELM = window.ELM || {};
     const frag = document.createDocumentFragment();
     String(text).split(/(`[^`]+`)/).forEach(function (part) {
       if (/^`[^`]+`$/.test(part)) frag.appendChild(el("code", { text: part.slice(1, -1) }));
-      else if (part) appendEmphasis(frag, part);
+      else if (part) appendLinks(frag, part);
     });
     return frag;
+  }
+
+  // Linki [tekst](adres) — tylko bezpieczne adresy; inne zostają zwykłym tekstem
+  const RE_LINK = /\[([^\]]+)\]\(([^)\s]+)\)/g;
+  const SAFE_HREF = /^(https?:\/\/|mailto:|#\/)/i;
+
+  function appendLinks(parent, text) {
+    let last = 0;
+    let m;
+    RE_LINK.lastIndex = 0;
+    while ((m = RE_LINK.exec(text))) {
+      if (!SAFE_HREF.test(m[2])) continue;
+      if (m.index > last) appendEmphasis(parent, text.slice(last, m.index));
+      const external = /^(https?:|mailto:)/i.test(m[2]);
+      const a = el("a", {
+        href: m[2],
+        target: external ? "_blank" : null,
+        rel: external ? "noopener noreferrer" : null
+      });
+      appendEmphasis(a, m[1]);
+      parent.appendChild(a);
+      last = m.index + m[0].length;
+    }
+    if (last < text.length) appendEmphasis(parent, text.slice(last));
   }
 
   /**

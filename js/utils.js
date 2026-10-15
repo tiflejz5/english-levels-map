@@ -107,7 +107,24 @@ window.ELM = window.ELM || {};
     return value !== null && typeof value === "object" && !Array.isArray(value);
   }
 
+  /**
+   * Przewinięcie treści. Na komputerze przewija się <main>, a na telefonie
+   * (węższy układ) cała strona — dlatego obsługujemy oba przypadki.
+   */
+  function getScroll() {
+    const main = document.getElementById("main");
+    return (main && main.scrollTop) || window.scrollY || 0;
+  }
+
+  function setScroll(y) {
+    const main = document.getElementById("main");
+    if (main) main.scrollTop = y;
+    window.scrollTo(0, y);
+  }
+
   ELM.utils = {
+    getScroll: getScroll,
+    setScroll: setScroll,
     el: el,
     appendChildren: appendChildren,
     formatText: formatText,
