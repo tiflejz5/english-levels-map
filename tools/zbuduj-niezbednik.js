@@ -10,7 +10,7 @@
  *
  * Dodanie kolejnego poziomu (np. A2): wrzuć pliki do niezbednik/a2/,
  * upewnij się, że są wpisane w niezbednik/index.json, uruchom skrypt.
- * Wpisy z index.json bez pliku .md są pomijane (strona pokaże „wkrótce”).
+ * Wpisy z index.json bez pliku .md są pomijane (punkt nie dostanie linku).
  */
 "use strict";
 
@@ -55,5 +55,5 @@ const body = "window.ELM = window.ELM || {};\nwindow.ELM.NIEZBEDNIK = " +
 fs.writeFileSync(OUT, header + body, "utf8");
 
 console.log("Zapisano: " + path.relative(process.cwd(), OUT));
-console.log("Podstrony: " + Object.keys(pages).length + ", bez pliku (wkrótce): " + missing.length);
+console.log("Podstrony: " + Object.keys(pages).length + ", wpisy bez pliku: " + missing.length);
 warnings.forEach(function (w) { console.log("UWAGA: " + w); });

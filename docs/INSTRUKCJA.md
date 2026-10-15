@@ -30,7 +30,7 @@ Lista ma trzy kategorie:
 Uczeń korzysta ze strony w trybie podglądu. Może tylko zaznaczać „Umiem” i odkrywać odpowiedzi do ćwiczeń.
 
 ### Podstrony z wyjaśnieniami (Niezbędnik)
-Przy punktach, które mają podstronę, tekst jest linkiem ze strzałką **›** (na razie poziom A1). Po kliknięciu otwiera się podstrona z zasadą, tabelami, przykładami, typowymi błędami i ćwiczeniem.
+Przy punktach, które mają podstronę, tekst jest linkiem ze strzałką **›** (wszystkie poziomy A1–C2). Po kliknięciu otwiera się podstrona z zasadą, tabelami, przykładami, typowymi błędami i ćwiczeniem.
 - **← Wróć do listy** przenosi z powrotem do tego samego miejsca na liście. Działa też przycisk Wstecz w przeglądarce.
 - Przełącznik **Umiem** na podstronie to ten sam stan co na liście, dla wybranego profilu.
 - **Pokaż odpowiedzi** odkrywa odpowiedzi do ćwiczenia.

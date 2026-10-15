@@ -190,7 +190,7 @@ window.ELM = window.ELM || {};
       main.scrollTop = 0;
       view.appendChild(el("div", { class: "page-head" }, back));
       view.appendChild(el("div", { class: "empty-state" }, [
-        el("p", { class: "empty-state-text", text: found ? "Ta podstrona będzie dostępna wkrótce." : "Nie znaleziono takiej podstrony." }),
+        el("p", { class: "empty-state-text", text: found ? "Brak pliku z treścią tej podstrony." : "Nie znaleziono takiej podstrony." }),
         found ? el("p", { class: "empty-state-hint", text: found.item.label }) : null
       ]));
       document.title = "English Levels Map (A1–C2)";

@@ -86,7 +86,7 @@ tools/zbuduj-niezbednik.js   skrypt, który tworzy niezbednik-dane.js
 - **Adresy:** `index.html#/a1/czasy-present-simple`, czyli ścieżka pliku bez `.md`. Routing działa przez `#`, bo strona działa z dysku (`file://`) i na GitHub Pages bez serwera.
 - **Dlaczego plik `.js`, a nie wczytywanie `.md`:** przeglądarki blokują `fetch()` plików przy `file://`, a plik `.js` wczyta się zawsze.
 - **Dopasowanie punktu listy do podstrony** (liczone na bieżąco): najpierw dokładnie po tekście (`label` = tekst punktu), a jeśli się nie uda, po pozycji w obrębie kategorii (`order` z frontmatter). Kategorie z `index.json` są przypisane do kategorii aplikacji w `CATEGORY_MAP` w `js/niezbednik.js`. W konsoli przeglądarki `ELM.niezbednik.report()` pokazuje wynik dopasowania.
-- **Linki** pojawiają się tylko przy punktach, dla których istnieje plik `.md`. Wejście pod adres podstrony bez pliku pokazuje „Ta podstrona będzie dostępna wkrótce”.
+- **Linki** pojawiają się tylko przy punktach, dla których istnieje plik `.md`. Obecnie wszystkie 110 punktów A1–C2 ma pliki. Gdyby w `index.json` pojawił się wpis bez pliku, punkt nie dostanie linku, a adres podstrony pokaże komunikat o braku pliku.
 - Na podstronie przełącznik **Umiem** zmienia ten sam stan co checkbox na liście, dla aktywnego profilu. Sekcje `## Odpowiedzi` i `## Przykładowe odpowiedzi` są ukryte pod przyciskiem „Pokaż odpowiedzi”.
 
 **Dodanie kolejnego poziomu (np. A2):**
