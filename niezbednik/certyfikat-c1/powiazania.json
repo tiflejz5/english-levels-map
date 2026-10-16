@@ -1,0 +1,263 @@
+{
+  "id": "powiazania-c1",
+  "description": "Ramka „Na egzaminie C1” na istniejących podstronach",
+  "links": [
+    {
+      "itemId": "a2-gramatyka-stopniowanie-przymiotnikow",
+      "examParts": [
+        "Use of English – Part 4"
+      ],
+      "note": "W Part 4 wracają porównania typu not nearly as… as, nowhere near as… as i the highest it has ever been.",
+      "exercises": [
+        "uoe-p4-porownania"
+      ]
+    },
+    {
+      "itemId": "b2-gramatyka-strona-bierna-have-something-done",
+      "examParts": [
+        "Use of English – Part 4",
+        "Writing – report"
+      ],
+      "note": "Part 4 lubi stronę bierną w czasie ciągłym (is being pulled down) i have something done. W raporcie strona bierna daje bezosobowy, formalny ton.",
+      "exercises": [
+        "uoe-p4-strona-bierna"
+      ]
+    },
+    {
+      "itemId": "c1-gramatyka-strona-bierna-bezosobowa",
+      "examParts": [
+        "Use of English – Part 4",
+        "Writing – report, essay"
+      ],
+      "note": "Klasyczna transformacja: They say… → He is alleged / said / believed to have… W essayu brzmi obiektywnie: It is widely believed that…",
+      "exercises": [
+        "uoe-p4-strona-bierna",
+        "uoe-p4-mieszany"
+      ]
+    },
+    {
+      "itemId": "b2-gramatyka-third-mixed-conditionals",
+      "examParts": [
+        "Use of English – Part 4"
+      ],
+      "note": "Without your help… → If it hadn't been for your help… to jedna z najczęstszych transformacji.",
+      "exercises": [
+        "uoe-p4-warunki",
+        "uoe-p4-mieszany"
+      ]
+    },
+    {
+      "itemId": "c1-gramatyka-warunkowe-bez-if",
+      "examParts": [
+        "Use of English – Part 4",
+        "Writing – email, letter"
+      ],
+      "note": "Should you have any questions… to idealne zakończenie formalnego emaila. W Part 4 sprawdzana jest inwersja w warunkach.",
+      "exercises": [
+        "uoe-p4-warunki"
+      ]
+    },
+    {
+      "itemId": "b2-gramatyka-wish-if-only",
+      "examParts": [
+        "Use of English – Part 4"
+      ],
+      "note": "I regret… → I wish I had… i It's a pity… → If only… pojawiają się regularnie w transformacjach.",
+      "exercises": [
+        "uoe-p4-warunki"
+      ]
+    },
+    {
+      "itemId": "c1-gramatyka-inwersja",
+      "examParts": [
+        "Use of English – Part 2, Part 4",
+        "Writing – essay"
+      ],
+      "note": "Never / No sooner / Only when + inwersja to częsty temat Part 4. Jedna inwersja w essayu (Not only does it…) podnosi ocenę za Language.",
+      "exercises": [
+        "uoe-p4-inwersja-emfaza"
+      ]
+    },
+    {
+      "itemId": "c1-gramatyka-cleft-sentences",
+      "examParts": [
+        "Use of English – Part 2, Part 4",
+        "Speaking"
+      ],
+      "note": "What I need is… i It was… who… pojawiają się w Part 4 i Part 2. W Speaking pomagają podkreślić opinię.",
+      "exercises": [
+        "uoe-p4-inwersja-emfaza"
+      ]
+    },
+    {
+      "itemId": "b2-gramatyka-modalne-przeszlosc",
+      "examParts": [
+        "Use of English – Part 4",
+        "Speaking – Part 2"
+      ],
+      "note": "Must have / can't have / should have to stały element Part 4. W Speaking Part 2 spekulujesz: They must have just…",
+      "exercises": [
+        "uoe-p4-modalne"
+      ]
+    },
+    {
+      "itemId": "b2-gramatyka-mowa-zalezna-pelna",
+      "examParts": [
+        "Use of English – Part 4"
+      ],
+      "note": "Czasowniki raportujące z właściwym wzorcem (deny + -ing, advise + sb + to, accuse sb of) to częsty temat transformacji.",
+      "exercises": [
+        "uoe-p4-mowa-zalezna"
+      ]
+    },
+    {
+      "itemId": "b2-gramatyka-gerund-infinitive-zmiana-znaczenia",
+      "examParts": [
+        "Use of English – Part 2, Part 4"
+      ],
+      "note": "Wzorce czasowników (remind sb to, apologise for -ing) sprawdzane są w Part 4, a przyimki i formy po nich w Part 2.",
+      "exercises": [
+        "uoe-p4-mowa-zalezna"
+      ]
+    },
+    {
+      "itemId": "b2-gramatyka-przyczyna-przeciwienstwo",
+      "examParts": [
+        "Use of English – Part 2, Part 4"
+      ],
+      "note": "Despite / in spite of + rzeczownik to częsta luka w Part 2 i transformacja w Part 4 (in spite of a lack of experience).",
+      "exercises": [
+        "uoe-p4-nominalizacja-zwroty",
+        "uoe-p2-2"
+      ]
+    },
+    {
+      "itemId": "c1-gramatyka-nominalizacja",
+      "examParts": [
+        "Use of English – Part 4",
+        "Writing – report, proposal"
+      ],
+      "note": "Explain clearly → give a clear explanation of. W raporcie i propozycji nominalizacja nadaje formalny styl.",
+      "exercises": [
+        "uoe-p4-nominalizacja-zwroty"
+      ]
+    },
+    {
+      "itemId": "c1-gramatyka-konstrukcje-imieslowowe",
+      "examParts": [
+        "Writing"
+      ],
+      "note": "Having considered… / Faced with… – jedna konstrukcja imiesłowowa na tekst to dobry sposób na złożone zdania.",
+      "exercises": []
+    },
+    {
+      "itemId": "c1-gramatyka-elipsa-substytucja",
+      "examParts": [
+        "Writing – Organisation",
+        "Speaking"
+      ],
+      "note": "Egzaminatorzy wysoko oceniają spójność przez substytucję i elipsę (The ones that…, This is one reason…), nie tylko łączniki.",
+      "exercises": []
+    },
+    {
+      "itemId": "b2-slownictwo",
+      "examParts": [
+        "Use of English – Part 1, Part 3"
+      ],
+      "note": "Słowotwórstwo (prefiksy i sufiksy) to cała Part 3, a kolokacje – Part 1.",
+      "exercises": [
+        "uoe-p3-1",
+        "uoe-p3-2",
+        "uoe-p1-1"
+      ]
+    },
+    {
+      "itemId": "c1-slownictwo",
+      "examParts": [
+        "Use of English – Part 1",
+        "Writing – Language"
+      ],
+      "note": "Precyzyjne kolokacje (draw a conclusion, pose a threat) to sedno Part 1 i podnoszą ocenę za Language w Writing.",
+      "exercises": [
+        "uoe-p1-2",
+        "uoe-p1-3"
+      ]
+    },
+    {
+      "itemId": "c1-funkcje-rejestr",
+      "examParts": [
+        "Writing – Communicative Achievement"
+      ],
+      "note": "Rejestr to połowa kryterium Communicative Achievement. Potoczne słowa w formalnym tekście obniżają ocenę.",
+      "exercises": []
+    },
+    {
+      "itemId": "c1-funkcje-hedging",
+      "examParts": [
+        "Writing – essay",
+        "Speaking – Part 4"
+      ],
+      "note": "W essayu hedging (It could be argued that…) daje obiektywny ton, którego oczekuje egzaminator.",
+      "exercises": []
+    },
+    {
+      "itemId": "c1-funkcje-markery-dyskursu",
+      "examParts": [
+        "Writing – Organisation",
+        "Reading – Part 7"
+      ],
+      "note": "Markery dyskursu porządkują tekst w Writing i są wskazówkami przy wstawianiu akapitów w Reading Part 7.",
+      "exercises": []
+    },
+    {
+      "itemId": "c1-funkcje-parafrazowanie",
+      "examParts": [
+        "Writing – essay",
+        "Reading – Part 5, 6"
+      ],
+      "note": "Opinie z polecenia w essayu trzeba sparafrazować. W Reading poprawna odpowiedź jest zwykle parafrazą tekstu.",
+      "exercises": []
+    },
+    {
+      "itemId": "b2-funkcje-spekulowanie",
+      "examParts": [
+        "Speaking – Part 2"
+      ],
+      "note": "W Part 2 spekulujesz o ludziach na zdjęciach: They might be…, It looks as if…",
+      "exercises": []
+    },
+    {
+      "itemId": "b2-funkcje-negocjowanie",
+      "examParts": [
+        "Speaking – Part 3"
+      ],
+      "note": "Ostatnia minuta Part 3 to wspólna decyzja – zwroty do negocjowania przydają się wprost.",
+      "exercises": []
+    },
+    {
+      "itemId": "b2-funkcje-przerywanie",
+      "examParts": [
+        "Speaking – Part 3"
+      ],
+      "note": "Uprzejme wchodzenie w słowo i oddawanie głosu partnerowi to element oceny Interactive Communication.",
+      "exercises": []
+    },
+    {
+      "itemId": "b2-funkcje-argumentowanie",
+      "examParts": [
+        "Writing – essay",
+        "Speaking – Part 4"
+      ],
+      "note": "Struktura argumentu (teza, przykład, kontrargument) to szkielet essayu i dobrych odpowiedzi w Part 4.",
+      "exercises": []
+    },
+    {
+      "itemId": "c1-funkcje-prezentacje",
+      "examParts": [
+        "Speaking – Part 2"
+      ],
+      "note": "Techniki kupowania czasu i strukturyzowania wypowiedzi przydają się w minutowym long turn.",
+      "exercises": []
+    }
+  ]
+}

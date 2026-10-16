@@ -10,6 +10,7 @@
  *   view     — co jest wyświetlane: "home" (strona główna, adres #/),
  *              "level" (lista poziomu, #/a1) albo "page" (podstrona, #/a1/…)
  *   route    — otwarta podstrona niezbędnika ({ file }) albo null
+ *   c1Route  — widok zakładki „Certyfikat C1” (view "c1"), patrz js/c1-core.js
  */
 window.ELM = window.ELM || {};
 
@@ -30,6 +31,7 @@ window.ELM = window.ELM || {};
     storageOk: true,
     view: "home",
     route: null,
+    c1Route: null,
     listScroll: 0 // pozycja przewinięcia listy, przywracana po powrocie z podstrony
   };
 
@@ -105,6 +107,15 @@ window.ELM = window.ELM || {};
     window.addEventListener("beforeunload", flushSave);
     // Podstrony niezbędnika: adresy #/a1/… (zmiana adresu = zmiana widoku)
     window.addEventListener("hashchange", onRoute);
+    // Menu boczne jako szuflada na telefonie
+    document.getElementById("menu-btn").addEventListener("click", function () { setNavOpen(!document.body.classList.contains("nav-open")); });
+    document.getElementById("nav-overlay").addEventListener("click", function () { setNavOpen(false); });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && document.body.classList.contains("nav-open") && !document.querySelector("dialog[open]")) {
+        setNavOpen(false);
+        document.getElementById("menu-btn").focus();
+      }
+    });
     document.addEventListener("visibilitychange", function () {
       if (document.visibilityState === "hidden") flushSave();
     });
@@ -182,10 +193,15 @@ window.ELM = window.ELM || {};
   function applyRoute() {
     const hash = location.hash || "";
     const level = /^#\/([abcABC][12])\/?$/.exec(hash);
+    const c1 = ELM.c1 ? ELM.c1.parseRoute(hash) : null;
     state.route = null;
+    state.c1Route = null;
 
     if (!hash || hash === "#" || hash === "#/") {
       state.view = "home";
+    } else if (c1) {
+      state.view = "c1"; // zakładka „Certyfikat C1”
+      state.c1Route = c1;
     } else if (level) {
       state.view = "level";
       state.ui.levelId = level[1].toUpperCase();
@@ -205,6 +221,7 @@ window.ELM = window.ELM || {};
     flushSave();
     const previous = state.view;
     if (previous === "level") state.listScroll = U.getScroll();
+    setNavOpen(false);
     applyRoute();
     saveUI();
     if (state.view !== "page") document.title = "English Levels Map (A1–C2)";
@@ -212,6 +229,17 @@ window.ELM = window.ELM || {};
       renderAll({ scrollTop: state.listScroll }); // powrót z podstrony: to samo miejsce listy
     } else {
       renderAll({ resetScroll: true });
+    }
+  }
+
+  /** Otwiera/zamyka menu boczne jako szufladę (tylko wąski ekran). */
+  function setNavOpen(open) {
+    document.body.classList.toggle("nav-open", open);
+    document.getElementById("nav-overlay").hidden = !open;
+    document.getElementById("menu-btn").setAttribute("aria-expanded", open ? "true" : "false");
+    if (open) {
+      const first = document.querySelector("#sidebar a, #sidebar button");
+      if (first) first.focus();
     }
   }
 

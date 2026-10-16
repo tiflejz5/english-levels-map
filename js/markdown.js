@@ -7,7 +7,9 @@
  *   - tabele GFM (| a | b | + wiersz | --- |),
  *   - cytaty > (każda linia osobno — dobre do dialogów),
  *   - **pogrubienie**, *kursywa*, ***oba***, `kod`, linia ---,
- *   - linki [tekst](https://…) oraz wewnętrzne [tekst](#/a1).
+ *   - linki [tekst](https://…) oraz wewnętrzne [tekst](#/a1),
+ *   - linki [[id]] (rozwiązywane przez ELM.markdown.resolveWiki),
+ *   - listy zadań „- [ ] …” jako pola wyboru (input.md-task).
  *
  * BEZPIECZEŃSTWO: wynik budujemy z elementów DOM i węzłów tekstowych.
  * Surowy HTML z pliku .md NIE jest interpretowany (pokaże się jako tekst).
@@ -151,7 +153,9 @@ window.ELM = window.ELM || {};
       }
       if (!sameKind(m)) break;
 
-      const item = { lines: [m[3]], children: [] };
+      // Lista zadań: „- [ ] tekst” / „- [x] tekst” → pole wyboru
+      const task = /^\[([ xX])\]\s+(.*)$/.exec(m[3]);
+      const item = { lines: [task ? task[2] : m[3]], children: [], task: task ? { checked: task[1] !== " " } : null };
       const sub = [];
       i++;
       while (i < lines.length) {
@@ -190,9 +194,30 @@ window.ELM = window.ELM || {};
     const frag = document.createDocumentFragment();
     String(text).split(/(`[^`]+`)/).forEach(function (part) {
       if (/^`[^`]+`$/.test(part)) frag.appendChild(el("code", { text: part.slice(1, -1) }));
-      else if (part) appendLinks(frag, part);
+      else if (part) appendWikiLinks(frag, part);
     });
     return frag;
+  }
+
+  /**
+   * Linki [[id]] — zamieniane przez funkcję ELM.markdown.resolveWiki(id),
+   * która zwraca { href, text } albo null (nieznane id → zwykły tekst
+   * + ostrzeżenie w konsoli). Bez tej funkcji [[id]] zostaje bez zmian.
+   */
+  function appendWikiLinks(parent, text) {
+    const resolver = ELM.markdown.resolveWiki;
+    if (typeof resolver !== "function" || text.indexOf("[[") === -1) { appendLinks(parent, text); return; }
+    text.split(/(\[\[[^\]\s]+\]\])/).forEach(function (part) {
+      const m = /^\[\[([^\]\s]+)\]\]$/.exec(part);
+      if (!m) { if (part) appendLinks(parent, part); return; }
+      const target = resolver(m[1]);
+      if (target) {
+        parent.appendChild(el("a", { href: target.href, class: "wiki-link" }, target.text));
+      } else {
+        console.warn("Nieznany link [[" + m[1] + "]] — wyświetlony jako zwykły tekst.");
+        parent.appendChild(document.createTextNode(m[1]));
+      }
+    });
   }
 
   // Linki [tekst](adres) — tylko bezpieczne adresy; inne zostają zwykłym tekstem
@@ -328,9 +353,19 @@ window.ELM = window.ELM || {};
       case "hr":
         return el("hr");
       case "list": {
-        const list = el(b.ordered ? "ol" : "ul", { start: b.ordered && b.start !== 1 ? b.start : null });
+        const isTasks = b.items.some(function (item) { return item.task; });
+        const list = el(b.ordered ? "ol" : "ul", {
+          start: b.ordered && b.start !== 1 ? b.start : null,
+          class: isTasks ? "task-list" : null
+        });
         b.items.forEach(function (item) {
-          const li = el("li", null, inline(item.lines.join(" ")));
+          // Punkt listy zadań: pole wyboru z etykietą (stan zapisuje strona, która go używa)
+          const li = item.task
+            ? el("li", { class: "task-item" }, el("label", null, [
+                el("input", { type: "checkbox", class: "md-task", checked: item.task.checked }),
+                el("span", null, inline(item.lines.join(" ")))
+              ]))
+            : el("li", null, inline(item.lines.join(" ")));
           item.children.forEach(function (child) { li.appendChild(renderBlock(child)); });
           list.appendChild(li);
         });

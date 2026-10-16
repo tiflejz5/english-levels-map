@@ -1,0 +1,68 @@
+{
+  "id": "uoe-p2-1",
+  "part": 2,
+  "type": "open-cloze",
+  "title": "Learning a language as an adult",
+  "instructions": "Wpisz w każdą lukę dokładnie jedno słowo. Skróty typu don't liczą się jako dwa słowa, więc nie są poprawną odpowiedzią. Każda luka to 1 punkt.",
+  "maxScore": 8,
+  "text": "It is often said that children learn languages more easily {{1}} adults. While there is some truth in this, adults have advantages {{2}} their own. For one thing, they are usually better at understanding grammar rules, {{3}} means they can make faster progress in the early stages. {{4}} is more, adults tend to be more motivated, especially if they need the language for work. The key, according to many teachers, is to practise little and often {{5}} than studying for hours once a week. {{6}} you choose to learn, consistency matters far more {{7}} talent. Even ten minutes a day can make a real difference, as long {{8}} you keep it up.",
+  "gaps": [
+    {
+      "n": 1,
+      "accept": [
+        "THAN"
+      ],
+      "explanation": "Porównanie: more easily than."
+    },
+    {
+      "n": 2,
+      "accept": [
+        "OF"
+      ],
+      "explanation": "Stały zwrot: advantages of their own = własne zalety."
+    },
+    {
+      "n": 3,
+      "accept": [
+        "WHICH"
+      ],
+      "explanation": "Which odnosi się do całego poprzedniego zdania."
+    },
+    {
+      "n": 4,
+      "accept": [
+        "WHAT"
+      ],
+      "explanation": "Stały zwrot: What is more = co więcej."
+    },
+    {
+      "n": 5,
+      "accept": [
+        "RATHER"
+      ],
+      "explanation": "Rather than = zamiast."
+    },
+    {
+      "n": 6,
+      "accept": [
+        "HOWEVER",
+        "WHATEVER"
+      ],
+      "explanation": "However you choose to learn = jakkolwiek zdecydujesz się uczyć."
+    },
+    {
+      "n": 7,
+      "accept": [
+        "THAN"
+      ],
+      "explanation": "Matters far more than talent – porównanie."
+    },
+    {
+      "n": 8,
+      "accept": [
+        "AS"
+      ],
+      "explanation": "As long as = o ile, pod warunkiem że."
+    }
+  ]
+}

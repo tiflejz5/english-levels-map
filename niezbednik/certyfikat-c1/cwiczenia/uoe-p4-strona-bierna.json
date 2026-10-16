@@ -1,0 +1,113 @@
+{
+  "id": "uoe-p4-strona-bierna",
+  "part": 4,
+  "type": "transformation",
+  "title": "Strona bierna i bezosobowa",
+  "focus": "Strona bierna w różnych czasach, strona bierna bezosobowa, have something done",
+  "instructions": "Uzupełnij drugie zdanie tak, żeby znaczyło to samo co pierwsze. Użyj podanego słowa bez zmieniania go. Wpisz od 3 do 6 słów, łącznie ze słowem kluczowym (skróty typu doesn't liczą się jako dwa słowa). Każda odpowiedź jest warta 2 punkty – po 1 za każdą część.",
+  "maxScore": 12,
+  "items": [
+    {
+      "n": 1,
+      "first": "People believe that the thief escaped through the window.",
+      "keyword": "BELIEVED",
+      "before": "The thief",
+      "after": "through the window.",
+      "parts": [
+        [
+          "IS BELIEVED"
+        ],
+        [
+          "TO HAVE ESCAPED"
+        ]
+      ],
+      "model": "IS BELIEVED TO HAVE ESCAPED",
+      "explanation": "Strona bierna bezosobowa: podmiot + is believed + to have + 3. forma, bo ucieczka była wcześniej niż „wierzenie”."
+    },
+    {
+      "n": 2,
+      "first": "They are repairing the bridge at the moment, so it's closed.",
+      "keyword": "BEING",
+      "before": "The bridge",
+      "after": "at the moment, so it's closed.",
+      "parts": [
+        [
+          "IS BEING"
+        ],
+        [
+          "REPAIRED"
+        ]
+      ],
+      "model": "IS BEING REPAIRED",
+      "explanation": "Present Continuous w stronie biernej: is + being + 3. forma."
+    },
+    {
+      "n": 3,
+      "first": "Someone should have told me about the change of plan.",
+      "keyword": "INFORMED",
+      "before": "I",
+      "after": "about the change of plan.",
+      "parts": [
+        [
+          "SHOULD HAVE BEEN"
+        ],
+        [
+          "INFORMED"
+        ]
+      ],
+      "model": "SHOULD HAVE BEEN INFORMED",
+      "explanation": "Modalny w przeszłości w stronie biernej: should have been + 3. forma."
+    },
+    {
+      "n": 4,
+      "first": "Reports say that the company is planning to close two factories.",
+      "keyword": "REPORTED",
+      "before": "The company",
+      "after": "to close two factories.",
+      "parts": [
+        [
+          "IS REPORTED"
+        ],
+        [
+          "TO BE PLANNING"
+        ]
+      ],
+      "model": "IS REPORTED TO BE PLANNING",
+      "explanation": "Czynność trwająca teraz → to be + -ing po is reported."
+    },
+    {
+      "n": 5,
+      "first": "A mechanic is going to check my car tomorrow.",
+      "keyword": "HAVING",
+      "before": "I'm",
+      "after": "tomorrow.",
+      "parts": [
+        [
+          "HAVING MY CAR"
+        ],
+        [
+          "CHECKED"
+        ]
+      ],
+      "model": "HAVING MY CAR CHECKED",
+      "explanation": "Have something done – ktoś robi coś dla nas: having + przedmiot + 3. forma."
+    },
+    {
+      "n": 6,
+      "first": "Nobody has ever given me such useful advice.",
+      "keyword": "BEEN",
+      "before": "I have never",
+      "after": "useful advice.",
+      "parts": [
+        [
+          "BEEN GIVEN"
+        ],
+        [
+          "SUCH"
+        ]
+      ],
+      "model": "BEEN GIVEN SUCH",
+      "explanation": "Osoba jako podmiot strony biernej: I have been given…; such + przymiotnik + rzeczownik niepoliczalny."
+    }
+  ]
+}

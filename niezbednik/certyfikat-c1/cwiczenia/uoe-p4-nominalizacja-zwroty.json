@@ -1,0 +1,122 @@
+{
+  "id": "uoe-p4-nominalizacja-zwroty",
+  "part": 4,
+  "type": "transformation",
+  "title": "Nominalizacja i stałe zwroty",
+  "focus": "Rzeczownik zamiast czasownika, despite + lack of, stałe frazy z arkuszy",
+  "instructions": "Uzupełnij drugie zdanie tak, żeby znaczyło to samo co pierwsze. Użyj podanego słowa bez zmieniania go. Wpisz od 3 do 6 słów, łącznie ze słowem kluczowym (skróty typu doesn't liczą się jako dwa słowa). Każda odpowiedź jest warta 2 punkty – po 1 za każdą część.",
+  "maxScore": 12,
+  "items": [
+    {
+      "n": 1,
+      "first": "I don't mind at all whether we eat in or go out.",
+      "keyword": "DIFFERENCE",
+      "before": "It makes",
+      "after": "me whether we eat in or go out.",
+      "parts": [
+        [
+          "NO DIFFERENCE",
+          "LITTLE DIFFERENCE"
+        ],
+        [
+          "TO"
+        ]
+      ],
+      "model": "NO DIFFERENCE TO",
+      "explanation": "It makes no difference to me = jest mi wszystko jedno."
+    },
+    {
+      "n": 2,
+      "first": "She explained the new procedure very clearly.",
+      "keyword": "EXPLANATION",
+      "before": "She gave",
+      "after": "the new procedure.",
+      "parts": [
+        [
+          "A VERY CLEAR",
+          "A CLEAR"
+        ],
+        [
+          "EXPLANATION OF"
+        ]
+      ],
+      "model": "A VERY CLEAR EXPLANATION OF",
+      "explanation": "Nominalizacja: explain clearly → give a clear explanation of."
+    },
+    {
+      "n": 3,
+      "first": "Although he had little experience, he was offered the job.",
+      "keyword": "LACK",
+      "before": "He was offered the job despite",
+      "after": "experience.",
+      "parts": [
+        [
+          "HIS",
+          "A"
+        ],
+        [
+          "LACK OF"
+        ]
+      ],
+      "model": "HIS LACK OF",
+      "explanation": "Despite + rzeczownik: despite his lack of experience."
+    },
+    {
+      "n": 4,
+      "first": "The government cancelled the plan after protests from residents.",
+      "keyword": "LIGHT",
+      "before": "The plan was cancelled",
+      "after": "from residents.",
+      "parts": [
+        [
+          "IN LIGHT OF",
+          "IN THE LIGHT OF"
+        ],
+        [
+          "PROTESTS"
+        ]
+      ],
+      "model": "IN THE LIGHT OF PROTESTS",
+      "explanation": "In (the) light of = w świetle, z powodu."
+    },
+    {
+      "n": 5,
+      "first": "We'll do everything possible to finish on time.",
+      "keyword": "TAKES",
+      "before": "We'll do",
+      "after": "to finish on time.",
+      "parts": [
+        [
+          "WHATEVER",
+          "EVERYTHING",
+          "ALL",
+          "ANYTHING"
+        ],
+        [
+          "IT TAKES"
+        ]
+      ],
+      "model": "WHATEVER IT TAKES",
+      "explanation": "Do whatever it takes = zrobić wszystko, co trzeba."
+    },
+    {
+      "n": 6,
+      "first": "Nobody expected the concert to be cancelled.",
+      "keyword": "CAME",
+      "before": "The cancellation of the concert",
+      "after": "everyone.",
+      "parts": [
+        [
+          "CAME AS"
+        ],
+        [
+          "A SURPRISE TO",
+          "A SHOCK TO",
+          "A COMPLETE SURPRISE TO"
+        ]
+      ],
+      "model": "CAME AS A SURPRISE TO",
+      "explanation": "Come as a surprise to someone = zaskoczyć kogoś."
+    }
+  ]
+}

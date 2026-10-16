@@ -1,0 +1,118 @@
+{
+  "id": "uoe-p4-warunki",
+  "part": 4,
+  "type": "transformation",
+  "title": "Warunki, wish i if only",
+  "focus": "Third i mixed conditionals, warunki bez if, provided, wish i if only",
+  "instructions": "Uzupełnij drugie zdanie tak, żeby znaczyło to samo co pierwsze. Użyj podanego słowa bez zmieniania go. Wpisz od 3 do 6 słów, łącznie ze słowem kluczowym (skróty typu doesn't liczą się jako dwa słowa). Każda odpowiedź jest warta 2 punkty – po 1 za każdą część.",
+  "maxScore": 12,
+  "items": [
+    {
+      "n": 1,
+      "first": "I didn't know you were in hospital, so I didn't visit you.",
+      "keyword": "HAD",
+      "before": "If I",
+      "after": "in hospital, I would have visited you.",
+      "parts": [
+        [
+          "HAD KNOWN"
+        ],
+        [
+          "YOU WERE",
+          "THAT YOU WERE"
+        ]
+      ],
+      "model": "HAD KNOWN YOU WERE",
+      "explanation": "Third Conditional: If + Past Perfect, would have + 3. forma."
+    },
+    {
+      "n": 2,
+      "first": "Without your support, I would have given up.",
+      "keyword": "FOR",
+      "before": "If it",
+      "after": "support, I would have given up.",
+      "parts": [
+        [
+          "HAD NOT BEEN",
+          "HADN'T BEEN"
+        ],
+        [
+          "FOR YOUR"
+        ]
+      ],
+      "model": "HADN'T BEEN FOR YOUR",
+      "explanation": "If it hadn't been for… = gdyby nie… (przeszłość)."
+    },
+    {
+      "n": 3,
+      "first": "I regret not taking that job in Berlin.",
+      "keyword": "WISH",
+      "before": "I",
+      "after": "that job in Berlin.",
+      "parts": [
+        [
+          "WISH I HAD",
+          "WISH I'D"
+        ],
+        [
+          "TAKEN"
+        ]
+      ],
+      "model": "WISH I HAD TAKEN",
+      "explanation": "Żal dotyczący przeszłości: wish + Past Perfect."
+    },
+    {
+      "n": 4,
+      "first": "It's a pity my brother isn't here to help.",
+      "keyword": "ONLY",
+      "before": "If",
+      "after": "here to help.",
+      "parts": [
+        [
+          "ONLY MY BROTHER"
+        ],
+        [
+          "WERE",
+          "WAS"
+        ]
+      ],
+      "model": "ONLY MY BROTHER WERE",
+      "explanation": "If only + Past Simple (were) – żal dotyczący teraźniejszości."
+    },
+    {
+      "n": 5,
+      "first": "You can borrow my car, but you must return it by Sunday.",
+      "keyword": "PROVIDED",
+      "before": "You can borrow my car",
+      "after": "it by Sunday.",
+      "parts": [
+        [
+          "PROVIDED YOU",
+          "PROVIDED THAT YOU"
+        ],
+        [
+          "RETURN"
+        ]
+      ],
+      "model": "PROVIDED THAT YOU RETURN",
+      "explanation": "Provided (that) = pod warunkiem że; po nim czas teraźniejszy, choć chodzi o przyszłość."
+    },
+    {
+      "n": 6,
+      "first": "Please call us if you have any questions.",
+      "keyword": "SHOULD",
+      "before": "",
+      "after": "any questions, please call us.",
+      "parts": [
+        [
+          "SHOULD YOU"
+        ],
+        [
+          "HAVE"
+        ]
+      ],
+      "model": "SHOULD YOU HAVE",
+      "explanation": "Formalny warunek bez if: Should you + bezokolicznik."
+    }
+  ]
+}

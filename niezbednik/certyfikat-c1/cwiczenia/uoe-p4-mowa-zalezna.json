@@ -1,0 +1,116 @@
+{
+  "id": "uoe-p4-mowa-zalezna",
+  "part": 4,
+  "type": "transformation",
+  "title": "Mowa zależna i czasowniki raportujące",
+  "focus": "Deny, advise, apologise, accuse, remind, pytania w mowie zależnej",
+  "instructions": "Uzupełnij drugie zdanie tak, żeby znaczyło to samo co pierwsze. Użyj podanego słowa bez zmieniania go. Wpisz od 3 do 6 słów, łącznie ze słowem kluczowym (skróty typu doesn't liczą się jako dwa słowa). Każda odpowiedź jest warta 2 punkty – po 1 za każdą część.",
+  "maxScore": 12,
+  "items": [
+    {
+      "n": 1,
+      "first": "'I didn't take the money from your wallet,' Mark said to me.",
+      "keyword": "DENIED",
+      "before": "Mark",
+      "after": "from my wallet.",
+      "parts": [
+        [
+          "DENIED TAKING",
+          "DENIED HAVING TAKEN"
+        ],
+        [
+          "THE MONEY"
+        ]
+      ],
+      "model": "DENIED TAKING THE MONEY",
+      "explanation": "Deny + -ing (albo having + 3. forma)."
+    },
+    {
+      "n": 2,
+      "first": "'You really should see a doctor,' my mum told me.",
+      "keyword": "ADVISED",
+      "before": "My mum",
+      "after": "a doctor.",
+      "parts": [
+        [
+          "ADVISED ME"
+        ],
+        [
+          "TO SEE"
+        ]
+      ],
+      "model": "ADVISED ME TO SEE",
+      "explanation": "Advise + osoba + to + bezokolicznik."
+    },
+    {
+      "n": 3,
+      "first": "'I'm sorry I'm late,' said Tom.",
+      "keyword": "APOLOGISED",
+      "before": "Tom",
+      "after": "late.",
+      "parts": [
+        [
+          "APOLOGISED FOR"
+        ],
+        [
+          "BEING"
+        ]
+      ],
+      "model": "APOLOGISED FOR BEING",
+      "explanation": "Apologise for + -ing."
+    },
+    {
+      "n": 4,
+      "first": "'You broke my phone!' Anna said to her brother.",
+      "keyword": "ACCUSED",
+      "before": "Anna",
+      "after": "her phone.",
+      "parts": [
+        [
+          "ACCUSED HER BROTHER"
+        ],
+        [
+          "OF BREAKING",
+          "OF HAVING BROKEN"
+        ]
+      ],
+      "model": "ACCUSED HER BROTHER OF BREAKING",
+      "explanation": "Accuse + osoba + of + -ing."
+    },
+    {
+      "n": 5,
+      "first": "'Have you finished the report?' my boss asked me.",
+      "keyword": "WHETHER",
+      "before": "My boss asked",
+      "after": "the report.",
+      "parts": [
+        [
+          "ME WHETHER I"
+        ],
+        [
+          "HAD FINISHED",
+          "'D FINISHED"
+        ]
+      ],
+      "model": "ME WHETHER I HAD FINISHED",
+      "explanation": "Pytanie tak/nie w mowie zależnej: whether + szyk twierdzący + cofnięcie czasu."
+    },
+    {
+      "n": 6,
+      "first": "'Don't forget to lock the door,' Dad told me.",
+      "keyword": "REMINDED",
+      "before": "Dad",
+      "after": "the door.",
+      "parts": [
+        [
+          "REMINDED ME"
+        ],
+        [
+          "TO LOCK"
+        ]
+      ],
+      "model": "REMINDED ME TO LOCK",
+      "explanation": "Remind + osoba + to + bezokolicznik."
+    }
+  ]
+}

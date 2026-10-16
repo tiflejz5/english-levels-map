@@ -1,0 +1,99 @@
+{
+  "id": "uoe-p1-1",
+  "part": 1,
+  "type": "multiple-choice-cloze",
+  "title": "Starting a business",
+  "instructions": "Wybierz słowo (A, B, C lub D), które najlepiej pasuje do luki. Każda luka to 1 punkt.",
+  "maxScore": 8,
+  "text": "Starting your own business can be both exciting and daunting. Before you {{1}} the plunge, it is worth doing thorough research. Many new businesses fail because their owners {{2}} the costs involved. A clear business plan is essential, and investors are far more likely to {{3}} you seriously if you have one. It is also important to {{4}} a balance between ambition and realism. Do not {{5}} heart if things go wrong at first. In most cases, it takes years to build a loyal customer {{6}}. However, those who persevere often find that the rewards {{7}} the effort. As one entrepreneur put it, 'You learn more from one failure than from ten successes – provided you {{8}} the lessons to heart.'",
+  "gaps": [
+    {
+      "n": 1,
+      "options": {
+        "A": "make",
+        "B": "take",
+        "C": "get",
+        "D": "give"
+      },
+      "answer": "B",
+      "explanation": "Take the plunge = zdecydować się na ryzykowny krok."
+    },
+    {
+      "n": 2,
+      "options": {
+        "A": "underestimate",
+        "B": "undervalue",
+        "C": "understate",
+        "D": "underrate"
+      },
+      "answer": "A",
+      "explanation": "Underestimate the costs = nie docenić kosztów (liczby, ilości)."
+    },
+    {
+      "n": 3,
+      "options": {
+        "A": "regard",
+        "B": "treat",
+        "C": "take",
+        "D": "hold"
+      },
+      "answer": "C",
+      "explanation": "Take someone seriously = traktować kogoś poważnie."
+    },
+    {
+      "n": 4,
+      "options": {
+        "A": "hit",
+        "B": "strike",
+        "C": "put",
+        "D": "set"
+      },
+      "answer": "B",
+      "explanation": "Strike a balance = znaleźć równowagę."
+    },
+    {
+      "n": 5,
+      "options": {
+        "A": "lose",
+        "B": "drop",
+        "C": "miss",
+        "D": "break"
+      },
+      "answer": "A",
+      "explanation": "Lose heart = stracić zapał."
+    },
+    {
+      "n": 6,
+      "options": {
+        "A": "ground",
+        "B": "root",
+        "C": "base",
+        "D": "core"
+      },
+      "answer": "C",
+      "explanation": "Customer base = grono klientów."
+    },
+    {
+      "n": 7,
+      "options": {
+        "A": "overcome",
+        "B": "outweigh",
+        "C": "outrun",
+        "D": "overtake"
+      },
+      "answer": "B",
+      "explanation": "Outweigh = przeważać (korzyści przewyższają wysiłek)."
+    },
+    {
+      "n": 8,
+      "options": {
+        "A": "take",
+        "B": "put",
+        "C": "hold",
+        "D": "keep"
+      },
+      "answer": "A",
+      "explanation": "Take something to heart = wziąć sobie do serca."
+    }
+  ]
+}

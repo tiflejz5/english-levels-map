@@ -1,0 +1,116 @@
+{
+  "id": "uoe-p4-mieszany",
+  "part": 4,
+  "type": "transformation",
+  "title": "Zestaw mieszany – jak na egzaminie",
+  "focus": "Sześć różnych struktur, tak jak w prawdziwym arkuszu",
+  "instructions": "Uzupełnij drugie zdanie tak, żeby znaczyło to samo co pierwsze. Użyj podanego słowa bez zmieniania go. Wpisz od 3 do 6 słów, łącznie ze słowem kluczowym (skróty typu doesn't liczą się jako dwa słowa). Każda odpowiedź jest warta 2 punkty – po 1 za każdą część.",
+  "maxScore": 12,
+  "items": [
+    {
+      "n": 1,
+      "first": "Our flight was delayed because of the fog.",
+      "keyword": "DUE",
+      "before": "The delay",
+      "after": "the fog.",
+      "parts": [
+        [
+          "TO OUR FLIGHT",
+          "OF OUR FLIGHT"
+        ],
+        [
+          "WAS DUE TO"
+        ]
+      ],
+      "model": "TO OUR FLIGHT WAS DUE TO",
+      "explanation": "Nominalizacja (the delay) + was due to = było spowodowane."
+    },
+    {
+      "n": 2,
+      "first": "It was the first time I had flown.",
+      "keyword": "NEVER",
+      "before": "I",
+      "after": "before.",
+      "parts": [
+        [
+          "HAD NEVER"
+        ],
+        [
+          "FLOWN"
+        ]
+      ],
+      "model": "HAD NEVER FLOWN",
+      "explanation": "It was the first time… → I had never… before (Past Perfect)."
+    },
+    {
+      "n": 3,
+      "first": "They say the painting is worth two million euros.",
+      "keyword": "SAID",
+      "before": "The painting",
+      "after": "two million euros.",
+      "parts": [
+        [
+          "IS SAID TO"
+        ],
+        [
+          "BE WORTH"
+        ]
+      ],
+      "model": "IS SAID TO BE WORTH",
+      "explanation": "Strona bierna bezosobowa: is said to be…"
+    },
+    {
+      "n": 4,
+      "first": "I didn't go to the party because I was ill.",
+      "keyword": "IF",
+      "before": "I would have gone to the party",
+      "after": "ill.",
+      "parts": [
+        [
+          "IF I HAD NOT",
+          "IF I HADN'T"
+        ],
+        [
+          "BEEN"
+        ]
+      ],
+      "model": "IF I HADN'T BEEN",
+      "explanation": "Third Conditional z przeczeniem: if I hadn't been…"
+    },
+    {
+      "n": 5,
+      "first": "He started learning Japanese three years ago.",
+      "keyword": "BEEN",
+      "before": "He",
+      "after": "three years.",
+      "parts": [
+        [
+          "HAS BEEN LEARNING",
+          "'S BEEN LEARNING"
+        ],
+        [
+          "JAPANESE FOR"
+        ]
+      ],
+      "model": "HAS BEEN LEARNING JAPANESE FOR",
+      "explanation": "Started… ago → has been + -ing + for."
+    },
+    {
+      "n": 6,
+      "first": "Despite the rain, the match went ahead.",
+      "keyword": "THOUGH",
+      "before": "The match went ahead",
+      "after": "raining.",
+      "parts": [
+        [
+          "EVEN THOUGH"
+        ],
+        [
+          "IT WAS"
+        ]
+      ],
+      "model": "EVEN THOUGH IT WAS",
+      "explanation": "Despite + rzeczownik → even though + zdanie."
+    }
+  ]
+}

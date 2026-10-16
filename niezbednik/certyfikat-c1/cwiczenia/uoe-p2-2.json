@@ -1,0 +1,67 @@
+{
+  "id": "uoe-p2-2",
+  "part": 2,
+  "type": "open-cloze",
+  "title": "The rise of podcasts",
+  "instructions": "Wpisz w każdą lukę dokładnie jedno słowo. Skróty typu don't liczą się jako dwa słowa, więc nie są poprawną odpowiedzią. Każda luka to 1 punkt.",
+  "maxScore": 8,
+  "text": "Twenty years ago, few people had heard {{1}} podcasts. Today, millions listen to them every day, {{2}} matter where they are. Part of their appeal lies {{3}} the fact that they are free and available at any time. Unlike radio, podcasts allow listeners to choose exactly what they want to hear, {{4}} it is history, science or celebrity gossip. {{5}} their popularity, making money from podcasts remains difficult for most creators. Only a small number attract enough listeners to {{6}} able to live off advertising. Many others do it simply {{7}} the love of it, and some have gone {{8}} to build successful careers in the media.",
+  "gaps": [
+    {
+      "n": 1,
+      "accept": [
+        "OF"
+      ],
+      "explanation": "Hear of = słyszeć o czymś."
+    },
+    {
+      "n": 2,
+      "accept": [
+        "NO"
+      ],
+      "explanation": "No matter where = bez względu na to, gdzie."
+    },
+    {
+      "n": 3,
+      "accept": [
+        "IN"
+      ],
+      "explanation": "Lie in = polegać na, wynikać z."
+    },
+    {
+      "n": 4,
+      "accept": [
+        "WHETHER"
+      ],
+      "explanation": "Whether it is… or… = czy to…, czy…"
+    },
+    {
+      "n": 5,
+      "accept": [
+        "DESPITE"
+      ],
+      "explanation": "Kontrast + rzeczownik: Despite their popularity."
+    },
+    {
+      "n": 6,
+      "accept": [
+        "BE"
+      ],
+      "explanation": "To be able to – bezokolicznik po to."
+    },
+    {
+      "n": 7,
+      "accept": [
+        "FOR"
+      ],
+      "explanation": "Do something for the love of it = z pasji."
+    },
+    {
+      "n": 8,
+      "accept": [
+        "ON"
+      ],
+      "explanation": "Go on to do something = potem coś osiągnąć."
+    }
+  ]
+}

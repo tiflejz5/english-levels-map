@@ -1,0 +1,75 @@
+{
+  "id": "uoe-p3-2",
+  "part": 3,
+  "type": "word-formation",
+  "title": "The science of sleep",
+  "instructions": "Utwórz od słowa w nawiasie słowo, które pasuje do luki. Uważaj na przedrostki, liczbę mnogą i pisownię. Każda luka to 1 punkt.",
+  "maxScore": 8,
+  "text": "Scientists have long been fascinated by the {{1}} nature of sleep. We now know that a lack of sleep has a {{2}} effect on memory and concentration. In one study, participants who slept less than six hours a night showed a marked {{3}} to focus on simple tasks. Surprisingly, many of them were {{4}} of how much their performance had declined. Researchers also found that irregular sleep patterns can make people more {{5}} and less {{6}}. The good news is that the effects are largely {{7}}: a few nights of good rest can restore normal functioning. Experts therefore stress the {{8}} of a regular bedtime.",
+  "gaps": [
+    {
+      "n": 1,
+      "stem": "MYSTERY",
+      "accept": [
+        "MYSTERIOUS"
+      ],
+      "explanation": "Przymiotnik przed nature: mystery → mysterious."
+    },
+    {
+      "n": 2,
+      "stem": "SIGNIFY",
+      "accept": [
+        "SIGNIFICANT"
+      ],
+      "explanation": "Przymiotnik przed effect: signify → significant."
+    },
+    {
+      "n": 3,
+      "stem": "ABLE",
+      "accept": [
+        "INABILITY"
+      ],
+      "explanation": "Dwie zmiany: rzeczownik + przeczenie (showed an inability to focus)."
+    },
+    {
+      "n": 4,
+      "stem": "AWARE",
+      "accept": [
+        "UNAWARE"
+      ],
+      "explanation": "Surprisingly sugeruje, że nie zdawali sobie sprawy: unaware of."
+    },
+    {
+      "n": 5,
+      "stem": "IRRITATE",
+      "accept": [
+        "IRRITABLE"
+      ],
+      "explanation": "Przymiotnik po more: irritate → irritable."
+    },
+    {
+      "n": 6,
+      "stem": "PRODUCE",
+      "accept": [
+        "PRODUCTIVE"
+      ],
+      "explanation": "Przymiotnik po less: produce → productive."
+    },
+    {
+      "n": 7,
+      "stem": "REVERSE",
+      "accept": [
+        "REVERSIBLE"
+      ],
+      "explanation": "Można je odwrócić (a few nights… restore) → reversible."
+    },
+    {
+      "n": 8,
+      "stem": "IMPORTANT",
+      "accept": [
+        "IMPORTANCE"
+      ],
+      "explanation": "Po the – rzeczownik: important → importance."
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "id": "uoe-p3-4",
+  "part": 3,
+  "type": "word-formation",
+  "title": "City cycling",
+  "instructions": "Utwórz od słowa w nawiasie słowo, które pasuje do luki. Uważaj na przedrostki, liczbę mnogą i pisownię. Każda luka to 1 punkt.",
+  "maxScore": 8,
+  "text": "In many European cities, cycling has seen a {{1}} revival. Local authorities have invested heavily in the {{2}} of separate bike lanes, which has greatly improved the {{3}} of cyclists. Yet some drivers remain {{4}} that the changes are worthwhile, complaining of {{5}} roads and longer journeys. Supporters, on the other hand, point to cleaner air and a {{6}} reduction in noise. There is also growing evidence that regular cycling makes people {{7}} and happier. The challenge now is to make cycling {{8}} to everyone, not just the young and fit.",
+  "gaps": [
+    {
+      "n": 1,
+      "stem": "REMARK",
+      "accept": [
+        "REMARKABLE"
+      ],
+      "explanation": "Przymiotnik przed revival: remark → remarkable."
+    },
+    {
+      "n": 2,
+      "stem": "CONSTRUCT",
+      "accept": [
+        "CONSTRUCTION"
+      ],
+      "explanation": "Po the… of – rzeczownik: construction."
+    },
+    {
+      "n": 3,
+      "stem": "SAFE",
+      "accept": [
+        "SAFETY"
+      ],
+      "explanation": "Po the – rzeczownik: safe → safety."
+    },
+    {
+      "n": 4,
+      "stem": "CONVINCE",
+      "accept": [
+        "UNCONVINCED"
+      ],
+      "explanation": "Yet sugeruje kontrast → nadal nieprzekonani: unconvinced."
+    },
+    {
+      "n": 5,
+      "stem": "CROWD",
+      "accept": [
+        "OVERCROWDED",
+        "CROWDED"
+      ],
+      "explanation": "Przymiotnik przed roads: overcrowded (zatłoczone)."
+    },
+    {
+      "n": 6,
+      "stem": "NOTICE",
+      "accept": [
+        "NOTICEABLE"
+      ],
+      "explanation": "Przymiotnik przed reduction: noticeable (zachowane e)."
+    },
+    {
+      "n": 7,
+      "stem": "HEALTH",
+      "accept": [
+        "HEALTHIER"
+      ],
+      "explanation": "Stopień wyższy, bo obok happier: healthier."
+    },
+    {
+      "n": 8,
+      "stem": "ACCESS",
+      "accept": [
+        "ACCESSIBLE"
+      ],
+      "explanation": "Przymiotnik po make cycling: accessible to everyone."
+    }
+  ]
+}

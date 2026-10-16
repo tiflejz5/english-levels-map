@@ -68,6 +68,35 @@ Kształt treści:
 - `store.normalizeContent(data)` waliduje dane przy starcie i przy imporcie. Poważne błędy zatrzymują wczytywanie z opisem po polsku, drobne braki (pola, id) są uzupełniane.
 - Pliki eksportu mają opakowanie `{ app, kind: "content" | "progress", version, exportedAt, data }`. Import przyjmuje też same „gołe” dane.
 
+## Zakładka „Certyfikat C1” (folder `niezbednik/certyfikat-c1/`)
+
+Przygotowanie do egzaminu Cambridge C1 Advanced (wersja komputerowa). Menu w pasku bocznym (pod poziomami) jest budowane wyłącznie z `manifest.json`. Na telefonie pasek boczny chowa się w szufladę otwieraną przyciskiem „☰ Menu”.
+
+```
+niezbednik/certyfikat-c1/
+├─ manifest.json        sekcje, strony, grupy zestawów ćwiczeń, trenery
+├─ strony/*.md          strony (frontmatter: id, title, section, order, summary)
+├─ cwiczenia/*.json     19 zestawów Use of English (Part 1–4)
+├─ trening/pisanie.json, trening/speaking.json   dane trenerów
+└─ powiazania.json      ramki „Na egzaminie C1” na podstronach poziomów
+niezbednik/certyfikat-c1-dane.js   GENEROWANY (ELM.C1), ten sam skrypt co niezbednik-dane.js
+```
+
+| Adres | Widok | Kod |
+|---|---|---|
+| `#/certyfikat-c1` | strona „przeglad” (z odliczaniem do egzaminu) | `js/c1-core.js` |
+| `#/certyfikat-c1/<id strony>` | strona z `strony/*.md` | `js/c1-core.js` |
+| `#/certyfikat-c1/cwiczenia` i `…/cwiczenia/<id>` | lista zestawów i zestaw | `js/c1-exercises.js` |
+| `#/certyfikat-c1/trening-pisanie[/<zadanie>]` | trener Writing | `js/c1-writing.js` |
+| `#/certyfikat-c1/trening-speaking` | trener Speaking | `js/c1-speaking.js` |
+
+- **Linki `[[id]]`** w Markdownie: id podstrony z `niezbednik/index.json` prowadzi do podstrony (tekst linku to jej tytuł), a id zestawu do strony zestawu (tytuł zestawu). Nieznane id wyświetla się jako zwykły tekst z ostrzeżeniem w konsoli.
+- **Listy zadań `- [ ]`** są polami wyboru. Ich stan zapisuje się dla każdej strony osobno.
+- **Ocenianie Part 4** jak w Cambridge: 3–6 słów (skróty `n't`, `'s`, `'re`, `'ve`, `'d`, `'ll`, `'m` liczą się jako dwa słowa), słowo kluczowe bez zmian i po 1 pkt za każdą część z `parts` (druga część musi stać po pierwszej). Odpowiedzi są normalizowane: wielkie litery, `’` → `'`, bez interpunkcji poza apostrofem, pojedyncze spacje.
+- **Zapis w przeglądarce** (klucz `elm_c1_v1`, w `try/catch`, więc bez dostępu działa do zamknięcia karty): data egzaminu, najlepszy wynik każdego zestawu, szkice Writing i zaznaczenia list zadań. Te dane są wspólne dla wszystkich profili i nie trafiają do eksportu w menu „Dane”.
+- **Bez materiałów Cambridge:** oryginalne arkusze, PDF-y i nagrania nie trafiają do repozytorium (blokuje je `.gitignore`). Strony linkują do oficjalnych materiałów.
+- **Zmiana treści:** edytuj pliki w `niezbednik/certyfikat-c1/`, uruchom `node tools/zbuduj-niezbednik.js` i zwiększ `?v=…` w `index.html`.
+
 ## Podstrony „Niezbędnika” (folder `niezbednik/`)
 
 ```

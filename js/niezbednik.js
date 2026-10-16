@@ -219,7 +219,10 @@ window.ELM = window.ELM || {};
       }));
     }
 
-    view.appendChild(el("article", { class: "md" }, ELM.markdown.render(doc.blocks, { hiddenSections: HIDDEN_SECTIONS })));
+    const article = el("article", { class: "md" }, ELM.markdown.render(doc.blocks, { hiddenSections: HIDDEN_SECTIONS }));
+    // Ramka „Na egzaminie C1” (z certyfikat-c1/powiazania.json) zaraz pod wstępem
+    if (ELM.c1) ELM.c1.insertAfterIntro(article, ELM.c1.examBoxFor(found.item.id));
+    view.appendChild(article);
     view.appendChild(el("div", { class: "page-foot" }, el("button", {
       type: "button",
       class: "btn btn-secondary",
@@ -278,6 +281,8 @@ window.ELM = window.ELM || {};
     const doc = ELM.markdown.parse(d.home);
     const article = el("article", { class: "md home" }, ELM.markdown.render(doc.blocks));
     linkLevelTable(article);
+    // Kafelek „Certyfikat C1” pod wstępem strony głównej
+    if (ELM.c1) ELM.c1.insertAfterIntro(article, ELM.c1.homeTile());
     view.appendChild(article);
     U.setScroll(keepScroll);
   }

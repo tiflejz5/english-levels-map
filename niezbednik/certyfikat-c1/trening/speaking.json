@@ -1,0 +1,130 @@
+{
+  "id": "trening-speaking",
+  "timers": {
+    "part2LongTurn": 60,
+    "part2Partner": 30,
+    "part3Discussion": 120,
+    "part3Decision": 60,
+    "part4": 300
+  },
+  "part2": [
+    {
+      "id": "p2-celebrating",
+      "theme": "Celebrating",
+      "pictures": [
+        "A family having a birthday dinner at home",
+        "Colleagues celebrating the end of a project in an office",
+        "Football fans celebrating a goal in a stadium"
+      ],
+      "questions": [
+        "Why might the people be celebrating in these ways?",
+        "How memorable might these moments be for them?"
+      ],
+      "partnerQuestion": "Which of these celebrations do you think would be the most enjoyable? Why?"
+    },
+    {
+      "id": "p2-learning",
+      "theme": "Learning new skills",
+      "pictures": [
+        "An older man at a smartphone class",
+        "A child having a swimming lesson with an instructor",
+        "A young woman learning the guitar from an online video"
+      ],
+      "questions": [
+        "Why might the people have decided to learn these skills?",
+        "How difficult might they find it?"
+      ],
+      "partnerQuestion": "Who do you think will benefit most from learning their new skill? Why?"
+    },
+    {
+      "id": "p2-outdoors",
+      "theme": "Working outdoors",
+      "pictures": [
+        "A farmer harvesting crops in a field",
+        "A tour guide talking to a group of tourists",
+        "A construction worker on scaffolding"
+      ],
+      "questions": [
+        "What might be the advantages of working outdoors in these jobs?",
+        "What challenges might the people face?"
+      ],
+      "partnerQuestion": "Which of these jobs would you find the most satisfying? Why?"
+    },
+    {
+      "id": "p2-waiting",
+      "theme": "Waiting",
+      "pictures": [
+        "Passengers at an airport gate after a delay",
+        "Patients in a hospital waiting room",
+        "A crowd queuing outside a concert venue"
+      ],
+      "questions": [
+        "How might the people be feeling?",
+        "How might they be passing the time?"
+      ],
+      "partnerQuestion": "In which situation do you think waiting is the most difficult? Why?"
+    }
+  ],
+  "part3": [
+    {
+      "id": "p3-city-life",
+      "question": "How might these things affect people's quality of life in cities?",
+      "prompts": [
+        "public transport",
+        "green spaces",
+        "the cost of housing",
+        "noise and pollution",
+        "cultural events"
+      ],
+      "decision": "Which of these should city authorities make their top priority?",
+      "part4": [
+        "Would you prefer to live in a big city or a small town? Why?",
+        "Do you think cities will become better or worse places to live in the future?",
+        "Should people be encouraged to move away from large cities? Why? / Why not?",
+        "How important is it for young people to have access to cultural events?",
+        "Some people say cities should ban cars from their centres. What's your opinion?",
+        "Who should be responsible for keeping cities clean – residents or the authorities?"
+      ]
+    },
+    {
+      "id": "p3-career-change",
+      "question": "Why might people decide to change their careers?",
+      "prompts": [
+        "a higher salary",
+        "a better work-life balance",
+        "personal fulfilment",
+        "job security",
+        "opportunities to travel"
+      ],
+      "decision": "Which reason is most likely to lead to a satisfying change?",
+      "part4": [
+        "Is it better to stay in one job for a long time or to change jobs regularly? Why?",
+        "At what age do you think people should decide on a career?",
+        "Do you think people today expect too much from their jobs?",
+        "How important is it to enjoy your work, compared with earning a good salary?",
+        "Should schools do more to help young people choose a career? Why? / Why not?",
+        "Some people say that the idea of a job for life no longer exists. Do you agree?"
+      ]
+    },
+    {
+      "id": "p3-health-tech",
+      "question": "How can these things help people to stay healthy?",
+      "prompts": [
+        "fitness apps",
+        "online medical advice",
+        "smartwatches",
+        "video exercise classes",
+        "healthy recipe websites"
+      ],
+      "decision": "Which of these could make the biggest difference to people's health?",
+      "part4": [
+        "Do you think technology makes people more or less active? Why?",
+        "Is it a good idea to look for medical advice online? Why? / Why not?",
+        "Who should be responsible for people's health – individuals or governments?",
+        "Why do some people find it difficult to change unhealthy habits?",
+        "Should unhealthy food be taxed more heavily? What's your opinion?",
+        "How might attitudes to health change in the future?"
+      ]
+    }
+  ]
+}

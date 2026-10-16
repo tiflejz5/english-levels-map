@@ -1,0 +1,116 @@
+{
+  "id": "uoe-p4-inwersja-emfaza",
+  "part": 4,
+  "type": "transformation",
+  "title": "Inwersja i emfaza",
+  "focus": "Inwersja po wyrażeniach przeczących i ograniczających, cleft sentences",
+  "instructions": "Uzupełnij drugie zdanie tak, żeby znaczyło to samo co pierwsze. Użyj podanego słowa bez zmieniania go. Wpisz od 3 do 6 słów, łącznie ze słowem kluczowym (skróty typu doesn't liczą się jako dwa słowa). Każda odpowiedź jest warta 2 punkty – po 1 za każdą część.",
+  "maxScore": 12,
+  "items": [
+    {
+      "n": 1,
+      "first": "I had never seen such a beautiful sunset before.",
+      "keyword": "HAD",
+      "before": "Never before",
+      "after": "such a beautiful sunset.",
+      "parts": [
+        [
+          "HAD I"
+        ],
+        [
+          "SEEN"
+        ]
+      ],
+      "model": "HAD I SEEN",
+      "explanation": "Never before na początku → szyk pytający: had + podmiot + 3. forma."
+    },
+    {
+      "n": 2,
+      "first": "As soon as we arrived, it started to rain.",
+      "keyword": "SOONER",
+      "before": "No",
+      "after": "than it started to rain.",
+      "parts": [
+        [
+          "SOONER HAD WE"
+        ],
+        [
+          "ARRIVED"
+        ]
+      ],
+      "model": "SOONER HAD WE ARRIVED",
+      "explanation": "No sooner had + podmiot + 3. forma… than… = ledwie…, a już…"
+    },
+    {
+      "n": 3,
+      "first": "She didn't realise her mistake until she got home.",
+      "keyword": "DID",
+      "before": "Only when she got home",
+      "after": "her mistake.",
+      "parts": [
+        [
+          "DID SHE"
+        ],
+        [
+          "REALISE",
+          "REALIZE"
+        ]
+      ],
+      "model": "DID SHE REALISE",
+      "explanation": "Only when… → inwersja w drugiej części zdania: did + podmiot + bezokolicznik."
+    },
+    {
+      "n": 4,
+      "first": "You must not open this door under any circumstances.",
+      "keyword": "NO",
+      "before": "Under",
+      "after": "this door.",
+      "parts": [
+        [
+          "NO CIRCUMSTANCES"
+        ],
+        [
+          "MUST YOU OPEN",
+          "SHOULD YOU OPEN"
+        ]
+      ],
+      "model": "NO CIRCUMSTANCES MUST YOU OPEN",
+      "explanation": "Under no circumstances + szyk pytający."
+    },
+    {
+      "n": 5,
+      "first": "The noise really annoys me, not the heat.",
+      "keyword": "WHAT",
+      "before": "",
+      "after": "the noise, not the heat.",
+      "parts": [
+        [
+          "WHAT REALLY ANNOYS ME",
+          "WHAT ANNOYS ME"
+        ],
+        [
+          "IS"
+        ]
+      ],
+      "model": "WHAT REALLY ANNOYS ME IS",
+      "explanation": "Wh-cleft: What + zdanie + is + najważniejsza informacja."
+    },
+    {
+      "n": 6,
+      "first": "Tom suggested the idea, not Anna.",
+      "keyword": "WHO",
+      "before": "It",
+      "after": "the idea, not Anna.",
+      "parts": [
+        [
+          "WAS TOM"
+        ],
+        [
+          "WHO SUGGESTED"
+        ]
+      ],
+      "model": "WAS TOM WHO SUGGESTED",
+      "explanation": "It-cleft: It was + osoba + who… – podkreśla, kto to zrobił."
+    }
+  ]
+}

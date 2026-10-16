@@ -44,6 +44,17 @@ Każdy profil (na start: **Adam, Klasa 1, Klasa 4, Klasa 6**) ma **własne zazna
 - Paski postępu i liczniki zawsze pokazują postęp **wybranego** profilu.
 - W **Trybie edycji** w tym samym menu możesz dodać profil (**+ Nowy profil**), zmienić jego nazwę (**✎**), przesunąć go (**↑ ↓**) albo usunąć (**✕**, razem z jego postępem, po potwierdzeniu). Zawsze musi zostać co najmniej jeden profil.
 
+### Certyfikat C1
+W pasku bocznym, pod poziomami, jest zakładka **Certyfikat C1** do przygotowania do egzaminu C1 Advanced. Na telefonie otwierasz ją przyciskiem **☰ Menu**. Zakładka ma kilka sekcji:
+- **Start:** przegląd egzaminu z polem **Data egzaminu** i odliczaniem dni oraz plan powtórki.
+- **Reading & Use of English, Writing, Listening, Speaking:** strategie, pułapki i zwroty do każdej części.
+- **Ćwiczenia Use of English:** 19 zestawów, które sprawdzają się same (**Sprawdź**, **Pokaż odpowiedzi**, **Spróbuj ponownie**). W Part 4 punkty liczą się jak na egzaminie, a najlepszy wynik każdego zestawu widać w menu.
+- **Trening Writing:** polecenie, licznik słów, timer 45 minut jak w wersji komputerowej i pole bez sprawdzania pisowni. Szkic zapisuje się sam, a po kliknięciu **Skończyłem** pojawia się checklista egzaminatora.
+- **Trening Speaking:** karty Part 2 i Part 3 z timerami. Możesz się też nagrać: nagranie zostaje tylko w przeglądarce.
+- **Dzień egzaminu:** lista rzeczy do odhaczenia.
+
+Na podstronach poziomów, które często wracają na egzaminie, pojawia się ramka **Na egzaminie C1** z linkami do ćwiczeń.
+
 ## 3. Dodawanie treści (tryb edycji)
 
 Włącz **Tryb edycji** w lewym dolnym rogu. Przy elementach pojawią się pola i małe przyciski:

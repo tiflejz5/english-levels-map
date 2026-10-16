@@ -1,0 +1,271 @@
+{
+  "id": "certyfikat-c1",
+  "label": "Certyfikat C1",
+  "title": "C1 Advanced – certyfikat Cambridge",
+  "route": "/certyfikat-c1",
+  "sections": [
+    {
+      "id": "start",
+      "label": "Start",
+      "pages": [
+        {
+          "id": "przeglad",
+          "file": "strony/przeglad.md",
+          "label": "Przegląd egzaminu"
+        },
+        {
+          "id": "plan-powtorki",
+          "file": "strony/plan-powtorki.md",
+          "label": "Plan powtórki"
+        }
+      ]
+    },
+    {
+      "id": "reading-uoe",
+      "label": "Reading & Use of English",
+      "pages": [
+        {
+          "id": "use-of-english",
+          "file": "strony/use-of-english.md",
+          "label": "Use of English – Part 1–4"
+        },
+        {
+          "id": "reading",
+          "file": "strony/reading.md",
+          "label": "Reading – Part 5–8"
+        },
+        {
+          "id": "gramatyka-pod-egzamin",
+          "file": "strony/gramatyka-pod-egzamin.md",
+          "label": "Gramatyka pod egzamin"
+        }
+      ]
+    },
+    {
+      "id": "cwiczenia",
+      "label": "Ćwiczenia Use of English",
+      "exerciseGroups": [
+        {
+          "part": 4,
+          "label": "Part 4 – Key word transformation",
+          "sets": [
+            {
+              "id": "uoe-p4-strona-bierna",
+              "file": "cwiczenia/uoe-p4-strona-bierna.json",
+              "label": "Strona bierna i bezosobowa",
+              "maxScore": 12
+            },
+            {
+              "id": "uoe-p4-warunki",
+              "file": "cwiczenia/uoe-p4-warunki.json",
+              "label": "Warunki, wish i if only",
+              "maxScore": 12
+            },
+            {
+              "id": "uoe-p4-inwersja-emfaza",
+              "file": "cwiczenia/uoe-p4-inwersja-emfaza.json",
+              "label": "Inwersja i emfaza",
+              "maxScore": 12
+            },
+            {
+              "id": "uoe-p4-porownania",
+              "file": "cwiczenia/uoe-p4-porownania.json",
+              "label": "Porównania",
+              "maxScore": 12
+            },
+            {
+              "id": "uoe-p4-mowa-zalezna",
+              "file": "cwiczenia/uoe-p4-mowa-zalezna.json",
+              "label": "Mowa zależna i czasowniki raportujące",
+              "maxScore": 12
+            },
+            {
+              "id": "uoe-p4-modalne",
+              "file": "cwiczenia/uoe-p4-modalne.json",
+              "label": "Modalne w przeszłości",
+              "maxScore": 12
+            },
+            {
+              "id": "uoe-p4-nominalizacja-zwroty",
+              "file": "cwiczenia/uoe-p4-nominalizacja-zwroty.json",
+              "label": "Nominalizacja i stałe zwroty",
+              "maxScore": 12
+            },
+            {
+              "id": "uoe-p4-mieszany",
+              "file": "cwiczenia/uoe-p4-mieszany.json",
+              "label": "Zestaw mieszany – jak na egzaminie",
+              "maxScore": 12
+            }
+          ]
+        },
+        {
+          "part": 3,
+          "label": "Part 3 – Word formation",
+          "sets": [
+            {
+              "id": "uoe-p3-1",
+              "file": "cwiczenia/uoe-p3-1.json",
+              "label": "Working from home",
+              "maxScore": 8
+            },
+            {
+              "id": "uoe-p3-2",
+              "file": "cwiczenia/uoe-p3-2.json",
+              "label": "The science of sleep",
+              "maxScore": 8
+            },
+            {
+              "id": "uoe-p3-3",
+              "file": "cwiczenia/uoe-p3-3.json",
+              "label": "Volunteering abroad",
+              "maxScore": 8
+            },
+            {
+              "id": "uoe-p3-4",
+              "file": "cwiczenia/uoe-p3-4.json",
+              "label": "City cycling",
+              "maxScore": 8
+            }
+          ]
+        },
+        {
+          "part": 2,
+          "label": "Part 2 – Open cloze",
+          "sets": [
+            {
+              "id": "uoe-p2-1",
+              "file": "cwiczenia/uoe-p2-1.json",
+              "label": "Learning a language as an adult",
+              "maxScore": 8
+            },
+            {
+              "id": "uoe-p2-2",
+              "file": "cwiczenia/uoe-p2-2.json",
+              "label": "The rise of podcasts",
+              "maxScore": 8
+            },
+            {
+              "id": "uoe-p2-3",
+              "file": "cwiczenia/uoe-p2-3.json",
+              "label": "A surprising discovery",
+              "maxScore": 8
+            },
+            {
+              "id": "uoe-p2-4",
+              "file": "cwiczenia/uoe-p2-4.json",
+              "label": "Why we procrastinate",
+              "maxScore": 8
+            }
+          ]
+        },
+        {
+          "part": 1,
+          "label": "Part 1 – Multiple-choice cloze",
+          "sets": [
+            {
+              "id": "uoe-p1-1",
+              "file": "cwiczenia/uoe-p1-1.json",
+              "label": "Starting a business",
+              "maxScore": 8
+            },
+            {
+              "id": "uoe-p1-2",
+              "file": "cwiczenia/uoe-p1-2.json",
+              "label": "Spotting fake news",
+              "maxScore": 8
+            },
+            {
+              "id": "uoe-p1-3",
+              "file": "cwiczenia/uoe-p1-3.json",
+              "label": "A career change",
+              "maxScore": 8
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "writing",
+      "label": "Writing",
+      "pages": [
+        {
+          "id": "writing",
+          "file": "strony/writing.md",
+          "label": "Jak jest oceniany"
+        },
+        {
+          "id": "writing-essay",
+          "file": "strony/writing-essay.md",
+          "label": "Essay"
+        },
+        {
+          "id": "writing-email-letter",
+          "file": "strony/writing-email-letter.md",
+          "label": "Email / letter"
+        },
+        {
+          "id": "writing-proposal",
+          "file": "strony/writing-proposal.md",
+          "label": "Proposal"
+        },
+        {
+          "id": "writing-report",
+          "file": "strony/writing-report.md",
+          "label": "Report"
+        },
+        {
+          "id": "writing-review",
+          "file": "strony/writing-review.md",
+          "label": "Review"
+        }
+      ],
+      "trainer": {
+        "id": "trening-pisanie",
+        "file": "trening/pisanie.json",
+        "label": "Trening Writing"
+      }
+    },
+    {
+      "id": "listening",
+      "label": "Listening",
+      "pages": [
+        {
+          "id": "listening",
+          "file": "strony/listening.md",
+          "label": "Listening – Part 1–4"
+        }
+      ]
+    },
+    {
+      "id": "speaking",
+      "label": "Speaking",
+      "pages": [
+        {
+          "id": "speaking",
+          "file": "strony/speaking.md",
+          "label": "Speaking – Part 1–4"
+        }
+      ],
+      "trainer": {
+        "id": "trening-speaking",
+        "file": "trening/speaking.json",
+        "label": "Trening Speaking"
+      }
+    },
+    {
+      "id": "dzien",
+      "label": "Dzień egzaminu",
+      "pages": [
+        {
+          "id": "dzien-egzaminu",
+          "file": "strony/dzien-egzaminu.md",
+          "label": "Co pamiętać"
+        }
+      ]
+    }
+  ],
+  "links": {
+    "file": "powiazania.json"
+  }
+}

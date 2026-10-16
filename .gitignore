@@ -12,3 +12,12 @@ desktop.ini
 english-levels-content-*.json
 english-levels-progress-*.json
 english-levels-uszkodzone-*.txt
+
+# Oryginalne arkusze, PDF-y i nagrania Cambridge NIE trafiają do (publicznego)
+# repozytorium — strony linkują do oficjalnych materiałów.
+*.pdf
+*.mp3
+*.m4a
+*.wav
+*.ogg
+*.webm

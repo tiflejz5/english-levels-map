@@ -1,0 +1,161 @@
+{
+  "id": "trening-pisanie",
+  "timeMinutes": 45,
+  "wordRange": [
+    220,
+    260
+  ],
+  "targetRange": [
+    230,
+    250
+  ],
+  "genericChecklist": [
+    "Czy omówiłem wszystkie punkty polecenia?",
+    "Czy wszystko jest na temat?",
+    "Czy styl i rejestr pasują do odbiorcy?",
+    "Czy tekst ma sensowne akapity i jasne połączenia między myślami?",
+    "Czy użyłem szerokiego zakresu słownictwa i struktur, bez powtórzeń?",
+    "Czy sprawdziłem gramatykę i pisownię?"
+  ],
+  "tasks": [
+    {
+      "id": "essay-traffic",
+      "genre": "essay",
+      "part": 1,
+      "title": "Essay – traffic in city centres",
+      "prompt": "Your class has watched a documentary about ways of reducing traffic in city centres. You have made the notes below.\n\nWays of reducing traffic:\n• congestion charges\n• better public transport\n• car-free zones\n\nSome opinions expressed in the documentary:\n“Charging drivers just hits people on low incomes.”\n“Nobody will leave their car at home if the buses are always late.”\n“Streets without cars feel completely different.”\n\nWrite an essay discussing two of the ways in your notes. You should explain which way is more effective, giving reasons to support your opinion.\n\nYou may, if you wish, make use of the opinions expressed in the documentary, but you should use your own words as far as possible.",
+      "points": [
+        "Omówiony pierwszy z wybranych sposobów",
+        "Omówiony drugi z wybranych sposobów",
+        "Wyraźny wybór, który jest skuteczniejszy, z uzasadnieniem",
+        "Opinie z polecenia sparafrazowane, nie przepisane"
+      ],
+      "genreChecklist": [
+        "Formalny, obiektywny ton",
+        "Wstęp i zakończenie",
+        "Tylko dwa z trzech punktów"
+      ]
+    },
+    {
+      "id": "essay-working-life",
+      "genre": "essay",
+      "part": 1,
+      "title": "Essay – preparing young people for work",
+      "prompt": "Your class has attended a panel discussion about how schools can prepare young people for working life. You have made the notes below.\n\nWays schools can prepare young people for work:\n• work experience placements\n• teaching practical skills\n• careers advice\n\nSome opinions expressed in the discussion:\n“Two weeks in an office teaches you more than a year in a classroom.”\n“Most school leavers can't manage their own money.”\n“Advisers often know very little about today's job market.”\n\nWrite an essay discussing two of the ways in your notes. You should explain which way is more important for schools to focus on, giving reasons to support your opinion.\n\nYou may, if you wish, make use of the opinions expressed in the discussion, but you should use your own words as far as possible.",
+      "points": [
+        "Omówiony pierwszy z wybranych sposobów",
+        "Omówiony drugi z wybranych sposobów",
+        "Wyraźny wybór, który jest ważniejszy, z uzasadnieniem",
+        "Opinie z polecenia sparafrazowane, nie przepisane"
+      ],
+      "genreChecklist": [
+        "Formalny, obiektywny ton",
+        "Wstęp i zakończenie",
+        "Tylko dwa z trzech punktów"
+      ]
+    },
+    {
+      "id": "letter-library",
+      "genre": "letter",
+      "part": 2,
+      "title": "Letter – library opening hours",
+      "prompt": "Your local council has announced plans to reduce the opening hours of the public library in order to save money. Write a letter to the council. In your letter you should explain how you and other residents use the library, describe the effect the reduced hours would have, and suggest other ways the council could save money.\n\nWrite your letter.",
+      "points": [
+        "Jak Ty i inni mieszkańcy korzystacie z biblioteki",
+        "Skutki skrócenia godzin otwarcia",
+        "Inne sposoby oszczędzania pieniędzy"
+      ],
+      "genreChecklist": [
+        "Formalne powitanie i zakończenie (Yours faithfully / sincerely)",
+        "Cel listu w pierwszym akapicie",
+        "Stanowczy, ale uprzejmy ton"
+      ]
+    },
+    {
+      "id": "email-friend-internship",
+      "genre": "email",
+      "part": 2,
+      "title": "Email – advice for a friend",
+      "prompt": "You have received this email from an English friend, Sam:\n\n“I've just been offered a six-month internship in your city! I'm really excited but a bit nervous too. Could you give me some advice about where to live, how to meet people and anything I should avoid? Thanks!”\n\nWrite your email to Sam.",
+      "points": [
+        "Rada: gdzie zamieszkać",
+        "Rada: jak poznać ludzi",
+        "Czego unikać"
+      ],
+      "genreChecklist": [
+        "Nieformalny, przyjazny rejestr",
+        "Naturalne otwarcie i zakończenie",
+        "Konkretne rady z uzasadnieniem"
+      ]
+    },
+    {
+      "id": "proposal-wellbeing",
+      "genre": "proposal",
+      "part": 2,
+      "title": "Proposal – staff wellbeing",
+      "prompt": "The company you work for wants to improve the wellbeing of its staff and has invited employees to send in proposals. Write a proposal describing the main problems affecting staff at the moment, suggesting two or three changes the company could make, and explaining how these changes would benefit both the staff and the company.\n\nWrite your proposal.",
+      "points": [
+        "Opis obecnych problemów",
+        "Dwie lub trzy konkretne zmiany",
+        "Korzyści dla pracowników",
+        "Korzyści dla firmy"
+      ],
+      "genreChecklist": [
+        "Tytuł i nagłówki",
+        "Język propozycji (would, could, I suggest)",
+        "Formalny, przekonujący ton"
+      ]
+    },
+    {
+      "id": "report-festival",
+      "genre": "report",
+      "part": 2,
+      "title": "Report – international festival",
+      "prompt": "You helped to organise an international festival at your college last month. The principal has asked you to write a report. In your report you should evaluate how successful the festival was, describe any problems that occurred, and recommend improvements for next year's festival.\n\nWrite your report.",
+      "points": [
+        "Ocena, na ile festiwal był udany",
+        "Opis problemów",
+        "Rekomendacje na przyszły rok"
+      ],
+      "genreChecklist": [
+        "Tytuł, nagłówki i wstęp z celem raportu",
+        "Bezosobowy styl (passive, It is recommended that)",
+        "Rekomendacje w osobnej sekcji"
+      ]
+    },
+    {
+      "id": "review-app",
+      "genre": "review",
+      "part": 2,
+      "title": "Review – a learning app",
+      "prompt": "You see this announcement on an education website:\n\n“Has an app or online service changed the way you learn something? Write a review telling us what it is, evaluating its strengths and weaknesses, and explaining what kind of people would benefit most from using it.”\n\nWrite your review.",
+      "points": [
+        "Co to za aplikacja / serwis",
+        "Mocne i słabe strony",
+        "Dla kogo jest najlepsza"
+      ],
+      "genreChecklist": [
+        "Chwytliwy tytuł i wstęp",
+        "Ocena, a nie sam opis",
+        "Wyraźna rekomendacja"
+      ]
+    },
+    {
+      "id": "review-cafe",
+      "genre": "review",
+      "part": 2,
+      "title": "Review – an unusual café",
+      "prompt": "A lifestyle magazine is looking for reviews of restaurants or cafés that offer something unusual. Write a review describing the place and what makes it different, evaluating whether it is good value for money, and saying who you would recommend it to.\n\nWrite your review.",
+      "points": [
+        "Opis miejsca i tego, co je wyróżnia",
+        "Ocena stosunku jakości do ceny",
+        "Komu poleciłbyś to miejsce"
+      ],
+      "genreChecklist": [
+        "Chwytliwy tytuł i wstęp",
+        "Ocena, a nie sam opis",
+        "Wyraźna rekomendacja"
+      ]
+    }
+  ]
+}

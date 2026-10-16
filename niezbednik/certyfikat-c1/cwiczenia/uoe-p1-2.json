@@ -1,0 +1,99 @@
+{
+  "id": "uoe-p1-2",
+  "part": 1,
+  "type": "multiple-choice-cloze",
+  "title": "Spotting fake news",
+  "instructions": "Wybierz słowo (A, B, C lub D), które najlepiej pasuje do luki. Każda luka to 1 punkt.",
+  "maxScore": 8,
+  "text": "In an age when anyone can publish anything online, it has never been more important to {{1}} a critical eye over what we read. False stories often {{2}} viral because they are shocking. Before sharing an article, check whether the source has a proven {{3}} record of accuracy. Many people share articles on the {{4}} of the moment, without reading beyond the headline. Be particularly {{5}} of headlines that seem designed to provoke anger. Research shows that people who are {{6}} to a wide range of viewpoints are better at recognising misinformation. Ultimately, the {{7}} for stopping fake news lies with all of us, not just with technology companies. As one journalist put it, 'If in {{8}}, don't share.'",
+  "gaps": [
+    {
+      "n": 1,
+      "options": {
+        "A": "cast",
+        "B": "throw",
+        "C": "drop",
+        "D": "hand"
+      },
+      "answer": "A",
+      "explanation": "Cast a critical eye over = przyjrzeć się krytycznie."
+    },
+    {
+      "n": 2,
+      "options": {
+        "A": "turn",
+        "B": "go",
+        "C": "get",
+        "D": "make"
+      },
+      "answer": "B",
+      "explanation": "Go viral = rozprzestrzenić się błyskawicznie w sieci."
+    },
+    {
+      "n": 3,
+      "options": {
+        "A": "trail",
+        "B": "track",
+        "C": "path",
+        "D": "trace"
+      },
+      "answer": "B",
+      "explanation": "A proven track record = udokumentowane osiągnięcia."
+    },
+    {
+      "n": 4,
+      "options": {
+        "A": "heat",
+        "B": "spur",
+        "C": "edge",
+        "D": "point"
+      },
+      "answer": "B",
+      "explanation": "On the spur of the moment = pod wpływem chwili (in the heat of the moment wymaga in)."
+    },
+    {
+      "n": 5,
+      "options": {
+        "A": "wary",
+        "B": "alert",
+        "C": "attentive",
+        "D": "careless"
+      },
+      "answer": "A",
+      "explanation": "Be wary of = uważać na; alert i attentive łączą się z to."
+    },
+    {
+      "n": 6,
+      "options": {
+        "A": "exposed",
+        "B": "opened",
+        "C": "revealed",
+        "D": "displayed"
+      },
+      "answer": "A",
+      "explanation": "Be exposed to = mieć styczność z."
+    },
+    {
+      "n": 7,
+      "options": {
+        "A": "duty",
+        "B": "blame",
+        "C": "responsibility",
+        "D": "charge"
+      },
+      "answer": "C",
+      "explanation": "The responsibility for… lies with… = odpowiedzialność spoczywa na…"
+    },
+    {
+      "n": 8,
+      "options": {
+        "A": "doubt",
+        "B": "question",
+        "C": "suspicion",
+        "D": "uncertainty"
+      },
+      "answer": "A",
+      "explanation": "If in doubt = w razie wątpliwości."
+    }
+  ]
+}

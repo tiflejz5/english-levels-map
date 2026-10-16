@@ -113,8 +113,8 @@ window.ELM = window.ELM || {};
     list.replaceChildren();
     st.content.levels.forEach(function (level) {
       const stats = app().getStats(level.id, cat ? cat.id : null);
-      // Na stronie głównej żaden poziom nie jest wyróżniony
-      const active = st.view !== "home" && level.id === st.ui.levelId;
+      // Poziom jest wyróżniony tylko na jego liście i jego podstronach
+      const active = (st.view === "level" || st.view === "page") && level.id === st.ui.levelId;
       list.appendChild(el("button", {
         type: "button",
         class: "level-item lvl-" + level.id + (active ? " is-active" : ""),
@@ -130,6 +130,9 @@ window.ELM = window.ELM || {};
         el("span", { class: "level-count", "aria-hidden": "true", text: stats.done + " / " + stats.total + " umiem" })
       ]));
     });
+
+    // Pod poziomami: zakładka „Certyfikat C1”
+    if (ELM.c1) ELM.c1.renderNav();
   }
 
   // =====================================================================
@@ -138,8 +141,9 @@ window.ELM = window.ELM || {};
 
   function renderMain(opts) {
     opts = opts || {};
-    // Strona główna albo otwarta podstrona niezbędnika zamiast listy
+    // Strona główna, zakładka „Certyfikat C1” albo podstrona zamiast listy
     if (ELM.state.view === "home") return ELM.niezbednik.renderHome();
+    if (ELM.state.view === "c1") return ELM.c1.render(ELM.state.c1Route);
     if (ELM.state.route) return ELM.niezbednik.renderPage(ELM.state.route);
     ELM.niezbednik.computeLinks();
     const view = document.getElementById("view");

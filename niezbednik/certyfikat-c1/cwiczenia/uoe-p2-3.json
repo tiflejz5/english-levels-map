@@ -1,0 +1,71 @@
+{
+  "id": "uoe-p2-3",
+  "part": 2,
+  "type": "open-cloze",
+  "title": "A surprising discovery",
+  "instructions": "Wpisz w każdą lukę dokładnie jedno słowo. Skróty typu don't liczą się jako dwa słowa, więc nie są poprawną odpowiedzią. Każda luka to 1 punkt.",
+  "maxScore": 8,
+  "text": "When archaeologists began digging on the site, they had {{1}} idea what they would find. At first, nothing seemed out of the ordinary, but {{2}} the end of the second week they had uncovered the remains of a Roman villa. {{3}} had such a well-preserved building been found in the region before. The team worked day and night {{4}} order to finish before the winter weather arrived. {{5}} was particularly exciting was a floor decorated with a detailed mosaic. Experts believe it may {{6}} been made for a wealthy merchant. The site is now protected, and {{7}} the excavation is complete, it will be opened to the public. Local officials hope it will attract visitors from all {{8}} the country.",
+  "gaps": [
+    {
+      "n": 1,
+      "accept": [
+        "NO"
+      ],
+      "explanation": "Have no idea = nie mieć pojęcia."
+    },
+    {
+      "n": 2,
+      "accept": [
+        "BY"
+      ],
+      "explanation": "By the end of = do końca (Past Perfect)."
+    },
+    {
+      "n": 3,
+      "accept": [
+        "NEVER",
+        "RARELY",
+        "SELDOM"
+      ],
+      "explanation": "Inwersja po wyrażeniu przeczącym: Never had such… been found."
+    },
+    {
+      "n": 4,
+      "accept": [
+        "IN"
+      ],
+      "explanation": "In order to = żeby."
+    },
+    {
+      "n": 5,
+      "accept": [
+        "WHAT"
+      ],
+      "explanation": "Wh-cleft: What was exciting was…"
+    },
+    {
+      "n": 6,
+      "accept": [
+        "HAVE"
+      ],
+      "explanation": "May have been made – modalny w przeszłości, strona bierna."
+    },
+    {
+      "n": 7,
+      "accept": [
+        "ONCE",
+        "WHEN",
+        "AFTER"
+      ],
+      "explanation": "Once / when the excavation is complete – czas teraźniejszy o przyszłości."
+    },
+    {
+      "n": 8,
+      "accept": [
+        "OVER"
+      ],
+      "explanation": "From all over the country = z całego kraju."
+    }
+  ]
+}

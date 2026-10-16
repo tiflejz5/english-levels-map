@@ -1,0 +1,76 @@
+{
+  "id": "uoe-p3-3",
+  "part": 3,
+  "type": "word-formation",
+  "title": "Volunteering abroad",
+  "instructions": "Utwórz od słowa w nawiasie słowo, które pasuje do luki. Uważaj na przedrostki, liczbę mnogą i pisownię. Każda luka to 1 punkt.",
+  "maxScore": 8,
+  "text": "Volunteering abroad has grown into a {{1}} industry, and not all programmes are what they claim to be. Critics argue that some projects are {{2}} and do little to help local communities. {{3}}, it can be hard to tell good schemes from bad ones before you travel. A {{4}} organisation will be open about how your fee is spent and will provide {{5}} information about the work you will do. It is also worth checking whether volunteers receive any {{6}} training. When done well, volunteering can be a truly {{7}} experience and a chance to develop greater cultural {{8}}.",
+  "gaps": [
+    {
+      "n": 1,
+      "stem": "PROFIT",
+      "accept": [
+        "PROFITABLE"
+      ],
+      "explanation": "Przymiotnik przed industry: profit → profitable."
+    },
+    {
+      "n": 2,
+      "stem": "ORGANISE",
+      "accept": [
+        "DISORGANISED",
+        "DISORGANIZED"
+      ],
+      "explanation": "Krytyka (do little to help) → przeczenie: disorganised."
+    },
+    {
+      "n": 3,
+      "stem": "FORTUNE",
+      "accept": [
+        "UNFORTUNATELY"
+      ],
+      "explanation": "Przysłówek zdaniowy z przeczeniem: niestety trudno odróżnić."
+    },
+    {
+      "n": 4,
+      "stem": "REPUTE",
+      "accept": [
+        "REPUTABLE"
+      ],
+      "explanation": "Przymiotnik przed organisation: repute → reputable (godny zaufania)."
+    },
+    {
+      "n": 5,
+      "stem": "DETAIL",
+      "accept": [
+        "DETAILED"
+      ],
+      "explanation": "Przymiotnik przed information: detailed."
+    },
+    {
+      "n": 6,
+      "stem": "PREPARE",
+      "accept": [
+        "PREPARATORY"
+      ],
+      "explanation": "Przymiotnik przed training: preparatory training."
+    },
+    {
+      "n": 7,
+      "stem": "FORGET",
+      "accept": [
+        "UNFORGETTABLE"
+      ],
+      "explanation": "Dwie zmiany: przeczenie + -able (podwojone t)."
+    },
+    {
+      "n": 8,
+      "stem": "SENSITIVE",
+      "accept": [
+        "SENSITIVITY"
+      ],
+      "explanation": "Po cultural – rzeczownik: sensitive → sensitivity."
+    }
+  ]
+}

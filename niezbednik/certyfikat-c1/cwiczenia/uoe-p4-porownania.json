@@ -1,0 +1,119 @@
+{
+  "id": "uoe-p4-porownania",
+  "part": 4,
+  "type": "transformation",
+  "title": "Porównania",
+  "focus": "Not nearly as, nowhere near as, the… the…, najwyższy stopień z ever",
+  "instructions": "Uzupełnij drugie zdanie tak, żeby znaczyło to samo co pierwsze. Użyj podanego słowa bez zmieniania go. Wpisz od 3 do 6 słów, łącznie ze słowem kluczowym (skróty typu doesn't liczą się jako dwa słowa). Każda odpowiedź jest warta 2 punkty – po 1 za każdą część.",
+  "maxScore": 12,
+  "items": [
+    {
+      "n": 1,
+      "first": "My new flat is much smaller than my old one.",
+      "keyword": "NEARLY",
+      "before": "My new flat is",
+      "after": "my old one.",
+      "parts": [
+        [
+          "NOT NEARLY"
+        ],
+        [
+          "AS BIG AS",
+          "SO BIG AS",
+          "AS LARGE AS",
+          "SO LARGE AS",
+          "AS SPACIOUS AS"
+        ]
+      ],
+      "model": "NOT NEARLY AS BIG AS",
+      "explanation": "Not nearly as… as = dużo mniej… niż."
+    },
+    {
+      "n": 2,
+      "first": "I have never read such a boring book.",
+      "keyword": "MOST",
+      "before": "This is",
+      "after": "I have ever read.",
+      "parts": [
+        [
+          "THE MOST BORING"
+        ],
+        [
+          "BOOK"
+        ]
+      ],
+      "model": "THE MOST BORING BOOK",
+      "explanation": "Never… such → the most… I have ever…"
+    },
+    {
+      "n": 3,
+      "first": "If you practise more, you'll become more confident.",
+      "keyword": "THE",
+      "before": "",
+      "after": ", the more confident you will become.",
+      "parts": [
+        [
+          "THE MORE"
+        ],
+        [
+          "YOU PRACTISE",
+          "YOU PRACTICE"
+        ]
+      ],
+      "model": "THE MORE YOU PRACTISE",
+      "explanation": "The + stopień wyższy…, the + stopień wyższy… = im…, tym…"
+    },
+    {
+      "n": 4,
+      "first": "Prices have never been as high as they are now.",
+      "keyword": "EVER",
+      "before": "Prices are higher",
+      "after": "been.",
+      "parts": [
+        [
+          "THAN THEY HAVE",
+          "THAN THEY'VE"
+        ],
+        [
+          "EVER"
+        ]
+      ],
+      "model": "THAN THEY HAVE EVER",
+      "explanation": "Stopień wyższy + than + podmiot + have ever been."
+    },
+    {
+      "n": 5,
+      "first": "Paul isn't as patient as his sister.",
+      "keyword": "LESS",
+      "before": "Paul is",
+      "after": "his sister.",
+      "parts": [
+        [
+          "LESS PATIENT"
+        ],
+        [
+          "THAN"
+        ]
+      ],
+      "model": "LESS PATIENT THAN",
+      "explanation": "Not as… as = less… than."
+    },
+    {
+      "n": 6,
+      "first": "Living in the city is far more expensive than living in the country.",
+      "keyword": "NOWHERE",
+      "before": "Living in the country is",
+      "after": "living in the city.",
+      "parts": [
+        [
+          "NOWHERE NEAR AS"
+        ],
+        [
+          "EXPENSIVE AS"
+        ]
+      ],
+      "model": "NOWHERE NEAR AS EXPENSIVE AS",
+      "explanation": "Nowhere near as… as = wcale nie tak… jak (mocniej niż not as)."
+    }
+  ]
+}

@@ -30,7 +30,7 @@ window.ELM = window.ELM || {};
   }
 
   function render() {
-    const bar = document.getElementById("topbar");
+    const bar = document.getElementById("profile-slot");
     if (!data()) { bar.replaceChildren(); return; }
     const active = app().getActiveProfile();
 

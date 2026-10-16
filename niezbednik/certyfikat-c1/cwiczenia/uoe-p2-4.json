@@ -1,0 +1,68 @@
+{
+  "id": "uoe-p2-4",
+  "part": 2,
+  "type": "open-cloze",
+  "title": "Why we procrastinate",
+  "instructions": "Wpisz w każdą lukę dokładnie jedno słowo. Skróty typu don't liczą się jako dwa słowa, więc nie są poprawną odpowiedzią. Każda luka to 1 punkt.",
+  "maxScore": 8,
+  "text": "Most of us put things off from time to time, but for some people procrastination becomes a serious problem. Contrary {{1}} popular belief, it has little to do with laziness. Psychologists explain that we delay tasks {{2}} make us feel anxious or bored. In {{3}} words, procrastination is a way of managing emotions rather {{4}} time. The problem is that the relief is only temporary: the longer we wait, the {{5}} stressed we become. One effective strategy is to break a large task {{6}} into smaller steps. Another is to commit to working on something for just five minutes. More often {{7}} not, once we have started, we find it easier to carry {{8}}.",
+  "gaps": [
+    {
+      "n": 1,
+      "accept": [
+        "TO"
+      ],
+      "explanation": "Contrary to popular belief = wbrew powszechnej opinii."
+    },
+    {
+      "n": 2,
+      "accept": [
+        "THAT",
+        "WHICH"
+      ],
+      "explanation": "Zaimek względny: tasks that make us…"
+    },
+    {
+      "n": 3,
+      "accept": [
+        "OTHER"
+      ],
+      "explanation": "In other words = innymi słowy."
+    },
+    {
+      "n": 4,
+      "accept": [
+        "THAN"
+      ],
+      "explanation": "Rather than = a nie."
+    },
+    {
+      "n": 5,
+      "accept": [
+        "MORE"
+      ],
+      "explanation": "The longer…, the more… = im dłużej…, tym bardziej…"
+    },
+    {
+      "n": 6,
+      "accept": [
+        "DOWN"
+      ],
+      "explanation": "Break down into = rozbić na."
+    },
+    {
+      "n": 7,
+      "accept": [
+        "THAN"
+      ],
+      "explanation": "More often than not = najczęściej."
+    },
+    {
+      "n": 8,
+      "accept": [
+        "ON"
+      ],
+      "explanation": "Carry on = kontynuować."
+    }
+  ]
+}

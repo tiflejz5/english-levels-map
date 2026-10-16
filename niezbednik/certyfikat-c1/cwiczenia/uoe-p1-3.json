@@ -1,0 +1,99 @@
+{
+  "id": "uoe-p1-3",
+  "part": 1,
+  "type": "multiple-choice-cloze",
+  "title": "A career change",
+  "instructions": "Wybierz słowo (A, B, C lub D), które najlepiej pasuje do luki. Każda luka to 1 punkt.",
+  "maxScore": 8,
+  "text": "After fifteen years in banking, Laura decided it was time to {{1}} a change. She had always been {{2}} on cooking, so she enrolled on a professional chef's course. 'Everyone thought I'd {{3}} my mind,' she laughs. The first few months were tough, and she seriously {{4}} giving up more than once. But her hard work eventually {{5}} off, and two years later she opened her own restaurant. It quickly gained a {{6}} for imaginative, seasonal food. Laura admits that opening the restaurant was a {{7}} of faith, but she has no regrets. 'If you have a dream, don't let fear {{8}} in your way.'",
+  "gaps": [
+    {
+      "n": 1,
+      "options": {
+        "A": "make",
+        "B": "do",
+        "C": "take",
+        "D": "get"
+      },
+      "answer": "A",
+      "explanation": "Make a change = dokonać zmiany."
+    },
+    {
+      "n": 2,
+      "options": {
+        "A": "keen",
+        "B": "fond",
+        "C": "interested",
+        "D": "eager"
+      },
+      "answer": "A",
+      "explanation": "Be keen on = przepadać za; fond of, interested in, eager to."
+    },
+    {
+      "n": 3,
+      "options": {
+        "A": "missed",
+        "B": "lost",
+        "C": "dropped",
+        "D": "left"
+      },
+      "answer": "B",
+      "explanation": "Lose your mind = zwariować."
+    },
+    {
+      "n": 4,
+      "options": {
+        "A": "considered",
+        "B": "thought",
+        "C": "wondered",
+        "D": "supposed"
+      },
+      "answer": "A",
+      "explanation": "Consider + -ing = rozważać; thought wymaga about."
+    },
+    {
+      "n": 5,
+      "options": {
+        "A": "gave",
+        "B": "paid",
+        "C": "set",
+        "D": "took"
+      },
+      "answer": "B",
+      "explanation": "Pay off = opłacić się."
+    },
+    {
+      "n": 6,
+      "options": {
+        "A": "fame",
+        "B": "popularity",
+        "C": "reputation",
+        "D": "recognition"
+      },
+      "answer": "C",
+      "explanation": "Gain a reputation for = zyskać renomę."
+    },
+    {
+      "n": 7,
+      "options": {
+        "A": "jump",
+        "B": "step",
+        "C": "leap",
+        "D": "move"
+      },
+      "answer": "C",
+      "explanation": "A leap of faith = skok na głęboką wodę."
+    },
+    {
+      "n": 8,
+      "options": {
+        "A": "stay",
+        "B": "stand",
+        "C": "put",
+        "D": "lie"
+      },
+      "answer": "B",
+      "explanation": "Stand in your way = stać na przeszkodzie."
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "id": "uoe-p3-1",
+  "part": 3,
+  "type": "word-formation",
+  "title": "Working from home",
+  "instructions": "Utwórz od słowa w nawiasie słowo, które pasuje do luki. Uważaj na przedrostki, liczbę mnogą i pisownię. Każda luka to 1 punkt.",
+  "maxScore": 8,
+  "text": "Over the last decade, remote work has become {{1}} common. For many employees, the {{2}} to organise their own day is the main attraction. However, the arrangement is not without its {{3}}. Some workers report feelings of {{4}}, while others find it difficult to switch off at the end of the day, which can lead to {{5}}. Managers, too, face new challenges: assessing {{6}} fairly is harder when you rarely see your team. Experts recommend that companies set clear and {{7}} expectations, and that employees create a routine that is {{8}} in the long term.",
+  "gaps": [
+    {
+      "n": 1,
+      "stem": "INCREASE",
+      "accept": [
+        "INCREASINGLY"
+      ],
+      "explanation": "Przysłówek przed przymiotnikiem common: increase → increasingly."
+    },
+    {
+      "n": 2,
+      "stem": "FLEXIBLE",
+      "accept": [
+        "FLEXIBILITY"
+      ],
+      "explanation": "Po the potrzebny rzeczownik: flexible → flexibility."
+    },
+    {
+      "n": 3,
+      "stem": "ADVANTAGE",
+      "accept": [
+        "DISADVANTAGES"
+      ],
+      "explanation": "Kontekst (However… not without its) wymaga przeczenia i liczby mnogiej."
+    },
+    {
+      "n": 4,
+      "stem": "LONELY",
+      "accept": [
+        "LONELINESS"
+      ],
+      "explanation": "Po feelings of – rzeczownik: lonely → loneliness."
+    },
+    {
+      "n": 5,
+      "stem": "EXHAUST",
+      "accept": [
+        "EXHAUSTION"
+      ],
+      "explanation": "Po lead to – rzeczownik: exhaust → exhaustion."
+    },
+    {
+      "n": 6,
+      "stem": "PERFORM",
+      "accept": [
+        "PERFORMANCE"
+      ],
+      "explanation": "Dopełnienie czasownika assessing – rzeczownik."
+    },
+    {
+      "n": 7,
+      "stem": "REASON",
+      "accept": [
+        "REASONABLE"
+      ],
+      "explanation": "Przymiotnik przed expectations, połączony z clear."
+    },
+    {
+      "n": 8,
+      "stem": "SUSTAIN",
+      "accept": [
+        "SUSTAINABLE"
+      ],
+      "explanation": "Po is – przymiotnik: sustain → sustainable."
+    }
+  ]
+}

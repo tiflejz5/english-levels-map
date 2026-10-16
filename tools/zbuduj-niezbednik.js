@@ -79,3 +79,55 @@ console.log("Zapisano: " + path.relative(process.cwd(), OUT));
 console.log("Podstrony: " + Object.keys(pages).length + ", wpisy bez pliku: " + missing.length);
 console.log("Podsumowania: " + (Object.keys(summaries).join(", ") || "brak") + "; strona główna: " + (home ? "tak" : "brak"));
 warnings.forEach(function (w) { console.log("UWAGA: " + w); });
+
+// =====================================================================
+// ZAKŁADKA „CERTYFIKAT C1” (niezbednik/certyfikat-c1/)
+//   manifest.json   — sekcje, strony, zestawy ćwiczeń i trenery
+//   strony/*.md     — strony zakładki
+//   cwiczenia/*.json, trening/*.json, powiazania.json
+// Wynik: niezbednik/certyfikat-c1-dane.js (ELM.C1)
+// =====================================================================
+
+const C1_ROOT = path.join(ROOT, "certyfikat-c1");
+const C1_OUT = path.join(ROOT, "certyfikat-c1-dane.js");
+
+if (fs.existsSync(path.join(C1_ROOT, "manifest.json"))) {
+  const readJson = function (rel) {
+    return JSON.parse(fs.readFileSync(path.join(C1_ROOT, rel), "utf8").replace(/^﻿/, ""));
+  };
+  const manifest = readJson("manifest.json");
+  const c1 = { manifest: manifest, pages: {}, exercises: {}, trainers: {}, links: null };
+  const c1Missing = [];
+
+  manifest.sections.forEach(function (section) {
+    (section.pages || []).forEach(function (page) {
+      const file = path.join(C1_ROOT, page.file);
+      if (fs.existsSync(file)) c1.pages[page.id] = readMd(file);
+      else c1Missing.push(page.file);
+    });
+    (section.exerciseGroups || []).forEach(function (group) {
+      group.sets.forEach(function (set) {
+        if (fs.existsSync(path.join(C1_ROOT, set.file))) c1.exercises[set.id] = readJson(set.file);
+        else c1Missing.push(set.file);
+      });
+    });
+    if (section.trainer) {
+      if (fs.existsSync(path.join(C1_ROOT, section.trainer.file))) c1.trainers[section.trainer.id] = readJson(section.trainer.file);
+      else c1Missing.push(section.trainer.file);
+    }
+  });
+  if (manifest.links && manifest.links.file && fs.existsSync(path.join(C1_ROOT, manifest.links.file))) {
+    c1.links = readJson(manifest.links.file);
+  }
+
+  fs.writeFileSync(C1_OUT,
+    "/*\n * PLIK GENEROWANY AUTOMATYCZNIE — nie edytuj ręcznie.\n" +
+    " * Źródło: niezbednik/certyfikat-c1/\n" +
+    " * Odśwież poleceniem: node tools/zbuduj-niezbednik.js\n */\n" +
+    "window.ELM = window.ELM || {};\nwindow.ELM.C1 = " + JSON.stringify(c1, null, 1) + ";\n", "utf8");
+
+  console.log("Zapisano: " + path.relative(process.cwd(), C1_OUT));
+  console.log("Certyfikat C1: strony " + Object.keys(c1.pages).length + ", zestawy " + Object.keys(c1.exercises).length +
+    ", trenery " + Object.keys(c1.trainers).length + ", ramki " + (c1.links ? c1.links.links.length : 0));
+  c1Missing.forEach(function (f) { console.log("UWAGA: brak pliku certyfikat-c1/" + f); });
+}

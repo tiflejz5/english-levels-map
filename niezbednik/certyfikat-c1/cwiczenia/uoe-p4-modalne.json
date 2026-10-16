@@ -1,0 +1,113 @@
+{
+  "id": "uoe-p4-modalne",
+  "part": 4,
+  "type": "transformation",
+  "title": "Modalne w przeszłości",
+  "focus": "Must have, can't have, might have, should(n't) have, needn't have, could have",
+  "instructions": "Uzupełnij drugie zdanie tak, żeby znaczyło to samo co pierwsze. Użyj podanego słowa bez zmieniania go. Wpisz od 3 do 6 słów, łącznie ze słowem kluczowym (skróty typu doesn't liczą się jako dwa słowa). Każda odpowiedź jest warta 2 punkty – po 1 za każdą część.",
+  "maxScore": 12,
+  "items": [
+    {
+      "n": 1,
+      "first": "I'm sure she forgot about the meeting.",
+      "keyword": "MUST",
+      "before": "She",
+      "after": "about the meeting.",
+      "parts": [
+        [
+          "MUST HAVE"
+        ],
+        [
+          "FORGOTTEN"
+        ]
+      ],
+      "model": "MUST HAVE FORGOTTEN",
+      "explanation": "Pewność dotycząca przeszłości: must have + 3. forma."
+    },
+    {
+      "n": 2,
+      "first": "It's impossible that he saw me – I was in Spain at the time.",
+      "keyword": "CAN'T",
+      "before": "He",
+      "after": "me – I was in Spain at the time.",
+      "parts": [
+        [
+          "CAN'T HAVE"
+        ],
+        [
+          "SEEN"
+        ]
+      ],
+      "model": "CAN'T HAVE SEEN",
+      "explanation": "Niemożliwość w przeszłości: can't have + 3. forma (nie mustn't!)."
+    },
+    {
+      "n": 3,
+      "first": "It was a mistake to tell him the truth.",
+      "keyword": "SHOULDN'T",
+      "before": "I",
+      "after": "the truth.",
+      "parts": [
+        [
+          "SHOULDN'T HAVE"
+        ],
+        [
+          "TOLD HIM"
+        ]
+      ],
+      "model": "SHOULDN'T HAVE TOLD HIM",
+      "explanation": "Żal / krytyka: shouldn't have + 3. forma."
+    },
+    {
+      "n": 4,
+      "first": "Perhaps they took the wrong road.",
+      "keyword": "MIGHT",
+      "before": "They",
+      "after": "the wrong road.",
+      "parts": [
+        [
+          "MIGHT HAVE"
+        ],
+        [
+          "TAKEN"
+        ]
+      ],
+      "model": "MIGHT HAVE TAKEN",
+      "explanation": "Możliwość w przeszłości: might have + 3. forma."
+    },
+    {
+      "n": 5,
+      "first": "It wasn't necessary for you to buy flowers, but thank you.",
+      "keyword": "NEEDN'T",
+      "before": "You",
+      "after": "flowers, but thank you.",
+      "parts": [
+        [
+          "NEEDN'T HAVE"
+        ],
+        [
+          "BOUGHT"
+        ]
+      ],
+      "model": "NEEDN'T HAVE BOUGHT",
+      "explanation": "Needn't have + 3. forma: zrobiłeś coś, co nie było konieczne."
+    },
+    {
+      "n": 6,
+      "first": "Why didn't you tell me you were coming? I would have cooked dinner.",
+      "keyword": "COULD",
+      "before": "You",
+      "after": "me you were coming – I would have cooked dinner.",
+      "parts": [
+        [
+          "COULD HAVE"
+        ],
+        [
+          "TOLD"
+        ]
+      ],
+      "model": "COULD HAVE TOLD",
+      "explanation": "Could have + 3. forma = mogłeś (a nie zrobiłeś) – lekka pretensja."
+    }
+  ]
+}
