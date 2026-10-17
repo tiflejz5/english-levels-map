@@ -1,6 +1,12 @@
 # English Levels Map (A1–C2)
 
-Edytowalna strona dla nauczyciela angielskiego: lista tego, co uczeń powinien umieć na każdym poziomie CEFR (A1–C2), z możliwością odhaczania „Umiem”. Startuje od **bazowej listy** „Angielski A1–C2: niezbędnik do rozmowy” (`js/base-content.js`): trzy kategorie (Gramatyka i czasy, Funkcje komunikacyjne, Słownictwo) i opisy poziomów. Nauczyciel może ją dowolnie edytować w trybie edycji.
+Otwarta, edytowalna mapa umiejętności z angielskiego dla każdego: uczniów, nauczycieli i osób uczących się samodzielnie. Dla każdego poziomu CEFR (A1–C2) pokazuje, co warto umieć, a przy każdym punkcie podaje wyjaśnienie z przykładami i ćwiczeniem. Postęp odhacza się polem „Umiem”. Jest też zakładka z przygotowaniem do certyfikatu C1 Advanced.
+
+Strona startuje od **bazowej listy** „Angielski A1–C2: niezbędnik do rozmowy” (`js/base-content.js`): trzy kategorie (Gramatyka i czasy, Funkcje komunikacyjne, Słownictwo) i opisy poziomów. Listę można dowolnie edytować w trybie edycji.
+
+**Prywatność:** aplikacja nie ma kont, serwera ani bazy danych. Profile, zaznaczenia „Umiem”, edytowane treści, wyniki ćwiczeń, szkice wypracowań i data egzaminu zapisują się **tylko lokalnie w Twojej przeglądarce** (localStorage) i nigdzie nie są wysyłane. Każda przeglądarka i każde urządzenie ma osobne dane. Kopię zapasową zrobisz w menu „Dane” (eksport do pliku JSON).
+
+**Profile:** w aplikacji nie ma żadnych wbudowanych profili. Przy pierwszym otwarciu pojawia się ekran powitalny z przyciskiem „Dodaj profil”. Profil to osoba albo grupa (np. klasa), której postęp chcesz śledzić. Każdy profil ma własne zaznaczenia „Umiem”.
 
 Czysty HTML + CSS + JavaScript. Bez frameworków, bez npm, bez budowania i bez internetu.
 
@@ -41,8 +47,11 @@ Skrypty są zwykłymi `<script src>` ładowanymi po kolei. Każdy plik dopisuje 
 | Klucz localStorage | Zawartość |
 |---|---|
 | `elm_content_v1`  | treści: `{ version, categories[], levels[] }` |
-| `elm_profiles_v1` | profile: `{ version, activeId, profiles: [{ id, name, progress: { "<id punktu essentials>": true } }] }` |
-| `elm_progress_v1` | stary zapis postępu (sprzed profili); przy pierwszym starcie trafia do pierwszego profilu, potem nie jest używany |
+| `elm_profiles_v1` | profile użytkownika: `{ version: 2, activeId, profiles: [{ id, name, progress: { "<id punktu essentials>": true } }] }` (lista może być pusta) |
+| `elm_progress_v1` | stary zapis postępu (sprzed profili); jeśli ma zaznaczenia, przy pierwszym starcie trafia do nowego profilu „Mój profil” |
+| `elm_c1_v1`       | zakładka „Certyfikat C1”: data egzaminu, najlepsze wyniki, szkice Writing, listy zadań |
+
+Każdy dostęp do localStorage jest w `try/catch`. Bez dostępu do pamięci aplikacja działa do zamknięcia karty.
 | `elm_ui_v1`       | tylko wygoda: wybrany poziom i kategoria |
 
 Kształt treści:
@@ -169,4 +178,5 @@ Treść użytkownika trafia do strony wyłącznie przez `textContent` lub `value
 - **Brak localStorage:** aplikacja działa do zamknięcia karty i wyświetla wyraźne ostrzeżenie.
 - **Dodatkowe pliki JS** (`utils.js`, `dialogs.js`, `data-menu.js`) powstały, żeby żaden plik nie był za duży.
 - **Lista bazowa zamiast pustego szkieletu:** jeśli przeglądarka ma zapisany *nietknięty* pusty szkielet z poprzedniej wersji strony (jedna kategoria `cat_grammar`, zero treści), przy starcie zostaje on zastąpiony listą bazową. Własne treści nauczyciela nigdy nie są w ten sposób nadpisywane.
-- **Profile:** domyślne profile (Adam, Klasa 1, Klasa 4, Klasa 6) są w `ELM.DEFAULT_PROFILES` w `js/default-data.js`. Wybór profilu działa zawsze, a dodawanie, zmiana nazwy, kolejność i usuwanie tylko w trybie edycji. Usunięcie punktu essentials czyści jego „Umiem” we wszystkich profilach. Plik eksportu postępu zawiera wszystkie profile, a import starego pliku (bez profili) trafia do aktywnego profilu.
+- **Profile:** w kodzie nie ma żadnych wbudowanych profili. Gdy lista jest pusta (pierwsze otwarcie, „Zresetuj wszystko”, usunięcie ostatniego profilu), aplikacja pokazuje na każdym adresie ekran powitalny z polem „Nazwa profilu” i przyciskiem „Dodaj profil”, a pierwszy dodany profil staje się aktywny. Wybór profilu działa zawsze, a dodawanie, zmiana nazwy, kolejność i usuwanie tylko w trybie edycji. Usunięcie punktu essentials czyści jego „Umiem” we wszystkich profilach. Plik eksportu postępu zawiera wszystkie profile, a import starego pliku (bez profili) trafia do aktywnego profilu.
+- **Migracja profili (wersja 1 → 2, jednorazowa):** starsze wersje tworzyły przy pierwszym otwarciu kilka profili przykładowych. Przy pierwszym starcie nowej wersji zapisane profile zostają, a usuwane są tylko nieużywane profile przykładowe: bez żadnego „Umiem”, z niezmienioną nazwą i z id według dawnego schematu (`p_` + nazwa małymi literami bez spacji). Profile z postępem, o zmienionej nazwie i dodane przez użytkownika zostają bez zmian. Pozostałe dane (treści, wyniki ćwiczeń, szkice, data egzaminu) nie są ruszane.

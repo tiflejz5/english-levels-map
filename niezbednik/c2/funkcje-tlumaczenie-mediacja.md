@@ -70,7 +70,7 @@ Przetłumacz naturalnie na angielski.
 1. Mam do Pana prośbę – czy mógłby Pan przesłać fakturę?
 2. W załączniku przesyłam umowę. Daj znać, czy wszystko się zgadza.
 3. Jestem po ekonomii i od trzech lat pracuję w banku.
-4. Z góry dziękuję za szybką odpowiedź. Pozdrawiam, Adam
+4. Z góry dziękuję za szybką odpowiedź. Pozdrawiam, Marek
 5. Bardzo mi zależy na tym projekcie.
 
 ## Przykładowe odpowiedzi
@@ -78,5 +78,5 @@ Przetłumacz naturalnie na angielski.
 1. Could I ask you a favour? Would you mind sending me the invoice?
 2. I've attached the contract. Let me know if everything looks OK.
 3. I have a degree in economics, and I've been working at a bank for three years.
-4. Thanks in advance for your quick reply. Best regards, Adam
+4. Thanks in advance for your quick reply. Best regards, Marek
 5. This project really matters to me. / I really care about this project.

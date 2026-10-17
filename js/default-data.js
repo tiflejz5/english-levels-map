@@ -25,24 +25,13 @@ window.ELM = window.ELM || {};
     { id: "cat_grammar", name: "Gramatyka i czasy" }
   ];
 
-  // Profile, z którymi startuje aplikacja. Każdy ma osobny postęp „Umiem”.
-  // Kolejne profile dodaje się w aplikacji (Tryb edycji → menu profili).
-  ELM.DEFAULT_PROFILES = [
-    { id: "p_adam", name: "Adam" },
-    { id: "p_klasa1", name: "Klasa 1" },
-    { id: "p_klasa4", name: "Klasa 4" },
-    { id: "p_klasa6", name: "Klasa 6" }
-  ];
+  // Profili nie ma w kodzie — każdy użytkownik tworzy własne (osoba, klasa,
+  // grupa). Bez profilu aplikacja pokazuje ekran powitalny z „Dodaj profil”.
+  // Profile i postęp „Umiem” zapisują się tylko w tej przeglądarce.
 
-  /** Zwraca NOWĄ listę domyślnych profili z pustym postępem. */
-  ELM.createDefaultProfiles = function () {
-    return {
-      version: 1,
-      activeId: ELM.DEFAULT_PROFILES[0].id,
-      profiles: ELM.DEFAULT_PROFILES.map(function (p) {
-        return { id: p.id, name: p.name, progress: {} };
-      })
-    };
+  /** Zwraca NOWĄ, pustą listę profili. */
+  ELM.createEmptyProfiles = function () {
+    return { version: 2, activeId: null, profiles: [] };
   };
 
   /**

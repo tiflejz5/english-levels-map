@@ -15,7 +15,7 @@ Po powitaniu prawie zawsze padają te same pytania: skąd jesteś, czym się zaj
 
 | Pytanie | Odpowiedź |
 | --- | --- |
-| What's your name? | My name's Adam. / I'm Adam. |
+| What's your name? | My name's Tom. / I'm Tom. |
 | How old are you? | I'm 28 (years old). |
 | Where are you from? | I'm from Poland. / I'm Polish. |
 | Where do you live? | I live in Pruszków, near Warsaw. |

@@ -141,6 +141,8 @@ window.ELM = window.ELM || {};
 
   function renderMain(opts) {
     opts = opts || {};
+    // Bez żadnego profilu: ekran powitalny z „Dodaj profil” (na każdym adresie)
+    if (!app().hasProfiles()) return ELM.profiles.renderWelcome();
     // Strona główna, zakładka „Certyfikat C1” albo podstrona zamiast listy
     if (ELM.state.view === "home") return ELM.niezbednik.renderHome();
     if (ELM.state.view === "c1") return ELM.c1.render(ELM.state.c1Route);

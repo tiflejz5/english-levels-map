@@ -1,9 +1,13 @@
 /*
  * profiles.js — przełącznik profili w prawym górnym rogu.
  *
- * Każdy profil (np. „Adam”, „Klasa 1”) ma własne zaznaczenia „Umiem”.
+ * Każdy profil (np. imię ucznia albo nazwa klasy) ma własne zaznaczenia „Umiem”.
+ * Profile tworzy użytkownik — w kodzie nie ma żadnych wbudowanych profili.
  * Wybór profilu działa zawsze. Dodawanie, zmiana nazwy, kolejność
  * i usuwanie profili są dostępne tylko w trybie edycji.
+ * Bez żadnego profilu w tym miejscu jest przycisk „Dodaj profil”, a w treści
+ * strony ekran powitalny (renderWelcome).
+ * Profile i postęp zapisują się tylko w tej przeglądarce (localStorage).
  */
 window.ELM = window.ELM || {};
 
@@ -22,7 +26,7 @@ window.ELM = window.ELM || {};
   // RYSOWANIE
   // =====================================================================
 
-  /** Kółko z inicjałami: „Adam” → A, „Klasa 4” → K4, „Jan Nowak” → JN. */
+  /** Kółko z inicjałami: „Ola” → O, „Klasa 4” → K4, „Jan Nowak” → JN. */
   function avatar(profile) {
     const words = profile.name.trim().split(/\s+/);
     const initials = ((words[0] || "?")[0] + (words[1] ? words[1][0] : "")).toUpperCase();
@@ -33,6 +37,12 @@ window.ELM = window.ELM || {};
     const bar = document.getElementById("profile-slot");
     if (!data()) { bar.replaceChildren(); return; }
     const active = app().getActiveProfile();
+    if (!active) {
+      // Brak profili: zamiast przełącznika przycisk dodawania
+      menuOpen = false;
+      bar.replaceChildren(el("button", { type: "button", class: "btn btn-primary btn-small", onclick: add }, "+ Dodaj profil"));
+      return;
+    }
 
     const button = el("button", {
       type: "button",
@@ -89,7 +99,7 @@ window.ELM = window.ELM || {};
           iconBtn("✎", "Zmień nazwę profilu " + p.name, function () { rename(p.id); }),
           iconBtn("↑", "Przesuń profil w górę", function () { move(i, -1); }, { disabled: i === 0 }),
           iconBtn("↓", "Przesuń profil w dół", function () { move(i, 1); }, { disabled: i === list.length - 1 }),
-          iconBtn("✕", "Usuń profil " + p.name, function () { remove(p.id); }, { danger: true, disabled: list.length === 1 })
+          iconBtn("✕", "Usuń profil " + p.name, function () { remove(p.id); }, { danger: true })
         ]) : null
       ]));
     });
@@ -156,9 +166,7 @@ window.ELM = window.ELM || {};
       confirmLabel: "Dodaj"
     }).then(function (name) {
       if (name === null) return;
-      const profile = { id: U.uid("p"), name: name, progress: {} };
-      data().profiles.push(profile);
-      app().selectProfile(profile.id); // nowy profil od razu aktywny
+      app().addProfile(name); // nowy profil od razu aktywny
     });
   }
 
@@ -188,7 +196,6 @@ window.ELM = window.ELM || {};
 
   function remove(profileId) {
     const list = data().profiles;
-    if (list.length === 1) return; // zawsze musi zostać co najmniej jeden profil
     const index = list.findIndex(function (p) { return p.id === profileId; });
     if (index === -1) return;
     const profile = list[index];
@@ -200,13 +207,67 @@ window.ELM = window.ELM || {};
     }).then(function (ok) {
       if (!ok) return;
       list.splice(index, 1);
-      if (data().activeId === profileId) data().activeId = list[Math.min(index, list.length - 1)].id;
+      if (data().activeId === profileId) {
+        // Po usunięciu ostatniego profilu: brak aktywnego → ekran powitalny
+        data().activeId = list.length ? list[Math.min(index, list.length - 1)].id : null;
+      }
+      if (!list.length) menuOpen = false;
       app().profilesChanged();
     });
   }
 
+  // =====================================================================
+  // EKRAN POWITALNY (gdy w przeglądarce nie ma żadnego profilu)
+  // =====================================================================
+
+  function renderWelcome() {
+    const view = document.getElementById("view");
+    view.className = "view welcome-view";
+    view.dataset.file = "#welcome";
+    view.replaceChildren();
+    document.title = "English Levels Map (A1–C2)";
+
+    const input = el("input", {
+      type: "text",
+      id: "welcome-name",
+      class: "field",
+      maxlength: "60",
+      autocomplete: "off",
+      placeholder: "np. imię ucznia, nazwa klasy albo „Mój postęp”"
+    });
+    const error = el("p", { class: "dialog-error", "aria-live": "polite" });
+    const form = el("form", {
+      class: "welcome-form",
+      novalidate: true,
+      onsubmit: function (e) {
+        e.preventDefault();
+        const name = input.value.trim();
+        if (!name) { error.textContent = "Wpisz nazwę profilu."; input.focus(); return; }
+        app().addProfile(name);
+      }
+    }, [
+      el("label", { class: "field-label", for: "welcome-name", text: "Nazwa profilu" }),
+      el("div", { class: "welcome-row" }, [input, el("button", { type: "submit", class: "btn btn-primary" }, "Dodaj profil")]),
+      error
+    ]);
+
+    view.appendChild(el("section", { class: "card welcome", "aria-labelledby": "welcome-title" }, [
+      el("h1", { id: "welcome-title", class: "welcome-title", text: "Witaj w English Levels Map" }),
+      el("p", { class: "welcome-lead", text: "Mapa umiejętności z angielskiego od A1 do C2: lista tego, co warto umieć na każdym poziomie, " +
+        "wyjaśnienia z przykładami i ćwiczeniami oraz przygotowanie do certyfikatu C1." }),
+      el("ul", { class: "welcome-list" }, [
+        el("li", { text: "Zaznaczaj „Umiem” przy opanowanych punktach i śledź postęp na każdym poziomie." }),
+        el("li", { text: "Profil to osoba albo grupa, której postęp śledzisz. Możesz dodać ich więcej." }),
+        el("li", { text: "Profile i postęp zapisują się tylko w tej przeglądarce – nic nie jest wysyłane." })
+      ]),
+      form
+    ]));
+    input.focus();
+  }
+
   ELM.profiles = {
     render: render,
+    renderWelcome: renderWelcome,
     bindEvents: bindEvents
   };
 })(window.ELM);

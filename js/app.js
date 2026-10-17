@@ -49,7 +49,7 @@ window.ELM = window.ELM || {};
       if (!state.storageOk) {
         // Bez localStorage aplikacja działa, ale tylko do zamknięcia karty
         state.content = ELM.createDefaultData();
-        state.profiles = ELM.createDefaultProfiles();
+        state.profiles = ELM.createEmptyProfiles();
         syncProgress();
         addBanner("error", "Pamięć przeglądarki (localStorage) jest niedostępna, więc zmiany NIE będą zapisywane. " +
           "Sprawdź ustawienia przeglądarki (np. tryb prywatny, blokada plików cookie). Możesz zaimportować kopię i korzystać ze strony do zamknięcia karty.",
@@ -64,11 +64,11 @@ window.ELM = window.ELM || {};
       state.profiles = prof.data;
       syncProgress();
       if (prof.status === "new") ELM.store.saveProfiles(state.profiles);
-      if (prof.migrated) {
-        addBanner("info", "Wprowadzono profile. Dotychczasowe zaznaczenia „Umiem” (" + prof.migrated + ") przypisano do profilu „" + state.profiles.profiles[0].name + "”.");
+      if (prof.migrated && getActiveProfile()) {
+        addBanner("info", "Wprowadzono profile. Dotychczasowe zaznaczenia „Umiem” (" + prof.migrated + ") przypisano do profilu „" + getActiveProfile().name + "”.");
       }
       if (prof.status === "corrupt") {
-        addBanner("warning", "Zapisane profile były uszkodzone i zostały przywrócone do domyślnych. Jeśli masz kopię, zaimportuj ją w menu „Dane”.");
+        addBanner("warning", "Zapisane profile były uszkodzone. Uszkodzony zapis odłożono w kopii awaryjnej; jeśli masz kopię, zaimportuj ją w menu „Dane”.");
       }
 
       state.ui = ELM.store.loadUI();
@@ -350,6 +350,7 @@ window.ELM = window.ELM || {};
   // =====================================================================
 
   function setProgress(essentialId, checked) {
+    if (!getActiveProfile()) return; // bez profilu nie ma gdzie zapisać postępu
     if (checked) state.progress[essentialId] = true;
     else delete state.progress[essentialId];
     saveProgressNow();
@@ -373,7 +374,9 @@ window.ELM = window.ELM || {};
 
   /** Zastępuje postęp AKTYWNEGO profilu. */
   function replaceProgress(progress) {
-    getActiveProfile().progress = progress;
+    const active = getActiveProfile();
+    if (!active) return;
+    active.progress = progress;
     profilesChanged();
   }
 
@@ -387,16 +390,31 @@ window.ELM = window.ELM || {};
   // PROFILE
   // =====================================================================
 
+  /** Aktywny profil albo null, gdy nie ma żadnego profilu. */
   function getActiveProfile() {
     const p = state.profiles;
+    if (!p || !p.profiles.length) return null;
     return p.profiles.find(function (x) { return x.id === p.activeId; }) || p.profiles[0];
   }
 
-  /** Ustawia state.progress na postęp aktywnego profilu. */
+  function hasProfiles() {
+    return !!getActiveProfile();
+  }
+
+  /** Ustawia state.progress na postęp aktywnego profilu (bez profilu: pusty). */
   function syncProgress() {
     const active = getActiveProfile();
-    state.profiles.activeId = active.id;
-    state.progress = active.progress;
+    state.profiles.activeId = active ? active.id : null;
+    state.progress = active ? active.progress : {};
+  }
+
+  /** Dodaje profil o podanej nazwie i ustawia go jako aktywny. */
+  function addProfile(name) {
+    const profile = { id: U.uid("p"), name: String(name).trim(), progress: {} };
+    state.profiles.profiles.push(profile);
+    state.profiles.activeId = profile.id;
+    profilesChanged();
+    return profile;
   }
 
   function selectProfile(profileId) {
@@ -536,6 +554,8 @@ window.ELM = window.ELM || {};
     replaceProgress: replaceProgress,
     replaceProfiles: replaceProfiles,
     getActiveProfile: getActiveProfile,
+    hasProfiles: hasProfiles,
+    addProfile: addProfile,
     selectProfile: selectProfile,
     profilesChanged: profilesChanged,
     countDone: countDone

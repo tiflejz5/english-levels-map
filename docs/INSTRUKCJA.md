@@ -26,7 +26,7 @@ Lista ma trzy kategorie:
 - **Strona poziomu** (np. `#/a1`): lista umiejętności, a pod nią **podsumowanie poziomu**.
 - **Lewy pasek:** poziomy A1–C2. Przy każdym poziomie jest pasek postępu i licznik „X / Y umiem” dla aktualnie wybranej kategorii.
 - **Na dole lewego paska:** przełącznik **Tryb edycji** i przycisk **Dane** (kopie zapasowe).
-- **Prawy górny róg:** wybór **profilu**, czyli osoby lub klasy, której postęp śledzisz.
+- **Prawy górny róg:** wybór **profilu**, czyli osoby lub grupy, której postęp śledzisz.
 - **Prawa część:** wybrany poziom, czyli opis, kategorie, **Essentials** (lista umiejętności z polem „Umiem”) i **podsumowanie poziomu**.
 
 Uczeń korzysta ze strony w trybie podglądu. Może tylko zaznaczać „Umiem” i odkrywać odpowiedzi do ćwiczeń.
@@ -39,10 +39,10 @@ Przy punktach, które mają podstronę, tekst jest linkiem ze strzałką **›**
 - Treść podstron pochodzi z plików `.md` w folderze `niezbednik/` i nie jest edytowana w aplikacji. Opis dodawania kolejnych poziomów jest w README.
 
 ### Profile
-Każdy profil (na start: **Adam, Klasa 1, Klasa 4, Klasa 6**) ma **własne zaznaczenia „Umiem”**. Treść jest wspólna dla wszystkich profili.
+Przy pierwszym otwarciu strona nie ma żadnych profili i pokazuje **ekran powitalny**: wpisz nazwę (np. swoje imię, imię ucznia albo nazwę klasy) i kliknij **Dodaj profil**. Każdy profil ma **własne zaznaczenia „Umiem”**. Treść jest wspólna dla wszystkich profili. Profile i postęp zapisują się tylko w tej przeglądarce.
 - Kliknij przycisk profilu w prawym górnym rogu i wybierz profil z listy. Przy każdym widać, ile punktów ma zaznaczonych.
 - Paski postępu i liczniki zawsze pokazują postęp **wybranego** profilu.
-- W **Trybie edycji** w tym samym menu możesz dodać profil (**+ Nowy profil**), zmienić jego nazwę (**✎**), przesunąć go (**↑ ↓**) albo usunąć (**✕**, razem z jego postępem, po potwierdzeniu). Zawsze musi zostać co najmniej jeden profil.
+- W **Trybie edycji** w tym samym menu możesz dodać profil (**+ Nowy profil**), zmienić jego nazwę (**✎**), przesunąć go (**↑ ↓**) albo usunąć (**✕**, razem z jego postępem, po potwierdzeniu). Po usunięciu ostatniego profilu znowu pojawia się ekran powitalny.
 
 ### Certyfikat C1
 W pasku bocznym, pod poziomami, jest zakładka **Certyfikat C1** do przygotowania do egzaminu C1 Advanced. Na telefonie otwierasz ją przyciskiem **☰ Menu**. Zakładka ma kilka sekcji:

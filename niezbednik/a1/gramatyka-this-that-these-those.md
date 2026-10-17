@@ -23,7 +23,7 @@ Te cztery słowa wskazują rzeczy i osoby. Wybór zależy od dwóch pytań: **bl
 - Przed rzeczownikiem: ***this** book, **those** shoes*
 - Samodzielnie: *What's **that**? **These** are my keys.*
 - Przedstawianie osób: ***This is** my friend Marta.* (Nie: *She is my friend* przy przedstawianiu.)
-- Przez telefon: *Hello, **this is** Adam.* (Mówi Adam.)
+- Przez telefon: *Hello, **this is** Tom.* (Mówi Tom.)
 - Czas: ***this** week* (w tym tygodniu), ***that** day* (tamtego dnia)
 - Reakcja na coś, co ktoś powiedział: ***That's** great! **That's** right.*
 

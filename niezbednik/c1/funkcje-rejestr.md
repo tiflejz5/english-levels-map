@@ -46,13 +46,13 @@ Na C1 nie wystarczy mówić poprawnie – trzeba mówić **odpowiednio**. Ten sa
 - **Spotkanie zespołu:** *Let's have a look at…*
 - **Rozmowa przy kawie:** *Check this out…*
 
-Dobra zasada: dopasuj się do rozmówcy. Jeśli ktoś pisze *Hi Adam*, odpowiadasz *Hi John*, a nie *Dear Sir*.
+Dobra zasada: dopasuj się do rozmówcy. Jeśli ktoś pisze *Hi Tom*, odpowiadasz *Hi John*, a nie *Dear Sir*.
 
 ## Typowe błędy Polaków
 
 - ❌ zbyt formalnie w luźnej sytuacji: *I would like to inquire whether you desire some tea.* → ✅ *Fancy a cup of tea?*
 - ❌ zbyt luźno z klientem: *Hey guys, what's up?* → ✅ *Hello everyone, thanks for joining.*
-- ❌ *Dear Mr. Adam* → ✅ *Dear Mr Smith* (nazwisko) albo *Dear Adam* (imię)
+- ❌ *Dear Mr. Tom* → ✅ *Dear Mr Smith* (nazwisko) albo *Dear Tom* (imię)
 - ❌ dosłowne tłumaczenie polskich formułek: *I greet you warmly* → ✅ *Best wishes / Kind regards*
 
 ## Ćwiczenie

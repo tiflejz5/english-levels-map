@@ -66,11 +66,11 @@ Dobierz odpowiedź.
 
 1. How are you?
 2. Nice to meet you.
-3. This is my brother, Adam.
+3. This is my brother, Tom.
 4. See you tomorrow!
 5. What's your name?
 
-a) Bye! See you! b) Hi, Adam! c) I'm fine, thanks. And you? d) I'm Ola. e) Nice to meet you too.
+a) Bye! See you! b) Hi, Tom! c) I'm fine, thanks. And you? d) I'm Ola. e) Nice to meet you too.
 
 ## Odpowiedzi
 

@@ -57,7 +57,7 @@ Email lub list w Part 2 może być **formalny** (do organizatora kursu, dyrektor
 > I trust you will give this matter your attention and look forward to hearing from you.
 >
 > Yours sincerely,
-> Adam Nowak
+> Jan Kowalski
 
 **Dlaczego to działa:** wszystkie cztery punkty polecenia (ocena, skarga, uzasadnienie, rekomendacja), zrównoważony ton, konkretne przykłady, subjunctive *recommend that the brochure be revised*, formalne zakończenie.
 

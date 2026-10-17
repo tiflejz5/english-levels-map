@@ -1088,3 +1088,17 @@ textarea.field { resize: vertical; min-height: 42px; overflow: hidden; }
   .c1-home-tile { padding: 16px; gap: 12px; }
   .c1-countdown-number { font-size: 36px; }
 }
+
+/* ===================== EKRAN POWITALNY (brak profili) ===================== */
+.welcome-view { max-width: 720px; }
+.welcome { margin-top: 24px; padding: 36px 40px; }
+.welcome-title { font-size: 32px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 12px; }
+.welcome-lead { font-size: 18px; color: var(--text-2); margin-bottom: 18px; }
+.welcome-list { margin: 0 0 26px; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; }
+.welcome-form { padding-top: 20px; border-top: 1px solid var(--border-soft); }
+.welcome-row { display: flex; flex-wrap: wrap; gap: 10px; }
+.welcome-row .field { flex: 1; min-width: 200px; }
+@media (max-width: 760px) {
+  .welcome { padding: 24px 18px; }
+  .welcome-title { font-size: 26px; }
+}

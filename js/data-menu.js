@@ -47,7 +47,7 @@ window.ELM = window.ELM || {};
           action("Importuj profile i postęp…", importProgress)
         ]),
         group("Reset", "Operacje nieodwracalne. Najpierw zrób eksport.", [
-          action("Zresetuj postęp profilu „" + app().getActiveProfile().name + "”", resetProgress, "btn-danger"),
+          app().hasProfiles() ? action("Zresetuj postęp profilu „" + app().getActiveProfile().name + "”", resetProgress, "btn-danger") : null,
           action("Zresetuj wszystko", resetAll, "btn-danger")
         ])
       ],
@@ -132,6 +132,9 @@ window.ELM = window.ELM || {};
     }
     const active = app().getActiveProfile();
     const isProfiles = parsed.type === "profiles";
+    if (!isProfiles && !active) {
+      return ELM.dialogs.alert({ title: "Najpierw dodaj profil", message: "Ten plik zawiera postęp jednej osoby (starszy format). Dodaj profil, a potem zaimportuj plik ponownie – postęp trafi do tego profilu." });
+    }
     const message = isProfiles
       ? "Plik zawiera profile (" + parsed.data.profiles.length + "): " +
         parsed.data.profiles.map(function (p) { return p.name; }).join(", ") +
@@ -165,6 +168,7 @@ window.ELM = window.ELM || {};
 
   /** Czyści postęp tylko aktywnego profilu. */
   function resetProgress() {
+    if (!app().hasProfiles()) return;
     ELM.dialogs.confirm({
       title: "Zresetować postęp profilu?",
       message: "Wszystkie zaznaczenia „Umiem” profilu „" + app().getActiveProfile().name + "” zostaną usunięte. Inne profile i treści pozostaną bez zmian.",
@@ -178,7 +182,7 @@ window.ELM = window.ELM || {};
   function resetAll() {
     ELM.dialogs.confirm({
       title: "Zresetować wszystko?",
-      message: "Zostaną usunięte WSZYSTKIE treści (kategorie, essentials) oraz wszystkie profile z ich postępem. Aplikacja wróci do stanu jak przy pierwszym otwarciu: bazowej listy umiejętności i domyślnych profili.",
+      message: "Zostaną usunięte WSZYSTKIE treści (kategorie, essentials) oraz wszystkie profile z ich postępem. Aplikacja wróci do stanu jak przy pierwszym otwarciu: bazowej listy umiejętności, bez żadnych profili.",
       confirmLabel: "Dalej"
     }).then(function (ok) {
       if (!ok) return false;
@@ -190,7 +194,7 @@ window.ELM = window.ELM || {};
     }).then(function (ok) {
       if (!ok) return;
       ELM.store.clearAll();
-      app().replaceProfiles(ELM.createDefaultProfiles());
+      app().replaceProfiles(ELM.createEmptyProfiles());
       app().replaceContent(ELM.createDefaultData());
     });
   }

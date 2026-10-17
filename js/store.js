@@ -219,9 +219,14 @@ window.ELM = window.ELM || {};
 
   // ---------- Profile (każdy profil ma własny postęp) ----------
 
+  // Wersja zapisu profili. 1 = dawna wersja z profilami wbudowanymi w kod,
+  // 2 = tylko profile użytkownika (lista może być pusta).
+  const PROFILES_VERSION = 2;
+
   /**
    * Sprawdza listę profili i zwraca jej czystą kopię:
-   *   { version: 1, activeId, profiles: [{ id, name, progress: { id: true } }] }
+   *   { version: 2, activeId | null, profiles: [{ id, name, progress: { id: true } }] }
+   * Pusta lista jest poprawna (aplikacja pokaże wtedy ekran powitalny).
    */
   function normalizeProfiles(raw) {
     if (!U.isPlainObject(raw) || !Array.isArray(raw.profiles)) {
@@ -238,36 +243,72 @@ window.ELM = window.ELM || {};
         progress: U.isPlainObject(p.progress) ? normalizeProgress(p.progress) : {}
       };
     });
-    if (!profiles.length) throw new Error("Lista profili jest pusta.");
-    const activeId = profiles.some(function (p) { return p.id === raw.activeId; }) ? raw.activeId : profiles[0].id;
-    return { version: 1, activeId: activeId, profiles: profiles };
+    const activeId = profiles.some(function (p) { return p.id === raw.activeId; })
+      ? raw.activeId
+      : (profiles.length ? profiles[0].id : null);
+    const version = typeof raw.version === "number" ? raw.version : 1;
+    return { version: version, activeId: activeId, profiles: profiles };
   }
 
   /**
-   * Wczytuje profile. Zwraca { status: "new" | "ok" | "corrupt", data, migrated }.
-   * Przy pierwszym uruchomieniu tej wersji dotychczasowy pojedynczy postęp
-   * (klucz elm_progress_v1) trafia do pierwszego profilu. Stary klucz zostaje
-   * nietknięty jako kopia.
+   * Jednorazowa migracja z wersji 1 (profile wbudowane w kod) do wersji 2.
+   * Dawne profile wbudowane miały id zbudowane z nazwy: "p_" + nazwa małymi
+   * literami bez spacji. Usuwamy tylko te z nich, które nie mają żadnego
+   * zaznaczonego „Umiem” i nie zmieniły nazwy. Profile z postępem, profile
+   * o zmienionej nazwie i wszystkie profile dodane przez użytkownika zostają.
+   * Zwraca liczbę usuniętych, nieużywanych profili.
+   */
+  function migrateProfilesV1(data) {
+    if (data.version >= PROFILES_VERSION) return 0;
+    const before = data.profiles.length;
+    data.profiles = data.profiles.filter(function (p) {
+      const seedId = "p_" + p.name.toLowerCase().replace(/\s+/g, "");
+      const unusedSeed = p.id === seedId && Object.keys(p.progress).length === 0;
+      return !unusedSeed;
+    });
+    if (!data.profiles.some(function (p) { return p.id === data.activeId; })) {
+      data.activeId = data.profiles.length ? data.profiles[0].id : null;
+    }
+    data.version = PROFILES_VERSION;
+    return before - data.profiles.length;
+  }
+
+  /**
+   * Wczytuje profile. Zwraca { status: "new" | "ok" | "corrupt", data, migrated, removedSeeds }.
+   * - Brak zapisu → pusta lista. Jeśli istnieje bardzo stary zapis postępu
+   *   sprzed profili (elm_progress_v1) z zaznaczeniami, trafia on do nowego
+   *   profilu „Mój profil” (stary klucz zostaje nietknięty jako kopia).
+   * - Zapis w wersji 1 → jednorazowo usuwamy nieużywane profile wbudowane
+   *   (patrz migrateProfilesV1) i zapisujemy wersję 2.
+   * Zapisane profile i ich postęp nigdy nie są kasowane.
    */
   function loadProfiles() {
     const raw = readRaw(PROFILES_KEY);
     if (raw === null) {
-      const data = ELM.createDefaultProfiles();
+      const data = ELM.createEmptyProfiles();
       let migrated = 0;
       const old = readRaw(PROGRESS_KEY);
       if (old !== null) {
         try {
-          data.profiles[0].progress = normalizeProgress(JSON.parse(old));
-          migrated = Object.keys(data.profiles[0].progress).length;
+          const progress = normalizeProgress(JSON.parse(old));
+          migrated = Object.keys(progress).length;
+          if (migrated) {
+            const profile = { id: U.uid("p"), name: "Mój profil", progress: progress };
+            data.profiles.push(profile);
+            data.activeId = profile.id;
+          }
         } catch (e) { /* uszkodzony stary postęp — pomijamy */ }
       }
-      return { status: "new", data: data, migrated: migrated };
+      return { status: "new", data: data, migrated: migrated, removedSeeds: 0 };
     }
     try {
-      return { status: "ok", data: normalizeProfiles(JSON.parse(raw)) };
+      const data = normalizeProfiles(JSON.parse(raw));
+      const removedSeeds = migrateProfilesV1(data);
+      if (removedSeeds || data.version !== JSON.parse(raw).version) saveProfiles(data);
+      return { status: "ok", data: data, migrated: 0, removedSeeds: removedSeeds };
     } catch (e) {
       writeRaw(PROFILES_KEY + "_corrupt_backup", raw);
-      return { status: "corrupt", data: ELM.createDefaultProfiles() };
+      return { status: "corrupt", data: ELM.createEmptyProfiles(), migrated: 0, removedSeeds: 0 };
     }
   }
 
@@ -362,7 +403,11 @@ window.ELM = window.ELM || {};
     }
     const data = U.isPlainObject(obj) && obj.app === APP_ID && obj.kind === "progress" ? obj.data : obj;
     if (!U.isPlainObject(data)) throw new Error("Plik nie zawiera poprawnego zapisu postępu.");
-    if (Array.isArray(data.profiles)) return { type: "profiles", data: normalizeProfiles(data) };
+    if (Array.isArray(data.profiles)) {
+      const profiles = normalizeProfiles(data);
+      migrateProfilesV1(profiles); // stary plik: bez nieużywanych profili wbudowanych
+      return { type: "profiles", data: profiles };
+    }
     return { type: "single", progress: normalizeProgress(data) };
   }
 
