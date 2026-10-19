@@ -255,7 +255,7 @@ window.ELM = window.ELM || {};
         el("span", { class: "section-sub", text: "Co warto umieć na poziomie " + level.id })
       ]),
       el("div", { class: "essentials-progress", id: "ess-progress" }, [
-        progressBar(stats.percent, false, "Postęp essentials"),
+        progressBar(stats.percent, false, "Postęp w tej kategorii"),
         el("span", { class: "progress-text", text: progressLabel(stats) })
       ])
     ]);
@@ -308,7 +308,8 @@ window.ELM = window.ELM || {};
   }
 
   function progressLabel(stats) {
-    return stats.done + " z " + stats.total + " umiem · " + stats.percent + "%";
+    // „w tej kategorii”: lewy panel i strona „Dziś” liczą cały poziom (wszystkie kategorie)
+    return stats.done + " z " + stats.total + " umiem w tej kategorii · " + stats.percent + "%";
   }
 
   /** Aktualizuje pasek postępu essentials bez przerysowania całej strony. */

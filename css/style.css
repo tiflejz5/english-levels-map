@@ -695,6 +695,18 @@ textarea.field { resize: vertical; min-height: 42px; overflow: hidden; }
   -webkit-backdrop-filter: saturate(180%) blur(16px);
   backdrop-filter: saturate(180%) blur(16px);
 }
+/* Przyciski górnego paska: ten sam styl co przycisk drugorzędny (powierzchnia, ramka, cień) */
+.topbar .theme-btn, .topbar .profile-btn, .topbar .menu-btn {
+  border-color: var(--line-strong);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  transition: background var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
+}
+.topbar .theme-btn:hover:not(:disabled), .topbar .profile-btn:hover, .topbar .menu-btn:hover {
+  background: var(--surface-raised);
+  border-color: var(--line-control);
+  box-shadow: var(--shadow);
+}
 .profile-switcher { position: relative; }
 
 .profile-btn {
@@ -871,6 +883,9 @@ textarea.field { resize: vertical; min-height: 42px; overflow: hidden; }
   .card { padding: 20px 16px; }
   .section-head { flex-direction: column; align-items: flex-start; gap: 4px; }
   .ess-item { padding: 10px 6px; gap: 10px; }
+  /* Pasek postępu na całą szerokość, podpis „… w tej kategorii” pod nim */
+  .essentials-progress { flex-wrap: wrap; gap: 6px 14px; }
+  .essentials-progress .progress { flex-basis: 100%; }
   .page-head { flex-wrap: wrap; }
   /* Kategorie: równe kolumny na całą szerokość, długie nazwy zawijają się w przycisku */
   .segmented { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); width: 100%; }
