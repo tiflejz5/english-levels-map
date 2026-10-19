@@ -139,12 +139,12 @@ Szczegóły zasad: sekcja 4.
 | „Umiem” | `.umiem` (+ `.umiem-lg`) | Pigułka z okrągłym polem. Po zaznaczeniu tło `--lvl-soft`, kolor `--lvl-ink`, pole wypełnione `--lvl`, ptaszek „pstryka” (`--ease-spring`). Poza poziomem: kolory sukcesu. |
 | Chip | `.chip` (+ `.c1-chip`) | Mała pigułka `--surface-3` / `--ink-muted`. W kontekście poziomu: `--lvl-soft` / `--lvl-ink`. |
 | Podpowiedź | `[data-tooltip]` | Czysty CSS, pojawia się przy hover **i** focus-visible. Treść jest też w `aria-label`, bo podpowiedź jest tylko wizualna. |
-| Pasek postępu | `.progress` > `.progress-fill` (`ELM.ui.progressBar` w `render.js`) | Wypełnianie przez `transform: scaleX` (`--dur-slow`). Kolor `--lvl` albo `--brand-gradient` (`.is-brand`). Tor `--lvl-soft`. |
-| Pierścień postępu | `ELM.ui.progressRing(percent, opts)` (`js/icons.js`) | SVG, łuk przez `stroke-dashoffset`, kolor poziomu albo gradient marki, liczba w środku (`tabular-nums`). Rola `progressbar` z `aria-valuenow`. |
-| Ikona | `ELM.icon(name, opts)` (`js/icons.js`) | Lucide, obrys 1.75 px, `currentColor`, domyślnie `aria-hidden`. Rysowana przez `createElementNS` (bez innerHTML). |
-| Logo | `ELM.logo()` + `assets/favicon.svg` / `.png` | Znak: kompas w okręgu ze szlakiem w gradiencie marki plus napis Fraunces. |
+| Pasek postępu | `.progress` > `.progress-fill` (funkcja `progressBar` w `js/render.js`) | Wypełnianie przez `transform: scaleX` (`--dur-slow`). Kolor `--lvl` albo `--brand-gradient` (`.is-brand`). Tor `--lvl-soft`. |
+| Pierścień postępu | `ELM.ui.progressRing(percent, opts)` (`js/ui.js`) | SVG, łuk przez `stroke-dashoffset`, kolor poziomu albo gradient marki, liczba w środku (`tabular-nums`). Rola `progressbar` z `aria-valuenow`. |
+| Ikona | `ELM.icon(name, opts)` (`js/ui.js`), w HTML `<span data-icon="nazwa">` | Lucide, obrys 1.75 px, `currentColor`, domyślnie `aria-hidden`. Rysowana przez `createElementNS` (bez innerHTML). |
+| Logo | `ELM.logo()` (w HTML `[data-logo]`), `assets/favicon.svg`, `assets/favicon-180.png` | Znak: kompas w okręgu ze szlakiem kropek, okrąg i północ igły w gradiencie marki. Napis „English Levels Map” Fraunces w kolorze `--ink`. Gradient jest tylko w znaku, bo jasne krainy (zielony, pomarańcz, turkus) dają w tekście kontrast poniżej 4.5:1. |
 | Focus | `:focus-visible` | Obrys 2 px `--focus-color`, odstęp 2 px, na każdym tle. |
-| Tło warstwicowe | `.topo` | Statyczny wzór SVG (maska, `--topo-color` przy `--topo-opacity`), tylko za nagłówkami/hero, nigdy za tekstem treści. |
+| Tło warstwicowe | `::before` nagłówków `.level-header`, `.tool-head`, pierwszego `h1` strony głównej i `.c1-title` | Statyczny wzór warstwic (`assets/warstwice.svg`, w CSS jako maska `data:`, bo maski z pliku są blokowane przy `file://`) w `--topo-color` przy `--topo-opacity`, wygaszany w lewo. `.view` ma `overflow-x: clip`, więc wzór nigdy nie wywołuje przewijania w poziomie. |
 
 ## 4. Ruch
 
@@ -200,10 +200,34 @@ Szczegóły zasad: sekcja 4.
 1. `npm run build`: zasoby i dane bez błędów.
 2. `npm test`: testy logiki.
 3. `node tools/kontrast.js`: 0 niezgodnych par.
-4. Audyt twardych wartości: w `css/style.css` poza blokami tokenów nie ma literałów kolorów (`#…`, `rgb(…)`). Skrypt kontrolny opisany w sekcji 9.
+4. Audyt twardych wartości: w `css/style.css` poza blokami tokenów nie ma literałów kolorów (`#…`, `rgb(…)`), rozmiarów fontów ani promieni w px, ani czasów poza tokenami (wyjątek: 0.01 ms w regule `prefers-reduced-motion`).
+
+   Udokumentowane wyjątki z kolorami wpisanymi na stałe:
+   - `meta theme-color` w `<head>` i `THEME_COLOR` w `js/theme.js` — skrypt działa przed wczytaniem CSS;
+   - samodzielny `assets/favicon.svg`.
 5. Zrzuty ekranu: jasny i ciemny motyw przy 390, 768 i 1280 px. Brak przewijania w poziomie od 360 px.
 
-## 9. Dziennik zmian
+## 9. Wyniki przeglądów
+
+**Etap 1, przegląd dostępności** (automatyczny audyt Playwright + Edge, 8 tras, oba motywy, 1280 i 390 px):
+- kontrast całego wyrenderowanego tekstu: 0 niezgodności;
+- elementy interaktywne bez nazwy dostępnej: 0;
+- fokus widoczny na 25 kolejnych elementach z klawiatury;
+- powiększenie 200%: bez przewijania w poziomie;
+- cele dotykowe ≥ 44 px po poprawkach (listy wyboru w lukach Part 1–3 i przycisk „Dodaj do dziennika” na ekranach dotykowych).
+
+Ograniczenie: audyt automatyczny nie zastępuje testu z czytnikiem ekranu (NVDA / VoiceOver).
+
+**Etap 1, krytyka projektu** (zrzuty 360–1280 px):
+- Ujednolicone kroje na stronie „Dziś”: kody poziomów i duże liczby w Fraunces.
+- Na kolejne etapy: lewy panel ma za mało hierarchii między narzędziami a krainami (etap 2). Karty treści są nadal głównie jasne, więc tła krain w nagłówkach i celebracje zostają na etap 3. Tabele i bloki treści podstron do dopracowania w etapie 4.
+
+**Rozmiar** (HTML + CSS + JS bez plików z danymi):
+- kod: przed 310.8 KB (gzip 95.6 KB), po 358.9 KB (gzip 109.4 KB), czyli +48.1 KB (gzip +13.7 KB);
+- nowe fonty woff2: 253.9 KB w 4 plikach, pobierane według `unicode-range` i trzymane w pamięci podręcznej;
+- GSAP (71 KB) nie jest ładowany w etapie 1.
+
+## 10. Dziennik zmian
 
 - **Etap 1 (fundament).**
   - Nowa paleta i tokeny („papier mapy” i „mapa nocą”), paleta krain sprawdzona pod daltonizm.
@@ -211,5 +235,6 @@ Szczegóły zasad: sekcja 4.
   - Ikony Lucide zamiast znaków tekstowych.
   - Logo (kompas ze szlakiem) i favicony.
   - Komponenty bazowe: karta, przyciski, „Umiem”, chip, podpowiedź, pasek i pierścień postępu, focus, zaznaczenie, pasek przewijania, tło warstwicowe.
-  - `tools/kontrast.js`, `tools/zbuduj-zasoby.js`.
+  - `tools/kontrast.js` (152 pary), `tools/zbuduj-zasoby.js`.
+  - Wszystkie rozmiary fontów, promienie i czasy animacji na tokenach.
   - Układ ekranów bez zmian.

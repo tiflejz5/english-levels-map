@@ -1337,6 +1337,8 @@ html.theme-anim *::after {
   .umiem { min-height: 44px; }
   .task-item label { min-height: 44px; align-items: center; }
   .task-item input { margin-top: 0; }
+  /* Pola w lukach ćwiczeń (Part 1–3): także 44 px na ekranach dotykowych */
+  .c1-select, .c1-gap-input, .c1-journal-btn { min-height: 44px; }
 }
 
 /* ===================== OGRANICZENIE RUCHU ===================== */
@@ -1426,7 +1428,7 @@ textarea.field { overflow: auto; }
 .journal-row.is-right dd, .journal-row.is-right strong { color: var(--success); font-weight: 600; }
 .journal-actions { display: flex; flex-wrap: wrap; gap: 8px; }
 .c1-journal { display: block; margin-top: 8px; }
-.c1-journal-btn { min-height: 36px; }
+@media (pointer: fine) { .c1-journal-btn { min-height: 36px; } }
 
 /* Sesja powtórek */
 .review-progress { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
@@ -1454,13 +1456,13 @@ textarea.field { overflow: auto; }
 .today-card { margin: 0; padding: 22px 24px; display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
 .today-card > .btn, .today-card .tool-actions { margin-top: auto; }
 .today-card-title { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: 620; letter-spacing: -0.01em; }
-.today-big { font-size: var(--fs-xl); font-weight: 600; }
+.today-big { font-family: var(--font-display); font-size: var(--fs-xl); font-weight: 600; letter-spacing: var(--tracking-display); }
 .today-big strong { font-family: var(--font-display); font-size: var(--fs-2xl); font-weight: 640; letter-spacing: var(--tracking-display); color: var(--accent); font-variant-numeric: tabular-nums; }
 .today-levels-card { grid-column: 1 / -1; }
 .today-levels { list-style: none; margin: 0; padding: 0; width: 100%; display: flex; flex-direction: column; gap: 6px; }
 .today-level { display: grid; grid-template-columns: 72px minmax(0, 1fr) 72px; align-items: center; gap: 12px; }
 .today-level .progress-text { text-align: right; }
-.today-level-link { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: var(--ink); font-weight: 650; text-decoration: none; border-radius: var(--radius-sm); }
+.today-level-link { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: var(--ink); font-family: var(--font-display); font-size: var(--fs-lg); font-weight: 620; text-decoration: none; border-radius: var(--radius-sm); }
 .today-level-link:hover { color: var(--accent); }
 .today-levels .progress-fill { transition: transform var(--dur-slow) var(--ease-out); }
 .today-stats { display: flex; gap: 28px; }
@@ -1603,6 +1605,8 @@ textarea.field { overflow: auto; }
 
 /* Tło warstwicowe (mapa topograficzna): statyczny wzór SVG (assets/warstwice.svg jako maska),
    tylko za nagłówkami / hero — nigdy za tekstem treści. Kolor i krycie z tokenów. */
+/* overflow-x: clip — wzór może wystawać poza nagłówek, ale nigdy poza widok (bez przewijania w poziomie) */
+.view { overflow-x: clip; }
 .level-header, .tool-head, .home-view .md > h1:first-child, .c1-view .c1-title { position: relative; isolation: isolate; }
 .level-header::before, .tool-head::before, .home-view .md > h1:first-child::before, .c1-view .c1-title::before {
   content: "";

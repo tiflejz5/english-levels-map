@@ -2,7 +2,7 @@
 
 Otwarta mapa umiejętności z angielskiego dla każdego: uczniów, nauczycieli i osób uczących się samodzielnie. Dla każdego poziomu CEFR (A1–C2) pokazuje, co warto umieć, a przy każdym punkcie podaje wyjaśnienie z przykładami i ćwiczeniem. Postęp odhacza się polem „Umiem”. Jest też zakładka z przygotowaniem do certyfikatu C1 Advanced.
 
-Czysty HTML + CSS + JavaScript. Bez frameworków, bez npm, bez zewnętrznych CDN i fontów (fonty systemowe), bez internetu.
+Czysty HTML + CSS + JavaScript. Bez frameworków i bez kroku budowania; npm służy tylko do pobrania fontów, ikon i GSAP, których kopie są w `assets/`. Bez zewnętrznych CDN i bez internetu.
 
 ## Funkcje
 
@@ -20,6 +20,14 @@ Czysty HTML + CSS + JavaScript. Bez frameworków, bez npm, bez zewnętrznych CDN
 ## Uruchomienie
 
 Kliknij dwukrotnie `index.html`. Strona działa bezpośrednio z dysku (`file://`) i na GitHub Pages (https://tiflejz5.github.io/english-levels-map/). Nie trzeba niczego instalować.
+
+**Wygląd i zasoby:** zasady wizualne (tokeny, krainy A1–C2, typografia, ruch, dostępność, mikrotreści) opisuje [DESIGN.md](DESIGN.md). Fonty (Fraunces, Inter), ikony (Lucide) i GSAP pochodzą z npm, ale strona ich nie pobiera z sieci — kopie leżą w `assets/`. Po `npm install` lub aktualizacji paczek uruchom:
+
+```bash
+npm run zasoby
+```
+
+Kontrola kontrastu obu motywów: `node tools/kontrast.js`.
 
 Do przebudowania danych podstron (po zmianie plików `.md`/`.json` w `niezbednik/`) potrzebny jest Node.js:
 
