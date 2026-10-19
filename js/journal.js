@@ -249,10 +249,16 @@ window.ELM = window.ELM || {};
     return true;
   }
 
+  /** Klasa paska kategorii (kolor tylko jako dodatek — nazwa kategorii jest w chipie). */
+  function catClass(category) {
+    const map = { "Use of English": "uoe", "Reading": "reading", "Writing": "writing", "Listening": "listening", "Speaking": "speaking", "Gramatyka": "grammar", "Słownictwo": "vocab", "Inne": "other" };
+    return " cat-" + (map[category] || "other");
+  }
+
   function entryCard(e, rerender) {
     const status = reviewLabel(e);
     const link = itemLink(e.itemId);
-    return el("li", { class: "card journal-entry" }, [
+    return el("li", { class: "card journal-entry" + catClass(e.category) }, [
       el("div", { class: "journal-entry-head" }, [
         el("span", { class: "c1-chip", text: e.category }),
         el("span", { class: "journal-status " + status.cls, text: status.text }),
@@ -455,16 +461,16 @@ window.ELM = window.ELM || {};
       itemLink(entry.itemId) ? el("p", null, ["Niezbędnik: ", itemLink(entry.itemId)]) : null
     ]);
 
-    const knownBtn = el("button", { type: "button", class: "btn btn-primary", onclick: function () { answer(true); } }, "Wiedziałem(am)");
-    const againBtn = el("button", { type: "button", class: "btn btn-secondary", onclick: function () { answer(false); } }, "Znowu błąd");
+    const knownBtn = el("button", { type: "button", class: "btn btn-primary review-btn is-known", onclick: function () { answer(true); } }, ELM.ui.withIcon("check", "Wiedziałem(am)"));
+    const againBtn = el("button", { type: "button", class: "btn btn-secondary review-btn is-again", onclick: function () { answer(false); } }, ELM.ui.withIcon("rotate-ccw", "Znowu błąd"));
     const showBtn = el("button", {
       type: "button",
       class: "btn btn-primary",
       onclick: function () { session.revealed = true; rerender(); focusLater(".review-known"); }
-    }, "Pokaż odpowiedź");
+    }, ELM.ui.withIcon("eye", "Pokaż odpowiedź"));
     knownBtn.classList.add("review-known");
 
-    view.appendChild(el("section", { class: "card review-card", "aria-live": "polite" }, [
+    view.appendChild(el("section", { class: "card review-card" + catClass(entry.category), "aria-live": "polite" }, [
       el("div", { class: "journal-entry-head" }, [
         el("span", { class: "c1-chip", text: entry.category }),
         entry.source ? el("span", { class: "journal-source", text: entry.source }) : null

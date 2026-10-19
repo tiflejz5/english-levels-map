@@ -40,7 +40,7 @@ const ICONS = [
   "trash", "search", "copy", "play", "pause", "timer", "circle-question-mark", "map",
   "flag", "info", "triangle-alert", "user-round", "external-link",
   "pin", "pin-off", "panel-left-open", "panel-left-close",
-  "flame", "calendar-days", "map-pin", "list-checks", "sparkles", "notebook-text"
+  "flame", "calendar-days", "map-pin", "list-checks", "sparkles", "notebook-text", "eye"
 ];
 
 function need(file) {

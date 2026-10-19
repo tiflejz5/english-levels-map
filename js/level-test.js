@@ -150,12 +150,18 @@ window.ELM = window.ELM || {};
     const last = run.answered ? run.asked[run.asked.length - 1] : null;
 
     view.appendChild(el("header", { class: "tool-head" }, [el("h1", { class: "tool-title", text: "Szybki test poziomu" })]));
-    view.appendChild(el("div", { class: "review-progress" }, [
-      el("div", {
-        class: "progress", role: "progressbar", "aria-valuemin": "0", "aria-valuemax": String(total),
-        "aria-valuenow": String(run.asked.length), "aria-label": "Postęp testu"
-      }, el("div", { class: "progress-fill", style: "transform:scaleX(" + run.asked.length / total + ")" })),
-      el("span", { class: "progress-text", text: "Pytanie " + n + " z " + total })
+    // Kropki postępu: odpowiedziane (dobrze ✓ / źle ✗ — nie tylko kolor), bieżąca, przyszłe
+    const dots = [];
+    for (let i = 0; i < total; i++) {
+      const a = run.asked[i];
+      const isCurrent = !run.answered ? i === run.asked.length : i === run.asked.length - 1;
+      const cls = "lt-dot" + (a ? (a.correct ? " is-ok" : " is-bad") : "") + (isCurrent ? " is-current" : "");
+      dots.push(el("li", { class: cls }, a ? ELM.icon(a.correct ? "check" : "x", { size: 12 }) : null));
+    }
+    view.appendChild(el("div", { class: "lt-progress" }, [
+      el("ol", { class: "lt-dots", "aria-hidden": "true" }, dots),
+      el("span", { class: "progress-text", text: "Pytanie " + n + " z " + total }),
+      el("span", { class: "visually-hidden", text: "Dotychczas dobrze: " + run.asked.filter(function (a) { return a.correct; }).length + " z " + run.asked.length + "." })
     ]));
 
     const options = q.options.map(function (text, i) {
@@ -170,7 +176,12 @@ window.ELM = window.ELM || {};
         disabled: !!last,
         "aria-label": LETTERS[i] + ": " + text + (last && i === q.correct ? " (poprawna odpowiedź)" : last && i === last.chosen ? " (Twoja odpowiedź)" : ""),
         onclick: function () { answer(i); }
-      }, [el("span", { class: "lt-letter", "aria-hidden": "true", text: LETTERS[i] }), el("span", { text: text })]));
+      }, [
+        el("span", { class: "lt-letter", "aria-hidden": "true" }, last && (i === q.correct || i === last.chosen) ? ELM.icon(i === q.correct ? "check" : "x", { size: 16 }) : LETTERS[i]),
+        el("span", { class: "lt-option-text", text: text }),
+        last && i === q.correct ? el("span", { class: "lt-tag is-ok", "aria-hidden": "true", text: "Poprawna" }) : null,
+        last && i === last.chosen && i !== q.correct ? el("span", { class: "lt-tag is-bad", "aria-hidden": "true", text: "Twoja odpowiedź" }) : null
+      ]));
     });
 
     const body = [
@@ -217,7 +228,7 @@ window.ELM = window.ELM || {};
 
     view.appendChild(el("section", { class: "card lt-card lt-result lvl-" + level, "aria-live": "polite" }, [
       el("p", { class: "lt-result-label", text: "Szacowany poziom:" }),
-      el("p", { class: "lt-result-level" }, [el("span", { class: "level-dot", "aria-hidden": "true" }), el("strong", { text: level }), el("span", { class: "lt-result-note", text: " (orientacyjnie)" })]),
+      el("p", { class: "lt-result-level" }, [el("strong", { class: "lt-result-code", text: level }), el("span", { class: "lt-result-note", text: "orientacyjnie" })]),
       desc ? el("p", { class: "tool-lead" }, U.formatText(desc)) : null,
       el("p", null, el("a", { class: "wiki-link", href: ELM.app.levelHash(level) + "" }, "Podsumowanie poziomu " + level + " (pod listą umiejętności)")),
       el("div", { class: "tool-actions" }, [
@@ -226,6 +237,13 @@ window.ELM = window.ELM || {};
       ]),
       el("p", { class: "tool-note", text: DISCLAIMER + " Wynik z " + saved.date + "." })
     ]));
+
+    // Krótka animacja znaku poziomu (GSAP; przy ograniczonym ruchu — bez)
+    ELM.motion.run([], function (gsap, reduce) {
+      if (!gsap || reduce) return;
+      gsap.from(view.querySelector(".lt-result-code"), { scale: 0.6, autoAlpha: 0, duration: 0.6, ease: "back.out(1.8)", clearProps: "all" });
+      gsap.from(view.querySelectorAll(".lt-result > :not(.lt-result-level)"), { autoAlpha: 0, y: 8, duration: 0.4, stagger: 0.05, delay: 0.2, clearProps: "all" });
+    });
 
     view.appendChild(el("section", { class: "card lt-card" }, [
       el("h2", { class: "section-title", text: wrong.length ? "Pytania z błędem (" + wrong.length + ")" : "Bez błędów – brawo!" }),

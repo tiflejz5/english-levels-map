@@ -125,6 +125,10 @@
   --c1-cream: #f4ecd8;  /* tekst na granacie */
   --c1-cream-muted: #c9c0aa;
 
+  /* Kategorie dziennika błędów (pasek wpisu; zawsze z nazwą w chipie) */
+  --cat-uoe: #a8740a;  --cat-reading: #2f6f9a;  --cat-writing: #7d4f94;  --cat-listening: #24806f;
+  --cat-speaking: #b24a2e;  --cat-grammar: #4d6b2f;  --cat-vocab: #8c5a24;  --cat-other: #6a7180;
+
   /* Wzór warstwic (tło nagłówków): kolor linii i krycie */
   --topo-color: #1d2433;
   --topo-opacity: 0.05;
@@ -173,7 +177,7 @@
   --selection: rgba(141, 176, 255, 0.3);
 
   --success: #6fd796;
-  --success-fill: #1f8a4c;
+  --success-fill: #2fa35d;
   --success-soft: rgba(111, 215, 150, 0.12);
   --success-border: rgba(111, 215, 150, 0.38);
   --warning: #f5bd61;
@@ -208,6 +212,9 @@
   --c1-edge: #e9c25c;
   --c1-cream: #f4ecd8;
   --c1-cream-muted: #bdb6a4;
+
+  --cat-uoe: #e2b84e;  --cat-reading: #6fb1e0;  --cat-writing: #c19adb;  --cat-listening: #5ccbb6;
+  --cat-speaking: #f08a6c;  --cat-grammar: #9cc46d;  --cat-vocab: #d9a465;  --cat-other: #9aa3b5;
 
   --topo-color: #eaf0fa;
   --topo-opacity: 0.045;
@@ -1998,4 +2005,54 @@ textarea.field { overflow: auto; }
   .level-ring-label { margin: 0; align-self: end; }
   .level-ring-scope { align-self: start; }
   .essentials .ess-item { padding: 12px 12px 12px 14px; gap: 6px 10px; }
+}
+
+/* ===================== TEST POZIOMU I DZIENNIK (etap 3, DESIGN.md sekcja 3.5) ===================== */
+/* Test: kropki postępu (✓ / ✗ w kropce — nie tylko kolor) */
+.lt-progress { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-bottom: 16px; }
+.lt-dots { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.lt-dot {
+  display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid var(--line-control); color: var(--on-accent);
+  transition: transform var(--dur-base) var(--ease-spring), background var(--dur-fast) var(--ease-out);
+}
+.lt-dot.is-ok { background: var(--success-fill); border-color: var(--success-fill); }
+.lt-dot.is-bad { background: var(--danger-bg); border-color: var(--danger-bg); }
+.lt-dot.is-current { transform: scale(1.15); box-shadow: 0 0 0 3px var(--surface), 0 0 0 5px var(--accent); }
+.lt-card { max-width: 760px; }
+.lt-question { font-family: var(--font-display); font-size: var(--fs-xl); font-weight: 600; letter-spacing: -0.01em; }
+.lt-option-text { flex: 1; min-width: 0; }
+.lt-tag { flex-shrink: 0; padding: 2px 10px; border-radius: var(--radius-pill); font-size: var(--fs-xs); font-weight: 700; }
+.lt-tag.is-ok { background: var(--success-fill); color: var(--on-accent); }
+.lt-tag.is-bad { background: var(--danger-bg); color: var(--on-accent); }
+.lt-option.is-correct, .lt-option.is-wrong { border-width: 2px; }
+.lt-feedback.is-ok { background: var(--success-soft); }
+.lt-feedback.is-bad { background: var(--danger-soft); }
+/* Wynik: duży znak poziomu */
+.lt-result { background: linear-gradient(135deg, var(--lvl-soft) 0%, var(--surface) 70%); border-color: color-mix(in srgb, var(--lvl) 30%, var(--line)); }
+.lt-result-level { flex-direction: column; align-items: flex-start; gap: 0; }
+.lt-result-code { display: inline-block; font-size: clamp(4rem, 3rem + 5vw, 6.5rem); line-height: 0.95; letter-spacing: -0.04em; color: var(--lvl-ink); }
+.lt-result-note { font-family: var(--font); font-size: var(--fs-sm); font-weight: 600; letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--ink-muted); }
+
+/* Dziennik: pasek kategorii przy wpisie i karcie powtórki */
+.journal-entry, .review-card { position: relative; border-left-width: 1px; }
+.journal-entry::before, .review-card::before {
+  content: ""; position: absolute; left: -1px; top: 14px; bottom: 14px; width: 5px;
+  border-radius: 0 4px 4px 0; background: var(--cat, var(--cat-other));
+}
+.cat-uoe { --cat: var(--cat-uoe); } .cat-reading { --cat: var(--cat-reading); } .cat-writing { --cat: var(--cat-writing); }
+.cat-listening { --cat: var(--cat-listening); } .cat-speaking { --cat: var(--cat-speaking); } .cat-grammar { --cat: var(--cat-grammar); }
+.cat-vocab { --cat: var(--cat-vocab); } .cat-other { --cat: var(--cat-other); }
+.journal-entry .c1-chip, .review-card .c1-chip { background: color-mix(in srgb, var(--cat) 14%, var(--surface)); color: var(--ink); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--cat) 40%, transparent); }
+
+/* Sesja powtórek: duża karta, dwa wyraźne przyciski */
+.review-card { padding: 32px 36px; max-width: 760px; }
+.review-context { font-family: var(--font-display); font-size: var(--fs-xl); font-weight: 560; line-height: 1.45; }
+.review-card .tool-actions { gap: 12px; }
+.review-btn { min-height: 48px; padding: 10px 22px; font-size: var(--fs-md); }
+.review-btn.is-known { background: var(--success-fill); color: var(--on-accent); }
+.review-btn.is-known:hover:not(:disabled) { background: color-mix(in srgb, var(--success-fill) 85%, var(--ink)); }
+@media (max-width: 760px) {
+  .review-card { padding: 22px 18px; }
+  .review-btn { flex: 1 1 100%; }
 }

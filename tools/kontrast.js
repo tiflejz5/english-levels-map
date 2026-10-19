@@ -45,6 +45,9 @@ const pairs = [];
   pairs.push(["ink", bg, null, 4.5, "tekst / " + bg]);
   pairs.push(["ink-muted", bg, null, 4.5, "tekst drugorzędny / " + bg]);
 });
+["uoe", "reading", "writing", "listening", "speaking", "grammar", "vocab", "other"].forEach(function (c) {
+  pairs.push(["cat-" + c, "surface", null, 3, "pasek kategorii dziennika (" + c + ") / karta"]);
+});
 pairs.push(
   ["ink-faint", "surface", null, 4.5, "placeholder / pole"],
   ["accent", "surface", null, 4.5, "link / karta"],
@@ -80,7 +83,12 @@ pairs.push(
   ["c1-edge", "surface-2", null, 3, "chip C1: krawędź / panel"],
   ["c1-ink", "c1-soft", "surface-2", 4.5, "aktywny Certyfikat C1: tekst / tło"],
   ["ink-muted", "lvl-a1-soft", null, 4.5, "licznik „X / Y umiem” / aktywny poziom (A1)"],
-  ["on-accent", "accent-bg", null, 4.5, "plakietka powtórek / tło"]
+  ["on-accent", "accent-bg", null, 4.5, "plakietka powtórek / tło"],
+  ["on-accent", "success-fill", null, 4.5, "„Wiedziałem(am)”, etykieta „Poprawna” / tło"],
+  ["on-accent", "danger-bg", null, 4.5, "etykieta „Twoja odpowiedź” / tło"],
+  ["c1-gold", "c1-navy", null, 4.5, "kafel egzaminu: liczba / granat"],
+  ["c1-cream", "c1-navy", null, 4.5, "kafel egzaminu: tekst / granat"],
+  ["c1-cream-muted", "c1-navy", null, 4.5, "kafel egzaminu: data / granat"]
 );
 ["a1", "a2", "b1", "b2", "c1", "c2"].forEach(function (l) {
   const L = l.toUpperCase();
