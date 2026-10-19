@@ -3,10 +3,25 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Tylko jasny motyw: przeglądarka nie będzie przyciemniać pól formularzy -->
-  <meta name="color-scheme" content="light">
+  <!-- Motyw jasny i ciemny (kolory w css/style.css, przełącznik w js/theme.js) -->
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#ffffff">
   <title>English Levels Map (A1–C2)</title>
-  <link rel="stylesheet" href="css/style.css?v=17">
+  <!-- Ustawia motyw ZANIM strona się narysuje (bez błysku złego motywu).
+       elm_theme_v1: "auto" (jak w systemie), "light" albo "dark". -->
+  <script>
+    (function () {
+      var pref = "auto";
+      try { pref = localStorage.getItem("elm_theme_v1") || "auto"; } catch (e) {}
+      var dark = pref === "dark" || (pref !== "light" && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+      var root = document.documentElement;
+      root.setAttribute("data-theme", dark ? "dark" : "light");
+      root.setAttribute("data-theme-pref", pref);
+      var meta = document.querySelector('meta[name="theme-color"]');
+      if (meta) meta.setAttribute("content", dark ? "#121214" : "#ffffff");
+    })();
+  </script>
+  <link rel="stylesheet" href="css/style.css?v=19">
 </head>
 <body>
   <noscript>
@@ -35,7 +50,11 @@
       <!-- Górny pasek: przycisk menu (tylko telefon) i menu profilu z sekcją „Dane” (prawy górny róg, js/profiles.js) -->
       <div class="topbar" id="topbar">
         <button type="button" class="btn btn-secondary btn-small menu-btn" id="menu-btn" aria-controls="sidebar" aria-expanded="false">☰ Menu</button>
-        <div class="profile-slot" id="profile-slot"></div>
+        <div class="topbar-actions">
+          <!-- Motyw: Automatycznie → Jasny → Ciemny (js/theme.js) -->
+          <button type="button" class="icon-btn theme-btn" id="theme-btn" aria-label="Motyw"></button>
+          <div class="profile-slot" id="profile-slot"></div>
+        </div>
       </div>
       <div class="banners" id="banners"></div>
       <div class="view" id="view"></div>
@@ -45,27 +64,28 @@
   <div class="nav-overlay" id="nav-overlay" hidden></div>
 
   <!-- Skrypty ładowane po kolei (bez modułów ES, żeby działało z file://).
-       ?v=17 to numer wersji: po zmianie plików JS/CSS zwiększ go wszędzie,
+       ?v=19 to numer wersji: po zmianie plików JS/CSS zwiększ go wszędzie,
        żeby przeglądarki nie użyły starych kopii z pamięci podręcznej. -->
-  <script src="js/utils.js?v=17"></script>
-  <script src="js/default-data.js?v=17"></script>
+  <script src="js/utils.js?v=19"></script>
+  <script src="js/theme.js?v=19"></script>
+  <script src="js/default-data.js?v=19"></script>
   <!-- Bazowa lista umiejętności; usuń tę linię, aby startować od pustego szkieletu -->
-  <script src="js/base-content.js?v=17"></script>
-  <script src="js/store.js?v=17"></script>
-  <script src="js/dialogs.js?v=17"></script>
-  <script src="js/render.js?v=17"></script>
-  <script src="js/profiles.js?v=17"></script>
-  <script src="js/markdown.js?v=17"></script>
-  <script src="js/niezbednik.js?v=17"></script>
+  <script src="js/base-content.js?v=19"></script>
+  <script src="js/store.js?v=19"></script>
+  <script src="js/dialogs.js?v=19"></script>
+  <script src="js/render.js?v=19"></script>
+  <script src="js/profiles.js?v=19"></script>
+  <script src="js/markdown.js?v=19"></script>
+  <script src="js/niezbednik.js?v=19"></script>
   <!-- Podstrony niezbędnika (generowane: node tools/zbuduj-niezbednik.js) -->
-  <script src="niezbednik/niezbednik-dane.js?v=17"></script>
+  <script src="niezbednik/niezbednik-dane.js?v=19"></script>
   <!-- Zakładka „Certyfikat C1” (dane generowane tym samym skryptem) -->
-  <script src="niezbednik/certyfikat-c1-dane.js?v=17"></script>
-  <script src="js/c1-core.js?v=17"></script>
-  <script src="js/c1-exercises.js?v=17"></script>
-  <script src="js/c1-writing.js?v=17"></script>
-  <script src="js/c1-speaking.js?v=17"></script>
-  <script src="js/data-menu.js?v=17"></script>
-  <script src="js/app.js?v=17"></script>
+  <script src="niezbednik/certyfikat-c1-dane.js?v=19"></script>
+  <script src="js/c1-core.js?v=19"></script>
+  <script src="js/c1-exercises.js?v=19"></script>
+  <script src="js/c1-writing.js?v=19"></script>
+  <script src="js/c1-speaking.js?v=19"></script>
+  <script src="js/data-menu.js?v=19"></script>
+  <script src="js/app.js?v=19"></script>
 </body>
 </html>
