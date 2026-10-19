@@ -584,6 +584,8 @@ window.ELM = window.ELM || {};
     crumb: crumb,
     notFound: notFound,
     plural: plural,
+    daysUntil: daysUntil,
+    countdownText: countdownText,
     examBoxFor: examBoxFor,
     homeTile: homeTile,
     insertAfterIntro: insertAfterIntro,

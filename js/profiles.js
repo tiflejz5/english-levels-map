@@ -383,11 +383,12 @@ window.ELM = window.ELM || {};
     ELM.dialogs.confirm({
       title: "Usunąć profil?",
       message: "Profil „" + profile.name + "” zostanie usunięty razem z jego postępem (zaznaczenia „Umiem”: " +
-        app().countDone(profile.progress) + "). Tej operacji nie można cofnąć.",
+        app().countDone(profile.progress) + "), dziennikiem błędów, serią nauki i wynikiem testu poziomu. Tej operacji nie można cofnąć.",
       confirmLabel: "Usuń profil"
     }).then(function (ok) {
       if (ok) {
         list.splice(index, 1);
+        if (ELM.profileData) ELM.profileData.removeProfile(profileId);
         if (data().activeId === profileId) {
           // Po usunięciu ostatniego profilu: brak aktywnego → ekran powitalny
           data().activeId = list.length ? list[Math.min(index, list.length - 1)].id : null;

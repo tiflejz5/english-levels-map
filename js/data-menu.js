@@ -1,12 +1,14 @@
 /*
  * data-menu.js — kopie zapasowe i reset danych (sekcja „Dane” w menu profilu).
  *
- * Eksport: jeden plik english-levels-dane-RRRR-MM-DD.json zawierający dwie
- * dotychczasowe części w niezmienionym formacie:
- *   { app, kind: "backup", version, exportedAt,
- *     data: { content: <eksport treści>, progress: <eksport profili i postępu> } }
- * Import przyjmuje ten plik oraz starsze, osobne pliki z treściami
- * (english-levels-content-…) i z postępem (english-levels-progress-…).
+ * Eksport: jeden plik english-levels-dane-RRRR-MM-DD.json:
+ *   { app, kind: "backup", version: 2, exportedAt,
+ *     data: { content: <eksport treści>, progress: <eksport profili i postępu>,
+ *             learning: { journal, activity, levelTest } } }
+ *   learning (od wersji 2) — dane nauki każdego profilu (js/profile-data.js).
+ * Import przyjmuje ten plik, kopie w wersji 1 (bez „learning”) oraz starsze,
+ * osobne pliki z treściami (english-levels-content-…) i z postępem
+ * (english-levels-progress-…).
  * Dane zakładki „Certyfikat C1” (elm_c1_v1) nie są eksportowane ani resetowane.
  */
 window.ELM = window.ELM || {};
@@ -26,11 +28,12 @@ window.ELM = window.ELM || {};
     ELM.store.downloadJSON("english-levels-dane-" + U.dateStamp() + ".json", {
       app: "english-levels-map",
       kind: "backup",
-      version: 1,
+      version: 2,
       exportedAt: new Date().toISOString(),
       data: {
         content: ELM.store.wrapExport("content", ELM.state.content),
-        progress: ELM.store.wrapExport("progress", ELM.state.profiles)
+        progress: ELM.store.wrapExport("progress", ELM.state.profiles),
+        learning: ELM.profileData.exportData()
       }
     });
   }
@@ -75,9 +78,11 @@ window.ELM = window.ELM || {};
 
   /** Plik z obiema częściami: walidacja obu → jedno potwierdzenie → zapis. */
   function importBackup(obj) {
-    let content, profiles;
+    let content, profiles, learning;
     try {
       if (!U.isPlainObject(obj.data) || !obj.data.content || !obj.data.progress) throw new Error("Plik kopii jest niekompletny.");
+      if (typeof obj.version === "number" && obj.version > 2) throw new Error("Plik pochodzi z nowszej wersji aplikacji. Zaktualizuj pliki strony.");
+      learning = ELM.profileData.parseImport(obj.data.learning);
       content = ELM.store.parseContentImport(JSON.stringify(obj.data.content));
       const parsed = ELM.store.parseProgressImport(JSON.stringify(obj.data.progress));
       if (parsed.type !== "profiles") throw new Error("Kopia nie zawiera listy profili.");
@@ -86,16 +91,19 @@ window.ELM = window.ELM || {};
       return ELM.dialogs.alert({ title: "Nie można zaimportować danych", message: e.message });
     }
     const s = summarize(content);
+    const ls = ELM.profileData.summarizeImport(learning);
     return ELM.dialogs.confirm({
       title: "Zastąpić dane w tej przeglądarce?",
       message: "Plik zawiera: kategorie: " + s.categories + ", punkty essentials: " + s.essentials +
         ", profile (" + profiles.profiles.length + "): " + (profiles.profiles.map(function (p) { return p.name; }).join(", ") || "brak") +
-        ".\n\nObecne treści, profile i ich postęp w tej przeglądarce zostaną zastąpione.",
+        (ls ? ", wpisy w dzienniku błędów: " + ls.journalEntries : "") +
+        ".\n\nObecne treści, profile i ich postęp w tej przeglądarce zostaną zastąpione." +
+        (learning ? "" : "\n\nTo starsza kopia bez dziennika błędów i serii nauki – te dane zostaną zachowane dla profili o tych samych identyfikatorach."),
       confirmLabel: "Importuj i nadpisz"
     }).then(function (ok) {
       if (!ok) return false;
       app().replaceContent(content);
-      app().replaceProfiles(profiles);
+      app().replaceProfiles(profiles, learning);
       ELM.dialogs.alert({ title: "Gotowe", message: "Dane zostały zaimportowane." });
       return true;
     });
@@ -174,7 +182,7 @@ window.ELM = window.ELM || {};
   function resetAll() {
     ELM.dialogs.confirm({
       title: "Zresetować dane?",
-      message: "Zostaną usunięte wszystkie profile z ich postępem „Umiem” oraz zmiany w treści listy. " +
+      message: "Zostaną usunięte wszystkie profile z ich postępem „Umiem”, dziennikiem błędów, serią nauki i wynikami testu poziomu oraz zmiany w treści listy. " +
         "Aplikacja wróci do stanu jak przy pierwszym otwarciu: bazowa lista umiejętności, bez żadnych profili.\n\n" +
         "Zalecenie: najpierw zrób „Eksportuj dane”, żeby mieć kopię.\n\n" +
         "Dane zakładki „Certyfikat C1” (wyniki ćwiczeń, szkice, data egzaminu) zostają.",
@@ -189,6 +197,7 @@ window.ELM = window.ELM || {};
     }).then(function (ok) {
       if (!ok) return;
       ELM.store.clearAll();
+      ELM.profileData.clearAll();
       app().replaceProfiles(ELM.createEmptyProfiles());
       app().replaceContent(ELM.createDefaultData());
     });

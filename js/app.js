@@ -10,6 +10,7 @@
  *              "level" (lista poziomu, #/a1) albo "page" (podstrona, #/a1/…)
  *   route    — otwarta podstrona niezbędnika ({ file }) albo null
  *   c1Route  — widok zakładki „Certyfikat C1” (view "c1"), patrz js/c1-core.js
+ *   toolRoute — widoki nauki: "journal" (#/bledy, js/journal.js)
  */
 window.ELM = window.ELM || {};
 
@@ -28,6 +29,7 @@ window.ELM = window.ELM || {};
     view: "home",
     route: null,
     c1Route: null,
+    toolRoute: null,
     listScroll: 0 // pozycja przewinięcia listy, przywracana po powrocie z podstrony
   };
 
@@ -177,6 +179,7 @@ window.ELM = window.ELM || {};
   //   ""  lub "#/"        → strona główna
   //   "#/a1" … "#/c2"     → lista poziomu
   //   "#/a1/<podstrona>"  → podstrona punktu (niezbędnik)
+  //   "#/bledy[/powtorki]" → dziennik błędów i sesja powtórek
   // =====================================================================
 
   /** Odczytuje adres i ustawia state.view, state.route i wybrany poziom. */
@@ -184,11 +187,16 @@ window.ELM = window.ELM || {};
     const hash = location.hash || "";
     const level = /^#\/([abcABC][12])\/?$/.exec(hash);
     const c1 = ELM.c1 ? ELM.c1.parseRoute(hash) : null;
+    const journal = ELM.journal ? ELM.journal.parseRoute(hash) : null;
     state.route = null;
     state.c1Route = null;
+    state.toolRoute = null;
 
     if (!hash || hash === "#" || hash === "#/") {
       state.view = "home";
+    } else if (journal) {
+      state.view = "journal";
+      state.toolRoute = journal;
     } else if (c1) {
       state.view = "c1"; // zakładka „Certyfikat C1”
       state.c1Route = c1;
@@ -210,9 +218,12 @@ window.ELM = window.ELM || {};
     if (!state.content) return;
     flushSave();
     const previous = state.view;
+    const previousHash = state.lastHash;
     if (previous === "level") state.listScroll = U.getScroll();
     setNavOpen(false);
     applyRoute();
+    state.lastHash = location.hash;
+    if (state.view === "journal" && previousHash !== location.hash) ELM.journal.onEnter(state.toolRoute);
     saveUI();
     if (state.view !== "page") document.title = "English Levels Map (A1–C2)";
     if (state.view === "level" && previous === "page") {
@@ -274,6 +285,11 @@ window.ELM = window.ELM || {};
 
   function renderMainOnly(opts) {
     ELM.render.renderMain(opts);
+  }
+
+  /** Odświeża plakietki nauki w lewym panelu (np. liczbę powtórek na dziś). */
+  function refreshLearning() {
+    ELM.render.renderToolsNav();
   }
 
   /** Odświeża liczniki i paski postępu bez przerysowania treści (fokus zostaje). */
@@ -354,9 +370,14 @@ window.ELM = window.ELM || {};
     profilesChanged();
   }
 
-  /** Zastępuje wszystkie profile (import / reset). */
-  function replaceProfiles(profilesData) {
+  /**
+   * Zastępuje wszystkie profile (import / reset). learning — zaimportowane
+   * dane nauki (dziennik, aktywność, test) albo null (stary plik bez nich).
+   * Dane nauki profili, których już nie ma, są usuwane.
+   */
+  function replaceProfiles(profilesData, learning) {
     state.profiles = profilesData;
+    if (ELM.profileData) ELM.profileData.applyImport(learning || null, profilesData.profiles.map(function (p) { return p.id; }));
     profilesChanged();
   }
 
@@ -516,6 +537,8 @@ window.ELM = window.ELM || {};
     goToList: goToList,
     selectCategory: selectCategory,
     refreshProgress: refreshProgress,
+    refreshLearning: refreshLearning,
+    reportSaveError: reportSaveError,
     saveContentNow: saveContentNow,
     saveProgressNow: saveProgressNow,
     saveUI: saveUI,

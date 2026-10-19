@@ -59,7 +59,33 @@ window.ELM = window.ELM || {};
   // LEWY PANEL
   // =====================================================================
 
+  /** Górna część lewego panelu: narzędzia nauki (Dziennik błędów z liczbą powtórek). */
+  function renderToolsNav() {
+    const box = document.getElementById("tools-nav");
+    if (!box) return;
+    const st = ELM.state;
+    const hasProfile = app().hasProfiles();
+    const due = hasProfile && ELM.profileData ? ELM.profileData.dueCount() : 0;
+    const items = [
+      { href: "#/bledy", label: "Dziennik błędów", icon: "✎", active: st.view === "journal",
+        badge: due ? String(due) : null, badgeLabel: due ? "powtórki na dziś: " + due : null }
+    ];
+    box.replaceChildren(el("ul", { class: "tools-list" }, items.map(function (it) {
+      return el("li", null, el("a", {
+        class: "tools-link" + (it.active ? " is-active" : ""),
+        href: it.href,
+        "aria-current": it.active ? "page" : null,
+        "aria-label": it.badgeLabel ? it.label + ", " + it.badgeLabel : null
+      }, [
+        el("span", { class: "tools-icon", "aria-hidden": "true", text: it.icon }),
+        el("span", { class: "tools-label", text: it.label }),
+        it.badge ? el("span", { class: "tools-badge", "aria-hidden": "true", text: it.badge }) : null
+      ]));
+    })));
+  }
+
   function renderSidebar() {
+    renderToolsNav();
     const st = ELM.state;
     const list = document.getElementById("level-list");
     const cat = app().getActiveCategory();
@@ -102,6 +128,7 @@ window.ELM = window.ELM || {};
     // Strona główna, zakładka „Certyfikat C1” albo podstrona zamiast listy
     if (ELM.state.view === "home") return ELM.niezbednik.renderHome();
     if (ELM.state.view === "c1") return ELM.c1.render(ELM.state.c1Route);
+    if (ELM.state.view === "journal") return ELM.journal.render(ELM.state.toolRoute);
     if (ELM.state.route) return ELM.niezbednik.renderPage(ELM.state.route);
     ELM.niezbednik.computeLinks();
     const view = document.getElementById("view");
@@ -248,6 +275,7 @@ window.ELM = window.ELM || {};
 
   ELM.render = {
     renderSidebar: renderSidebar,
+    renderToolsNav: renderToolsNav,
     renderMain: renderMain,
     updateEssentialsProgress: updateEssentialsProgress,
     iconBtn: iconBtn

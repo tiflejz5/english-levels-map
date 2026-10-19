@@ -8,6 +8,9 @@
  *   "multiple-choice-cloze" — Part 1: wybór A/B/C/D, 1 pkt
  *
  * Najlepszy wynik zestawu zapisuje ELM.c1.store (localStorage, klucz elm_c1_v1).
+ * Przy błędnej odpowiedzi przycisk „Dodaj do dziennika błędów” otwiera
+ * wstępnie wypełniony formularz (js/journal.js) — nic nie zapisuje się
+ * bez zatwierdzenia.
  */
 window.ELM = window.ELM || {};
 
@@ -117,6 +120,34 @@ window.ELM = window.ELM || {};
     return el("span", { class: "c1-mark " + (ok ? "is-ok" : "is-bad"), "aria-label": ok ? "Dobrze" : "Źle", text: ok ? "✓" : "✗" });
   }
 
+  /**
+   * Przycisk „Dodaj do dziennika błędów”. getPrefill() zwraca pola wpisu
+   * (z ref = klucz zadania, do wykrywania duplikatów).
+   */
+  function journalButton(getPrefill) {
+    if (!ELM.journal) return null;
+    const btn = el("button", {
+      type: "button",
+      class: "btn btn-secondary btn-small c1-journal-btn",
+      onclick: function () {
+        ELM.journal.openForm({ prefill: getPrefill() }).then(function (saved) {
+          if (!saved) return;
+          btn.textContent = "Dodano do dziennika ✓";
+          btn.disabled = true;
+        });
+      }
+    }, "Dodaj do dziennika błędów");
+    return btn;
+  }
+
+  /** Zdanie z luką n (pozostałe luki jako „…”), do kontekstu wpisu w dzienniku. */
+  function gapSentence(text, n) {
+    const marker = "{{" + n + "}}";
+    const sentences = String(text).match(/[^.!?]+[.!?]+['’”]?|[^.!?]+$/g) || [String(text)];
+    const hit = sentences.find(function (s) { return s.indexOf(marker) !== -1; }) || String(text);
+    return hit.trim().replace(marker, "_____").replace(/\{\{\d+\}\}/g, "…");
+  }
+
   function answerInput(cls, label) {
     return el("input", {
       type: "text",
@@ -165,6 +196,22 @@ window.ELM = window.ELM || {};
       }
       if (r.showAnswer) parts.push(el("p", { class: "c1-answer" }, [el("span", { text: "Odpowiedź: " }), el("strong", { text: r.item.model })]));
       if (r.result || r.showAnswer) parts.push(el("p", { class: "c1-explanation", text: r.item.explanation }));
+      if (r.result && r.result.score < r.item.parts.length && r.input.value.trim()) {
+        const answer = r.input.value.trim();
+        const item = r.item;
+        parts.push(el("p", { class: "c1-journal" }, journalButton(function () {
+          return {
+            context: item.first + "\nSłowo kluczowe: " + item.keyword + "\n" +
+              [item.before, "_____", item.after].filter(Boolean).join(" "),
+            myAnswer: answer,
+            correct: item.model,
+            rule: item.explanation || "",
+            source: ex.title + ", pyt. " + item.n,
+            category: "Use of English",
+            ref: "c1:" + ex.id + ":" + item.n
+          };
+        })));
+      }
       r.feedback.replaceChildren.apply(r.feedback, parts);
       r.feedback.hidden = !parts.length;
       r.input.classList.toggle("is-ok", !!r.result && r.result.score === r.item.parts.length);
@@ -241,11 +288,32 @@ window.ELM = window.ELM || {};
           showAnswers
             ? el("span", { class: "c1-answer" }, [el("span", { text: "Odpowiedź: " }), el("strong", { text: correctText(g) })])
             : null,
-          el("span", { class: "c1-explanation", text: g.explanation })
+          el("span", { class: "c1-explanation", text: g.explanation }),
+          s.result && !s.result.ok && String(s.control.value).trim() ? el("span", { class: "c1-journal" }, journalButton(function () { return clozePrefill(g, s.control.value); })) : null
         ]));
       });
       list.replaceChildren.apply(list, items);
       list.hidden = !items.length;
+    }
+
+    function clozePrefill(g, value) {
+      const lines = [gapSentence(ex.text, g.n)];
+      if (type === "multiple-choice-cloze") {
+        lines.push(Object.keys(g.options).map(function (k) { return k + " – " + g.options[k]; }).join(", "));
+      }
+      if (g.stem) lines.push("Słowo bazowe: " + g.stem);
+      const mine = type === "multiple-choice-cloze"
+        ? (value ? value + " – " + g.options[value] : "")
+        : String(value || "").trim();
+      return {
+        context: lines.join("\n"),
+        myAnswer: mine,
+        correct: correctText(g),
+        rule: g.explanation || "",
+        source: ex.title + ", luka " + g.n,
+        category: "Use of English",
+        ref: "c1:" + ex.id + ":" + g.n
+      };
     }
 
     return {
