@@ -288,6 +288,7 @@ window.ELM = window.ELM || {};
         const cell = tr.cells[0];
         const code = cell ? cell.textContent.trim().toUpperCase() : "";
         if (ELM.LEVEL_IDS.indexOf(code) === -1) return;
+        tr.classList.add("lvl-row", "lvl-" + code); // pasek i tło wiersza w kolorze krainy
         cell.replaceChildren(el("a", {
           class: "level-link lvl-" + code,
           href: ELM.app.levelHash(code),

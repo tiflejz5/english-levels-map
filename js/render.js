@@ -208,17 +208,31 @@ window.ELM = window.ELM || {};
 
   // ---------- Nagłówek poziomu ----------
 
+  /**
+   * Nagłówek poziomu: duży znak poziomu w kolorze krainy, nazwa i cel (z opisu),
+   * pierścień postępu całego poziomu (wszystkie kategorie).
+   */
   function renderLevelHeader(level) {
-    const header = el("header", { class: "level-header" }, [
-      el("h1", { class: "level-title" }, [
-        el("span", { class: "level-dot", "aria-hidden": "true" }),
-        level.id
+    const name = levelName(level);
+    const rest = String(level.description || "").split("\n").slice(name ? 1 : 0).join("\n").trim();
+    const s = app().getLevelStats(level.id);
+    const ring = ELM.ui.progressRing(s.percent, { size: 104, stroke: 8, label: "Postęp poziomu " + level.id + " we wszystkich kategoriach", text: s.percent + "%" });
+    ring.id = "level-ring";
+    return el("header", { class: "card level-hero" }, [
+      el("div", { class: "level-hero-text" }, [
+        el("p", { class: "level-kicker", text: "Poziom" }),
+        el("h1", { class: "level-title" }, [
+          el("span", { class: "level-code-big", text: level.id }),
+          name ? el("span", { class: "level-name", text: name }) : null
+        ]),
+        rest ? el("p", { class: "level-desc" }, U.formatText(rest)) : null
+      ]),
+      el("div", { class: "level-hero-ring" }, [
+        ring,
+        el("p", { class: "level-ring-label num", id: "level-ring-label", text: s.done + " z " + s.total + " umiem" }),
+        el("p", { class: "level-ring-scope", text: "wszystkie kategorie" })
       ])
     ]);
-    if (!U.isBlank(level.description)) {
-      header.appendChild(el("p", { class: "level-desc" }, U.formatText(level.description)));
-    }
-    return header;
   }
 
   // ---------- Kategorie ----------
@@ -227,16 +241,16 @@ window.ELM = window.ELM || {};
     const cats = ELM.state.content.categories;
     const bar = el("div", { class: "category-bar" });
     if (cats.length) {
-      bar.appendChild(el("div", { class: "segmented", role: "tablist", "aria-label": "Kategorie" },
+      // Filtr kategorii jako chipy (jeden wybrany naraz, aria-pressed)
+      bar.appendChild(el("div", { class: "chip-filter", role: "group", "aria-label": "Kategoria" },
         cats.map(function (c) {
           const active = activeCat && c.id === activeCat.id;
           return el("button", {
             type: "button",
-            role: "tab",
-            class: "segmented-btn" + (active ? " is-active" : ""),
-            "aria-selected": active ? "true" : "false",
+            class: "chip-btn" + (active ? " is-active" : ""),
+            "aria-pressed": active ? "true" : "false",
             onclick: function () { app().selectCategory(c.id); }
-          }, c.name || "Bez nazwy");
+          }, [active ? ELM.icon("check", { size: 16 }) : null, c.name || "Bez nazwy"]);
         })
       ));
     }
@@ -249,7 +263,7 @@ window.ELM = window.ELM || {};
     const stats = app().getStats(level.id, cat.id);
     const progress = ELM.state.progress;
 
-    const section = el("section", { class: "card essentials", "aria-labelledby": "ess-title" }, [
+    const section = el("section", { class: "essentials", "aria-labelledby": "ess-title" }, [
       el("div", { class: "section-head" }, [
         el("h2", { class: "section-title", id: "ess-title", text: "Essentials" }),
         el("span", { class: "section-sub", text: "Co warto umieć na poziomie " + level.id })
@@ -287,6 +301,7 @@ window.ELM = window.ELM || {};
       ]);
 
       li = el("li", { class: "ess-item" + (done ? " is-done" : "") + (pageLink ? " has-page" : "") }, [
+        el("span", { class: "chip is-level ess-chip", text: cat.name || "Kategoria" }),
         el("div", { class: "ess-text", id: textId }, pageLink
           // Punkt z podstroną: tekst jest linkiem
           ? el("a", { class: "ess-link", href: ELM.niezbednik.routeOf(pageLink.item), onclick: rememberScroll }, [
@@ -321,6 +336,14 @@ window.ELM = window.ELM || {};
     const bar = box.querySelector(".progress");
     bar.setAttribute("aria-valuenow", String(stats.percent));
     bar.querySelector(".progress-fill").style.transform = fillStyle(stats.percent).slice("transform:".length);
+    // Pierścień w nagłówku: cały poziom (wszystkie kategorie)
+    const ring = document.getElementById("level-ring");
+    if (ring) {
+      const ls = app().getLevelStats(ELM.state.ui.levelId);
+      ELM.ui.setRing(ring, ls.percent, ls.percent + "%");
+      const lbl = document.getElementById("level-ring-label");
+      if (lbl) lbl.textContent = ls.done + " z " + ls.total + " umiem";
+    }
     box.querySelector(".progress-text").textContent = progressLabel(stats);
   }
 
