@@ -131,3 +131,57 @@ if (fs.existsSync(path.join(C1_ROOT, "manifest.json"))) {
     ", trenery " + Object.keys(c1.trainers).length + ", ramki " + (c1.links ? c1.links.links.length : 0));
   c1Missing.forEach(function (f) { console.log("UWAGA: brak pliku certyfikat-c1/" + f); });
 }
+
+// =====================================================================
+// SZYBKI TEST POZIOMU (niezbednik/test-poziomu/pytania.json)
+//   { "version": 1, "questions": [{ id, level, type: "multiple-choice",
+//     question, options: [...], correct: <indeks>, explanation, itemId? }] }
+// Wynik: niezbednik/test-poziomu-dane.js (ELM.LEVEL_TEST). Pytania z błędami
+// są pomijane (z ostrzeżeniem), reszta trafia do pliku.
+// =====================================================================
+
+const TEST_FILE = path.join(ROOT, "test-poziomu", "pytania.json");
+const TEST_OUT = path.join(ROOT, "test-poziomu-dane.js");
+
+if (fs.existsSync(TEST_FILE)) {
+  const LEVELS = ["A1", "A2", "B1", "B2", "C1", "C2"];
+  const itemIds = new Set();
+  index.levels.forEach(function (l) { l.items.forEach(function (it) { itemIds.add(it.id); }); });
+  const raw = JSON.parse(fs.readFileSync(TEST_FILE, "utf8").replace(/^﻿/, ""));
+  if (raw.version !== 1 || !Array.isArray(raw.questions)) {
+    console.error("BŁĄD: test-poziomu/pytania.json musi mieć \"version\": 1 i listę \"questions\".");
+    process.exit(1);
+  }
+  const seen = new Set();
+  const problems = [];
+  const questions = raw.questions.filter(function (q, i) {
+    const where = "pytanie nr " + (i + 1) + (q && q.id ? " (" + q.id + ")" : "");
+    const fail = function (msg) { problems.push(where + ": " + msg); return false; };
+    if (!q || typeof q !== "object") return fail("to nie jest obiekt");
+    if (typeof q.id !== "string" || !q.id.trim()) return fail("brak id");
+    if (seen.has(q.id)) return fail("powtórzone id");
+    if (LEVELS.indexOf(q.level) === -1) return fail("level musi być jednym z: " + LEVELS.join(", "));
+    if (q.type !== "multiple-choice") return fail("nieobsługiwany type (dozwolony: multiple-choice)");
+    if (typeof q.question !== "string" || !q.question.trim()) return fail("brak treści pytania");
+    if (!Array.isArray(q.options) || q.options.length < 2 || !q.options.every(function (o) { return typeof o === "string" && o.trim(); })) {
+      return fail("options musi być listą co najmniej 2 niepustych tekstów");
+    }
+    if (!Number.isInteger(q.correct) || q.correct < 0 || q.correct >= q.options.length) return fail("correct musi być indeksem odpowiedzi (od 0)");
+    if (q.explanation !== undefined && typeof q.explanation !== "string") return fail("explanation musi być tekstem");
+    if (q.itemId !== undefined && q.itemId !== "" && !itemIds.has(q.itemId)) {
+      problems.push(where + ": nieznane itemId „" + q.itemId + "” – pytanie zostaje, ale bez linku");
+      q.itemId = "";
+    }
+    seen.add(q.id);
+    return true;
+  });
+  fs.writeFileSync(TEST_OUT,
+    "/*\n * PLIK GENEROWANY AUTOMATYCZNIE — nie edytuj ręcznie.\n" +
+    " * Źródło: niezbednik/test-poziomu/pytania.json\n" +
+    " * Odśwież poleceniem: node tools/zbuduj-niezbednik.js\n */\n" +
+    "window.ELM = window.ELM || {};\nwindow.ELM.LEVEL_TEST = " + JSON.stringify({ version: 1, questions: questions }, null, 1) + ";\n", "utf8");
+  const perLevel = LEVELS.map(function (l) { return l + ": " + questions.filter(function (q) { return q.level === l; }).length; }).join(", ");
+  console.log("Zapisano: " + path.relative(process.cwd(), TEST_OUT));
+  console.log("Test poziomu: pytania " + questions.length + " (" + perLevel + ")");
+  problems.forEach(function (p) { console.log("UWAGA (test poziomu): " + p); });
+}

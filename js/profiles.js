@@ -420,19 +420,28 @@ window.ELM = window.ELM || {};
       placeholder: "np. imię, nazwa klasy albo „Mój postęp”"
     });
     const error = el("p", { class: "menu-error", id: "welcome-error", "aria-live": "polite" });
+    // „Dodaj profil i zrób test poziomu” — zachęta dla nowego profilu (bez żadnych postępów)
+    let thenTest = false;
     const welcomeForm = el("form", {
       class: "welcome-form",
       novalidate: true,
       onsubmit: function (e) {
         e.preventDefault();
         const v = validateName(input.value, null);
-        if (v.error) { error.textContent = v.error; input.setAttribute("aria-invalid", "true"); input.focus(); return; }
+        if (v.error) { error.textContent = v.error; input.setAttribute("aria-invalid", "true"); input.focus(); thenTest = false; return; }
+        const goTest = thenTest && ELM.levelTest;
+        thenTest = false;
         app().addProfile(v.name);
+        if (goTest) location.hash = ELM.levelTest.HASH;
       }
     }, [
       el("label", { class: "field-label", for: "welcome-name", text: "Nazwa profilu" }),
       el("div", { class: "welcome-row" }, [input, el("button", { type: "submit", class: "btn btn-primary" }, "Dodaj profil")]),
-      error
+      error,
+      ELM.levelTest ? el("div", { class: "welcome-test" }, [
+        el("p", { class: "tool-note", text: "Nie wiesz, od którego poziomu zacząć? Po dodaniu profilu zrób szybki test poziomu (12 pytań, ok. 5 minut)." }),
+        el("button", { type: "submit", class: "btn btn-secondary", onclick: function () { thenTest = true; } }, "Dodaj profil i zrób test poziomu")
+      ]) : null
     ]);
 
     view.appendChild(el("section", { class: "card welcome", "aria-labelledby": "welcome-title" }, [

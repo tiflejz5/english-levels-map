@@ -11,6 +11,7 @@
  *   route    — otwarta podstrona niezbędnika ({ file }) albo null
  *   c1Route  — widok zakładki „Certyfikat C1” (view "c1"), patrz js/c1-core.js
  *   toolRoute — widoki nauki: "today" (#/dzis, js/today.js),
+ *              "leveltest" (#/test-poziomu, js/level-test.js),
  *              "journal" (#/bledy, js/journal.js)
  */
 window.ELM = window.ELM || {};
@@ -181,6 +182,7 @@ window.ELM = window.ELM || {};
   //   "#/a1" … "#/c2"     → lista poziomu
   //   "#/a1/<podstrona>"  → podstrona punktu (niezbędnik)
   //   "#/dzis"            → strona „Dziś”
+  //   "#/test-poziomu"    → szybki test poziomu
   //   "#/bledy[/powtorki]" → dziennik błędów i sesja powtórek
   // =====================================================================
 
@@ -191,12 +193,16 @@ window.ELM = window.ELM || {};
     const c1 = ELM.c1 ? ELM.c1.parseRoute(hash) : null;
     const journal = ELM.journal ? ELM.journal.parseRoute(hash) : null;
     const today = ELM.today ? ELM.today.parseRoute(hash) : null;
+    const levelTest = ELM.levelTest ? ELM.levelTest.parseRoute(hash) : null;
     state.route = null;
     state.c1Route = null;
     state.toolRoute = null;
 
     if (!hash || hash === "#" || hash === "#/") {
       state.view = "home";
+    } else if (levelTest) {
+      state.view = "leveltest";
+      state.toolRoute = levelTest;
     } else if (today) {
       state.view = "today";
       state.toolRoute = today;
@@ -230,6 +236,7 @@ window.ELM = window.ELM || {};
     applyRoute();
     state.lastHash = location.hash;
     if (state.view === "journal" && previousHash !== location.hash) ELM.journal.onEnter(state.toolRoute);
+    if (state.view === "leveltest" && previousHash !== location.hash) ELM.levelTest.onEnter();
     saveUI();
     if (state.view !== "page") document.title = "English Levels Map (A1–C2)";
     if (state.view === "level" && previous === "page") {

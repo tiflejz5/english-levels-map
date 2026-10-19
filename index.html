@@ -21,7 +21,7 @@
       if (meta) meta.setAttribute("content", dark ? "#121214" : "#ffffff");
     })();
   </script>
-  <link rel="stylesheet" href="css/style.css?v=23">
+  <link rel="stylesheet" href="css/style.css?v=26">
 </head>
 <body>
   <noscript>
@@ -37,7 +37,7 @@
         <div class="brand-sub" id="sidebar-category-name"></div>
       </div>
 
-      <!-- Narzędzia nauki (Dziś, Dziennik błędów) rysuje js/render.js -->
+      <!-- Narzędzia nauki (Dziś, Test poziomu, Dziennik błędów) rysuje js/render.js -->
       <nav class="tools-nav" id="tools-nav" aria-label="Nauka"></nav>
 
       <!-- Przyciski poziomów A1–C2 rysuje js/render.js -->
@@ -67,34 +67,37 @@
   <div class="nav-overlay" id="nav-overlay" hidden></div>
 
   <!-- Skrypty ładowane po kolei (bez modułów ES, żeby działało z file://).
-       ?v=23 to numer wersji: po zmianie plików JS/CSS zwiększ go wszędzie,
+       ?v=26 to numer wersji: po zmianie plików JS/CSS zwiększ go wszędzie,
        żeby przeglądarki nie użyły starych kopii z pamięci podręcznej. -->
-  <script src="js/utils.js?v=23"></script>
+  <script src="js/utils.js?v=26"></script>
   <!-- Czysta logika nauki: powtórki, seria, test poziomu (testy: node tools/testy.js) -->
-  <script src="js/learning.js?v=23"></script>
-  <script src="js/theme.js?v=23"></script>
-  <script src="js/default-data.js?v=23"></script>
+  <script src="js/learning.js?v=26"></script>
+  <script src="js/theme.js?v=26"></script>
+  <script src="js/default-data.js?v=26"></script>
   <!-- Bazowa lista umiejętności; usuń tę linię, aby startować od pustego szkieletu -->
-  <script src="js/base-content.js?v=23"></script>
-  <script src="js/store.js?v=23"></script>
-  <script src="js/dialogs.js?v=23"></script>
-  <script src="js/render.js?v=23"></script>
-  <script src="js/profiles.js?v=23"></script>
-  <script src="js/markdown.js?v=23"></script>
-  <script src="js/niezbednik.js?v=23"></script>
+  <script src="js/base-content.js?v=26"></script>
+  <script src="js/store.js?v=26"></script>
+  <script src="js/dialogs.js?v=26"></script>
+  <script src="js/render.js?v=26"></script>
+  <script src="js/profiles.js?v=26"></script>
+  <script src="js/markdown.js?v=26"></script>
+  <script src="js/niezbednik.js?v=26"></script>
   <!-- Podstrony niezbędnika (generowane: node tools/zbuduj-niezbednik.js) -->
-  <script src="niezbednik/niezbednik-dane.js?v=23"></script>
+  <script src="niezbednik/niezbednik-dane.js?v=26"></script>
   <!-- Zakładka „Certyfikat C1” (dane generowane tym samym skryptem) -->
-  <script src="niezbednik/certyfikat-c1-dane.js?v=23"></script>
-  <script src="js/c1-core.js?v=23"></script>
-  <script src="js/c1-exercises.js?v=23"></script>
-  <script src="js/c1-writing.js?v=23"></script>
-  <script src="js/c1-speaking.js?v=23"></script>
+  <script src="niezbednik/certyfikat-c1-dane.js?v=26"></script>
+  <script src="js/c1-core.js?v=26"></script>
+  <script src="js/c1-exercises.js?v=26"></script>
+  <script src="js/c1-writing.js?v=26"></script>
+  <script src="js/c1-speaking.js?v=26"></script>
   <!-- Dane nauki osobno dla każdego profilu i dziennik błędów -->
-  <script src="js/profile-data.js?v=23"></script>
-  <script src="js/journal.js?v=23"></script>
-  <script src="js/today.js?v=23"></script>
-  <script src="js/data-menu.js?v=23"></script>
-  <script src="js/app.js?v=23"></script>
+  <script src="js/profile-data.js?v=26"></script>
+  <script src="js/journal.js?v=26"></script>
+  <script src="js/today.js?v=26"></script>
+  <!-- Szybki test poziomu (pytania generowane: node tools/zbuduj-niezbednik.js) -->
+  <script src="niezbednik/test-poziomu-dane.js?v=26"></script>
+  <script src="js/level-test.js?v=26"></script>
+  <script src="js/data-menu.js?v=26"></script>
+  <script src="js/app.js?v=26"></script>
 </body>
 </html>

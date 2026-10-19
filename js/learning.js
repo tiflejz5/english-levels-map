@@ -134,15 +134,17 @@
 
     /**
      * Losuje pytanie z poziomu levelIndex bez powtórzeń (used: Set id).
-     * Gdy pula poziomu się wyczerpie, bierze pytanie z najbliższego poziomu
-     * (najpierw niższego, potem wyższego). random() → [0, 1).
-     * Zwraca pytanie albo null, gdy nie ma już żadnych pytań.
+     * Gdy pula poziomu się wyczerpie, bierze pytanie z najbliższego poziomu;
+     * przy tej samej odległości najpierw w kierunku ruchu testu
+     * (preferUp = true po dobrej odpowiedzi → wyżej, inaczej → niżej).
+     * random() → [0, 1). Zwraca pytanie albo null, gdy nie ma już żadnych pytań.
      */
-    pickQuestion: function (questions, levelIndex, used, random) {
+    pickQuestion: function (questions, levelIndex, used, random, preferUp) {
       const rnd = random || Math.random;
       const L = learn.LEVELS;
       for (let dist = 0; dist < L.length; dist++) {
-        const candidates = dist === 0 ? [levelIndex] : [levelIndex - dist, levelIndex + dist];
+        const candidates = dist === 0 ? [levelIndex]
+          : preferUp ? [levelIndex + dist, levelIndex - dist] : [levelIndex - dist, levelIndex + dist];
         for (const idx of candidates) {
           if (idx < 0 || idx >= L.length) continue;
           const pool = questions.filter(function (q) { return q.level === L[idx] && !used.has(q.id); });
