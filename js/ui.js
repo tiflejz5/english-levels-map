@@ -178,19 +178,37 @@ window.ELM = window.ELM || {};
   //   Zwykły <script> zamiast import(), bo moduły nie działają z file://.
   // =====================================================================
 
-  let gsapPromise = null;
+  const loading = {};
 
-  function loadGsap() {
-    if (window.gsap) return Promise.resolve(window.gsap);
-    if (gsapPromise) return gsapPromise;
-    gsapPromise = new Promise(function (resolve, reject) {
+  function loadScript(src) {
+    if (loading[src]) return loading[src];
+    loading[src] = new Promise(function (resolve, reject) {
       const s = document.createElement("script");
-      s.src = "assets/vendor/gsap.min.js";
-      s.onload = function () { resolve(window.gsap); };
-      s.onerror = function () { gsapPromise = null; reject(new Error("Nie udało się wczytać GSAP")); };
+      s.src = src;
+      s.onload = resolve;
+      s.onerror = function () { delete loading[src]; reject(new Error("Nie udało się wczytać " + src)); };
       document.head.appendChild(s);
     });
-    return gsapPromise;
+    return loading[src];
+  }
+
+  /**
+   * GSAP + opcjonalne wtyczki, np. ELM.loadGsap(["DrawSVGPlugin", "MotionPathPlugin"]).
+   * Wtyczki są rejestrowane raz. Zwraca Promise<gsap>.
+   */
+  function loadGsap(plugins) {
+    return loadScript("assets/vendor/gsap.min.js").then(function () {
+      return Promise.all((plugins || []).map(function (name) {
+        return loadScript("assets/vendor/" + name + ".min.js").then(function () {
+          if (window[name]) window.gsap.registerPlugin(window[name]);
+        });
+      }));
+    }).then(function () { return window.gsap; });
+  }
+
+  /** Czy użytkownik prosi o ograniczenie ruchu (prefers-reduced-motion). */
+  function reducedMotion() {
+    return !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
   }
 
   /** Uzupełnia statyczny HTML: <span data-icon="menu"> → ikona, [data-logo] → logo. */
@@ -209,5 +227,6 @@ window.ELM = window.ELM || {};
   ELM.icon = icon;
   ELM.logo = logo;
   ELM.loadGsap = loadGsap;
+  ELM.reducedMotion = reducedMotion;
   ELM.ui = { icon: icon, withIcon: withIcon, logo: logo, logoMark: logoMark, progressRing: progressRing, setRing: setRing };
 })(window.ELM);

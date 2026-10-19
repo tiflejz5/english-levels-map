@@ -245,6 +245,7 @@ window.ELM = window.ELM || {};
     if (previous === "level") state.listScroll = U.getScroll();
     setNavOpen(false);
     if (ELM.sidebar) ELM.sidebar.afterNavigate();
+    if (ELM.motion) ELM.motion.cleanup(); // animacje poprzedniej strony (GSAP) sprzątamy
     applyRoute();
     state.lastHash = location.hash;
     if (state.view === "journal" && previousHash !== location.hash) ELM.journal.onEnter(state.toolRoute);

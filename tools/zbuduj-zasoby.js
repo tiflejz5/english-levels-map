@@ -11,6 +11,7 @@
  *   ikony.js — dane używanych ikon Lucide (ELM.ICON_NODES), rysowane przez
  *              js/icons.js bez innerHTML; lista ikon: ICONS poniżej
  *   vendor/gsap.min.js — GSAP (ładowany na żądanie przez ELM.loadGsap)
+ *   vendor/DrawSVGPlugin.min.js, MotionPathPlugin.min.js — wtyczki GSAP (też na żądanie)
  *
  * Dodanie ikony: dopisz jej nazwę (z lucide.dev) do ICONS i uruchom skrypt.
  */
@@ -38,7 +39,8 @@ const ICONS = [
   "sun", "moon", "sun-moon", "mic", "square", "download", "upload", "rotate-ccw",
   "trash", "search", "copy", "play", "pause", "timer", "circle-question-mark", "map",
   "flag", "info", "triangle-alert", "user-round", "external-link",
-  "pin", "pin-off", "panel-left-open", "panel-left-close"
+  "pin", "pin-off", "panel-left-open", "panel-left-close",
+  "flame", "calendar-days", "map-pin", "list-checks", "sparkles", "notebook-text"
 ];
 
 function need(file) {
@@ -88,6 +90,10 @@ if (fs.existsSync(lucideLicense)) fs.copyFileSync(lucideLicense, path.join(OUT, 
 
 // ---------- GSAP ----------
 fs.copyFileSync(need(path.join(NM, "gsap", "dist", "gsap.min.js")), path.join(OUT, "vendor", "gsap.min.js"));
+// Wtyczki (od 3.13 darmowe): rysowanie ścieżki szlaku i ruch znacznika po ścieżce
+["DrawSVGPlugin.min.js", "MotionPathPlugin.min.js"].forEach(function (f) {
+  fs.copyFileSync(need(path.join(NM, "gsap", "dist", f)), path.join(OUT, "vendor", f));
+});
 const gsapVersion = JSON.parse(fs.readFileSync(path.join(NM, "gsap", "package.json"), "utf8")).version;
 
 console.log("Fonty: " + FONTS.length + " plików, " + Math.round(fontBytes / 1024) + " KB");
