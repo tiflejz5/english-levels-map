@@ -148,7 +148,7 @@ window.ELM = window.ELM || {};
       "stroke-linecap": "round", "stroke-dasharray": c.toFixed(2), "stroke-dashoffset": c.toFixed(2),
       transform: "rotate(-90 " + size / 2 + " " + size / 2 + ")"
     });
-    if (strokeRef) arc.setAttribute("stroke", strokeRef);
+    if (strokeRef) arc.style.stroke = strokeRef; // styl inline: ważniejszy niż kolor poziomu z CSS
     svg.appendChild(arc);
     wrap.appendChild(svg);
     const txt = document.createElement("span");

@@ -465,7 +465,8 @@ window.ELM = window.ELM || {};
         type: "button",
         class: "icon-btn",
         "aria-label": "Zamknij komunikat",
-        title: "Zamknij komunikat",
+        "data-tooltip": "Zamknij komunikat",
+        "data-tooltip-align": "end",
         onclick: function () { banner.remove(); }
       }, ELM.icon("x", { size: 18 }))
     ]);

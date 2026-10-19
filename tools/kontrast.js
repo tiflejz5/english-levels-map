@@ -84,7 +84,8 @@ pairs.push(
     ["lvl-" + l + "-ink", "surface", null, 4.5, "tekst poziomu " + L + " / karta"],
     ["lvl-" + l, "lvl-" + l + "-soft", null, 3, "pasek " + L + " / tor"],
     ["lvl-" + l, "surface", null, 3, "znacznik " + L + " / karta"],
-    ["lvl-" + l, "bg", null, 3, "znacznik " + L + " / tło"]
+    ["lvl-" + l, "bg", null, 3, "znacznik " + L + " / tło"],
+    ["on-accent", "lvl-" + l, null, 3, "ptaszek „Umiem” / wypełnienie " + L]
   );
 });
 

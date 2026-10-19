@@ -167,7 +167,7 @@ window.ELM = window.ELM || {};
           type: "button",
           class: "icon-btn menu-icon",
           "aria-label": "Zmień nazwę profilu " + p.name,
-          title: "Zmień nazwę",
+          "data-tooltip": "Zmień nazwę",
           "data-menu-item": "",
           onclick: function () { startForm({ type: "rename", id: p.id }); }
         }, ELM.icon("pencil", { size: 18 })),
@@ -175,7 +175,8 @@ window.ELM = window.ELM || {};
           type: "button",
           class: "icon-btn menu-icon is-danger",
           "aria-label": "Usuń profil " + p.name,
-          title: "Usuń profil",
+          "data-tooltip": "Usuń profil",
+          "data-tooltip-align": "end",
           "data-menu-item": "",
           onclick: function () { remove(p.id); }
         }, ELM.icon("x", { size: 18 }))

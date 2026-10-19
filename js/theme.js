@@ -76,7 +76,8 @@ window.ELM = window.ELM || {};
     const label = "Motyw: " + NAMES[pref] + ". Kliknij, aby przełączyć na: " + NAMES[nextPref()];
     btn.replaceChildren(icon(pref));
     btn.setAttribute("aria-label", label);
-    btn.setAttribute("title", label);
+    btn.setAttribute("data-tooltip", "Motyw: " + NAMES[pref]);
+    btn.setAttribute("data-tooltip-align", "end");
     btn.setAttribute("data-pref", pref);
   }
 

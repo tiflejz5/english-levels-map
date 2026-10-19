@@ -44,7 +44,7 @@ window.ELM = window.ELM || {};
       type: "button",
       class: "icon-btn" + (opts.danger ? " is-danger" : ""),
       "aria-label": label,
-      title: label,
+      "data-tooltip": label,
       disabled: !!opts.disabled,
       onclick: onClick
     }, ELM.ICON_NODES && ELM.ICON_NODES[symbol] ? ELM.icon(symbol, { size: 18 }) : el("span", { "aria-hidden": "true", text: symbol }));

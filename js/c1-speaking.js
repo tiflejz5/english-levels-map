@@ -163,9 +163,9 @@ window.ELM = window.ELM || {};
         }, p[1]);
       })),
       el("div", { class: "c1-speak-nav" }, [
-        el("button", { type: "button", class: "icon-btn", "aria-label": "Poprzedni zestaw", title: "Poprzedni zestaw", onclick: function () { go(ui.part, index - 1); } }, ELM.icon("chevron-left", { size: 20 })),
+        el("button", { type: "button", class: "icon-btn", "aria-label": "Poprzedni zestaw", "data-tooltip": "Poprzedni zestaw", onclick: function () { go(ui.part, index - 1); } }, ELM.icon("chevron-left", { size: 20 })),
         el("span", { class: "c1-speak-count", text: "Zestaw " + (index + 1) + " / " + list.length + (task.theme ? ": " + task.theme : "") }),
-        el("button", { type: "button", class: "icon-btn", "aria-label": "Następny zestaw", title: "Następny zestaw", onclick: function () { go(ui.part, index + 1); } }, ELM.icon("chevron-right", { size: 20 }))
+        el("button", { type: "button", class: "icon-btn", "aria-label": "Następny zestaw", "data-tooltip": "Następny zestaw", onclick: function () { go(ui.part, index + 1); } }, ELM.icon("chevron-right", { size: 20 }))
       ])
     ]));
 
