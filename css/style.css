@@ -1870,3 +1870,46 @@ textarea.field { overflow: auto; }
   .sidebar .sb-badge { position: static; border: 0; height: 22px; line-height: 22px; }
   .sb-toggle, .sb-foot { display: none; }
 }
+
+/* ===================== CELEBRACJE (kamienie milowe, js/celebrate.js) ===================== */
+.celebrations {
+  position: fixed;
+  z-index: 90;
+  left: 50%;
+  bottom: max(20px, env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  width: min(440px, calc(100vw - 24px));
+  pointer-events: none; /* nie blokuje interfejsu — klikalna jest tylko sama karta */
+}
+.celebration {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 10px 14px 16px;
+  border: 1px solid color-mix(in srgb, var(--lvl, var(--accent)) 40%, var(--line));
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-lg), 0 0 0 4px color-mix(in srgb, var(--lvl, var(--accent)) 12%, transparent);
+  pointer-events: auto;
+  cursor: pointer;
+  animation: celebration-in var(--dur-slow) var(--ease-spring);
+}
+.celebration.is-leaving { opacity: 0; transform: translateY(8px); transition: opacity var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out); }
+@keyframes celebration-in {
+  from { opacity: 0; transform: translateY(16px) scale(0.96); }
+  to { opacity: 1; transform: none; }
+}
+.celebration-icon {
+  display: grid; place-items: center; flex-shrink: 0;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--lvl-soft, var(--accent-soft));
+  color: var(--lvl-ink, var(--accent));
+}
+.celebration-body { flex: 1; min-width: 0; }
+.celebration-title { margin: 0; font-family: var(--font-display); font-size: var(--fs-lg); font-weight: 640; letter-spacing: -0.01em; }
+.celebration-text { margin: 2px 0 0; font-size: var(--fs-sm); color: var(--ink-muted); }
+.celebration-close { width: 44px; height: 44px; border-color: transparent; background: transparent; flex-shrink: 0; }
+.confetti { position: absolute; left: 50%; top: 10px; width: 0; height: 0; pointer-events: none; }
+.confetti-piece { position: absolute; left: -4px; top: -6px; width: 8px; height: 12px; border-radius: 2px; }
+.confetti-piece.is-dot { width: 8px; height: 8px; border-radius: 50%; }

@@ -88,6 +88,7 @@ window.ELM = window.ELM || {};
       if (loaded.status === "new") ELM.store.saveContent(state.content);
 
       fixUi();
+      if (ELM.celebrate) ELM.celebrate.baseline();
       applyRoute();
       renderAll();
     } catch (err) {
@@ -372,6 +373,7 @@ window.ELM = window.ELM || {};
     else delete state.progress[essentialId];
     saveProgressNow();
     ELM.markActivity(); // zmiana „Umiem” = dzień nauki
+    if (ELM.celebrate) ELM.celebrate.check(); // kamienie milowe „Umiem” i poziomów
     refreshProgress();
   }
 
@@ -448,6 +450,7 @@ window.ELM = window.ELM || {};
   function profilesChanged() {
     syncProgress();
     saveProgressNow();
+    if (ELM.celebrate) ELM.celebrate.baseline();
     if (state.content) renderAll();
   }
 

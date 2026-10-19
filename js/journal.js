@@ -488,6 +488,7 @@ window.ELM = window.ELM || {};
     if (session.index >= session.ids.length) {
       session.done = true;
       ELM.markActivity(); // ukończona sesja powtórek = dzień nauki
+      if (ELM.celebrate) ELM.celebrate.check({ event: "review" });
     }
     ELM.app.refreshLearning();
     rerender();

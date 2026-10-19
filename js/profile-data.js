@@ -5,6 +5,8 @@
  *   elm_journal_v1   { version: 1, profiles: { <idProfilu>: { entries: [wpis…] } } }
  *   elm_activity_v1  { version: 1, profiles: { <idProfilu>: { days: ["RRRR-MM-DD"…], lastPage } } }
  *   elm_leveltest_v1 { version: 1, profiles: { <idProfilu>: { last: wynik | null } } }
+ *   elm_celebrated_v1 { version: 1, profiles: { <idProfilu>: { ids: ["first-umiem", …] } } }
+ *                    — kamienie milowe już pokazane (każdy tylko raz na profil, js/celebrate.js)
  *
  * Wpis dziennika błędów:
  *   { id, createdAt: "RRRR-MM-DD", context, myAnswer, correct, rule, source,
@@ -23,7 +25,7 @@ window.ELM = window.ELM || {};
 
   const U = ELM.utils;
 
-  const KEYS = { journal: "elm_journal_v1", activity: "elm_activity_v1", levelTest: "elm_leveltest_v1" };
+  const KEYS = { journal: "elm_journal_v1", activity: "elm_activity_v1", levelTest: "elm_leveltest_v1", celebrated: "elm_celebrated_v1" };
   const VERSION = 1;
 
   const CATEGORIES = ["Use of English", "Reading", "Writing", "Listening", "Speaking", "Gramatyka", "Słownictwo", "Inne"];
@@ -80,6 +82,7 @@ window.ELM = window.ELM || {};
   function emptyRecord(kind) {
     if (kind === "journal") return { entries: [] };
     if (kind === "activity") return { days: [], lastPage: null };
+    if (kind === "celebrated") return { ids: [] };
     return { last: null };
   }
 
@@ -162,6 +165,11 @@ window.ELM = window.ELM || {};
     if (kind === "activity") {
       const days = Array.from(new Set((Array.isArray(raw.days) ? raw.days : []).filter(learn().isDay))).sort().slice(-LIMITS.days);
       return { days: days, lastPage: normalizeLastPage(raw.lastPage) };
+    }
+    if (kind === "celebrated") {
+      const ids = (Array.isArray(raw.ids) ? raw.ids : [])
+        .filter(function (x) { return typeof x === "string" && /^[a-z0-9-]{1,40}$/.test(x); });
+      return { ids: Array.from(new Set(ids)).slice(0, 200) };
     }
     return { last: normalizeTestResult(raw.last) };
   }
@@ -261,6 +269,7 @@ window.ELM = window.ELM || {};
     rec.days.push(today);
     if (rec.days.length > LIMITS.days) rec.days.splice(0, rec.days.length - LIMITS.days);
     save("activity");
+    if (ELM.celebrate) ELM.celebrate.check(); // nowy dzień nauki może zamknąć kamień milowy serii
   }
 
   function activityDays() { return record("activity", activeId()).days.slice(); }
@@ -294,6 +303,26 @@ window.ELM = window.ELM || {};
   }
 
   // =====================================================================
+  // KAMIENIE MILOWE (już pokazane celebracje)
+  // =====================================================================
+
+  /** Zbiór pokazanych kamieni milowych aktywnego profilu albo null, gdy profil nie ma jeszcze zapisu. */
+  function celebrated() {
+    const pid = activeId();
+    if (!pid) return null;
+    const rec = load("celebrated").profiles[pid];
+    return U.isPlainObject(rec) ? rec.ids.slice() : null;
+  }
+
+  function addCelebrated(ids) {
+    const pid = activeId();
+    if (!pid) return;
+    const rec = record("celebrated", pid);
+    ids.forEach(function (id) { if (rec.ids.indexOf(id) === -1) rec.ids.push(id); });
+    save("celebrated");
+  }
+
+  // =====================================================================
   // PROFILE, EKSPORT, IMPORT, RESET
   // =====================================================================
 
@@ -323,7 +352,8 @@ window.ELM = window.ELM || {};
     return {
       journal: JSON.parse(JSON.stringify(load("journal"))),
       activity: JSON.parse(JSON.stringify(load("activity"))),
-      levelTest: JSON.parse(JSON.stringify(load("levelTest")))
+      levelTest: JSON.parse(JSON.stringify(load("levelTest"))),
+      celebrated: JSON.parse(JSON.stringify(load("celebrated")))
     };
   }
 
@@ -361,7 +391,7 @@ window.ELM = window.ELM || {};
     return { journalEntries: n };
   }
 
-  /** „Resetuj dane”: usuwa wszystkie trzy klucze. */
+  /** „Resetuj dane”: usuwa wszystkie klucze danych nauki. */
   function clearAll() {
     Object.keys(KEYS).forEach(function (kind) {
       memory[kind] = { version: VERSION, profiles: {} };
@@ -388,6 +418,8 @@ window.ELM = window.ELM || {};
     setLastPage: setLastPage,
     lastPage: lastPage,
     lastTest: lastTest,
+    celebrated: celebrated,
+    addCelebrated: addCelebrated,
     saveTest: saveTest,
     removeProfile: removeProfile,
     prune: prune,

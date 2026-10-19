@@ -4,7 +4,7 @@
  * Eksport: jeden plik english-levels-dane-RRRR-MM-DD.json:
  *   { app, kind: "backup", version: 2, exportedAt,
  *     data: { content: <eksport treści>, progress: <eksport profili i postępu>,
- *             learning: { journal, activity, levelTest } } }
+ *             learning: { journal, activity, levelTest, celebrated } } }
  *   learning (od wersji 2) — dane nauki każdego profilu (js/profile-data.js).
  * Import przyjmuje ten plik, kopie w wersji 1 (bez „learning”) oraz starsze,
  * osobne pliki z treściami (english-levels-content-…) i z postępem

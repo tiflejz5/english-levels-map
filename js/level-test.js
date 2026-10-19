@@ -99,6 +99,7 @@ window.ELM = window.ELM || {};
       answers: run.asked.map(function (a) { return { id: a.q.id, level: a.q.level, chosen: a.chosen, correct: a.correct }; })
     });
     ELM.markActivity(); // ukończony test = dzień nauki
+    if (ELM.celebrate) ELM.celebrate.check({ event: "test", level: run.saved && run.saved.level });
   }
 
   function focusLater(selector) {
