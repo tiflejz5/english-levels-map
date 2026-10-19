@@ -125,6 +125,7 @@ Nazwa profilu: spacje na początku i końcu są obcinane, najwyżej 30 znaków, 
 | `elm_c1_v1`       | zakładka „Certyfikat C1”: data egzaminu, najlepsze wyniki, szkice Writing, listy zadań |
 | `elm_ui_v1`       | tylko wygoda: wybrany poziom i kategoria |
 | `elm_theme_v1`    | motyw: `"auto"`, `"light"` albo `"dark"` (globalnie dla urządzenia) |
+| `elm_sidebar_v1`  | lewy panel przypięty: `{ version: 1, pinned: true / false }` (globalnie dla urządzenia, poza eksportem) |
 | `elm_journal_v1`  | dziennik błędów **per profil**: `{ version: 1, profiles: { <id profilu>: { entries: [wpis…] } } }` |
 | `elm_activity_v1` | dni nauki **per profil**: `{ version: 1, profiles: { <id>: { days: ["RRRR-MM-DD"…], lastPage: { hash, title } } } }` |
 | `elm_leveltest_v1`| ostatni wynik testu poziomu **per profil**: `{ version: 1, profiles: { <id>: { last: { date, level, answers } } } }` |

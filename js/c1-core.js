@@ -169,6 +169,7 @@ window.ELM = window.ELM || {};
     box.appendChild(el("a", {
       class: "sb-item c1-chip" + (route ? " is-active" : ""),
       href: BASE,
+      "aria-label": manifest.label + ": przygotowanie do egzaminu C1 Advanced",
       "aria-current": isActive(route, "page", "przeglad") ? "page" : (route ? "true" : null)
     }, [
       el("span", { class: "sb-icon", "aria-hidden": "true" }, el("span", { class: "c1-chip-badge", text: "C1" })),

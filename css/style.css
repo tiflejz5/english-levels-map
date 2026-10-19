@@ -1570,6 +1570,9 @@ textarea.field { overflow: auto; }
 .sb-brand { display: inline-flex; align-items: center; min-height: 44px; padding: 0 2px; border-radius: var(--radius-sm); }
 .sb-brand .logo { gap: 10px; white-space: nowrap; }
 .sb-brand .logo-mark { width: 40px; height: 40px; }
+/* Znak + napis + przycisk zwijania muszą się zmieścić w 288 px (bez przesuwania poza panel) */
+.sb-brand .logo-word { font-size: 1.0625rem; }
+.sb-head > .sb-brand { min-width: 0; }
 /* W wąskim pasku (od 768 px) sam znak: napis nie zajmuje miejsca (zostaje w DOM, link ma aria-label) */
 @media (min-width: 768px) {
   .sidebar:not(.is-expanded) .sb-brand .logo { gap: 0; }

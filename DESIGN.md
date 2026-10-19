@@ -5,7 +5,7 @@ Ten plik to jedno źródło prawdy o wyglądzie i zachowaniu interfejsu. Każdy 
 Plan prac wizualnych:
 
 1. **Fundament** (kolory, fonty, tokeny, komponenty bazowe) — zrobione.
-2. Lewy panel.
+2. **Lewy panel** — zrobione (sekcja 3.1).
 3. Strona „Dziś”, poziomy i celebracje.
 4. Treści podstron, Certyfikat C1 i kontrola jakości.
 
@@ -146,6 +146,46 @@ Szczegóły zasad: sekcja 4.
 | Focus | `:focus-visible` | Obrys 2 px `--focus-color`, odstęp 2 px, na każdym tle. |
 | Tło warstwicowe | `::before` nagłówków `.level-header`, `.tool-head`, pierwszego `h1` strony głównej i `.c1-title` | Statyczny wzór warstwic (`assets/warstwice.svg`, w CSS jako maska `data:`, bo maski z pliku są blokowane przy `file://`) w `--topo-color` przy `--topo-opacity`, wygaszany w lewo. `.view` ma `overflow-x: clip`, więc wzór nigdy nie wywołuje przewijania w poziomie. |
 
+### 3.1 Lewy panel (etap 2)
+
+Pliki: `index.html` (znaczniki), `js/sidebar.js` (zachowanie), `js/render.js` (narzędzia i poziomy), `js/c1-core.js` (chip i sekcje C1), sekcja „LEWY PANEL” w `css/style.css`.
+
+**Stany:**
+
+| Stan | Kiedy | Wygląd |
+|---|---|---|
+| Wąski pasek | domyślnie od 768 px | `--rail-w` 72 px. Znak logo, przycisk rozwijania, ikony Dziś / Test poziomu / Dziennik błędów (plakietka powtórek na dziś), sześć chipów poziomów z pierścieniem postępu w kolorze krainy i kodem w środku, chip „Certyfikat C1”, pinezka. |
+| Rozwinięty | najechanie myszą, fokus z klawiatury, przycisk rozwijania (tablet) | `--panel-w` 288 px, warstwa `position: fixed` **nad treścią** z `--shadow-lg`. Treść się nie przesuwa. Widać etykiety, nazwy poziomów, „X / Y umiem” z paskiem, napis pod logo i sekcje zakładki C1. |
+| Przypięty | pinezka | Pełny panel na stałe, bez cienia. Treść odsuwa się (`html[data-sidebar="pinned"] .main { margin-left: --panel-w }`, animowany margines). |
+| Szuflada | poniżej 768 px | Przycisk „Menu” w górnym pasku. Panel wysuwa się z lewej nad przyciemnionym tłem, tapnięcie tła zamyka. Pinezki i rozwijania tu nie ma. |
+
+**Zachowanie:**
+- Najechanie działa tylko przy `(hover: hover) and (pointer: fine)`. Otwarcie następuje po 120 ms (przypadkowy przelot kursora nic nie robi), zamknięcie 250 ms po zjechaniu.
+- Fokus z klawiatury (`:focus-visible`) rozwija panel, a jego utrata zwija (o ile panel nie jest przypięty). Esc zwija i fokus nie rozwija go ponownie, dopóki nie opuści panelu.
+- Tablet z dotykiem: przycisk rozwijania (`aria-expanded`, „Rozwiń panel” / „Zwiń panel”), tapnięcie poza panelem zamyka. Po przejściu na inną stronę rozwinięty panel się zwija.
+- Pinezka ma `aria-pressed`, ikonę `pin-off` → `pin` i etykietę „Przypnij panel” / „Odepnij panel”.
+- Stan przypięcia jest zapisany w nowym kluczu `elm_sidebar_v1` = `{ version: 1, pinned }` (try/catch). Jest globalny dla urządzenia, nie należy do profilu ani do eksportu. Odczytuje go już skrypt w `<head>`, więc treść nie przeskakuje przy starcie.
+
+**Dostępność:**
+- Etykiety w wąskim pasku są ukryte przez `opacity` (zostają w DOM), więc czytnik ekranu zawsze zna nazwę pozycji.
+- Poziom ma `aria-label`, np. „Poziom A1, Początkujący: umiem 9 z 30 we wszystkich kategoriach (30%)”. Pierścień jest wtedy ozdobą (`aria-hidden`).
+- Aktywna pozycja ma `aria-current="page"`, tło i znacznik w kolorze krainy (narzędzia: akcent, C1: złoto).
+- Kolejność Tab: logo → rozwijanie → narzędzia → poziomy → C1 (i jego sekcje po rozwinięciu) → pinezka.
+- Wszystkie cele w pasku mają ≥ 44 px.
+
+**Ruch:**
+- Szerokość warstwy rośnie w `--dur-base` z `--ease-out`. To warstwa poza przepływem, więc nie przelicza układu treści.
+- Etykiety pojawiają się przez `opacity` z opóźnieniem 60 ms.
+- Pierścienie i paski są aktualizowane w miejscu (`ELM.ui.setRing`) i płynnie przechodzą z poprzedniej wartości.
+- Przy `prefers-reduced-motion` zmiana jest natychmiastowa (bez przejść szerokości i marginesu).
+
+**Liczby postępu (spójność):**
+- Panel i strona „Dziś” liczą **cały poziom**, czyli wszystkie kategorie (`app.getLevelStats`). Panel ma podpis „Poziomy · wszystkie kategorie”.
+- Pasek na stronie poziomu liczy **wybraną kategorię** i ma dopisek „w tej kategorii”.
+- Wcześniej panel pokazywał kategorię („9 / 14”), a „Dziś” cały poziom („9 / 30”), bez oznaczenia zakresu.
+
+**Certyfikat C1:** chip w granacie i złocie (`--c1-navy`, `--c1-gold`, `--c1-soft`, `--c1-ink`, `--c1-edge`). Zewnętrzna krawędź `--c1-edge` (granat w jasnym motywie, złoto w ciemnym) ma ≥ 3:1 do panelu. Etap 4 dopracuje szczegóły.
+
 ## 4. Ruch
 
 - **Proste rzeczy tylko w CSS.** Hover, focus, pojawianie się i przejścia kolorów robi CSS. Animujemy `opacity` i `transform`. Wyjątek to krótkie przejście kolorów przy zmianie motywu (klasa `html.theme-anim`).
@@ -227,6 +267,12 @@ Ograniczenie: audyt automatyczny nie zastępuje testu z czytnikiem ekranu (NVDA 
 - nowe fonty woff2: 253.9 KB w 4 plikach, pobierane według `unicode-range` i trzymane w pamięci podręcznej;
 - GSAP (71 KB) nie jest ładowany w etapie 1.
 
+**Etap 2 (lewy panel):**
+- Audyt Playwright, oba motywy: kolejność Tab w panelu logiczna, obrys fokusu nieprzycięty (po zmniejszeniu napisu logo w panelu), cele ≥ 44 px, kontrast w rozwiniętym panelu bez zastrzeżeń, przy `reduced-motion` przejścia 0 s.
+- Chip C1 dostał krótką nazwę dostępną.
+- Testy zachowania: opóźnienia 120 / 250 ms, treść nie przesuwa się przy rozwinięciu (lewa krawędź treści stała 72 px), przypięcie odsuwa treść do 288 px i przetrwa przeładowanie, tablet (tapnięcie / tapnięcie poza), szuflada na telefonie.
+- Krytyka: przy 0% pierścienie krain są blade (sam tor), więc „nieodkryte krainy” warto pokazać na etapie 3. Chip C1 do dopracowania na etapie 4.
+
 ## 10. Dziennik zmian
 
 - **Etap 1 (fundament).**
@@ -237,4 +283,8 @@ Ograniczenie: audyt automatyczny nie zastępuje testu z czytnikiem ekranu (NVDA 
   - Komponenty bazowe: karta, przyciski, „Umiem”, chip, podpowiedź, pasek i pierścień postępu, focus, zaznaczenie, pasek przewijania, tło warstwicowe.
   - `tools/kontrast.js` (152 pary), `tools/zbuduj-zasoby.js`.
   - Wszystkie rozmiary fontów, promienie i czasy animacji na tokenach.
+- **Etap 2 (lewy panel).**
+  - Wąski pasek 72 px z pierścieniami krain, rozwijanie nad treścią, pinezka (`elm_sidebar_v1`), szuflada poniżej 768 px.
+  - Wspólne liczby postępu (cały poziom w panelu i na „Dziś”, „w tej kategorii” na stronie poziomu).
+  - Górny pasek ujednolicony.
   - Układ ekranów bez zmian.
