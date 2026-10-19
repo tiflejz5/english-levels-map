@@ -2,7 +2,7 @@
  * default-data.js — dane startowe.
  *
  * Używane, gdy w przeglądarce nie ma jeszcze zapisanych treści
- * (pierwsze uruchomienie) oraz po „Zresetuj wszystko”.
+ * (pierwsze uruchomienie) oraz po „Resetuj dane”.
  *
  * Jeśli dołączony jest js/base-content.js, startujemy od bazowej listy
  * umiejętności. Bez niego startujemy od pustego szkieletu (poniżej).
@@ -19,7 +19,7 @@ window.ELM = window.ELM || {};
   // Aby dodać kolejną kategorię domyślną, dopisz np.:
   //   { id: "cat_vocabulary", name: "Słownictwo" }
   // (id musi być unikalne i nie powinno się później zmieniać).
-  // Uwaga: zmiana działa tylko dla nowych danych / po „Zresetuj wszystko”.
+  // Uwaga: zmiana działa tylko dla nowych danych / po „Resetuj dane”.
   // Istniejące dane dodasz w aplikacji przyciskiem „+ Kategoria”.
   ELM.DEFAULT_CATEGORIES = [
     { id: "cat_grammar", name: "Gramatyka i czasy" }

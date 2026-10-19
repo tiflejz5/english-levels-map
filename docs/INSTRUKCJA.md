@@ -5,13 +5,13 @@
 1. Otwórz folder `english-levels-map`.
 2. Kliknij dwukrotnie plik **`index.html`**. Strona otworzy się w domyślnej przeglądarce. Internet ani żaden program nie są potrzebne.
 
-Najlepiej działają aktualne wersje przeglądarek Chrome, Edge, Firefox i Safari. Strona jest przeznaczona na komputer z szerokim ekranem.
+Najlepiej działają aktualne wersje przeglądarek Chrome, Edge, Firefox i Safari. Strona działa na komputerze, tablecie i telefonie.
 
 ### Lista bazowa „Niezbędnik do rozmowy”
 
-Przy pierwszym otwarciu strona ma już wczytaną listę umiejętności dla wszystkich poziomów. To **baza do edycji**: w trybie edycji możesz zmieniać, dodawać, usuwać i przesuwać każdy punkt. Twoje zmiany zapisują się w przeglądarce.
+Przy pierwszym otwarciu strona ma już wczytaną listę umiejętności dla wszystkich poziomów. Lista nie jest edytowana w aplikacji (zmiany wprowadza się w plikach strony, patrz README).
 
-Do tej listy wraca opcja **Dane → Zresetuj wszystko**. Ta sama lista jest też w pliku `dane/niezbednik-A1-C2.json`. Możesz go zaimportować (**Dane → Importuj treści…**), żeby przywrócić bazę bez kasowania postępu ucznia.
+Do tej listy wraca opcja **Dane → Resetuj dane…** w menu profilu.
 
 Lista ma trzy kategorie:
 - **Gramatyka i czasy**: punkty z bloków „Czasy” i „Gramatyka”,
@@ -25,11 +25,10 @@ Lista ma trzy kategorie:
 - **Strona główna** (po otwarciu strony albo po kliknięciu „English Levels Map” w lewym górnym rogu): opis, tabela poziomów z linkami i orientacyjny czas nauki.
 - **Strona poziomu** (np. `#/a1`): lista umiejętności, a pod nią **podsumowanie poziomu**.
 - **Lewy pasek:** poziomy A1–C2. Przy każdym poziomie jest pasek postępu i licznik „X / Y umiem” dla aktualnie wybranej kategorii.
-- **Na dole lewego paska:** przełącznik **Tryb edycji** i przycisk **Dane** (kopie zapasowe).
-- **Prawy górny róg:** wybór **profilu**, czyli osoby lub grupy, której postęp śledzisz.
+- **Prawy górny róg:** przycisk **motywu** (Automatycznie / Jasny / Ciemny) i **menu profilu**: wybór osoby lub grupy, której postęp śledzisz, oraz sekcja **Dane** (kopie zapasowe).
 - **Prawa część:** wybrany poziom, czyli opis, kategorie, **Essentials** (lista umiejętności z polem „Umiem”) i **podsumowanie poziomu**.
 
-Uczeń korzysta ze strony w trybie podglądu. Może tylko zaznaczać „Umiem” i odkrywać odpowiedzi do ćwiczeń.
+Na stronie zaznacza się „Umiem” i odkrywa odpowiedzi do ćwiczeń. Na telefonie i tablecie lewy pasek otwierasz przyciskiem **☰ Menu**.
 
 ### Podstrony z wyjaśnieniami (Niezbędnik)
 Przy punktach, które mają podstronę, tekst jest linkiem ze strzałką **›** (wszystkie poziomy A1–C2). Po kliknięciu otwiera się podstrona z zasadą, tabelami, przykładami, typowymi błędami i ćwiczeniem.
@@ -42,7 +41,10 @@ Przy punktach, które mają podstronę, tekst jest linkiem ze strzałką **›**
 Przy pierwszym otwarciu strona nie ma żadnych profili i pokazuje **ekran powitalny**: wpisz nazwę (np. swoje imię, imię ucznia albo nazwę klasy) i kliknij **Dodaj profil**. Każdy profil ma **własne zaznaczenia „Umiem”**. Treść jest wspólna dla wszystkich profili. Profile i postęp zapisują się tylko w tej przeglądarce.
 - Kliknij przycisk profilu w prawym górnym rogu i wybierz profil z listy. Przy każdym widać, ile punktów ma zaznaczonych.
 - Paski postępu i liczniki zawsze pokazują postęp **wybranego** profilu.
-- W **Trybie edycji** w tym samym menu możesz dodać profil (**+ Nowy profil**), zmienić jego nazwę (**✎**), przesunąć go (**↑ ↓**) albo usunąć (**✕**, razem z jego postępem, po potwierdzeniu). Po usunięciu ostatniego profilu znowu pojawia się ekran powitalny.
+- W tym samym menu możesz dodać profil (**+ Dodaj profil**, Enter zatwierdza, Esc anuluje), zmienić jego nazwę (**✎**) albo go usunąć (**✕**, razem z jego postępem, po potwierdzeniu). Nazwa może mieć do 30 znaków i nie może się powtarzać. Po usunięciu ostatniego profilu znowu pojawia się ekran powitalny.
+
+### Motyw
+Przycisk obok menu profilu przełącza po kolei: **Automatycznie** (jak w systemie) → **Jasny** → **Ciemny**. Wybór obowiązuje na tym urządzeniu dla wszystkich profili.
 
 ### Certyfikat C1
 W pasku bocznym, pod poziomami, jest zakładka **Certyfikat C1** do przygotowania do egzaminu C1 Advanced. Na telefonie otwierasz ją przyciskiem **☰ Menu**. Zakładka ma kilka sekcji:
@@ -55,71 +57,32 @@ W pasku bocznym, pod poziomami, jest zakładka **Certyfikat C1** do przygotowani
 
 Na podstronach poziomów, które często wracają na egzaminie, pojawia się ramka **Na egzaminie C1** z linkami do ćwiczeń.
 
-## 3. Dodawanie treści (tryb edycji)
+## 3. Kopie zapasowe (menu profilu → Dane)
 
-Włącz **Tryb edycji** w lewym dolnym rogu. Przy elementach pojawią się pola i małe przyciski:
-
-| Przycisk | Działanie |
-|---|---|
-| **+ Dodaj …** | dodaje nowy element |
-| **↑ / ↓** | przesuwa element w górę lub w dół |
-| **← / →** | przesuwa kategorię w lewo lub w prawo |
-| **✕** / **Usuń …** | usuwa element (zawsze po potwierdzeniu) |
-
-Wszystko zapisuje się **automatycznie**. Pod przełącznikiem widać napis „Zapisano o …”.
-
-### Opis poziomu
-Pole „Krótki opis poziomu” pod dużym kodem poziomu. Jest opcjonalne. Pusty opis nie wyświetla się uczniowi.
-
-### Kategorie
-Kategorie (np. „Gramatyka i czasy”) są **wspólne dla wszystkich poziomów**, a treść jest osobna dla każdego poziomu.
-- **+ Kategoria** dodaje nową kategorię (np. „Słownictwo”, „Pisanie”).
-- **Zmień nazwę**, **← →** i **Usuń kategorię** działają na aktualnie wybranej kategorii.
-- Uwaga: usunięcie kategorii kasuje jej treść na **wszystkich** poziomach.
-
-### Essentials
-Lista najważniejszych umiejętności poziomu w danej kategorii.
-- **+ Dodaj punkt** dodaje punkt, potem wpisujesz jego treść.
-- Pole **Umiem** zaznacza uczeń. Paski postępu zmieniają się od razu.
-
-### Formatowanie tekstu
-- Nowa linia (Enter) zostaje zachowana.
-- `**tekst**` wyświetli się jako **pogrubienie**.
-- Inne znaczniki (np. HTML) wyświetlają się jako zwykły tekst.
-
-Po skończeniu pracy **wyłącz Tryb edycji**, żeby zobaczyć stronę tak, jak zobaczy ją uczeń.
-
-## 4. Kopie zapasowe (menu „Dane”)
-
-> **Dane zapisują się tylko w tej przeglądarce na tym komputerze.** Wyczyszczenie danych przeglądarki, inna przeglądarka albo inny komputer oznaczają brak treści. Dlatego **rób eksport co jakiś czas**.
-
-Treści oraz profile z postępem są zapisywane **osobno**:
+> **Dane zapisują się tylko w tej przeglądarce na tym urządzeniu.** Wyczyszczenie danych przeglądarki, inna przeglądarka albo inny komputer oznaczają brak profili i postępu. Dlatego **rób eksport co jakiś czas**.
 
 | Opcja | Co robi |
 |---|---|
-| **Eksportuj treści** | pobiera plik `english-levels-content-RRRR-MM-DD.json` (kategorie, opisy poziomów, essentials) |
-| **Importuj treści…** | wczytuje taki plik. Najpierw pokazuje, co zawiera, i prosi o potwierdzenie. **Nie rusza profili ani postępu.** |
-| **Eksportuj profile i postęp** | pobiera plik `english-levels-progress-RRRR-MM-DD.json` ze wszystkimi profilami i ich zaznaczeniami „Umiem” |
-| **Importuj profile i postęp…** | wczytuje taki plik i zastępuje wszystkie profile (z potwierdzeniem). Plik ze starszej wersji strony (bez profili) trafia do aktualnie wybranego profilu. |
-| **Zresetuj postęp profilu „…”** | usuwa zaznaczenia „Umiem” tylko wybranego profilu |
-| **Zresetuj wszystko** | przywraca listę bazową i domyślne profile bez postępu (wymaga dwóch potwierdzeń) |
+| **Eksportuj dane** | pobiera jeden plik `english-levels-dane-RRRR-MM-DD.json` z listą oraz wszystkimi profilami i ich zaznaczeniami „Umiem” |
+| **Importuj dane…** | wczytuje taki plik (także starsze pliki treści lub postępu). Najpierw pokazuje, co zawiera, i prosi o potwierdzenie. |
+| **Resetuj dane…** | usuwa profile i postęp, przywraca listę bazową (wymaga dwóch potwierdzeń). Dane zakładki Certyfikat C1 zostają. |
 
 Przechowuj pliki kopii w bezpiecznym miejscu, np. na dysku w chmurze albo na pendrivie.
 
-## 5. Przenoszenie danych na inny komputer lub do innej przeglądarki
+## 4. Przenoszenie danych na inny komputer lub do innej przeglądarki
 
-1. Na starym komputerze: **Dane → Eksportuj treści** (i ewentualnie **Eksportuj profile i postęp**).
-2. Skopiuj folder strony i pliki `.json` na nowy komputer.
-3. Na nowym komputerze otwórz `index.html` i wybierz **Dane → Importuj treści…** (oraz **Importuj profile i postęp…**).
+1. Na starym komputerze: menu profilu → **Dane → Eksportuj dane**.
+2. Skopiuj plik `.json` na nowy komputer.
+3. Na nowym komputerze otwórz stronę i wybierz menu profilu → **Dane → Importuj dane…**.
 
 Profile i postęp są zapisane w przeglądarce, w której je zaznaczasz. Jeśli uczniowie korzystają z własnych komputerów, każdy ma u siebie osobny zestaw profili.
 
-## 6. Gdy coś pójdzie nie tak
+## 5. Gdy coś pójdzie nie tak
 
-- Jeśli zapisane dane są uszkodzone, strona pokaże komunikat z przyciskiem **Importuj kopię treści…**. Wybierz ostatni plik eksportu.
+- Jeśli zapisane dane są uszkodzone, strona pokaże komunikat z przyciskiem importu kopii. Wybierz ostatni plik eksportu.
 - Jeśli pojawi się ostrzeżenie, że pamięć przeglądarki jest niedostępna (np. w trybie prywatnym), zmiany nie będą zapisywane. Otwórz stronę w zwykłym oknie przeglądarki.
 
-## 7. Publikacja na GitHub Pages
+## 6. Publikacja na GitHub Pages
 
 Dzięki temu strona będzie dostępna pod adresem internetowym, np. `https://twoja-nazwa.github.io/english-levels-map/`.
 
@@ -166,7 +129,7 @@ git push
 ```
 
 > ⚠️ **Ważne: dane w `localStorage` są osobne dla każdej przeglądarki i każdego adresu strony.**
-> Treści wpisane w wersji otwartej z dysku (`file://…`) **nie pojawią się automatycznie** na GitHub Pages (`https://…github.io/…`) i odwrotnie.
-> Po przeniesieniu strony zrób **Dane → Eksportuj treści** w starej wersji, a potem **Dane → Importuj treści…** w nowej.
+> Profile i postęp z wersji otwartej z dysku (`file://…`) **nie pojawią się automatycznie** na GitHub Pages (`https://…github.io/…`) i odwrotnie.
+> Po przeniesieniu strony zrób **Dane → Eksportuj dane** w starej wersji, a potem **Dane → Importuj dane…** w nowej.
 >
-> Pliki eksportu nie są wysyłane na GitHub (blokuje to `.gitignore`). Każda osoba, która otwiera stronę na swoim komputerze, zaczyna od listy bazowej (niezbędnik A1–C2). Twoje własne zmiany zobaczy dopiero po zaimportowaniu Twojego pliku treści albo po wpisaniu ich do `js/base-content.js` (patrz README).
+> Pliki eksportu nie są wysyłane na GitHub (blokuje to `.gitignore`). Każda osoba, która otwiera stronę na swoim komputerze, zaczyna od listy bazowej (niezbędnik A1–C2).

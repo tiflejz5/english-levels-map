@@ -2,11 +2,11 @@
  * base-content.js — BAZOWA lista umiejętności („Angielski A1–C2: niezbędnik do rozmowy”).
  *
  * Ta treść wczytuje się przy pierwszym otwarciu strony w danej przeglądarce
- * (oraz po „Zresetuj wszystko”). Potem nauczyciel edytuje ją w trybie edycji,
- * a zmiany zapisują się w przeglądarce (localStorage), NIE w tym pliku.
+ * (oraz po „Resetuj dane”). W aplikacji lista jest tylko do odczytu; treści
+ * zapisane wcześniej w przeglądarce (localStorage) mają pierwszeństwo.
  *
  * Aby zmienić bazę dla wszystkich (np. na GitHub Pages), zmień ten plik
- * albo wklej tu dane z eksportu (zawartość pola "data" z pliku .json).
+ * albo wklej tu dane z eksportu (pole data.content.data z pliku .json).
  * Usunięcie tego pliku z index.html = start od pustego szkieletu.
  */
 window.ELM = window.ELM || {};

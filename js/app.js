@@ -220,6 +220,16 @@ window.ELM = window.ELM || {};
     } else {
       renderAll({ resetScroll: true });
     }
+    playViewEnter();
+  }
+
+  /** Krótka animacja wejścia treści po zmianie strony (CSS: .view-enter). */
+  function playViewEnter() {
+    const view = document.getElementById("view");
+    if (!view) return;
+    view.classList.remove("view-enter");
+    void view.offsetWidth; // wymusza ponowne uruchomienie animacji
+    view.classList.add("view-enter");
   }
 
   /** Otwiera/zamyka menu boczne jako szufladę (tylko wąski ekran). */

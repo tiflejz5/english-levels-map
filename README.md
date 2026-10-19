@@ -1,58 +1,84 @@
 # English Levels Map (A1–C2)
 
-Otwarta, edytowalna mapa umiejętności z angielskiego dla każdego: uczniów, nauczycieli i osób uczących się samodzielnie. Dla każdego poziomu CEFR (A1–C2) pokazuje, co warto umieć, a przy każdym punkcie podaje wyjaśnienie z przykładami i ćwiczeniem. Postęp odhacza się polem „Umiem”. Jest też zakładka z przygotowaniem do certyfikatu C1 Advanced.
+Otwarta mapa umiejętności z angielskiego dla każdego: uczniów, nauczycieli i osób uczących się samodzielnie. Dla każdego poziomu CEFR (A1–C2) pokazuje, co warto umieć, a przy każdym punkcie podaje wyjaśnienie z przykładami i ćwiczeniem. Postęp odhacza się polem „Umiem”. Jest też zakładka z przygotowaniem do certyfikatu C1 Advanced.
 
-Strona startuje od **bazowej listy** „Angielski A1–C2: niezbędnik do rozmowy” (`js/base-content.js`): trzy kategorie (Gramatyka i czasy, Funkcje komunikacyjne, Słownictwo) i opisy poziomów. Listę można dowolnie edytować w trybie edycji.
+Czysty HTML + CSS + JavaScript. Bez frameworków, bez npm, bez zewnętrznych CDN i fontów (fonty systemowe), bez internetu.
 
-**Prywatność:** aplikacja nie ma kont, serwera ani bazy danych. Profile, zaznaczenia „Umiem”, edytowane treści, wyniki ćwiczeń, szkice wypracowań i data egzaminu zapisują się **tylko lokalnie w Twojej przeglądarce** (localStorage) i nigdzie nie są wysyłane. Każda przeglądarka i każde urządzenie ma osobne dane. Kopię zapasową zrobisz w menu „Dane” (eksport do pliku JSON).
+## Funkcje
 
-**Profile:** w aplikacji nie ma żadnych wbudowanych profili. Przy pierwszym otwarciu pojawia się ekran powitalny z przyciskiem „Dodaj profil”. Profil to osoba albo grupa (np. klasa), której postęp chcesz śledzić. Każdy profil ma własne zaznaczenia „Umiem”.
-
-Czysty HTML + CSS + JavaScript. Bez frameworków, bez npm, bez budowania i bez internetu.
+- **Poziomy A1–C2** w lewym panelu z paskiem postępu. Każdy poziom ma trzy kategorie (Gramatyka i czasy, Funkcje komunikacyjne, Słownictwo), listę **Essentials** z polem „Umiem” i **podsumowanie poziomu**.
+- **Podstrony niezbędnika** (110 punktów): zasada, tabele, przykłady, typowe błędy, ćwiczenie z ukrytymi odpowiedziami.
+- **Strona główna** z opisem i tabelą poziomów.
+- **Certyfikat C1:** strategie do każdej części egzaminu, 19 zestawów Use of English, które sprawdzają się same, trener Writing (timer, licznik słów) i trener Speaking (timery, nagrywanie).
+- **Menu profilu** (prawy górny róg): lista profili z przełączaniem, zmiana nazwy (✎), usuwanie z potwierdzeniem (✕), „+ Dodaj profil” oraz sekcja **Dane** (Eksportuj / Importuj / Resetuj).
+- **Motyw jasny i ciemny** (przycisk obok menu profilu).
+- Działa na telefonie, tablecie i komputerze (sprawdzane przy 360, 390, 768, 1024 i 1280 px).
 
 ## Uruchomienie
 
-Kliknij dwukrotnie `index.html`. Strona działa bezpośrednio z dysku (`file://`) i na GitHub Pages.
+Kliknij dwukrotnie `index.html`. Strona działa bezpośrednio z dysku (`file://`) i na GitHub Pages (https://tiflejz5.github.io/english-levels-map/). Nie trzeba niczego instalować.
+
+Do przebudowania danych podstron (po zmianie plików `.md`/`.json` w `niezbednik/`) potrzebny jest Node.js:
+
+```bash
+node tools/zbuduj-niezbednik.js
+```
 
 Instrukcja obsługi dla nauczyciela (po polsku): [docs/INSTRUKCJA.md](docs/INSTRUKCJA.md).
 
-## Struktura plików
+## Profile i menu profilu
 
-```
-english-levels-map/
-├─ index.html            szkielet strony, kolejność ładowania skryptów
-├─ css/style.css         wygląd; kolory (także kolory poziomów) jako zmienne w :root
-├─ js/
-│  ├─ utils.js           tworzenie DOM bez innerHTML, **pogrubienie**, id, daty
-│  ├─ default-data.js    dane startowe: lista bazowa albo pusty szkielet
-│  ├─ base-content.js    bazowa lista umiejętności (niezbędnik A1–C2)
-│  ├─ store.js           localStorage, migracja, walidacja, eksport/import
-│  ├─ dialogs.js         okna potwierdzeń / pytań (zamiast confirm/prompt)
-│  ├─ profiles.js        przełącznik profili (prawy górny róg) i zarządzanie nimi
-│  ├─ markdown.js        mały renderer Markdown (tabele GFM, listy, cytaty, **/*)
-│  ├─ niezbednik.js      podstrony niezbędnika: routing #/a1/…, dopasowanie, widok
-│  ├─ render.js          rysowanie widoków (podgląd i tryb edycji)
-│  ├─ editor.js          operacje trybu edycji (dodaj, przesuń, usuń)
-│  ├─ data-menu.js       menu „Dane”: eksport, import, reset
-│  └─ app.js             start, stan, zdarzenia, automatyczny zapis
-├─ docs/INSTRUKCJA.md    obsługa dla nauczyciela
-├─ README.md
-└─ .gitignore
-```
+W aplikacji nie ma żadnych wbudowanych profili. Przy pierwszym otwarciu pojawia się ekran powitalny z polem „Nazwa profilu”. Profil to osoba albo grupa (np. klasa), której postęp chcesz śledzić. Każdy profil ma własne zaznaczenia „Umiem”.
 
-Skrypty są zwykłymi `<script src>` ładowanymi po kolei. Każdy plik dopisuje swoją część do jednego obiektu `window.ELM`. Nie ma tu modułów ES ani `fetch()`, bo przeglądarki blokują je przy `file://`.
+Menu profilu otwiera się kliknięciem lub tapnięciem (na komputerze z myszą także po najechaniu; zamyka się z krótkim opóźnieniem po zjechaniu kursorem). Zamyka je klik poza menu, klawisz Esc albo wybór akcji, a fokus wraca na przycisk. Po menu można chodzić strzałkami, Home i End. Wszystkie cele dotykowe mają co najmniej 44 × 44 px, a menu nie wychodzi poza ekran.
+
+Nazwa profilu: spacje na początku i końcu są obcinane, najwyżej 30 znaków, bez duplikatów (wielkość liter nie ma znaczenia). Enter zatwierdza, Esc anuluje. Nowy profil od razu staje się aktywny.
+
+## Motywy
+
+- Trzy ustawienia, przełączane po kolei przyciskiem obok menu profilu: **Automatycznie** (jak w systemie, `prefers-color-scheme`) → **Jasny** → **Ciemny**. Ikona i podpowiedź pokazują bieżące ustawienie i następne.
+- W trybie „Automatycznie” strona reaguje na zmianę ustawienia systemu na żywo.
+- Wybór zapisuje się w `localStorage` pod kluczem `elm_theme_v1`, **globalnie dla urządzenia**: nie jest częścią profilu ani pliku eksportu.
+- Mały skrypt w `<head>` (`index.html`) ustawia `data-theme` na `<html>`, zanim strona się narysuje, więc nie ma błysku złego motywu. Ustawia też `meta theme-color`, a `color-scheme` dopasowuje pola formularzy i paski przewijania.
+- Wszystkie kolory, typografia, odstępy, promienie, cienie i czasy animacji są **zmiennymi CSS** (design tokens) na początku `css/style.css`. Poza blokami tokenów żaden kolor nie jest wpisany na sztywno. Kontrast obu motywów spełnia WCAG AA (tekst 4,5:1, komponenty i obramowania 3:1).
+- Animacje trwają 150–250 ms, są w czystym CSS i używają tylko `opacity` i `transform` (znacznik „Umiem”, pasek postępu, wejście strony, menu, okna). Wyjątkiem jest krótkie przejście kolorów przy zmianie motywu. Przy `prefers-reduced-motion: reduce` animacje są wyłączone.
 
 ## Dane
 
+**Prywatność:** aplikacja nie ma kont, serwera ani bazy danych. Profile, zaznaczenia „Umiem”, wyniki ćwiczeń, szkice wypracowań i data egzaminu zapisują się **tylko lokalnie w Twojej przeglądarce** (localStorage) i nigdzie nie są wysyłane. Każda przeglądarka i każde urządzenie ma osobne dane. Kopię zapasową zrobisz w menu profilu: **Dane → Eksportuj dane**.
+
 | Klucz localStorage | Zawartość |
 |---|---|
-| `elm_content_v1`  | treści: `{ version, categories[], levels[] }` |
-| `elm_profiles_v1` | profile użytkownika: `{ version: 2, activeId, profiles: [{ id, name, progress: { "<id punktu essentials>": true } }] }` (lista może być pusta) |
+| `elm_content_v1`  | treści listy: `{ version, categories[], levels[] }` |
+| `elm_profiles_v1` | profile: `{ version: 2, activeId, profiles: [{ id, name, progress: { "<id punktu essentials>": true } }] }` (lista może być pusta) |
 | `elm_progress_v1` | stary zapis postępu (sprzed profili); jeśli ma zaznaczenia, przy pierwszym starcie trafia do nowego profilu „Mój profil” |
 | `elm_c1_v1`       | zakładka „Certyfikat C1”: data egzaminu, najlepsze wyniki, szkice Writing, listy zadań |
+| `elm_ui_v1`       | tylko wygoda: wybrany poziom i kategoria |
+| `elm_theme_v1`    | motyw: `"auto"`, `"light"` albo `"dark"` (globalnie dla urządzenia) |
 
 Każdy dostęp do localStorage jest w `try/catch`. Bez dostępu do pamięci aplikacja działa do zamknięcia karty.
-| `elm_ui_v1`       | tylko wygoda: wybrany poziom i kategoria |
+
+**Menu „Dane”:**
+
+| Opcja | Co robi |
+|---|---|
+| **Eksportuj dane** | pobiera jeden plik `english-levels-dane-RRRR-MM-DD.json` z treściami listy oraz wszystkimi profilami i ich postępem |
+| **Importuj dane…** | wczytuje taki plik (albo starszy, osobny plik treści lub postępu), pokazuje, co zawiera, i po potwierdzeniu zastępuje dane |
+| **Resetuj dane…** | po dwóch potwierdzeniach usuwa profile i zmiany treści; aplikacja wraca do stanu pierwszego otwarcia. Dane zakładki C1 zostają. |
+
+Format pliku eksportu:
+
+```js
+{
+  app: "english-levels-map", kind: "backup", version: 1, exportedAt: "…",
+  data: {
+    content:  { app, kind: "content",  version, exportedAt, data: { /* elm_content_v1 */ } },
+    progress: { app, kind: "progress", version, exportedAt, data: { /* elm_profiles_v1 */ } }
+  }
+}
+```
+
+Import przyjmuje też starsze pliki `kind: "content"` i `kind: "progress"` oraz same „gołe” dane. Plik postępu w najstarszym formacie (bez profili) trafia do aktywnego profilu.
 
 Kształt treści:
 
@@ -75,11 +101,39 @@ Kształt treści:
 - Identyfikatory to prefiks, czas i losowy ciąg (`utils.uid`), nigdy indeks tablicy.
 - `store.migrate(data)` sprawdza `version`. Przy zmianie struktury podnieś `CURRENT_VERSION` w `store.js` i dopisz krok migracji.
 - `store.normalizeContent(data)` waliduje dane przy starcie i przy imporcie. Poważne błędy zatrzymują wczytywanie z opisem po polsku, drobne braki (pola, id) są uzupełniane.
-- Pliki eksportu mają opakowanie `{ app, kind: "content" | "progress", version, exportedAt, data }`. Import przyjmuje też same „gołe” dane.
+
+## Struktura plików
+
+```
+english-levels-map/
+├─ index.html            szkielet strony, skrypt motywu w <head>, kolejność ładowania skryptów
+├─ css/style.css         wygląd; design tokens (jasny / ciemny) na początku pliku
+├─ js/
+│  ├─ utils.js           tworzenie DOM bez innerHTML, **pogrubienie**, id, daty
+│  ├─ theme.js           przycisk motywu, zapis elm_theme_v1, reakcja na zmianę systemu
+│  ├─ default-data.js    dane startowe: lista bazowa albo pusty szkielet
+│  ├─ base-content.js    bazowa lista umiejętności (niezbędnik A1–C2)
+│  ├─ store.js           localStorage, migracja, walidacja, eksport/import
+│  ├─ dialogs.js         okna potwierdzeń / pytań (zamiast confirm/prompt)
+│  ├─ profiles.js        menu profilu (prawy górny róg) i ekran powitalny
+│  ├─ markdown.js        mały renderer Markdown (tabele GFM, listy, cytaty, **/*)
+│  ├─ niezbednik.js      podstrony niezbędnika: routing #/a1/…, dopasowanie, widok
+│  ├─ render.js          rysowanie lewego panelu i strony poziomu
+│  ├─ data-menu.js       sekcja „Dane”: eksport, import, reset
+│  ├─ c1-*.js            zakładka „Certyfikat C1” (strony, ćwiczenia, trenery)
+│  └─ app.js             start, stan, routing, zdarzenia, zapis
+├─ niezbednik/           podstrony, podsumowania, strona główna, Certyfikat C1 (patrz niżej)
+├─ tools/zbuduj-niezbednik.js   generator plików *-dane.js
+├─ docs/INSTRUKCJA.md    obsługa dla nauczyciela
+├─ README.md
+└─ .gitignore
+```
+
+Skrypty są zwykłymi `<script src>` ładowanymi po kolei. Każdy plik dopisuje swoją część do jednego obiektu `window.ELM`. Nie ma tu modułów ES ani `fetch()`, bo przeglądarki blokują je przy `file://`.
 
 ## Zakładka „Certyfikat C1” (folder `niezbednik/certyfikat-c1/`)
 
-Przygotowanie do egzaminu Cambridge C1 Advanced (wersja komputerowa). Menu w pasku bocznym (pod poziomami) jest budowane wyłącznie z `manifest.json`. Na telefonie pasek boczny chowa się w szufladę otwieraną przyciskiem „☰ Menu”.
+Przygotowanie do egzaminu Cambridge C1 Advanced (wersja komputerowa). Menu w pasku bocznym (pod poziomami) jest budowane wyłącznie z `manifest.json`. Na telefonie i tablecie pasek boczny chowa się w szufladę otwieraną przyciskiem „☰ Menu”.
 
 ```
 niezbednik/certyfikat-c1/
@@ -102,7 +156,7 @@ niezbednik/certyfikat-c1-dane.js   GENEROWANY (ELM.C1), ten sam skrypt co niezbe
 - **Linki `[[id]]`** w Markdownie: id podstrony z `niezbednik/index.json` prowadzi do podstrony (tekst linku to jej tytuł), a id zestawu do strony zestawu (tytuł zestawu). Nieznane id wyświetla się jako zwykły tekst z ostrzeżeniem w konsoli.
 - **Listy zadań `- [ ]`** są polami wyboru. Ich stan zapisuje się dla każdej strony osobno.
 - **Ocenianie Part 4** jak w Cambridge: 3–6 słów (skróty `n't`, `'s`, `'re`, `'ve`, `'d`, `'ll`, `'m` liczą się jako dwa słowa), słowo kluczowe bez zmian i po 1 pkt za każdą część z `parts` (druga część musi stać po pierwszej). Odpowiedzi są normalizowane: wielkie litery, `’` → `'`, bez interpunkcji poza apostrofem, pojedyncze spacje.
-- **Zapis w przeglądarce** (klucz `elm_c1_v1`, w `try/catch`, więc bez dostępu działa do zamknięcia karty): data egzaminu, najlepszy wynik każdego zestawu, szkice Writing i zaznaczenia list zadań. Te dane są wspólne dla wszystkich profili i nie trafiają do eksportu w menu „Dane”.
+- **Zapis w przeglądarce** (klucz `elm_c1_v1`, w `try/catch`, więc bez dostępu działa do zamknięcia karty): data egzaminu, najlepszy wynik każdego zestawu, szkice Writing i zaznaczenia list zadań. Te dane są wspólne dla wszystkich profili, nie trafiają do eksportu i nie są kasowane przez „Resetuj dane”.
 - **Bez materiałów Cambridge:** oryginalne arkusze, PDF-y i nagrania nie trafiają do repozytorium (blokuje je `.gitignore`). Strony linkują do oficjalnych materiałów.
 - **Zmiana treści:** edytuj pliki w `niezbednik/certyfikat-c1/`, uruchom `node tools/zbuduj-niezbednik.js` i zwiększ `?v=…` w `index.html`.
 
@@ -130,22 +184,19 @@ tools/zbuduj-niezbednik.js   skrypt, który tworzy niezbednik-dane.js
 - **Linki** pojawiają się tylko przy punktach, dla których istnieje plik `.md`. Obecnie wszystkie 110 punktów A1–C2 ma pliki. Gdyby w `index.json` pojawił się wpis bez pliku, punkt nie dostanie linku, a adres podstrony pokaże komunikat o braku pliku.
 - Na podstronie przełącznik **Umiem** zmienia ten sam stan co checkbox na liście, dla aktywnego profilu. Sekcje `## Odpowiedzi` i `## Przykładowe odpowiedzi` są ukryte pod przyciskiem „Pokaż odpowiedzi”.
 
-**Dodanie kolejnego poziomu (np. A2):**
+**Dodanie lub zmiana podstron:**
 
-1. Skopiuj pliki do `niezbednik/a2/` i upewnij się, że są wpisane w `niezbednik/index.json`.
-2. Uruchom (wymaga Node.js):
-   ```bash
-   node tools/zbuduj-niezbednik.js
-   ```
+1. Zmień pliki w `niezbednik/<poziom>/` i upewnij się, że są wpisane w `niezbednik/index.json`.
+2. Uruchom `node tools/zbuduj-niezbednik.js`.
 3. Zwiększ numer `?v=…` w `index.html`, zrób commit i push.
 
 ## Jak rozbudować
 
 **Po każdej zmianie plików JS/CSS** zwiększ numer `?v=…` przy wszystkich `<script>` i `<link>` w `index.html`. GitHub Pages pozwala przeglądarkom trzymać pliki w pamięci podręcznej do 10 minut, a bez nowego numeru mogłyby załadować mieszankę starych i nowych plików.
 
-**Zmiana listy bazowej dla wszystkich** (np. na GitHub Pages): w aplikacji zrób **Dane → Eksportuj treści**, a potem w `js/base-content.js` zastąp obiekt po `window.ELM.BASE_CONTENT =` zawartością pola `"data"` z pliku eksportu. Nowa baza wczyta się w przeglądarkach, które nie mają jeszcze własnych zapisanych treści. Pozostali mogą ją wczytać przez import albo „Zresetuj wszystko”. Usunięcie `<script src="js/base-content.js">` z `index.html` przywraca start od pustego szkieletu.
+**Zmiana listy umiejętności dla wszystkich:** edycja treści w aplikacji została usunięta, więc listę zmienia się w kodzie: w `js/base-content.js` popraw obiekt po `window.ELM.BASE_CONTENT =`. Nowa baza wczyta się w przeglądarkach, które nie mają własnych zapisanych treści. Pozostali dostaną ją po „Resetuj dane” (albo po imporcie pliku z nową treścią). Usunięcie `<script src="js/base-content.js">` z `index.html` przywraca start od pustego szkieletu.
 
-**Kolejna kategoria domyślna:** w `js/default-data.js` dopisz do `ELM.DEFAULT_CATEGORIES`:
+**Kolejna kategoria domyślna:** w `js/default-data.js` dopisz do `ELM.DEFAULT_CATEGORIES` (działa dla nowych danych i po „Resetuj dane”):
 
 ```js
 ELM.DEFAULT_CATEGORIES = [
@@ -154,9 +205,7 @@ ELM.DEFAULT_CATEGORIES = [
 ];
 ```
 
-Działa to tylko dla nowych danych i po „Zresetuj wszystko”. W istniejących danych kategorię dodaje się w aplikacji przyciskiem „+ Kategoria”.
-
-**Kolory poziomów:** zmienne `--lvl-a1`, `--lvl-a1-soft` itd. na początku `css/style.css`.
+**Kolory:** wszystkie kolory (także poziomów: `--lvl-a1`, `--lvl-a1-soft` itd.) są tokenami na początku `css/style.css`, osobno dla motywu jasnego i ciemnego. Po zmianie sprawdź kontrast w obu motywach.
 
 **Usunięta funkcja „Tematy”:** wcześniej nauczyciel mógł dodawać własne tematy (zasada, wzór, przykłady, błędy, ćwiczenia). Zastąpiły je podsumowania poziomów i podstrony niezbędnika, a cały kod tej funkcji został usunięty. W danych zostało tylko pole `topics`, które `store.js` nadal sprawdza, żeby starsze kopie zapasowe wczytywały się bez błędów. Nie jest nigdzie wyświetlane.
 
@@ -166,17 +215,12 @@ Treść użytkownika trafia do strony wyłącznie przez `textContent` lub `value
 
 ## Decyzje projektowe
 
-- **Telefon:** poniżej 760 px szerokości pasek poziomów jest nad treścią (przewijany w poziomie), przewija się cała strona, a tabele przewijają się w poziomie wewnątrz swojej ramki. Na komputerze układ się nie zmienia.
-
-- **Edycja inline:** w trybie edycji pola są edytowalne bezpośrednio na stronie. Zapis następuje automatycznie 400 ms po ostatnim naciśnięciu klawisza, a zmiany struktury zapisują się od razu. Nazwę kategorii podaje się w małym oknie, bo nie da się jej edytować wewnątrz przełącznika segmentowego.
-- **Puste stany w podglądzie** nie mają przycisku dodawania, żeby tryb podglądu był zupełnie wolny od kontrolek edycji. Zamiast przycisku jest podpowiedź „Włącz Tryb edycji…”. Przycisk „+ Dodaj pierwszy…” pojawia się w trybie edycji.
-- **Tryb edycji zawsze startuje wyłączony,** także po odświeżeniu strony. Uczeń widzi czysty materiał.
-- **Postęp liczy tylko niepuste punkty essentials,** a puste punkty nie są pokazywane w podglądzie.
-- **Usunięcie punktu essentials lub kategorii** usuwa też związane z nimi zaznaczenia „Umiem”.
-- **Usuwanie zawsze wymaga potwierdzenia,** także pustych elementów list. Reset całości wymaga dwóch potwierdzeń.
+- **Układ:** od 900 px szerokości lewy panel jest stale widoczny. Poniżej (tablet, telefon) chowa się w szufladę „☰ Menu”, przewija się cała strona, a tabele przewijają się w poziomie wewnątrz swojej ramki. Strona nie przewija się w poziomie przy żadnej szerokości od 360 px.
+- **Bez trybu edycji:** edycja treści w aplikacji została usunięta, a lista jest czystym materiałem do nauki. Treści zapisane wcześniej w przeglądarce (`elm_content_v1`) nadal się wyświetlają i trafiają do eksportu.
+- **Postęp liczy tylko niepuste punkty essentials,** a puste punkty nie są pokazywane.
+- **Usuwanie zawsze wymaga potwierdzenia.** Reset danych wymaga dwóch potwierdzeń.
 - **Uszkodzone dane:** zamiast białego ekranu pojawia się ekran z opcjami: import kopii, pobranie uszkodzonych danych i start od listy bazowej. Stara treść trafia wtedy do klucza `elm_content_corrupt_backup`.
 - **Brak localStorage:** aplikacja działa do zamknięcia karty i wyświetla wyraźne ostrzeżenie.
-- **Dodatkowe pliki JS** (`utils.js`, `dialogs.js`, `data-menu.js`) powstały, żeby żaden plik nie był za duży.
-- **Lista bazowa zamiast pustego szkieletu:** jeśli przeglądarka ma zapisany *nietknięty* pusty szkielet z poprzedniej wersji strony (jedna kategoria `cat_grammar`, zero treści), przy starcie zostaje on zastąpiony listą bazową. Własne treści nauczyciela nigdy nie są w ten sposób nadpisywane.
-- **Profile:** w kodzie nie ma żadnych wbudowanych profili. Gdy lista jest pusta (pierwsze otwarcie, „Zresetuj wszystko”, usunięcie ostatniego profilu), aplikacja pokazuje na każdym adresie ekran powitalny z polem „Nazwa profilu” i przyciskiem „Dodaj profil”, a pierwszy dodany profil staje się aktywny. Wybór profilu działa zawsze, a dodawanie, zmiana nazwy, kolejność i usuwanie tylko w trybie edycji. Usunięcie punktu essentials czyści jego „Umiem” we wszystkich profilach. Plik eksportu postępu zawiera wszystkie profile, a import starego pliku (bez profili) trafia do aktywnego profilu.
-- **Migracja profili (wersja 1 → 2, jednorazowa):** starsze wersje tworzyły przy pierwszym otwarciu kilka profili przykładowych. Przy pierwszym starcie nowej wersji zapisane profile zostają, a usuwane są tylko nieużywane profile przykładowe: bez żadnego „Umiem”, z niezmienioną nazwą i z id według dawnego schematu (`p_` + nazwa małymi literami bez spacji). Profile z postępem, o zmienionej nazwie i dodane przez użytkownika zostają bez zmian. Pozostałe dane (treści, wyniki ćwiczeń, szkice, data egzaminu) nie są ruszane.
+- **Lista bazowa zamiast pustego szkieletu:** jeśli przeglądarka ma zapisany *nietknięty* pusty szkielet z poprzedniej wersji strony (jedna kategoria `cat_grammar`, zero treści), przy starcie zostaje on zastąpiony listą bazową. Zapisane własne treści nigdy nie są w ten sposób nadpisywane.
+- **Profile:** gdy lista profili jest pusta (pierwsze otwarcie, „Resetuj dane”, usunięcie ostatniego profilu), aplikacja pokazuje na każdym adresie ekran powitalny. Plik eksportu zawiera wszystkie profile.
+- **Migracja profili (wersja 1 → 2, jednorazowa):** starsze wersje tworzyły przy pierwszym otwarciu kilka profili przykładowych. Przy pierwszym starcie nowej wersji zapisane profile zostają, a usuwane są tylko nieużywane profile przykładowe: bez żadnego „Umiem”, z niezmienioną nazwą i z id według dawnego schematu (`p_` + nazwa małymi literami bez spacji). Pozostałe dane nie są ruszane.

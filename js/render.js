@@ -20,6 +20,11 @@ window.ELM = window.ELM || {};
   // ELEMENTY WSPÓLNE
   // =====================================================================
 
+  /** Wypełnienie paska jako transform: scaleX (animuje się płynnie, bez przeliczania układu). */
+  function fillStyle(percent) {
+    return "transform:scaleX(" + Math.max(0, Math.min(100, percent)) / 100 + ")";
+  }
+
   /** Pasek postępu. percent: 0–100. */
   function progressBar(percent, small, label) {
     return el("div", {
@@ -29,7 +34,7 @@ window.ELM = window.ELM || {};
       "aria-valuemax": "100",
       "aria-valuenow": String(percent),
       "aria-label": label || "Postęp"
-    }, el("div", { class: "progress-fill", style: "width:" + percent + "%" }));
+    }, el("div", { class: "progress-fill", style: fillStyle(percent) }));
   }
 
   /** Okrągły przycisk z symbolem i czytelną etykietą dla czytników ekranu. */
@@ -237,7 +242,7 @@ window.ELM = window.ELM || {};
     const stats = app().getStats(ELM.state.ui.levelId, cat.id);
     const bar = box.querySelector(".progress");
     bar.setAttribute("aria-valuenow", String(stats.percent));
-    bar.querySelector(".progress-fill").style.width = stats.percent + "%";
+    bar.querySelector(".progress-fill").style.transform = fillStyle(stats.percent).slice("transform:".length);
     box.querySelector(".progress-text").textContent = progressLabel(stats);
   }
 

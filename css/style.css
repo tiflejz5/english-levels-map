@@ -178,6 +178,10 @@
   --dur: 200ms;
   --ease: cubic-bezier(0.2, 0, 0, 1);
   --transition: var(--dur) var(--ease);
+
+  /* Wysokość górnego paska (przycisk 44 px + odstępy) — dla elementów „sticky” pod nim */
+  --topbar-h: 72px;
+  --topbar-h-compact: 64px;
 }
 
 /* Przypisanie koloru do poziomu: element z klasą .lvl-A1 itd. dostaje --lvl i --lvl-soft */
@@ -197,9 +201,10 @@ html, body {
   background: var(--page);
   color: var(--text);
   font-family: var(--font);
-  font-size: 16px;
+  font-size: var(--fs-md);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 h1, h2, h3, h4, p { margin: 0; }
@@ -208,8 +213,8 @@ button, input, textarea, select { font: inherit; color: inherit; }
 
 /* Widoczny fokus klawiatury */
 :focus-visible {
-  outline: none;
-  box-shadow: var(--focus-ring);
+  outline: 2px solid var(--focus-color);
+  outline-offset: 2px;
 }
 
 .noscript { padding: 40px; font-size: 18px; }
@@ -227,7 +232,6 @@ button, input, textarea, select { font: inherit; color: inherit; }
   display: grid;
   grid-template-columns: 280px minmax(0, 1fr);
   height: 100vh;
-  min-width: 1024px;
 }
 
 .main {
@@ -314,8 +318,6 @@ a.brand-title:hover { color: var(--accent); }
 .level-item.is-active .level-code { color: var(--accent); }
 .level-count { font-size: 12px; color: var(--text-2); }
 
-/* Przełącznik (switch) w stylu iOS */
-
 /* ===================== PRZYCISKI ===================== */
 .btn {
   display: inline-flex;
@@ -324,7 +326,7 @@ a.brand-title:hover { color: var(--accent); }
   gap: 6px;
   padding: 8px 16px;
   border: 1px solid transparent;
-  border-radius: 980px;
+  border-radius: var(--radius-pill);
   font-size: 14px;
   font-weight: 500;
   line-height: 1.3;
@@ -352,7 +354,7 @@ a.btn { text-decoration: none; }
 
 .btn-small { padding: 5px 12px; font-size: 13px; }
 
-/* Okrągłe przyciski ikon (↑ ↓ ← → ✕) w trybie edycji */
+/* Okrągłe przyciski z ikoną (motyw, ✎ i ✕ w menu profilu) */
 .icon-btn {
   display: inline-flex;
   align-items: center;
@@ -371,10 +373,6 @@ a.btn { text-decoration: none; }
 .icon-btn:hover:not(:disabled) { background: var(--bg-soft); color: var(--text); }
 .icon-btn:disabled { opacity: 0.3; cursor: not-allowed; }
 .icon-btn.is-danger:hover:not(:disabled) { color: var(--danger); background: var(--danger-soft); border-color: var(--danger-border); }
-
-/* Dyskretne kontrolki: przygaszone, wyraźne po najechaniu lub fokusie */
-
-/* Pasek narzędzi edycji (kategorie) */
 
 /* ===================== POLA FORMULARZY ===================== */
 .field {
@@ -412,7 +410,7 @@ textarea.field { resize: vertical; min-height: 42px; overflow: hidden; }
   font-size: 18px;
   color: var(--text-2);
   white-space: pre-wrap;
-  max-width: 720px;
+  max-width: var(--measure);
 }
 
 /* ===================== KATEGORIE (przełącznik segmentowy) ===================== */
@@ -475,9 +473,9 @@ textarea.field { resize: vertical; min-height: 42px; overflow: hidden; }
 .progress.is-small { height: 4px; border-radius: 2px; }
 .progress-fill {
   height: 100%;
-  border-radius: inherit;
   background: var(--lvl, var(--accent));
-  transition: width 200ms ease;
+  transform-origin: left center;
+  transition: transform 250ms var(--ease);
 }
 /* W sidebarze ścieżka paska trochę ciemniejsza, żeby była widoczna na szarym tle */
 .level-item .progress { background: color-mix(in srgb, var(--lvl-soft) 70%, var(--track-mix)); }
@@ -508,7 +506,7 @@ textarea.field { resize: vertical; min-height: 42px; overflow: hidden; }
   flex-shrink: 0;
   padding: 4px 12px 4px 6px;
   border: 1px solid var(--border);
-  border-radius: 980px;
+  border-radius: var(--radius-pill);
   background: var(--bg);
   font-size: 13px;
   font-weight: 500;
@@ -535,15 +533,20 @@ textarea.field { resize: vertical; min-height: 42px; overflow: hidden; }
   width: 9px; height: 5px;
   border-left: 2px solid var(--on-accent);
   border-bottom: 2px solid var(--on-accent);
-  transform: rotate(-45deg) translate(1px, -1px);
+  transform: rotate(-45deg) translate(1px, -1px) scale(0.4);
   opacity: 0;
+  transition: opacity var(--dur-fast) var(--ease), transform var(--dur) var(--ease);
 }
 .umiem input:checked { background: var(--success-fill); border-color: var(--success-fill); }
-.umiem input:checked::after { opacity: 1; }
+.umiem input:checked::after { opacity: 1; transform: rotate(-45deg) translate(1px, -1px) scale(1); }
+.umiem input:checked { animation: umiem-pop 220ms var(--ease); }
+@keyframes umiem-pop {
+  0% { transform: scale(0.82); }
+  60% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
 .umiem input:focus-visible { box-shadow: var(--focus-ring); }
 .umiem:has(input:checked) { background: var(--success-soft); border-color: var(--success-border); color: var(--success); }
-
-/* Wiersz edycji (essentials, profile): pole + dyskretne kontrolki */
 
 /* Pusty stan (brak treści) */
 .empty-state {
@@ -614,8 +617,6 @@ textarea.field { resize: vertical; min-height: 42px; overflow: hidden; }
 .dialog-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 22px; }
 .dialog-error { color: var(--danger); font-size: 13px; margin-top: 6px; min-height: 18px; }
 
-/* Okno „Dane” */
-
 /* ===================== PROFILE (prawy górny róg) ===================== */
 .topbar {
   position: sticky;
@@ -637,7 +638,7 @@ textarea.field { resize: vertical; min-height: 42px; overflow: hidden; }
   gap: 10px;
   padding: 5px 14px 5px 5px;
   border: 1px solid var(--border);
-  border-radius: 980px;
+  border-radius: var(--radius-pill);
   background: var(--bg);
   box-shadow: var(--shadow-sm);
   cursor: pointer;
@@ -775,7 +776,7 @@ textarea.field { resize: vertical; min-height: 42px; overflow: hidden; }
   align-items: center;
   gap: 8px;
   padding: 4px 12px 4px 10px;
-  border-radius: 980px;
+  border-radius: var(--radius-pill);
   background: var(--lvl-soft);
   color: var(--text);
   font-weight: 650;
@@ -786,10 +787,10 @@ textarea.field { resize: vertical; min-height: 42px; overflow: hidden; }
 .level-link:hover { color: var(--accent); box-shadow: 0 0 0 1.5px var(--lvl); }
 .md a:not(.level-link) { color: var(--accent); }
 
-/* ===================== TELEFON (wąski ekran) ===================== */
-@media (max-width: 760px) {
+/* ===================== TABLET I TELEFON (do 899 px): panel jako szuflada ===================== */
+@media (max-width: 899px) {
   html, body { height: auto; }
-  .app { display: block; min-width: 0; height: auto; }
+  .app { display: block; height: auto; }
 
   /* Pasek boczny jako szuflada otwierana przyciskiem „Menu” */
   .sidebar {
@@ -802,33 +803,48 @@ textarea.field { resize: vertical; min-height: 42px; overflow: hidden; }
     box-shadow: var(--shadow-lg);
     transform: translateX(-105%);
     visibility: hidden;
-    transition: transform 200ms ease, visibility 0s linear 200ms;
+    transition: transform var(--dur) var(--ease), visibility 0s linear var(--dur);
   }
-  body.nav-open .sidebar { transform: none; visibility: visible; transition: transform 200ms ease; }
+  body.nav-open .sidebar { transform: none; visibility: visible; transition: transform var(--dur) var(--ease); }
   body.nav-open { overflow: hidden; }
   .topbar .menu-btn { display: inline-flex; }
 
   /* Treść: przewija się cała strona */
   .main { height: auto; overflow: visible; }
+  .topbar { padding: 10px 24px; }
+  .banners { padding: 12px 24px 0; }
+  .view { padding: 8px 32px 72px; }
+
+  /* Tabele: przewijanie w poziomie wewnątrz ramki zamiast poszerzania strony */
+  .md-table-wrap { -webkit-overflow-scrolling: touch; }
+}
+
+/* ===================== TELEFON (do 760 px) ===================== */
+@media (max-width: 760px) {
   .topbar { padding: 10px 16px; }
   .banners { padding: 12px 16px 0; }
   .view { padding: 8px 16px 64px; }
   .level-title { font-size: 40px; }
+  .level-desc { font-size: 17px; }
   .card { padding: 20px 16px; }
   .section-head { flex-direction: column; align-items: flex-start; gap: 4px; }
   .ess-item { padding: 10px 6px; gap: 10px; }
   .page-head { flex-wrap: wrap; }
+  /* Kategorie: równe kolumny na całą szerokość, długie nazwy zawijają się w przycisku */
+  .segmented { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); width: 100%; }
+  .segmented-btn { padding: 8px 6px; line-height: 1.25; }
 
   .md { font-size: 16px; }
   .md h1, .home-view .md h1 { font-size: 30px; }
   .md h2 { font-size: 21px; }
-  /* Tabele: przewijanie w poziomie wewnątrz ramki zamiast poszerzania strony */
-  .md-table-wrap { -webkit-overflow-scrolling: touch; }
   .md table { min-width: 520px; }
   .md th, .md td { padding: 8px 10px; }
+}
 
-  
-  
+/* Średnie ekrany z panelem bocznym: trochę mniejsze marginesy treści */
+@media (min-width: 900px) and (max-width: 1100px) {
+  .view { padding-left: 36px; padding-right: 36px; }
+  .banners { padding-left: 36px; padding-right: 36px; }
 }
 
 /* ===================== MENU BOCZNE: CERTYFIKAT C1 ===================== */
@@ -903,7 +919,7 @@ textarea.field { resize: vertical; min-height: 42px; overflow: hidden; }
 .c1-nav-link:hover { background: var(--hover); }
 .c1-nav-link.is-active { background: var(--bg); box-shadow: var(--shadow-sm); color: var(--accent); font-weight: 600; }
 .c1-nav-link.is-trainer .c1-nav-label::before { content: "▸ "; color: var(--accent); }
-.c1-nav-badge { flex-shrink: 0; padding: 1px 7px; border-radius: 980px; background: var(--success-soft); color: var(--success); font-size: 11px; font-weight: 600; }
+.c1-nav-badge { flex-shrink: 0; padding: 1px 7px; border-radius: var(--radius-pill); background: var(--success-soft); color: var(--success); font-size: 11px; font-weight: 600; }
 
 /* ===================== STRONY ZAKŁADKI C1 ===================== */
 .c1-view { max-width: 900px; }
@@ -943,7 +959,7 @@ textarea.field { resize: vertical; min-height: 42px; overflow: hidden; }
 .c1-set-card-best { font-size: 13px; color: var(--text-2); }
 .c1-set-card-best.has-score { color: var(--success); font-weight: 600; }
 .c1-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; }
-.c1-chip { padding: 3px 10px; border-radius: 980px; background: var(--bg-soft-2); font-size: 12px; font-weight: 600; color: var(--text-2); }
+.c1-chip { padding: 3px 10px; border-radius: var(--radius-pill); background: var(--bg-soft-2); font-size: 12px; font-weight: 600; color: var(--text-2); }
 
 /* Ramka „Na egzaminie C1” na podstronach poziomów */
 .c1-exam-box { margin: 4px 0 28px; padding: 18px 22px; border: 1px solid var(--info-border); border-radius: var(--radius-lg); background: var(--info-bg); font-size: 15px; }
@@ -989,7 +1005,7 @@ textarea.field { resize: vertical; min-height: 42px; overflow: hidden; }
 .c1-mark.is-ok { background: var(--success-fill); }
 .c1-mark.is-bad { background: var(--danger-bg); }
 .c1-parts { display: flex; gap: 6px; }
-.c1-part { padding: 1px 9px; border-radius: 980px; font-size: 12px; font-weight: 600; }
+.c1-part { padding: 1px 9px; border-radius: var(--radius-pill); font-size: 12px; font-weight: 600; }
 .c1-part.is-ok { background: var(--success-soft); color: var(--success); }
 .c1-part.is-bad { background: var(--danger-soft); color: var(--danger); }
 .c1-answer strong { letter-spacing: 0.02em; }
@@ -1020,7 +1036,7 @@ textarea.field { resize: vertical; min-height: 42px; overflow: hidden; }
 /* ===================== TRENER WRITING ===================== */
 .c1-prompt { margin-bottom: 18px; }
 .c1-prompt-text { white-space: pre-wrap; font-size: 16px; line-height: 1.6; }
-.c1-writing-bar { position: sticky; top: 64px; z-index: 5; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; padding: 6px 0; background: var(--sticky-bg); }
+.c1-writing-bar { position: sticky; top: var(--topbar-h); z-index: 5; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; padding: 6px 0; background: var(--sticky-bg); }
 .c1-words { font-size: 15px; font-variant-numeric: tabular-nums; }
 .c1-words.is-ok strong { color: var(--success); }
 .c1-words.is-low strong { color: var(--warning); }
@@ -1067,11 +1083,13 @@ textarea.field { resize: vertical; min-height: 42px; overflow: hidden; }
 .btn.is-recording { border-color: var(--danger); color: var(--danger); }
 
 /* ===================== C1 NA TELEFONIE ===================== */
+@media (max-width: 899px) {
+  .c1-writing-bar { top: var(--topbar-h-compact); }
+}
 @media (max-width: 760px) {
   .c1-title { font-size: 28px; }
   .c1-pictures { grid-template-columns: 1fr; }
   .c1-mindmap { grid-template-columns: 1fr; grid-template-areas: "c" "p1" "p2" "p3" "p4" "p5"; }
-  .c1-writing-bar { top: 56px; }
   .c1-writing-area { min-height: 320px; }
   .c1-home-tile { padding: 16px; gap: 12px; }
   .c1-countdown-number { font-size: 36px; }
@@ -1179,4 +1197,33 @@ html.theme-anim *::after {
 }
 @media (prefers-reduced-motion: reduce) {
   html.theme-anim *, html.theme-anim *::before, html.theme-anim *::after { transition: none !important; }
+}
+
+/* ===================== ANIMACJE (tylko opacity i transform) ===================== */
+/* Wejście treści po zmianie strony (js/app.js dodaje klasę .view-enter) */
+.view-enter { animation: view-in var(--dur) var(--ease); }
+@keyframes view-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+.c1-home-tile:hover .c1-home-tile-arrow { transform: translateX(3px); }
+.c1-home-tile-arrow { transition: transform var(--transition); }
+
+/* ===================== EKRANY DOTYKOWE: cele min. 44 × 44 px ===================== */
+@media (pointer: coarse) {
+  .btn, .segmented-btn, .c1-sec-toggle, .c1-nav-link, .c1-nav-head { min-height: 44px; }
+  .icon-btn { min-width: 44px; min-height: 44px; }
+  .umiem { min-height: 44px; }
+  .task-item label { min-height: 44px; align-items: center; }
+  .task-item input { margin-top: 0; }
+}
+
+/* ===================== OGRANICZENIE RUCHU ===================== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
