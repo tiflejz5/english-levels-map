@@ -18,7 +18,7 @@ window.ELM = window.ELM || {};
   const KEY = "elm_theme_v1";
   const ORDER = ["auto", "light", "dark"];
   const NAMES = { auto: "Automatycznie (jak w systemie)", light: "Jasny", dark: "Ciemny" };
-  const THEME_COLOR = { light: "#ffffff", dark: "#121214" };
+  const THEME_COLOR = { light: "#faf6ee", dark: "#0e1526" };
 
   const query = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : { matches: false };
   let pref = readPref();

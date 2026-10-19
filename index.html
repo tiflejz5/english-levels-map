@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Motyw jasny i ciemny (kolory w css/style.css, przełącznik w js/theme.js) -->
   <meta name="color-scheme" content="light dark">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#faf6ee">
   <title>English Levels Map (A1–C2)</title>
   <!-- Ustawia motyw ZANIM strona się narysuje (bez błysku złego motywu).
        elm_theme_v1: "auto" (jak w systemie), "light" albo "dark". -->
@@ -18,10 +18,10 @@
       root.setAttribute("data-theme", dark ? "dark" : "light");
       root.setAttribute("data-theme-pref", pref);
       var meta = document.querySelector('meta[name="theme-color"]');
-      if (meta) meta.setAttribute("content", dark ? "#121214" : "#ffffff");
+      if (meta) meta.setAttribute("content", dark ? "#0e1526" : "#faf6ee");
     })();
   </script>
-  <link rel="stylesheet" href="css/style.css?v=27">
+  <link rel="stylesheet" href="css/style.css?v=28">
 </head>
 <body>
   <noscript>
@@ -67,37 +67,37 @@
   <div class="nav-overlay" id="nav-overlay" hidden></div>
 
   <!-- Skrypty ładowane po kolei (bez modułów ES, żeby działało z file://).
-       ?v=27 to numer wersji: po zmianie plików JS/CSS zwiększ go wszędzie,
+       ?v=28 to numer wersji: po zmianie plików JS/CSS zwiększ go wszędzie,
        żeby przeglądarki nie użyły starych kopii z pamięci podręcznej. -->
-  <script src="js/utils.js?v=27"></script>
+  <script src="js/utils.js?v=28"></script>
   <!-- Czysta logika nauki: powtórki, seria, test poziomu (testy: node tools/testy.js) -->
-  <script src="js/learning.js?v=27"></script>
-  <script src="js/theme.js?v=27"></script>
-  <script src="js/default-data.js?v=27"></script>
+  <script src="js/learning.js?v=28"></script>
+  <script src="js/theme.js?v=28"></script>
+  <script src="js/default-data.js?v=28"></script>
   <!-- Bazowa lista umiejętności; usuń tę linię, aby startować od pustego szkieletu -->
-  <script src="js/base-content.js?v=27"></script>
-  <script src="js/store.js?v=27"></script>
-  <script src="js/dialogs.js?v=27"></script>
-  <script src="js/render.js?v=27"></script>
-  <script src="js/profiles.js?v=27"></script>
-  <script src="js/markdown.js?v=27"></script>
-  <script src="js/niezbednik.js?v=27"></script>
+  <script src="js/base-content.js?v=28"></script>
+  <script src="js/store.js?v=28"></script>
+  <script src="js/dialogs.js?v=28"></script>
+  <script src="js/render.js?v=28"></script>
+  <script src="js/profiles.js?v=28"></script>
+  <script src="js/markdown.js?v=28"></script>
+  <script src="js/niezbednik.js?v=28"></script>
   <!-- Podstrony niezbędnika (generowane: node tools/zbuduj-niezbednik.js) -->
-  <script src="niezbednik/niezbednik-dane.js?v=27"></script>
+  <script src="niezbednik/niezbednik-dane.js?v=28"></script>
   <!-- Zakładka „Certyfikat C1” (dane generowane tym samym skryptem) -->
-  <script src="niezbednik/certyfikat-c1-dane.js?v=27"></script>
-  <script src="js/c1-core.js?v=27"></script>
-  <script src="js/c1-exercises.js?v=27"></script>
-  <script src="js/c1-writing.js?v=27"></script>
-  <script src="js/c1-speaking.js?v=27"></script>
+  <script src="niezbednik/certyfikat-c1-dane.js?v=28"></script>
+  <script src="js/c1-core.js?v=28"></script>
+  <script src="js/c1-exercises.js?v=28"></script>
+  <script src="js/c1-writing.js?v=28"></script>
+  <script src="js/c1-speaking.js?v=28"></script>
   <!-- Dane nauki osobno dla każdego profilu i dziennik błędów -->
-  <script src="js/profile-data.js?v=27"></script>
-  <script src="js/journal.js?v=27"></script>
-  <script src="js/today.js?v=27"></script>
+  <script src="js/profile-data.js?v=28"></script>
+  <script src="js/journal.js?v=28"></script>
+  <script src="js/today.js?v=28"></script>
   <!-- Szybki test poziomu (pytania generowane: node tools/zbuduj-niezbednik.js) -->
-  <script src="niezbednik/test-poziomu-dane.js?v=27"></script>
-  <script src="js/level-test.js?v=27"></script>
-  <script src="js/data-menu.js?v=27"></script>
-  <script src="js/app.js?v=27"></script>
+  <script src="niezbednik/test-poziomu-dane.js?v=28"></script>
+  <script src="js/level-test.js?v=28"></script>
+  <script src="js/data-menu.js?v=28"></script>
+  <script src="js/app.js?v=28"></script>
 </body>
 </html>
