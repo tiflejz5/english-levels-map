@@ -379,6 +379,7 @@ window.ELM = window.ELM || {};
           onclick: function () {
             const score = control.check();
             const record = c1().store.recordScore(id, score);
+            if (ELM.markActivity) ELM.markActivity(); // ukończone ćwiczenie = dzień nauki
             result.replaceChildren(
               el("strong", { text: "Wynik: " + score + " / " + max }),
               record ? el("span", { class: "c1-record", text: " · nowy najlepszy wynik!" }) : null

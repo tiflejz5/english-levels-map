@@ -132,6 +132,7 @@ window.ELM = window.ELM || {};
         onclick: function () {
           drafts[task.id] = area.value;
           store.save();
+          if (ELM.markActivity) ELM.markActivity(); // ukończona sesja trenera = dzień nauki
           fillChecklist();
           checklist.hidden = false;
           checklist.scrollIntoView({ behavior: "smooth", block: "start" });

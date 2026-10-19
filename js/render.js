@@ -67,6 +67,7 @@ window.ELM = window.ELM || {};
     const hasProfile = app().hasProfiles();
     const due = hasProfile && ELM.profileData ? ELM.profileData.dueCount() : 0;
     const items = [
+      { href: "#/dzis", label: "Dziś", icon: "☀", active: st.view === "today" },
       { href: "#/bledy", label: "Dziennik błędów", icon: "✎", active: st.view === "journal",
         badge: due ? String(due) : null, badgeLabel: due ? "powtórki na dziś: " + due : null }
     ];
@@ -129,6 +130,7 @@ window.ELM = window.ELM || {};
     if (ELM.state.view === "home") return ELM.niezbednik.renderHome();
     if (ELM.state.view === "c1") return ELM.c1.render(ELM.state.c1Route);
     if (ELM.state.view === "journal") return ELM.journal.render(ELM.state.toolRoute);
+    if (ELM.state.view === "today") return ELM.today.render();
     if (ELM.state.route) return ELM.niezbednik.renderPage(ELM.state.route);
     ELM.niezbednik.computeLinks();
     const view = document.getElementById("view");

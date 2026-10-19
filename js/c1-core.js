@@ -403,6 +403,7 @@ window.ELM = window.ELM || {};
       title = ELM.c1Speaking.render(view);
     }
     document.title = (title ? title + " · " : "") + "Certyfikat C1 · English Levels Map";
+    if (title && ELM.profileData) ELM.profileData.setLastPage(location.hash, "Certyfikat C1 · " + title);
     U.setScroll(keepScroll);
   }
 
@@ -526,8 +527,11 @@ window.ELM = window.ELM || {};
       const t = timers[key];
       if (!t.running) return;
       t.remaining = Math.max(0, Math.round((t.endAt - Date.now()) / 1000));
-      if (t.remaining <= 0) t.running = false;
-      else any = true;
+      if (t.remaining <= 0) {
+        t.running = false;
+        // Timer odliczył do końca (trener Writing / Speaking) = ukończona sesja
+        if (ELM.markActivity) ELM.markActivity();
+      } else any = true;
       paint(t);
     });
     if (!any && ticker) { clearInterval(ticker); ticker = null; }

@@ -10,7 +10,8 @@
  *              "level" (lista poziomu, #/a1) albo "page" (podstrona, #/a1/…)
  *   route    — otwarta podstrona niezbędnika ({ file }) albo null
  *   c1Route  — widok zakładki „Certyfikat C1” (view "c1"), patrz js/c1-core.js
- *   toolRoute — widoki nauki: "journal" (#/bledy, js/journal.js)
+ *   toolRoute — widoki nauki: "today" (#/dzis, js/today.js),
+ *              "journal" (#/bledy, js/journal.js)
  */
 window.ELM = window.ELM || {};
 
@@ -179,6 +180,7 @@ window.ELM = window.ELM || {};
   //   ""  lub "#/"        → strona główna
   //   "#/a1" … "#/c2"     → lista poziomu
   //   "#/a1/<podstrona>"  → podstrona punktu (niezbędnik)
+  //   "#/dzis"            → strona „Dziś”
   //   "#/bledy[/powtorki]" → dziennik błędów i sesja powtórek
   // =====================================================================
 
@@ -188,12 +190,16 @@ window.ELM = window.ELM || {};
     const level = /^#\/([abcABC][12])\/?$/.exec(hash);
     const c1 = ELM.c1 ? ELM.c1.parseRoute(hash) : null;
     const journal = ELM.journal ? ELM.journal.parseRoute(hash) : null;
+    const today = ELM.today ? ELM.today.parseRoute(hash) : null;
     state.route = null;
     state.c1Route = null;
     state.toolRoute = null;
 
     if (!hash || hash === "#" || hash === "#/") {
       state.view = "home";
+    } else if (today) {
+      state.view = "today";
+      state.toolRoute = today;
     } else if (journal) {
       state.view = "journal";
       state.toolRoute = journal;
@@ -345,6 +351,7 @@ window.ELM = window.ELM || {};
     if (checked) state.progress[essentialId] = true;
     else delete state.progress[essentialId];
     saveProgressNow();
+    ELM.markActivity(); // zmiana „Umiem” = dzień nauki
     refreshProgress();
   }
 

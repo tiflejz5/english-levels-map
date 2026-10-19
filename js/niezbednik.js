@@ -222,6 +222,7 @@ window.ELM = window.ELM || {};
     }, "← Wróć do listy " + found.level)));
 
     document.title = (doc.meta.title || found.item.label) + " · English Levels Map";
+    if (ELM.profileData) ELM.profileData.setLastPage(location.hash, found.level + " · " + (doc.meta.title || found.item.label));
     U.setScroll(keepScroll);
   }
 
