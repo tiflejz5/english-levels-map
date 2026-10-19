@@ -9,7 +9,11 @@
  * o poziom wyżej (maks. C2), błędna albo „Nie wiem” → o poziom niżej
  * (min. A1); 12 pytań bez powtórzeń; gdy pula poziomu się skończy —
  * pytanie z sąsiedniego poziomu. Wynik: średnia poziomów ostatnich
- * 6 pytań, zaokrąglona w dół. Ostatni wynik zapisujemy w profilu
+ * 6 pytań, zaokrąglona w dół.
+ * „Poziom pytania” w algorytmie to poziom DOCELOWY (ten, o który test chciał
+ * zapytać). Gdy pula poziomu jest pusta i trzeba wziąć pytanie z sąsiedniego
+ * poziomu, poziom docelowy się nie zmienia — inaczej przy małej puli test
+ * „odpływałby” na drugi koniec skali. Ostatni wynik zapisujemy w profilu
  * (elm_leveltest_v1). Test NIE zaznacza niczego jako „Umiem”.
  */
 window.ELM = window.ELM || {};
@@ -53,7 +57,7 @@ window.ELM = window.ELM || {};
       profileId: ELM.app.getActiveProfile().id,
       levelIndex: learn().LEVELS.indexOf(learn().START_LEVEL),
       used: new Set(),
-      asked: [],      // { q, levelIndex, chosen, correct }
+      asked: [],      // { q, levelIndex (docelowy), chosen, correct }
       current: null,
       answered: false,
       finished: false,
@@ -68,7 +72,7 @@ window.ELM = window.ELM || {};
     const q = learn().pickQuestion(questions(), run.levelIndex, run.used, Math.random, !!(prev && prev.correct));
     if (!q) return finish(); // pula pytań się skończyła
     run.used.add(q.id);
-    run.current = { q: q, levelIndex: learn().LEVELS.indexOf(q.level) };
+    run.current = { q: q, levelIndex: run.levelIndex };
     run.answered = false;
   }
 
@@ -77,7 +81,7 @@ window.ELM = window.ELM || {};
     const cur = run.current;
     const correct = chosen === cur.q.correct;
     run.asked.push({ q: cur.q, levelIndex: cur.levelIndex, chosen: chosen, correct: correct });
-    // Następny poziom liczymy od poziomu zadanego pytania
+    // Następny poziom docelowy: wyżej po dobrej, niżej po błędnej odpowiedzi
     run.levelIndex = learn().nextLevelIndex(cur.levelIndex, correct);
     run.answered = true;
     render();

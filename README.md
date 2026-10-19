@@ -10,6 +10,9 @@ Czysty HTML + CSS + JavaScript. Bez frameworków, bez npm, bez zewnętrznych CDN
 - **Podstrony niezbędnika** (110 punktów): zasada, tabele, przykłady, typowe błędy, ćwiczenie z ukrytymi odpowiedziami.
 - **Strona główna** z opisem i tabelą poziomów.
 - **Certyfikat C1:** strategie do każdej części egzaminu, 19 zestawów Use of English, które sprawdzają się same, trener Writing (timer, licznik słów) i trener Speaking (timery, nagrywanie).
+- **Dziś** (`#/dzis`, na górze lewego panelu): powtórki na dziś, seria nauki („Dni z rzędu”, „Najdłuższa seria”), ostatnie 7 dni, postęp na poziomach A1–C2, „Kontynuuj” (ostatnio otwarta podstrona), odliczanie do egzaminu C1 i skrót „Dodaj błąd”.
+- **Szybki test poziomu** (`#/test-poziomu`): 12 pytań adaptacyjnych, szacowany poziom (orientacyjnie), lista błędnych pytań z linkami do niezbędnika.
+- **Dziennik błędów** (`#/bledy`) z powtórkami po 1, 3 i 7 dniach (`#/bledy/powtorki`) i plakietką liczby powtórek na dziś. Błędy z ćwiczeń Certyfikatu C1 i z testu poziomu można dodać jednym przyciskiem.
 - **Menu profilu** (prawy górny róg): lista profili z przełączaniem, zmiana nazwy (✎), usuwanie z potwierdzeniem (✕), „+ Dodaj profil” oraz sekcja **Dane** (Eksportuj / Importuj / Resetuj).
 - **Motyw jasny i ciemny** (przycisk obok menu profilu).
 - Działa na telefonie, tablecie i komputerze (sprawdzane przy 360, 390, 768, 1024 i 1280 px).
@@ -25,6 +28,65 @@ node tools/zbuduj-niezbednik.js
 ```
 
 Instrukcja obsługi dla nauczyciela (po polsku): [docs/INSTRUKCJA.md](docs/INSTRUKCJA.md).
+
+## Dziennik błędów i powtórki
+
+- **Wpis:** kontekst / pytanie (wymagane), moja odpowiedź, poprawna odpowiedź (wymagana), reguła / dlaczego, źródło (np. „Arkusz 1 RUE, Part 4, pyt. 29”), kategoria (Use of English, Reading, Writing, Listening, Speaking, Gramatyka, Słownictwo, Inne) i opcjonalny punkt niezbędnika (wyszukiwalna lista z `niezbednik/index.json`; zapisujemy id, a we wpisie pokazujemy link).
+- **Lista:** filtry „Do powtórki dziś”, „Wszystkie”, „Opanowane”, filtr kategorii, wyszukiwanie, edycja i usuwanie (z potwierdzeniem).
+- **Harmonogram:** stała `REVIEW_STEPS = [1, 3, 7]` w `js/learning.js` (zmień tablicę, żeby zmienić odstępy). Nowy wpis ma pierwszą powtórkę jutro. „Wiedziałem(am)” przesuwa wpis na następny etap (licząc od dnia powtórki), po ostatnim etapie wpis jest „opanowany”. „Znowu błąd” cofa go do pierwszego etapu (jutro). Zaległe powtórki są po prostu „do zrobienia dziś”.
+- **Ćwiczenia C1** (Part 1–4): przy błędnej, wpisanej odpowiedzi przycisk „Dodaj do dziennika błędów” otwiera formularz wstępnie wypełniony treścią zadania, odpowiedzią, poprawną odpowiedzią, wyjaśnieniem i nazwą zestawu. Nic nie zapisuje się bez „Zapisz”. To samo zadanie z tą samą odpowiedzią nie zostanie dodane drugi raz (pole `ref` wpisu).
+
+## Seria nauki
+
+Dzień nauki to dzień z co najmniej jedną aktywnością: zmiana „Umiem”, sprawdzone ćwiczenie C1, ukończona sesja powtórek, dodany wpis do dziennika, „Skończyłem” w trenerze Writing, timer trenera odliczony do końca albo ukończony test poziomu. Każde z tych miejsc wywołuje jedną funkcję `ELM.markActivity()`.
+
+Zapisujemy wyłącznie listę dni aktywności profilu. Serię liczy `ELM.learn.streak()`: jeśli dziś jeszcze nie było aktywności, a wczoraj była, seria nadal trwa.
+
+**Daty** to zawsze lokalny dzień użytkownika `RRRR-MM-DD` (bez godzin). Dzisiejszy dzień zwraca jedna funkcja `ELM.learn.today()`, którą w testach można podmienić.
+
+## Szybki test poziomu
+
+- Start na A2. Dobra odpowiedź → następne pytanie o poziom wyżej (maks. C2), błędna albo „Nie wiem” → o poziom niżej (min. A1). 12 pytań losowanych bez powtórzeń.
+- Gdy pula pytań danego poziomu się skończy, test bierze pytanie z najbliższego poziomu (przy remisie w kierunku ruchu testu), ale **poziom docelowy** się nie zmienia. To on liczy się do wyniku, dzięki czemu przy małej puli wynik nie „odpływa”.
+- Wynik: średnia poziomów (docelowych) ostatnich 6 pytań, zaokrąglona w dół. Test niczego nie zaznacza jako „Umiem”. Ostatni wynik (data, poziom, odpowiedzi) jest zapisany w profilu i trafia do eksportu.
+
+**Pytania** są w `niezbednik/test-poziomu/pytania.json`:
+
+```json
+{
+  "version": 1,
+  "questions": [
+    {
+      "id": "a1-01",
+      "level": "A1",
+      "type": "multiple-choice",
+      "question": "She ___ in a bank in Kraków.",
+      "options": ["work", "works", "working", "is work"],
+      "correct": 1,
+      "explanation": "Wyjaśnienie po polsku.",
+      "itemId": "a1-czasy-present-simple"
+    }
+  ]
+}
+```
+
+- `id` musi być unikalne. `level` to jeden z A1–C2, `type` na razie tylko `multiple-choice`.
+- `correct` to indeks poprawnej odpowiedzi w `options`, liczony od 0. `options` może mieć 2 lub więcej odpowiedzi.
+- `itemId` jest opcjonalne. To id punktu z `niezbednik/index.json`, który w wyniku testu pojawi się jako link.
+
+**Jak dodać pytania:**
+
+1. Dopisz pytania do `pytania.json`. Liczba pytań na poziom jest dowolna, ale do sensownego testu przydaje się co najmniej 6–8 na poziom.
+2. Uruchom `node tools/zbuduj-niezbednik.js`. Skrypt sprawdza schemat: błędne pytania pomija i wypisuje „UWAGA”, a nieznane `itemId` usuwa (pytanie zostaje bez linku). Potem tworzy `niezbednik/test-poziomu-dane.js`.
+3. Zwiększ `?v=…` w `index.html`.
+
+## Testy
+
+```bash
+node tools/testy.js
+```
+
+Bez frameworka i bez npm. Skrypt testuje czystą logikę z `js/learning.js`: daty (także zmianę czasu), harmonogram powtórek, serię nauki i algorytm testu poziomu.
 
 ## Profile i menu profilu
 
@@ -55,6 +117,11 @@ Nazwa profilu: spacje na początku i końcu są obcinane, najwyżej 30 znaków, 
 | `elm_c1_v1`       | zakładka „Certyfikat C1”: data egzaminu, najlepsze wyniki, szkice Writing, listy zadań |
 | `elm_ui_v1`       | tylko wygoda: wybrany poziom i kategoria |
 | `elm_theme_v1`    | motyw: `"auto"`, `"light"` albo `"dark"` (globalnie dla urządzenia) |
+| `elm_journal_v1`  | dziennik błędów **per profil**: `{ version: 1, profiles: { <id profilu>: { entries: [wpis…] } } }` |
+| `elm_activity_v1` | dni nauki **per profil**: `{ version: 1, profiles: { <id>: { days: ["RRRR-MM-DD"…], lastPage: { hash, title } } } }` |
+| `elm_leveltest_v1`| ostatni wynik testu poziomu **per profil**: `{ version: 1, profiles: { <id>: { last: { date, level, answers } } } }` |
+
+Wpis dziennika: `{ id, createdAt: "RRRR-MM-DD", context, myAnswer, correct, rule, source, category, itemId, ref, review: { stage, due, mastered } }`. Przy zapisie i imporcie pola są sprawdzane i przycinane (np. kontekst do 2000 znaków, odpowiedzi do 1000, źródło do 200). Wpisy bez kontekstu albo poprawnej odpowiedzi są odrzucane. Usunięcie profilu usuwa też jego dziennik, serię i wynik testu.
 
 Każdy dostęp do localStorage jest w `try/catch`. Bez dostępu do pamięci aplikacja działa do zamknięcia karty.
 
@@ -62,23 +129,24 @@ Każdy dostęp do localStorage jest w `try/catch`. Bez dostępu do pamięci apli
 
 | Opcja | Co robi |
 |---|---|
-| **Eksportuj dane** | pobiera jeden plik `english-levels-dane-RRRR-MM-DD.json` z treściami listy oraz wszystkimi profilami i ich postępem |
+| **Eksportuj dane** | pobiera jeden plik `english-levels-dane-RRRR-MM-DD.json` z treściami listy, wszystkimi profilami i ich postępem oraz dziennikiem błędów, serią nauki i wynikami testu każdego profilu |
 | **Importuj dane…** | wczytuje taki plik (albo starszy, osobny plik treści lub postępu), pokazuje, co zawiera, i po potwierdzeniu zastępuje dane |
-| **Resetuj dane…** | po dwóch potwierdzeniach usuwa profile i zmiany treści; aplikacja wraca do stanu pierwszego otwarcia. Dane zakładki C1 zostają. |
+| **Resetuj dane…** | po dwóch potwierdzeniach usuwa profile, zmiany treści, dzienniki błędów, serie i wyniki testów; aplikacja wraca do stanu pierwszego otwarcia. Dane zakładki C1 zostają. |
 
 Format pliku eksportu:
 
 ```js
 {
-  app: "english-levels-map", kind: "backup", version: 1, exportedAt: "…",
+  app: "english-levels-map", kind: "backup", version: 2, exportedAt: "…",
   data: {
     content:  { app, kind: "content",  version, exportedAt, data: { /* elm_content_v1 */ } },
-    progress: { app, kind: "progress", version, exportedAt, data: { /* elm_profiles_v1 */ } }
+    progress: { app, kind: "progress", version, exportedAt, data: { /* elm_profiles_v1 */ } },
+    learning: { journal: { /* elm_journal_v1 */ }, activity: { /* elm_activity_v1 */ }, levelTest: { /* elm_leveltest_v1 */ } }
   }
 }
 ```
 
-Import przyjmuje też starsze pliki `kind: "content"` i `kind: "progress"` oraz same „gołe” dane. Plik postępu w najstarszym formacie (bez profili) trafia do aktywnego profilu.
+Import przyjmuje też kopie w wersji 1 (bez części `learning`): wtedy dziennik, seria i wynik testu zostają dla profili o tych samych identyfikatorach. Działają też starsze pliki `kind: "content"` i `kind: "progress"` oraz same „gołe” dane. Plik postępu w najstarszym formacie (bez profili) trafia do aktywnego profilu.
 
 Kształt treści:
 
@@ -111,6 +179,11 @@ english-levels-map/
 ├─ js/
 │  ├─ utils.js           tworzenie DOM bez innerHTML, **pogrubienie**, id, daty
 │  ├─ theme.js           przycisk motywu, zapis elm_theme_v1, reakcja na zmianę systemu
+│  ├─ learning.js        czysta logika (bez DOM): today(), powtórki, seria, algorytm testu
+│  ├─ profile-data.js    dane nauki per profil (dziennik, aktywność, test), markActivity()
+│  ├─ journal.js         Dziennik błędów i sesja powtórek
+│  ├─ today.js           strona „Dziś”
+│  ├─ level-test.js      szybki test poziomu
 │  ├─ default-data.js    dane startowe: lista bazowa albo pusty szkielet
 │  ├─ base-content.js    bazowa lista umiejętności (niezbędnik A1–C2)
 │  ├─ store.js           localStorage, migracja, walidacja, eksport/import
@@ -123,7 +196,8 @@ english-levels-map/
 │  ├─ c1-*.js            zakładka „Certyfikat C1” (strony, ćwiczenia, trenery)
 │  └─ app.js             start, stan, routing, zdarzenia, zapis
 ├─ niezbednik/           podstrony, podsumowania, strona główna, Certyfikat C1 (patrz niżej)
-├─ tools/zbuduj-niezbednik.js   generator plików *-dane.js
+├─ tools/zbuduj-niezbednik.js   generator plików *-dane.js (także test-poziomu-dane.js)
+├─ tools/testy.js        testy jednostkowe (node tools/testy.js)
 ├─ docs/INSTRUKCJA.md    obsługa dla nauczyciela
 ├─ README.md
 └─ .gitignore
