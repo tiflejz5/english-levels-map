@@ -134,7 +134,7 @@ window.ELM = window.ELM || {};
     return card("Kontynuuj", last
       ? [
         el("p", { class: "tool-note", text: "Ostatnio otwarta strona:" }),
-        el("a", { class: "today-continue", href: last.hash }, [el("span", { text: last.title || last.hash }), el("span", { class: "c1-home-tile-arrow", "aria-hidden": "true", text: "›" })])
+        el("a", { class: "today-continue", href: last.hash }, [el("span", { text: last.title || last.hash }), el("span", { class: "c1-home-tile-arrow", "aria-hidden": "true" }, ELM.icon("chevron-right", { size: 20 }))])
       ]
       : [
         el("p", { class: "tool-note", text: "Tu pojawi się ostatnio otwarta podstrona. Zacznij od listy swojego poziomu." }),

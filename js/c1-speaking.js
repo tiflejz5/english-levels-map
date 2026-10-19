@@ -29,10 +29,10 @@ window.ELM = window.ELM || {};
   function recorderBox() {
     const status = el("p", { class: "c1-rec-status", "aria-live": "polite" });
     const player = el("div", { class: "c1-rec-player" });
-    const button = el("button", { type: "button", class: "btn btn-secondary" }, "● Nagraj się");
+    const button = el("button", { type: "button", class: "btn btn-secondary" }, ELM.ui.withIcon("mic", "Nagraj się"));
 
     function setIdle(message) {
-      button.textContent = "● Nagraj się";
+      button.replaceChildren.apply(button, ELM.ui.withIcon("mic", "Nagraj się"));
       button.classList.remove("is-recording");
       if (message !== undefined) status.textContent = message;
     }
@@ -57,7 +57,7 @@ window.ELM = window.ELM || {};
           setIdle("Nagranie jest tylko w tej karcie przeglądarki – nic nie zostało wysłane.");
         });
         recorder.start();
-        button.textContent = "■ Zatrzymaj nagrywanie";
+        button.replaceChildren.apply(button, ELM.ui.withIcon("square", "Zatrzymaj nagrywanie"));
         button.classList.add("is-recording");
         status.textContent = "Nagrywanie…";
       }).catch(function (err) {
@@ -163,16 +163,16 @@ window.ELM = window.ELM || {};
         }, p[1]);
       })),
       el("div", { class: "c1-speak-nav" }, [
-        el("button", { type: "button", class: "icon-btn", "aria-label": "Poprzedni zestaw", title: "Poprzedni zestaw", onclick: function () { go(ui.part, index - 1); } }, "‹"),
+        el("button", { type: "button", class: "icon-btn", "aria-label": "Poprzedni zestaw", title: "Poprzedni zestaw", onclick: function () { go(ui.part, index - 1); } }, ELM.icon("chevron-left", { size: 20 })),
         el("span", { class: "c1-speak-count", text: "Zestaw " + (index + 1) + " / " + list.length + (task.theme ? ": " + task.theme : "") }),
-        el("button", { type: "button", class: "icon-btn", "aria-label": "Następny zestaw", title: "Następny zestaw", onclick: function () { go(ui.part, index + 1); } }, "›")
+        el("button", { type: "button", class: "icon-btn", "aria-label": "Następny zestaw", title: "Następny zestaw", onclick: function () { go(ui.part, index + 1); } }, ELM.icon("chevron-right", { size: 20 }))
       ])
     ]));
 
     view.appendChild(ui.part === "2" ? renderPart2(task, S.timers) : renderPart3(task, S.timers));
     view.appendChild(recorderBox());
     const page = c1().findPage("speaking");
-    if (page) view.appendChild(el("p", { class: "c1-back" }, el("a", { href: c1().hrefPage("speaking") }, "Zwroty i kryteria oceny: " + page.page.label + " ›")));
+    if (page) view.appendChild(el("p", { class: "c1-back" }, el("a", { href: c1().hrefPage("speaking") }, ["Zwroty i kryteria oceny: " + page.page.label, ELM.icon("chevron-right", { size: 16 })])));
     return "Trening Speaking";
   }
 

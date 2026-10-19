@@ -467,7 +467,7 @@ window.ELM = window.ELM || {};
         "aria-label": "Zamknij komunikat",
         title: "Zamknij komunikat",
         onclick: function () { banner.remove(); }
-      }, el("span", { "aria-hidden": "true", text: "✕" }))
+      }, ELM.icon("x", { size: 18 }))
     ]);
     document.getElementById("banners").appendChild(banner);
   }

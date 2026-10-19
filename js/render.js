@@ -47,7 +47,7 @@ window.ELM = window.ELM || {};
       title: label,
       disabled: !!opts.disabled,
       onclick: onClick
-    }, el("span", { "aria-hidden": "true", text: symbol }));
+    }, ELM.ICON_NODES && ELM.ICON_NODES[symbol] ? ELM.icon(symbol, { size: 18 }) : el("span", { "aria-hidden": "true", text: symbol }));
   }
 
   /** Pusty stan z komunikatem. */
@@ -67,9 +67,9 @@ window.ELM = window.ELM || {};
     const hasProfile = app().hasProfiles();
     const due = hasProfile && ELM.profileData ? ELM.profileData.dueCount() : 0;
     const items = [
-      { href: "#/dzis", label: "Dziś", icon: "☀", active: st.view === "today" },
-      { href: "#/test-poziomu", label: "Test poziomu", icon: "?", active: st.view === "leveltest" },
-      { href: "#/bledy", label: "Dziennik błędów", icon: "✎", active: st.view === "journal",
+      { href: "#/dzis", label: "Dziś", icon: "sunrise", active: st.view === "today" },
+      { href: "#/test-poziomu", label: "Test poziomu", icon: "target", active: st.view === "leveltest" },
+      { href: "#/bledy", label: "Dziennik błędów", icon: "notebook-pen", active: st.view === "journal",
         badge: due ? String(due) : null, badgeLabel: due ? "powtórki na dziś: " + due : null }
     ];
     box.replaceChildren(el("ul", { class: "tools-list" }, items.map(function (it) {
@@ -79,7 +79,7 @@ window.ELM = window.ELM || {};
         "aria-current": it.active ? "page" : null,
         "aria-label": it.badgeLabel ? it.label + ", " + it.badgeLabel : null
       }, [
-        el("span", { class: "tools-icon", "aria-hidden": "true", text: it.icon }),
+        el("span", { class: "tools-icon", "aria-hidden": "true" }, ELM.icon(it.icon, { size: 20 })),
         el("span", { class: "tools-label", text: it.label }),
         it.badge ? el("span", { class: "tools-badge", "aria-hidden": "true", text: it.badge }) : null
       ]));
@@ -245,7 +245,7 @@ window.ELM = window.ELM || {};
           // Punkt z podstroną: tekst jest linkiem
           ? el("a", { class: "ess-link", href: ELM.niezbednik.routeOf(pageLink.item), onclick: rememberScroll }, [
               U.formatText(item.text),
-              el("span", { class: "ess-link-arrow", "aria-hidden": "true", text: "›" })
+              el("span", { class: "ess-link-arrow", "aria-hidden": "true" }, ELM.icon("chevron-right", { size: 16 }))
             ])
           : U.formatText(item.text)),
         checkbox

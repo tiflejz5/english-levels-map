@@ -117,7 +117,7 @@ window.ELM = window.ELM || {};
   // =====================================================================
 
   function mark(ok) {
-    return el("span", { class: "c1-mark " + (ok ? "is-ok" : "is-bad"), "aria-label": ok ? "Dobrze" : "Źle", text: ok ? "✓" : "✗" });
+    return el("span", { class: "c1-mark " + (ok ? "is-ok" : "is-bad"), role: "img", "aria-label": ok ? "Dobrze" : "Źle" }, ELM.icon(ok ? "check" : "x", { size: 14 }));
   }
 
   /**
@@ -132,7 +132,7 @@ window.ELM = window.ELM || {};
       onclick: function () {
         ELM.journal.openForm({ prefill: getPrefill() }).then(function (saved) {
           if (!saved) return;
-          btn.textContent = "Dodano do dziennika ✓";
+          btn.replaceChildren.apply(btn, ELM.ui.withIcon("check", "Dodano do dziennika"));
           btn.disabled = true;
         });
       }
@@ -190,7 +190,7 @@ window.ELM = window.ELM || {};
         ]));
         if (!r.result.msg) {
           parts.push(el("p", { class: "c1-parts" }, r.result.parts.map(function (ok, k) {
-            return el("span", { class: "c1-part " + (ok ? "is-ok" : "is-bad"), text: "Część " + (k + 1) + " " + (ok ? "✓" : "✗") });
+            return el("span", { class: "c1-part " + (ok ? "is-ok" : "is-bad") }, [ELM.icon(ok ? "check" : "x", { size: 14 }), "Część " + (k + 1) + (ok ? " – dobrze" : " – źle")]);
           })));
         }
       }
@@ -402,8 +402,8 @@ window.ELM = window.ELM || {};
     const sets = found.group.sets;
     const next = sets[sets.indexOf(found.set) + 1];
     view.appendChild(el("nav", { class: "c1-pager", "aria-label": "Zestawy" }, [
-      el("a", { class: "btn btn-secondary", href: c1().BASE + "/cwiczenia" }, "← Wszystkie zestawy"),
-      next ? el("a", { class: "btn btn-secondary", href: c1().hrefSet(next.id) }, next.label + " →") : null
+      el("a", { class: "btn btn-secondary", href: c1().BASE + "/cwiczenia" }, ELM.ui.withIcon("arrow-left", "Wszystkie zestawy")),
+      next ? el("a", { class: "btn btn-secondary", href: c1().hrefSet(next.id) }, [next.label, ELM.icon("arrow-right", { size: 18 })]) : null
     ]));
     return ex.title;
   }

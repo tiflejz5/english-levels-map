@@ -59,32 +59,11 @@ window.ELM = window.ELM || {};
 
   // ---------- Przycisk ----------
 
-  const SVG_NS = "http://www.w3.org/2000/svg";
+  // Ikony Lucide (js/ui.js): słońce, księżyc, słońce z księżycem = jak w systemie
+  const ICON = { light: "sun", dark: "moon", auto: "sun-moon" };
 
-  /** Ikona SVG (kolor z currentColor, więc pasuje do obu motywów). */
   function icon(kind) {
-    const svg = document.createElementNS(SVG_NS, "svg");
-    svg.setAttribute("viewBox", "0 0 24 24");
-    svg.setAttribute("width", "20");
-    svg.setAttribute("height", "20");
-    svg.setAttribute("aria-hidden", "true");
-    svg.setAttribute("focusable", "false");
-    const shapes = {
-      // Słońce
-      light: [["circle", { cx: 12, cy: 12, r: 4.2, fill: "none", stroke: "currentColor", "stroke-width": 1.8 }],
-        ["path", { d: "M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6", stroke: "currentColor", "stroke-width": 1.8, "stroke-linecap": "round", fill: "none" }]],
-      // Księżyc
-      dark: [["path", { d: "M19.5 14.6A7.8 7.8 0 0 1 9.4 4.5a7.8 7.8 0 1 0 10.1 10.1Z", fill: "none", stroke: "currentColor", "stroke-width": 1.8, "stroke-linejoin": "round" }]],
-      // Pół na pół = jak w systemie
-      auto: [["circle", { cx: 12, cy: 12, r: 8.2, fill: "none", stroke: "currentColor", "stroke-width": 1.8 }],
-        ["path", { d: "M12 3.8a8.2 8.2 0 0 1 0 16.4Z", fill: "currentColor" }]]
-    };
-    shapes[kind].forEach(function (shape) {
-      const node = document.createElementNS(SVG_NS, shape[0]);
-      Object.keys(shape[1]).forEach(function (a) { node.setAttribute(a, String(shape[1][a])); });
-      svg.appendChild(node);
-    });
-    return svg;
+    return ELM.icon ? ELM.icon(ICON[kind], { size: 20 }) : document.createTextNode("");
   }
 
   function nextPref() {

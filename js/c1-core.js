@@ -148,6 +148,7 @@ window.ELM = window.ELM || {};
       href: href,
       "aria-current": active ? "page" : null
     }, [
+      extraClass === "is-trainer" ? ELM.icon("timer", { size: 16, class: "c1-nav-icon" }) : null,
       el("span", { class: "c1-nav-label", text: label }),
       badge ? el("span", { class: "c1-nav-badge", text: badge }) : null
     ]));
@@ -203,7 +204,7 @@ window.ELM = window.ELM || {};
             const again = document.querySelector('[aria-controls="' + listId + '"]');
             if (again) again.focus();
           }
-        }, [el("span", { class: "c1-sec-caret", "aria-hidden": "true", text: "›" }), section.label]),
+        }, [el("span", { class: "c1-sec-caret", "aria-hidden": "true" }, ELM.icon("chevron-right", { size: 16 })), section.label]),
         list
       ]));
     });
@@ -332,8 +333,8 @@ window.ELM = window.ELM || {};
     const prev = all[i - 1], next = all[i + 1];
     if (!prev && !next) return null;
     return el("nav", { class: "c1-pager", "aria-label": "Sąsiednie strony" }, [
-      prev ? el("a", { class: "btn btn-secondary", href: hrefPage(prev.id) }, "← " + prev.label) : el("span"),
-      next ? el("a", { class: "btn btn-secondary", href: hrefPage(next.id) }, next.label + " →") : null
+      prev ? el("a", { class: "btn btn-secondary", href: hrefPage(prev.id) }, ELM.ui.withIcon("arrow-left", prev.label)) : el("span"),
+      next ? el("a", { class: "btn btn-secondary", href: hrefPage(next.id) }, [next.label, ELM.icon("arrow-right", { size: 18 })]) : null
     ]);
   }
 
@@ -421,7 +422,7 @@ window.ELM = window.ELM || {};
       if (!f) { console.warn("Ramka C1: nieznany zestaw " + id); return null; }
       const best = bestScore(id);
       return el("li", null, [
-        el("a", { href: hrefSet(id) }, f.set.label + " ›"),
+        el("a", { href: hrefSet(id) }, [f.set.label, ELM.icon("chevron-right", { size: 16 })]),
         el("span", { class: "c1-exam-box-best", text: best === null ? "jeszcze nie rozwiązany" : "najlepszy wynik " + best + "/" + f.set.maxScore })
       ]);
     }).filter(Boolean);
@@ -457,7 +458,7 @@ window.ELM = window.ELM || {};
           " zestawów Use of English oraz trening Writing i Speaking." }),
         days !== null ? el("span", { class: "c1-home-tile-count", text: countdownText(s.examDate) }) : null
       ]),
-      el("span", { class: "c1-home-tile-arrow", "aria-hidden": "true", text: "›" })
+      el("span", { class: "c1-home-tile-arrow", "aria-hidden": "true" }, ELM.icon("chevron-right", { size: 22 }))
     ]);
   }
 

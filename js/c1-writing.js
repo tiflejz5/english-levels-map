@@ -69,7 +69,7 @@ window.ELM = window.ELM || {};
     let saveTimer = null;
 
     view.appendChild(c1().crumb(sectionLabel));
-    view.appendChild(el("p", { class: "c1-back" }, el("a", { href: baseHref() }, "← Wszystkie zadania")));
+    view.appendChild(el("p", { class: "c1-back" }, el("a", { href: baseHref() }, ELM.ui.withIcon("arrow-left", "Wszystkie zadania"))));
     view.appendChild(el("h1", { class: "c1-title", text: task.title }));
     view.appendChild(el("p", { class: "c1-chips" }, [
       el("span", { class: "c1-chip", text: "Part " + task.part }),
@@ -183,7 +183,7 @@ window.ELM = window.ELM || {};
         group("Gatunek: " + (GENRE_LABELS[task.genre] || task.genre), task.genreChecklist),
         group("Ogólne", T.genericChecklist),
         el("div", { class: "c1-writing-actions" }, [
-          page ? el("a", { class: "btn btn-secondary", href: c1().hrefPage(pageId) }, "Więcej o gatunku: " + page.page.label + " ›") : null,
+          page ? el("a", { class: "btn btn-secondary", href: c1().hrefPage(pageId) }, ["Więcej o gatunku: " + page.page.label, ELM.icon("chevron-right", { size: 18 })]) : null,
           el("button", {
             type: "button",
             class: "btn btn-secondary",

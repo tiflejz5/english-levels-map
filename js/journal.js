@@ -321,7 +321,7 @@ window.ELM = window.ELM || {};
         type: "button",
         class: "btn btn-secondary",
         onclick: function () { openForm().then(function (r) { if (r) render({ kind: "list" }); }); }
-      }, "+ Dodaj błąd")
+      }, ELM.ui.withIcon("plus", "Dodaj błąd"))
     ]));
 
     if (!all.length) {

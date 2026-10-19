@@ -182,7 +182,7 @@ window.ELM = window.ELM || {};
       type: "button",
       class: "btn btn-ghost back-btn",
       onclick: function () { goBack(found); }
-    }, "← Wróć do listy " + levelId);
+    }, ELM.ui.withIcon("arrow-left", "Wróć do listy " + levelId));
 
     if (!found || !hasPage(found.item)) {
       U.setScroll(0);
@@ -219,7 +219,7 @@ window.ELM = window.ELM || {};
       type: "button",
       class: "btn btn-secondary",
       onclick: function () { goBack(found); }
-    }, "← Wróć do listy " + found.level)));
+    }, ELM.ui.withIcon("arrow-left", "Wróć do listy " + found.level))));
 
     document.title = (doc.meta.title || found.item.label) + " · English Levels Map";
     if (ELM.profileData) ELM.profileData.setLastPage(location.hash, found.level + " · " + (doc.meta.title || found.item.label));

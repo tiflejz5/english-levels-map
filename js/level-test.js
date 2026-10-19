@@ -181,7 +181,7 @@ window.ELM = window.ELM || {};
     } else {
       body.push(el("div", { class: "lt-feedback " + (last.correct ? "is-ok" : "is-bad"), role: "status" }, [
         el("p", { class: "lt-verdict" }, [
-          el("span", { class: "c1-mark " + (last.correct ? "is-ok" : "is-bad"), "aria-hidden": "true", text: last.correct ? "✓" : "✗" }),
+          el("span", { class: "c1-mark " + (last.correct ? "is-ok" : "is-bad"), "aria-hidden": "true" }, ELM.icon(last.correct ? "check" : "x", { size: 14 })),
           el("strong", { text: last.correct ? "Dobrze!" : last.chosen === -1 ? "Nie szkodzi – poprawna odpowiedź to " + LETTERS[q.correct] + "." : "Niestety nie. Poprawna odpowiedź to " + LETTERS[q.correct] + "." })
         ]),
         q.explanation ? el("p", { text: q.explanation }) : null

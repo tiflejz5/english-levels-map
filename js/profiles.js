@@ -110,11 +110,11 @@ window.ELM = window.ELM || {};
         el("span", { class: "profile-btn-label", text: "Profil" }),
         el("span", { class: "profile-btn-name", text: active.name })
       ]),
-      el("span", { class: "profile-caret", "aria-hidden": "true", text: "▾" })
+      el("span", { class: "profile-caret", "aria-hidden": "true" }, ELM.icon("chevron-down", { size: 16 }))
     ] : [
-      el("span", { class: "avatar", "aria-hidden": "true", text: "+" }),
+      el("span", { class: "avatar", "aria-hidden": "true" }, ELM.icon("user-round", { size: 18 })),
       el("span", { class: "profile-btn-text" }, el("span", { class: "profile-btn-name", text: "Profil" })),
-      el("span", { class: "profile-caret", "aria-hidden": "true", text: "▾" })
+      el("span", { class: "profile-caret", "aria-hidden": "true" }, ELM.icon("chevron-down", { size: 16 }))
     ]);
     button.setAttribute("aria-label", active ? "Profil: " + active.name + ". Otwórz menu profilu" : "Brak profilu. Otwórz menu profilu");
     button.setAttribute("aria-expanded", isOpen ? "true" : "false");
@@ -161,7 +161,7 @@ window.ELM = window.ELM || {};
           avatar(p),
           el("span", { class: "profile-item-name", text: p.name }),
           el("span", { class: "profile-item-count", text: app().countDone(p.progress) + " umiem" }),
-          el("span", { class: "profile-check", "aria-hidden": "true", text: isActive ? "✓" : "" })
+          el("span", { class: "profile-check", "aria-hidden": "true" }, isActive ? ELM.icon("check", { size: 16 }) : null)
         ]),
         el("button", {
           type: "button",
@@ -170,7 +170,7 @@ window.ELM = window.ELM || {};
           title: "Zmień nazwę",
           "data-menu-item": "",
           onclick: function () { startForm({ type: "rename", id: p.id }); }
-        }, el("span", { "aria-hidden": "true", text: "✎" })),
+        }, ELM.icon("pencil", { size: 18 })),
         el("button", {
           type: "button",
           class: "icon-btn menu-icon is-danger",
@@ -178,7 +178,7 @@ window.ELM = window.ELM || {};
           title: "Usuń profil",
           "data-menu-item": "",
           onclick: function () { remove(p.id); }
-        }, el("span", { "aria-hidden": "true", text: "✕" }))
+        }, ELM.icon("x", { size: 18 }))
       ]));
     });
 
@@ -203,27 +203,27 @@ window.ELM = window.ELM || {};
         class: "menu-action menu-add",
         "data-menu-item": "",
         onclick: function () { startForm({ type: "add" }); }
-      }, "+ Dodaj profil"));
+      }, ELM.ui.withIcon("plus", "Dodaj profil")));
     }
 
     // Sekcja „Dane”
     parts.push(el("div", { class: "menu-sep", role: "separator" }));
     parts.push(el("p", { class: "menu-title", text: "Dane" }));
-    parts.push(dataAction("Eksportuj dane", function () { ELM.dataMenu.exportAll(); }));
-    parts.push(dataAction("Importuj dane…", function () { ELM.dataMenu.importAll(); }));
-    parts.push(dataAction("Resetuj dane…", function () { ELM.dataMenu.resetAll(); }, true));
+    parts.push(dataAction("Eksportuj dane", function () { ELM.dataMenu.exportAll(); }, false, "download"));
+    parts.push(dataAction("Importuj dane…", function () { ELM.dataMenu.importAll(); }, false, "upload"));
+    parts.push(dataAction("Resetuj dane…", function () { ELM.dataMenu.resetAll(); }, true, "rotate-ccw"));
     parts.push(el("p", { class: "menu-note", text: "Dane zapisują się tylko w tej przeglądarce. Rób eksport co jakiś czas." }));
 
     menu.replaceChildren.apply(menu, parts);
   }
 
-  function dataAction(label, fn, danger) {
+  function dataAction(label, fn, danger, iconName) {
     return el("button", {
       type: "button",
       class: "menu-action" + (danger ? " is-danger" : ""),
       "data-menu-item": "",
       onclick: function () { close(true); fn(); }
-    }, label);
+    }, iconName ? ELM.ui.withIcon(iconName, label) : label);
   }
 
   /** Formularz nazwy (dodawanie / zmiana nazwy). onSubmit zwraca komunikat błędu albo null. */
