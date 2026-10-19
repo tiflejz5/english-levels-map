@@ -162,6 +162,16 @@ window.ELM = window.ELM || {};
     return wrap;
   }
 
+  /** Zmienia wartość istniejącego pierścienia (płynne przejście z poprzedniej wartości). */
+  function setRing(ring, percent, text) {
+    const p = Math.max(0, Math.min(100, Math.round(percent)));
+    const arc = ring.querySelector(".ring-fill");
+    const c = Number(arc.getAttribute("stroke-dasharray"));
+    arc.setAttribute("stroke-dashoffset", (c * (1 - p / 100)).toFixed(2));
+    ring.setAttribute("aria-valuenow", String(p));
+    if (text !== undefined) ring.querySelector(".ring-text").textContent = text;
+  }
+
   // =====================================================================
   // GSAP NA ŻĄDANIE (assets/vendor/gsap.min.js)
   //   ELM.loadGsap().then(function (gsap) { const mm = gsap.matchMedia(); … });
@@ -199,5 +209,5 @@ window.ELM = window.ELM || {};
   ELM.icon = icon;
   ELM.logo = logo;
   ELM.loadGsap = loadGsap;
-  ELM.ui = { icon: icon, withIcon: withIcon, logo: logo, logoMark: logoMark, progressRing: progressRing };
+  ELM.ui = { icon: icon, withIcon: withIcon, logo: logo, logoMark: logoMark, progressRing: progressRing, setRing: setRing };
 })(window.ELM);

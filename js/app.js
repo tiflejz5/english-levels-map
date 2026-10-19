@@ -157,6 +157,17 @@ window.ELM = window.ELM || {};
     return { done: done, total: total, percent: total ? Math.round((done / total) * 100) : 0 };
   }
 
+  /** Postęp całego poziomu: suma wszystkich kategorii (lewy panel, strona „Dziś”). */
+  function getLevelStats(levelId) {
+    let done = 0, total = 0;
+    state.content.categories.forEach(function (cat) {
+      const s = getStats(levelId, cat.id);
+      done += s.done;
+      total += s.total;
+    });
+    return { done: done, total: total, percent: total ? Math.round((done / total) * 100) : 0 };
+  }
+
   // =====================================================================
   // NAWIGACJA
   // =====================================================================
@@ -233,6 +244,7 @@ window.ELM = window.ELM || {};
     const previousHash = state.lastHash;
     if (previous === "level") state.listScroll = U.getScroll();
     setNavOpen(false);
+    if (ELM.sidebar) ELM.sidebar.afterNavigate();
     applyRoute();
     state.lastHash = location.hash;
     if (state.view === "journal" && previousHash !== location.hash) ELM.journal.onEnter(state.toolRoute);
@@ -547,6 +559,7 @@ window.ELM = window.ELM || {};
     getActiveCategory: getActiveCategory,
     getBucket: getBucket,
     getStats: getStats,
+    getLevelStats: getLevelStats,
     selectLevel: selectLevel,
     levelHash: levelHash,
     goToList: goToList,

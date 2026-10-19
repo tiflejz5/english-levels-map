@@ -88,13 +88,7 @@ window.ELM = window.ELM || {};
   // ---------- (4) Postęp na poziomach ----------
 
   function levelStats(levelId) {
-    let done = 0, total = 0;
-    ELM.state.content.categories.forEach(function (cat) {
-      const s = ELM.app.getStats(levelId, cat.id);
-      done += s.done;
-      total += s.total;
-    });
-    return { done: done, total: total, percent: total ? Math.round(done / total * 100) : 0 };
+    return ELM.app.getLevelStats(levelId); // ta sama liczba co w lewym panelu
   }
 
   function levelsCard() {

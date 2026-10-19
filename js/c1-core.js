@@ -164,12 +164,23 @@ window.ELM = window.ELM || {};
     const currentSection = sectionIdOf(route);
     const manifest = data().manifest;
 
-    box.appendChild(el("div", { class: "nav-sep", role: "separator" }));
+    box.appendChild(el("div", { class: "sb-sep", role: "separator" }));
+    // Chip „Certyfikat C1” (granat i złoto): ikona w wąskim pasku, nazwa po rozwinięciu
     box.appendChild(el("a", {
-      class: "c1-nav-head" + (route ? " is-active" : ""),
+      class: "sb-item c1-chip" + (route ? " is-active" : ""),
       href: BASE,
-      "aria-current": isActive(route, "page", "przeglad") ? "page" : null
-    }, [el("span", { class: "c1-badge", "aria-hidden": "true", text: "C1" }), el("span", { text: manifest.label })]));
+      "aria-current": isActive(route, "page", "przeglad") ? "page" : (route ? "true" : null)
+    }, [
+      el("span", { class: "sb-icon", "aria-hidden": "true" }, el("span", { class: "c1-chip-badge", text: "C1" })),
+      el("span", { class: "sb-label" }, [
+        el("span", { class: "sb-label-title", text: manifest.label }),
+        el("span", { class: "sb-label-sub", text: "C1 Advanced · przygotowanie" })
+      ])
+    ]));
+
+    // Sekcje zakładki — widoczne tylko w rozwiniętym panelu
+    const sections = el("div", { class: "sb-c1-sections" });
+    box.appendChild(sections);
 
     manifest.sections.forEach(function (section) {
       const open = Object.prototype.hasOwnProperty.call(expanded, section.id) ? expanded[section.id] : section.id === currentSection;
@@ -192,7 +203,7 @@ window.ELM = window.ELM || {};
         list.appendChild(navItem(hrefTrainer(section.trainer.id), section.trainer.label, isActive(route, kind), null, "is-trainer"));
       }
 
-      box.appendChild(el("div", { class: "c1-sec" + (section.id === currentSection ? " is-current" : "") }, [
+      sections.appendChild(el("div", { class: "c1-sec" + (section.id === currentSection ? " is-current" : "") }, [
         el("button", {
           type: "button",
           class: "c1-sec-toggle",

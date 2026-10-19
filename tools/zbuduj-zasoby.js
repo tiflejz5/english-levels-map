@@ -37,7 +37,8 @@ const ICONS = [
   "chevron-right", "chevron-left", "chevron-down", "arrow-left", "arrow-right",
   "sun", "moon", "sun-moon", "mic", "square", "download", "upload", "rotate-ccw",
   "trash", "search", "copy", "play", "pause", "timer", "circle-question-mark", "map",
-  "flag", "info", "triangle-alert", "user-round", "external-link"
+  "flag", "info", "triangle-alert", "user-round", "external-link",
+  "pin", "pin-off", "panel-left-open", "panel-left-close"
 ];
 
 function need(file) {

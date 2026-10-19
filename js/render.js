@@ -59,6 +59,25 @@ window.ELM = window.ELM || {};
   // LEWY PANEL
   // =====================================================================
 
+  /**
+   * Pozycja lewego panelu: ikona (zawsze widoczna, także w wąskim pasku)
+   * + etykieta (widoczna po rozwinięciu). Etykieta zostaje w DOM, więc
+   * czytniki ekranu zawsze znają nazwę pozycji.
+   */
+  function sbItem(o) {
+    return el("a", {
+      class: "sb-item" + (o.cls ? " " + o.cls : "") + (o.active ? " is-active" : ""),
+      href: o.href,
+      "aria-current": o.active ? "page" : null,
+      "aria-label": o.ariaLabel || null,
+      onclick: o.onclick || null
+    }, [
+      el("span", { class: "sb-icon", "aria-hidden": "true" }, o.icon),
+      el("span", { class: "sb-label" }, o.label),
+      o.badge ? el("span", { class: "sb-badge num", "aria-hidden": "true", text: o.badge }) : null
+    ]);
+  }
+
   /** Górna część lewego panelu: narzędzia nauki (Dziennik błędów z liczbą powtórek). */
   function renderToolsNav() {
     const box = document.getElementById("tools-nav");
@@ -72,47 +91,74 @@ window.ELM = window.ELM || {};
       { href: "#/bledy", label: "Dziennik błędów", icon: "notebook-pen", active: st.view === "journal",
         badge: due ? String(due) : null, badgeLabel: due ? "powtórki na dziś: " + due : null }
     ];
-    box.replaceChildren(el("ul", { class: "tools-list" }, items.map(function (it) {
-      return el("li", null, el("a", {
-        class: "tools-link" + (it.active ? " is-active" : ""),
+    box.replaceChildren(el("ul", { class: "sb-list" }, items.map(function (it) {
+      return el("li", null, sbItem({
         href: it.href,
-        "aria-current": it.active ? "page" : null,
-        "aria-label": it.badgeLabel ? it.label + ", " + it.badgeLabel : null
-      }, [
-        el("span", { class: "tools-icon", "aria-hidden": "true" }, ELM.icon(it.icon, { size: 20 })),
-        el("span", { class: "tools-label", text: it.label }),
-        it.badge ? el("span", { class: "tools-badge", "aria-hidden": "true", text: it.badge }) : null
-      ]));
+        active: it.active,
+        cls: "is-tool",
+        icon: ELM.icon(it.icon, { size: 22 }),
+        label: el("span", { class: "sb-label-title", text: it.label }),
+        badge: it.badge,
+        ariaLabel: it.badgeLabel ? it.label + ", " + it.badgeLabel : null
+      }));
     })));
   }
+
+  /** Nazwa poziomu z pierwszej linii opisu („**Początkujący**” → „Początkujący”). */
+  function levelName(level) {
+    const m = /^\*\*(.+?)\*\*\s*$/.exec(String(level.description || "").split("\n")[0]);
+    return m ? m[1] : "";
+  }
+
+  // Elementy poziomów budujemy raz i potem tylko aktualizujemy (pierścienie
+  // i paski przechodzą płynnie z poprzedniej wartości, bez migania od zera).
+  const levelNodes = {};
 
   function renderSidebar() {
     renderToolsNav();
     const st = ELM.state;
     const list = document.getElementById("level-list");
-    const cat = app().getActiveCategory();
 
-    document.getElementById("sidebar-category-name").textContent = cat ? (cat.name || "Kategoria bez nazwy") : "Brak kategorii";
+    // Napis pod logo (stały; postęp w panelu dotyczy całych poziomów)
+    document.getElementById("sidebar-category-name").textContent = "Mapa angielskiego A1–C2";
 
-    list.replaceChildren();
+    let ul = list.querySelector(":scope > ul.sb-list");
+    if (!ul) { ul = el("ul", { class: "sb-list" }); list.replaceChildren(ul); }
+
     st.content.levels.forEach(function (level) {
-      const stats = app().getStats(level.id, cat ? cat.id : null);
-      // Poziom jest wyróżniony tylko na jego liście i jego podstronach
+      const s = app().getLevelStats(level.id);
+      // Poziom jest wyróżniony na jego liście i jego podstronach
       const active = (st.view === "level" || st.view === "page") && level.id === st.ui.levelId;
-      list.appendChild(el("button", {
-        type: "button",
-        class: "level-item lvl-" + level.id + (active ? " is-active" : ""),
-        "aria-current": active ? "true" : null,
-        "aria-label": "Poziom " + level.id + ", umiem " + stats.done + " z " + stats.total,
-        onclick: function () { app().selectLevel(level.id); }
-      }, [
-        el("span", { class: "level-item-top" }, [
-          el("span", { class: "level-dot", "aria-hidden": "true" }),
-          el("span", { class: "level-code", text: level.id })
-        ]),
-        progressBar(stats.percent, true, "Postęp poziomu " + level.id),
-        el("span", { class: "level-count", "aria-hidden": "true", text: stats.done + " / " + stats.total + " umiem" })
-      ]));
+      const name = levelName(level);
+      let n = levelNodes[level.id];
+      if (!n || !ul.contains(n.a)) {
+        const ring = ELM.ui.progressRing(s.percent, { size: 42, stroke: 4, text: level.id, label: "Postęp poziomu " + level.id });
+        const fill = el("div", { class: "progress-fill", style: "transform:scaleX(" + s.percent / 100 + ")" });
+        const count = el("span", { class: "sb-label-sub num" });
+        const title = el("span", { class: "sb-label-title" });
+        const a = sbItem({
+          href: app().levelHash(level.id),
+          cls: "is-level lvl-" + level.id,
+          icon: ring,
+          label: [title, count, el("span", { class: "progress is-small sb-bar", "aria-hidden": "true" }, fill)],
+          // Ten sam adres co obecny: przerysuj listę (np. powrót na górę) zamiast nic nie robić
+          onclick: function (e) {
+            if (location.hash === app().levelHash(level.id)) { e.preventDefault(); app().selectLevel(level.id); }
+          }
+        });
+        n = levelNodes[level.id] = { a: a, ring: ring, fill: fill, count: count, title: title };
+        ul.appendChild(el("li", null, a));
+      }
+      n.title.textContent = level.id + (name ? " · " + name : "");
+      n.count.textContent = s.done + " / " + s.total + " umiem";
+      n.fill.style.transform = "scaleX(" + s.percent / 100 + ")";
+      ELM.ui.setRing(n.ring, s.percent);
+      n.ring.removeAttribute("role"); // nazwę i wartość ogłasza link (aria-label), pierścień jest ozdobą
+      n.ring.setAttribute("aria-hidden", "true");
+      n.a.classList.toggle("is-active", active);
+      if (active) n.a.setAttribute("aria-current", "page"); else n.a.removeAttribute("aria-current");
+      n.a.setAttribute("aria-label", "Poziom " + level.id + (name ? ", " + name : "") + ": umiem " + s.done + " z " + s.total +
+        " we wszystkich kategoriach (" + s.percent + "%)");
     });
 
     // Pod poziomami: zakładka „Certyfikat C1”

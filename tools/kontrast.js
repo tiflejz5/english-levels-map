@@ -75,7 +75,12 @@ pairs.push(
   ["focus-color", "bg", null, 3, "obwódka fokusu / tło"],
   ["focus-color", "surface-2", null, 3, "obwódka fokusu / panel"],
   ["accent-bg", "bg", null, 3, "przycisk główny / tło"],
-  ["danger-bg", "surface", null, 3, "znacznik ✗ / karta"]
+  ["danger-bg", "surface", null, 3, "znacznik ✗ / karta"],
+  ["c1-gold", "c1-navy", null, 4.5, "chip C1: złoty napis / granat"],
+  ["c1-edge", "surface-2", null, 3, "chip C1: krawędź / panel"],
+  ["c1-ink", "c1-soft", "surface-2", 4.5, "aktywny Certyfikat C1: tekst / tło"],
+  ["ink-muted", "lvl-a1-soft", null, 4.5, "licznik „X / Y umiem” / aktywny poziom (A1)"],
+  ["on-accent", "accent-bg", null, 4.5, "plakietka powtórek / tło"]
 );
 ["a1", "a2", "b1", "b2", "c1", "c2"].forEach(function (l) {
   const L = l.toUpperCase();

@@ -7,8 +7,9 @@
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" content="#faf6ee">
   <title>English Levels Map (A1–C2)</title>
-  <!-- Ustawia motyw ZANIM strona się narysuje (bez błysku złego motywu).
-       elm_theme_v1: "auto" (jak w systemie), "light" albo "dark". -->
+  <!-- Ustawia motyw i stan lewego panelu ZANIM strona się narysuje.
+       elm_theme_v1: "auto" (jak w systemie), "light" albo "dark".
+       elm_sidebar_v1: { version: 1, pinned: true|false } (js/sidebar.js). -->
   <script>
     (function () {
       var pref = "auto";
@@ -19,6 +20,11 @@
       root.setAttribute("data-theme-pref", pref);
       var meta = document.querySelector('meta[name="theme-color"]');
       if (meta) meta.setAttribute("content", dark ? "#0e1526" : "#faf6ee");
+      // Lewy panel przypięty? (elm_sidebar_v1, globalnie dla urządzenia) — przed narysowaniem,
+      // żeby treść nie przeskakiwała przy starcie
+      var pinned = false;
+      try { var sb = JSON.parse(localStorage.getItem("elm_sidebar_v1") || "null"); pinned = !!(sb && sb.version === 1 && sb.pinned === true); } catch (e) {}
+      root.setAttribute("data-sidebar", pinned ? "pinned" : "rail");
     })();
   </script>
   <!-- Fonty self-hosted (assets/fonts): preload tylko krytycznych plików -->
@@ -28,7 +34,7 @@
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="assets/favicon-180.png" type="image/png" sizes="180x180">
   <link rel="apple-touch-icon" href="assets/favicon-180.png">
-  <link rel="stylesheet" href="css/style.css?v=36">
+  <link rel="stylesheet" href="css/style.css?v=40">
 </head>
 <body>
   <noscript>
@@ -36,23 +42,37 @@
   </noscript>
 
   <div class="app" id="app">
-    <!-- LEWY PASEK: logo, lista poziomów i zakładka „Certyfikat C1” -->
-    <aside class="sidebar" id="sidebar" aria-label="Poziomy i ustawienia">
-      <div class="sidebar-brand">
-        <!-- Logo: link do strony głównej (#/) z każdego miejsca -->
-        <a class="brand" href="#/" title="Strona główna" aria-label="English Levels Map – strona główna" data-logo></a>
-        <div class="brand-sub" id="sidebar-category-name"></div>
+    <!-- LEWY PANEL (js/sidebar.js, DESIGN.md sekcja 3.1):
+         wąski pasek (72 px) rozwijany nad treścią po najechaniu / fokusie / dotknięciu,
+         przypinany pinezką; poniżej 768 px szuflada otwierana przyciskiem „Menu”. -->
+    <aside class="sidebar" id="sidebar" aria-label="Nawigacja">
+      <div class="sb-panel" id="sb-panel">
+        <div class="sb-head">
+          <!-- Logo: link do strony głównej (#/) z każdego miejsca -->
+          <a class="brand sb-brand" href="#/" aria-label="English Levels Map – strona główna" data-logo></a>
+          <button type="button" class="icon-btn sb-toggle" id="sb-toggle" aria-controls="sb-panel" aria-expanded="false" aria-label="Rozwiń panel"><span data-icon="panel-left-open"></span></button>
+        </div>
+        <p class="sb-tagline" id="sidebar-category-name">Mapa angielskiego A1–C2</p>
+
+        <div class="sb-scroll">
+          <!-- Narzędzia nauki (Dziś, Test poziomu, Dziennik błędów) rysuje js/render.js -->
+          <nav class="sb-nav" id="tools-nav" aria-label="Nauka"></nav>
+
+          <!-- Poziomy A1–C2 (postęp we wszystkich kategoriach) rysuje js/render.js -->
+          <p class="sb-caption" id="sb-levels-caption">Poziomy · wszystkie kategorie</p>
+          <nav class="sb-nav level-list" id="level-list" aria-labelledby="sb-levels-caption"></nav>
+
+          <!-- Zakładka „Certyfikat C1” (sekcje z manifest.json) rysuje js/c1-core.js -->
+          <nav class="sb-nav c1-nav" id="c1-nav" aria-label="Certyfikat C1"></nav>
+        </div>
+
+        <div class="sb-foot">
+          <button type="button" class="sb-item sb-pin" id="sb-pin" aria-pressed="false">
+            <span class="sb-icon" aria-hidden="true"><span data-icon="pin"></span></span>
+            <span class="sb-label">Przypnij panel</span>
+          </button>
+        </div>
       </div>
-
-      <!-- Narzędzia nauki (Dziś, Test poziomu, Dziennik błędów) rysuje js/render.js -->
-      <nav class="tools-nav" id="tools-nav" aria-label="Nauka"></nav>
-
-      <!-- Przyciski poziomów A1–C2 rysuje js/render.js -->
-      <nav class="level-list" id="level-list" aria-label="Lista poziomów"></nav>
-
-      <!-- Zakładka „Certyfikat C1” (sekcje z manifest.json) rysuje js/c1-core.js -->
-      <nav class="c1-nav" id="c1-nav" aria-label="Certyfikat C1"></nav>
-
     </aside>
 
     <!-- PRAWA CZĘŚĆ: treść wybranego poziomu -->
@@ -74,40 +94,41 @@
   <div class="nav-overlay" id="nav-overlay" hidden></div>
 
   <!-- Skrypty ładowane po kolei (bez modułów ES, żeby działało z file://).
-       ?v=36 to numer wersji: po zmianie plików JS/CSS zwiększ go wszędzie,
+       ?v=40 to numer wersji: po zmianie plików JS/CSS zwiększ go wszędzie,
        żeby przeglądarki nie użyły starych kopii z pamięci podręcznej. -->
-  <script src="js/utils.js?v=36"></script>
+  <script src="js/utils.js?v=40"></script>
   <!-- Ikony Lucide (generowane: npm run zasoby) i wspólne elementy wizualne -->
-  <script src="assets/ikony.js?v=36"></script>
-  <script src="js/ui.js?v=36"></script>
+  <script src="assets/ikony.js?v=40"></script>
+  <script src="js/ui.js?v=40"></script>
   <!-- Czysta logika nauki: powtórki, seria, test poziomu (testy: node tools/testy.js) -->
-  <script src="js/learning.js?v=36"></script>
-  <script src="js/theme.js?v=36"></script>
-  <script src="js/default-data.js?v=36"></script>
+  <script src="js/learning.js?v=40"></script>
+  <script src="js/theme.js?v=40"></script>
+  <script src="js/default-data.js?v=40"></script>
   <!-- Bazowa lista umiejętności; usuń tę linię, aby startować od pustego szkieletu -->
-  <script src="js/base-content.js?v=36"></script>
-  <script src="js/store.js?v=36"></script>
-  <script src="js/dialogs.js?v=36"></script>
-  <script src="js/render.js?v=36"></script>
-  <script src="js/profiles.js?v=36"></script>
-  <script src="js/markdown.js?v=36"></script>
-  <script src="js/niezbednik.js?v=36"></script>
+  <script src="js/base-content.js?v=40"></script>
+  <script src="js/store.js?v=40"></script>
+  <script src="js/dialogs.js?v=40"></script>
+  <script src="js/render.js?v=40"></script>
+  <script src="js/profiles.js?v=40"></script>
+  <script src="js/markdown.js?v=40"></script>
+  <script src="js/niezbednik.js?v=40"></script>
   <!-- Podstrony niezbędnika (generowane: node tools/zbuduj-niezbednik.js) -->
-  <script src="niezbednik/niezbednik-dane.js?v=36"></script>
+  <script src="niezbednik/niezbednik-dane.js?v=40"></script>
   <!-- Zakładka „Certyfikat C1” (dane generowane tym samym skryptem) -->
-  <script src="niezbednik/certyfikat-c1-dane.js?v=36"></script>
-  <script src="js/c1-core.js?v=36"></script>
-  <script src="js/c1-exercises.js?v=36"></script>
-  <script src="js/c1-writing.js?v=36"></script>
-  <script src="js/c1-speaking.js?v=36"></script>
+  <script src="niezbednik/certyfikat-c1-dane.js?v=40"></script>
+  <script src="js/c1-core.js?v=40"></script>
+  <script src="js/c1-exercises.js?v=40"></script>
+  <script src="js/c1-writing.js?v=40"></script>
+  <script src="js/c1-speaking.js?v=40"></script>
   <!-- Dane nauki osobno dla każdego profilu i dziennik błędów -->
-  <script src="js/profile-data.js?v=36"></script>
-  <script src="js/journal.js?v=36"></script>
-  <script src="js/today.js?v=36"></script>
+  <script src="js/profile-data.js?v=40"></script>
+  <script src="js/journal.js?v=40"></script>
+  <script src="js/today.js?v=40"></script>
   <!-- Szybki test poziomu (pytania generowane: node tools/zbuduj-niezbednik.js) -->
-  <script src="niezbednik/test-poziomu-dane.js?v=36"></script>
-  <script src="js/level-test.js?v=36"></script>
-  <script src="js/data-menu.js?v=36"></script>
-  <script src="js/app.js?v=36"></script>
+  <script src="niezbednik/test-poziomu-dane.js?v=40"></script>
+  <script src="js/level-test.js?v=40"></script>
+  <script src="js/data-menu.js?v=40"></script>
+  <script src="js/sidebar.js?v=40"></script>
+  <script src="js/app.js?v=40"></script>
 </body>
 </html>
