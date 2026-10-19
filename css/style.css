@@ -182,54 +182,7 @@ a.brand-title:hover { color: var(--accent); }
 .level-item.is-active .level-code { color: var(--accent); }
 .level-count { font-size: 12px; color: var(--text-2); }
 
-.sidebar-footer {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 14px 8px 0;
-  margin-top: 12px;
-  border-top: 1px solid var(--border-soft);
-}
-
-.save-status { font-size: 12px; color: var(--text-2); min-height: 18px; }
-.save-status.is-error { color: var(--danger); font-weight: 600; }
-.hint { font-size: 12px; color: var(--text-2); line-height: 1.45; }
-
 /* Przełącznik (switch) w stylu iOS */
-.switch-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  cursor: pointer;
-  font-weight: 500;
-  font-size: 15px;
-}
-.switch {
-  appearance: none;
-  -webkit-appearance: none;
-  position: relative;
-  width: 44px; height: 26px;
-  margin: 0;
-  border-radius: 13px;
-  background: #d1d1d6;
-  cursor: pointer;
-  transition: background var(--transition);
-  flex-shrink: 0;
-}
-.switch::after {
-  content: "";
-  position: absolute;
-  top: 2px; left: 2px;
-  width: 22px; height: 22px;
-  border-radius: 50%;
-  background: #fff;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
-  transition: transform var(--transition);
-}
-.switch:checked { background: var(--accent); }
-.switch:checked::after { transform: translateX(18px); }
-.switch:disabled { opacity: 0.4; cursor: not-allowed; }
 
 /* ===================== PRZYCISKI ===================== */
 .btn {
@@ -288,23 +241,8 @@ a.btn { text-decoration: none; }
 .icon-btn.is-danger:hover:not(:disabled) { color: var(--danger); background: var(--danger-soft); border-color: #f1c3c8; }
 
 /* Dyskretne kontrolki: przygaszone, wyraźne po najechaniu lub fokusie */
-.item-controls {
-  display: flex;
-  gap: 4px;
-  flex-shrink: 0;
-  opacity: 0.55;
-  transition: opacity var(--transition);
-}
-.edit-row:hover .item-controls,
-.edit-row:focus-within .item-controls { opacity: 1; }
 
 /* Pasek narzędzi edycji (kategorie) */
-.edit-toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
-}
 
 /* ===================== POLA FORMULARZY ===================== */
 .field {
@@ -325,7 +263,7 @@ textarea.field { resize: vertical; min-height: 42px; overflow: hidden; }
 
 /* ===================== NAGŁÓWEK POZIOMU ===================== */
 .level-header { margin-bottom: 28px; }
-.level-title-row { display: flex; align-items: center; gap: 16px; }
+
 .level-title {
   display: flex;
   align-items: center;
@@ -336,15 +274,7 @@ textarea.field { resize: vertical; min-height: 42px; overflow: hidden; }
   line-height: 1;
 }
 .level-title .level-dot { width: 16px; height: 16px; }
-.mode-chip {
-  margin-left: auto;
-  padding: 4px 12px;
-  border-radius: 980px;
-  background: var(--accent-soft);
-  color: var(--accent);
-  font-size: 13px;
-  font-weight: 600;
-}
+
 .level-desc {
   margin-top: 14px;
   font-size: 18px;
@@ -352,7 +282,6 @@ textarea.field { resize: vertical; min-height: 42px; overflow: hidden; }
   white-space: pre-wrap;
   max-width: 720px;
 }
-.level-desc-field { margin-top: 16px; max-width: 720px; }
 
 /* ===================== KATEGORIE (przełącznik segmentowy) ===================== */
 .category-bar {
@@ -483,11 +412,6 @@ textarea.field { resize: vertical; min-height: 42px; overflow: hidden; }
 .umiem:has(input:checked) { background: var(--success-soft); border-color: #b7e0c3; color: var(--success); }
 
 /* Wiersz edycji (essentials, profile): pole + dyskretne kontrolki */
-.edit-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-}
 
 /* Pusty stan (brak treści) */
 .empty-state {
@@ -502,7 +426,6 @@ textarea.field { resize: vertical; min-height: 42px; overflow: hidden; }
   text-align: center;
 }
 .empty-state-text { font-size: 16px; font-weight: 500; }
-.empty-state-hint { font-size: 14px; color: var(--text-2); }
 
 /* ===================== KOMUNIKATY (banery) ===================== */
 .banners:empty { display: none; }
@@ -560,19 +483,6 @@ textarea.field { resize: vertical; min-height: 42px; overflow: hidden; }
 .dialog-error { color: var(--danger); font-size: 13px; margin-top: 6px; min-height: 18px; }
 
 /* Okno „Dane” */
-.data-dialog { width: min(600px, calc(100vw - 48px)); }
-.data-hint {
-  padding: 10px 14px;
-  border-radius: 10px;
-  background: var(--accent-soft);
-  font-size: 14px;
-  margin-bottom: 18px;
-}
-.data-group { padding: 16px 0; border-top: 1px solid var(--border-soft); }
-.data-group:first-of-type { border-top: 0; padding-top: 0; }
-.data-group-title { font-size: 15px; font-weight: 600; }
-.data-group-desc { font-size: 13px; color: var(--text-2); margin: 2px 0 12px; }
-.data-group-actions { display: flex; flex-wrap: wrap; gap: 8px; }
 
 /* ===================== PROFILE (prawy górny róg) ===================== */
 .topbar {
@@ -623,50 +533,6 @@ textarea.field { resize: vertical; min-height: 42px; overflow: hidden; }
 
 .avatar.is-small-text { font-size: 12px; letter-spacing: -0.02em; }
 
-.profile-menu {
-  position: absolute;
-  top: calc(100% + 8px);
-  right: 0;
-  width: 320px;
-  padding: 8px;
-  border: 1px solid var(--border-soft);
-  border-radius: 16px;
-  background: var(--bg);
-  box-shadow: var(--shadow-lg);
-  animation: dialog-in 160ms ease;
-}
-.profile-menu.is-editing { width: 440px; }
-.profile-menu-title {
-  padding: 6px 10px 8px;
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--text-2);
-}
-.profile-row { display: flex; align-items: center; gap: 6px; }
-.profile-item {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 7px 10px 7px 7px;
-  border: 0;
-  border-radius: 10px;
-  background: transparent;
-  text-align: left;
-  cursor: pointer;
-  transition: background var(--transition);
-}
-.profile-item:hover { background: var(--bg-soft); }
-.profile-item.is-active { background: var(--accent-soft); }
-.profile-item-name { flex: 1; min-width: 0; font-size: 15px; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.profile-item-count { font-size: 12px; color: var(--text-2); white-space: nowrap; }
-.profile-check { width: 14px; color: var(--accent); font-weight: 700; text-align: center; }
-.profile-add { margin: 8px 4px 2px; }
-.profile-menu-hint { padding: 8px 10px 4px; font-size: 12px; color: var(--text-2); border-top: 1px solid var(--border-soft); margin-top: 6px; }
-
 /* ===================== LINKI DO PODSTRON NA LIŚCIE ===================== */
 .ess-link {
   color: inherit;
@@ -682,16 +548,6 @@ textarea.field { resize: vertical; min-height: 42px; overflow: hidden; }
   font-weight: 600;
   transition: transform var(--transition);
 }
-.ess-page-link {
-  flex-shrink: 0;
-  padding-top: 9px;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--accent);
-  text-decoration: none;
-  white-space: nowrap;
-}
-.ess-page-link:hover { text-decoration: underline; }
 
 /* ===================== PODSTRONA NIEZBĘDNIKA ===================== */
 .page-view { max-width: 860px; }
@@ -839,8 +695,8 @@ textarea.field { resize: vertical; min-height: 42px; overflow: hidden; }
   .md table { min-width: 520px; }
   .md th, .md td { padding: 8px 10px; }
 
-  .profile-menu { width: min(320px, calc(100vw - 32px)); }
-  .profile-menu.is-editing { width: calc(100vw - 32px); }
+  
+  
 }
 
 /* ===================== MENU BOCZNE: CERTYFIKAT C1 ===================== */
@@ -1102,3 +958,77 @@ textarea.field { resize: vertical; min-height: 42px; overflow: hidden; }
   .welcome { padding: 24px 18px; }
   .welcome-title { font-size: 26px; }
 }
+
+/* ===================== MENU PROFILU (prawy górny róg) ===================== */
+.profile-btn { min-height: 44px; }
+.profile-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 40;
+  width: min(360px, calc(100vw - 24px));
+  max-height: calc(100vh - 90px);
+  overflow-y: auto;
+  padding: 8px;
+  border: 1px solid var(--border-soft);
+  border-radius: 16px;
+  background: var(--bg);
+  box-shadow: var(--shadow-lg);
+  animation: dialog-in 160ms ease;
+}
+.menu-title {
+  padding: 8px 10px 6px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-2);
+}
+.menu-empty { padding: 4px 10px 8px; font-size: 14px; color: var(--text-2); }
+.profile-row { display: flex; align-items: center; gap: 2px; }
+.profile-item {
+  flex: 1;
+  min-width: 0;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 10px 6px 6px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+}
+.profile-item:hover { background: var(--bg-soft); }
+.profile-item.is-active { background: var(--accent-soft); }
+.profile-item-name { flex: 1; min-width: 0; font-size: 15px; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.profile-item-count { font-size: 12px; color: var(--text-2); white-space: nowrap; }
+.profile-check { width: 14px; color: var(--accent); font-weight: 700; text-align: center; }
+.menu-icon { width: 44px; height: 44px; flex-shrink: 0; border-color: transparent; background: transparent; }
+.menu-action {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--text);
+  font-size: 15px;
+  text-align: left;
+  cursor: pointer;
+}
+.menu-action:hover { background: var(--bg-soft); }
+.menu-add { color: var(--accent); font-weight: 600; }
+.menu-action.is-danger { color: var(--danger); }
+.menu-sep { height: 1px; margin: 6px 4px; background: var(--border-soft); }
+.menu-note { padding: 6px 12px 6px; font-size: 12px; line-height: 1.45; color: var(--text-2); }
+.menu-form { padding: 6px 4px 4px; }
+.menu-form-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.menu-input { flex: 1 1 160px; min-height: 44px; }
+.menu-form .btn { min-height: 44px; }
+.menu-error { min-height: 18px; margin-top: 4px; font-size: 13px; color: var(--danger); }
+.menu-error:empty { min-height: 0; margin: 0; }

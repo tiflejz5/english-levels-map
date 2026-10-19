@@ -6,7 +6,7 @@
   <!-- Tylko jasny motyw: przeglądarka nie będzie przyciemniać pól formularzy -->
   <meta name="color-scheme" content="light">
   <title>English Levels Map (A1–C2)</title>
-  <link rel="stylesheet" href="css/style.css?v=16">
+  <link rel="stylesheet" href="css/style.css?v=17">
 </head>
 <body>
   <noscript>
@@ -14,7 +14,7 @@
   </noscript>
 
   <div class="app" id="app">
-    <!-- LEWY PASEK: lista poziomów + przełącznik trybu edycji + menu „Dane” -->
+    <!-- LEWY PASEK: logo, lista poziomów i zakładka „Certyfikat C1” -->
     <aside class="sidebar" id="sidebar" aria-label="Poziomy i ustawienia">
       <div class="sidebar-brand">
         <!-- Logo: link do strony głównej (#/) z każdego miejsca -->
@@ -28,20 +28,11 @@
       <!-- Zakładka „Certyfikat C1” (sekcje z manifest.json) rysuje js/c1-core.js -->
       <nav class="c1-nav" id="c1-nav" aria-label="Certyfikat C1"></nav>
 
-      <div class="sidebar-footer">
-        <label class="switch-row">
-          <span class="switch-label">Tryb edycji</span>
-          <input type="checkbox" role="switch" id="edit-toggle" class="switch">
-        </label>
-        <button type="button" class="btn btn-secondary btn-block" id="data-menu-btn">Dane (eksport, import, reset)</button>
-        <p class="save-status" id="save-status" aria-live="polite"></p>
-        <p class="hint">Dane zapisują się w tej przeglądarce. Rób eksport co jakiś czas.</p>
-      </div>
     </aside>
 
     <!-- PRAWA CZĘŚĆ: treść wybranego poziomu -->
     <main class="main" id="main" tabindex="-1">
-      <!-- Górny pasek: przycisk menu (tylko telefon) i wybór profilu (prawy górny róg, js/profiles.js) -->
+      <!-- Górny pasek: przycisk menu (tylko telefon) i menu profilu z sekcją „Dane” (prawy górny róg, js/profiles.js) -->
       <div class="topbar" id="topbar">
         <button type="button" class="btn btn-secondary btn-small menu-btn" id="menu-btn" aria-controls="sidebar" aria-expanded="false">☰ Menu</button>
         <div class="profile-slot" id="profile-slot"></div>
@@ -54,28 +45,27 @@
   <div class="nav-overlay" id="nav-overlay" hidden></div>
 
   <!-- Skrypty ładowane po kolei (bez modułów ES, żeby działało z file://).
-       ?v=16 to numer wersji: po zmianie plików JS/CSS zwiększ go wszędzie,
+       ?v=17 to numer wersji: po zmianie plików JS/CSS zwiększ go wszędzie,
        żeby przeglądarki nie użyły starych kopii z pamięci podręcznej. -->
-  <script src="js/utils.js?v=16"></script>
-  <script src="js/default-data.js?v=16"></script>
+  <script src="js/utils.js?v=17"></script>
+  <script src="js/default-data.js?v=17"></script>
   <!-- Bazowa lista umiejętności; usuń tę linię, aby startować od pustego szkieletu -->
-  <script src="js/base-content.js?v=16"></script>
-  <script src="js/store.js?v=16"></script>
-  <script src="js/dialogs.js?v=16"></script>
-  <script src="js/render.js?v=16"></script>
-  <script src="js/editor.js?v=16"></script>
-  <script src="js/profiles.js?v=16"></script>
-  <script src="js/markdown.js?v=16"></script>
-  <script src="js/niezbednik.js?v=16"></script>
+  <script src="js/base-content.js?v=17"></script>
+  <script src="js/store.js?v=17"></script>
+  <script src="js/dialogs.js?v=17"></script>
+  <script src="js/render.js?v=17"></script>
+  <script src="js/profiles.js?v=17"></script>
+  <script src="js/markdown.js?v=17"></script>
+  <script src="js/niezbednik.js?v=17"></script>
   <!-- Podstrony niezbędnika (generowane: node tools/zbuduj-niezbednik.js) -->
-  <script src="niezbednik/niezbednik-dane.js?v=16"></script>
+  <script src="niezbednik/niezbednik-dane.js?v=17"></script>
   <!-- Zakładka „Certyfikat C1” (dane generowane tym samym skryptem) -->
-  <script src="niezbednik/certyfikat-c1-dane.js?v=16"></script>
-  <script src="js/c1-core.js?v=16"></script>
-  <script src="js/c1-exercises.js?v=16"></script>
-  <script src="js/c1-writing.js?v=16"></script>
-  <script src="js/c1-speaking.js?v=16"></script>
-  <script src="js/data-menu.js?v=16"></script>
-  <script src="js/app.js?v=16"></script>
+  <script src="niezbednik/certyfikat-c1-dane.js?v=17"></script>
+  <script src="js/c1-core.js?v=17"></script>
+  <script src="js/c1-exercises.js?v=17"></script>
+  <script src="js/c1-writing.js?v=17"></script>
+  <script src="js/c1-speaking.js?v=17"></script>
+  <script src="js/data-menu.js?v=17"></script>
+  <script src="js/app.js?v=17"></script>
 </body>
 </html>

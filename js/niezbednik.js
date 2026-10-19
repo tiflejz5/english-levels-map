@@ -174,7 +174,6 @@ window.ELM = window.ELM || {};
     const levelId = found ? found.level : ELM.state.ui.levelId;
     // Ta sama podstrona przerysowana (np. zmiana profilu) → zostaw przewinięcie
     const keepScroll = view.dataset.file === route.file ? U.getScroll() : 0;
-    document.body.classList.toggle("is-editing", ELM.state.editMode);
     view.className = "view page-view lvl-" + levelId;
     view.dataset.file = route.file;
     view.replaceChildren();
@@ -211,13 +210,6 @@ window.ELM = window.ELM || {};
       ]),
       info ? umiemToggle(info.essential) : null
     ]));
-
-    if (ELM.state.editMode) {
-      view.appendChild(el("p", {
-        class: "banner is-info page-edit-hint",
-        text: "Treść podstron pochodzi z plików .md w folderze niezbednik/ i nie jest edytowana w aplikacji."
-      }));
-    }
 
     const article = el("article", { class: "md" }, ELM.markdown.render(doc.blocks, { hiddenSections: HIDDEN_SECTIONS }));
     // Ramka „Na egzaminie C1” (z certyfikat-c1/powiazania.json) zaraz pod wstępem
@@ -266,7 +258,6 @@ window.ELM = window.ELM || {};
   function renderHome() {
     const view = document.getElementById("view");
     const keepScroll = view.dataset.file === "#home" ? U.getScroll() : 0;
-    document.body.classList.toggle("is-editing", ELM.state.editMode);
     view.className = "view home-view";
     view.dataset.file = "#home";
     view.replaceChildren();

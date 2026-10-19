@@ -1,6 +1,13 @@
 /*
- * data-menu.js — okno „Dane”: kopie zapasowe (eksport/import)
- * treści i postępu ucznia oraz resetowanie danych.
+ * data-menu.js — kopie zapasowe i reset danych (sekcja „Dane” w menu profilu).
+ *
+ * Eksport: jeden plik english-levels-dane-RRRR-MM-DD.json zawierający dwie
+ * dotychczasowe części w niezmienionym formacie:
+ *   { app, kind: "backup", version, exportedAt,
+ *     data: { content: <eksport treści>, progress: <eksport profili i postępu> } }
+ * Import przyjmuje ten plik oraz starsze, osobne pliki z treściami
+ * (english-levels-content-…) i z postępem (english-levels-progress-…).
+ * Dane zakładki „Certyfikat C1” (elm_c1_v1) nie są eksportowane ani resetowane.
  */
 window.ELM = window.ELM || {};
 
@@ -12,64 +19,20 @@ window.ELM = window.ELM || {};
 
   function app() { return ELM.app; }
 
-  // ---------- Okno ----------
-
-  function open() {
-    let dlg;
-    // Każdy przycisk najpierw zamyka okno „Dane”, potem wykonuje akcję
-    function action(label, fn, variant) {
-      return el("button", {
-        type: "button",
-        class: "btn btn-small " + (variant || "btn-secondary"),
-        onclick: function () { dlg.close(); fn(); }
-      }, label);
-    }
-
-    function group(title, desc, buttons) {
-      return el("div", { class: "data-group" }, [
-        el("h3", { class: "data-group-title", text: title }),
-        el("p", { class: "data-group-desc", text: desc }),
-        el("div", { class: "data-group-actions" }, buttons)
-      ]);
-    }
-
-    dlg = ELM.dialogs.open({
-      title: "Dane i kopie zapasowe",
-      className: "data-dialog",
-      body: [
-        el("p", { class: "data-hint", text: "Dane zapisują się w tej przeglądarce. Rób eksport co jakiś czas i przechowuj pliki w bezpiecznym miejscu." }),
-        group("Treści", "Kategorie, opisy poziomów i punkty essentials.", [
-          action("Eksportuj treści", exportContent, "btn-primary"),
-          action("Importuj treści…", importContent)
-        ]),
-        group("Profile i postęp", "Wszystkie profile z ich zaznaczeniami „Umiem”. Zapisywane osobno, więc import treści ich nie kasuje.", [
-          action("Eksportuj profile i postęp", exportProgress, "btn-primary"),
-          action("Importuj profile i postęp…", importProgress)
-        ]),
-        group("Reset", "Operacje nieodwracalne. Najpierw zrób eksport.", [
-          app().hasProfiles() ? action("Zresetuj postęp profilu „" + app().getActiveProfile().name + "”", resetProgress, "btn-danger") : null,
-          action("Zresetuj wszystko", resetAll, "btn-danger")
-        ])
-      ],
-      actions: [{ label: "Zamknij", value: null }]
-    });
-  }
-
   // ---------- Eksport ----------
 
-  function exportContent() {
+  function exportAll() {
     app().saveContentNow();
-    ELM.store.downloadJSON(
-      "english-levels-content-" + U.dateStamp() + ".json",
-      ELM.store.wrapExport("content", ELM.state.content)
-    );
-  }
-
-  function exportProgress() {
-    ELM.store.downloadJSON(
-      "english-levels-progress-" + U.dateStamp() + ".json",
-      ELM.store.wrapExport("progress", ELM.state.profiles)
-    );
+    ELM.store.downloadJSON("english-levels-dane-" + U.dateStamp() + ".json", {
+      app: "english-levels-map",
+      kind: "backup",
+      version: 1,
+      exportedAt: new Date().toISOString(),
+      data: {
+        content: ELM.store.wrapExport("content", ELM.state.content),
+        progress: ELM.store.wrapExport("progress", ELM.state.profiles)
+      }
+    });
   }
 
   // ---------- Import ----------
@@ -89,8 +52,53 @@ window.ELM = window.ELM || {};
     });
   }
 
-  function importContent() {
-    pickFileText().then(importContentText);
+  function importAll() {
+    pickFileText().then(importText);
+  }
+
+  /** Rozpoznaje rodzaj pliku i uruchamia właściwy import. */
+  function importText(text) {
+    let obj;
+    try {
+      obj = JSON.parse(text);
+    } catch (e) {
+      return ELM.dialogs.alert({ title: "Nie można zaimportować danych", message: "Plik nie jest poprawnym plikiem JSON." });
+    }
+    if (!U.isPlainObject(obj)) {
+      return ELM.dialogs.alert({ title: "Nie można zaimportować danych", message: "Plik nie zawiera danych tej aplikacji." });
+    }
+    if (obj.kind === "backup") return importBackup(obj);
+    const looksLikeProgress = obj.kind === "progress" || Array.isArray(obj.profiles) ||
+      (U.isPlainObject(obj.data) && Array.isArray(obj.data.profiles));
+    return looksLikeProgress ? importProgressText(text) : importContentText(text);
+  }
+
+  /** Plik z obiema częściami: walidacja obu → jedno potwierdzenie → zapis. */
+  function importBackup(obj) {
+    let content, profiles;
+    try {
+      if (!U.isPlainObject(obj.data) || !obj.data.content || !obj.data.progress) throw new Error("Plik kopii jest niekompletny.");
+      content = ELM.store.parseContentImport(JSON.stringify(obj.data.content));
+      const parsed = ELM.store.parseProgressImport(JSON.stringify(obj.data.progress));
+      if (parsed.type !== "profiles") throw new Error("Kopia nie zawiera listy profili.");
+      profiles = parsed.data;
+    } catch (e) {
+      return ELM.dialogs.alert({ title: "Nie można zaimportować danych", message: e.message });
+    }
+    const s = summarize(content);
+    return ELM.dialogs.confirm({
+      title: "Zastąpić dane w tej przeglądarce?",
+      message: "Plik zawiera: kategorie: " + s.categories + ", punkty essentials: " + s.essentials +
+        ", profile (" + profiles.profiles.length + "): " + (profiles.profiles.map(function (p) { return p.name; }).join(", ") || "brak") +
+        ".\n\nObecne treści, profile i ich postęp w tej przeglądarce zostaną zastąpione.",
+      confirmLabel: "Importuj i nadpisz"
+    }).then(function (ok) {
+      if (!ok) return false;
+      app().replaceContent(content);
+      app().replaceProfiles(profiles);
+      ELM.dialogs.alert({ title: "Gotowe", message: "Dane zostały zaimportowane." });
+      return true;
+    });
   }
 
   /** Import treści z tekstu JSON: walidacja → podsumowanie → potwierdzenie → zapis. */
@@ -113,10 +121,6 @@ window.ELM = window.ELM || {};
       ELM.dialogs.alert({ title: "Gotowe", message: "Treści zostały zaimportowane." });
       return true;
     });
-  }
-
-  function importProgress() {
-    pickFileText().then(importProgressText);
   }
 
   /**
@@ -166,30 +170,21 @@ window.ELM = window.ELM || {};
 
   // ---------- Reset ----------
 
-  /** Czyści postęp tylko aktywnego profilu. */
-  function resetProgress() {
-    if (!app().hasProfiles()) return;
-    ELM.dialogs.confirm({
-      title: "Zresetować postęp profilu?",
-      message: "Wszystkie zaznaczenia „Umiem” profilu „" + app().getActiveProfile().name + "” zostaną usunięte. Inne profile i treści pozostaną bez zmian.",
-      confirmLabel: "Zresetuj postęp"
-    }).then(function (ok) {
-      if (ok) app().replaceProgress({});
-    });
-  }
-
-  /** Reset całości — podwójne potwierdzenie. */
+  /** Reset danych — podwójne potwierdzenie z zaleceniem eksportu. */
   function resetAll() {
     ELM.dialogs.confirm({
-      title: "Zresetować wszystko?",
-      message: "Zostaną usunięte WSZYSTKIE treści (kategorie, essentials) oraz wszystkie profile z ich postępem. Aplikacja wróci do stanu jak przy pierwszym otwarciu: bazowej listy umiejętności, bez żadnych profili.",
+      title: "Zresetować dane?",
+      message: "Zostaną usunięte wszystkie profile z ich postępem „Umiem” oraz zmiany w treści listy. " +
+        "Aplikacja wróci do stanu jak przy pierwszym otwarciu: bazowa lista umiejętności, bez żadnych profili.\n\n" +
+        "Zalecenie: najpierw zrób „Eksportuj dane”, żeby mieć kopię.\n\n" +
+        "Dane zakładki „Certyfikat C1” (wyniki ćwiczeń, szkice, data egzaminu) zostają.",
       confirmLabel: "Dalej"
     }).then(function (ok) {
       if (!ok) return false;
       return ELM.dialogs.confirm({
         title: "Na pewno?",
         message: "To ostatnie ostrzeżenie. Tej operacji nie można cofnąć. Jeśli nie masz kopii, anuluj i najpierw zrób eksport.",
-        confirmLabel: "Tak, usuń wszystko"
+        confirmLabel: "Tak, usuń dane"
       });
     }).then(function (ok) {
       if (!ok) return;
@@ -200,12 +195,11 @@ window.ELM = window.ELM || {};
   }
 
   ELM.dataMenu = {
-    open: open,
-    exportContent: exportContent,
-    exportProgress: exportProgress,
-    importContent: importContent,
+    exportAll: exportAll,
+    importAll: importAll,
+    importText: importText,
     importContentText: importContentText,
-    importProgress: importProgress,
-    importProgressText: importProgressText
+    importProgressText: importProgressText,
+    resetAll: resetAll
   };
 })(window.ELM);

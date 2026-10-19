@@ -1,9 +1,9 @@
 /*
- * render.js — rysowanie widoków (sidebar, nagłówek poziomu, kategorie,
- * essentials, podsumowanie poziomu). Te same funkcje rysują tryb podglądu i tryb edycji:
- * w trybie edycji zamiast tekstu pojawiają się pola i dyskretne kontrolki.
+ * render.js — rysowanie widoków: lewy panel (poziomy), nagłówek poziomu,
+ * kategorie, lista essentials z polem „Umiem” i podsumowanie poziomu.
  *
- * Każdy tekst użytkownika trafia do DOM jako tekst (textContent / value).
+ * Treść listy jest tylko do odczytu (dawny „Tryb edycji” został usunięty).
+ * Każdy tekst trafia do DOM jako tekst (textContent), nigdy jako HTML.
  */
 window.ELM = window.ELM || {};
 
@@ -15,8 +15,6 @@ window.ELM = window.ELM || {};
 
   // Skróty do innych części aplikacji (ładowane później, używane w trakcie działania)
   function app() { return ELM.app; }
-  function editor() { return ELM.editor; }
-  function isEdit() { return ELM.state.editMode; }
 
   // =====================================================================
   // ELEMENTY WSPÓLNE
@@ -34,7 +32,7 @@ window.ELM = window.ELM || {};
     }, el("div", { class: "progress-fill", style: "width:" + percent + "%" }));
   }
 
-  /** Okrągły przycisk z symbolem (↑ ↓ ✕ …) i czytelną etykietą dla czytników ekranu. */
+  /** Okrągły przycisk z symbolem i czytelną etykietą dla czytników ekranu. */
   function iconBtn(symbol, label, onClick, opts) {
     opts = opts || {};
     return el("button", {
@@ -47,59 +45,13 @@ window.ELM = window.ELM || {};
     }, el("span", { "aria-hidden": "true", text: symbol }));
   }
 
-  function textBtn(label, onClick, variant) {
-    return el("button", { type: "button", class: "btn btn-small " + (variant || "btn-secondary"), onclick: onClick }, label);
-  }
-
-  /** Kontrolki „w górę / w dół / usuń” dla elementu listy. */
-  function rowControls(list, index, onDelete, labels) {
-    return el("div", { class: "item-controls" }, [
-      iconBtn("↑", labels.up, function () { editor().moveItem(list, index, -1); }, { disabled: index === 0 }),
-      iconBtn("↓", labels.down, function () { editor().moveItem(list, index, 1); }, { disabled: index === list.length - 1 }),
-      iconBtn("✕", labels.remove, onDelete, { danger: true })
-    ]);
-  }
-
-  /**
-   * Pole edycji powiązane z polem obiektu. Każda zmiana od razu trafia
-   * do danych i uruchamia automatyczny zapis.
-   *   opts: multiline, rows, placeholder, label, focusId, onChange
-   */
-  function boundField(obj, key, opts) {
-    opts = opts || {};
-    const node = el(opts.multiline ? "textarea" : "input", {
-      class: "field",
-      type: opts.multiline ? null : "text",
-      rows: opts.multiline ? (opts.rows || 2) : null,
-      value: obj[key] || "",
-      placeholder: opts.placeholder || "",
-      "aria-label": opts.label || opts.placeholder || null,
-      "data-focus-id": opts.focusId || null,
-      oninput: function () {
-        obj[key] = node.value;
-        if (opts.multiline) U.autoGrow(node);
-        app().scheduleSave();
-        if (opts.onChange) opts.onChange(node.value);
-      }
-    });
-    return node;
-  }
-
-  /**
-   * Pusty stan. W trybie edycji z przyciskiem dodawania,
-   * w podglądzie tylko z podpowiedzią (bez kontrolek edycji).
-   */
-  function emptyState(message, addLabel, onAdd) {
-    return el("div", { class: "empty-state" }, [
-      el("p", { class: "empty-state-text", text: message }),
-      isEdit()
-        ? el("button", { type: "button", class: "btn btn-primary", onclick: onAdd }, addLabel)
-        : el("p", { class: "empty-state-hint", text: "Włącz „Tryb edycji” w lewym dolnym rogu, aby dodać treść." })
-    ]);
+  /** Pusty stan z komunikatem. */
+  function emptyState(message) {
+    return el("div", { class: "empty-state" }, el("p", { class: "empty-state-text", text: message }));
   }
 
   // =====================================================================
-  // SIDEBAR
+  // LEWY PANEL
   // =====================================================================
 
   function renderSidebar() {
@@ -108,7 +60,6 @@ window.ELM = window.ELM || {};
     const cat = app().getActiveCategory();
 
     document.getElementById("sidebar-category-name").textContent = cat ? (cat.name || "Kategoria bez nazwy") : "Brak kategorii";
-    document.getElementById("edit-toggle").checked = st.editMode;
 
     list.replaceChildren();
     st.content.levels.forEach(function (level) {
@@ -153,7 +104,6 @@ window.ELM = window.ELM || {};
     const level = app().getActiveLevel();
     const cat = app().getActiveCategory();
 
-    document.body.classList.toggle("is-editing", isEdit());
     view.className = "view lvl-" + level.id;
     delete view.dataset.file;
     view.replaceChildren();
@@ -162,9 +112,7 @@ window.ELM = window.ELM || {};
     view.appendChild(renderCategoryBar(cat));
 
     if (!cat) {
-      view.appendChild(emptyState("Nie ma jeszcze żadnej kategorii.", "+ Dodaj pierwszą kategorię", function () {
-        editor().addCategory();
-      }));
+      view.appendChild(emptyState("Brak kategorii na tym poziomie."));
     } else {
       const bucket = app().getBucket(level.id, cat.id);
       view.appendChild(renderEssentials(level, cat, bucket));
@@ -173,40 +121,19 @@ window.ELM = window.ELM || {};
       if (summary) view.appendChild(summary);
     }
 
-    // Wysokość pól tekstowych liczona po wstawieniu do strony
-    view.querySelectorAll("textarea").forEach(U.autoGrow);
     U.setScroll(typeof opts.scrollTop === "number" ? opts.scrollTop : scroll);
-
-    if (opts.focusId) {
-      const target = view.querySelector('[data-focus-id="' + CSS.escape(opts.focusId) + '"]');
-      if (target) {
-        target.focus();
-        target.scrollIntoView({ block: "nearest" });
-      }
-    }
   }
 
   // ---------- Nagłówek poziomu ----------
 
   function renderLevelHeader(level) {
     const header = el("header", { class: "level-header" }, [
-      el("div", { class: "level-title-row" }, [
-        el("h1", { class: "level-title" }, [
-          el("span", { class: "level-dot", "aria-hidden": "true" }),
-          level.id
-        ]),
-        isEdit() ? el("span", { class: "mode-chip", text: "Tryb edycji" }) : null
+      el("h1", { class: "level-title" }, [
+        el("span", { class: "level-dot", "aria-hidden": "true" }),
+        level.id
       ])
     ]);
-
-    if (isEdit()) {
-      header.appendChild(el("div", { class: "level-desc-field" }, boundField(level, "description", {
-        multiline: true,
-        rows: 1,
-        placeholder: "Krótki opis poziomu (opcjonalnie)…",
-        label: "Opis poziomu " + level.id
-      })));
-    } else if (!U.isBlank(level.description)) {
+    if (!U.isBlank(level.description)) {
       header.appendChild(el("p", { class: "level-desc" }, U.formatText(level.description)));
     }
     return header;
@@ -217,7 +144,6 @@ window.ELM = window.ELM || {};
   function renderCategoryBar(activeCat) {
     const cats = ELM.state.content.categories;
     const bar = el("div", { class: "category-bar" });
-
     if (cats.length) {
       bar.appendChild(el("div", { class: "segmented", role: "tablist", "aria-label": "Kategorie" },
         cats.map(function (c) {
@@ -232,17 +158,6 @@ window.ELM = window.ELM || {};
         })
       ));
     }
-
-    if (isEdit()) {
-      const index = activeCat ? cats.indexOf(activeCat) : -1;
-      bar.appendChild(el("div", { class: "edit-toolbar", "aria-label": "Edycja kategorii" }, [
-        textBtn("+ Kategoria", function () { editor().addCategory(); }, "btn-ghost"),
-        activeCat ? textBtn("Zmień nazwę", function () { editor().renameCategory(activeCat.id); }) : null,
-        activeCat ? iconBtn("←", "Przesuń kategorię w lewo", function () { editor().moveCategory(activeCat.id, -1); }, { disabled: index <= 0 }) : null,
-        activeCat ? iconBtn("→", "Przesuń kategorię w prawo", function () { editor().moveCategory(activeCat.id, 1); }, { disabled: index >= cats.length - 1 }) : null,
-        activeCat ? textBtn("Usuń kategorię", function () { editor().deleteCategory(activeCat.id); }, "btn-danger") : null
-      ]));
-    }
     return bar;
   }
 
@@ -250,13 +165,12 @@ window.ELM = window.ELM || {};
 
   function renderEssentials(level, cat, bucket) {
     const stats = app().getStats(level.id, cat.id);
-    const list = bucket.essentials;
     const progress = ELM.state.progress;
 
     const section = el("section", { class: "card essentials", "aria-labelledby": "ess-title" }, [
       el("div", { class: "section-head" }, [
         el("h2", { class: "section-title", id: "ess-title", text: "Essentials" }),
-        el("span", { class: "section-sub", text: "Co uczeń powinien umieć na poziomie " + level.id })
+        el("span", { class: "section-sub", text: "Co warto umieć na poziomie " + level.id })
       ]),
       el("div", { class: "essentials-progress", id: "ess-progress" }, [
         progressBar(stats.percent, false, "Postęp essentials"),
@@ -264,13 +178,10 @@ window.ELM = window.ELM || {};
       ])
     ]);
 
-    // W podglądzie pomijamy puste punkty
-    const visible = isEdit() ? list : list.filter(function (e) { return !U.isBlank(e.text); });
-
+    // Puste punkty (bez tekstu) nie są pokazywane
+    const visible = bucket.essentials.filter(function (e) { return !U.isBlank(e.text); });
     if (!visible.length) {
-      section.appendChild(emptyState("Brak punktów na tym poziomie.", "+ Dodaj pierwszy punkt", function () {
-        editor().addEssential();
-      }));
+      section.appendChild(emptyState("Brak punktów w tej kategorii."));
       return section;
     }
 
@@ -279,6 +190,7 @@ window.ELM = window.ELM || {};
       const done = progress[item.id] === true;
       const textId = "ess-text-" + item.id;
       const pageLink = ELM.niezbednik.linkForEssential(item.id);
+      let li = null;
       const checkbox = el("label", { class: "umiem" }, [
         el("input", {
           type: "checkbox",
@@ -292,51 +204,19 @@ window.ELM = window.ELM || {};
         el("span", { text: "Umiem" })
       ]);
 
-      let li;
-      if (isEdit()) {
-        const index = list.indexOf(item);
-        const field = boundField(item, "text", {
-          multiline: true,
-          rows: 1,
-          placeholder: "Opisz umiejętność…",
-          label: "Treść punktu " + (index + 1),
-          focusId: item.id,
-          onChange: function () { app().refreshProgress(); }
-        });
-        field.id = textId;
-        li = el("li", { class: "ess-item edit-row" + (done ? " is-done" : "") }, [
-          checkbox,
-          field,
-          pageLink ? el("a", {
-            class: "ess-page-link",
-            href: ELM.niezbednik.routeOf(pageLink.item),
-            title: "Otwórz podstronę",
-            onclick: rememberScroll
-          }, "Podstrona ›") : null,
-          rowControls(list, index, function () { editor().deleteEssential(index); }, {
-            up: "Przesuń punkt w górę", down: "Przesuń punkt w dół", remove: "Usuń punkt"
-          })
-        ]);
-      } else {
-        li = el("li", { class: "ess-item" + (done ? " is-done" : "") + (pageLink ? " has-page" : "") }, [
-          el("div", { class: "ess-text", id: textId }, pageLink
-            // Punkt z podstroną: tekst jest linkiem
-            ? el("a", { class: "ess-link", href: ELM.niezbednik.routeOf(pageLink.item), onclick: rememberScroll }, [
-                U.formatText(item.text),
-                el("span", { class: "ess-link-arrow", "aria-hidden": "true", text: "›" })
-              ])
-            : U.formatText(item.text)),
-          checkbox
-        ]);
-      }
+      li = el("li", { class: "ess-item" + (done ? " is-done" : "") + (pageLink ? " has-page" : "") }, [
+        el("div", { class: "ess-text", id: textId }, pageLink
+          // Punkt z podstroną: tekst jest linkiem
+          ? el("a", { class: "ess-link", href: ELM.niezbednik.routeOf(pageLink.item), onclick: rememberScroll }, [
+              U.formatText(item.text),
+              el("span", { class: "ess-link-arrow", "aria-hidden": "true", text: "›" })
+            ])
+          : U.formatText(item.text)),
+        checkbox
+      ]);
       ul.appendChild(li);
     });
     section.appendChild(ul);
-
-    if (isEdit()) {
-      section.appendChild(el("div", { style: "margin-top:14px" },
-        textBtn("+ Dodaj punkt", function () { editor().addEssential(); }, "btn-ghost")));
-    }
     return section;
   }
 

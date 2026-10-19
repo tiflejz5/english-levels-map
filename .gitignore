@@ -11,6 +11,7 @@ desktop.ini
 # Kopie zapasowe danych (eksporty z aplikacji) — nie wrzucaj ich do repozytorium
 english-levels-content-*.json
 english-levels-progress-*.json
+english-levels-dane-*.json
 english-levels-uszkodzone-*.txt
 
 # Oryginalne arkusze, PDF-y i nagrania Cambridge NIE trafiają do (publicznego)

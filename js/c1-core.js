@@ -384,7 +384,6 @@ window.ELM = window.ELM || {};
   function render(route) {
     const view = document.getElementById("view");
     const keepScroll = view.dataset.file === routeKey(route) ? U.getScroll() : 0;
-    document.body.classList.toggle("is-editing", ELM.state.editMode);
     view.className = "view c1-view";
     view.dataset.file = routeKey(route);
     view.replaceChildren();

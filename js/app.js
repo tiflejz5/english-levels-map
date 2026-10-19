@@ -6,7 +6,6 @@
  *   profiles — profile z osobnym postępem (zapisywane w elm_profiles_v1)
  *   progress — postęp AKTYWNEGO profilu (odnośnik do profiles…progress)
  *   ui       — wybrany poziom / kategoria (elm_ui_v1)
- *   editMode — czy włączony jest tryb edycji (zawsze startuje wyłączony)
  *   view     — co jest wyświetlane: "home" (strona główna, adres #/),
  *              "level" (lista poziomu, #/a1) albo "page" (podstrona, #/a1/…)
  *   route    — otwarta podstrona niezbędnika ({ file }) albo null
@@ -20,14 +19,11 @@ window.ELM = window.ELM || {};
   const U = ELM.utils;
   const el = U.el;
 
-  const SAVE_DELAY_MS = 400; // zapis po krótkiej przerwie w pisaniu
-
   const state = ELM.state = {
     content: null,
     profiles: null,
     progress: {},
     ui: { levelId: "A1", categoryId: null },
-    editMode: false,
     storageOk: true,
     view: "home",
     route: null,
@@ -53,7 +49,7 @@ window.ELM = window.ELM || {};
         syncProgress();
         addBanner("error", "Pamięć przeglądarki (localStorage) jest niedostępna, więc zmiany NIE będą zapisywane. " +
           "Sprawdź ustawienia przeglądarki (np. tryb prywatny, blokada plików cookie). Możesz zaimportować kopię i korzystać ze strony do zamknięcia karty.",
-          { label: "Importuj kopię…", onClick: function () { ELM.dataMenu.importContent(); } });
+          { label: "Importuj kopię…", onClick: function () { ELM.dataMenu.importAll(); } });
         fixUi();
         applyRoute();
         renderAll();
@@ -97,12 +93,6 @@ window.ELM = window.ELM || {};
 
   function bindStaticEvents() {
     ELM.profiles.bindEvents();
-    document.getElementById("edit-toggle").addEventListener("change", function (e) {
-      setEditMode(e.target.checked);
-    });
-    document.getElementById("data-menu-btn").addEventListener("click", function () {
-      ELM.dataMenu.open();
-    });
     // Zapisz zaległe zmiany przy zamykaniu / chowaniu karty
     window.addEventListener("beforeunload", flushSave);
     // Podstrony niezbędnika: adresy #/a1/… (zmiana adresu = zmiana widoku)
@@ -262,12 +252,6 @@ window.ELM = window.ELM || {};
     renderAll();
   }
 
-  function setEditMode(on) {
-    flushSave();
-    state.editMode = !!on;
-    renderAll();
-  }
-
   // =====================================================================
   // RYSOWANIE
   // =====================================================================
@@ -292,29 +276,14 @@ window.ELM = window.ELM || {};
   // ZAPIS
   // =====================================================================
 
-  /** Zapis z opóźnieniem — używany podczas pisania w polach. */
-  function scheduleSave() {
-    setSaveStatus("Zapisywanie…");
-    clearTimeout(saveTimer);
-    saveTimer = setTimeout(saveContentNow, SAVE_DELAY_MS);
-  }
-
   /** Natychmiastowy zapis treści. */
   function saveContentNow() {
     clearTimeout(saveTimer);
     saveTimer = null;
     if (!state.content) return;
-    if (!state.storageOk) {
-      setSaveStatus("Zmiany nie są zapisywane (brak dostępu do pamięci).", true);
-      return;
-    }
+    if (!state.storageOk) return; // komunikat o braku pamięci jest już na banerze
     const res = ELM.store.saveContent(state.content);
-    if (res.ok) {
-      const now = new Date();
-      setSaveStatus("Zapisano o " + String(now.getHours()).padStart(2, "0") + ":" + String(now.getMinutes()).padStart(2, "0"));
-    } else {
-      setSaveStatus("Nie zapisano! " + res.error, true);
-    }
+    if (!res.ok) reportSaveError("Nie zapisano treści! " + res.error);
   }
 
   /** Zapisuje zaległe zmiany, jeśli czekają w kolejce. */
@@ -326,23 +295,19 @@ window.ELM = window.ELM || {};
   function saveProgressNow() {
     if (!state.storageOk) return;
     const res = ELM.store.saveProfiles(state.profiles);
-    if (!res.ok) setSaveStatus("Nie zapisano postępu! " + res.error, true);
+    if (!res.ok) reportSaveError("Nie zapisano postępu! " + res.error);
   }
 
   function saveUI() {
     if (state.storageOk) ELM.store.saveUI(state.ui);
   }
 
-  /** Po zmianie struktury: zapisz od razu i przerysuj widok. */
-  function commit(opts) {
-    saveContentNow();
-    renderAll(opts);
-  }
-
-  function setSaveStatus(text, isError) {
-    const node = document.getElementById("save-status");
-    node.textContent = text;
-    node.classList.toggle("is-error", !!isError);
+  /** Błąd zapisu: pokazujemy baner (tylko raz dla tego samego komunikatu). */
+  let lastSaveError = "";
+  function reportSaveError(text) {
+    if (text === lastSaveError) return;
+    lastSaveError = text;
+    addBanner("error", text + " Zrób eksport danych, żeby nie stracić zmian.");
   }
 
   // =====================================================================
@@ -368,7 +333,6 @@ window.ELM = window.ELM || {};
     fixUi();
     saveContentNow();
     saveUI();
-    document.getElementById("edit-toggle").disabled = false; // po ekranie błędu
     renderAll({ resetScroll: true });
   }
 
@@ -465,7 +429,6 @@ window.ELM = window.ELM || {};
 
   /** Ekran, gdy zapisane treści są uszkodzone — zamiast białej strony. */
   function showCorruptScreen(loaded) {
-    document.getElementById("edit-toggle").disabled = true;
     document.getElementById("level-list").replaceChildren();
     document.getElementById("sidebar-category-name").textContent = "";
 
@@ -481,7 +444,7 @@ window.ELM = window.ELM || {};
           class: "btn btn-primary",
           onclick: function () {
             ELM.store.backupCorrupt(loaded.raw);
-            ELM.dataMenu.importContent();
+            ELM.dataMenu.importAll();
           }
         }, "Importuj kopię treści…"),
         el("button", {
@@ -527,7 +490,7 @@ window.ELM = window.ELM || {};
       el("div", { class: "error-details", text: String(err && err.stack || err) }),
       el("div", { class: "error-actions" }, [
         el("button", { type: "button", class: "btn btn-primary", onclick: function () { location.reload(); } }, "Odśwież stronę"),
-        el("button", { type: "button", class: "btn btn-secondary", onclick: function () { ELM.dataMenu.open(); } }, "Otwórz menu „Dane”")
+        el("button", { type: "button", class: "btn btn-secondary", onclick: function () { ELM.dataMenu.importAll(); } }, "Importuj dane…")
       ])
     ]));
   }
@@ -542,13 +505,10 @@ window.ELM = window.ELM || {};
     levelHash: levelHash,
     goToList: goToList,
     selectCategory: selectCategory,
-    setEditMode: setEditMode,
     refreshProgress: refreshProgress,
-    scheduleSave: scheduleSave,
     saveContentNow: saveContentNow,
     saveProgressNow: saveProgressNow,
     saveUI: saveUI,
-    commit: commit,
     setProgress: setProgress,
     replaceContent: replaceContent,
     replaceProgress: replaceProgress,
