@@ -6,7 +6,7 @@ Plan prac wizualnych:
 
 1. **Fundament** (kolory, fonty, tokeny, komponenty bazowe) — zrobione.
 2. **Lewy panel** — zrobione (sekcja 3.1).
-3. Strona „Dziś”, poziomy i celebracje.
+3. **Strona „Dziś”, poziomy i celebracje** — zrobione (sekcje 3.2–3.5).
 4. Treści podstron, Certyfikat C1 i kontrola jakości.
 
 ---
@@ -129,6 +129,9 @@ Szczegóły zasad: sekcja 4.
 - `--scrollbar`, `--scrollbar-hover`: subtelny pasek przewijania.
 - `--topo-color` i `--topo-opacity` (4–5%): wzór warstwic za nagłówkami.
 - `--topbar-h`: wysokość górnego paska (pod nim są elementy „sticky”).
+- `--topo-mask`: wzór warstwic jako maska (wspólny dla nagłówków i hero „Dziś”).
+- `--cat-uoe`, `--cat-reading`, `--cat-writing`, `--cat-listening`, `--cat-speaking`, `--cat-grammar`, `--cat-vocab`, `--cat-other`: paski kategorii dziennika.
+- `--c1-cream`, `--c1-cream-muted`: tekst na granacie (kafel egzaminu).
 
 ## 3. Komponenty bazowe
 
@@ -186,6 +189,83 @@ Pliki: `index.html` (znaczniki), `js/sidebar.js` (zachowanie), `js/render.js` (n
 
 **Certyfikat C1:** chip w granacie i złocie (`--c1-navy`, `--c1-gold`, `--c1-soft`, `--c1-ink`, `--c1-edge`). Zewnętrzna krawędź `--c1-edge` (granat w jasnym motywie, złoto w ciemnym) ma ≥ 3:1 do panelu. Etap 4 dopracuje szczegóły.
 
+### 3.2 Strona „Dziś” — kokpit (etap 3)
+
+Plik: `js/today.js`, sekcja „STRONA „DZIŚ” — kokpit” w `css/style.css`.
+
+**Układ bento:** 12 kolumn na komputerze, 6 na tablecie (do 1023 px), 1 na telefonie (do 640 px).
+
+| Kafel | Kolumny (komputer) | Treść |
+|---|---|---|
+| Hero | 8 | Data, powitanie zależne od pory dnia („Dzień dobry” 5–12, „Miłego popołudnia” 12–18, „Dobry wieczór”), jedno zdanie zachęty zależne od stanu (szczegóły niżej), pierścień „Twoja mapa” (łączny postęp „Umiem”, gradient marki). Tło warstwicowe tylko tutaj. |
+| Powtórki | 4 | Duża liczba i „Zacznij powtórki”, a przy zerze kompas SVG i „Na dziś czysto”. |
+| Zachęta do testu | 12 | Tylko dla profilu bez postępów i bez wyniku testu. |
+| Szlak A1 → C2 | 12 | SVG: ścieżka przez sześć stacji i przebyty odcinek w gradiencie marki. Stacje to linki HTML z pierścieniem (procent „Umiem”, wszystkie kategorie) i nazwą. Pinezka „Tu jesteś” stoi na pierwszej stacji poniżej 100%. Gdy kafel ma poniżej 480 px szerokości, szlak jest pionowy. |
+| Seria | 5 | Płomień SVG (zapalony przy serii > 0), liczba dni, najdłuższa seria, 7 kropek (✓ w dniu nauki, dziś z obwódką). |
+| Egzamin | 4 | Tylko z datą ustawioną w Certyfikacie C1 (`c1.daysUntil` / `countdownText`). Granat i złoto. |
+| Dodaj błąd | 3 | Skrót do formularza dziennika. |
+| Kontynuuj | 4 (12 przy kaflu egzaminu) | Ostatnio otwarta podstrona. |
+
+**Zdanie zachęty**, w kolejności sprawdzania:
+1. Dziś już była aktywność → „zaliczone, możesz odpocząć”.
+2. Są powtórki → „N błędów czeka – to dobry start”.
+3. Nic jeszcze nie zrobione → pierwszy punkt bieżącej stacji z linkiem do podstrony.
+4. W pozostałych przypadkach → „Propozycja na dziś: …”.
+
+**Animacje** (`js/motion.js`):
+- Kafelki wchodzą kolejno (stagger 60 ms), duże liczby odliczają od zera.
+- Przebyty odcinek szlaku „rysuje się” (DrawSVG), pinezka dojeżdża do stacji (MotionPath).
+- Pierścienie wypełniają się przejściem CSS.
+- Kolejne wejścia w tej samej sesji to tylko krótkie odświeżenie (250 ms).
+
+**Szczegóły techniczne szlaku:**
+- Środek pierścienia stacji leży dokładnie na punkcie ścieżki.
+- Pinezka jest na osobnej warstwie SVG nad stacjami (`pointer-events: none`). Jej wielkość i uniesienie (32 px) są stałe w pikselach ekranu, niezależnie od skali `viewBox`.
+
+### 3.3 Celebracje (etap 3)
+
+Plik: `js/celebrate.js`.
+- **Kamienie milowe:**
+  - pierwsze „Umiem”, 10 / 25 / 50 / 100 „Umiem”;
+  - poziom 25 / 50 / 75 / 100% (wszystkie kategorie);
+  - seria 3 / 7 / 14 / 30 dni;
+  - pierwsza sesja powtórek, ukończony test poziomu.
+- **Każdy kamień milowy pokazujemy raz na profil.** Zapis w `elm_celebrated_v1` = `{ version: 1, profiles: { id: { ids } } }`, objęty eksportem, importem, resetem i usuwaniem profilu.
+- **Profil z istniejącym postępem** przy pierwszym uruchomieniu (start aplikacji, zmiana profilu) dostaje zapis już osiągniętych kamieni bez pokazywania.
+- **Forma:** karta „toast” na dole ekranu:
+  - ikona w kolorze kontekstu (poziom albo akcent), tytuł fontem display i jedno zdanie;
+  - znika po 2,8 s, robi pauzę pod kursorem, zamyka się kliknięciem lub Esc;
+  - `role="status"` i `pointer-events` tylko na karcie, więc nie blokuje interfejsu;
+  - kolejka pokazuje jedną kartę naraz, a przy kilku nowych kamieniach do 2 najważniejszych.
+- **Konfetti:** 22 elementy DOM animowane GSAP przez około 1 s, w kolorze poziomu albo w kolorach krain, potem usuwane. Przy `prefers-reduced-motion` jest sama karta.
+- **Teksty:** krótkie i konkretne, bez przesady (np. „Tydzień z rzędu – Siedem dni nauki bez przerwy.”, „A1 ukończony – … Następny przystanek: A2.”).
+
+### 3.4 Strony poziomów (etap 3)
+
+- **Nagłówek:**
+  - słowo „Poziom” wersalikami;
+  - duży znak poziomu (`--fs-4xl`, `--lvl-ink`), nazwa i cel z opisu;
+  - pierścień postępu całego poziomu (aktualizowany w miejscu po „Umiem”);
+  - tło `linear-gradient(--lvl-soft → --surface)`.
+- **Akcent:** na stronie poziomu i jego podstronach (`.view.lvl-XX`) `--accent`, `--accent-soft`, `--focus-color` i `--focus-ring` przyjmują kolor krainy. Linki, chipy i fokus są w kolorze poziomu, a przycisk główny zostaje w kolorze atramentu.
+- **Kategorie:** filtr jako chipy (`.chip-btn`, `aria-pressed`, ✓ przy wybranym, 44 px).
+- **Punkty:** karty z chipem kategorii i pigułką „Umiem”, ramka z domieszką koloru krainy. Zaznaczone mają tło `--lvl-soft`.
+- **Strona główna:** wiersze tabeli „Poziomy w skrócie” mają pasek i tło przy najechaniu w kolorze krainy. Podsumowanie poziomu ma pasek krainy u góry.
+
+### 3.5 Test poziomu i Dziennik błędów (etap 3)
+
+- **Test:**
+  - jedno pytanie na ekranie, kropki postępu z ✓ / ✗ (nie tylko kolor);
+  - po odpowiedzi litera zamienia się w ✓ / ✗, a obok jest etykieta „Poprawna” / „Twoja odpowiedź”;
+  - wynik pokazuje duży znak poziomu (`clamp` do 6,5 rem, kolor krainy) z animacją „wyskoczenia” (GSAP, bez ruchu przy `reduced-motion`).
+- **Dziennik:**
+  - pasek kategorii przy wpisie i karcie powtórki: tokeny `--cat-*` w obu motywach, ≥ 3:1 do karty, nazwa kategorii zawsze w chipie;
+  - sesja powtórek: duża karta, kontekst fontem display, „Pokaż odpowiedź” (ikona oka), potem dwa wyraźne przyciski: „Wiedziałem(am)” (zielony, ✓) i „Znowu błąd” (ikona powtórki).
+
+### 3.6 React Bits
+
+Pominięte. Aplikacja nie jest w React, a brief dopuszczał ten krok tylko dla Reacta.
+
 ## 4. Ruch
 
 - **Proste rzeczy tylko w CSS.** Hover, focus, pojawianie się i przejścia kolorów robi CSS. Animujemy `opacity` i `transform`. Wyjątek to krótkie przejście kolorów przy zmianie motywu (klasa `html.theme-anim`).
@@ -194,7 +274,9 @@ Pliki: `index.html` (znaczniki), `js/sidebar.js` (zachowanie), `js/render.js` (n
   - Ładujemy go **tylko na żądanie**: `ELM.loadGsap().then(gsap => …)` wstrzykuje `<script>`. Działa także przy `file://`, gdzie dynamiczny `import()` modułów jest zablokowany.
   - Każda animacja przez `gsap.matchMedia()` z gałęzią `(prefers-reduced-motion: reduce)` bez ruchu.
   - Przy opuszczeniu widoku: `mm.revert()` / `ctx.revert()`. Aplikacja nie używa Reacta, więc zamiast `useGSAP` sprzątamy przy zmianie trasy.
-  - W etapie 1 GSAP nie jest ładowany na żadnym ekranie.
+  - Wszystkie animacje GSAP przechodzą przez `js/motion.js`: `ELM.motion.run(plugins, setup)` ładuje GSAP i wtyczki, wywołuje `setup(gsap, reduce)` w `gsap.matchMedia()` i sprząta (`mm.revert()`) przy następnej animacji i przy zmianie strony (`app.onRoute`). Gdy GSAP się nie wczyta albo ruch jest ograniczony, widok od razu pokazuje stan końcowy.
+  - Używane wtyczki: DrawSVG i MotionPath (tylko szlak na „Dziś”). Pliki `assets/vendor/*.min.js` kopiuje `npm run zasoby`.
+  - Gdzie ładowany: „Dziś”, ekran wyniku testu i celebracje. Pozostałe ekrany GSAP nie ładują.
 - **Bez wygładzania przewijania.** Nie używamy Lenis ani podobnych bibliotek. Przewijanie jest natywne (zagnieżdżone panele, pola tekstowe, iPad).
 - **Bez ciężkich efektów tła.** Zakazane są WebGL i canvas z cząsteczkami.
 - **`prefers-reduced-motion: reduce`.** Globalna reguła skraca animacje i przejścia do 0.01 ms. Zostają tylko zmiany natychmiastowe (kolor, krycie bez ruchu).
@@ -273,6 +355,22 @@ Ograniczenie: audyt automatyczny nie zastępuje testu z czytnikiem ekranu (NVDA 
 - Testy zachowania: opóźnienia 120 / 250 ms, treść nie przesuwa się przy rozwinięciu (lewa krawędź treści stała 72 px), przypięcie odsuwa treść do 288 px i przetrwa przeładowanie, tablet (tapnięcie / tapnięcie poza), szuflada na telefonie.
 - Krytyka: przy 0% pierścienie krain są blade (sam tor), więc „nieodkryte krainy” warto pokazać na etapie 3. Chip C1 do dopracowania na etapie 4.
 
+**Etap 3 (Dziś, celebracje, poziomy, test, dziennik):**
+- Audyt Playwright, oba motywy, 11 tras, 1280 i 390 px:
+  - kontrast wyrenderowanego tekstu i nazwy dostępne: 0 problemów;
+  - fokus widoczny, 200% bez przewijania w poziomie;
+  - po poprawce chipy kategorii mają 44 px.
+- Kontrast tokenów: 188 par (doszły paski kategorii, etykiety testu, kafel egzaminu). Ciemny `--success-fill` rozjaśniony do `#2fa35d`, żeby granatowy tekst miał ≥ 4.5:1.
+- Testy zachowania:
+  - celebracje: pierwsze „Umiem”, 10 „Umiem” i A1 25% w kolejce, Esc, brak powtórzeń, sama karta przy `reduced-motion`;
+  - szlak: pinezka nad bieżącą stacją, w trybie z animacją i bez.
+- Krytyka:
+  - szlak na tablecie poziomy (próg 480 px), bo pionowy zostawiał pustą połowę kafla;
+  - link propozycji w hero w osobnej linii.
+- Rozmiar:
+  - kod ładowany zawsze: 376.0 → 421.3 KB (gzip 115.4 → 130.9 KB, czyli +15.4 KB);
+  - GSAP z wtyczkami na żądanie: 97 KB (gzip 39.4 KB), w tym rdzeń 71.2 KB, DrawSVG 4.2 KB i MotionPath 21.5 KB.
+
 ## 10. Dziennik zmian
 
 - **Etap 1 (fundament).**
@@ -287,4 +385,9 @@ Ograniczenie: audyt automatyczny nie zastępuje testu z czytnikiem ekranu (NVDA 
   - Wąski pasek 72 px z pierścieniami krain, rozwijanie nad treścią, pinezka (`elm_sidebar_v1`), szuflada poniżej 768 px.
   - Wspólne liczby postępu (cały poziom w panelu i na „Dziś”, „w tej kategorii” na stronie poziomu).
   - Górny pasek ujednolicony.
+- **Etap 3.**
+  - „Dziś” jako kokpit bento ze szlakiem A1 → C2 i animacjami GSAP (`js/motion.js`).
+  - Celebracje kamieni milowych (`js/celebrate.js`, `elm_celebrated_v1`).
+  - Nagłówki i karty stron poziomów z akcentem krainy.
+  - Test z kropkami i wyraźnymi stanami, dziennik z paskami kategorii.
   - Układ ekranów bez zmian.

@@ -329,7 +329,7 @@ window.ELM = window.ELM || {};
 
   /** Rysuje szlak w kontenerze (po wstawieniu do DOM — potrzebna szerokość). */
   function drawTrail(stage, stats) {
-    const vertical = stage.clientWidth < 600;
+    const vertical = stage.clientWidth < 480;
     const g = geometry(vertical);
     const cur = currentIndex(stats);
     stage.replaceChildren();
@@ -355,7 +355,9 @@ window.ELM = window.ELM || {};
     // Znacznik „tu jesteś” (pinezka mapy)
     // Zewnętrzna grupa jedzie po ścieżce (x, y = punkt ścieżki), wewnętrzna unosi pinezkę nad stację
     const marker = svgEl("g", { class: "trail-marker" });
-    const lift = svgEl("g", { transform: "translate(0 -32)" });
+    // Pinezka w stałych pikselach ekranu: 32 px nad środkiem stacji, bez względu na skalę viewBoxa
+    const k = vertical ? 1 : g.w / Math.max(1, stage.clientWidth);
+    const lift = svgEl("g", { transform: "translate(0 " + (-32 * k).toFixed(2) + ") scale(" + k.toFixed(3) + ")" });
     lift.appendChild(svgEl("path", { d: "M0 0c-7-8-11-13-11-19a11 11 0 0 1 22 0c0 6-4 11-11 19Z", class: "trail-marker-pin" }));
     lift.appendChild(svgEl("circle", { cx: 0, cy: -19, r: 4.2, class: "trail-marker-dot" }));
     marker.appendChild(lift);
@@ -436,7 +438,7 @@ window.ELM = window.ELM || {};
     if (window.ResizeObserver) {
       let lastVertical = parts.vertical;
       trailObserver = new ResizeObserver(function () {
-        const v = stage.clientWidth < 600;
+        const v = stage.clientWidth < 480;
         if (v !== lastVertical) { lastVertical = v; parts = drawTrail(stage, stats); }
       });
       trailObserver.observe(stage);
