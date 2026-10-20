@@ -369,6 +369,46 @@ Pominięte. Aplikacja nie jest w React, a brief dopuszczał ten krok tylko dla R
 - **Zakładki** to linki z `aria-current="page"` (każda ma swój adres). Na wąskim ekranie pasek zakładek przewija się w poziomie.
 - **Dobierz czas:** duże przyciski odpowiedzi (56 px), ścieżka wyborów nad pytaniem, fokus wraca na nowe pytanie. Wynik to karty czasów z uzasadnieniem i przykładem.
 
+### 3.11 Statystyki i automatyczny dziennik (rozbudowa v2, etap 2)
+
+- **Wykresy według skilla `dataviz`, bez biblioteki** (HTML i SVG na tokenach).
+  - Kafle liczb (wartość `--fs-2xl`, etykieta nad nią).
+  - Poziome paski trafności: tor `--lvl-soft`, wypełnienie `--lvl`, 4 px zaokrąglenie na końcu.
+  - Kolumny trendu: maks. 24 px, zaokrąglony tylko górny koniec, siatka 1 px ciągła.
+  - Mapa aktywności: 12 × 7 pól po 16 px.
+- **Kolor jest dodatkiem do treści.**
+  - Paski tematów mają kolor poziomu i kod poziomu w etykiecie.
+  - Wartości i etykiety są w kolorach tekstu, nigdy w kolorze danych.
+  - Paleta poziomów przechodzi walidator CVD skilla w obu motywach (najsłabsza para ΔE 12,4 jasny / 11,6 ciemny).
+- **Małe próbki.**
+  - Poniżej 5 prób zamiast procentu jest „za mało danych”.
+  - Kolumna trendu z < 5 próbami jest jaśniejsza.
+  - Pod każdą kolumną jest `n=` (liczba prób).
+- **Dostępność.**
+  - Kolumny trendu mają fokus i `aria-label`, obok jest tabela w `<details>`.
+  - Mapa aktywności ma `role="img"` z podsumowaniem tekstowym.
+  - Bez porównań i rankingów.
+- **Automatyczny dziennik.**
+  - Wpisy z zadań mają chip z iskrą („Automatyczny · wrócił · błędów: N”) w `--accent-soft` i filtr chipem.
+  - Podsumowanie sesji jest w ramce `--info-bg`.
+  - Zaliczona powtórka to zielony znacznik ✓ w informacji zwrotnej.
+- **Toast** (`ELM.ui.toast`): ciemna karta `--inverse-bg` u dołu ekranu (na telefonie nad przyciskami sesji), `role="status"`, 5 s, wstrzymywany przy najechaniu i fokusie, przycisk akcji podkreślony.
+- **Sugestia „Umiem”:** ramka `--success-soft` z iskrą, „Zaznacz „Umiem”” i „Nie teraz”.
+- **Przełącznik** w menu profilu: `role="switch"`, tor 40 × 24 px, włączony w `--success-fill`.
+
+### 3.12 Wyszukiwarka i notatki (rozbudowa v2, etap 2)
+
+- **Wyszukiwarka.**
+  - Karta `--surface` na środku u góry (`min(720px, 100vw − 32px)`), na telefonie na całą szerokość.
+  - Wysuwa się w 180 ms (bez ruchu przy `reduced-motion`).
+  - Wyniki są pogrupowane (nagłówki wersalikami). Aktywna opcja ma tło `--accent-soft` i lewy pasek akcentu.
+  - Dopasowania są podświetlone `<mark>` w bursztynie, wstawianym przez podział tekstu, nie HTML.
+  - Strefa najechania ma 12 px wysokości, środkowe 50% obszaru treści i opóźnienie 400 ms.
+- **Notatki.**
+  - Przycisk „Notatki” (ikona zeszytu, kropka akcentu przy istniejącej notatce) stoi w nagłówku strony.
+  - Panel pojawia się z prawej (400 px) na szerokim ekranie, a na telefonie jako dolna szuflada (do 70% wysokości).
+  - Pole tekstowe w `--lh-body`, a pod nim status zapisu i licznik (od 80% limitu, przy limicie w `--danger`).
+
 ## 4. Ruch
 
 - **Proste rzeczy tylko w CSS.** Hover, focus, pojawianie się i przejścia kolorów robi CSS. Animujemy `opacity` i `transform`. Wyjątek to krótkie przejście kolorów przy zmianie motywu (klasa `html.theme-anim`).
