@@ -145,7 +145,7 @@ window.ELM = window.ELM || {};
     const profile = ELM.app.getActiveProfile();
     run = {
       key: cfg.key, title: cfg.title, intro: cfg.intro || "", topic: cfg.topic || null,
-      saveId: cfg.saveId || null, isMix: !!cfg.isMix, repick: cfg.repick || null,
+      saveId: cfg.saveId || null, isMix: !!cfg.isMix, isWeak: !!cfg.isWeak, repick: cfg.repick || null,
       profileId: profile ? profile.id : null,
       phase: "intro",
       mode: cfg.mode === "exam" ? "exam" : "learn",
@@ -193,10 +193,22 @@ window.ELM = window.ELM || {};
       return;
     }
     p.res = res;
+    logAttempt(p);
     if (run.mode === "exam") return next();
     render();
     animate(res.correct);
     focusLater(".ex-next");
+  }
+
+  /** Tryb w dzienniku podejść: learn / exam (zestaw), mix (mieszany), weak (słabe punkty). */
+  function attemptMode() { return run.isWeak ? "weak" : run.isMix ? "mix" : run.mode; }
+
+  /** Każda odpowiedź trafia do dziennika podejść (elm_attempts_v1), także gdy sesja zostanie przerwana. */
+  function logAttempt(p) {
+    pd().addAttempt({
+      itemId: p.item.id, setId: p.item.setId || null, topic: p.item.topic, level: p.item.level,
+      type: p.item.type, tags: p.item.tags, correct: !!p.res.correct, mode: attemptMode(), answer: userAnswer(p)
+    });
   }
 
   function next() {
