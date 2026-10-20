@@ -865,14 +865,15 @@ window.ELM = window.ELM || {};
       const sets = (index.topics[topicId] || []).map(function (id) { return index.sets[id]; }).filter(Boolean);
       const tense = index.tenseByTopic && index.tenseByTopic[topicId];
       if (!sets.length && !tense) return;
-      box.replaceChildren(
+      box.replaceChildren();
+      U.appendChildren(box, [
         el("h2", { class: "ex-topic-title", id: "ex-topic-title" }, [
           el("span", { class: "callout-icon", "aria-hidden": "true" }, ELM.icon("list-checks", { size: 20 })),
           "Sprawdź się"
         ]),
         sets.length ? el("div", { class: "ex-set-grid" }, sets.map(setCard)) : null,
         tense ? el("p", { class: "ex-topic-lab" }, el("a", { class: "btn btn-secondary", href: "#/laboratorium-czasow/" + tense.id }, ELM.ui.withIcon("flask-conical", "Zobacz na osi czasu: " + tense.name))) : null
-      );
+      ]);
       box.hidden = false;
     });
     return box;
@@ -880,6 +881,7 @@ window.ELM = window.ELM || {};
 
   ELM.exercises = {
     BASE: BASE,
+    asset: asset,
     TYPE_SHORT: TYPE_SHORT,
     parseRoute: parseRoute,
     render: render,

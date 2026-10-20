@@ -198,6 +198,7 @@ window.ELM = window.ELM || {};
   //   "#/test-poziomu"    → szybki test poziomu
   //   "#/bledy[/powtorki]" → dziennik błędów i sesja powtórek
   //   "#/cwiczenia/zestaw|mix/<id>", "#/cwiczenia/sesja" → sesja zadań (js/exercise-engine.js)
+  //   "#/laboratorium-czasow[/…]" → Laboratorium czasów (js/tense-lab.js)
   // =====================================================================
 
   /** Odczytuje adres i ustawia state.view, state.route i wybrany poziom. */
@@ -209,6 +210,7 @@ window.ELM = window.ELM || {};
     const today = ELM.today ? ELM.today.parseRoute(hash) : null;
     const levelTest = ELM.levelTest ? ELM.levelTest.parseRoute(hash) : null;
     const exercises = ELM.exercises ? ELM.exercises.parseRoute(hash) : null;
+    const lab = ELM.tenseLab ? ELM.tenseLab.parseRoute(hash) : null;
     state.route = null;
     state.c1Route = null;
     state.toolRoute = null;
@@ -227,6 +229,9 @@ window.ELM = window.ELM || {};
     } else if (exercises) {
       state.view = "exercises";
       state.toolRoute = exercises;
+    } else if (lab) {
+      state.view = "lab";
+      state.toolRoute = lab;
     } else if (c1) {
       state.view = "c1"; // zakładka „Certyfikat C1”
       state.c1Route = c1;

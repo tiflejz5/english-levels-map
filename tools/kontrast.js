@@ -95,7 +95,16 @@ pairs.push(
   ["c1-ink", "surface", null, 4.5, "chip części egzaminu / karta"],
   ["warning", "surface", null, 3, "ikona pułapki / tło ikony"],
   ["c1-cream", "c1-navy", null, 4.5, "kafel egzaminu: tekst / granat"],
-  ["c1-cream-muted", "c1-navy", null, 4.5, "kafel egzaminu: data / granat"]
+  ["c1-cream-muted", "c1-navy", null, 4.5, "kafel egzaminu: data / granat"],
+  ["tense-past", "surface", null, 3, "oś czasu: przeszłość / karta"],
+  ["tense-present", "surface", null, 3, "oś czasu: teraźniejszość / karta"],
+  ["tense-future", "surface", null, 3, "oś czasu: przyszłość / karta"],
+  ["tense-past", "bg", null, 3, "oś czasu: przeszłość / tło"],
+  ["tense-future", "bg", null, 3, "oś czasu: przyszłość / tło"],
+  ["ink", "warning-soft", "surface", 4.5, "znajdź błąd: wyraz z błędem / tło"],
+  ["accent", "accent-soft", "surface", 4.5, "wybrana opcja / wyraz: tekst / tło"],
+  ["danger", "danger-soft", "surface", 4.5, "błędny wyraz / luka: tekst / tło"],
+  ["success", "success-soft", "surface", 4.5, "poprawna luka: tekst / tło"]
 );
 ["a1", "a2", "b1", "b2", "c1", "c2"].forEach(function (l) {
   const L = l.toUpperCase();
