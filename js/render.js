@@ -78,7 +78,7 @@ window.ELM = window.ELM || {};
     ]);
   }
 
-  /** Górna część lewego panelu: narzędzia nauki (Dziennik błędów z liczbą powtórek). */
+  /** Górna część lewego panelu: narzędzia nauki (Ćwiczenia, Lab czasów, Dziennik błędów z liczbą powtórek). */
   function renderToolsNav() {
     const box = document.getElementById("tools-nav");
     if (!box) return;
@@ -88,6 +88,8 @@ window.ELM = window.ELM || {};
     const items = [
       { href: "#/dzis", label: "Dziś", icon: "sunrise", active: st.view === "today" },
       { href: "#/test-poziomu", label: "Test poziomu", icon: "target", active: st.view === "leveltest" },
+      { href: "#/cwiczenia", label: "Ćwiczenia", icon: "dumbbell", active: st.view === "exercises" },
+      { href: "#/laboratorium-czasow", label: "Lab czasów", icon: "flask-conical", active: st.view === "lab" },
       { href: "#/bledy", label: "Dziennik błędów", icon: "notebook-pen", active: st.view === "journal",
         badge: due ? String(due) : null, badgeLabel: due ? "powtórki na dziś: " + due : null }
     ];
