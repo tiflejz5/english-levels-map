@@ -27,7 +27,15 @@ Kliknij dwukrotnie `index.html`. Strona działa bezpośrednio z dysku (`file://`
 npm run zasoby
 ```
 
-Kontrola kontrastu obu motywów: `node tools/kontrast.js`.
+Kontrola kontrastu: `node tools/kontrast.js` sprawdza motyw jasny, ciemny i oba warianty sekcji Certyfikat C1.
+
+**Kierunek wizualny w skrócie** (szczegóły w [DESIGN.md](DESIGN.md)):
+- **Mapa podróży.** Poziomy to krainy w swoich kolorach, a postęp to szlak A1 → C2. Treść jest w typografii redakcyjnej: Fraunces w nagłówkach, Inter w tekście.
+- **Tokeny.** Wszystkie kolory, rozmiary, promienie i czasy są zmiennymi CSS na początku `css/style.css`. Poza nimi nie ma kolorów wpisanych na sztywno. Zakładka C1 ma własne tokeny (`html[data-section="certyfikat"]`): kość słoniowa z granatem i złotem za dnia, północny granat ze złotem w nocy.
+- **Ruch.** Proste rzeczy robi CSS. GSAP ładuje się na żądanie (tylko „Dziś”, wynik testu i gratulacje). Przy `prefers-reduced-motion` nie ma ruchu, a widok od razu pokazuje stan końcowy.
+- **Dostępność.** WCAG AA w obu motywach, widoczny fokus, cele ≥ 44 px, kolor nigdy nie jest jedynym nośnikiem informacji, a nazwy dostępne zgadzają się z widocznym tekstem.
+- **Biblioteki i licencje.** Fraunces i Inter (SIL OFL 1.1), Lucide (ISC), GSAP z wtyczkami DrawSVG i MotionPath (standardowa licencja GreenSock, bezpłatna). Wszystkie są kopiowane do `assets/`, bez CDN.
+- **Callouty w treściach.** Sekcje takie jak „Najczęstsza pułapka”, „Na egzaminie C1”, „Kluczowe myśli”, „Co dalej” czy „Przykłady” są wyróżniane na podstawie tekstu nagłówka, a pliki `.md` zostają bez zmian. Nowy typ to wpis w `CALLOUT_RULES` w `js/callouts.js` i klasa `.callout-<typ>` w CSS (instrukcja w DESIGN.md, sekcja 3.7).
 
 Do przebudowania danych podstron (po zmianie plików `.md`/`.json` w `niezbednik/`) potrzebny jest Node.js:
 
@@ -199,7 +207,11 @@ english-levels-map/
 │  ├─ store.js           localStorage, migracja, walidacja, eksport/import
 │  ├─ dialogs.js         okna potwierdzeń / pytań (zamiast confirm/prompt)
 │  ├─ profiles.js        menu profilu (prawy górny róg) i ekran powitalny
-│  ├─ markdown.js        mały renderer Markdown (tabele GFM, listy, cytaty, **/*)
+│  ├─ markdown.js        mały renderer Markdown (tabele GFM, listy, cytaty, **/*, chipy [[id]])
+│  ├─ callouts.js        wyróżnione sekcje (callouty) po tekście nagłówków, przewijane tabele
+│  ├─ ui.js, motion.js   ikony, pierścienie postępu; GSAP na żądanie z prefers-reduced-motion
+│  ├─ sidebar.js         lewy panel (pasek / rozwinięcie / szuflada, przypinanie)
+│  ├─ celebrate.js       gratulacje kamieni milowych
 │  ├─ niezbednik.js      podstrony niezbędnika: routing #/a1/…, dopasowanie, widok
 │  ├─ render.js          rysowanie lewego panelu i strony poziomu
 │  ├─ data-menu.js       sekcja „Dane”: eksport, import, reset
@@ -208,6 +220,10 @@ english-levels-map/
 ├─ niezbednik/           podstrony, podsumowania, strona główna, Certyfikat C1 (patrz niżej)
 ├─ tools/zbuduj-niezbednik.js   generator plików *-dane.js (także test-poziomu-dane.js)
 ├─ tools/testy.js        testy jednostkowe (node tools/testy.js)
+├─ tools/kontrast.js     kontrast WCAG par tokenów (4 zakresy motywów)
+├─ tools/zbuduj-zasoby.js   kopiuje fonty, ikony i GSAP z node_modules do assets/
+├─ assets/               fonty, ikony, GSAP, favicony, wzór warstwic (kopie, bez CDN)
+├─ DESIGN.md             zasady wyglądu, tokeny, komponenty, wyniki przeglądów
 ├─ docs/INSTRUKCJA.md    obsługa dla nauczyciela
 ├─ README.md
 └─ .gitignore

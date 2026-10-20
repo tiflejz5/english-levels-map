@@ -90,7 +90,6 @@
   --success: #1c6e3d;
   --success-fill: #1c7a42;
   --success-soft: #e6f2e6;
-  --success-border: #b9d9bd;
   --warning: #8a5300;
   --warning-soft: #fbf0d9;
   --warning-border: #ebd09b;
@@ -179,7 +178,6 @@
   --success: #6fd796;
   --success-fill: #2fa35d;
   --success-soft: rgba(111, 215, 150, 0.12);
-  --success-border: rgba(111, 215, 150, 0.38);
   --warning: #f5bd61;
   --warning-soft: rgba(245, 189, 97, 0.12);
   --warning-border: rgba(245, 189, 97, 0.38);
@@ -857,7 +855,7 @@ textarea.field { resize: vertical; min-height: 42px; overflow: hidden; }
 .page-foot { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line); }
 
 /* Treść Markdown */
-.md { font-size: var(--fs-md-plus); line-height: 1.6; }
+.md { font-size: var(--fs-md-plus); line-height: var(--lh-body); }
 .md h1 { font-size: var(--fs-2xl); font-weight: 640; line-height: var(--lh-tight); margin-bottom: 16px; }
 .md h1 + p { font-size: var(--fs-lg); color: var(--ink-muted); }
 .md h2 { font-size: var(--fs-xl); font-weight: 600; margin-bottom: 14px; }
@@ -1146,14 +1144,14 @@ textarea.field { resize: vertical; min-height: 42px; overflow: hidden; }
 
 /* ===================== TRENER WRITING ===================== */
 .c1-prompt { margin-bottom: 18px; }
-.c1-prompt-text { white-space: pre-wrap; font-size: var(--fs-md); line-height: 1.6; }
+.c1-prompt-text { white-space: pre-wrap; font-size: var(--fs-md); line-height: var(--lh-body); }
 .c1-writing-bar { position: sticky; top: var(--topbar-h); z-index: 5; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; padding: 6px 0; background: var(--sticky-bg); }
 .c1-words { font-size: var(--fs-sm-plus); font-variant-numeric: tabular-nums; }
 .c1-words.is-ok strong { color: var(--success); }
 .c1-words.is-low strong { color: var(--warning); }
 .c1-words.is-high strong { color: var(--danger); }
 .c1-words-hint { color: var(--ink-muted); }
-.c1-writing-area { min-height: 420px; font-size: var(--fs-md); line-height: 1.6; resize: vertical; }
+.c1-writing-area { min-height: 420px; font-size: var(--fs-md); line-height: var(--lh-body); resize: vertical; }
 .c1-writing-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 16px 0 24px; }
 .c1-saved { font-size: var(--fs-xs-plus); color: var(--ink-muted); }
 .c1-checklist .section-title { margin-bottom: 8px; }
@@ -2119,7 +2117,7 @@ textarea.field { overflow: auto; }
 
 /* ===================== TREŚCI PODSTRON (etap 4, DESIGN.md sekcja 3.7) ===================== */
 /* Typografia: ok. 65–72 znaków w linii, nagłówki fontem display, wyraźna hierarchia */
-.page-view .md p, .page-view .md li, .c1-page p, .c1-page li, .level-summary p, .level-summary li { max-width: 68ch; }
+.page-view .md p, .page-view .md li, .c1-page p, .c1-page li, .level-summary p, .level-summary li { max-width: var(--measure); }
 .md h3 { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: 600; letter-spacing: -0.01em; margin: 24px 0 8px; }
 .md h4 { font-size: var(--fs-md); font-weight: 650; margin: 18px 0 6px; }
 .md-section { margin-top: 44px; }
