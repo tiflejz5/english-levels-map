@@ -359,6 +359,7 @@ window.ELM = window.ELM || {};
     const article = el("article", { class: "md c1-page" }, ELM.markdown.render(doc.blocks, { hiddenSections: HIDDEN_SECTIONS }));
     if (id === "przeglad") insertAfterIntro(article, countdownCard());
     wireTasks(article, id);
+    if (ELM.callouts) ELM.callouts.apply(article);
     view.appendChild(article);
     const nav = pageNav(id);
     if (nav) view.appendChild(nav);
@@ -439,9 +440,9 @@ window.ELM = window.ELM || {};
       ]);
     }).filter(Boolean);
 
-    return el("aside", { class: "c1-exam-box", "aria-label": "Na egzaminie C1" }, [
+    return el("aside", { class: "c1-exam-box callout callout-exam", "aria-label": "Na egzaminie C1" }, [
       el("div", { class: "c1-exam-box-head" }, [
-        el("span", { class: "c1-badge", "aria-hidden": "true", text: "C1" }),
+        el("span", { class: "c1-chip-badge", "aria-hidden": "true", text: "C1" }),
         el("span", { class: "c1-exam-box-title", text: "Na egzaminie C1" })
       ]),
       (link.examParts || []).length ? el("div", { class: "c1-chips" }, link.examParts.map(function (p) {
@@ -482,7 +483,7 @@ window.ELM = window.ELM || {};
 
   ELM.markdown.resolveWiki = function (id) {
     const set = findSet(id);
-    if (set) return { href: hrefSet(id), text: set.set.label };
+    if (set) return { href: hrefSet(id), text: set.set.label, level: "C1", kind: "c1" };
     const N = ELM.NIEZBEDNIK;
     if (N) {
       for (const level of N.index.levels) {
@@ -490,7 +491,7 @@ window.ELM = window.ELM || {};
         if (item) {
           const md = N.pages[item.file];
           const title = md ? ELM.markdown.parseFrontmatter(md).meta.title : null;
-          return { href: ELM.niezbednik.routeOf(item), text: title || item.label };
+          return { href: ELM.niezbednik.routeOf(item), text: title || item.label, level: level.level, kind: "page" };
         }
       }
     }

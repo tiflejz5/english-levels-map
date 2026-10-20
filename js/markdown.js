@@ -212,7 +212,13 @@ window.ELM = window.ELM || {};
       if (!m) { if (part) appendLinks(parent, part); return; }
       const target = resolver(m[1]);
       if (target) {
-        parent.appendChild(el("a", { href: target.href, class: "wiki-link" }, target.text));
+        // Link [[id]] jako mały chip w kolorze poziomu strony docelowej (zestaw C1: granat i złoto)
+        const cls = "wiki-link wiki-chip" + (target.kind === "c1" ? " is-c1" : target.level ? " lvl-" + target.level : "");
+        parent.appendChild(el("a", { href: target.href, class: cls }, [
+          ELM.icon ? ELM.icon(target.kind === "c1" ? "award" : "notebook-text", { size: 14 }) : null,
+          target.level ? el("span", { class: "wiki-chip-level", text: target.level }) : null,
+          el("span", { class: "wiki-chip-text", text: target.text })
+        ]));
       } else {
         console.warn("Nieznany link [[" + m[1] + "]] — wyświetlony jako zwykły tekst.");
         parent.appendChild(document.createTextNode(m[1]));

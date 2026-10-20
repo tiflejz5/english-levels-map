@@ -2056,3 +2056,111 @@ textarea.field { overflow: auto; }
   .review-card { padding: 22px 18px; }
   .review-btn { flex: 1 1 100%; }
 }
+
+/* ===================== TREŚCI PODSTRON (etap 4, DESIGN.md sekcja 3.7) ===================== */
+/* Typografia: ok. 65–72 znaków w linii, nagłówki fontem display, wyraźna hierarchia */
+.page-view .md p, .page-view .md li, .c1-page p, .c1-page li, .level-summary p, .level-summary li { max-width: 68ch; }
+.md h3 { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: 600; letter-spacing: -0.01em; margin: 24px 0 8px; }
+.md h4 { font-size: var(--fs-md); font-weight: 650; margin: 18px 0 6px; }
+.md-section { margin-top: 44px; }
+.md h2 { margin-bottom: 16px; }
+.md li { margin-bottom: 8px; padding-left: 2px; }
+.md li::marker { color: var(--lvl, var(--accent)); }
+.md ol > li::marker { font-weight: 650; }
+
+/* ---------- Callouty (js/callouts.js: reguły po tekście nagłówka) ---------- */
+.callout {
+  position: relative;
+  margin: 28px 0;
+  padding: 20px 24px 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+}
+.md-section.callout { margin-top: 36px; }
+.callout-title { display: flex; align-items: center; gap: 10px; }
+.callout > .callout-title, .callout > h2.callout-title { margin-bottom: 12px; }
+.callout-icon { display: grid; place-items: center; flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%; }
+.callout p:last-child, .callout ul:last-child, .callout ol:last-child { margin-bottom: 12px; }
+.level-summary .callout .md-subhead { margin: 0 0 10px; font-family: var(--font-display); font-size: var(--fs-lg); text-transform: none; letter-spacing: -0.01em; color: var(--ink); }
+.level-summary .callout { margin: 18px 0; padding: 16px 20px 6px; }
+
+/* Najczęstsza pułapka / Typowe błędy: bursztyn + ikona ostrzeżenia */
+.callout-trap { background: var(--warning-soft); border-color: var(--warning-border); }
+.callout-trap .callout-icon { background: var(--surface); color: var(--warning); box-shadow: inset 0 0 0 1.5px var(--warning-border); }
+
+/* Na egzaminie C1: granat i złoto (styl Certyfikatu) */
+.callout-exam { background: var(--c1-soft); border-color: color-mix(in srgb, var(--c1-gold) 60%, transparent); box-shadow: inset 4px 0 0 var(--c1-gold); }
+.callout-exam .callout-icon { background: var(--c1-navy); color: var(--c1-gold); }
+.callout-exam a { color: var(--c1-ink); font-weight: 600; }
+.c1-exam-box.callout-exam .c1-chip { background: var(--surface); border: 1px solid color-mix(in srgb, var(--c1-gold) 55%, transparent); color: var(--c1-ink); }
+.c1-exam-box-head .c1-chip-badge { width: 32px; height: 32px; font-size: var(--fs-xs); }
+.c1-exam-box-title { font-family: var(--font-display); }
+
+/* Kluczowe myśli / Co umiesz: informacja w kolorze poziomu */
+.callout-key { background: var(--lvl-soft, var(--accent-soft)); border-color: color-mix(in srgb, var(--lvl, var(--accent)) 35%, transparent); }
+.callout-key .callout-icon { background: var(--surface); color: var(--lvl-ink, var(--accent)); }
+
+/* Jesteś gotowy na… / Co dalej: kierunek, linki jako przyciski */
+.callout-next { background: var(--surface-2); border-style: dashed; border-color: var(--line-strong); }
+.callout-next .callout-icon { background: var(--surface); color: var(--accent); box-shadow: inset 0 0 0 1.5px var(--line-strong); }
+.callout-next a:not(.wiki-chip) {
+  display: inline-flex; align-items: center; min-height: 36px; padding: 6px 14px;
+  border: 1px solid var(--line-strong); border-radius: var(--radius-pill);
+  background: var(--surface); color: var(--ink); font-weight: 600; text-decoration: none;
+}
+.callout-next a:not(.wiki-chip):hover { border-color: var(--line-control); }
+
+/* Przykłady: lewy pasek w kolorze poziomu, zdania angielskie wyróżnione */
+.callout-examples { padding-left: 26px; border-color: transparent; background: transparent; box-shadow: inset 4px 0 0 var(--lvl, var(--accent)); border-radius: 0 var(--radius-lg) var(--radius-lg) 0; }
+.callout-examples .callout-icon { background: var(--lvl-soft, var(--accent-soft)); color: var(--lvl-ink, var(--accent)); }
+.callout-examples em, .callout-examples td:first-child { color: var(--lvl-ink, var(--ink)); font-weight: 560; }
+.callout-examples blockquote { background: var(--surface); }
+
+/* ---------- Tabele: zaokrąglone, wyraźny nagłówek, zebra, cienie przewijania ---------- */
+.md-table { position: relative; margin: 0 0 18px; }
+.md-table .md-table-wrap { margin: 0; background: var(--surface); }
+.md th { color: var(--ink); font-weight: 650; border-bottom: 1px solid var(--line-strong); }
+.md tbody tr:nth-child(even) td { background: color-mix(in srgb, var(--surface-2) 55%, var(--surface)); }
+.md-table::before, .md-table::after {
+  content: ""; position: absolute; top: 1px; bottom: 1px; width: 24px; pointer-events: none;
+  opacity: 0; transition: opacity var(--dur-fast) var(--ease-out); z-index: 1;
+}
+.md-table::before { left: 1px; border-radius: var(--radius) 0 0 var(--radius); background: linear-gradient(to right, color-mix(in srgb, var(--ink) 16%, transparent), transparent); }
+.md-table::after { right: 1px; border-radius: 0 var(--radius) var(--radius) 0; background: linear-gradient(to left, color-mix(in srgb, var(--ink) 16%, transparent), transparent); }
+.md-table.has-left::before, .md-table.has-right::after { opacity: 1; }
+
+/* ---------- Linki [[id]] jako chipy w kolorze poziomu strony docelowej ---------- */
+.md a.wiki-chip, .wiki-chip {
+  display: inline-flex; align-items: center; gap: 5px; max-width: 100%;
+  padding: 1px 10px 1px 7px; border-radius: var(--radius-pill);
+  background: var(--lvl-soft, var(--accent-soft)); color: var(--lvl-ink, var(--accent));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--lvl, var(--accent)) 35%, transparent);
+  font-size: 0.92em; font-weight: 600; line-height: 1.6; text-decoration: none; vertical-align: baseline;
+  transition: box-shadow var(--dur-fast) var(--ease-out);
+}
+.wiki-chip:hover { text-decoration: none; box-shadow: inset 0 0 0 1.5px var(--lvl, var(--accent)); }
+.wiki-chip .icon { width: 14px; height: 14px; }
+.wiki-chip-level { font-family: var(--font-display); font-weight: 700; }
+.wiki-chip-text { overflow: hidden; text-overflow: ellipsis; }
+.wiki-chip.is-c1 { background: var(--c1-navy); color: var(--c1-gold); box-shadow: inset 0 0 0 1px var(--c1-gold); }
+
+/* ---------- „Umiem” na podstronie: przyklejony pasek na wąskich ekranach ---------- */
+@media (max-width: 760px) {
+  .page-view .page-head {
+    position: sticky; top: var(--topbar-h-compact); z-index: 15;
+    margin: 0 -16px 20px; padding: 8px 16px;
+    background: var(--sticky-bg);
+    -webkit-backdrop-filter: saturate(160%) blur(12px); backdrop-filter: saturate(160%) blur(12px);
+    border-bottom: 1px solid var(--line);
+    flex-wrap: nowrap;
+  }
+  /* Jedna linia: „Wróć do listy A2” + „Umiem” (poziom podaje już przycisk powrotu) */
+  .page-view .page-head .page-crumb { display: none; }
+  .page-view .page-head .back-btn { margin-left: -8px; padding-left: 8px; padding-right: 8px; }
+  .callout { padding: 16px 16px 4px; }
+  .callout-examples { padding-left: 18px; }
+}
+.callout-trap li::marker { color: var(--warning); }
+.md .c1-exam-box-links { padding-left: 0; }
+.md .c1-exam-box-links li { margin-bottom: 0; }

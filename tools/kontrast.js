@@ -11,7 +11,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const css = fs.readFileSync(path.join(__dirname, "..", "css", "style.css"), "utf8");
+const css = fs.readFileSync(path.join(__dirname, "..", "css", "style.css"), "utf8").replace(/\r\n/g, "\n");
 
 function block(selectorStart) {
   const i = css.indexOf(selectorStart);
@@ -87,6 +87,10 @@ pairs.push(
   ["on-accent", "success-fill", null, 4.5, "„Wiedziałem(am)”, etykieta „Poprawna” / tło"],
   ["on-accent", "danger-bg", null, 4.5, "etykieta „Twoja odpowiedź” / tło"],
   ["c1-gold", "c1-navy", null, 4.5, "kafel egzaminu: liczba / granat"],
+  ["ink", "c1-soft", "surface", 4.5, "callout „Na egzaminie C1”: tekst / tło"],
+  ["c1-ink", "c1-soft", "surface", 4.5, "callout „Na egzaminie C1”: link / tło"],
+  ["c1-ink", "surface", null, 4.5, "chip części egzaminu / karta"],
+  ["warning", "surface", null, 3, "ikona pułapki / tło ikony"],
   ["c1-cream", "c1-navy", null, 4.5, "kafel egzaminu: tekst / granat"],
   ["c1-cream-muted", "c1-navy", null, 4.5, "kafel egzaminu: data / granat"]
 );
