@@ -2288,3 +2288,164 @@ html.focus-mode .c1-writing-area { box-shadow: 0 0 0 4px var(--accent-soft); }
   .c1-ex.card { padding: 22px 16px 20px; }
   .c1-tr-list { padding-left: 26px; }
 }
+
+/* ===================== ĆWICZENIA — silnik zadań (rozbudowa v2, DESIGN.md sekcja 3.9) ===================== */
+.tool-eyebrow { margin: 0 0 6px; font-size: var(--fs-xs-plus); font-weight: 600; color: var(--ink-muted); }
+.tool-eyebrow a { color: var(--accent); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.ex-view .card { max-width: 780px; }
+.ex-loading { padding: 24px 0; }
+
+/* Ekran startowy */
+.ex-intro { padding: 24px 28px; }
+.ex-intro-count { font-size: var(--fs-md); margin-bottom: 8px; }
+.ex-intro-count strong { font-family: var(--font-display); font-size: var(--fs-xl); }
+.ex-modes { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin: 16px 0 20px; padding: 0; border: 0; }
+.ex-modes legend { grid-column: 1 / -1; padding: 0; }
+.ex-mode {
+  position: relative; display: flex; gap: 12px; align-items: flex-start; min-height: 44px; padding: 12px 14px;
+  border: 1px solid var(--line-control); border-radius: var(--radius); background: var(--surface); cursor: pointer;
+  transition: border-color var(--transition), background var(--transition);
+}
+.ex-mode input { margin-top: 4px; accent-color: var(--accent); }
+.ex-mode > span { display: flex; flex-direction: column; gap: 2px; }
+.ex-mode-hint { font-size: var(--fs-sm); color: var(--ink-muted); }
+.ex-mode.is-chosen { border-color: var(--accent); background: var(--accent-soft); }
+
+/* Karta zadania */
+.ex-head { margin-bottom: 12px; }
+.ex-progress { margin: 6px 0 0; }
+.lt-dot.is-done { background: var(--surface-3); border-color: var(--ink-muted); }
+.ex-card { padding: 24px 28px; }
+.ex-type { margin: 0 0 14px; font-family: var(--font); font-size: var(--fs-xs-plus); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-muted); }
+.ex-body { margin-bottom: 18px; }
+.ex-prompt { margin-bottom: 16px; font-family: var(--font-display); font-size: var(--fs-xl); font-weight: 560; line-height: 1.5; letter-spacing: -0.01em; }
+.ex-prompt p { margin: 0 0 4px; }
+.ex-context { margin-bottom: 14px; color: var(--ink); }
+.ex-gap {
+  display: inline-flex; align-items: center; gap: 4px; min-width: 4.5em; min-height: 1.4em; margin: 0 2px; padding: 0 6px;
+  border-bottom: 3px solid var(--line-control); vertical-align: baseline; color: var(--ink-muted);
+}
+.ex-gap.is-filled { color: var(--accent); }
+.ex-gap.is-ok { color: var(--success); border-bottom-color: var(--success); background: var(--success-soft); border-radius: var(--radius-xs) var(--radius-xs) 0 0; }
+.ex-gap.is-bad { color: var(--danger); border-bottom-color: var(--danger); background: var(--danger-soft); border-radius: var(--radius-xs) var(--radius-xs) 0 0; }
+.ex-gap.is-bad .ex-gap-text { text-decoration: line-through; text-decoration-color: var(--strike); }
+.ex-gap-mark { display: inline-grid; place-content: center; }
+
+/* Wybór odpowiedzi: natywne pola radio (radiogroup), cyfry 1–4 */
+.ex-options { display: flex; flex-direction: column; gap: 8px; }
+.ex-option {
+  position: relative; display: flex; align-items: flex-start; gap: 12px; min-height: 48px; padding: 10px 14px;
+  border: 1px solid var(--line-control); border-radius: var(--radius); background: var(--surface); cursor: pointer;
+  transition: background var(--transition), border-color var(--transition), transform var(--dur-fast) var(--ease-out);
+}
+.ex-option input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.ex-option:hover { background: var(--surface-2); border-color: var(--accent); }
+.ex-option:focus-within { outline: 2px solid var(--focus-color); outline-offset: 2px; }
+.ex-option.is-chosen { border-color: var(--accent); background: var(--accent-soft); box-shadow: inset 0 0 0 1px var(--accent); }
+.ex-option.is-correct { border-color: var(--success); background: var(--success-soft); }
+.ex-option.is-wrong { border-color: var(--danger-border); background: var(--danger-soft); }
+.ex-option:has(input:disabled) { cursor: default; }
+.ex-key {
+  display: inline-grid; place-content: center; flex-shrink: 0; width: 28px; height: 28px; margin-top: 1px;
+  border-radius: 50%; background: var(--surface-3); color: var(--ink-muted); font-size: var(--fs-xs-plus); font-weight: 700;
+}
+.ex-option.is-chosen .ex-key { background: var(--accent-bg); color: var(--on-accent); }
+.ex-option.is-correct .ex-key { background: var(--success-fill); color: var(--on-accent); }
+.ex-option.is-wrong .ex-key { background: var(--danger-bg); color: var(--on-accent); }
+.ex-option-body { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; flex: 1; min-width: 0; padding-top: 3px; }
+.ex-option-text { font-size: var(--fs-md); }
+.ex-note { flex-basis: 100%; font-size: var(--fs-sm); color: var(--ink-muted); }
+.ex-keys-hint { margin: 10px 0 0; font-size: var(--fs-sm); }
+@media (pointer: coarse) { .ex-keys-hint { display: none; } }
+
+/* Ułóż zdanie: linia odpowiedzi + pula wyrazów (tap-to-place) */
+.ex-line, .ex-pool { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; }
+.ex-line {
+  min-height: 60px; margin-bottom: 14px; padding: 10px 12px; align-items: center;
+  border: 2px dashed var(--line-strong); border-radius: var(--radius); background: var(--surface-2);
+}
+.ex-line.is-drop { border-color: var(--accent); background: var(--accent-soft); }
+.ex-line-empty { color: var(--ink-muted); font-size: var(--fs-sm-plus); }
+.ex-token {
+  display: inline-flex; align-items: center; gap: 4px; min-height: 44px; padding: 6px 14px;
+  border: 1px solid var(--line-control); border-radius: var(--radius-sm); background: var(--surface);
+  color: var(--ink); font-size: var(--fs-md); font-weight: 560; cursor: pointer;
+  box-shadow: 0 2px 0 var(--line-strong);
+  transition: transform var(--dur-fast) var(--ease-out), border-color var(--transition), background var(--transition);
+}
+.ex-token:hover:not(:disabled) { border-color: var(--accent); transform: translateY(-1px); }
+.ex-token:active:not(:disabled) { transform: translateY(1px); box-shadow: none; }
+.ex-token.is-placed { background: var(--accent-soft); border-color: var(--accent); }
+.ex-token:disabled { cursor: default; }
+.ex-token.is-bad { background: var(--danger-soft); border-color: var(--danger); color: var(--danger); }
+.ex-card.is-correct .ex-token.is-placed { background: var(--success-soft); border-color: var(--success); }
+.ex-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin-top: 14px; }
+.ex-tools .btn { min-height: 44px; }
+.ex-tools .btn.is-active { background: var(--accent-soft); border-color: var(--accent); }
+
+/* Znajdź błąd: wyrazy jako przyciski */
+.ex-sentence { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; font-family: var(--font-display); font-size: var(--fs-xl); }
+.ex-word {
+  min-height: 44px; padding: 4px 10px; border: 1px solid transparent; border-radius: var(--radius-sm);
+  background: var(--surface-2); color: var(--ink); font: inherit; cursor: pointer;
+  transition: background var(--transition), border-color var(--transition);
+}
+.ex-word:hover:not(:disabled) { border-color: var(--accent); }
+.ex-word.is-selected { background: var(--accent-soft); border-color: var(--accent); box-shadow: inset 0 -3px 0 var(--accent); }
+.ex-word.is-error { background: var(--warning-soft); border-color: var(--warning); box-shadow: inset 0 -3px 0 var(--warning); }
+.ex-word.is-bad { border-color: var(--danger); box-shadow: inset 0 -3px 0 var(--danger); }
+.ex-word:disabled { cursor: default; color: var(--ink); }
+.ex-fix-row { max-width: 420px; margin-top: 10px; }
+.ex-fix { min-height: 44px; font-size: var(--fs-md); }
+.ex-gap-input { display: inline-block; width: 11em; max-width: 100%; min-height: 44px; margin: 2px 4px; font-family: var(--font); font-size: var(--fs-md); vertical-align: middle; }
+.ex-gap-input.is-ok { border-color: var(--success); background: var(--success-soft); }
+.ex-gap-input.is-bad { border-color: var(--danger); background: var(--danger-soft); text-decoration: line-through; text-decoration-color: var(--strike); }
+
+/* Informacja zwrotna */
+.ex-status:empty { display: none; }
+.ex-status.is-hint { margin: 0 0 14px; padding: 10px 14px; border-radius: var(--radius); background: var(--info-bg); font-size: var(--fs-sm-plus); }
+.ex-spelling { color: var(--warning); font-weight: 600; }
+.ex-trap { display: flex; gap: 10px; align-items: flex-start; margin-top: 10px; padding: 10px 14px; border-radius: var(--radius-sm); background: var(--warning-soft); border: 1px solid var(--warning-border); }
+.ex-trap-icon { color: var(--warning); padding-top: 2px; }
+.ex-trap p { margin: 0; }
+.ex-actions .btn { min-height: 44px; }
+.ex-card.is-pop { animation: ex-pop var(--dur-base) var(--ease-spring); }
+.ex-card.is-shake { animation: ex-shake var(--dur-slow) var(--ease-out); }
+@keyframes ex-pop { 0% { transform: scale(1); } 40% { transform: scale(1.012); } 100% { transform: scale(1); } }
+@keyframes ex-shake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-5px); } 40% { transform: translateX(5px); } 60% { transform: translateX(-3px); } 80% { transform: translateX(2px); } }
+
+/* Wynik */
+.ex-result { padding: 26px 30px; }
+.ex-result-score { display: flex; align-items: baseline; gap: 14px; margin-bottom: 6px; }
+.ex-result-score strong { font-family: var(--font-display); font-size: var(--fs-4xl); line-height: 1; letter-spacing: -0.03em; }
+.ex-result-pct { font-size: var(--fs-lg); color: var(--ink-muted); font-weight: 600; }
+.ex-result-comment { font-size: var(--fs-md); margin-bottom: 8px; }
+.ex-breakdown { margin: 12px 0 18px; padding: 12px 16px; border-radius: var(--radius); background: var(--surface-2); }
+.ex-breakdown p { margin: 0 0 4px; }
+.ex-breakdown-list { list-style: none; margin: 8px 0 0; padding: 0; font-size: var(--fs-sm-plus); }
+.ex-breakdown-list li { display: flex; justify-content: space-between; gap: 12px; padding: 4px 0; border-top: 1px solid var(--line); }
+.ex-review { margin-top: 16px; padding: 22px 28px; }
+.ex-wrong { margin: 12px 0 0; padding-left: 22px; display: flex; flex-direction: column; gap: 16px; }
+.ex-wrong li p { margin: 0 0 4px; }
+.ex-wrong-q { font-weight: 600; }
+.ex-wrong-expl, .ex-wrong-trap { color: var(--ink-muted); font-size: var(--fs-sm-plus); }
+
+/* „Sprawdź się” na stronie tematu */
+.ex-topic { max-width: var(--measure); margin: 32px 0 8px; padding-top: 24px; border-top: 1px solid var(--line); }
+.ex-topic-title { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; font-family: var(--font-display); font-size: var(--fs-xl); font-weight: 600; }
+.ex-topic-title .callout-icon { background: var(--lvl-soft, var(--accent-soft)); color: var(--lvl-ink, var(--accent)); }
+.ex-set-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+.ex-set-card { display: flex; flex-direction: column; gap: 6px; padding: 18px 20px; border-top: 4px solid var(--lvl, var(--accent)); }
+.ex-set-title { margin: 0; font-family: var(--font-display); font-size: var(--fs-lg); font-weight: 600; }
+.ex-set-meta { margin: 0; font-size: var(--fs-sm); color: var(--ink-muted); }
+.ex-set-score { display: flex; flex-wrap: wrap; gap: 4px 14px; margin: 0 0 8px; font-size: var(--fs-sm-plus); }
+.ex-set-score.is-empty { color: var(--ink-muted); }
+.ex-set-card .btn { align-self: flex-start; min-height: 44px; margin-top: auto; }
+.ex-topic-lab { margin: 14px 0 0; }
+.ex-topic-lab .btn { min-height: 44px; }
+
+@media (max-width: 760px) {
+  .ex-card, .ex-intro, .ex-result, .ex-review { padding: 18px 16px; }
+  .ex-prompt, .ex-sentence { font-size: var(--fs-lg); }
+  .ex-actions { position: sticky; bottom: 0; z-index: 2; margin: 0 -16px -18px; padding: 12px 16px; background: var(--sticky-bg); border-top: 1px solid var(--line); border-radius: 0 0 var(--radius-lg) var(--radius-lg); }
+}

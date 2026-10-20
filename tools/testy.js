@@ -1,6 +1,7 @@
 /*
  * testy.js — testy jednostkowe czystej logiki nauki (js/learning.js):
- * harmonogram powtórek, seria nauki i algorytm testu poziomu.
+ * harmonogram powtórek, seria nauki i algorytm testu poziomu,
+ * oraz silnika zadań (js/exercise-logic.js) na zestawach z cwiczenia/tematy/.
  * Bez zależności: wbudowane moduły Node (assert).
  *
  * Użycie (z folderu projektu):
@@ -13,7 +14,9 @@ const path = require("path");
 
 global.window = global;
 require(path.join(__dirname, "..", "js", "learning.js"));
+require(path.join(__dirname, "..", "js", "exercise-logic.js"));
 const L = global.ELM.learn;
+const X = global.ELM.exLogic;
 
 let passed = 0;
 const failures = [];
@@ -210,6 +213,94 @@ test("symulacja (mała pula, 2 pytania na poziom): wynik nie „odpływa”", fu
     assert.strictEqual(simulate(true, 2), "C2");
     assert.strictEqual(simulate(false, 2), "A1");
   }
+});
+
+console.log("\nSilnik zadań");
+const fs = require("fs");
+const SETS_DIR = path.join(__dirname, "..", "cwiczenia", "tematy");
+const exBank = fs.readdirSync(SETS_DIR).filter(function (f) { return /\.json$/.test(f); })
+  .map(function (f) { return JSON.parse(fs.readFileSync(path.join(SETS_DIR, f), "utf8")); });
+const allItems = [].concat.apply([], exBank.map(function (s) { return s.items.map(function (it) { return Object.assign({ topic: s.topic }, it); }); }));
+function seeded(seed) { let x = seed; return function () { x = (x * 16807) % 2147483647; return (x - 1) / 2147483646; }; }
+
+test("normalize: spacje, apostrofy, interpunkcja końcowa, wielkość liter; skróty bez rozwijania", function () {
+  assert.strictEqual(X.normalize("  I  Didn’t   go. "), "i didn't go");
+  assert.strictEqual(X.normalize("Really?!"), "really");
+  assert.notStrictEqual(X.normalize("I'm"), X.normalize("I am"));
+});
+test("prepareChoice: poprawna odpowiedź i notatki idą za opcją po tasowaniu", function () {
+  const item = allItems.find(function (it) { return it.type === "multiple-choice" && it.optionNotes; });
+  for (let s = 1; s < 30; s++) {
+    const p = X.prepareChoice(item, seeded(s));
+    assert.strictEqual(p.options[p.correct].original, item.correct);
+    assert.strictEqual(p.options[p.correct].note, null);
+    p.options.forEach(function (o) { assert.strictEqual(o.text, item.options[o.original]); });
+  }
+  const fixed = X.prepareChoice(Object.assign({}, item, { fixedOrder: true }), seeded(3));
+  assert.deepStrictEqual(fixed.options.map(function (o) { return o.original; }), item.options.map(function (_, i) { return i; }));
+});
+test("reorderTokens: nigdy od razu w poprawnej kolejności, ten sam zestaw wyrazów", function () {
+  allItems.filter(function (it) { return it.type === "reorder"; }).forEach(function (it) {
+    for (let s = 1; s < 40; s++) {
+      const t = X.reorderTokens(it, seeded(s)).map(function (x) { return x.text; });
+      assert.ok(!X.evaluate(it, { words: t }).correct, it.id + " podany w poprawnej kolejności");
+      assert.deepStrictEqual(t.slice().sort(), X.answerTokens(it.answers[0]).concat(it.extraTokens || []).sort());
+    }
+  });
+});
+test("evaluate: wzorcowa odpowiedź każdego zadania z cwiczenia/tematy jest poprawna", function () {
+  assert.ok(allItems.length >= 60);
+  allItems.forEach(function (it) {
+    let ans;
+    if (it.type === "multiple-choice") ans = { chosen: it.correct };
+    else if (it.type === "reorder") ans = { words: X.answerTokens(it.answers[0]) };
+    else if (it.type === "find-error") ans = it.noError ? { noError: true } : { range: it.errorRange.slice(), fix: it.fixes[0] };
+    else ans = { text: it.accepted[0] };
+    assert.ok(X.evaluate(it, ans).correct, it.id);
+  });
+});
+test("evaluate: find-error rozróżnia zły fragment i złą poprawkę", function () {
+  const it = { type: "find-error", tokens: ["I", "buyed", "a", "bike."], errorRange: [1, 1], fixes: ["bought"] };
+  assert.strictEqual(X.evaluate(it, { range: [2, 2], fix: "bought" }).rangeOk, false);
+  const r = X.evaluate(it, { range: [1, 1], fix: "buy" });
+  assert.ok(r.rangeOk && !r.fixOk && !r.correct);
+  assert.ok(!X.evaluate(it, { noError: true }).correct);
+  assert.ok(X.evaluate({ type: "find-error", tokens: ["Ok."], noError: true }, { noError: true }).correct);
+});
+test("evaluate: short-answer — wielkość liter bez znaczenia, literówka = 0 pkt z uwagą", function () {
+  const it = { type: "short-answer", prompt: "My mum ___ in a hospital.", accepted: ["works"] };
+  assert.ok(X.evaluate(it, { text: " Works " }).correct);
+  const one = X.evaluate(it, { text: "work" });
+  assert.ok(!one.correct && one.spelling);
+  assert.ok(!X.evaluate(it, { text: "worked" }).spelling); // 2 zmiany — bez uwagi
+});
+test("reorder: wskazanie pierwszej różnicy", function () {
+  const it = { type: "reorder", answers: ["I didn't go to school yesterday."] };
+  assert.strictEqual(X.firstDifference(it, ["i", "didn't", "to", "go", "school", "yesterday"]), 2);
+});
+test("pickMix: równo po tematach, bez powtórek, limit, filtr typów, ≤ 2 tego samego typu pod rząd", function () {
+  for (let s = 1; s < 30; s++) {
+    const m = X.pickMix(allItems, { count: 15 }, seeded(s));
+    assert.strictEqual(m.items.length, 15);
+    assert.strictEqual(new Set(m.items.map(function (x) { return x.id; })).size, 15);
+    const per = {};
+    m.items.forEach(function (x) { per[x.topic] = (per[x.topic] || 0) + 1; });
+    const counts = Object.keys(per).map(function (k) { return per[k]; });
+    assert.ok(Math.max.apply(null, counts) - Math.min.apply(null, counts) <= 1, "nierówno: " + JSON.stringify(per));
+    for (let i = 2; i < m.items.length; i++) {
+      const same = m.items[i].type === m.items[i - 1].type && m.items[i].type === m.items[i - 2].type;
+      if (same) assert.ok(m.items.slice(i + 1).every(function (x) { return x.type === m.items[i].type; }), "3 pod rząd");
+    }
+  }
+  const fe = X.pickMix(allItems, { count: 50, types: ["find-error"] }, seeded(5));
+  assert.ok(fe.items.every(function (x) { return x.type === "find-error"; }));
+  assert.strictEqual(fe.items.length, fe.available);
+});
+test("pickMix: wyklucza zadania z ostatniej sesji, gdy starcza puli", function () {
+  const first = X.pickMix(allItems, { count: 10 }, seeded(7));
+  const ids = first.items.map(function (x) { return x.id; });
+  const second = X.pickMix(allItems, { count: 10, exclude: ids }, seeded(8));
+  assert.ok(second.items.every(function (x) { return ids.indexOf(x.id) === -1; }));
 });
 
 console.log("\nWynik: " + passed + " ok, " + failures.length + " błędów");

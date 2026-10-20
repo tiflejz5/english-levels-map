@@ -179,6 +179,7 @@ window.ELM = window.ELM || {};
     if (ELM.state.view === "journal") return ELM.journal.render(ELM.state.toolRoute);
     if (ELM.state.view === "today") return ELM.today.render();
     if (ELM.state.view === "leveltest") return ELM.levelTest.render();
+    if (ELM.state.view === "exercises") return ELM.exercises.render(ELM.state.toolRoute);
     if (ELM.state.route) return ELM.niezbednik.renderPage(ELM.state.route);
     ELM.niezbednik.computeLinks();
     const view = document.getElementById("view");
