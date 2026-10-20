@@ -2591,3 +2591,50 @@ a.lab-tile:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover);
   .lab-card-title { font-size: var(--fs-2xl); }
   .tl-figure { padding: 10px 8px; }
 }
+
+/* ===================== CENTRUM ĆWICZEŃ (rozbudowa v2, DESIGN.md sekcja 3.9) ===================== */
+.hub-view { max-width: 1080px; }
+.hub-view .tool-title { display: flex; align-items: center; gap: 12px; }
+.hub-section { margin-bottom: 34px; scroll-margin-top: 80px; }
+.hub-section:focus { outline: none; }
+.hub-section > .tool-note { max-width: var(--measure); margin-bottom: 14px; }
+.hub-filter { margin-bottom: 16px; }
+.hub-levels { display: flex; flex-direction: column; gap: 22px; }
+.hub-level-title { display: flex; align-items: center; gap: 10px; margin: 0 0 10px; font-family: var(--font-display); font-size: var(--fs-lg); font-weight: 600; }
+.hub-cat { margin-bottom: 14px; }
+.hub-cat-title { margin: 0 0 8px; font-size: var(--fs-xs-plus); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-muted); }
+.hub-mix { border-top-color: var(--accent); }
+.hub-mix-level { display: inline-flex; align-items: center; gap: 6px; margin: 0; font-size: var(--fs-xs-plus); font-weight: 700; color: var(--accent); }
+
+/* Generator */
+.hub-gen { margin-top: 16px; padding: 22px 26px; max-width: 860px; }
+.hub-gen-title { display: flex; align-items: center; gap: 10px; margin: 0 0 14px; font-family: var(--font-display); font-size: var(--fs-lg); font-weight: 600; }
+.hub-gen-row { margin: 0 0 16px; padding: 0; border: 0; min-width: 0; }
+.hub-gen-row > legend { padding: 0; margin-bottom: 6px; }
+.hub-gen-levels { display: flex; gap: 12px; }
+.hub-gen-level { width: 120px; }
+.hub-gen-level .field { min-height: 44px; }
+.hub-gen-shortcuts { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+.hub-gen-shortcuts .btn { min-height: 44px; }
+.hub-gen-cat + .hub-gen-cat { margin-top: 10px; }
+.hub-gen-cat-title { margin: 0 0 6px; font-size: var(--fs-sm); font-weight: 600; color: var(--ink-muted); }
+.hub-gen-two { display: flex; flex-wrap: wrap; gap: 0 32px; }
+.hub-radios { display: flex; flex-wrap: wrap; gap: 8px; }
+.hub-radio {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px 16px;
+  border: 1px solid var(--line-strong); border-radius: var(--radius-pill); background: var(--surface); font-weight: 600; cursor: pointer;
+}
+.hub-radio input { accent-color: var(--accent); }
+.hub-radio.is-chosen { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
+.hub-gen-msg { min-height: 1.5em; margin: 0 0 8px; font-size: var(--fs-sm-plus); color: var(--ink); }
+.hub-gen-msg:empty { min-height: 0; }
+
+/* „Wkrótce” */
+.hub-soon { display: flex; gap: 14px; align-items: flex-start; max-width: 640px; padding: 18px 20px; border-style: dashed; box-shadow: none; }
+.hub-soon-icon { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--surface-3); color: var(--ink-muted); flex-shrink: 0; }
+.hub-soon-title { margin: 0 0 4px; }
+.hub-soon .tool-note { margin: 0; }
+
+@media (max-width: 760px) {
+  .hub-gen { padding: 18px 16px; }
+}

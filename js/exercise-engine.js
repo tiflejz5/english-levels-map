@@ -4,6 +4,7 @@
  * Specyfikacja: docs/rozbudowa-v2/spec/01-typy-zadan.md.
  *
  * Adresy:
+ *   #/cwiczenia[/mieszane]           Centrum ćwiczeń (js/exercise-hub.js)
  *   #/cwiczenia/zestaw/<idZestawu>   zestaw z cwiczenia/tematy/
  *   #/cwiczenia/mix/<idMixu>         gotowy zestaw mieszany (dane/mixes.json)
  *   #/cwiczenia/sesja                zestaw wylosowany w generatorze (Centrum ćwiczeń)
@@ -110,6 +111,8 @@ window.ELM = window.ELM || {};
   // =====================================================================
 
   function parseRoute(hash) {
+    const hub = /^#\/cwiczenia(\/mieszane)?\/?$/.exec(hash || "");
+    if (hub) return { kind: "hub", section: hub[1] ? "mieszane" : null }; // Centrum ćwiczeń (js/exercise-hub.js)
     let m = /^#\/cwiczenia\/(zestaw|mix)\/([a-z0-9-]+)\/?$/.exec(hash || "");
     if (m) return { kind: m[1] === "zestaw" ? "set" : "mix", id: m[2] };
     if (/^#\/cwiczenia\/sesja\/?$/.test(hash || "")) return { kind: "custom" };
@@ -117,6 +120,7 @@ window.ELM = window.ELM || {};
   }
 
   function hrefOf(route) {
+    if (route.kind === "hub") return BASE;
     if (route.kind === "set") return BASE + "/zestaw/" + route.id;
     if (route.kind === "mix") return BASE + "/mix/" + route.id;
     return BASE + "/sesja";
@@ -634,7 +638,8 @@ window.ELM = window.ELM || {};
   function renderDone(view) {
     const total = run.items.length;
     const pct = Math.round(run.score / total * 100);
-    const comment = COMMENTS.find(function (c) { return pct >= c[0]; })[1];
+    let comment = COMMENTS.find(function (c) { return pct >= c[0]; })[1];
+    if (run.isMix && pct < 50) comment = "Dobry początek. Zajrzyj do tematu oznaczonego „do powtórki”, a potem powtórz błędne zadania.";
     const wrong = run.items.filter(function (p) { return !(p.res && p.res.correct); });
     view.appendChild(head(run.title + (run.retry ? " – poprawka błędów" : "")));
 
@@ -644,7 +649,7 @@ window.ELM = window.ELM || {};
       wrong.length ? el("button", { type: "button", class: "btn btn-primary", onclick: retryWrong }, ELM.ui.withIcon("rotate-ccw", "Powtórz tylko błędne (" + wrong.length + ")")) : null,
       el("button", { type: "button", class: "btn " + (wrong.length ? "btn-secondary" : "btn-primary"), onclick: redo }, run.isMix ? "Wylosuj nowy zestaw" : "Zrób jeszcze raz (inna kolejność)"),
       t ? el("a", { class: "btn btn-secondary", href: t.href }, "Wróć do tematu") : null,
-      !run.isMix ? el("a", { class: "btn btn-ghost", href: mix ? BASE + "/mix/" + mix.id : BASE + "#mieszane" }, ELM.ui.withIcon("arrow-right", "Dalej: zestaw mieszany")) : el("a", { class: "btn btn-ghost", href: BASE }, "Centrum ćwiczeń")
+      !run.isMix ? el("a", { class: "btn btn-ghost", href: mix ? BASE + "/mix/" + mix.id : BASE + "/mieszane" }, ELM.ui.withIcon("arrow-right", "Dalej: zestaw mieszany")) : el("a", { class: "btn btn-ghost", href: BASE }, "Centrum ćwiczeń")
     ];
 
     const saved = run.saved;
@@ -687,7 +692,7 @@ window.ELM = window.ELM || {};
     const rows = Object.keys(per).map(function (k) {
       const info = topicInfo(k);
       return { name: info ? info.title : k, href: info ? info.href : null, ok: per[k].ok, n: per[k].n, r: per[k].ok / per[k].n };
-    }).sort(function (a, b) { return b.r - a.r; });
+    }).sort(function (a, b) { return b.r - a.r || a.n - b.n; }); // ostatni = najsłabszy (przy remisie: więcej zadań)
     if (!rows.length) return null;
     const best = rows[0], worst = rows[rows.length - 1];
     return el("div", { class: "ex-breakdown" }, [
@@ -775,6 +780,7 @@ window.ELM = window.ELM || {};
   /** Sesja z generatora (Centrum ćwiczeń): ustawia stan i przechodzi na #/cwiczenia/sesja. */
   function startCustom(cfg) {
     newRun(Object.assign({ key: "custom:", isMix: true, title: "Zestaw mieszany", saveId: null }, cfg));
+    if (cfg.autostart) { run.phase = "item"; run.i = 0; }
     if (location.hash === BASE + "/sesja") render();
     else location.hash = BASE + "/sesja";
   }
@@ -783,6 +789,7 @@ window.ELM = window.ELM || {};
     const view = document.getElementById("view");
     route = route || parseRoute(location.hash);
     if (!route) return;
+    if (route.kind === "hub") return ELM.exerciseHub.render(route);
     const profile = ELM.app.getActiveProfile();
     if (run && profile && run.profileId !== profile.id) run = null; // zmiana profilu = nowa sesja
     view.className = "view tool-view ex-view";
