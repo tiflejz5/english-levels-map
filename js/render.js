@@ -185,6 +185,7 @@ window.ELM = window.ELM || {};
     if (ELM.state.view === "exercises") return ELM.exercises.render(ELM.state.toolRoute);
     if (ELM.state.view === "lab") return ELM.tenseLab.render(ELM.state.toolRoute);
     if (ELM.state.view === "stats") return ELM.statsPage.render();
+    if (ELM.state.view === "notes") return ELM.notes.render();
     if (ELM.state.route) return ELM.niezbednik.renderPage(ELM.state.route);
     ELM.niezbednik.computeLinks();
     const view = document.getElementById("view");

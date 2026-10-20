@@ -216,6 +216,10 @@ window.ELM = window.ELM || {};
       const on = ELM.profileData.prefs().autoJournal;
       parts.push(el("div", { class: "menu-sep", role: "separator" }));
       parts.push(el("p", { class: "menu-title", text: "Ustawienia nauki" }));
+      parts.push(el("a", {
+        class: "menu-action", href: "#/notatki", "data-menu-item": "",
+        onclick: function () { close(false); }
+      }, ELM.ui.withIcon("notebook", "Moje notatki")));
       parts.push(el("button", {
         type: "button",
         class: "menu-action menu-switch",

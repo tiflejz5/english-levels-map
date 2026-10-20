@@ -42,7 +42,7 @@
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="assets/favicon-180.png" type="image/png" sizes="180x180">
   <link rel="apple-touch-icon" href="assets/favicon-180.png">
-  <link rel="stylesheet" href="css/style.css?v=86">
+  <link rel="stylesheet" href="css/style.css?v=89">
 </head>
 <body>
   <noscript>
@@ -102,59 +102,61 @@
   <div class="nav-overlay" id="nav-overlay" hidden></div>
 
   <!-- Skrypty ładowane po kolei (bez modułów ES, żeby działało z file://).
-       ?v=86 to numer wersji: po zmianie plików JS/CSS zwiększ go wszędzie,
+       ?v=89 to numer wersji: po zmianie plików JS/CSS zwiększ go wszędzie,
        żeby przeglądarki nie użyły starych kopii z pamięci podręcznej. -->
-  <script defer src="js/utils.js?v=86"></script>
+  <script defer src="js/utils.js?v=89"></script>
   <!-- Ikony Lucide (generowane: npm run zasoby) i wspólne elementy wizualne -->
-  <script defer src="assets/ikony.js?v=86"></script>
-  <script defer src="js/ui.js?v=86"></script>
-  <script defer src="js/motion.js?v=86"></script>
+  <script defer src="assets/ikony.js?v=89"></script>
+  <script defer src="js/ui.js?v=89"></script>
+  <script defer src="js/motion.js?v=89"></script>
   <!-- Czysta logika nauki: powtórki, seria, test poziomu (testy: node tools/testy.js) -->
-  <script defer src="js/learning.js?v=86"></script>
-  <script defer src="js/theme.js?v=86"></script>
-  <script defer src="js/default-data.js?v=86"></script>
+  <script defer src="js/learning.js?v=89"></script>
+  <script defer src="js/theme.js?v=89"></script>
+  <script defer src="js/default-data.js?v=89"></script>
   <!-- Bazowa lista umiejętności; usuń tę linię, aby startować od pustego szkieletu -->
-  <script defer src="js/base-content.js?v=86"></script>
-  <script defer src="js/store.js?v=86"></script>
-  <script defer src="js/dialogs.js?v=86"></script>
-  <script defer src="js/render.js?v=86"></script>
-  <script defer src="js/profiles.js?v=86"></script>
-  <script defer src="js/markdown.js?v=86"></script>
+  <script defer src="js/base-content.js?v=89"></script>
+  <script defer src="js/store.js?v=89"></script>
+  <script defer src="js/dialogs.js?v=89"></script>
+  <script defer src="js/render.js?v=89"></script>
+  <script defer src="js/profiles.js?v=89"></script>
+  <script defer src="js/markdown.js?v=89"></script>
   <!-- Wyróżnione sekcje (callouty) i tabele w treściach -->
-  <script defer src="js/callouts.js?v=86"></script>
-  <script defer src="js/niezbednik.js?v=86"></script>
+  <script defer src="js/callouts.js?v=89"></script>
+  <script defer src="js/niezbednik.js?v=89"></script>
   <!-- Podstrony niezbędnika (generowane: node tools/zbuduj-niezbednik.js) -->
-  <script defer src="niezbednik/niezbednik-dane.js?v=86"></script>
+  <script defer src="niezbednik/niezbednik-dane.js?v=89"></script>
   <!-- Zakładka „Certyfikat C1” (dane generowane tym samym skryptem) -->
-  <script defer src="niezbednik/certyfikat-c1-dane.js?v=86"></script>
-  <script defer src="js/c1-core.js?v=86"></script>
-  <script defer src="js/c1-exercises.js?v=86"></script>
-  <script defer src="js/c1-writing.js?v=86"></script>
-  <script defer src="js/c1-speaking.js?v=86"></script>
+  <script defer src="niezbednik/certyfikat-c1-dane.js?v=89"></script>
+  <script defer src="js/c1-core.js?v=89"></script>
+  <script defer src="js/c1-exercises.js?v=89"></script>
+  <script defer src="js/c1-writing.js?v=89"></script>
+  <script defer src="js/c1-speaking.js?v=89"></script>
   <!-- Dane nauki osobno dla każdego profilu i dziennik błędów -->
   <!-- Czysta logika dziennika podejść i statystyk (przed profile-data.js, które z niej korzysta) -->
-  <script defer src="js/learning-stats.js?v=86"></script>
-  <script defer src="js/profile-data.js?v=86"></script>
-  <script defer src="js/journal.js?v=86"></script>
+  <script defer src="js/learning-stats.js?v=89"></script>
+  <script defer src="js/profile-data.js?v=89"></script>
+  <script defer src="js/journal.js?v=89"></script>
   <!-- Silnik zadań (logika bez DOM + widok); dane ćwiczeń ładowane na żądanie z cwiczenia/ -->
-  <script defer src="js/exercise-logic.js?v=86"></script>
-  <script defer src="js/exercise-engine.js?v=86"></script>
-  <script defer src="js/exercise-hub.js?v=86"></script>
+  <script defer src="js/exercise-logic.js?v=89"></script>
+  <script defer src="js/exercise-engine.js?v=89"></script>
+  <script defer src="js/exercise-hub.js?v=89"></script>
   <!-- Laboratorium czasów (dane/lab-dane.js ładowane na żądanie) -->
-  <script defer src="js/tense-lab.js?v=86"></script>
+  <script defer src="js/tense-lab.js?v=89"></script>
   <!-- Statystyki (dziennik podejść, js/learning-stats.js) -->
-  <script defer src="js/stats-page.js?v=86"></script>
+  <script defer src="js/stats-page.js?v=89"></script>
   <!-- Wyszukiwarka (indeks dane/szukaj-indeks.js ładowany przy pierwszym otwarciu) -->
-  <script defer src="js/search-logic.js?v=86"></script>
-  <script defer src="js/search.js?v=86"></script>
-  <script defer src="js/today.js?v=86"></script>
+  <script defer src="js/search-logic.js?v=89"></script>
+  <script defer src="js/search.js?v=89"></script>
+  <!-- Własne notatki (panel na stronach z treścią, #/notatki) -->
+  <script defer src="js/notes.js?v=89"></script>
+  <script defer src="js/today.js?v=89"></script>
   <!-- Szybki test poziomu (pytania generowane: node tools/zbuduj-niezbednik.js) -->
-  <script defer src="niezbednik/test-poziomu-dane.js?v=86"></script>
-  <script defer src="js/level-test.js?v=86"></script>
-  <script defer src="js/data-menu.js?v=86"></script>
-  <script defer src="js/sidebar.js?v=86"></script>
+  <script defer src="niezbednik/test-poziomu-dane.js?v=89"></script>
+  <script defer src="js/level-test.js?v=89"></script>
+  <script defer src="js/data-menu.js?v=89"></script>
+  <script defer src="js/sidebar.js?v=89"></script>
   <!-- Celebracje kamieni milowych (GSAP na żądanie) -->
-  <script defer src="js/celebrate.js?v=86"></script>
-  <script defer src="js/app.js?v=86"></script>
+  <script defer src="js/celebrate.js?v=89"></script>
+  <script defer src="js/app.js?v=89"></script>
 </body>
 </html>

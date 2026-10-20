@@ -208,6 +208,7 @@ window.ELM = window.ELM || {};
         el("span", { class: "level-dot", "aria-hidden": "true" }),
         found.level + (categoryName ? " · " + categoryName : "")
       ]),
+      ELM.notes ? ELM.notes.button(found.item.id, { title: found.level + " · " + (doc.meta.title || found.item.label), route: location.hash }) : null,
       info ? umiemToggle(info.essential) : null
     ]));
 

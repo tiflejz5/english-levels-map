@@ -670,7 +670,8 @@ window.ELM = window.ELM || {};
       ]),
       el("div", { class: "tool-actions" }, [
         el("button", { type: "button", class: "btn btn-primary", onclick: begin, "data-fk": "start" }, ELM.ui.withIcon("play", "Zacznij")),
-        t ? el("a", { class: "btn btn-ghost", href: t.href }, "Wróć do tematu") : null
+        t ? el("a", { class: "btn btn-ghost", href: t.href }, "Wróć do tematu") : null,
+        ELM.notes && run.saveId ? ELM.notes.button("set:" + run.saveId, { title: "Ćwiczenia · " + run.title, route: location.hash }) : null
       ])
     ]));
   }

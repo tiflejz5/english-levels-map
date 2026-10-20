@@ -355,7 +355,10 @@ window.ELM = window.ELM || {};
     const text = found && data().pages[id];
     if (!text) { view.appendChild(notFound()); return null; }
     const doc = ELM.markdown.parse(text);
-    view.appendChild(crumb(found.section.label));
+    view.appendChild(el("div", { class: "c1-page-tools" }, [
+      crumb(found.section.label),
+      ELM.notes ? ELM.notes.button("c1:" + id, { title: "C1 · " + (doc.meta.title || found.page.label), route: location.hash }) : null
+    ]));
     const article = el("article", { class: "md c1-page" }, ELM.markdown.render(doc.blocks, { hiddenSections: HIDDEN_SECTIONS }));
     if (id === "przeglad") insertAfterIntro(article, countdownCard());
     wireTasks(article, id);
