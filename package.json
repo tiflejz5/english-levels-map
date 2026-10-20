@@ -5,8 +5,9 @@
   "description": "Mapa umiejętności z angielskiego A1–C2. Strona działa bez budowania; npm służy tylko do pobrania fontów, ikon i GSAP, które skrypt kopiuje do assets/.",
   "scripts": {
     "zasoby": "node tools/zbuduj-zasoby.js",
-    "dane": "node tools/zbuduj-niezbednik.js",
-    "build": "node tools/zbuduj-zasoby.js && node tools/zbuduj-niezbednik.js",
+    "dane": "node tools/zbuduj-niezbednik.js && node tools/zbuduj-cwiczenia.js",
+    "validate": "node tools/waliduj-cwiczenia.js",
+    "build": "node tools/zbuduj-zasoby.js && node tools/zbuduj-niezbednik.js && node tools/waliduj-cwiczenia.js && node tools/zbuduj-cwiczenia.js",
     "test": "node tools/testy.js"
   },
   "devDependencies": {
