@@ -1,0 +1,220 @@
+{
+  "version": 1,
+  "id": "b1-czasy-wybor-formy-przyszlej-1",
+  "topic": "b1-czasy-wybor-formy-przyszlej",
+  "level": "B1",
+  "title": "Wybór formy przyszłej – sprawdź się",
+  "intro": "10 zadań: wybór formy, układanie zdań i szukanie błędów.",
+  "passage": null,
+  "items": [
+    {
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "Look at those clouds! It ___ rain.",
+      "options": [
+        "will",
+        "is going to",
+        "rains",
+        "is raining to"
+      ],
+      "correct": 1,
+      "explanation": "Przewidywanie na podstawie dowodów, które widzimy: is going to.",
+      "optionNotes": [
+        "Will pasuje do przewidywań bez dowodów lub decyzji w chwili mówienia.",
+        null,
+        "Present Simple nie pasuje.",
+        "Błędna konstrukcja."
+      ],
+      "tags": [
+        "going-to"
+      ],
+      "id": "b1-czasy-wybor-formy-przyszlej-1-01"
+    },
+    {
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "A: There's no milk. B: I ___ buy some.",
+      "options": [
+        "will",
+        "am going to",
+        "buy",
+        "am buying to"
+      ],
+      "correct": 0,
+      "explanation": "Decyzja podjęta w chwili mówienia: will.",
+      "optionNotes": [
+        null,
+        "Going to oznacza plan z wcześniej.",
+        "Present Simple nie pasuje.",
+        "Błędna konstrukcja."
+      ],
+      "tags": [
+        "will"
+      ],
+      "id": "b1-czasy-wybor-formy-przyszlej-1-02"
+    },
+    {
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "I ___ my cousin on Saturday. We've arranged it.",
+      "options": [
+        "will meet",
+        "am meeting",
+        "meet to",
+        "meeting"
+      ],
+      "correct": 1,
+      "explanation": "Ustalone plany z konkretnym terminem: Present Continuous.",
+      "optionNotes": [
+        "Will to decyzja spontaniczna.",
+        null,
+        "Błędna konstrukcja.",
+        "Brak am."
+      ],
+      "tags": [
+        "present-continuous"
+      ],
+      "id": "b1-czasy-wybor-formy-przyszlej-1-03"
+    },
+    {
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "The train ___ at 6.15 tomorrow.",
+      "options": [
+        "will leave",
+        "is leaving",
+        "leaves",
+        "is going to leave"
+      ],
+      "correct": 2,
+      "explanation": "Rozkłady jazdy i oficjalne plany: Present Simple.",
+      "optionNotes": [
+        "Możliwe, ale nienaturalne dla rozkładu.",
+        "Możliwe dla osobistego planu.",
+        null,
+        "Nienaturalne dla rozkładu."
+      ],
+      "tags": [
+        "present-simple"
+      ],
+      "id": "b1-czasy-wybor-formy-przyszlej-1-04"
+    },
+    {
+      "type": "reorder",
+      "context": "Zamierzam zacząć uczyć się niemieckiego.",
+      "answers": [
+        "I am going to start learning German."
+      ],
+      "explanation": "Plan i zamiar: be going to.",
+      "tags": [
+        "going-to"
+      ],
+      "id": "b1-czasy-wybor-formy-przyszlej-1-05"
+    },
+    {
+      "type": "reorder",
+      "context": "Myślę, że jutro będzie padać.",
+      "answers": [
+        "I think it will rain tomorrow."
+      ],
+      "explanation": "Opinia o przyszłości: I think + will.",
+      "extraTokens": [
+        "is"
+      ],
+      "tags": [
+        "will"
+      ],
+      "id": "b1-czasy-wybor-formy-przyszlej-1-06"
+    },
+    {
+      "type": "reorder",
+      "context": "Spotykamy się o ósmej.",
+      "answers": [
+        "We are meeting at eight."
+      ],
+      "explanation": "Ustalone spotkanie: Present Continuous.",
+      "tags": [
+        "present-continuous"
+      ],
+      "id": "b1-czasy-wybor-formy-przyszlej-1-07"
+    },
+    {
+      "type": "find-error",
+      "tokens": [
+        "I'm",
+        "tired.",
+        "I",
+        "go",
+        "to",
+        "bed",
+        "now."
+      ],
+      "errorRange": [
+        3,
+        3
+      ],
+      "fixes": [
+        "will go"
+      ],
+      "explanation": "Decyzja w chwili mówienia: will go (lub I'll go).",
+      "tags": [
+        "will"
+      ],
+      "id": "b1-czasy-wybor-formy-przyszlej-1-08"
+    },
+    {
+      "type": "find-error",
+      "tokens": [
+        "The",
+        "film",
+        "will",
+        "start",
+        "at",
+        "8",
+        "p.m.",
+        "tomorrow,",
+        "according",
+        "to",
+        "the",
+        "cinema",
+        "schedule."
+      ],
+      "errorRange": [
+        2,
+        3
+      ],
+      "fixes": [
+        "starts"
+      ],
+      "explanation": "Rozkład (schedule) = Present Simple: starts.",
+      "tags": [
+        "present-simple"
+      ],
+      "id": "b1-czasy-wybor-formy-przyszlej-1-09"
+    },
+    {
+      "type": "find-error",
+      "tokens": [
+        "She",
+        "is",
+        "going",
+        "to",
+        "meets",
+        "him",
+        "tomorrow."
+      ],
+      "errorRange": [
+        3,
+        3
+      ],
+      "fixes": [
+        "meet"
+      ],
+      "explanation": "Po going to czasownik w formie podstawowej.",
+      "tags": [
+        "going-to"
+      ],
+      "id": "b1-czasy-wybor-formy-przyszlej-1-10"
+    }
+  ]
+}

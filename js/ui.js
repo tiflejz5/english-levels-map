@@ -227,6 +227,7 @@ window.ELM = window.ELM || {};
   ELM.icon = icon;
   ELM.logo = logo;
   ELM.loadGsap = loadGsap;
+  ELM.loadScript = loadScript; // dane ładowane na żądanie (np. ćwiczenia, Laboratorium czasów)
   ELM.reducedMotion = reducedMotion;
   ELM.ui = { icon: icon, withIcon: withIcon, logo: logo, logoMark: logoMark, progressRing: progressRing, setRing: setRing };
 })(window.ELM);

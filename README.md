@@ -138,6 +138,7 @@ Nazwa profilu: spacje na początku i końcu są obcinane, najwyżej 30 znaków, 
 | `elm_journal_v1`  | dziennik błędów **per profil**: `{ version: 1, profiles: { <id profilu>: { entries: [wpis…] } } }` |
 | `elm_activity_v1` | dni nauki **per profil**: `{ version: 1, profiles: { <id>: { days: ["RRRR-MM-DD"…], lastPage: { hash, title } } } }` |
 | `elm_leveltest_v1`| ostatni wynik testu poziomu **per profil**: `{ version: 1, profiles: { <id>: { last: { date, level, answers } } } }` |
+| `elm_exercises_v1`| wyniki zestawów ćwiczeń **per profil**: `{ version: 1, profiles: { <id>: { sets: { <id zestawu lub mixu>: { best, last } }, lastMix: [id zadań…] } } }`, gdzie `best` / `last` = `{ score, total, date }` (w eksporcie, imporcie i resecie) |
 
 Wpis dziennika: `{ id, createdAt: "RRRR-MM-DD", context, myAnswer, correct, rule, source, category, itemId, ref, review: { stage, due, mastered } }`. Przy zapisie i imporcie pola są sprawdzane i przycinane (np. kontekst do 2000 znaków, odpowiedzi do 1000, źródło do 200). Wpisy bez kontekstu albo poprawnej odpowiedzi są odrzucane. Usunięcie profilu usuwa też jego dziennik, serię i wynik testu.
 
@@ -188,6 +189,33 @@ Kształt treści:
 - `store.migrate(data)` sprawdza `version`. Przy zmianie struktury podnieś `CURRENT_VERSION` w `store.js` i dopisz krok migracji.
 - `store.normalizeContent(data)` waliduje dane przy starcie i przy imporcie. Poważne błędy zatrzymują wczytywanie z opisem po polsku, drobne braki (pola, id) są uzupełniane.
 
+## Ćwiczenia i Laboratorium czasów (rozbudowa v2)
+
+Specyfikacje: [docs/rozbudowa-v2/](docs/rozbudowa-v2/00-CZYTAJ-TO.md).
+
+| Adres | Widok | Kod |
+|---|---|---|
+| `#/cwiczenia`, `#/cwiczenia/mieszane` | Centrum ćwiczeń: zestawy tematów, gotowe mixy, generator | `js/exercise-hub.js` |
+| `#/cwiczenia/zestaw/<id>` | sesja zestawu (Nauka / Egzamin, wynik, „Powtórz tylko błędne”) | `js/exercise-engine.js` |
+| `#/cwiczenia/mix/<id>`, `#/cwiczenia/sesja` | gotowy mix / zestaw z generatora | `js/exercise-engine.js` |
+| `#/laboratorium-czasow[/<czas>]`, `…/dobierz`, `…/porownaj/<a>/<b>` | Laboratorium czasów: mapa, karta z osią, „Dobierz czas”, porównanie | `js/tense-lab.js` |
+
+- **Typy zadań:** `multiple-choice`, `reorder`, `find-error`, `short-answer` (spec 01). Ocena, tasowanie i losowanie mixów są w `js/exercise-logic.js` (bez DOM, testy w `tools/testy.js`).
+- **Dane:**
+  - zestawy to pliki `cwiczenia/tematy/<id>.json`, a mapę temat → zestawy trzyma `dane/cwiczenia-tematy.json`;
+  - mixy są w `dane/mixes.json`, a Lab w `dane/lab-czasow.json` i `dane/lab-wybor-czasu.json`;
+  - `npm run build` zamienia je na pliki `.js` (`cwiczenia/cwiczenia-indeks.js`, `cwiczenia/tematy/<id>.js`, `dane/lab-dane.js`). Strona wczytuje je **dopiero wtedy, gdy są potrzebne**, zwykłym `<script>`, więc działa to także z `file://`.
+- **Na stronie tematu** z zestawami pojawia się na końcu sekcja „Sprawdź się” z kartami zestawów i linkiem „Zobacz na osi czasu”.
+
+**Dodanie zestawu zadań:**
+
+1. Wrzuć plik `cwiczenia/tematy/<id>.json` (format: spec 01, sekcja 2; id zadań unikalne w całym banku).
+2. Dopisz `<id>` do listy tematu w `dane/cwiczenia-tematy.json`.
+3. Uruchom `npm run build`. Walidator (`npm run validate`, `tools/waliduj-cwiczenia.js`) zatrzyma budowanie przy błędzie w danych.
+4. Zwiększ `?v=…` w `index.html`.
+
+Python z paczki (`scripts/validate_exercises.py`) sprawdza to samo i można go uruchomić osobno: `python scripts/validate_exercises.py .`.
+
 ## Struktura plików
 
 ```
@@ -212,6 +240,10 @@ english-levels-map/
 │  ├─ ui.js, motion.js   ikony, pierścienie postępu; GSAP na żądanie z prefers-reduced-motion
 │  ├─ sidebar.js         lewy panel (pasek / rozwinięcie / szuflada, przypinanie)
 │  ├─ celebrate.js       gratulacje kamieni milowych
+│  ├─ exercise-logic.js  silnik zadań bez DOM: ocena, tasowanie, losowanie mixów
+│  ├─ exercise-engine.js sesja zadań, wynik, „Sprawdź się” na stronach tematów
+│  ├─ exercise-hub.js    Centrum ćwiczeń i generator zestawów mieszanych
+│  ├─ tense-lab.js       Laboratorium czasów (oś czasu SVG, Dobierz czas, Porównaj)
 │  ├─ niezbednik.js      podstrony niezbędnika: routing #/a1/…, dopasowanie, widok
 │  ├─ render.js          rysowanie lewego panelu i strony poziomu
 │  ├─ data-menu.js       sekcja „Dane”: eksport, import, reset
@@ -221,6 +253,11 @@ english-levels-map/
 ├─ tools/zbuduj-niezbednik.js   generator plików *-dane.js (także test-poziomu-dane.js)
 ├─ tools/testy.js        testy jednostkowe (node tools/testy.js)
 ├─ tools/kontrast.js     kontrast WCAG par tokenów (4 zakresy motywów)
+├─ tools/zbuduj-cwiczenia.js   ćwiczenia i Lab: JSON → pliki .js ładowane na żądanie
+├─ tools/waliduj-cwiczenia.js  walidator danych ćwiczeń (npm run validate)
+├─ cwiczenia/tematy/     zestawy zadań (*.json źródło, *.js generowane)
+├─ dane/                 mapa zestawów, mixy, Laboratorium czasów (lab-dane.js generowany)
+├─ scripts/              skrypty z paczki rozbudowy (walidator i generatory w Pythonie)
 ├─ tools/zbuduj-zasoby.js   kopiuje fonty, ikony i GSAP z node_modules do assets/
 ├─ assets/               fonty, ikony, GSAP, favicony, wzór warstwic (kopie, bez CDN)
 ├─ DESIGN.md             zasady wyglądu, tokeny, komponenty, wyniki przeglądów

@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "exams": [
+    {
+      "id": "egzamin-osmoklasisty",
+      "code": "E8",
+      "label": "Egzamin ósmoklasisty",
+      "route": "/egzamin-osmoklasisty",
+      "status": "active",
+      "accent": "#0e7c86",
+      "accent2": "#f5b800",
+      "suggestedDate": "2027-05-12",
+      "order": 1,
+      "description": "Przygotowanie do egzaminu z angielskiego po szkole podstawowej, poziom A2."
+    },
+    {
+      "id": "matura-podstawowa",
+      "code": "MP",
+      "label": "Matura podstawowa",
+      "route": "/matura-podstawowa",
+      "status": "soon",
+      "order": 2,
+      "soonDescription": "Format arkusza, typy zadań i ćwiczenia pod maturę na poziomie podstawowym."
+    },
+    {
+      "id": "matura-rozszerzona",
+      "code": "MR",
+      "label": "Matura rozszerzona",
+      "route": "/matura-rozszerzona",
+      "status": "soon",
+      "order": 3,
+      "soonDescription": "Rozszerzone zadania, rozprawki i ćwiczenia na poziom B2+."
+    },
+    {
+      "id": "certyfikat-b2",
+      "code": "B2",
+      "label": "Certyfikat B2 (Cambridge)",
+      "route": "/certyfikat-b2",
+      "status": "soon",
+      "order": 4,
+      "soonDescription": "Przygotowanie do Cambridge B2 First: Reading, Use of English, Writing i Listening."
+    },
+    {
+      "id": "certyfikat-c1",
+      "code": "C1",
+      "label": "Certyfikat C1",
+      "route": "/certyfikat-c1",
+      "status": "active",
+      "order": 5,
+      "existing": true,
+      "description": "Cambridge C1 Advanced. Istniejący moduł, bez zmian."
+    }
+  ]
+}

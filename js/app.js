@@ -197,6 +197,8 @@ window.ELM = window.ELM || {};
   //   "#/dzis"            → strona „Dziś”
   //   "#/test-poziomu"    → szybki test poziomu
   //   "#/bledy[/powtorki]" → dziennik błędów i sesja powtórek
+  //   "#/cwiczenia/zestaw|mix/<id>", "#/cwiczenia/sesja" → sesja zadań (js/exercise-engine.js)
+  //   "#/laboratorium-czasow[/…]" → Laboratorium czasów (js/tense-lab.js)
   // =====================================================================
 
   /** Odczytuje adres i ustawia state.view, state.route i wybrany poziom. */
@@ -207,6 +209,8 @@ window.ELM = window.ELM || {};
     const journal = ELM.journal ? ELM.journal.parseRoute(hash) : null;
     const today = ELM.today ? ELM.today.parseRoute(hash) : null;
     const levelTest = ELM.levelTest ? ELM.levelTest.parseRoute(hash) : null;
+    const exercises = ELM.exercises ? ELM.exercises.parseRoute(hash) : null;
+    const lab = ELM.tenseLab ? ELM.tenseLab.parseRoute(hash) : null;
     state.route = null;
     state.c1Route = null;
     state.toolRoute = null;
@@ -222,6 +226,12 @@ window.ELM = window.ELM || {};
     } else if (journal) {
       state.view = "journal";
       state.toolRoute = journal;
+    } else if (exercises) {
+      state.view = "exercises";
+      state.toolRoute = exercises;
+    } else if (lab) {
+      state.view = "lab";
+      state.toolRoute = lab;
     } else if (c1) {
       state.view = "c1"; // zakładka „Certyfikat C1”
       state.c1Route = c1;
@@ -259,6 +269,7 @@ window.ELM = window.ELM || {};
     state.lastHash = location.hash;
     if (state.view === "journal" && previousHash !== location.hash) ELM.journal.onEnter(state.toolRoute);
     if (state.view === "leveltest" && previousHash !== location.hash) ELM.levelTest.onEnter();
+    if (state.view === "exercises" && previousHash !== location.hash) ELM.exercises.onEnter(state.toolRoute);
     saveUI();
     if (state.view !== "page") document.title = "English Levels Map (A1–C2)";
     if (state.view === "level" && previous === "page") {

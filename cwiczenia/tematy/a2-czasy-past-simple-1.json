@@ -1,0 +1,213 @@
+{
+  "version": 1,
+  "id": "a2-czasy-past-simple-1",
+  "topic": "a2-czasy-past-simple",
+  "level": "A2",
+  "title": "Past Simple – sprawdź się",
+  "intro": "10 zadań: wybór formy, układanie zdań i szukanie błędów.",
+  "passage": null,
+  "items": [
+    {
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "We ___ to the cinema last night.",
+      "options": [
+        "go",
+        "goes",
+        "went",
+        "gone"
+      ],
+      "correct": 2,
+      "explanation": "Last night to zakończony moment w przeszłości, więc Past Simple: went.",
+      "optionNotes": [
+        "Forma podstawowa.",
+        "Present Simple dla he/she/it.",
+        null,
+        "Trzecia forma bez have nie tworzy Past Simple."
+      ],
+      "tags": [
+        "irregular"
+      ],
+      "id": "a2-czasy-past-simple-1-01"
+    },
+    {
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "She ___ her keys yesterday.",
+      "options": [
+        "lose",
+        "losed",
+        "lost",
+        "has lose"
+      ],
+      "correct": 2,
+      "explanation": "Lose jest nieregularny: lose, lost, lost.",
+      "optionNotes": [
+        "Forma podstawowa.",
+        "Nie dodajemy -ed do czasowników nieregularnych.",
+        null,
+        "Złe połączenie."
+      ],
+      "tags": [
+        "irregular"
+      ],
+      "id": "a2-czasy-past-simple-1-02"
+    },
+    {
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "___ you see the match on Sunday?",
+      "options": [
+        "Do",
+        "Did",
+        "Were",
+        "Have"
+      ],
+      "correct": 1,
+      "explanation": "Pytanie w Past Simple tworzymy przez Did + podmiot + forma podstawowa.",
+      "optionNotes": [
+        "Do jest w czasie teraźniejszym.",
+        null,
+        "Were łączy się z przymiotnikiem lub -ing.",
+        "Have tworzy Present Perfect."
+      ],
+      "tags": [
+        "pytania"
+      ],
+      "id": "a2-czasy-past-simple-1-03"
+    },
+    {
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "I ___ understand the question.",
+      "options": [
+        "didn't",
+        "don't",
+        "wasn't",
+        "hadn't"
+      ],
+      "correct": 0,
+      "explanation": "Przeczenie w Past Simple: didn't + forma podstawowa.",
+      "optionNotes": [
+        null,
+        "Don't to czas teraźniejszy.",
+        "Wasn't łączy się z przymiotnikiem lub -ing.",
+        "Hadn't to Past Perfect."
+      ],
+      "tags": [
+        "przeczenia"
+      ],
+      "id": "a2-czasy-past-simple-1-04"
+    },
+    {
+      "type": "reorder",
+      "context": "Wczoraj nie poszedłem do szkoły.",
+      "answers": [
+        "I didn't go to school yesterday.",
+        "Yesterday I didn't go to school."
+      ],
+      "explanation": "Przeczenie: didn't + go (forma podstawowa).",
+      "tags": [
+        "przeczenia"
+      ],
+      "id": "a2-czasy-past-simple-1-05"
+    },
+    {
+      "type": "reorder",
+      "context": "Kiedy kupiłeś ten rower?",
+      "answers": [
+        "When did you buy this bike?"
+      ],
+      "explanation": "Pytanie: When + did + podmiot + forma podstawowa.",
+      "tags": [
+        "pytania"
+      ],
+      "id": "a2-czasy-past-simple-1-06"
+    },
+    {
+      "type": "reorder",
+      "context": "Spotkaliśmy się w zeszły piątek.",
+      "answers": [
+        "We met last Friday."
+      ],
+      "explanation": "Meet to czasownik nieregularny: met.",
+      "extraTokens": [
+        "meeted"
+      ],
+      "tags": [
+        "irregular"
+      ],
+      "id": "a2-czasy-past-simple-1-07"
+    },
+    {
+      "type": "find-error",
+      "tokens": [
+        "I",
+        "buyed",
+        "a",
+        "new",
+        "bike",
+        "last",
+        "month."
+      ],
+      "errorRange": [
+        1,
+        1
+      ],
+      "fixes": [
+        "bought"
+      ],
+      "explanation": "Buy jest nieregularny: buy, bought.",
+      "tags": [
+        "irregular"
+      ],
+      "id": "a2-czasy-past-simple-1-08"
+    },
+    {
+      "type": "find-error",
+      "tokens": [
+        "Did",
+        "she",
+        "went",
+        "to",
+        "the",
+        "party?"
+      ],
+      "errorRange": [
+        2,
+        2
+      ],
+      "fixes": [
+        "go"
+      ],
+      "explanation": "Po did czasownik wraca do formy podstawowej.",
+      "tags": [
+        "pytania"
+      ],
+      "trap": "Po did nie używamy drugiej formy.",
+      "id": "a2-czasy-past-simple-1-09"
+    },
+    {
+      "type": "find-error",
+      "tokens": [
+        "He",
+        "didn't",
+        "called",
+        "me",
+        "yesterday."
+      ],
+      "errorRange": [
+        1,
+        2
+      ],
+      "fixes": [
+        "didn't call"
+      ],
+      "explanation": "Po didn't czasownik jest w formie podstawowej. Poprawka obejmuje oba słowa.",
+      "tags": [
+        "przeczenia"
+      ],
+      "id": "a2-czasy-past-simple-1-10"
+    }
+  ]
+}

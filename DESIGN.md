@@ -329,6 +329,46 @@ Pominięte. Aplikacja nie jest w React, a brief dopuszczał ten krok tylko dla R
   - Po najechaniu albo fokusie przygaszony element wraca do 100%, więc nic nie znika z klawiatury.
   - Tryb kończy się przy pauzie, końcu czasu albo zmianie strony.
 
+### 3.9 Ćwiczenia: silnik zadań i Centrum ćwiczeń (rozbudowa v2)
+
+- **Karta zadania** (`.ex-card`): nad kartą kropki postępu (te same co w teście poziomu: ✓ / ✗ w kropce). Typ zadania jest wersalikami, a polecenie w kroju display.
+- **Wybór odpowiedzi.**
+  - Natywne pola radio w `role="radiogroup"`, cała etykieta ma 48 px i jest celem kliknięcia.
+  - Cyfra 1–4 w kółku: wybrana opcja dostaje tło `--accent-soft`, poprawna ✓ i „Poprawna”, błędna ✗ i „Twoja odpowiedź”.
+  - Luka `___` to linia: po sprawdzeniu jest wypełniona na zielono albo na czerwono z przekreśleniem (zawsze z ikoną).
+- **Ułóż zdanie.** Wyrazy to przyciski 44 px („tap-to-place”), a linia odpowiedzi to przerywana ramka. Po błędzie wyraz, od którego ułożenie różni się od wzoru, ma ✗ i tło `--danger-soft`.
+- **Znajdź błąd.**
+  - Wyrazy to przyciski z `aria-pressed`, zaznaczony ma podkreślenie w `--accent`.
+  - Po sprawdzeniu błędny fragment ma bursztynowe tło `--warning-soft`, a źle wskazany fragment ma czerwoną linię.
+- **Informacja zwrotna.**
+  - Wyświetla się w `role="status"`: werdykt, wzór odpowiedzi, wyjaśnienie, ramka „Pułapka” w bursztynie.
+  - Animacje: „pstryknięcie” karty (`ex-pop`) albo krótkie drżenie (`ex-shake`), oba w CSS i wyłączone przy `prefers-reduced-motion` (reguła globalna).
+- **Telefon.** Przyciski „Sprawdź / Dalej” są przyklejone u dołu karty (`position: sticky`, tło `--sticky-bg`).
+- **Wynik:** duża liczba w kroju display (`--fs-4xl`), ciepły komentarz według procentu i lista „Do poprawki”. W sesji mieszanej dochodzi trafność per temat.
+- **Karty zestawów** (`.ex-set-card`): górny pasek w kolorze poziomu, najlepszy i ostatni wynik, przycisk „Zacznij”. Tak samo wyglądają w „Sprawdź się”, w Centrum ćwiczeń i na karcie czasu w Labie.
+
+### 3.10 Laboratorium czasów (rozbudowa v2)
+
+- **Tokeny grup czasów** (oś i akcenty, ≥ 3:1 do karty i tła, sprawdzane w `tools/kontrast.js`):
+
+  | Token | Jasny | Ciemny |
+  |---|---|---|
+  | `--tense-past` | `#5b4bc4` (indygo) | `#b3a8ff` |
+  | `--tense-present` | `#2c55c4` (akcent) | `#8db0ff` |
+  | `--tense-future` | `#0e7682` (morski) | `#5fd3dc` |
+
+  Klasa `.lab-group-<grupa>` ustawia `--tense`. Kolor grupy jest tylko na osi i w podkreśleniu kolumny mapy. Kafelki i karty czasów mają kolor **poziomu** (jak cała aplikacja).
+- **Mapa:** trzy kolumny (Present / Past / Future) i cztery aspekty. Na wąskim ekranie kolumny są jedna pod drugą. Kafelek ma lewy pasek poziomu, kod poziomu i przykład kursywą.
+- **Oś czasu** (SVG):
+  - `-1 … 0 … 1`, kreska „teraz” przerywana;
+  - punkty, odcinki 12 px z zaokrąglonym końcem, gradient „od dawna”, strzałka w przyszłość, romb „skutek”, pionowy znacznik odniesienia;
+  - etykiety nad osią w rzędach bez nakładania;
+  - zwarta wersja (440 jednostek) na telefonie i w kolumnach porównania, żeby napisy nie były drobniejsze niż ok. 12 px;
+  - animacja GSAP DrawSVG: oś rysuje się od lewej, elementy pojawiają się kolejno. Przy `reduced-motion` od razu widać stan końcowy;
+  - `role="img"` z opisem sceny i ten sam opis jako tekst pod osią.
+- **Zakładki** to linki z `aria-current="page"` (każda ma swój adres). Na wąskim ekranie pasek zakładek przewija się w poziomie.
+- **Dobierz czas:** duże przyciski odpowiedzi (56 px), ścieżka wyborów nad pytaniem, fokus wraca na nowe pytanie. Wynik to karty czasów z uzasadnieniem i przykładem.
+
 ## 4. Ruch
 
 - **Proste rzeczy tylko w CSS.** Hover, focus, pojawianie się i przejścia kolorów robi CSS. Animujemy `opacity` i `transform`. Wyjątek to krótkie przejście kolorów przy zmianie motywu (klasa `html.theme-anim`).
@@ -339,7 +379,7 @@ Pominięte. Aplikacja nie jest w React, a brief dopuszczał ten krok tylko dla R
   - Przy opuszczeniu widoku: `mm.revert()` / `ctx.revert()`. Aplikacja nie używa Reacta, więc zamiast `useGSAP` sprzątamy przy zmianie trasy.
   - Wszystkie animacje GSAP przechodzą przez `js/motion.js`: `ELM.motion.run(plugins, setup)` ładuje GSAP i wtyczki, wywołuje `setup(gsap, reduce)` w `gsap.matchMedia()` i sprząta (`mm.revert()`) przy następnej animacji i przy zmianie strony (`app.onRoute`). Gdy GSAP się nie wczyta albo ruch jest ograniczony, widok od razu pokazuje stan końcowy.
   - Używane wtyczki: DrawSVG i MotionPath (tylko szlak na „Dziś”). Pliki `assets/vendor/*.min.js` kopiuje `npm run zasoby`.
-  - Gdzie ładowany: „Dziś”, ekran wyniku testu i celebracje. Pozostałe ekrany GSAP nie ładują. Etap 4 nie dodał animacji GSAP (callouty, arkusz i tryb skupienia to CSS).
+  - Gdzie ładowany: „Dziś”, ekran wyniku testu, celebracje i oś czasu w Laboratorium czasów. Pozostałe ekrany GSAP nie ładują (animacje zadań są w CSS). Etap 4 nie dodał animacji GSAP (callouty, arkusz i tryb skupienia to CSS).
   - Szlak liczy długość do stacji jednym `getTotalLength()` na ścieżce przyciętej do kolejnych odcinków. Nie próbkujemy `getPointAtLength()`, bo przy CPU 4× kosztowało to ok. 650 ms na render.
 - **Bez wygładzania przewijania.** Nie używamy Lenis ani podobnych bibliotek. Przewijanie jest natywne (zagnieżdżone panele, pola tekstowe, iPad).
 - **Bez ciężkich efektów tła.** Zakazane są WebGL i canvas z cząsteczkami.

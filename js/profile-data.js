@@ -7,6 +7,9 @@
  *   elm_leveltest_v1 { version: 1, profiles: { <idProfilu>: { last: wynik | null } } }
  *   elm_celebrated_v1 { version: 1, profiles: { <idProfilu>: { ids: ["first-umiem", …] } } }
  *                    — kamienie milowe już pokazane (każdy tylko raz na profil, js/celebrate.js)
+ *   elm_exercises_v1 { version: 1, profiles: { <idProfilu>: { sets: { <idZestawu>: { best, last } }, lastMix: [idZadania…] } } }
+ *                    — wyniki zestawów ćwiczeń (silnik zadań, js/exercise-engine.js);
+ *                      best / last = { score, total, date }; lastMix — zadania ostatniej sesji mieszanej
  *
  * Wpis dziennika błędów:
  *   { id, createdAt: "RRRR-MM-DD", context, myAnswer, correct, rule, source,
@@ -25,7 +28,7 @@ window.ELM = window.ELM || {};
 
   const U = ELM.utils;
 
-  const KEYS = { journal: "elm_journal_v1", activity: "elm_activity_v1", levelTest: "elm_leveltest_v1", celebrated: "elm_celebrated_v1" };
+  const KEYS = { journal: "elm_journal_v1", activity: "elm_activity_v1", levelTest: "elm_leveltest_v1", celebrated: "elm_celebrated_v1", exercises: "elm_exercises_v1" };
   const VERSION = 1;
 
   const CATEGORIES = ["Use of English", "Reading", "Writing", "Listening", "Speaking", "Gramatyka", "Słownictwo", "Inne"];
@@ -83,6 +86,7 @@ window.ELM = window.ELM || {};
     if (kind === "journal") return { entries: [] };
     if (kind === "activity") return { days: [], lastPage: null };
     if (kind === "celebrated") return { ids: [] };
+    if (kind === "exercises") return { sets: {}, lastMix: [] };
     return { last: null };
   }
 
@@ -171,7 +175,29 @@ window.ELM = window.ELM || {};
         .filter(function (x) { return typeof x === "string" && /^[a-z0-9-]{1,40}$/.test(x); });
       return { ids: Array.from(new Set(ids)).slice(0, 200) };
     }
+    if (kind === "exercises") {
+      const sets = {};
+      const src = U.isPlainObject(raw.sets) ? raw.sets : {};
+      Object.keys(src).slice(0, 2000).forEach(function (id) {
+        if (!EX_ID.test(id) || !U.isPlainObject(src[id])) return;
+        const best = normalizeScore(src[id].best), last = normalizeScore(src[id].last);
+        if (best || last) sets[id] = { best: best || last, last: last || best };
+      });
+      const lastMix = (Array.isArray(raw.lastMix) ? raw.lastMix : [])
+        .filter(function (x) { return typeof x === "string" && EX_ID.test(x); }).slice(0, 100);
+      return { sets: sets, lastMix: lastMix };
+    }
     return { last: normalizeTestResult(raw.last) };
+  }
+
+  const EX_ID = /^[a-z0-9][a-z0-9-]{0,99}$/;
+
+  /** Wynik zestawu { score, total, date } albo null. */
+  function normalizeScore(raw) {
+    if (!U.isPlainObject(raw)) return null;
+    const total = Number.isInteger(raw.total) && raw.total > 0 && raw.total <= 500 ? raw.total : 0;
+    if (!total || !Number.isInteger(raw.score) || raw.score < 0 || raw.score > total || !learn().isDay(raw.date)) return null;
+    return { score: raw.score, total: total, date: raw.date };
   }
 
   /** { version, profiles: { id: rekord } } → czysta kopia (wyjątek przy złym formacie). */
@@ -323,6 +349,45 @@ window.ELM = window.ELM || {};
   }
 
   // =====================================================================
+  // WYNIKI ZESTAWÓW ĆWICZEŃ
+  // =====================================================================
+
+  /** { best, last } zestawu dla aktywnego profilu albo null. */
+  function setScore(setId) {
+    const pid = activeId();
+    if (!pid) return null;
+    const rec = load("exercises").profiles[pid];
+    return rec && rec.sets[setId] ? { best: rec.sets[setId].best, last: rec.sets[setId].last } : null;
+  }
+
+  /** Zapisuje wynik ukończonej sesji: ostatni zawsze, najlepszy, gdy procent jest wyższy. */
+  function saveSetScore(setId, score, total) {
+    const pid = activeId();
+    if (!pid || !EX_ID.test(setId)) return null;
+    const clean = normalizeScore({ score: score, total: total, date: learn().today() });
+    if (!clean) return null;
+    const rec = record("exercises", pid);
+    const prev = rec.sets[setId];
+    const better = !prev || clean.score / clean.total > prev.best.score / prev.best.total;
+    rec.sets[setId] = { best: better ? clean : prev.best, last: clean };
+    save("exercises");
+    return { best: rec.sets[setId].best, last: clean, improved: !!prev && better };
+  }
+
+  function lastMix() {
+    const pid = activeId();
+    const rec = pid ? load("exercises").profiles[pid] : null;
+    return rec ? rec.lastMix.slice() : [];
+  }
+
+  function setLastMix(ids) {
+    const pid = activeId();
+    if (!pid) return;
+    record("exercises", pid).lastMix = ids.filter(function (x) { return EX_ID.test(x); }).slice(0, 100);
+    save("exercises");
+  }
+
+  // =====================================================================
   // PROFILE, EKSPORT, IMPORT, RESET
   // =====================================================================
 
@@ -353,7 +418,8 @@ window.ELM = window.ELM || {};
       journal: JSON.parse(JSON.stringify(load("journal"))),
       activity: JSON.parse(JSON.stringify(load("activity"))),
       levelTest: JSON.parse(JSON.stringify(load("levelTest"))),
-      celebrated: JSON.parse(JSON.stringify(load("celebrated")))
+      celebrated: JSON.parse(JSON.stringify(load("celebrated"))),
+      exercises: JSON.parse(JSON.stringify(load("exercises")))
     };
   }
 
@@ -421,6 +487,10 @@ window.ELM = window.ELM || {};
     celebrated: celebrated,
     addCelebrated: addCelebrated,
     saveTest: saveTest,
+    setScore: setScore,
+    saveSetScore: saveSetScore,
+    lastMix: lastMix,
+    setLastMix: setLastMix,
     removeProfile: removeProfile,
     prune: prune,
     exportData: exportData,

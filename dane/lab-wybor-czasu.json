@@ -1,0 +1,171 @@
+{
+  "version": 1,
+  "start": "start",
+  "nodes": {
+    "start": {
+      "question": "Kiedy dzieje się ta czynność?",
+      "help": "Wybierz moment, o którym mówisz.",
+      "options": [
+        {
+          "label": "Teraz lub zwykle",
+          "next": "present"
+        },
+        {
+          "label": "W przeszłości",
+          "next": "past"
+        },
+        {
+          "label": "W przyszłości",
+          "next": "future"
+        }
+      ]
+    },
+    "present": {
+      "question": "Co chcesz powiedzieć?",
+      "help": "",
+      "options": [
+        {
+          "label": "Zwykle, regularnie lub fakt",
+          "result": [
+            "present-simple"
+          ],
+          "why": "Nawyk, rutyna, prawdy ogólne."
+        },
+        {
+          "label": "Dzieje się dokładnie teraz",
+          "result": [
+            "present-continuous"
+          ],
+          "why": "Czynność w toku w chwili mówienia."
+        },
+        {
+          "label": "Zaczęło się w przeszłości i ma związek z teraz",
+          "next": "pp"
+        }
+      ]
+    },
+    "pp": {
+      "question": "Co jest ważniejsze?",
+      "help": "",
+      "options": [
+        {
+          "label": "Doświadczenie lub skutek (ważne co, nie ile)",
+          "result": [
+            "present-perfect"
+          ],
+          "why": "Doświadczenie lub skutek teraz."
+        },
+        {
+          "label": "Jak długo to trwa (ważny czas trwania)",
+          "result": [
+            "present-perfect",
+            "present-perfect-continuous"
+          ],
+          "why": "For/since: Perfect dla stanów, Perfect Continuous dla czynności."
+        }
+      ]
+    },
+    "past": {
+      "question": "Jaki to rodzaj zdarzenia?",
+      "help": "",
+      "options": [
+        {
+          "label": "Zakończone, konkretny moment",
+          "result": [
+            "past-simple"
+          ],
+          "why": "Zamknięte zdarzenie w przeszłości."
+        },
+        {
+          "label": "Trwało w pewnym momencie lub w tle",
+          "result": [
+            "past-continuous"
+          ],
+          "why": "Czynność w toku w przeszłości."
+        },
+        {
+          "label": "Zdarzyło się wcześniej niż inne zdarzenie w przeszłości",
+          "next": "pastbefore"
+        }
+      ]
+    },
+    "pastbefore": {
+      "question": "Czy liczy się, że czynność trwała?",
+      "help": "",
+      "options": [
+        {
+          "label": "Nie, liczy się, że była zakończona wcześniej",
+          "result": [
+            "past-perfect"
+          ],
+          "why": "Wcześniejsze zdarzenie."
+        },
+        {
+          "label": "Tak, trwała przez jakiś czas przed tamtym momentem",
+          "result": [
+            "past-perfect-continuous"
+          ],
+          "why": "Czas trwania przed momentem w przeszłości."
+        }
+      ]
+    },
+    "future": {
+      "question": "Jaki to rodzaj przyszłości?",
+      "help": "",
+      "options": [
+        {
+          "label": "Decyzja w chwili mówienia lub opinia",
+          "result": [
+            "future-will"
+          ],
+          "why": "Will dla spontanicznych decyzji i przewidywań."
+        },
+        {
+          "label": "Plan lub przewidywanie z dowodami",
+          "result": [
+            "going-to"
+          ],
+          "why": "Be going to dla zamiarów i dowodów."
+        },
+        {
+          "label": "Umówione spotkanie",
+          "result": [
+            "present-continuous-future"
+          ],
+          "why": "Ustalenia z terminem."
+        },
+        {
+          "label": "Rozkład lub harmonogram",
+          "result": [
+            "present-simple-future"
+          ],
+          "why": "Oficjalny rozkład."
+        },
+        {
+          "label": "W toku w przyszłym momencie lub zakończone do niego",
+          "next": "futureadv"
+        }
+      ]
+    },
+    "futureadv": {
+      "question": "Co dokładnie?",
+      "help": "",
+      "options": [
+        {
+          "label": "Będzie trwać w tym momencie",
+          "result": [
+            "future-continuous"
+          ],
+          "why": "Czynność w toku w przyszłości."
+        },
+        {
+          "label": "Będzie zakończone do tego momentu",
+          "result": [
+            "future-perfect"
+          ],
+          "why": "Zakończone przed przyszłym punktem."
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,246 @@
+/*
+ * waliduj-cwiczenia.js — walidator danych ćwiczeń i Laboratorium czasów
+ * (spec 01, sekcja 8, i spec 02). Uruchamiany przez `npm run validate`
+ * i w `npm run build`; błędy przerywają budowanie (kod wyjścia 1).
+ *
+ * Sprawdza:
+ *   - mapę dane/cwiczenia-tematy.json: tematy istnieją w niezbednik/index.json, pliki zestawów istnieją,
+ *   - zestawy cwiczenia/tematy/*.json: poprawny JSON, id = nazwa pliku, topic istnieje,
+ *     id zadań unikalne w całym banku, pola każdego typu (2–4 opcje, correct w zakresie,
+ *     optionNotes, multizbiór wyrazów w reorder, errorRange, jedna luka w short-answer…),
+ *     explanation, passage dla kind „reading”, script dla kind „listening”,
+ *   - dane/lab-czasow.json: grupy, aspekty, poziomy, współrzędne osi w [-1, 1], from ≤ to,
+ *     kontrasty z istniejącymi czasami, niezbednikIds,
+ *   - dane/lab-wybor-czasu.json: start, każde next istnieje, każdy result to istniejący czas,
+ *     brak martwych węzłów i cykli,
+ *   - dane/mixes.json: id, tematy istnieją i mają zestawy, typy znane.
+ *
+ * Odpowiednik skryptu z paczki: scripts/validate_exercises.py (Python).
+ * Użycie: node tools/waliduj-cwiczenia.js
+ */
+"use strict";
+
+const fs = require("fs");
+const path = require("path");
+
+const ROOT = process.argv[2] ? path.resolve(process.argv[2]) : path.join(__dirname, ".."); // opcjonalnie: inny katalog (testy walidatora)
+const errors = [];
+const warnings = [];
+function err(msg) { errors.push(msg); }
+
+function readJson(rel) {
+  const file = path.join(ROOT, rel);
+  if (!fs.existsSync(file)) return undefined;
+  try { return JSON.parse(fs.readFileSync(file, "utf8").replace(/^﻿/, "")); } catch (e) { err(rel + ": niepoprawny JSON (" + e.message + ")"); return null; }
+}
+
+const LEVELS = ["A1", "A2", "B1", "B2", "C1", "C2"];
+const TYPES = ["multiple-choice", "reorder", "find-error", "short-answer"];
+const KINDS = ["form", "function", "reading", "listening"];
+
+// Tematy z niezbędnika
+const index = readJson("niezbednik/index.json");
+const topics = new Set();
+(index && index.levels || []).forEach(function (l) { l.items.forEach(function (it) { topics.add(it.id); }); });
+if (!topics.size) err("niezbednik/index.json: brak tematów");
+
+function words(sentence) {
+  return String(sentence).trim().split(/\s+/).map(function (w) { return w.replace(/[.,!?;]+$/, "").replace(/’/g, "'").toLowerCase(); }).filter(Boolean);
+}
+function sameMultiset(a, b) { return a.slice().sort().join("\u0000") === b.slice().sort().join("\u0000"); }
+function nonEmpty(s) { return typeof s === "string" && s.trim() !== ""; }
+
+// ---------- Zestawy ----------
+const itemIds = new Set();
+const setsByTopic = {};
+let itemCount = 0;
+
+function checkItem(it, where, set) {
+  const id = it && it.id;
+  const at = where + " " + (id || "?");
+  if (!nonEmpty(id)) err(where + ": zadanie bez id");
+  else if (itemIds.has(id)) err(where + ": zdublowane id zadania " + id + " (id muszą być unikalne w całym banku)");
+  else itemIds.add(id);
+  itemCount++;
+  if (TYPES.indexOf(it.type) === -1) { err(at + ": nieznany typ " + it.type); return; }
+  if (!nonEmpty(it.explanation)) err(at + ": brak explanation");
+  if (it.topic != null && !topics.has(it.topic)) err(at + ": topic " + it.topic + " nie istnieje w niezbednik/index.json");
+  if (it.level != null && LEVELS.indexOf(it.level) === -1) err(at + ": nieznany poziom " + it.level);
+  if (it.tags != null && !(Array.isArray(it.tags) && it.tags.every(nonEmpty))) err(at + ": tags musi być tablicą napisów");
+
+  if (it.type === "multiple-choice") {
+    const o = it.options;
+    if (!Array.isArray(o) || o.length < 2 || o.length > 4 || !o.every(nonEmpty)) err(at + ": options — 2–4 niepuste opcje");
+    else if (new Set(o).size !== o.length) err(at + ": powtórzone opcje");
+    if (!Number.isInteger(it.correct) || !Array.isArray(o) || it.correct < 0 || it.correct >= o.length) err(at + ": correct poza zakresem");
+    if (it.optionNotes != null) {
+      if (!Array.isArray(it.optionNotes) || !Array.isArray(o) || it.optionNotes.length !== o.length) err(at + ": optionNotes musi mieć tyle pozycji co options");
+      else if (Number.isInteger(it.correct) && it.correct >= 0 && it.correct < o.length && it.optionNotes[it.correct] !== null) err(at + ": optionNotes dla poprawnej opcji musi być null");
+    }
+    if (it.kind != null && KINDS.indexOf(it.kind) === -1) err(at + ": nieznany kind " + it.kind);
+    if ((it.kind == null || it.kind === "form") && String(it.prompt || "").indexOf("___") === -1) err(at + ": kind „form” wymaga luki ___ w prompt");
+    if (it.kind === "reading" && !nonEmpty(set.passage)) err(at + ": kind „reading” bez passage w zestawie");
+    if (it.kind === "listening" && !nonEmpty(it.script)) err(at + ": kind „listening” bez script");
+  } else if (it.type === "reorder") {
+    const a = it.answers;
+    if (!Array.isArray(a) || !a.length || !a.every(nonEmpty)) { err(at + ": brak answers"); return; }
+    const base = words(a[0]);
+    if (base.length < 2) err(at + ": zdanie do ułożenia ma mniej niż 2 wyrazy");
+    a.slice(1).forEach(function (x) { if (!sameMultiset(words(x), base)) err(at + ": answers mają różne zestawy wyrazów („" + x + "”)"); });
+    const extra = it.extraTokens || [];
+    if (!Array.isArray(extra) || extra.length > 2) err(at + ": extraTokens — najwyżej 2");
+    else extra.forEach(function (e) { if (base.indexOf(String(e).toLowerCase()) !== -1) err(at + ": extraToken „" + e + "” występuje w odpowiedzi"); });
+  } else if (it.type === "find-error") {
+    if (!Array.isArray(it.tokens) || it.tokens.length < 2 || !it.tokens.every(nonEmpty)) err(at + ": tokens — co najmniej 2 wyrazy");
+    if (!it.noError) {
+      const r = it.errorRange;
+      if (!(Array.isArray(r) && r.length === 2 && Number.isInteger(r[0]) && Number.isInteger(r[1]) && r[0] >= 0 && r[0] <= r[1] && Array.isArray(it.tokens) && r[1] < it.tokens.length)) err(at + ": errorRange poza tokens");
+      if (!Array.isArray(it.fixes) || !it.fixes.length || !it.fixes.every(function (f) { return typeof f === "string"; })) err(at + ": fixes — niepusta lista");
+      else if (Array.isArray(r) && Array.isArray(it.tokens)) {
+        const wrong = it.tokens.slice(r[0], r[1] + 1).join(" ").toLowerCase();
+        it.fixes.forEach(function (f) { if (f.toLowerCase() === wrong) err(at + ": poprawka „" + f + "” jest taka sama jak błędny fragment"); });
+      }
+    }
+  } else if (it.type === "short-answer") {
+    if ((String(it.prompt || "").match(/___/g) || []).length !== 1) err(at + ": prompt musi mieć dokładnie jedną lukę ___");
+    if (!Array.isArray(it.accepted) || !it.accepted.length || !it.accepted.every(nonEmpty)) err(at + ": accepted — niepusta lista");
+  }
+}
+
+const SETS_DIR = path.join(ROOT, "cwiczenia", "tematy");
+const setFiles = fs.existsSync(SETS_DIR) ? fs.readdirSync(SETS_DIR).filter(function (f) { return /\.json$/.test(f); }).sort() : [];
+const setIds = new Set();
+setFiles.forEach(function (f) {
+  const rel = "cwiczenia/tematy/" + f;
+  const set = readJson(rel);
+  if (!set) return;
+  const id = f.replace(/\.json$/, "");
+  setIds.add(id);
+  if (set.id !== id) err(rel + ": id zestawu (" + set.id + ") ≠ nazwa pliku");
+  if (set.version !== 1) err(rel + ": version musi być 1");
+  if (set.topic != null && !topics.has(set.topic)) err(rel + ": topic " + set.topic + " nie istnieje w niezbednik/index.json");
+  if (set.level != null && LEVELS.indexOf(set.level) === -1) err(rel + ": nieznany poziom " + set.level);
+  if (!nonEmpty(set.title)) err(rel + ": brak title");
+  if (!Array.isArray(set.items) || !set.items.length) { err(rel + ": brak items"); return; }
+  set.items.forEach(function (it) { checkItem(Object.assign({ topic: set.topic, level: set.level }, it), f, set); });
+});
+
+// ---------- Mapa temat → zestawy ----------
+const map = readJson("dane/cwiczenia-tematy.json");
+if (map) {
+  Object.keys(map.topics || {}).forEach(function (t) {
+    if (!topics.has(t)) err("dane/cwiczenia-tematy.json: nieznany temat " + t);
+    (map.topics[t] || []).forEach(function (s) {
+      if (!setIds.has(s)) err("dane/cwiczenia-tematy.json: brak pliku cwiczenia/tematy/" + s + ".json");
+      else (setsByTopic[t] = setsByTopic[t] || []).push(s);
+    });
+  });
+  setIds.forEach(function (s) {
+    const inMap = Object.keys(map.topics || {}).some(function (t) { return map.topics[t].indexOf(s) !== -1; });
+    if (!inMap) warnings.push("zestaw " + s + " nie jest wpisany w dane/cwiczenia-tematy.json (nie pojawi się w aplikacji)");
+  });
+}
+
+// ---------- Laboratorium czasów ----------
+const lab = readJson("dane/lab-czasow.json");
+const tenses = new Set();
+if (lab) {
+  const GROUPS = ["present", "past", "future"];
+  const ASPECTS = ["simple", "continuous", "perfect", "perfect-continuous", "form"];
+  const ELEMENTS = { "point": ["at"], "range": ["from", "to"], "open-left": ["to"], "open-right": ["from"], "repeat": ["from", "to"], "result": ["at"], "marker": ["at", "label"] };
+  (lab.tenses || []).forEach(function (t) {
+    const at = "lab " + (t.id || "?");
+    if (!nonEmpty(t.id)) err("lab: czas bez id");
+    else if (tenses.has(t.id)) err(at + ": zdublowane id");
+    tenses.add(t.id);
+    ["name", "namePl", "summary"].forEach(function (k) { if (!nonEmpty(t[k])) err(at + ": brak " + k); });
+    if (GROUPS.indexOf(t.group) === -1) err(at + ": group musi być present|past|future");
+    if (ASPECTS.indexOf(t.aspect) === -1) err(at + ": nieznany aspect " + t.aspect);
+    if (LEVELS.indexOf(t.level) === -1) err(at + ": nieznany poziom " + t.level);
+    const f = t.formation || {};
+    ["affirmative", "negative", "question"].forEach(function (k) { if (!nonEmpty(f[k])) err(at + ": formation." + k); });
+    if (!Array.isArray(t.uses) || !t.uses.length) err(at + ": brak uses");
+    else t.uses.forEach(function (u, i) { if (!nonEmpty(u.label) || !nonEmpty(u.en) || !nonEmpty(u.pl)) err(at + ": uses[" + i + "] wymaga label, en i pl"); });
+    if (!Array.isArray(t.scenes) || !t.scenes.length) err(at + ": brak scenes");
+    (t.scenes || []).forEach(function (sc) {
+      const sat = at + " scena " + (sc.id || "?");
+      if (!nonEmpty(sc.id) || !nonEmpty(sc.label) || !nonEmpty(sc.description)) err(sat + ": scena wymaga id, label i description");
+      (sc.elements || []).forEach(function (e) {
+        const need = ELEMENTS[e.kind];
+        if (!need) { err(sat + ": nieznany element " + e.kind); return; }
+        need.forEach(function (k) { if (e[k] == null) err(sat + ": " + e.kind + " wymaga pola " + k); });
+        ["at", "from", "to"].forEach(function (k) { if (k in e && !(typeof e[k] === "number" && e[k] >= -1 && e[k] <= 1)) err(sat + ": " + k + " poza [-1, 1]"); });
+        if ("from" in e && "to" in e && e.from > e.to) err(sat + ": from > to");
+      });
+    });
+    (t.niezbednikIds || []).forEach(function (n) { if (!topics.has(n)) err(at + ": nieznany niezbednikId " + n); });
+  });
+  (lab.tenses || []).forEach(function (t) {
+    (t.contrasts || []).forEach(function (c) {
+      if (!tenses.has(c.with)) err("lab " + t.id + ": kontrast z nieznanym czasem " + c.with);
+      if (!nonEmpty(c.rule)) err("lab " + t.id + ": kontrast bez rule");
+    });
+  });
+}
+
+// ---------- Drzewo „Dobierz czas” ----------
+const tree = readJson("dane/lab-wybor-czasu.json");
+if (tree) {
+  const N = tree.nodes || {};
+  if (!N[tree.start]) err("drzewo: brak węzła start " + tree.start);
+  else {
+    const reach = new Set();
+    const stack = [tree.start];
+    while (stack.length) {
+      const n = stack.pop();
+      if (reach.has(n)) continue;
+      reach.add(n);
+      if (!nonEmpty(N[n].question)) err("drzewo " + n + ": brak question");
+      (N[n].options || []).forEach(function (o) {
+        if (!nonEmpty(o.label)) err("drzewo " + n + ": opcja bez label");
+        if (o.next) { if (!N[o.next]) err("drzewo " + n + ": next → brak węzła " + o.next); else stack.push(o.next); }
+        else if (Array.isArray(o.result) && o.result.length) o.result.forEach(function (r) { if (tenses.size && !tenses.has(r)) err("drzewo " + n + ": nieznany czas " + r); });
+        else err("drzewo " + n + ": opcja „" + o.label + "” bez next i result");
+      });
+      if (!(N[n].options || []).length) err("drzewo " + n + ": węzeł bez opcji");
+    }
+    Object.keys(N).forEach(function (n) { if (!reach.has(n)) err("drzewo: martwy węzeł " + n); });
+    // Cykle (DFS ze ścieżką)
+    (function dfs(n, onPath) {
+      if (onPath.has(n)) { err("drzewo: cykl przez " + n); return; }
+      onPath.add(n);
+      (N[n].options || []).forEach(function (o) { if (o.next && N[o.next]) dfs(o.next, onPath); });
+      onPath.delete(n);
+    })(tree.start, new Set());
+  }
+}
+
+// ---------- Zestawy mieszane ----------
+const mixes = readJson("dane/mixes.json");
+if (mixes) {
+  const seen = new Set();
+  (mixes.mixes || []).forEach(function (m) {
+    const at = "mixes " + (m.id || "?");
+    if (!/^[a-z0-9][a-z0-9-]*$/.test(m.id || "")) err(at + ": id tylko małe litery, cyfry i myślniki");
+    if (seen.has(m.id)) err(at + ": zdublowane id");
+    seen.add(m.id);
+    if (!nonEmpty(m.title)) err(at + ": brak title");
+    if (!Array.isArray(m.topics) || !m.topics.length) err(at + ": brak topics");
+    (m.topics || []).forEach(function (t) {
+      if (!topics.has(t)) err(at + ": nieznany temat " + t);
+      else if (!setsByTopic[t]) warnings.push(at + ": temat " + t + " nie ma jeszcze zestawów");
+    });
+    (m.types || []).forEach(function (t) { if (TYPES.indexOf(t) === -1) err(at + ": nieznany typ " + t); });
+    if (m.count != null && !(Number.isInteger(m.count) && m.count > 0)) err(at + ": count musi być liczbą dodatnią");
+  });
+}
+
+console.log("Walidacja ćwiczeń: zestawy " + setIds.size + ", zadania " + itemCount + ", czasy " + tenses.size +
+  ", węzły drzewa " + (tree ? Object.keys(tree.nodes || {}).length : 0) + ", mixy " + (mixes ? (mixes.mixes || []).length : 0));
+warnings.forEach(function (w) { console.warn("UWAGA: " + w); });
+if (errors.length) {
+  console.error("BŁĘDY (" + errors.length + "):");
+  errors.forEach(function (e) { console.error("  - " + e); });
+  process.exit(1);
+}
+console.log("OK");
