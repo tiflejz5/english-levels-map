@@ -302,16 +302,19 @@ window.ELM = window.ELM || {};
     return d;
   }
 
-  /** Długość ścieżki do punktu najbliższego stacji (do rysowania postępu i ruchu znacznika). */
-  function lengthAt(path, pt) {
-    const total = path.getTotalLength();
-    let best = 0, bestD = Infinity;
-    for (let l = 0; l <= total; l += total / 400) {
-      const p = path.getPointAtLength(l);
-      const dd = (p.x - pt[0]) * (p.x - pt[0]) + (p.y - pt[1]) * (p.y - pt[1]);
-      if (dd < bestD) { bestD = dd; best = l; }
-    }
-    return best;
+  /**
+   * Długość ścieżki od startu do stacji nr i (do rysowania postępu i ruchu znacznika).
+   * Stacje są końcami kolejnych odcinków „C” z smoothPath, więc wystarczy zmierzyć
+   * ścieżkę przyciętą do i odcinków — jedno getTotalLength() zamiast setek
+   * getPointAtLength() (przy CPU 4× to było ~650 ms na każdy render „Dziś”).
+   */
+  function lengthTo(path, d, i) {
+    if (i <= 0) return 0;
+    const full = path.getAttribute("d");
+    path.setAttribute("d", d.split(" C").slice(0, i + 1).join(" C"));
+    const len = path.getTotalLength();
+    path.setAttribute("d", full);
+    return len;
   }
 
   function trailTile(stats) {
@@ -394,11 +397,10 @@ window.ELM = window.ELM || {};
 
     // Stan końcowy bez animacji: ścieżka przebyta do bieżącej stacji, znacznik na stacji
     const total = base.getTotalLength();
-    const reach = lengthAt(base, g.pts[cur]);
+    const reach = lengthTo(done, d, cur);
     const frac = total ? reach / total : 0;
     done.style.strokeDasharray = reach + " " + total;
-    const end = base.getPointAtLength(reach);
-    marker.setAttribute("transform", "translate(" + end.x + " " + end.y + ")");
+    marker.setAttribute("transform", "translate(" + g.pts[cur][0] + " " + g.pts[cur][1] + ")");
     return { svg: svg, base: base, done: done, marker: marker, frac: frac, vertical: vertical };
   }
 
