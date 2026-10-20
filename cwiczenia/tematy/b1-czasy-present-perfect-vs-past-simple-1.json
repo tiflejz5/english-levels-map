@@ -1,0 +1,213 @@
+{
+  "version": 1,
+  "id": "b1-czasy-present-perfect-vs-past-simple-1",
+  "topic": "b1-czasy-present-perfect-vs-past-simple",
+  "level": "B1",
+  "title": "Present Perfect czy Past Simple – sprawdź się",
+  "intro": "10 zadań: wybór formy, układanie zdań i szukanie błędów.",
+  "passage": null,
+  "items": [
+    {
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "I ___ him last week.",
+      "options": [
+        "have seen",
+        "saw",
+        "have saw",
+        "see"
+      ],
+      "correct": 1,
+      "explanation": "Last week to zakończony moment w przeszłości, więc Past Simple: saw.",
+      "optionNotes": [
+        "Z określeniem czasu zakończonego nie używamy Present Perfect.",
+        null,
+        "Błędna forma.",
+        "Present Simple."
+      ],
+      "trap": "Last week, yesterday, in 2019, ago wymagają Past Simple.",
+      "tags": [
+        "time-expressions"
+      ],
+      "id": "b1-czasy-present-perfect-vs-past-simple-1-01"
+    },
+    {
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "She ___ in Warsaw since 2018.",
+      "options": [
+        "lives",
+        "lived",
+        "has lived",
+        "is living"
+      ],
+      "correct": 2,
+      "explanation": "Since + punkt w czasie, sytuacja trwa do teraz: has lived.",
+      "optionNotes": [
+        "Present Simple nie łączy się z since.",
+        "Past Simple oznacza, że już tam nie mieszka.",
+        null,
+        "Present Continuous nie pasuje do since."
+      ],
+      "tags": [
+        "since-for"
+      ],
+      "id": "b1-czasy-present-perfect-vs-past-simple-1-02"
+    },
+    {
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "___ you finished your homework yet?",
+      "options": [
+        "Did",
+        "Have",
+        "Do",
+        "Are"
+      ],
+      "correct": 1,
+      "explanation": "Yet w pytaniu o skutek do teraz łączy się z Present Perfect: Have you finished.",
+      "optionNotes": [
+        "Did wymagałoby formy finish, a tu mamy finished.",
+        null,
+        "Do nie pasuje do finished.",
+        "Are nie pasuje do finished."
+      ],
+      "tags": [
+        "yet"
+      ],
+      "id": "b1-czasy-present-perfect-vs-past-simple-1-03"
+    },
+    {
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "When ___ you buy that jacket?",
+      "options": [
+        "have",
+        "did",
+        "do",
+        "are"
+      ],
+      "correct": 1,
+      "explanation": "Pytanie z When o konkretny moment zawsze w Past Simple: did.",
+      "optionNotes": [
+        "When wyklucza Present Perfect.",
+        null,
+        "Do to Present Simple.",
+        "Are nie pasuje."
+      ],
+      "tags": [
+        "when"
+      ],
+      "id": "b1-czasy-present-perfect-vs-past-simple-1-04"
+    },
+    {
+      "type": "reorder",
+      "context": "Mieszkam tu od pięciu lat.",
+      "answers": [
+        "I have lived here for five years."
+      ],
+      "explanation": "For + okres trwania, sytuacja trwa do teraz.",
+      "tags": [
+        "since-for"
+      ],
+      "id": "b1-czasy-present-perfect-vs-past-simple-1-05"
+    },
+    {
+      "type": "reorder",
+      "context": "Obejrzeliśmy ten film wczoraj.",
+      "answers": [
+        "We watched that film yesterday.",
+        "Yesterday we watched that film."
+      ],
+      "explanation": "Yesterday = Past Simple.",
+      "extraTokens": [
+        "have"
+      ],
+      "tags": [
+        "time-expressions"
+      ],
+      "id": "b1-czasy-present-perfect-vs-past-simple-1-06"
+    },
+    {
+      "type": "reorder",
+      "context": "Czy już zjadłeś obiad?",
+      "answers": [
+        "Have you had lunch yet?"
+      ],
+      "explanation": "Yet w pytaniu na końcu, Present Perfect.",
+      "tags": [
+        "yet"
+      ],
+      "id": "b1-czasy-present-perfect-vs-past-simple-1-07"
+    },
+    {
+      "type": "find-error",
+      "tokens": [
+        "I",
+        "have",
+        "visited",
+        "Rome",
+        "last",
+        "year."
+      ],
+      "errorRange": [
+        1,
+        2
+      ],
+      "fixes": [
+        "visited"
+      ],
+      "explanation": "Last year wyklucza Present Perfect. Usuwamy have.",
+      "tags": [
+        "time-expressions"
+      ],
+      "id": "b1-czasy-present-perfect-vs-past-simple-1-08"
+    },
+    {
+      "type": "find-error",
+      "tokens": [
+        "She",
+        "lives",
+        "in",
+        "Kraków",
+        "since",
+        "2015."
+      ],
+      "errorRange": [
+        1,
+        1
+      ],
+      "fixes": [
+        "has lived"
+      ],
+      "explanation": "Since wymaga Present Perfect: has lived.",
+      "tags": [
+        "since-for"
+      ],
+      "id": "b1-czasy-present-perfect-vs-past-simple-1-09"
+    },
+    {
+      "type": "find-error",
+      "tokens": [
+        "Did",
+        "you",
+        "ever",
+        "been",
+        "to",
+        "Italy?"
+      ],
+      "errorRange": [
+        0,
+        3
+      ],
+      "fixes": [
+        "Have you ever been"
+      ],
+      "explanation": "Pytanie o doświadczenie w Present Perfect: Have you ever been.",
+      "tags": [
+        "been"
+      ],
+      "id": "b1-czasy-present-perfect-vs-past-simple-1-10"
+    }
+  ]
+}

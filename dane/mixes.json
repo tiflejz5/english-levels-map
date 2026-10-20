@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "mixes": [
+    {
+      "id": "mix-czasy-a1-a2",
+      "title": "Czasy A1–A2",
+      "description": "Present Simple, Continuous, Past Simple i Present Perfect pomieszane.",
+      "level": "A1-A2",
+      "count": 15,
+      "mode": "learn",
+      "topics": [
+        "a1-czasy-present-simple",
+        "a1-czasy-present-continuous",
+        "a2-czasy-past-simple",
+        "a2-czasy-present-perfect-doswiadczenia"
+      ]
+    },
+    {
+      "id": "mix-czasy-b1",
+      "title": "Czasy B1",
+      "description": "Present Perfect kontra Past Simple oraz wybór formy przyszłej.",
+      "level": "B1",
+      "count": 15,
+      "mode": "learn",
+      "topics": [
+        "b1-czasy-present-perfect-vs-past-simple",
+        "b1-czasy-wybor-formy-przyszlej"
+      ]
+    },
+    {
+      "id": "mix-znajdz-blad",
+      "title": "Znajdź błąd – czasy",
+      "description": "Same zdania z błędem do poprawienia.",
+      "level": "A1-B1",
+      "count": 10,
+      "mode": "learn",
+      "types": [
+        "find-error"
+      ],
+      "topics": [
+        "a1-czasy-present-simple",
+        "a2-czasy-past-simple",
+        "b1-czasy-present-perfect-vs-past-simple"
+      ]
+    }
+  ]
+}
