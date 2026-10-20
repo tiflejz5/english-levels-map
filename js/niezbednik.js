@@ -216,6 +216,8 @@ window.ELM = window.ELM || {};
     if (ELM.c1) ELM.c1.insertAfterIntro(article, ELM.c1.examBoxFor(found.item.id));
     if (ELM.callouts) ELM.callouts.apply(article); // wyróżnione sekcje i tabele (js/callouts.js)
     view.appendChild(article);
+    // „Sprawdź się”: zestawy zadań tematu i link do Laboratorium czasów (indeks wczytywany na żądanie)
+    if (ELM.exercises) view.appendChild(ELM.exercises.topicSection(found.item.id));
     view.appendChild(el("div", { class: "page-foot" }, el("button", {
       type: "button",
       class: "btn btn-secondary",
