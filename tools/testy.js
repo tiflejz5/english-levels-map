@@ -17,6 +17,7 @@ global.window = global;
 require(path.join(__dirname, "..", "js", "learning.js"));
 require(path.join(__dirname, "..", "js", "exercise-logic.js"));
 require(path.join(__dirname, "..", "js", "learning-stats.js"));
+require(path.join(__dirname, "..", "js", "search-logic.js"));
 const L = global.ELM.learn;
 const X = global.ELM.exLogic;
 
@@ -427,6 +428,52 @@ test("losowanie ważone: zadanie z wagą 2 częściej trafia do zestawu", functi
     if (m.items.some(function (x) { return x.id === "z1"; })) light++;
   }
   assert.ok(heavy > light * 1.4, "waga 2: " + heavy + ", waga 1: " + light);
+});
+
+console.log("\nWyszukiwarka");
+const SR = global.ELM.searchLogic;
+const recs = SR.prepare([
+  { id: "1", group: "pages", title: "Present Perfect", headings: ["Pułapki Polaków", "Budowa"], summary: "Przeszłość związana z teraźniejszością.", text: "Have/has + trzecia forma. Byłem w Paryżu dwa razy." },
+  { id: "2", group: "pages", title: "Present Simple", headings: [], summary: "Rutyna.", text: "Mieszkam we Wrocławiu." },
+  { id: "3", group: "lab", title: "Past Simple", headings: [], summary: "Zakończone zdarzenia.", text: "Present Perfect kontra Past Simple." },
+  { id: "4", group: "exercises", title: "Zaimki dzierżawcze – sprawdź się", headings: [], summary: "", text: "" }
+]);
+
+test("fold: polskie znaki, wielkość liter, ta sama długość", function () {
+  assert.strictEqual(SR.fold("ZAŻÓŁĆ Gęślą"), "zazolc gesla");
+  assert.strictEqual(SR.fold("Łódź").length, 4);
+  assert.deepStrictEqual(SR.tokenize("Don’t stop, I'm here!"), ["don't", "stop", "i'm", "here"]);
+});
+test("search: prefiks, polskie znaki z i bez, wszystkie słowa muszą pasować, wagi pól", function () {
+  const ids = function (q) { return [].concat.apply([], SR.search(recs, q).groups.map(function (g) { return g.results.map(function (r) { return r.record.id; }); })); };
+  assert.deepStrictEqual(ids("pres").slice(0, 2).sort(), ["1", "2"]);
+  assert.deepStrictEqual(ids("wroclawiu"), ["2"]);
+  assert.deepStrictEqual(ids("Wrocławiu"), ["2"]);
+  assert.deepStrictEqual(ids("dzierzawcze"), ["4"]);
+  assert.deepStrictEqual(ids("present paryzu"), ["1"]); // oba wyrazy
+  const pp = SR.search(recs, "present perfect").groups;
+  assert.strictEqual(pp[0].results[0].record.id, "1"); // tytuł > treść (rekord 3)
+  assert.deepStrictEqual(ids("zzzz"), []);
+});
+test("search: literówki tylko od 5 znaków, przestawienie liter = jedna literówka", function () {
+  assert.ok(SR.search(recs, "presnet").total > 0);
+  assert.strictEqual(SR.search(recs, "pest").total, 0); // krótkie: bez tolerancji
+  assert.strictEqual(SR.distance("presnet", "present"), 1);
+});
+test("search: kotwica do nagłówka, grupy w zadanej kolejności, limit i „pokaż więcej”", function () {
+  const r = SR.search(recs, "pulapki", { groups: ["lab", "pages"] });
+  assert.strictEqual(r.groups[0].results[0].anchor, "Pułapki Polaków");
+  const g = SR.search(recs, "present", { groups: ["lab", "pages"], limit: 1 });
+  assert.deepStrictEqual(g.groups.map(function (x) { return x.group; }), ["lab", "pages"]);
+  assert.strictEqual(g.groups[1].results.length, 1);
+  assert.strictEqual(g.groups[1].total, 2);
+  assert.strictEqual(SR.search(recs, "present", { limit: 1, expanded: { pages: true } }).groups.find(function (x) { return x.group === "pages"; }).results.length, 2);
+});
+test("snippet i highlight: części z flagą hit, bez HTML", function () {
+  const s = SR.snippet("Mieszkam we Wrocławiu od lat <b>pięciu</b>.", "wroclaw");
+  assert.ok(s.some(function (p) { return p.hit && p.text === "Wrocławiu"; }));
+  assert.ok(s.map(function (p) { return p.text; }).join("").indexOf("<b>") !== -1); // tekst bez zmian, do textContent
+  assert.deepStrictEqual(SR.highlight("Present Perfect", "perf").filter(function (p) { return p.hit; }).map(function (p) { return p.text; }), ["Perfect"]);
 });
 
 console.log("\nWynik: " + passed + " ok, " + failures.length + " błędów");
