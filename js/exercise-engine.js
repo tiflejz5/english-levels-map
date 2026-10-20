@@ -8,6 +8,7 @@
  *   #/cwiczenia/zestaw/<idZestawu>   zestaw z cwiczenia/tematy/
  *   #/cwiczenia/mix/<idMixu>         gotowy zestaw mieszany (dane/mixes.json)
  *   #/cwiczenia/sesja                zestaw wylosowany w generatorze (Centrum ćwiczeń)
+ *   #/cwiczenia/slabe[/<temat>]      trening słabych punktów (spec 03, pkt 5)
  *
  * Dane ładujemy NA ŻĄDANIE zwykłym <script> (działa z file://):
  *   cwiczenia/cwiczenia-indeks.js → ELM.CWICZENIA (mapa, opisy zestawów, mixy)
@@ -111,6 +112,8 @@ window.ELM = window.ELM || {};
   // =====================================================================
 
   function parseRoute(hash) {
+    const weak = /^#\/cwiczenia\/slabe(?:\/([a-z0-9-]+))?\/?$/.exec(hash || "");
+    if (weak) return { kind: "weak", id: weak[1] || "" }; // trening słabych punktów (cały albo jeden temat)
     const hub = /^#\/cwiczenia(\/mieszane)?\/?$/.exec(hash || "");
     if (hub) return { kind: "hub", section: hub[1] ? "mieszane" : null }; // Centrum ćwiczeń (js/exercise-hub.js)
     let m = /^#\/cwiczenia\/(zestaw|mix)\/([a-z0-9-]+)\/?$/.exec(hash || "");
@@ -123,6 +126,7 @@ window.ELM = window.ELM || {};
     if (route.kind === "hub") return BASE;
     if (route.kind === "set") return BASE + "/zestaw/" + route.id;
     if (route.kind === "mix") return BASE + "/mix/" + route.id;
+    if (route.kind === "weak") return BASE + "/slabe" + (route.id ? "/" + route.id : "");
     return BASE + "/sesja";
   }
 
@@ -300,6 +304,7 @@ window.ELM = window.ELM || {};
     const score = run.items.filter(function (p) { return p.res && p.res.correct; }).length;
     run.score = score;
     if (!run.retry && run.saveId) run.saved = pd().saveSetScore(run.saveId, score, run.items.length);
+    run.suggest = umiemSuggestion();
     if (run.isMix) pd().setLastMix(run.items.map(function (p) { return p.item.id; }));
     ELM.markActivity(); // ukończona sesja = dzień nauki
     if (ELM.app.refreshLearning) ELM.app.refreshLearning();
@@ -750,6 +755,7 @@ window.ELM = window.ELM || {};
       saved ? el("p", { class: "tool-note", text: saved.improved ? "Nowy najlepszy wynik!" : "Najlepszy wynik: " + scoreText(saved.best) + "." }) : null,
       run.retry ? el("p", { class: "tool-note", text: "Poprawka błędów nie zmienia zapisanego wyniku zestawu." }) : null,
       run.isMix ? topicBreakdown() : null,
+      umiemBanner(),
       journalSummary(),
       el("div", { class: "tool-actions" }, actions)
     ]));
@@ -770,6 +776,41 @@ window.ELM = window.ELM || {};
   }
 
   function plural(n, one, few, many) { return ELM.c1 ? ELM.c1.plural(n, one, few, many) : many; }
+
+  /** Sugestia „Umiem” (spec 03, pkt 4): dwa ostatnie podejścia do zestawu ≥ 80%; nigdy nie zaznaczamy sami. */
+  function umiemSuggestion() {
+    if (run.retry || run.isMix || !run.topic || !run.saved || !ELM.niezbednik) return null;
+    const es = ELM.niezbednik.essentialForTopic(run.topic);
+    if (!es) return null;
+    const ok = ELM.stats.suggestUmiem(run.saved.recent, { isUmiem: es.done, dismissedDay: pd().umiemDismissed(run.saveId), today: ELM.learn.today() });
+    return ok ? { essential: es, state: "ask" } : null;
+  }
+
+  function umiemBanner() {
+    const s = run.suggest;
+    if (!s) return null;
+    if (s.state === "done") return el("div", { class: "ex-umiem is-done", role: "status" }, [ELM.icon("check", { size: 18 }), el("p", { text: "Zaznaczono „Umiem”. Brawo!" })]);
+    if (s.state === "later") return el("div", { class: "ex-umiem", role: "status" }, el("p", { class: "tool-note", text: "W porządku – nie zapytam o ten punkt przez 14 dni." }));
+    return el("div", { class: "ex-umiem", role: "status" }, [
+      el("span", { class: "ex-umiem-icon", "aria-hidden": "true" }, ELM.icon("sparkles", { size: 20 })),
+      el("div", { class: "ex-umiem-body" }, [
+        el("p", null, [el("strong", { text: "Dobry wynik! " }), "Dwa ostatnie podejścia to co najmniej 80%. Chcesz zaznaczyć ten punkt jako „Umiem”?"]),
+        el("p", { class: "ex-umiem-item", text: s.essential.text }),
+        el("p", { class: "ex-journal-actions" }, [
+          el("button", { type: "button", class: "btn btn-primary btn-small ex-umiem-yes", onclick: function () {
+            ELM.app.setProgress(s.essential.id, true);
+            s.state = "done";
+            repaint(null);
+          } }, ELM.ui.withIcon("check", "Zaznacz „Umiem”")),
+          el("button", { type: "button", class: "btn btn-ghost btn-small", onclick: function () {
+            pd().dismissUmiem(run.saveId);
+            s.state = "later";
+            repaint(null);
+          } }, "Nie teraz")
+        ])
+      ])
+    ]);
+  }
 
   /** Zbiorcza informacja o dzienniku błędów: „Dodano 3 błędy do dziennika” + Zobacz / Cofnij wszystkie. */
   function journalSummary() {
@@ -871,6 +912,7 @@ window.ELM = window.ELM || {};
     const profile = ELM.app.getActiveProfile();
     if (run && run.key === key && run.profileId === (profile && profile.id)) return true;
     if (route.kind === "custom") return false;
+    if (route.kind === "weak") { buildWeak(route, key, hrefOf(route)); return null; }
     const hash = hrefOf(route);
     if (route.kind === "set") {
       loadSets([route.id]).then(function (sets) {
@@ -888,7 +930,7 @@ window.ELM = window.ELM || {};
       if (!mix) { run = { key: key, missing: true, profileId: profile && profile.id }; return render(); }
       const pick = function () {
         return loadTopicItems(mix.topics).then(function (pool) {
-          const res = X().pickMix(pool, { count: mix.count || 10, types: mix.types, exclude: pd().lastMix() });
+          const res = X().pickMix(pool, { count: mix.count || 10, types: mix.types, exclude: pd().lastMix(), weight: ELM.stats.mixWeight(pd().attempts()) });
           newRun({
             key: key, title: mix.title, intro: mix.description + (res.items.length < (mix.count || 10) ? " W banku jest na razie " + res.items.length + " pasujących zadań." : ""),
             items: res.items, mode: mix.mode, saveId: mix.id, isMix: true
@@ -899,6 +941,39 @@ window.ELM = window.ELM || {};
       pick().then(function () { if (location.hash === hash) render(); });
     });
     return null;
+  }
+
+  /**
+   * Trening słabych punktów: do 3 tematów z ≥ 5 próbami i trafnością < 70% (albo jeden wskazany temat),
+   * 12 zadań, wagi: bez poprawnej odpowiedzi w ostatnich 14 dniach × 2.
+   */
+  function buildWeak(route, key, hash) {
+    const profile = ELM.app.getActiveProfile();
+    const rec = pd().attempts();
+    const topics = route.id ? [route.id] : ELM.stats.weakTopics(rec).map(function (x) { return x.key; });
+    const none = function (text) { run = { key: key, missing: true, missingText: text, profileId: profile && profile.id }; if (location.hash === hash) render(); };
+    if (!topics.length) return none("Na razie nie widzę słabych punktów. Zrób kilka zestawów, a podpowiem, nad czym popracować.");
+    const pick = function () {
+      return loadTopicItems(topics).then(function (pool) {
+        return X().pickMix(pool, { count: 12, weight: ELM.stats.weakWeight(pd().attempts(), ELM.learn.today()) });
+      });
+    };
+    pick().then(function (res) {
+      if (!res.items.length) return none("Do tego tematu nie ma jeszcze zadań w banku.");
+      const names = topics.map(function (t) { const i = topicInfo(t); return i ? i.title : t; });
+      const launch = function (r, autostart) {
+        newRun({
+          key: key, title: route.id ? "Ćwicz: " + names[0] : "Trening słabych punktów",
+          intro: (route.id ? "Zadania z tematu, który sprawia Ci trudność. " : "Tematy: " + names.join(", ") + ". ") +
+            "Częściej trafiają zadania, których ostatnio nie udało się rozwiązać.",
+          items: r.items, mode: "learn", isMix: true, isWeak: true,
+          repick: function () { pick().then(function (again) { launch(again, true); }); }
+        });
+        if (autostart) { run.phase = "item"; render(); U.setScroll(0); }
+      };
+      launch(res, false);
+      if (location.hash === hash) render();
+    });
   }
 
   /** Sesja z generatora (Centrum ćwiczeń): ustawia stan i przechodzi na #/cwiczenia/sesja. */
@@ -927,7 +1002,7 @@ window.ELM = window.ELM || {};
       return;
     }
     if (ready === null) return loading(view);
-    if (run.missing) return missing(view, "Tego zestawu nie ma w banku zadań.");
+    if (run.missing) return missing(view, run.missingText || "Tego zestawu nie ma w banku zadań.");
     document.title = run.title + " · English Levels Map";
     if (run.phase === "intro") renderIntro(view);
     else if (run.phase === "item") renderItem(view);
@@ -936,8 +1011,9 @@ window.ELM = window.ELM || {};
 
   /** Wejście z innego widoku: skończona sesja zaczyna się od ekranu startowego. */
   function onEnter() {
+    if (run && run.missing) { run = null; return; } // np. słabe punkty mogły się już pojawić
     if (!run || run.phase !== "done") return;
-    if (/^mix:/.test(run.key)) run = null; // gotowy mix: przy następnym wejściu nowe losowanie
+    if (/^(mix|weak):/.test(run.key)) run = null; // mix / trening: przy następnym wejściu nowe losowanie
     else if (!run.isMix) newRun(Object.assign({}, run, { items: run.source, retry: false }));
   }
 

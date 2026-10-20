@@ -140,7 +140,8 @@ window.ELM = window.ELM || {};
 
   /**
    * Zestaw mieszany (spec 02, B.3).
-   * pool: zadania (z polem topic); opts: { count, exclude: [id…], types: [typ…] }.
+   * pool: zadania (z polem topic); opts: { count, exclude: [id…], types: [typ…], weight: fn(zadanie) → waga }.
+   * Wagi (np. ELM.stats.mixWeight) zwiększają szansę wylosowania słabych / niewidzianych zadań w obrębie tematu.
    * 1. filtr typów, 2. wykluczenie ostatniej sesji (gdy starcza puli),
    * 3. round-robin po tematach (w temacie losowo), 4. kolejność: najwyżej 2 zadania tego samego typu pod rząd.
    * Zwraca { items, requested, available }.
@@ -157,7 +158,7 @@ window.ELM = window.ELM || {};
 
     const byTopic = {};
     const topicOrder = [];
-    shuffle(items, r).forEach(function (it) {
+    (opts.weight ? weightedOrder(items, opts.weight, r) : shuffle(items, r)).forEach(function (it) {
       const t = it.topic || "";
       if (!byTopic[t]) { byTopic[t] = []; topicOrder.push(t); }
       byTopic[t].push(it);
@@ -173,6 +174,18 @@ window.ELM = window.ELM || {};
       round++;
     }
     return { items: limitRuns(shuffle(picked, r), 2), requested: opts.count || 10, available: available };
+  }
+
+  /**
+   * Losowa kolejność z wagami (Efraimidis–Spirakis): element o wadze 2 ma dwa razy
+   * większą szansę trafić na początek niż element o wadze 1. Bez wag = zwykłe tasowanie.
+   */
+  function weightedOrder(list, weight, rng) {
+    const r = rng || Math.random;
+    return list.map(function (it) {
+      const w = Math.max(0.01, Number(weight(it)) || 1);
+      return { it: it, key: Math.pow(r() || 1e-9, 1 / w) };
+    }).sort(function (a, b) { return b.key - a.key; }).map(function (x) { return x.it; });
   }
 
   /** Przestawia zadania tak, żeby ten sam typ nie wystąpił więcej niż max razy pod rząd (gdy się da). */
@@ -200,6 +213,7 @@ window.ELM = window.ELM || {};
     firstDifference: firstDifference,
     evaluate: evaluate,
     pickMix: pickMix,
+    weightedOrder: weightedOrder,
     limitRuns: limitRuns
   };
 })(window.ELM);
