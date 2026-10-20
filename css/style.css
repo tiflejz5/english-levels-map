@@ -2638,3 +2638,39 @@ a.lab-tile:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover);
 @media (max-width: 760px) {
   .hub-gen { padding: 18px 16px; }
 }
+
+/* ===================== AUTOMATYCZNY DZIENNIK BŁĘDÓW, TOAST, USTAWIENIA NAUKI (rozbudowa v2, etap 2) ===================== */
+.toast-region { position: fixed; left: 50%; bottom: 20px; z-index: 60; transform: translateX(-50%); width: min(560px, calc(100vw - 32px)); pointer-events: none; }
+.toast {
+  display: flex; align-items: center; gap: 10px; padding: 8px 8px 8px 16px; pointer-events: auto;
+  border-radius: var(--radius); background: var(--inverse-bg); color: var(--inverse-text); box-shadow: var(--shadow-lg);
+  animation: toast-in var(--dur-base) var(--ease-out);
+}
+.toast-icon { display: grid; place-items: center; flex-shrink: 0; }
+.toast-text { flex: 1; min-width: 0; font-size: var(--fs-sm-plus); font-weight: 560; }
+.toast .toast-action { min-height: 44px; color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.toast .toast-action:hover { background: color-mix(in srgb, var(--inverse-text) 12%, transparent); }
+.toast .toast-close { width: 44px; height: 44px; color: inherit; border-color: transparent; background: transparent; }
+@keyframes toast-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@media (max-width: 760px) { .toast-region { bottom: 84px; } }
+
+.journal-filter-top { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.journal-auto { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: var(--radius-pill); background: var(--accent-soft); color: var(--accent); font-size: var(--fs-xs); font-weight: 650; }
+.journal-auto-actions { margin-top: 16px; }
+
+.ex-journal { display: flex; gap: 12px; align-items: flex-start; margin: 12px 0 18px; padding: 12px 16px; border-radius: var(--radius); background: var(--info-bg); border: 1px solid var(--info-border); }
+.ex-journal-icon { display: grid; place-items: center; width: 32px; height: 32px; flex-shrink: 0; border-radius: 50%; background: var(--surface); color: var(--accent); }
+.ex-journal-body p { margin: 0 0 6px; }
+.ex-journal-body p:last-child { margin-bottom: 0; }
+.ex-journal-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.ex-journal-actions .btn { min-height: 44px; }
+.ex-journal-note { display: inline-flex; align-items: center; gap: 6px; font-size: var(--fs-sm-plus); color: var(--ink-muted); }
+.ex-journal-note.is-ok { color: var(--success); font-weight: 650; }
+
+/* Przełącznik (role="switch") w menu profilu */
+.menu-switch { justify-content: space-between; gap: 12px; text-align: left; }
+.menu-switch-text { flex: 1; min-width: 0; line-height: 1.35; }
+.switch-track { position: relative; flex-shrink: 0; width: 40px; height: 24px; border-radius: var(--radius-pill); background: var(--surface-3); border: 1px solid var(--line-control); transition: background var(--transition), border-color var(--transition); }
+.switch-thumb { position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; border-radius: 50%; background: var(--ink-muted); transition: transform var(--dur-fast) var(--ease-out), background var(--transition); }
+.menu-switch[aria-checked="true"] .switch-track { background: var(--success-fill); border-color: var(--success-fill); }
+.menu-switch[aria-checked="true"] .switch-thumb { transform: translateX(16px); background: var(--on-accent); }

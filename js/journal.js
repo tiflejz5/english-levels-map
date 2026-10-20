@@ -20,7 +20,7 @@ window.ELM = window.ELM || {};
   function learn() { return ELM.learn; }
 
   // Filtry listy (pamiętane do odświeżenia strony)
-  const filters = { status: "due", category: "", query: "" };
+  const filters = { status: "due", category: "", query: "", auto: false };
 
   // Sesja powtórek (w pamięci; nowa sesja przy każdym „Zacznij powtórki”)
   let session = null;
@@ -241,6 +241,7 @@ window.ELM = window.ELM || {};
     if (filters.status === "due" && !learn().isDue(e.review, today)) return false;
     if (filters.status === "mastered" && !e.review.mastered) return false;
     if (filters.category && e.category !== filters.category) return false;
+    if (filters.auto && !pd().isAutoEntry(e)) return false;
     const q = filters.query.trim().toLocaleLowerCase("pl");
     if (q) {
       const hay = [e.context, e.myAnswer, e.correct, e.rule, e.source, e.category].join(" ").toLocaleLowerCase("pl");
@@ -258,9 +259,13 @@ window.ELM = window.ELM || {};
   function entryCard(e, rerender) {
     const status = reviewLabel(e);
     const link = itemLink(e.itemId);
+    const auto = pd().autoInfo(e); // wpis dodany automatycznie z zadania (iskra)
     return el("li", { class: "card journal-entry" + catClass(e.category) }, [
       el("div", { class: "journal-entry-head" }, [
         el("span", { class: "c1-chip", text: e.category }),
+        auto ? el("span", { class: "journal-auto", title: "Dodany automatycznie z zadania" }, [
+          ELM.icon("sparkles", { size: 14 }), "Automatyczny" + (auto.returned ? " · wrócił" : "") + (auto.wrongCount > 1 ? " · błędów: " + auto.wrongCount : "")
+        ]) : null,
         el("span", { class: "journal-status " + status.cls, text: status.text }),
         e.source ? el("span", { class: "journal-source", text: e.source }) : null
       ]),
@@ -389,8 +394,25 @@ window.ELM = window.ELM || {};
       oninput: function () { filters.query = search.value; paint(); }
     });
 
+    const autoCount = all.filter(function (e) { return pd().isAutoEntry(e); }).length;
+    const autoBtn = autoCount ? el("button", {
+      type: "button",
+      class: "chip-btn" + (filters.auto ? " is-active" : ""),
+      "aria-pressed": filters.auto ? "true" : "false",
+      onclick: function () {
+        filters.auto = !filters.auto;
+        autoBtn.classList.toggle("is-active", filters.auto);
+        autoBtn.setAttribute("aria-pressed", filters.auto ? "true" : "false");
+        paint();
+      }
+    }, [ELM.icon("sparkles", { size: 16 }), "Automatyczne (" + autoCount + ")"]) : null;
+    if (!autoCount) filters.auto = false;
+
     view.appendChild(el("div", { class: "journal-filters", role: "search" }, [
-      el("div", { class: "segmented", role: "group", "aria-label": "Pokaż" }, statusButtons),
+      el("div", { class: "journal-filter-top" }, [
+        el("div", { class: "segmented", role: "group", "aria-label": "Pokaż" }, statusButtons),
+        autoBtn
+      ]),
       el("div", { class: "journal-filter-row" }, [
         el("div", { class: "form-field" }, [el("label", { class: "field-label", for: "journal-cat", text: "Kategoria" }), catSelect]),
         el("div", { class: "form-field is-grow" }, [el("label", { class: "field-label", for: "journal-search", text: "Szukaj" }), search])
@@ -398,6 +420,25 @@ window.ELM = window.ELM || {};
     ]));
     view.appendChild(countText);
     view.appendChild(listBox);
+    if (autoCount) {
+      view.appendChild(el("div", { class: "tool-actions journal-auto-actions" }, el("button", {
+        type: "button",
+        class: "btn btn-danger btn-small",
+        onclick: function () {
+          ELM.dialogs.confirm({
+            title: "Usunąć wszystkie automatyczne wpisy?",
+            message: "Z dziennika zniknie " + autoCount + " " + plural(autoCount, "wpis dodany", "wpisy dodane", "wpisów dodanych") + " automatycznie z zadań. Wpisy dodane ręcznie zostaną. Tej operacji nie można cofnąć.",
+            confirmLabel: "Usuń automatyczne"
+          }).then(function (ok) {
+            if (!ok) return;
+            pd().removeAllAuto();
+            filters.auto = false;
+            ELM.app.refreshLearning();
+            render({ kind: "list" });
+          });
+        }
+      }, ELM.ui.withIcon("trash", "Usuń wszystkie automatyczne"))));
+    }
     paint();
   }
 

@@ -152,7 +152,8 @@ window.ELM = window.ELM || {};
       i: 0,
       retry: !!cfg.retry,
       saved: null,
-      score: 0
+      score: 0,
+      journal: { added: [], reviewed: 0, limit: false } // automatyczny dziennik błędów w tej sesji
     };
     run.source = cfg.items.slice();
     run.items = cfg.items.map(prepare);
@@ -194,6 +195,8 @@ window.ELM = window.ELM || {};
     }
     p.res = res;
     logAttempt(p);
+    if (res.correct) creditReview(p);
+    else if (run.mode !== "exam") toJournal(p, !run.isMix && !run.isWeak); // Egzamin: dopiero po zakończeniu sesji
     if (run.mode === "exam") return next();
     render();
     animate(res.correct);
@@ -211,6 +214,74 @@ window.ELM = window.ELM || {};
     });
   }
 
+  // ---------- Automatyczny dziennik błędów (spec 03, pkt 2) ----------
+
+  const JOURNAL_CATEGORY = { czasy: "Gramatyka", gramatyka: "Gramatyka", slownictwo: "Słownictwo" };
+
+  function journalCategory(topic) {
+    const N = ELM.NIEZBEDNIK;
+    if (!N || !topic) return "Inne";
+    for (const lvl of N.index.levels) {
+      const it = lvl.items.find(function (x) { return x.id === topic; });
+      if (it) return JOURNAL_CATEGORY[it.category] || "Inne";
+    }
+    return "Inne";
+  }
+
+  /** Treść wpisu dziennika dla zadania (kontekst wg typu, wzorcowa odpowiedź, reguła z pułapką). */
+  function journalFields(p) {
+    const item = p.item;
+    let context;
+    if (item.type === "multiple-choice") context = String(item.prompt || "") + "\n" + item.options.join(" / ");
+    else if (item.type === "reorder") context = (item.context ? item.context + " – " : "") + "Ułóż zdanie";
+    else if (item.type === "find-error") context = item.tokens.join(" ");
+    else context = (item.context ? item.context + "\n" : "") + item.prompt;
+    const rule = (item.explanation || "") + (item.trap ? " Pułapka: " + item.trap : "");
+    return {
+      context: context,
+      myAnswer: userAnswer(p) || "(brak odpowiedzi)",
+      correct: modelAnswer(item),
+      rule: rule.trim(),
+      source: "Zestaw: " + run.title,
+      category: journalCategory(item.topic),
+      itemId: item.topic || ""
+    };
+  }
+
+  /** Błędna odpowiedź → wpis w dzienniku (bez duplikatów); toast z „Cofnij” tylko w zwykłym zestawie w trybie Nauki. */
+  function toJournal(p, withToast) {
+    const r = pd().recordWrong(p.item.id, journalFields(p));
+    if (!r) return;
+    if (r.action === "limit") { run.journal.limit = true; p.journalLimit = true; return; }
+    const rec = { undo: r.undo, action: r.action };
+    run.journal.added.push(rec);
+    p.journal = r.action;
+    if (ELM.app.refreshLearning) ELM.app.refreshLearning();
+    if (!withToast) return;
+    const text = r.action === "create" ? "Dodano do dziennika błędów"
+      : r.action === "reopen" ? "Opanowany błąd wrócił do dziennika – powtórka jutro"
+        : "Ten błąd jest już w dzienniku – powtórka jutro";
+    ELM.ui.toast({
+      text: text, icon: "notebook-pen",
+      action: { label: "Cofnij", onClick: function () {
+        pd().undoAuto(rec.undo);
+        run.journal.added = run.journal.added.filter(function (x) { return x !== rec; });
+        p.journal = null;
+        if (ELM.app.refreshLearning) ELM.app.refreshLearning();
+        ELM.ui.toast({ text: "Cofnięto – wpis nie trafił do dziennika.", duration: 3000 });
+      } }
+    });
+  }
+
+  /** Poprawna odpowiedź na zadanie z wpisem do powtórki dziś / zaległym = zaliczona powtórka. */
+  function creditReview(p) {
+    const r = pd().recordCorrect(p.item.id);
+    if (!r) return;
+    p.reviewed = true;
+    run.journal.reviewed++;
+    if (ELM.app.refreshLearning) ELM.app.refreshLearning();
+  }
+
   function next() {
     if (run.i < run.items.length - 1) {
       run.i++;
@@ -224,6 +295,8 @@ window.ELM = window.ELM || {};
 
   function finish() {
     run.phase = "done";
+    // Egzamin: błędy trafiają do dziennika dopiero po zakończeniu sesji
+    if (run.mode === "exam") run.items.forEach(function (p) { if (p.res && !p.res.correct) toJournal(p, false); });
     const score = run.items.filter(function (p) { return p.res && p.res.correct; }).length;
     run.score = score;
     if (!run.retry && run.saveId) run.saved = pd().saveSetScore(run.saveId, score, run.items.length);
@@ -541,6 +614,8 @@ window.ELM = window.ELM || {};
     if (!res.correct || item.type === "reorder" || item.type === "find-error") {
       lines.push(el("p", { class: "journal-row is-right" }, [el("span", { class: "review-label", text: "Poprawnie: " }), el("strong", { text: modelAnswer(item) })]));
     }
+    if (p.reviewed) lines.push(el("p", { class: "ex-journal-note is-ok" }, [ELM.icon("check", { size: 14 }), " Zaliczona powtórka z dziennika"]));
+    if (p.journalLimit) lines.push(el("p", { class: "ex-journal-note", text: "Dziennik jest pełny na dziś – ten błąd zapisałem tylko w statystykach." }));
     if (item.explanation) lines.push(el("p", { text: item.explanation }));
     if (item.trap) {
       lines.push(el("div", { class: "ex-trap" }, [
@@ -635,7 +710,8 @@ window.ELM = window.ELM || {};
       el("div", { class: "ex-status" + (done ? " lt-feedback " + (p.res.correct ? "is-ok" : "is-bad") : ""), role: "status", "aria-live": "polite" }, done ? feedback(p) : null),
       el("div", { class: "tool-actions ex-actions" }, [
         primary,
-        el("a", { class: "btn btn-ghost", href: backLink().href }, "Przerwij")
+        // Przerwanie: wynik zestawu się nie zapisuje (odpowiedzi zostają w dzienniku podejść), następne wejście = ekran startowy
+        el("a", { class: "btn btn-ghost", href: backLink().href, onclick: function () { run = null; } }, "Przerwij")
       ])
     ]));
   }
@@ -674,6 +750,7 @@ window.ELM = window.ELM || {};
       saved ? el("p", { class: "tool-note", text: saved.improved ? "Nowy najlepszy wynik!" : "Najlepszy wynik: " + scoreText(saved.best) + "." }) : null,
       run.retry ? el("p", { class: "tool-note", text: "Poprawka błędów nie zmienia zapisanego wyniku zestawu." }) : null,
       run.isMix ? topicBreakdown() : null,
+      journalSummary(),
       el("div", { class: "tool-actions" }, actions)
     ]));
 
@@ -690,6 +767,41 @@ window.ELM = window.ELM || {};
         ]);
       })) : el("p", { class: "tool-note", text: "Wszystkie odpowiedzi były poprawne." })
     ]));
+  }
+
+  function plural(n, one, few, many) { return ELM.c1 ? ELM.c1.plural(n, one, few, many) : many; }
+
+  /** Zbiorcza informacja o dzienniku błędów: „Dodano 3 błędy do dziennika” + Zobacz / Cofnij wszystkie. */
+  function journalSummary() {
+    const j = run.journal;
+    const created = j.added.filter(function (x) { return x.action === "create"; }).length;
+    const updated = j.added.length - created;
+    const lines = [];
+    if (created) lines.push("Dodano " + created + " " + plural(created, "błąd", "błędy", "błędów") + " do dziennika.");
+    if (updated) lines.push(updated + " " + plural(updated, "błąd był", "błędy były", "błędów było") + " już w dzienniku – " + (updated === 1 ? "jego powtórka" : "ich powtórki") + " jutro.");
+    if (j.reviewed) lines.push("Zaliczone powtórki z dziennika: " + j.reviewed + ".");
+    if (j.limit) lines.push("Dziennik jest pełny na dziś – kolejne błędy zapisuję tylko w statystykach.");
+    const off = !pd().prefs().autoJournal && run.items.some(function (p) { return p.res && !p.res.correct; });
+    if (!lines.length && !off) return null;
+    const box = el("div", { class: "ex-journal" }, [
+      el("span", { class: "ex-journal-icon", "aria-hidden": "true" }, ELM.icon("notebook-pen", { size: 18 })),
+      el("div", { class: "ex-journal-body" }, [
+        lines.length ? el("p", { text: lines.join(" ") }) : null,
+        off ? el("p", { class: "tool-note", text: "Automatyczne dodawanie błędów do dziennika jest wyłączone (menu profilu → Ustawienia nauki)." }) : null,
+        j.added.length ? el("p", { class: "ex-journal-actions" }, [
+          el("a", { class: "btn btn-secondary btn-small", href: "#/bledy" }, "Zobacz"),
+          el("button", { type: "button", class: "btn btn-ghost btn-small", onclick: function () {
+            j.added.slice().reverse().forEach(function (x) { pd().undoAuto(x.undo); });
+            j.added = [];
+            run.items.forEach(function (p) { p.journal = null; });
+            if (ELM.app.refreshLearning) ELM.app.refreshLearning();
+            repaint(null);
+            ELM.ui.toast({ text: "Cofnięto – błędy z tej sesji nie trafiły do dziennika.", duration: 3000 });
+          } }, ELM.ui.withIcon("rotate-ccw", "Cofnij wszystkie"))
+        ]) : null
+      ])
+    ]);
+    return box;
   }
 
   /** Trafność per temat w sesji mieszanej: „Najlepiej: …, do powtórki: …”. */

@@ -211,6 +211,29 @@ window.ELM = window.ELM || {};
       }, ELM.ui.withIcon("plus", "Dodaj profil")));
     }
 
+    // Sekcja „Ustawienia nauki” (dla aktywnego profilu)
+    if (activeId && ELM.profileData) {
+      const on = ELM.profileData.prefs().autoJournal;
+      parts.push(el("div", { class: "menu-sep", role: "separator" }));
+      parts.push(el("p", { class: "menu-title", text: "Ustawienia nauki" }));
+      parts.push(el("button", {
+        type: "button",
+        class: "menu-action menu-switch",
+        role: "switch",
+        "aria-checked": on ? "true" : "false",
+        "data-menu-item": "",
+        "data-switch": "autoJournal",
+        onclick: function () {
+          ELM.profileData.setPref("autoJournal", !on);
+          renderMenu();
+          focusInMenu('[data-switch="autoJournal"]');
+        }
+      }, [
+        el("span", { class: "menu-switch-text" }, "Dodawaj błędy z zadań do dziennika automatycznie"),
+        el("span", { class: "switch-track", "aria-hidden": "true" }, el("span", { class: "switch-thumb" }))
+      ]));
+    }
+
     // Sekcja „Dane”
     parts.push(el("div", { class: "menu-sep", role: "separator" }));
     parts.push(el("p", { class: "menu-title", text: "Dane" }));

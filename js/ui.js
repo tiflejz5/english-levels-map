@@ -224,10 +224,52 @@ window.ELM = window.ELM || {};
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { hydrate(); });
   else hydrate();
 
+  // =====================================================================
+  // TOAST — nienachalny komunikat u dołu ekranu (role="status"), opcjonalnie z przyciskiem
+  //   ELM.ui.toast({ text, action: { label, onClick }, duration: 5000 })
+  // Jeden naraz; najechanie myszą albo fokus wstrzymują znikanie.
+  // =====================================================================
+
+  let toastBox = null, toastTimer = null;
+
+  function toast(opts) {
+    if (!toastBox) {
+      toastBox = document.createElement("div");
+      toastBox.className = "toast-region";
+      toastBox.setAttribute("role", "status");
+      toastBox.setAttribute("aria-live", "polite");
+      document.body.appendChild(toastBox);
+    }
+    clearTimeout(toastTimer);
+    const el = ELM.utils.el;
+    const card = el("div", { class: "toast" }, [
+      opts.icon ? el("span", { class: "toast-icon", "aria-hidden": "true" }, icon(opts.icon, { size: 18 })) : null,
+      el("span", { class: "toast-text", text: opts.text }),
+      opts.action ? el("button", {
+        type: "button", class: "btn btn-ghost btn-small toast-action",
+        onclick: function () { hideToast(); opts.action.onClick(); }
+      }, opts.action.label) : null,
+      el("button", { type: "button", class: "icon-btn toast-close", "aria-label": "Zamknij komunikat", onclick: hideToast }, icon("x", { size: 16 }))
+    ]);
+    toastBox.replaceChildren(card);
+    const duration = opts.duration || 5000;
+    const arm = function () { clearTimeout(toastTimer); toastTimer = setTimeout(hideToast, duration); };
+    card.addEventListener("mouseenter", function () { clearTimeout(toastTimer); });
+    card.addEventListener("mouseleave", arm);
+    card.addEventListener("focusin", function () { clearTimeout(toastTimer); });
+    card.addEventListener("focusout", arm);
+    arm();
+  }
+
+  function hideToast() {
+    clearTimeout(toastTimer);
+    if (toastBox) toastBox.replaceChildren();
+  }
+
   ELM.icon = icon;
   ELM.logo = logo;
   ELM.loadGsap = loadGsap;
   ELM.loadScript = loadScript; // dane ładowane na żądanie (np. ćwiczenia, Laboratorium czasów)
   ELM.reducedMotion = reducedMotion;
-  ELM.ui = { icon: icon, withIcon: withIcon, logo: logo, logoMark: logoMark, progressRing: progressRing, setRing: setRing };
+  ELM.ui = { icon: icon, withIcon: withIcon, logo: logo, logoMark: logoMark, progressRing: progressRing, setRing: setRing, toast: toast, hideToast: hideToast };
 })(window.ELM);
