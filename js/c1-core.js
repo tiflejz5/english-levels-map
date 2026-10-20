@@ -401,7 +401,8 @@ window.ELM = window.ELM || {};
     view.className = "view c1-view";
     view.dataset.file = routeKey(route);
     view.replaceChildren();
-    if (data()) view.appendChild(masthead());
+    // Na stronie przeglądu liczbę dni pokazuje karta z datą egzaminu — w nagłówku bez powtórzenia
+    if (data()) view.appendChild(masthead(!(route.kind === "page" && route.id === "przeglad")));
 
     let title = null;
     if (!data()) {
@@ -426,13 +427,13 @@ window.ELM = window.ELM || {};
    * Nagłówek sekcji Certyfikatu: znak napisowy „C1 Advanced · przygotowanie”
    * (bez logo i grafik Cambridge) i duża liczba dni do egzaminu.
    */
-  function masthead() {
+  function masthead(withCount) {
     const s = storeData();
     const days = daysUntil(s.examDate);
     let count;
     if (days !== null && days > 0) {
-      count = el("a", { class: "c1-masthead-count", href: BASE, "aria-label": countdownText(s.examDate) }, [
-        el("span", { class: "c1-masthead-days num", text: String(days) }),
+      count = el("a", { class: "c1-masthead-count", href: BASE }, [
+        el("span", { class: "c1-masthead-days num", text: String(days) }), " ",
         el("span", { class: "c1-masthead-unit", text: plural(days, "dzień", "dni", "dni") + " do egzaminu" })
       ]);
     } else if (days !== null) {
@@ -440,10 +441,12 @@ window.ELM = window.ELM || {};
     } else {
       count = el("a", { class: "c1-masthead-note", href: BASE }, "Ustaw datę egzaminu");
     }
+    if (!withCount) count = null;
     return el("header", { class: "c1-masthead" }, [
-      el("a", { class: "c1-wordmark", href: BASE, "aria-label": "C1 Advanced – przygotowanie: przegląd egzaminu" }, [
-        el("span", { class: "c1-wordmark-main", text: "C1 Advanced" }),
-        el("span", { class: "c1-wordmark-sub", text: "przygotowanie" })
+      el("a", { class: "c1-wordmark", href: BASE }, [
+        el("span", { class: "c1-wordmark-main", text: "C1 Advanced" }), " ",
+        el("span", { class: "c1-wordmark-sub", text: "przygotowanie" }),
+        el("span", { class: "visually-hidden", text: " – przegląd egzaminu" })
       ]),
       count
     ]);

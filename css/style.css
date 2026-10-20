@@ -1035,8 +1035,8 @@ textarea.field { resize: vertical; min-height: 42px; overflow: hidden; }
 /* ===================== STRONY ZAKŁADKI C1 ===================== */
 .c1-view { max-width: 900px; }
 .c1-crumb { margin-bottom: 14px; font-size: var(--fs-xs-plus); color: var(--ink-muted); }
-.c1-crumb a { color: var(--accent); text-decoration: none; }
-.c1-crumb a:hover { text-decoration: underline; }
+.c1-crumb a { color: var(--accent); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.c1-crumb a:hover { text-decoration-thickness: 2px; }
 .c1-title { font-size: var(--fs-2xl); font-weight: 640; line-height: var(--lh-tight); margin-bottom: 10px; }
 .c1-lead { color: var(--ink-muted); margin-bottom: 20px; }
 .c1-back { margin: 0 0 10px; }
