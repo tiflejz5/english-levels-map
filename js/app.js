@@ -90,6 +90,7 @@ window.ELM = window.ELM || {};
       fixUi();
       if (ELM.celebrate) ELM.celebrate.baseline();
       applyRoute();
+      syncSection();
       renderAll();
     } catch (err) {
       showFatal(err);
@@ -237,6 +238,11 @@ window.ELM = window.ELM || {};
     }
   }
 
+  /** Zakres wizualny sekcji: html[data-section="certyfikat"] w zakładce C1 (tokeny w css/style.css). */
+  function syncSection() {
+    document.documentElement.setAttribute("data-section", state.view === "c1" ? "certyfikat" : "app");
+  }
+
   /** Reakcja na zmianę adresu (linki, „Wróć”, logo, przycisk Wstecz). */
   function onRoute() {
     if (!state.content) return;
@@ -248,6 +254,8 @@ window.ELM = window.ELM || {};
     if (ELM.sidebar) ELM.sidebar.afterNavigate();
     if (ELM.motion) ELM.motion.cleanup(); // animacje poprzedniej strony (GSAP) sprzątamy
     applyRoute();
+    syncSection();
+    document.documentElement.classList.remove("focus-mode"); // tryb skupienia trenera kończy się przy zmianie strony
     state.lastHash = location.hash;
     if (state.view === "journal" && previousHash !== location.hash) ELM.journal.onEnter(state.toolRoute);
     if (state.view === "leveltest" && previousHash !== location.hash) ELM.levelTest.onEnter();

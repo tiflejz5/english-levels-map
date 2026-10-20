@@ -223,6 +223,66 @@
   --scrollbar-hover: rgba(234, 240, 250, 0.36);
 }
 
+/* ===================== TOKENY: SEKCJA „CERTYFIKAT C1” (html[data-section="certyfikat"], js/app.js) =====================
+   Własny klimat zakładki C1: w jasnym motywie ciepła kość słoniowa, granatowy tekst i złote akcenty;
+   w ciemnym północny granat ze złotem. Nadpisuje tylko powierzchnie, tekst, linie i akcent. */
+:root:not([data-theme="dark"])[data-section="certyfikat"] {
+  --bg: #f9f4e8;
+  --surface: #fffaf0;
+  --surface-2: #efe5cd;
+  --surface-3: #e5d6b4;
+  --surface-raised: #fffcf5;
+  --empty-bg: #f8f1e2;
+  --row-hover: #fbf4e6;
+  --hover: rgba(23, 32, 61, 0.05);
+  --topbar-bg: rgba(249, 244, 232, 0.88);
+  --sticky-bg: rgba(249, 244, 232, 0.94);
+  --ink: #17203d;
+  --ink-muted: #4c5470;
+  --ink-faint: #5f6680;
+  --line: #e2d4b2;
+  --line-strong: #cdb98a;
+  --line-control: #8a7a52;
+  --accent: #6b4d00;
+  --accent-soft: rgba(201, 150, 30, 0.14);
+  --accent-bg: #1b2647;
+  --accent-hover: #26335c;
+  --on-accent: #fdf7e8;
+  --info-bg: #f5ead0;
+  --info-border: #dfca94;
+  --focus-color: #8a6400;
+  --focus-ring: 0 0 0 3px rgba(201, 150, 30, 0.45);
+  --topo-color: #17203d;
+}
+:root[data-theme="dark"][data-section="certyfikat"] {
+  --bg: #090f21;
+  --surface: #101935;
+  --surface-2: #162048;
+  --surface-3: #1f2a56;
+  --surface-raised: #131d3d;
+  --empty-bg: #0d152d;
+  --row-hover: rgba(233, 194, 92, 0.04);
+  --hover: rgba(243, 236, 218, 0.06);
+  --topbar-bg: rgba(9, 15, 33, 0.86);
+  --sticky-bg: rgba(9, 15, 33, 0.94);
+  --ink: #f3ecda;
+  --ink-muted: #bcb4a0;
+  --ink-faint: #a19a87;
+  --line: #252f58;
+  --line-strong: #36427a;
+  --line-control: #8a8ba3;
+  --accent: #e9c25c;
+  --accent-soft: rgba(233, 194, 92, 0.14);
+  --accent-bg: #e9c25c;
+  --accent-hover: #f2d27e;
+  --on-accent: #090f21;
+  --info-bg: rgba(233, 194, 92, 0.07);
+  --info-border: rgba(233, 194, 92, 0.3);
+  --focus-color: #e9c25c;
+  --focus-ring: 0 0 0 3px rgba(233, 194, 92, 0.45);
+  --topo-color: #f3ecda;
+}
+
 /* ===================== TOKENY WSPÓLNE: typografia, odstępy, promienie, ruch ===================== */
 :root {
   /* Fonty: display z charakterem atlasu + czytelny tekst; systemowe jako zapas */
@@ -2164,3 +2224,69 @@ textarea.field { overflow: auto; }
 .callout-trap li::marker { color: var(--warning); }
 .md .c1-exam-box-links { padding-left: 0; }
 .md .c1-exam-box-links li { margin-bottom: 0; }
+
+/* ===================== CERTYFIKAT C1 — własny klimat (etap 4, DESIGN.md sekcja 3.8) ===================== */
+/* Nagłówek sekcji: znak napisowy (bez logo Cambridge) i duża liczba dni do egzaminu */
+.c1-masthead {
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px 24px;
+  margin: 0 0 22px; padding: 14px 0 16px;
+  border-bottom: 1px solid var(--line);
+  box-shadow: 0 1px 0 0 color-mix(in srgb, var(--c1-gold) 55%, transparent);
+}
+.c1-wordmark { display: inline-flex; align-items: baseline; gap: 10px; color: var(--ink); text-decoration: none; border-radius: var(--radius-xs); }
+.c1-wordmark-main { font-family: var(--font-display); font-size: var(--fs-xl); font-weight: 650; letter-spacing: -0.01em; }
+.c1-wordmark-sub { font-size: var(--fs-xs); font-weight: 700; letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--accent); }
+.c1-wordmark-sub::before { content: "·"; margin-right: 10px; color: var(--ink-muted); }
+.c1-masthead-count { display: inline-flex; align-items: baseline; gap: 8px; color: var(--ink); text-decoration: none; }
+.c1-masthead-days { font-family: var(--font-display); font-size: var(--fs-3xl); font-weight: 650; line-height: 1; letter-spacing: -0.03em; color: var(--accent); }
+.c1-masthead-unit { font-size: var(--fs-sm); font-weight: 600; color: var(--ink-muted); }
+.c1-masthead-note { margin: 0; font-size: var(--fs-sm); font-weight: 600; color: var(--accent); }
+.c1-view .c1-title::before { display: none; } /* bez warstwic: nagłówkiem sekcji jest znak napisowy */
+
+/* Ćwiczenia: wygląd arkusza egzaminacyjnego */
+.c1-ex.card {
+  position: relative;
+  padding: 30px 36px 26px;
+  border-top: 6px solid var(--accent-bg);
+  background:
+    repeating-linear-gradient(to bottom, transparent 0, transparent 35px, color-mix(in srgb, var(--line) 30%, transparent) 35px, color-mix(in srgb, var(--line) 30%, transparent) 36px),
+    var(--surface);
+  background-position: 0 6px;
+}
+.c1-ex-instr { background: var(--surface-2); border-left: 3px solid var(--c1-gold); }
+.c1-tr-list { gap: 0; padding-left: 34px; }
+.c1-tr-item { padding: 16px 0 18px 6px; border-bottom: 1px dashed var(--line-strong); }
+.c1-tr-item:last-child { border-bottom: 0; }
+.c1-tr-list > li::marker { font-family: var(--font-display); font-weight: 700; color: var(--accent); }
+.c1-tr-first { font-size: var(--fs-md-plus); }
+/* Pola luk jak linie do wpisywania */
+.c1-ex .c1-tr-input, .c1-ex .c1-gap-input, .c1-ex .c1-select {
+  border: 0; border-bottom: 2px solid var(--line-control); border-radius: 0;
+  background: transparent; padding: 4px 4px 3px;
+  font-weight: 600; letter-spacing: 0.02em;
+}
+.c1-ex .c1-tr-input:focus, .c1-ex .c1-gap-input:focus, .c1-ex .c1-select:focus { border-bottom-color: var(--accent); }
+.c1-ex .field.is-ok, .c1-ex .c1-select.is-ok { border-bottom-color: var(--success); background: var(--success-soft); }
+.c1-ex .field.is-bad, .c1-ex .c1-select.is-bad { border-bottom-color: var(--danger); background: var(--danger-soft); }
+.c1-gap-num { background: var(--accent-bg); color: var(--on-accent); }
+.c1-keyword { background: var(--accent-bg); color: var(--on-accent); }
+.c1-ex-actions { border-top-style: dashed; }
+
+/* Trenery: duży timer, licznik słów; tryb skupienia, gdy timer działa */
+.c1-view .c1-timer { padding: 10px 14px; border-color: var(--line-strong); }
+.c1-view .c1-timer-display { font-family: var(--font-display); font-size: var(--fs-2xl); font-weight: 650; letter-spacing: -0.02em; min-width: 104px; }
+.c1-words { font-size: var(--fs-md-plus); }
+.c1-words strong { font-family: var(--font-display); font-size: var(--fs-xl); }
+.c1-timer.is-running { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+html.focus-mode :is(.sb-panel, .topbar, .c1-masthead, .c1-crumb, .c1-back, .c1-pager, .c1-lead, .c1-writing-actions, .c1-checklist, .c1-speak-bar, .c1-sp-tip, .c1-rec-row) {
+  opacity: 0.3;
+  transition: opacity var(--dur-slow) var(--ease-out);
+}
+html.focus-mode :is(.sb-panel, .topbar, .c1-masthead, .c1-crumb, .c1-back, .c1-pager, .c1-lead, .c1-writing-actions, .c1-checklist, .c1-speak-bar, .c1-sp-tip, .c1-rec-row):is(:hover, :focus-within) { opacity: 1; }
+html.focus-mode .c1-writing-area { box-shadow: 0 0 0 4px var(--accent-soft); }
+
+@media (max-width: 760px) {
+  .c1-masthead-days { font-size: var(--fs-2xl); }
+  .c1-ex.card { padding: 22px 16px 20px; }
+  .c1-tr-list { padding-left: 26px; }
+}

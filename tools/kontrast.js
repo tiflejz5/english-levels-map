@@ -23,6 +23,9 @@ function block(selectorStart) {
 }
 const light = block(":root,\n:root[data-theme=\"light\"]");
 const dark = Object.assign({}, light, block(":root[data-theme=\"dark\"]"));
+// Sekcja „Certyfikat C1” nadpisuje część tokenów (osobno w jasnym i ciemnym motywie)
+const c1Light = Object.assign({}, light, block(":root:not([data-theme=\"dark\"])[data-section=\"certyfikat\"]"));
+const c1Dark = Object.assign({}, dark, block(":root[data-theme=\"dark\"][data-section=\"certyfikat\"]"));
 
 function parse(c) {
   c = c.trim();
@@ -108,7 +111,7 @@ pairs.push(
 
 let fails = 0;
 let checked = 0;
-[["JASNY", light], ["CIEMNY", dark]].forEach(function (theme) {
+[["JASNY", light], ["CIEMNY", dark], ["C1 JASNY", c1Light], ["C1 CIEMNY", c1Dark]].forEach(function (theme) {
   const t = theme[1];
   const bad = [];
   pairs.forEach(function (p) {
