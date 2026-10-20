@@ -2,12 +2,12 @@
  * exercise-hub.js — „Centrum ćwiczeń” (#/cwiczenia, spec 02, część B):
  *   1. Zestawy tematów (z dane/cwiczenia-tematy.json) według poziomu i kategorii, filtr poziomu,
  *   2. Zestawy mieszane: gotowe (dane/mixes.json) i generator,
- *   3. Trening słabych punktów — kafelek „wkrótce” (dojdzie z dziennikiem podejść, spec 03).
+ *   3. Trening słabych punktów (spec 03, pkt 5): tematy z ≥ 5 próbami i trafnością < 70%.
  *
  * Generator: poziom (zakres), tematy (chipy wg kategorii, skrót „Wszystkie czasy”),
  * typy zadań, liczba (10/15/20), tryb. Losowanie: ELM.exLogic.pickMix (równo po
  * tematach, bez zadań z ostatniej sesji mieszanej, gdy starcza puli; ≤ 2 tego samego
- * typu pod rząd). Dziennik podejść i wagi trafności — etap 2.
+ * typu pod rząd) z wagami z dziennika podejść: trafność < 60% × 2, nigdy niewidziane × 1,5.
  * Sesję uruchamia ELM.exercises.startCustom (adres #/cwiczenia/sesja).
  */
 window.ELM = window.ELM || {};
@@ -237,7 +237,7 @@ window.ELM = window.ELM || {};
     function pick() {
       return ex().loadTopicItems(topics).then(function (pool) {
         pool = pool.filter(function (it) { return !it.level || levelIn(it.level, from, to); });
-        const res = ELM.exLogic.pickMix(pool, { count: count, types: types, exclude: pd().lastMix() });
+        const res = ELM.exLogic.pickMix(pool, { count: count, types: types, exclude: pd().lastMix(), weight: ELM.stats.mixWeight(pd().attempts()) });
         return res;
       });
     }
@@ -259,6 +259,29 @@ window.ELM = window.ELM || {};
       gen.message = "";
       launch(res);
     });
+  }
+
+  // =====================================================================
+  // SEKCJA 3: TRENING SŁABYCH PUNKTÓW
+  // =====================================================================
+
+  function weakCard() {
+    const weak = ELM.stats.weakTopics(pd().attempts());
+    return el("div", { class: "card hub-soon hub-weak" }, [
+      el("span", { class: "hub-soon-icon", "aria-hidden": "true" }, ELM.icon("target", { size: 22 })),
+      el("div", null, weak.length ? [
+        el("p", { class: "hub-soon-title" }, [el("strong", { text: "Najwięcej trudności sprawiają Ci:" })]),
+        el("ul", { class: "hub-weak-list" }, weak.map(function (w) {
+          const t = ex().topicInfo(w.key);
+          return el("li", null, [t ? el("a", { href: t.href, text: t.title }) : w.key, el("span", { class: "tool-note", text: " – " + Math.round(w.acc * 100) + "% z " + w.n + " prób" })]);
+        })),
+        el("p", { class: "tool-note", text: "12 zadań z tych tematów; częściej trafiają te, których ostatnio nie udało się rozwiązać." }),
+        el("a", { class: "btn btn-primary", href: ex().BASE + "/slabe" }, ELM.ui.withIcon("target", "Zacznij trening"))
+      ] : [
+        el("p", { class: "hub-soon-title" }, [el("strong", { text: "Na razie nie widzę słabych punktów" })]),
+        el("p", { class: "tool-note", text: "Zrób kilka zestawów, a podpowiem, nad czym popracować. Trening pojawi się, gdy temat będzie miał co najmniej 5 prób i trafność poniżej 70%." })
+      ])
+    ]);
   }
 
   // =====================================================================
@@ -287,13 +310,7 @@ window.ELM = window.ELM || {};
         ]),
         el("section", { class: "hub-section", "aria-labelledby": "hub-weak" }, [
           el("h2", { class: "section-title", id: "hub-weak", text: "Trening słabych punktów" }),
-          el("div", { class: "card hub-soon" }, [
-            el("span", { class: "hub-soon-icon", "aria-hidden": "true" }, ELM.icon("target", { size: 22 })),
-            el("div", null, [
-              el("p", { class: "hub-soon-title" }, [el("strong", { text: "Wkrótce" })]),
-              el("p", { class: "tool-note", text: "Gdy aplikacja zacznie zapamiętywać każdą odpowiedź, ułoży tu zestaw z zadań, które sprawiają Ci najwięcej trudności." })
-            ])
-          ])
+          weakCard()
         ])
       ]);
       if (route && route.section === "mieszane") {

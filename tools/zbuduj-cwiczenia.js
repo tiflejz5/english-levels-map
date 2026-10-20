@@ -56,7 +56,7 @@ Object.keys(map.topics || {}).forEach(function (topic) {
     const set = readJson(file);
     // Pola dziedziczone przez zadania (topic, level) wpisujemy od razu
     set.items = (set.items || []).map(function (it) {
-      return Object.assign({ topic: set.topic || null, level: set.level || null, tags: [] }, it);
+      return Object.assign({ topic: set.topic || null, level: set.level || null, tags: [], setId: setId }, it);
     });
     writeJs(path.join(SETS_DIR, setId + ".js"), "Zestaw ćwiczeń " + setId,
       "(ELM.EX_SETS = ELM.EX_SETS || {})[" + JSON.stringify(setId) + "] = " + JSON.stringify(set) + ";");

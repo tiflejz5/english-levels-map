@@ -9,7 +9,17 @@
  *                    — kamienie milowe już pokazane (każdy tylko raz na profil, js/celebrate.js)
  *   elm_exercises_v1 { version: 1, profiles: { <idProfilu>: { sets: { <idZestawu>: { best, last } }, lastMix: [idZadania…] } } }
  *                    — wyniki zestawów ćwiczeń (silnik zadań, js/exercise-engine.js);
- *                      best / last = { score, total, date }; lastMix — zadania ostatniej sesji mieszanej
+ *                      best / last = { score, total, date }; recent — ułamki ostatnich 5 wyników
+ *                      (sugestia „Umiem”); lastMix — zadania ostatniej sesji mieszanej;
+ *                      dismissed: { <idZestawu>: "RRRR-MM-DD" } — odmowa sugestii „Umiem”
+ *   elm_attempts_v1  { version: 1, profiles: { <id>: { items: [podejście…], aggregates: { <idZadania>: { n, ok, topic, type, level } } } } }
+ *                    — dziennik podejść: każda odpowiedź w zadaniach (bufor 3000, starsze w agregatach; js/learning-stats.js)
+ *   elm_autojournal_v1 { version: 1, profiles: { <id>: { items: { <idZadania>: { entryId, created, wrongCount, lastWrongAt, returned } } } } }
+ *                    — wpisy dziennika błędów dodane automatycznie z zadań (format elm_journal_v1 bez zmian;
+ *                      wpis łączy pole ref = "ex:<idZadania>")
+ *   elm_learnprefs_v1 { version: 1, profiles: { <id>: { autoJournal: true|false } } } — ustawienia nauki
+ *   elm_notes_v1     { version: 1, profiles: { <id>: { items: { <klucz strony>: { text, updatedAt, title, route } } } } }
+ *                    — własne notatki (zwykły tekst, maks. 10 000 znaków)
  *
  * Wpis dziennika błędów:
  *   { id, createdAt: "RRRR-MM-DD", context, myAnswer, correct, rule, source,
@@ -28,7 +38,8 @@ window.ELM = window.ELM || {};
 
   const U = ELM.utils;
 
-  const KEYS = { journal: "elm_journal_v1", activity: "elm_activity_v1", levelTest: "elm_leveltest_v1", celebrated: "elm_celebrated_v1", exercises: "elm_exercises_v1" };
+  const KEYS = { journal: "elm_journal_v1", activity: "elm_activity_v1", levelTest: "elm_leveltest_v1", celebrated: "elm_celebrated_v1", exercises: "elm_exercises_v1",
+    attempts: "elm_attempts_v1", autojournal: "elm_autojournal_v1", prefs: "elm_learnprefs_v1", notes: "elm_notes_v1" };
   const VERSION = 1;
 
   const CATEGORIES = ["Use of English", "Reading", "Writing", "Listening", "Speaking", "Gramatyka", "Słownictwo", "Inne"];
@@ -86,7 +97,11 @@ window.ELM = window.ELM || {};
     if (kind === "journal") return { entries: [] };
     if (kind === "activity") return { days: [], lastPage: null };
     if (kind === "celebrated") return { ids: [] };
-    if (kind === "exercises") return { sets: {}, lastMix: [] };
+    if (kind === "exercises") return { sets: {}, lastMix: [], dismissed: {} };
+    if (kind === "attempts") return { items: [], aggregates: {} };
+    if (kind === "autojournal") return { items: {} };
+    if (kind === "prefs") return { autoJournal: true };
+    if (kind === "notes") return { items: {} };
     return { last: null };
   }
 
@@ -181,16 +196,84 @@ window.ELM = window.ELM || {};
       Object.keys(src).slice(0, 2000).forEach(function (id) {
         if (!EX_ID.test(id) || !U.isPlainObject(src[id])) return;
         const best = normalizeScore(src[id].best), last = normalizeScore(src[id].last);
-        if (best || last) sets[id] = { best: best || last, last: last || best };
+        const recent = (Array.isArray(src[id].recent) ? src[id].recent : [])
+          .filter(function (x) { return typeof x === "number" && x >= 0 && x <= 1; }).slice(-5);
+        if (best || last) sets[id] = { best: best || last, last: last || best, recent: recent };
       });
       const lastMix = (Array.isArray(raw.lastMix) ? raw.lastMix : [])
         .filter(function (x) { return typeof x === "string" && EX_ID.test(x); }).slice(0, 100);
-      return { sets: sets, lastMix: lastMix };
+      const dismissed = {};
+      if (U.isPlainObject(raw.dismissed)) Object.keys(raw.dismissed).slice(0, 2000).forEach(function (id) {
+        if (EX_ID.test(id) && learn().isDay(raw.dismissed[id])) dismissed[id] = raw.dismissed[id];
+      });
+      return { sets: sets, lastMix: lastMix, dismissed: dismissed };
+    }
+    if (kind === "attempts") {
+      const items = (Array.isArray(raw.items) ? raw.items : []).map(normalizeAttempt).filter(Boolean).slice(-ELM.stats.MAX_ATTEMPTS);
+      const aggregates = {};
+      if (U.isPlainObject(raw.aggregates)) Object.keys(raw.aggregates).slice(0, 20000).forEach(function (id) {
+        const g = raw.aggregates[id];
+        if (!EX_ID.test(id) || !U.isPlainObject(g) || !Number.isInteger(g.n) || !Number.isInteger(g.ok) || g.n < 1 || g.ok < 0 || g.ok > g.n) return;
+        aggregates[id] = { n: g.n, ok: g.ok, topic: optId(g.topic), type: ATTEMPT_TYPES.indexOf(g.type) !== -1 ? g.type : null, level: learn().LEVELS.indexOf(g.level) !== -1 ? g.level : null };
+      });
+      return { items: items, aggregates: aggregates };
+    }
+    if (kind === "autojournal") {
+      const items = {};
+      if (U.isPlainObject(raw.items)) Object.keys(raw.items).slice(0, 5000).forEach(function (id) {
+        const m = raw.items[id];
+        if (!EX_ID.test(id) || !U.isPlainObject(m) || typeof m.entryId !== "string") return;
+        items[id] = {
+          entryId: text(m.entryId, LIMITS.id),
+          created: learn().isDay(m.created) ? m.created : learn().today(),
+          wrongCount: Number.isInteger(m.wrongCount) && m.wrongCount > 0 ? Math.min(m.wrongCount, 9999) : 1,
+          lastWrongAt: learn().isDay(m.lastWrongAt) ? m.lastWrongAt : null,
+          returned: m.returned === true
+        };
+      });
+      return { items: items };
+    }
+    if (kind === "prefs") return { autoJournal: raw.autoJournal !== false };
+    if (kind === "notes") {
+      const items = {};
+      if (U.isPlainObject(raw.items)) Object.keys(raw.items).slice(0, 2000).forEach(function (key) {
+        const n = raw.items[key];
+        if (!NOTE_KEY.test(key) || !U.isPlainObject(n)) return;
+        const body = text(n.text, NOTE_MAX);
+        if (!body.trim()) return;
+        items[key] = { text: body, updatedAt: typeof n.updatedAt === "string" && !isNaN(Date.parse(n.updatedAt)) ? n.updatedAt : new Date().toISOString(),
+          title: text(n.title, LIMITS.title), route: /^#\/[^\s<>"]*$/.test(n.route || "") ? text(n.route, LIMITS.hash) : "" };
+      });
+      return { items: items };
     }
     return { last: normalizeTestResult(raw.last) };
   }
 
   const EX_ID = /^[a-z0-9][a-z0-9-]{0,99}$/;
+  const NOTE_KEY = /^[a-z0-9][a-z0-9:_-]{0,119}$/;
+  const NOTE_MAX = 10000;
+  const ATTEMPT_TYPES = ["multiple-choice", "reorder", "find-error", "short-answer"];
+  const ATTEMPT_MODES = ["learn", "exam", "mix", "weak", "review"];
+
+  function optId(v) { return typeof v === "string" && EX_ID.test(v) ? v : null; }
+
+  /** Podejście (dziennik podejść) albo null przy złym formacie. */
+  function normalizeAttempt(raw) {
+    if (!U.isPlainObject(raw) || !EX_ID.test(raw.itemId || "") || !learn().isDay(raw.day)) return null;
+    return {
+      t: typeof raw.t === "string" && !isNaN(Date.parse(raw.t)) ? raw.t : raw.day + "T12:00:00.000Z",
+      day: raw.day,
+      itemId: raw.itemId,
+      setId: optId(raw.setId),
+      topic: optId(raw.topic),
+      level: learn().LEVELS.indexOf(raw.level) !== -1 ? raw.level : null,
+      type: ATTEMPT_TYPES.indexOf(raw.type) !== -1 ? raw.type : null,
+      tags: (Array.isArray(raw.tags) ? raw.tags : []).filter(function (x) { return typeof x === "string" && x.length <= 40; }).slice(0, 10),
+      correct: raw.correct === true,
+      mode: ATTEMPT_MODES.indexOf(raw.mode) !== -1 ? raw.mode : "learn",
+      answer: text(raw.answer, 200)
+    };
+  }
 
   /** Wynik zestawu { score, total, date } albo null. */
   function normalizeScore(raw) {
@@ -360,7 +443,7 @@ window.ELM = window.ELM || {};
     return rec && rec.sets[setId] ? { best: rec.sets[setId].best, last: rec.sets[setId].last } : null;
   }
 
-  /** Zapisuje wynik ukończonej sesji: ostatni zawsze, najlepszy, gdy procent jest wyższy. */
+  /** Zapisuje wynik ukończonej sesji: ostatni zawsze, najlepszy, gdy procent jest wyższy; recent — ostatnie 5 wyników. */
   function saveSetScore(setId, score, total) {
     const pid = activeId();
     if (!pid || !EX_ID.test(setId)) return null;
@@ -369,9 +452,195 @@ window.ELM = window.ELM || {};
     const rec = record("exercises", pid);
     const prev = rec.sets[setId];
     const better = !prev || clean.score / clean.total > prev.best.score / prev.best.total;
-    rec.sets[setId] = { best: better ? clean : prev.best, last: clean };
+    const recent = (prev && prev.recent ? prev.recent : []).concat(clean.score / clean.total).slice(-5);
+    rec.sets[setId] = { best: better ? clean : prev.best, last: clean, recent: recent };
     save("exercises");
-    return { best: rec.sets[setId].best, last: clean, improved: !!prev && better };
+    return { best: rec.sets[setId].best, last: clean, recent: recent.slice(), improved: !!prev && better };
+  }
+
+  /** Dzień odmowy sugestii „Umiem” dla zestawu (albo null) i zapis odmowy. */
+  function umiemDismissed(setId) {
+    const pid = activeId();
+    const rec = pid ? load("exercises").profiles[pid] : null;
+    return rec && rec.dismissed ? rec.dismissed[setId] || null : null;
+  }
+
+  function dismissUmiem(setId) {
+    const pid = activeId();
+    if (!pid || !EX_ID.test(setId)) return;
+    const rec = record("exercises", pid);
+    rec.dismissed = rec.dismissed || {};
+    rec.dismissed[setId] = learn().today();
+    save("exercises");
+  }
+
+  // =====================================================================
+  // DZIENNIK PODEJŚĆ
+  // =====================================================================
+
+  /** Rekord podejść aktywnego profilu (do statystyk; nie modyfikuj). */
+  function attempts() { return record("attempts", activeId()); }
+
+  /** Zapisuje jedną odpowiedź (po każdym zadaniu). */
+  function addAttempt(fields) {
+    const pid = activeId();
+    if (!pid) return null;
+    const now = new Date();
+    const a = normalizeAttempt(Object.assign({ t: now.toISOString(), day: learn().today() }, fields));
+    if (!a) return null;
+    ELM.stats.pushAttempt(record("attempts", pid), a);
+    save("attempts");
+    return a;
+  }
+
+  // =====================================================================
+  // USTAWIENIA NAUKI
+  // =====================================================================
+
+  function prefs() { return Object.assign({}, record("prefs", activeId())); }
+
+  function setPref(key, value) {
+    const pid = activeId();
+    if (!pid) return;
+    const rec = record("prefs", pid);
+    if (key === "autoJournal") rec.autoJournal = value !== false;
+    save("prefs");
+  }
+
+  // =====================================================================
+  // AUTOMATYCZNE WPISY DZIENNIKA BŁĘDÓW (spec 03, pkt 2)
+  // =====================================================================
+
+  function autoMeta() { return record("autojournal", activeId()).items; }
+
+  /** Wpis dziennika powstały z zadania (pole ref = "ex:<idZadania>") albo null. */
+  function entryForItem(itemId) {
+    const ref = "ex:" + itemId;
+    return entries().find(function (e) { return e.ref === ref; }) || null;
+  }
+
+  function isAutoEntry(entry) {
+    if (!entry || entry.ref.indexOf("ex:") !== 0) return false;
+    const m = autoMeta()[entry.ref.slice(3)];
+    return !!m && m.entryId === entry.id;
+  }
+
+  function autoCountToday() {
+    const today = learn().today(), meta = autoMeta();
+    return Object.keys(meta).filter(function (k) { return meta[k].created === today; }).length;
+  }
+
+  /**
+   * Błędna odpowiedź → wpis w dzienniku (bez duplikatów). fields — pola wpisu (kontekst, odpowiedzi, reguła…).
+   * Zwraca { action, entry, undo } albo null (wyłączone w ustawieniach / brak profilu).
+   */
+  function recordWrong(itemId, fields) {
+    const pid = activeId();
+    if (!pid || !EX_ID.test(itemId) || !prefs().autoJournal) return null;
+    const today = learn().today();
+    const existing = entryForItem(itemId);
+    const plan = ELM.stats.planWrong(existing, { today: today, autoToday: autoCountToday() });
+    const meta = autoMeta();
+    if (plan.action === "limit") return { action: "limit" };
+    if (plan.action === "create") {
+      const entry = addEntry(Object.assign({}, fields, { ref: "ex:" + itemId }));
+      if (!entry) return null;
+      meta[itemId] = { entryId: entry.id, created: today, wrongCount: 1, lastWrongAt: today, returned: false };
+      save("autojournal");
+      return { action: "create", entry: entry, undo: { kind: "create", itemId: itemId, entryId: entry.id } };
+    }
+    // update / reopen: bez nowego wpisu; zapamiętujemy stan do „Cofnij”
+    const before = { review: Object.assign({}, existing.review), meta: meta[itemId] ? Object.assign({}, meta[itemId]) : null };
+    existing.review = plan.review;
+    const m = meta[itemId] || { entryId: existing.id, created: existing.createdAt, wrongCount: 0, lastWrongAt: null, returned: false };
+    m.wrongCount++;
+    m.lastWrongAt = today;
+    if (plan.action === "reopen") m.returned = true;
+    meta[itemId] = m;
+    save("journal");
+    save("autojournal");
+    return { action: plan.action, entry: existing, undo: { kind: "update", itemId: itemId, entryId: existing.id, before: before } };
+  }
+
+  /** Poprawna odpowiedź: zaliczenie powtórki, jeśli wpis tego zadania jest do powtórki dziś lub zaległy. */
+  function recordCorrect(itemId) {
+    const entry = activeId() ? entryForItem(itemId) : null;
+    const plan = ELM.stats.planCorrect(entry, learn().today());
+    if (!plan) return null;
+    entry.review = plan.review;
+    save("journal");
+    return { action: "review", entry: entry };
+  }
+
+  /** „Cofnij” dla wyniku recordWrong (pojedynczo albo listy). */
+  function undoAuto(undo) {
+    if (!undo) return;
+    const meta = autoMeta();
+    if (undo.kind === "create") {
+      removeEntry(undo.entryId);
+      if (meta[undo.itemId] && meta[undo.itemId].entryId === undo.entryId) delete meta[undo.itemId];
+    } else {
+      const e = getEntry(undo.entryId);
+      if (e) e.review = undo.before.review;
+      if (undo.before.meta) meta[undo.itemId] = undo.before.meta; else delete meta[undo.itemId];
+      save("journal");
+    }
+    save("autojournal");
+  }
+
+  /** „Usuń wszystkie automatyczne”: usuwa wpisy dodane automatycznie (ręczne zostają). Zwraca liczbę. */
+  function removeAllAuto() {
+    const meta = autoMeta();
+    const ids = new Set(Object.keys(meta).map(function (k) { return meta[k].entryId; }));
+    const list = entries();
+    const before = list.length;
+    for (let i = list.length - 1; i >= 0; i--) if (ids.has(list[i].id)) list.splice(i, 1);
+    record("autojournal", activeId()).items = {};
+    save("journal");
+    save("autojournal");
+    return before - list.length;
+  }
+
+  function autoInfo(entry) {
+    if (!isAutoEntry(entry)) return null;
+    return Object.assign({}, autoMeta()[entry.ref.slice(3)]);
+  }
+
+  // =====================================================================
+  // NOTATKI (spec 04, część B)
+  // =====================================================================
+
+  function notes() { return record("notes", activeId()).items; }
+
+  function getNote(key) { return activeId() && notes()[key] ? Object.assign({}, notes()[key]) : null; }
+
+  /** Zapisuje notatkę strony; pusta treść = usunięcie. */
+  function setNote(key, value, meta) {
+    const pid = activeId();
+    if (!pid || !NOTE_KEY.test(key)) return null;
+    const items = record("notes", pid).items;
+    const body = String(value || "").slice(0, NOTE_MAX);
+    if (!body.trim()) { delete items[key]; save("notes"); return null; }
+    items[key] = { text: body, updatedAt: new Date().toISOString(), title: text((meta && meta.title) || (items[key] && items[key].title) || "", LIMITS.title),
+      route: /^#\/[^\s<>"]*$/.test((meta && meta.route) || "") ? text(meta.route, LIMITS.hash) : (items[key] ? items[key].route : "") };
+    save("notes");
+    return Object.assign({}, items[key]);
+  }
+
+  function removeNote(key) { setNote(key, ""); }
+
+  /** Lista notatek [{ key, text, updatedAt, title, route }] od ostatnio zmienianych. */
+  function noteList() {
+    const items = activeId() ? notes() : {};
+    return Object.keys(items).map(function (k) { return Object.assign({ key: k }, items[k]); })
+      .sort(function (a, b) { return a.updatedAt < b.updatedAt ? 1 : a.updatedAt > b.updatedAt ? -1 : 0; });
+  }
+
+  /** Liczba zestawów (i mixów) z zapisanym wynikiem aktywnego profilu. */
+  function solvedSetCount() {
+    const pid = activeId();
+    const rec = pid ? load("exercises").profiles[pid] : null;
+    return rec ? Object.keys(rec.sets).length : 0;
   }
 
   function lastMix() {
@@ -414,13 +683,9 @@ window.ELM = window.ELM || {};
 
   /** Część „learning” pliku eksportu (wszystkie profile). */
   function exportData() {
-    return {
-      journal: JSON.parse(JSON.stringify(load("journal"))),
-      activity: JSON.parse(JSON.stringify(load("activity"))),
-      levelTest: JSON.parse(JSON.stringify(load("levelTest"))),
-      celebrated: JSON.parse(JSON.stringify(load("celebrated"))),
-      exercises: JSON.parse(JSON.stringify(load("exercises")))
-    };
+    const out = {};
+    Object.keys(KEYS).forEach(function (kind) { out[kind] = JSON.parse(JSON.stringify(load(kind))); });
+    return out;
   }
 
   /**
@@ -491,6 +756,26 @@ window.ELM = window.ELM || {};
     saveSetScore: saveSetScore,
     lastMix: lastMix,
     setLastMix: setLastMix,
+    umiemDismissed: umiemDismissed,
+    solvedSetCount: solvedSetCount,
+    dismissUmiem: dismissUmiem,
+    attempts: attempts,
+    addAttempt: addAttempt,
+    prefs: prefs,
+    setPref: setPref,
+    entryForItem: entryForItem,
+    isAutoEntry: isAutoEntry,
+    autoInfo: autoInfo,
+    autoCountToday: autoCountToday,
+    recordWrong: recordWrong,
+    recordCorrect: recordCorrect,
+    undoAuto: undoAuto,
+    removeAllAuto: removeAllAuto,
+    NOTE_MAX: NOTE_MAX,
+    getNote: getNote,
+    setNote: setNote,
+    removeNote: removeNote,
+    noteList: noteList,
     removeProfile: removeProfile,
     prune: prune,
     exportData: exportData,

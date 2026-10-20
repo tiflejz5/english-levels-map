@@ -370,7 +370,10 @@ window.ELM = window.ELM || {};
     document.title = t.name + " · Laboratorium czasów";
     const card = el("article", { class: "lab-card lvl-" + t.level + " lab-group-" + t.group, "aria-labelledby": "lab-card-title" });
     card.appendChild(el("header", { class: "card lab-card-head" }, [
-      el("p", { class: "lab-card-eyebrow" }, [levelChip(t.level), el("span", { text: GROUPS.find(function (g) { return g.id === t.group; }).label + (isForm(t) ? " · forma przyszła" : " · " + (ASPECTS.find(function (a) { return a.id === t.aspect; }) || { label: t.aspect }).label) })]),
+      el("div", { class: "lab-card-top" }, [
+        el("p", { class: "lab-card-eyebrow" }, [levelChip(t.level), el("span", { text: GROUPS.find(function (g) { return g.id === t.group; }).label + (isForm(t) ? " · forma przyszła" : " · " + (ASPECTS.find(function (a) { return a.id === t.aspect; }) || { label: t.aspect }).label) })]),
+        ELM.notes ? ELM.notes.button("lab:" + t.id, { title: "Lab czasów · " + t.name, route: BASE + "/" + t.id }) : null
+      ]),
       el("h2", { class: "lab-card-title", id: "lab-card-title", lang: "en", text: t.name }),
       el("p", { class: "lab-card-pl", text: t.namePl }),
       el("p", { class: "lab-card-summary", text: t.summary })

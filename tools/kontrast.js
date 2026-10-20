@@ -106,7 +106,11 @@ pairs.push(
   ["danger", "danger-soft", "surface", 4.5, "błędny wyraz / luka: tekst / tło"],
   ["success", "success-soft", "surface", 4.5, "poprawna luka: tekst / tło"],
   ["warning", "danger-soft", "surface", 4.5, "„Uwaga na pisownię” / tło błędnej odpowiedzi"],
-  ["success", "danger-soft", "surface", 4.5, "„Poprawnie: …” / tło błędnej odpowiedzi"]
+  ["success", "danger-soft", "surface", 4.5, "„Poprawnie: …” / tło błędnej odpowiedzi"],
+  ["accent", "surface-3", null, 3, "statystyki: dzień nauki / dzień bez nauki"],
+  ["accent", "surface", null, 3, "statystyki: kolumna trendu / karta"],
+  ["accent", "accent-soft", "surface", 3, "statystyki: pasek trafności / tor"],
+  ["inverse-text", "inverse-bg", null, 4.5, "toast: tekst / tło"]
 );
 ["a1", "a2", "b1", "b2", "c1", "c2"].forEach(function (l) {
   const L = l.toUpperCase();

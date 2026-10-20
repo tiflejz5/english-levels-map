@@ -90,6 +90,7 @@ window.ELM = window.ELM || {};
       { href: "#/test-poziomu", label: "Test poziomu", icon: "target", active: st.view === "leveltest" },
       { href: "#/cwiczenia", label: "Ćwiczenia", icon: "dumbbell", active: st.view === "exercises" },
       { href: "#/laboratorium-czasow", label: "Lab czasów", icon: "flask-conical", active: st.view === "lab" },
+      { href: "#/statystyki", label: "Statystyki", icon: "chart-column", active: st.view === "stats" },
       { href: "#/bledy", label: "Dziennik błędów", icon: "notebook-pen", active: st.view === "journal",
         badge: due ? String(due) : null, badgeLabel: due ? "powtórki na dziś: " + due : null }
     ];
@@ -183,6 +184,8 @@ window.ELM = window.ELM || {};
     if (ELM.state.view === "leveltest") return ELM.levelTest.render();
     if (ELM.state.view === "exercises") return ELM.exercises.render(ELM.state.toolRoute);
     if (ELM.state.view === "lab") return ELM.tenseLab.render(ELM.state.toolRoute);
+    if (ELM.state.view === "stats") return ELM.statsPage.render();
+    if (ELM.state.view === "notes") return ELM.notes.render();
     if (ELM.state.route) return ELM.niezbednik.renderPage(ELM.state.route);
     ELM.niezbednik.computeLinks();
     const view = document.getElementById("view");

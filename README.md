@@ -138,7 +138,12 @@ Nazwa profilu: spacje na początku i końcu są obcinane, najwyżej 30 znaków, 
 | `elm_journal_v1`  | dziennik błędów **per profil**: `{ version: 1, profiles: { <id profilu>: { entries: [wpis…] } } }` |
 | `elm_activity_v1` | dni nauki **per profil**: `{ version: 1, profiles: { <id>: { days: ["RRRR-MM-DD"…], lastPage: { hash, title } } } }` |
 | `elm_leveltest_v1`| ostatni wynik testu poziomu **per profil**: `{ version: 1, profiles: { <id>: { last: { date, level, answers } } } }` |
-| `elm_exercises_v1`| wyniki zestawów ćwiczeń **per profil**: `{ version: 1, profiles: { <id>: { sets: { <id zestawu lub mixu>: { best, last } }, lastMix: [id zadań…] } } }`, gdzie `best` / `last` = `{ score, total, date }` (w eksporcie, imporcie i resecie) |
+| `elm_exercises_v1`| wyniki zestawów ćwiczeń **per profil**: `{ version: 1, profiles: { <id>: { sets: { <id zestawu lub mixu>: { best, last, recent } }, lastMix: [id zadań…], dismissed: { <id zestawu>: dzień } } } }`, gdzie `best` / `last` = `{ score, total, date }`, `recent` — ostatnie 5 wyników (sugestia „Umiem”), `dismissed` — „Nie teraz” przy sugestii (w eksporcie, imporcie i resecie) |
+| `elm_attempts_v1` | dziennik podejść **per profil**: każda odpowiedź w zadaniach `{ t, day, itemId, setId, topic, level, type, tags, correct, mode, answer }`; bufor 3000 wpisów, starsze w `aggregates` (`{ n, ok, topic, type, level }` na zadanie) |
+| `elm_autojournal_v1` | błędy dodane automatycznie do Dziennika błędów **per profil**: `{ items: { <id zadania>: { entryId, created, wrongCount, lastWrongAt, returned } } }`; sam wpis jest w `elm_journal_v1` (bez zmiany formatu, łączy go `ref = "ex:<id zadania>"`) |
+| `elm_learnprefs_v1` | ustawienia nauki **per profil**: `{ autoJournal: true / false }` (menu profilu → Ustawienia nauki) |
+| `elm_notes_v1`    | notatki **per profil**: `{ items: { <klucz strony>: { text, updatedAt, title, route } } }`, zwykły tekst ≤ 10 000 znaków |
+| `elm_search_recent_v1` | ostatnie wyszukiwania `{ version: 1, items: [...] }` (globalnie dla urządzenia, poza eksportem, czyszczone przez „Resetuj dane”) |
 
 Wpis dziennika: `{ id, createdAt: "RRRR-MM-DD", context, myAnswer, correct, rule, source, category, itemId, ref, review: { stage, due, mastered } }`. Przy zapisie i imporcie pola są sprawdzane i przycinane (np. kontekst do 2000 znaków, odpowiedzi do 1000, źródło do 200). Wpisy bez kontekstu albo poprawnej odpowiedzi są odrzucane. Usunięcie profilu usuwa też jego dziennik, serię i wynik testu.
 
@@ -207,6 +212,28 @@ Specyfikacje: [docs/rozbudowa-v2/](docs/rozbudowa-v2/00-CZYTAJ-TO.md).
   - `npm run build` zamienia je na pliki `.js` (`cwiczenia/cwiczenia-indeks.js`, `cwiczenia/tematy/<id>.js`, `dane/lab-dane.js`). Strona wczytuje je **dopiero wtedy, gdy są potrzebne**, zwykłym `<script>`, więc działa to także z `file://`.
 - **Na stronie tematu** z zestawami pojawia się na końcu sekcja „Sprawdź się” z kartami zestawów i linkiem „Zobacz na osi czasu”.
 
+**Etap 2 rozbudowy:**
+
+| Adres | Widok | Kod |
+|---|---|---|
+| `#/statystyki` | Statystyki: podsumowanie, trafność wg tematu / typu / poziomu, najsłabsze miejsca, trend 12 tygodni, aktywność, dziennik | `js/stats-page.js` |
+| `#/cwiczenia/slabe[/<temat>]` | trening słabych punktów (tematy z ≥ 5 próbami i trafnością < 70%) | `js/exercise-engine.js` |
+| `#/notatki` | Moje notatki | `js/notes.js` |
+
+- **Dziennik podejść:** każda odpowiedź w zadaniach trafia do `elm_attempts_v1`, także przy przerwanej sesji. Liczenie (agregaty, trend, słabe tematy, wagi losowania, sugestia „Umiem”) jest w `js/learning-stats.js` (bez DOM, testy w `tools/testy.js`).
+- **Automatyczne błędy w Dzienniku błędów:**
+  - błędna odpowiedź tworzy wpis z ikoną iskry; drugi błąd tego samego zadania nie dubluje wpisu, tylko cofa powtórkę do jutra, a opanowany wpis wraca do powtórek;
+  - obowiązuje limit 30 wpisów dziennie;
+  - po każdym dodaniu pojawia się toast z „Cofnij”, a w mixach i Egzaminie zbiorcze podsumowanie z „Cofnij wszystkie”;
+  - poprawna odpowiedź na zadanie, którego powtórka przypada dziś (lub jest zaległa), zalicza tę powtórkę;
+  - funkcję wyłącza się w menu profilu → Ustawienia nauki.
+- **Sugestia „Umiem”** pojawia się po dwóch wynikach ≥ 80% z rzędu. Aplikacja nigdy nie zaznacza sama; po „Nie teraz” nie pyta przez 14 dni.
+- **Wyszukiwarka:**
+  - otwiera się lupą w górnym pasku, klawiszem `/`, skrótem `Ctrl/Cmd + K` albo najechaniem myszą na górną krawędź treści;
+  - indeks `dane/szukaj-indeks.js` buduje `tools/zbuduj-szukaj.js` (część `npm run build`, osobno: `npm run szukaj`) i ładuje się dopiero przy pierwszym otwarciu;
+  - notatki i Dziennik błędów są dokładane do indeksu w przeglądarce.
+- **Notatki:** przycisk „Notatki” na podstronach, stronach C1, kartach czasów i zestawach; zapisują się same.
+
 **Dodanie zestawu zadań:**
 
 1. Wrzuć plik `cwiczenia/tematy/<id>.json` (format: spec 01, sekcja 2; id zadań unikalne w całym banku).
@@ -244,6 +271,11 @@ english-levels-map/
 │  ├─ exercise-engine.js sesja zadań, wynik, „Sprawdź się” na stronach tematów
 │  ├─ exercise-hub.js    Centrum ćwiczeń i generator zestawów mieszanych
 │  ├─ tense-lab.js       Laboratorium czasów (oś czasu SVG, Dobierz czas, Porównaj)
+│  ├─ learning-stats.js  dziennik podejść i statystyki bez DOM (agregaty, wagi, automatyczny dziennik)
+│  ├─ stats-page.js      strona Statystyki
+│  ├─ search-logic.js    silnik wyszukiwarki bez DOM (polskie znaki, prefiksy, literówki)
+│  ├─ search.js          wyszukiwarka: pasek, skróty, combobox
+│  ├─ notes.js           własne notatki (panel i strona „Moje notatki”)
 │  ├─ niezbednik.js      podstrony niezbędnika: routing #/a1/…, dopasowanie, widok
 │  ├─ render.js          rysowanie lewego panelu i strony poziomu
 │  ├─ data-menu.js       sekcja „Dane”: eksport, import, reset
@@ -255,6 +287,7 @@ english-levels-map/
 ├─ tools/kontrast.js     kontrast WCAG par tokenów (4 zakresy motywów)
 ├─ tools/zbuduj-cwiczenia.js   ćwiczenia i Lab: JSON → pliki .js ładowane na żądanie
 ├─ tools/waliduj-cwiczenia.js  walidator danych ćwiczeń (npm run validate)
+├─ tools/zbuduj-szukaj.js      indeks wyszukiwarki (dane/szukaj-indeks.js)
 ├─ cwiczenia/tematy/     zestawy zadań (*.json źródło, *.js generowane)
 ├─ dane/                 mapa zestawów, mixy, Laboratorium czasów (lab-dane.js generowany)
 ├─ scripts/              skrypty z paczki rozbudowy (walidator i generatory w Pythonie)

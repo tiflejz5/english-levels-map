@@ -1,7 +1,8 @@
 /*
  * testy.js — testy jednostkowe czystej logiki nauki (js/learning.js):
  * harmonogram powtórek, seria nauki i algorytm testu poziomu,
- * oraz silnika zadań (js/exercise-logic.js) na zestawach z cwiczenia/tematy/.
+ * oraz silnika zadań (js/exercise-logic.js) na zestawach z cwiczenia/tematy/
+ * i dziennika podejść / statystyk / automatycznych powtórek (js/learning-stats.js).
  * Bez zależności: wbudowane moduły Node (assert).
  *
  * Użycie (z folderu projektu):
@@ -15,6 +16,8 @@ const path = require("path");
 global.window = global;
 require(path.join(__dirname, "..", "js", "learning.js"));
 require(path.join(__dirname, "..", "js", "exercise-logic.js"));
+require(path.join(__dirname, "..", "js", "learning-stats.js"));
+require(path.join(__dirname, "..", "js", "search-logic.js"));
 const L = global.ELM.learn;
 const X = global.ELM.exLogic;
 
@@ -301,6 +304,176 @@ test("pickMix: wyklucza zadania z ostatniej sesji, gdy starcza puli", function (
   const ids = first.items.map(function (x) { return x.id; });
   const second = X.pickMix(allItems, { count: 10, exclude: ids }, seeded(8));
   assert.ok(second.items.every(function (x) { return ids.indexOf(x.id) === -1; }));
+});
+
+console.log("\nDziennik podejść i statystyki");
+const T = global.ELM.stats;
+function att(itemId, topic, type, level, correct, day) {
+  return { t: day + "T10:00:00.000Z", day: day, itemId: itemId, setId: null, topic: topic, level: level, type: type, tags: [], correct: correct, mode: "learn", answer: "" };
+}
+function recWith(list) { const r = { items: [], aggregates: {} }; list.forEach(function (a) { T.pushAttempt(r, a); }); return r; }
+
+test("bufor kołowy: limit, najstarsze do agregatów, statystyki bez strat", function () {
+  const r = { items: [], aggregates: {} };
+  for (let i = 0; i < 10; i++) T.pushAttempt(r, att("x-" + (i % 3), "t1", "reorder", "A1", i % 2 === 0, "2026-10-0" + (1 + (i % 9))), 6);
+  assert.strictEqual(r.items.length, 6);
+  const compacted = Object.keys(r.aggregates).reduce(function (s, k) { return s + r.aggregates[k].n; }, 0);
+  assert.strictEqual(compacted, 4);
+  const all = T.aggregate(r, "topic").t1;
+  assert.deepStrictEqual(all, { n: 10, ok: 5 }); // podejścia + agregaty = wszystkie odpowiedzi
+  assert.strictEqual(r.items[0].itemId, "x-" + (4 % 3)); // zostały najnowsze
+  // Domyślny limit 3000
+  const big = { items: [], aggregates: {} };
+  for (let i = 0; i < 3005; i++) T.pushAttempt(big, att("y", "t", "reorder", "A1", true, "2026-10-01"));
+  assert.strictEqual(big.items.length, T.MAX_ATTEMPTS);
+  assert.strictEqual(big.aggregates.y.n, 5);
+});
+
+test("agregacja trafności wg tematu, typu i poziomu; mała próbka = brak oceny", function () {
+  const r = recWith([
+    att("a", "t1", "reorder", "A1", true, "2026-10-01"), att("b", "t1", "reorder", "A1", false, "2026-10-01"),
+    att("c", "t1", "find-error", "A1", true, "2026-10-02"), att("d", "t1", "find-error", "A1", true, "2026-10-02"),
+    att("e", "t1", "multiple-choice", "A1", true, "2026-10-03"),
+    att("f", "t2", "multiple-choice", "B1", false, "2026-10-03"), att("g", "t2", "multiple-choice", "B1", false, "2026-10-03")
+  ]);
+  assert.deepStrictEqual(T.aggregate(r, "topic"), { t1: { n: 5, ok: 4 }, t2: { n: 2, ok: 0 } });
+  assert.deepStrictEqual(T.aggregate(r, "type")["multiple-choice"], { n: 3, ok: 1 });
+  assert.deepStrictEqual(T.aggregate(r, "level"), { A1: { n: 5, ok: 4 }, B1: { n: 2, ok: 0 } });
+  assert.strictEqual(T.accuracy({ n: 4, ok: 4 }), null);
+  assert.strictEqual(T.accuracy({ n: 5, ok: 4 }), 0.8);
+  const ranked = T.ranked(r, "topic");
+  assert.deepStrictEqual(ranked.map(function (x) { return x.key; }), ["t1"]); // t2 ma < 5 prób
+});
+
+test("tematy do treningu słabych punktów: ≥ 5 prób, < 70%, rosnąco, maks. 3", function () {
+  const list = [];
+  const make = function (topic, n, ok) { for (let i = 0; i < n; i++) list.push(att(topic + "-" + i, topic, "reorder", "A2", i < ok, "2026-10-05")); };
+  make("dobry", 10, 9); make("slaby", 10, 3); make("sredni", 10, 6); make("mala-proba", 4, 0); make("najgorszy", 6, 1); make("graniczny", 10, 7);
+  const weak = T.weakTopics(recWith(list));
+  assert.deepStrictEqual(weak.map(function (x) { return x.key; }), ["najgorszy", "slaby", "sredni"]);
+  assert.deepStrictEqual(T.weakTopics(recWith([att("a", "t", "reorder", "A1", true, "2026-10-01")])), []);
+});
+
+test("podsumowanie i trend tygodniowy (dziś wstrzyknięte)", function () {
+  const r = recWith([
+    att("a", "t", "reorder", "A1", true, "2026-10-20"), att("b", "t", "reorder", "A1", false, "2026-10-14"),
+    att("c", "t", "reorder", "A1", true, "2026-09-25"), att("d", "t", "reorder", "A1", true, "2026-07-01")
+  ]);
+  const s = T.summary(r, "2026-10-20");
+  assert.deepStrictEqual([s.n7, s.n30, s.n], [2, 3, 4]); // 14.10 mieści się w 7 dniach (14–20)
+  const w = T.weekly(r, "2026-10-20", 12);
+  assert.strictEqual(w.length, 12);
+  assert.strictEqual(w[11].start, "2026-10-19"); // poniedziałek
+  assert.strictEqual(w[11].n, 1);
+  assert.strictEqual(w[10].n, 1);
+  assert.strictEqual(w.reduce(function (x, y) { return x + y.n; }, 0), 3); // lipiec poza 12 tygodniami
+  const g = T.activityGrid(["2026-10-19", "2026-10-21"], "2026-10-20", 12);
+  assert.strictEqual(g.length, 12);
+  assert.ok(g[11][0].active && g[11][0].day === "2026-10-19");
+  assert.ok(g[11][2].future && g[11][2].active);
+});
+
+test("dedup dziennika: nowy wpis, aktywny bez duplikatu (cofnięcie do etapu 1), opanowany wraca, limit dzienny", function () {
+  const today = "2026-10-20";
+  assert.deepStrictEqual(T.planWrong(null, { today: today, autoToday: 0 }), { action: "create" });
+  assert.deepStrictEqual(T.planWrong(null, { today: today, autoToday: 30 }), { action: "limit" });
+  const stage0 = { review: { stage: 0, due: "2026-10-21", mastered: false } };
+  assert.deepStrictEqual(T.planWrong(stage0, { today: today, autoToday: 99 }), { action: "update", review: stage0.review }); // istniejący: limit nie dotyczy
+  const stage2 = { review: { stage: 2, due: "2026-10-27", mastered: false } };
+  assert.deepStrictEqual(T.planWrong(stage2, { today: today, autoToday: 0 }), { action: "update", review: { stage: 0, due: "2026-10-21", mastered: false } });
+  const mastered = { review: { stage: 2, due: "2026-10-01", mastered: true } };
+  assert.deepStrictEqual(T.planWrong(mastered, { today: today, autoToday: 0 }), { action: "reopen", review: { stage: 0, due: "2026-10-21", mastered: false } });
+});
+
+test("poprawna odpowiedź zalicza powtórkę tylko, gdy przypada (dziś lub zaległa)", function () {
+  const today = "2026-10-20";
+  assert.strictEqual(T.planCorrect(null, today), null);
+  assert.strictEqual(T.planCorrect({ review: { stage: 0, due: "2026-10-21", mastered: false } }, today), null); // jeszcze nie
+  assert.strictEqual(T.planCorrect({ review: { stage: 2, due: "2026-10-10", mastered: true } }, today), null);  // opanowany
+  assert.deepStrictEqual(T.planCorrect({ review: { stage: 0, due: "2026-10-20", mastered: false } }, today), { action: "review", review: { stage: 1, due: "2026-10-23", mastered: false } });
+  assert.deepStrictEqual(T.planCorrect({ review: { stage: 2, due: "2026-10-15", mastered: false } }, today).review.mastered, true); // ostatni etap → opanowany
+});
+
+test("sugestia „Umiem”: dwa ostatnie ≥ 80%, nie gdy już Umiem, przerwa 14 dni po odmowie", function () {
+  const o = { isUmiem: false, dismissedDay: null, today: "2026-10-20" };
+  assert.strictEqual(T.suggestUmiem([0.9], o), false);
+  assert.strictEqual(T.suggestUmiem([0.8, 0.9], o), true);
+  assert.strictEqual(T.suggestUmiem([1, 0.7, 0.9], o), false);
+  assert.strictEqual(T.suggestUmiem([0.5, 0.8, 1], o), true);
+  assert.strictEqual(T.suggestUmiem([0.9, 0.9], Object.assign({}, o, { isUmiem: true })), false);
+  assert.strictEqual(T.suggestUmiem([0.9, 0.9], Object.assign({}, o, { dismissedDay: "2026-10-10" })), false);
+  assert.strictEqual(T.suggestUmiem([0.9, 0.9], Object.assign({}, o, { dismissedDay: "2026-10-06" })), true);
+});
+
+test("wagi: generator (trafność < 60% × 2, nowe × 1,5) i trening (bez poprawnej w 14 dniach × 2)", function () {
+  const r = recWith([
+    att("slabe", "t", "reorder", "A1", false, "2026-10-01"), att("slabe", "t", "reorder", "A1", false, "2026-10-02"), att("slabe", "t", "reorder", "A1", true, "2026-10-03"),
+    att("dobre", "t", "reorder", "A1", true, "2026-10-19"),
+    att("dawno", "t", "reorder", "A1", true, "2026-09-01")
+  ]);
+  const mw = T.mixWeight(r);
+  assert.deepStrictEqual([mw({ id: "slabe" }), mw({ id: "dobre" }), mw({ id: "nowe" })], [2, 1, 1.5]);
+  const ww = T.weakWeight(r, "2026-10-20");
+  // „slabe” rozwiązane poprawnie 17 dni temu — poza oknem 14 dni, więc waga 2
+  assert.deepStrictEqual([ww({ id: "dobre" }), ww({ id: "slabe" }), ww({ id: "dawno" }), ww({ id: "nowe" })], [1, 2, 2, 2]);
+});
+
+test("losowanie ważone: zadanie z wagą 2 częściej trafia do zestawu", function () {
+  const pool = [];
+  for (let i = 0; i < 20; i++) pool.push({ id: "z" + i, topic: "t", type: "reorder" });
+  let heavy = 0, light = 0;
+  for (let s = 1; s <= 400; s++) {
+    const m = X.pickMix(pool, { count: 5, weight: function (it) { return it.id === "z0" ? 2 : 1; } }, seeded(s * 104729 + 7)); // duże ziarno: pierwsza liczba nie jest bliska 0
+    if (m.items.some(function (x) { return x.id === "z0"; })) heavy++;
+    if (m.items.some(function (x) { return x.id === "z1"; })) light++;
+  }
+  assert.ok(heavy > light * 1.4, "waga 2: " + heavy + ", waga 1: " + light);
+});
+
+console.log("\nWyszukiwarka");
+const SR = global.ELM.searchLogic;
+const recs = SR.prepare([
+  { id: "1", group: "pages", title: "Present Perfect", headings: ["Pułapki Polaków", "Budowa"], summary: "Przeszłość związana z teraźniejszością.", text: "Have/has + trzecia forma. Byłem w Paryżu dwa razy." },
+  { id: "2", group: "pages", title: "Present Simple", headings: [], summary: "Rutyna.", text: "Mieszkam we Wrocławiu." },
+  { id: "3", group: "lab", title: "Past Simple", headings: [], summary: "Zakończone zdarzenia.", text: "Present Perfect kontra Past Simple." },
+  { id: "4", group: "exercises", title: "Zaimki dzierżawcze – sprawdź się", headings: [], summary: "", text: "" }
+]);
+
+test("fold: polskie znaki, wielkość liter, ta sama długość", function () {
+  assert.strictEqual(SR.fold("ZAŻÓŁĆ Gęślą"), "zazolc gesla");
+  assert.strictEqual(SR.fold("Łódź").length, 4);
+  assert.deepStrictEqual(SR.tokenize("Don’t stop, I'm here!"), ["don't", "stop", "i'm", "here"]);
+});
+test("search: prefiks, polskie znaki z i bez, wszystkie słowa muszą pasować, wagi pól", function () {
+  const ids = function (q) { return [].concat.apply([], SR.search(recs, q).groups.map(function (g) { return g.results.map(function (r) { return r.record.id; }); })); };
+  assert.deepStrictEqual(ids("pres").slice(0, 2).sort(), ["1", "2"]);
+  assert.deepStrictEqual(ids("wroclawiu"), ["2"]);
+  assert.deepStrictEqual(ids("Wrocławiu"), ["2"]);
+  assert.deepStrictEqual(ids("dzierzawcze"), ["4"]);
+  assert.deepStrictEqual(ids("present paryzu"), ["1"]); // oba wyrazy
+  const pp = SR.search(recs, "present perfect").groups;
+  assert.strictEqual(pp[0].results[0].record.id, "1"); // tytuł > treść (rekord 3)
+  assert.deepStrictEqual(ids("zzzz"), []);
+});
+test("search: literówki tylko od 5 znaków, przestawienie liter = jedna literówka", function () {
+  assert.ok(SR.search(recs, "presnet").total > 0);
+  assert.strictEqual(SR.search(recs, "pest").total, 0); // krótkie: bez tolerancji
+  assert.strictEqual(SR.distance("presnet", "present"), 1);
+});
+test("search: kotwica do nagłówka, grupy w zadanej kolejności, limit i „pokaż więcej”", function () {
+  const r = SR.search(recs, "pulapki", { groups: ["lab", "pages"] });
+  assert.strictEqual(r.groups[0].results[0].anchor, "Pułapki Polaków");
+  const g = SR.search(recs, "present", { groups: ["lab", "pages"], limit: 1 });
+  assert.deepStrictEqual(g.groups.map(function (x) { return x.group; }), ["lab", "pages"]);
+  assert.strictEqual(g.groups[1].results.length, 1);
+  assert.strictEqual(g.groups[1].total, 2);
+  assert.strictEqual(SR.search(recs, "present", { limit: 1, expanded: { pages: true } }).groups.find(function (x) { return x.group === "pages"; }).results.length, 2);
+});
+test("snippet i highlight: części z flagą hit, bez HTML", function () {
+  const s = SR.snippet("Mieszkam we Wrocławiu od lat <b>pięciu</b>.", "wroclaw");
+  assert.ok(s.some(function (p) { return p.hit && p.text === "Wrocławiu"; }));
+  assert.ok(s.map(function (p) { return p.text; }).join("").indexOf("<b>") !== -1); // tekst bez zmian, do textContent
+  assert.deepStrictEqual(SR.highlight("Present Perfect", "perf").filter(function (p) { return p.hit; }).map(function (p) { return p.text; }), ["Perfect"]);
 });
 
 console.log("\nWynik: " + passed + " ok, " + failures.length + " błędów");

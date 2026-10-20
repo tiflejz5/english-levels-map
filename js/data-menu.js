@@ -198,6 +198,7 @@ window.ELM = window.ELM || {};
       if (!ok) return;
       ELM.store.clearAll();
       ELM.profileData.clearAll();
+      if (ELM.search) ELM.search.clearRecent(); // ostatnie wyszukiwania (na urządzeniu)
       app().replaceProfiles(ELM.createEmptyProfiles());
       app().replaceContent(ELM.createDefaultData());
     });

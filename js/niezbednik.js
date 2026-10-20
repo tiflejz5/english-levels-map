@@ -208,6 +208,7 @@ window.ELM = window.ELM || {};
         el("span", { class: "level-dot", "aria-hidden": "true" }),
         found.level + (categoryName ? " · " + categoryName : "")
       ]),
+      ELM.notes ? ELM.notes.button(found.item.id, { title: found.level + " · " + (doc.meta.title || found.item.label), route: location.hash }) : null,
       info ? umiemToggle(info.essential) : null
     ]));
 
@@ -317,6 +318,17 @@ window.ELM = window.ELM || {};
     ]);
   }
 
+  /** Punkt listy („Umiem”) powiązany z tematem niezbędnika: { id, text, done } albo null. */
+  function essentialForTopic(topicId) {
+    computeLinks();
+    const files = Object.keys(links.byFile);
+    for (let i = 0; i < files.length; i++) {
+      const info = links.byFile[files[i]];
+      if (info.item.id === topicId) return { id: info.essential.id, text: info.essential.text, done: ELM.state.progress[info.essential.id] === true };
+    }
+    return null;
+  }
+
   function goBack(found) {
     const target = { levelId: found ? found.level : ELM.state.ui.levelId, categoryId: null };
     if (found) {
@@ -340,6 +352,7 @@ window.ELM = window.ELM || {};
     findItem: findItem,
     computeLinks: computeLinks,
     linkForEssential: linkForEssential,
+    essentialForTopic: essentialForTopic,
     renderPage: renderPage,
     renderSummary: renderSummary,
     renderHome: renderHome,
