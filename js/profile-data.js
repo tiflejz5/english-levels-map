@@ -636,6 +636,13 @@ window.ELM = window.ELM || {};
       .sort(function (a, b) { return a.updatedAt < b.updatedAt ? 1 : a.updatedAt > b.updatedAt ? -1 : 0; });
   }
 
+  /** Liczba zestawów (i mixów) z zapisanym wynikiem aktywnego profilu. */
+  function solvedSetCount() {
+    const pid = activeId();
+    const rec = pid ? load("exercises").profiles[pid] : null;
+    return rec ? Object.keys(rec.sets).length : 0;
+  }
+
   function lastMix() {
     const pid = activeId();
     const rec = pid ? load("exercises").profiles[pid] : null;
@@ -750,6 +757,7 @@ window.ELM = window.ELM || {};
     lastMix: lastMix,
     setLastMix: setLastMix,
     umiemDismissed: umiemDismissed,
+    solvedSetCount: solvedSetCount,
     dismissUmiem: dismissUmiem,
     attempts: attempts,
     addAttempt: addAttempt,
