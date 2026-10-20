@@ -359,6 +359,7 @@ window.ELM = window.ELM || {};
     const article = el("article", { class: "md c1-page" }, ELM.markdown.render(doc.blocks, { hiddenSections: HIDDEN_SECTIONS }));
     if (id === "przeglad") insertAfterIntro(article, countdownCard());
     wireTasks(article, id);
+    if (ELM.callouts) ELM.callouts.apply(article);
     view.appendChild(article);
     const nav = pageNav(id);
     if (nav) view.appendChild(nav);
@@ -400,6 +401,8 @@ window.ELM = window.ELM || {};
     view.className = "view c1-view";
     view.dataset.file = routeKey(route);
     view.replaceChildren();
+    // Na stronie przeglądu liczbę dni pokazuje karta z datą egzaminu — w nagłówku bez powtórzenia
+    if (data()) view.appendChild(masthead(!(route.kind === "page" && route.id === "przeglad")));
 
     let title = null;
     if (!data()) {
@@ -418,6 +421,35 @@ window.ELM = window.ELM || {};
     document.title = (title ? title + " · " : "") + "Certyfikat C1 · English Levels Map";
     if (title && ELM.profileData) ELM.profileData.setLastPage(location.hash, "Certyfikat C1 · " + title);
     U.setScroll(keepScroll);
+  }
+
+  /**
+   * Nagłówek sekcji Certyfikatu: znak napisowy „C1 Advanced · przygotowanie”
+   * (bez logo i grafik Cambridge) i duża liczba dni do egzaminu.
+   */
+  function masthead(withCount) {
+    const s = storeData();
+    const days = daysUntil(s.examDate);
+    let count;
+    if (days !== null && days > 0) {
+      count = el("a", { class: "c1-masthead-count", href: BASE }, [
+        el("span", { class: "c1-masthead-days num", text: String(days) }), " ",
+        el("span", { class: "c1-masthead-unit", text: plural(days, "dzień", "dni", "dni") + " do egzaminu" })
+      ]);
+    } else if (days !== null) {
+      count = el("p", { class: "c1-masthead-note", text: countdownText(s.examDate) });
+    } else {
+      count = el("a", { class: "c1-masthead-note", href: BASE }, "Ustaw datę egzaminu");
+    }
+    if (!withCount) count = null;
+    return el("header", { class: "c1-masthead" }, [
+      el("a", { class: "c1-wordmark", href: BASE }, [
+        el("span", { class: "c1-wordmark-main", text: "C1 Advanced" }), " ",
+        el("span", { class: "c1-wordmark-sub", text: "przygotowanie" }),
+        el("span", { class: "visually-hidden", text: " – przegląd egzaminu" })
+      ]),
+      count
+    ]);
   }
 
   // =====================================================================
@@ -439,9 +471,9 @@ window.ELM = window.ELM || {};
       ]);
     }).filter(Boolean);
 
-    return el("aside", { class: "c1-exam-box", "aria-label": "Na egzaminie C1" }, [
+    return el("aside", { class: "c1-exam-box callout callout-exam", "aria-label": "Na egzaminie C1" }, [
       el("div", { class: "c1-exam-box-head" }, [
-        el("span", { class: "c1-badge", "aria-hidden": "true", text: "C1" }),
+        el("span", { class: "c1-chip-badge", "aria-hidden": "true", text: "C1" }),
         el("span", { class: "c1-exam-box-title", text: "Na egzaminie C1" })
       ]),
       (link.examParts || []).length ? el("div", { class: "c1-chips" }, link.examParts.map(function (p) {
@@ -482,7 +514,7 @@ window.ELM = window.ELM || {};
 
   ELM.markdown.resolveWiki = function (id) {
     const set = findSet(id);
-    if (set) return { href: hrefSet(id), text: set.set.label };
+    if (set) return { href: hrefSet(id), text: set.set.label, level: "C1", kind: "c1" };
     const N = ELM.NIEZBEDNIK;
     if (N) {
       for (const level of N.index.levels) {
@@ -490,7 +522,7 @@ window.ELM = window.ELM || {};
         if (item) {
           const md = N.pages[item.file];
           const title = md ? ELM.markdown.parseFrontmatter(md).meta.title : null;
-          return { href: ELM.niezbednik.routeOf(item), text: title || item.label };
+          return { href: ELM.niezbednik.routeOf(item), text: title || item.label, level: level.level, kind: "page" };
         }
       }
     }
@@ -532,6 +564,16 @@ window.ELM = window.ELM || {};
     v.root.classList.toggle("is-running", t.running);
     v.toggle.textContent = t.running ? "Pauza" : (t.remaining < t.total && t.remaining > 0 ? "Wznów" : "Start");
     v.toggle.disabled = t.remaining <= 0;
+    updateFocus();
+  }
+
+  /** Tryb skupienia (html.focus-mode): reszta interfejsu przygasa, gdy działa timer na ekranie. */
+  function updateFocus() {
+    const any = Object.keys(timers).some(function (k) {
+      const t = timers[k];
+      return t.running && t.view && document.contains(t.view.root);
+    });
+    document.documentElement.classList.toggle("focus-mode", any);
   }
 
   function tick() {

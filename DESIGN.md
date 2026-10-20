@@ -7,7 +7,7 @@ Plan prac wizualnych:
 1. **Fundament** (kolory, fonty, tokeny, komponenty bazowe) — zrobione.
 2. **Lewy panel** — zrobione (sekcja 3.1).
 3. **Strona „Dziś”, poziomy i celebracje** — zrobione (sekcje 3.2–3.5).
-4. Treści podstron, Certyfikat C1 i kontrola jakości.
+4. **Treści podstron, Certyfikat C1 i kontrola jakości** — zrobione (sekcje 2.9, 3.7, 3.8, 9).
 
 ---
 
@@ -132,6 +132,22 @@ Szczegóły zasad: sekcja 4.
 - `--topo-mask`: wzór warstwic jako maska (wspólny dla nagłówków i hero „Dziś”).
 - `--cat-uoe`, `--cat-reading`, `--cat-writing`, `--cat-listening`, `--cat-speaking`, `--cat-grammar`, `--cat-vocab`, `--cat-other`: paski kategorii dziennika.
 - `--c1-cream`, `--c1-cream-muted`: tekst na granacie (kafel egzaminu).
+
+### 2.9 Sekcja „Certyfikat C1” (etap 4)
+
+W zakładce C1 `js/app.js` ustawia `data-section="certyfikat"` na `<html>` (poza nią `data-section="app"`). Dwa bloki tokenów nadpisują powierzchnie, tekst, linie, akcent i fokus. Komponenty się nie zmieniają, zmienia się tylko „papier”:
+
+| Token | Jasny („kość słoniowa”) | Ciemny („północny granat”) |
+|---|---|---|
+| `--bg` / `--surface` | `#f9f4e8` / `#fffaf0` | `#090f21` / `#101935` |
+| `--ink` / `--ink-muted` | `#17203d` / `#4c5470` (granatowy atrament) | `#f3ecda` / `#bcb4a0` (kremowy tekst) |
+| `--accent` | `#6b4d00` (ciemne złoto, linki AA) | `#e9c25c` (złoto) |
+| `--accent-bg` / `--on-accent` | `#1b2647` / `#fdf7e8` (granatowy przycisk) | `#e9c25c` / `#090f21` (złoty przycisk) |
+| `--focus-color` | `#8a6400` | `#e9c25c` |
+
+- Selektory: `:root:not([data-theme="dark"])[data-section="certyfikat"]` i `:root[data-theme="dark"][data-section="certyfikat"]`.
+- Stałe akcenty marki C1 (`--c1-navy`, `--c1-gold`, `--c1-soft`, `--c1-ink`, `--c1-edge`, `--c1-cream`, `--c1-cream-muted`) działają wszędzie, np. w chipie C1 w panelu, kaflu egzaminu na „Dziś” i calloucie „Na egzaminie C1”.
+- `tools/kontrast.js` sprawdza wszystkie pary w czterech zakresach: jasny, ciemny, C1 jasny, C1 ciemny.
 
 ## 3. Komponenty bazowe
 
@@ -266,6 +282,53 @@ Plik: `js/celebrate.js`.
 
 Pominięte. Aplikacja nie jest w React, a brief dopuszczał ten krok tylko dla Reacta.
 
+### 3.7 Treści podstron i callouty (etap 4)
+
+- **Typografia treści.**
+  - Akapity i listy mają najwyżej `--measure` (70 znaków).
+  - H1, H2 i H3 są w kroju display (Fraunces), z wyraźnym krokiem rozmiaru (`--fs-2xl` / `--fs-xl` / `--fs-lg`).
+  - Listy mają marker w kolorze poziomu, a interlinia tekstu to `--lh-body`.
+- **Callouty.** `js/callouts.js` rozpoznaje sekcję po **tekście nagłówka**: `## H2` albo pogrubiony podtytuł `**…**` (`p.md-subhead`). Pliki `.md` zostają bez zmian. Reguły są w jednej tablicy `CALLOUT_RULES`, a pierwsza pasująca wygrywa:
+
+  | Nagłówek zaczyna się od | Typ / klasa | Ikona | Wygląd |
+  |---|---|---|---|
+  | „Najczęstsza pułapka”, „Typowe błędy”, „Pułapka” | `callout-trap` | `triangle-alert` | bursztyn (`--warning-soft`), znaczniki list w `--warning` |
+  | „Na egzaminie C1” | `callout-exam` | `award` | `--c1-soft`, złoty pasek z lewej, ikona złota na granacie |
+  | „Kluczowe myśli”, „Co umiesz” | `callout-key` | `sparkles` | `--lvl-soft` (kolor poziomu) |
+  | „Jesteś gotów/gotowy…”, „Co dalej” | `callout-next` | `map-pin` | przerywana ramka, linki jako przyciski-pigułki |
+  | „Przykład…”, „Kluczowe zwroty”, „Typowe połączenia” | `callout-examples` | `list-checks` | lewy pasek poziomu, zdania angielskie (`em`, 1. kolumna tabeli) w `--lvl-ink` |
+
+  **Jak dodać nowy callout:**
+  1. Dopisz wpis do `CALLOUT_RULES` w `js/callouts.js`: `{ match: /^początek nagłówka/i, type: "nazwa", icon: "ikona-lucide", label: "…" }`.
+  2. Dodaj w `css/style.css` (sekcja „TREŚCI PODSTRON”) reguły `.callout-nazwa` i `.callout-nazwa .callout-icon`, używając tylko tokenów.
+  3. Jeśli ikony nie ma w `assets/ikony.js`, dopisz ją do listy w `tools/zbuduj-zasoby.js` i uruchom `npm run zasoby`.
+  4. Nowe pary kolorów dopisz do `tools/kontrast.js`.
+- **Tabele.**
+  - Ramka `.md-table` z zaokrągleniem `--radius` i zebrą (`--surface-2` zmieszany z `--surface`).
+  - Nagłówek ma tło `--surface-2`, tekst `--ink` 650 i mocniejszą linię `--line-strong`.
+  - Przewijają się w poziomie wewnątrz ramki. Cienie po bokach (`.has-left` / `.has-right`) pokazują, że jest więcej treści.
+  - Przewijana tabela jest regionem z nazwą i `tabindex="0"` (przewijanie z klawiatury).
+- **Linki `[[id]]`.** `.wiki-chip`: pigułka w kolorze poziomu strony docelowej (`lvl-XX`), z ikoną `notebook-text` i kodem poziomu. Zestawy C1 (`.is-c1`) są granatowe ze złotem i mają ikonę `award`.
+- **„Umiem” na wąskich ekranach.** Poniżej 760 px nagłówek podstrony `.page-head` jest przyklejony (`position: sticky`, tło `--sticky-bg`), więc „Umiem” jest zawsze pod ręką. Okruszki są wtedy ukryte.
+
+### 3.8 Certyfikat C1 — własny klimat (etap 4)
+
+- **Nagłówek sekcji `.c1-masthead`.**
+  - Znak napisowy „C1 Advanced · przygotowanie” w kroju Fraunces, bez logo i grafik Cambridge.
+  - Duża liczba dni do egzaminu (`--fs-3xl`, Fraunces, `tabular-nums`) albo link „Ustaw datę egzaminu”.
+  - Na stronie przeglądu liczby nie ma, bo pokazuje ją karta z datą egzaminu.
+- **Arkusz egzaminacyjny** (`.c1-ex.card`).
+  - Górna krawędź 6 px w `--accent-bg` i delikatne linie papieru (`--line` 30%).
+  - Numery zadań w kroju display.
+  - Pola luk to linie do wpisywania (dolna krawędź 2 px `--line-control`).
+  - Wynik zawsze jako ✓/✗ plus tekst i tło `-soft`, nie tylko kolor.
+  - Przycisk „Dodaj do dziennika błędów” jest przy każdym błędzie.
+- **Trenery (Writing, Speaking).**
+  - Duży timer (`--fs-2xl`, Fraunces) i licznik słów.
+  - Gdy widoczny timer działa, `html.focus-mode` przygasza resztę interfejsu (panel, pasek górny, nawigacja C1) do 30%.
+  - Po najechaniu albo fokusie przygaszony element wraca do 100%, więc nic nie znika z klawiatury.
+  - Tryb kończy się przy pauzie, końcu czasu albo zmianie strony.
+
 ## 4. Ruch
 
 - **Proste rzeczy tylko w CSS.** Hover, focus, pojawianie się i przejścia kolorów robi CSS. Animujemy `opacity` i `transform`. Wyjątek to krótkie przejście kolorów przy zmianie motywu (klasa `html.theme-anim`).
@@ -276,19 +339,22 @@ Pominięte. Aplikacja nie jest w React, a brief dopuszczał ten krok tylko dla R
   - Przy opuszczeniu widoku: `mm.revert()` / `ctx.revert()`. Aplikacja nie używa Reacta, więc zamiast `useGSAP` sprzątamy przy zmianie trasy.
   - Wszystkie animacje GSAP przechodzą przez `js/motion.js`: `ELM.motion.run(plugins, setup)` ładuje GSAP i wtyczki, wywołuje `setup(gsap, reduce)` w `gsap.matchMedia()` i sprząta (`mm.revert()`) przy następnej animacji i przy zmianie strony (`app.onRoute`). Gdy GSAP się nie wczyta albo ruch jest ograniczony, widok od razu pokazuje stan końcowy.
   - Używane wtyczki: DrawSVG i MotionPath (tylko szlak na „Dziś”). Pliki `assets/vendor/*.min.js` kopiuje `npm run zasoby`.
-  - Gdzie ładowany: „Dziś”, ekran wyniku testu i celebracje. Pozostałe ekrany GSAP nie ładują.
+  - Gdzie ładowany: „Dziś”, ekran wyniku testu i celebracje. Pozostałe ekrany GSAP nie ładują. Etap 4 nie dodał animacji GSAP (callouty, arkusz i tryb skupienia to CSS).
+  - Szlak liczy długość do stacji jednym `getTotalLength()` na ścieżce przyciętej do kolejnych odcinków. Nie próbkujemy `getPointAtLength()`, bo przy CPU 4× kosztowało to ok. 650 ms na render.
 - **Bez wygładzania przewijania.** Nie używamy Lenis ani podobnych bibliotek. Przewijanie jest natywne (zagnieżdżone panele, pola tekstowe, iPad).
 - **Bez ciężkich efektów tła.** Zakazane są WebGL i canvas z cząsteczkami.
 - **`prefers-reduced-motion: reduce`.** Globalna reguła skraca animacje i przejścia do 0.01 ms. Zostają tylko zmiany natychmiastowe (kolor, krycie bez ruchu).
 
 ## 5. Dostępność
 
-- **Kontrast WCAG AA.** Tekst ≥ 4.5:1, komponenty, obramowania pól, paski i znaczniki ≥ 3:1, w obu motywach. Sprawdza to `node tools/kontrast.js` (140 par). Palety poziomów sprawdza walidator CVD (sekcja 2.3).
+- **Kontrast WCAG AA.** Tekst ≥ 4.5:1, komponenty, obramowania pól, paski i znaczniki ≥ 3:1, w obu motywach. Sprawdza to `node tools/kontrast.js`: 98 par w 4 zakresach (jasny, ciemny, C1 jasny, C1 ciemny), razem 392 sprawdzenia. Palety poziomów sprawdza walidator CVD (sekcja 2.3).
 - **Widoczny focus.** `:focus-visible`, obrys 2 px w kolorze akcentu, na każdym elemencie interaktywnym.
 - **Cele dotykowe.** Min. 44 × 44 px przy `pointer: coarse` oraz w menu, przełącznikach i przyciskach ikon.
 - **Kolor nigdy nie jest jedynym nośnikiem informacji.** Poziomy mają kody, stany ikonę lub słowo, wynik ćwiczenia ✓/✗ plus tekst.
 - **Ikony.** Ikony dekoracyjne mają `aria-hidden="true"`. Przycisk z samą ikoną ma `aria-label` i podpowiedź.
 - **Ruch.** Zgodnie z sekcją 4 (`prefers-reduced-motion`).
+- **Nazwa dostępna = widoczny tekst** (WCAG 2.5.3). Nie nadpisujemy widocznego napisu przez `aria-label`. Dodatkowy kontekst dla czytników dajemy w `<span class="visually-hidden">` (przycisk profilu, znak C1, licznik dni).
+- **Linki w tekście** są podkreślone, nie tylko kolorowe (WCAG 1.4.1).
 - **Klawiatura.** Wszystko jest dostępne z klawiatury. Menu i okna mają Esc, strzałki i powrót fokusu (bez zmian względem wcześniejszych etapów).
 
 ## 6. Mikrotreści
@@ -312,7 +378,7 @@ Pominięte. Aplikacja nie jest w React, a brief dopuszczał ten krok tylko dla R
 | `@fontsource-variable/fraunces` | 5.3 | SIL OFL 1.1 | `npm run zasoby` → `assets/fonts/fraunces-latin*.woff2` (osie wght + opsz) |
 | `@fontsource-variable/inter` | 5.3 | SIL OFL 1.1 | `npm run zasoby` → `assets/fonts/inter-latin*.woff2` (oś wght) |
 | `lucide-static` | 1.59 | ISC | `npm run zasoby` → `assets/ikony.js` (tylko używane ikony, lista w `tools/zbuduj-zasoby.js`) |
-| `gsap` | 3.15 | GreenSock „no charge” | `npm run zasoby` → `assets/vendor/gsap.min.js` (ładowany na żądanie) |
+| `gsap` | 3.15 | GreenSock „no charge” (standardowa licencja, od 3.13 bezpłatna także z wtyczkami) | `npm run zasoby` → `assets/vendor/gsap.min.js`, `DrawSVGPlugin.min.js`, `MotionPathPlugin.min.js` (ładowane na żądanie) |
 
 - **Dlaczego kopiujemy do `assets/`.** Strona działa bez kroku budowania, z dysku (`file://`) i na GitHub Pages. `node_modules/` jest w `.gitignore`, a skopiowane pliki są w repozytorium. Po `npm install` lub aktualizacji paczek uruchom `npm run zasoby`.
 - **Brak zewnętrznych CDN** i fontów Google.
@@ -328,6 +394,9 @@ Pominięte. Aplikacja nie jest w React, a brief dopuszczał ten krok tylko dla R
    - `meta theme-color` w `<head>` i `THEME_COLOR` w `js/theme.js` — skrypt działa przed wczytaniem CSS;
    - samodzielny `assets/favicon.svg`.
 5. Zrzuty ekranu: jasny i ciemny motyw przy 390, 768 i 1280 px. Brak przewijania w poziomie od 360 px.
+6. Wydajność (od etapu 4):
+   - Lighthouse mobile i desktop na serwerze z gzip (jak GitHub Pages), z profilem testowym w `localStorage`. Bez profilu Lighthouse mierzy ekran powitalny.
+   - Płynność animacji przy `Emulation.setCPUThrottlingRate` 4× na 390 i 1280 px.
 
 ## 9. Wyniki przeglądów
 
@@ -371,6 +440,46 @@ Ograniczenie: audyt automatyczny nie zastępuje testu z czytnikiem ekranu (NVDA 
   - kod ładowany zawsze: 376.0 → 421.3 KB (gzip 115.4 → 130.9 KB, czyli +15.4 KB);
   - GSAP z wtyczkami na żądanie: 97 KB (gzip 39.4 KB), w tym rdzeń 71.2 KB, DrawSVG 4.2 KB i MotionPath 21.5 KB.
 
+**Etap 4 (treści podstron, Certyfikat C1, kontrola jakości):**
+- **Krytyka** (36 zrzutów: „Dziś”, poziom, podstrona z calloutami i tabelą, ćwiczenie C1, trener, przegląd C1; oba motywy; 390 / 768 / 1280 px):
+  - bez przewijania w poziomie i bez błędów w konsoli;
+  - poprawki: nagłówek C1 bez powtórzonej liczby dni na stronie przeglądu, jaśniejsza kość słoniowa (`--bg #f9f4e8`), bo poziom A2 / C1 miał na niej 2,9:1.
+- **Dostępność:**
+  - audyt Playwright: 13 tras, oba motywy, 1280 i 390 px, 0 problemów z kontrastem, nazwami, fokusem, celami < 44 px i powiększeniem 200%;
+  - Lighthouse wskazał 3 nazwy dostępne niezgodne z widocznym tekstem i link w okruszkach C1 wyróżniony tylko kolorem; poprawione, teraz dostępność 100 na wszystkich mierzonych ekranach.
+- **Kontrast tokenów:** 392 sprawdzenia, 0 niezgodnych.
+- **Audyt design-system:**
+  - 184 literały kolorów, wszystkie w definicjach tokenów, poza nimi 0;
+  - w JS tylko udokumentowany `THEME_COLOR`;
+  - usunięty nieużywany `--success-border`, a `--lh-body` i `--measure` podpięte w treściach;
+  - nieużywane, ale celowo zostawione: kroki skali `--space-1/3/7/8` i `--radius-xl`.
+- **Lighthouse** (serwer z gzip, profil testowy, symulowane wolne 4G i CPU 4×):
+
+  | Ekran | Wydajność | Dostępność | FCP | LCP | TBT | CLS |
+  |---|---|---|---|---|---|---|
+  | „Dziś”, mobile | 81 | 100 | 0,9 s | 5,2 s | 80 ms | 0,003 |
+  | Podstrona A2 z calloutami, mobile | 82 | 100 | 0,9 s | 4,8 s | 120 ms | 0,003 |
+  | Ćwiczenie C1, mobile | 85 | 100 | 0,9 s | 4,4 s | 50 ms | 0,003 |
+  | „Dziś”, desktop | 98 | 100 | 0,2 s | 1,1 s | 0 ms | 0,001 |
+
+  - `defer` na skryptach skrócił FCP mobile z 3,2 s do 0,9 s.
+  - LCP mobile ogranicza pobranie ok. 520 KB (gzip) przed pierwszym renderem widoku, w tym 131 KB treści Niezbędnika i 41 KB danych C1.
+  - Kolejny krok poza zakresem etapu to ładowanie danych C1 i testu poziomu na żądanie.
+- **Płynność** (CPU 4×, 390 i 1280 px, 8 tras):
+  - animacje mają p95 klatki 17 ms, czyli 60 kl./s;
+  - przy wejściu na trasę jest jedna dłuższa klatka renderu;
+  - render „Dziś” trwał 540 ms przez próbkowanie szlaku; po uproszczeniu trwa 240 ms, a najdłuższa klatka spadła z ok. 500 do 50–67 ms.
+- **Rozmiar** (wszystko, co ładuje `index.html`, gzip):
+
+  | Wersja | JS | CSS | Fonty | Razem |
+  |---|---|---|---|---|
+  | przed projektem (`b3b65c4`) | 261 KB | 12 KB | — | 275 KB |
+  | po etapie 4 | 285 KB | 29 KB | 196 KB | 523 KB |
+
+  - Różnica wynosi +248 KB, z czego 196 KB to fonty (pobierane raz, z pamięci podręcznej).
+  - Etap 4 dodał +6 KB gzip (callouty, C1, CSS).
+  - GSAP z wtyczkami (97 KB, gzip 39 KB) ładuje się tylko na żądanie.
+
 ## 10. Dziennik zmian
 
 - **Etap 1 (fundament).**
@@ -391,3 +500,8 @@ Ograniczenie: audyt automatyczny nie zastępuje testu z czytnikiem ekranu (NVDA 
   - Nagłówki i karty stron poziomów z akcentem krainy.
   - Test z kropkami i wyraźnymi stanami, dziennik z paskami kategorii.
   - Układ ekranów bez zmian.
+- **Etap 4.**
+  - Callouty po tekście nagłówków (`js/callouts.js`), typografia treści, tabele z zebrą i cieniami przewijania, chipy `[[id]]`, przyklejone „Umiem” na telefonie.
+  - Certyfikat C1: tokeny sekcji (kość słoniowa / północny granat ze złotem), nagłówek z liczbą dni, arkusz egzaminacyjny, tryb skupienia trenerów.
+  - Kontrola jakości: `defer` skryptów, szybszy szlak, poprawki nazw dostępnych.
+  - Bez nowych kluczy `localStorage` i bez zmian w plikach `.md` i danych.

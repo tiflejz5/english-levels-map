@@ -107,16 +107,20 @@ window.ELM = window.ELM || {};
     button.replaceChildren.apply(button, active ? [
       avatar(active),
       el("span", { class: "profile-btn-text" }, [
-        el("span", { class: "profile-btn-label", text: "Profil" }),
-        el("span", { class: "profile-btn-name", text: active.name })
+        el("span", { class: "profile-btn-label", text: "Profil" }), " ",
+        el("span", { class: "profile-btn-name", text: active.name }),
+        el("span", { class: "visually-hidden", text: " – otwórz menu profilu" })
       ]),
       el("span", { class: "profile-caret", "aria-hidden": "true" }, ELM.icon("chevron-down", { size: 16 }))
     ] : [
       el("span", { class: "avatar", "aria-hidden": "true" }, ELM.icon("user-round", { size: 18 })),
-      el("span", { class: "profile-btn-text" }, el("span", { class: "profile-btn-name", text: "Profil" })),
+      el("span", { class: "profile-btn-text" }, [
+        el("span", { class: "profile-btn-name", text: "Profil" }),
+        el("span", { class: "visually-hidden", text: " – brak profilu, otwórz menu" })
+      ]),
       el("span", { class: "profile-caret", "aria-hidden": "true" }, ELM.icon("chevron-down", { size: 16 }))
     ]);
-    button.setAttribute("aria-label", active ? "Profil: " + active.name + ". Otwórz menu profilu" : "Brak profilu. Otwórz menu profilu");
+    button.removeAttribute("aria-label"); // nazwa z widocznego tekstu + ukryty dopisek (WCAG 2.5.3)
     button.setAttribute("aria-expanded", isOpen ? "true" : "false");
     root.classList.toggle("is-open", isOpen);
     menu.hidden = !isOpen;
