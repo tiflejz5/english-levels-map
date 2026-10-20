@@ -104,7 +104,9 @@ pairs.push(
   ["ink", "warning-soft", "surface", 4.5, "znajdź błąd: wyraz z błędem / tło"],
   ["accent", "accent-soft", "surface", 4.5, "wybrana opcja / wyraz: tekst / tło"],
   ["danger", "danger-soft", "surface", 4.5, "błędny wyraz / luka: tekst / tło"],
-  ["success", "success-soft", "surface", 4.5, "poprawna luka: tekst / tło"]
+  ["success", "success-soft", "surface", 4.5, "poprawna luka: tekst / tło"],
+  ["warning", "danger-soft", "surface", 4.5, "„Uwaga na pisownię” / tło błędnej odpowiedzi"],
+  ["success", "danger-soft", "surface", 4.5, "„Poprawnie: …” / tło błędnej odpowiedzi"]
 );
 ["a1", "a2", "b1", "b2", "c1", "c2"].forEach(function (l) {
   const L = l.toUpperCase();

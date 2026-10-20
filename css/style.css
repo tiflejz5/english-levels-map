@@ -2382,7 +2382,7 @@ html.focus-mode .c1-writing-area { box-shadow: 0 0 0 4px var(--accent-soft); }
 }
 .ex-token:hover:not(:disabled) { border-color: var(--accent); transform: translateY(-1px); }
 .ex-token:active:not(:disabled) { transform: translateY(1px); box-shadow: none; }
-.ex-token.is-placed { background: var(--accent-soft); border-color: var(--accent); }
+.ex-token.is-placed { background: var(--surface); border-color: var(--accent); box-shadow: 0 2px 0 color-mix(in srgb, var(--accent) 45%, transparent); }
 .ex-token:disabled { cursor: default; }
 .ex-token.is-bad { background: var(--danger-soft); border-color: var(--danger); color: var(--danger); }
 .ex-card.is-correct .ex-token.is-placed { background: var(--success-soft); border-color: var(--success); }
