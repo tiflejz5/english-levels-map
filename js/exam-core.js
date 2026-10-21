@@ -426,8 +426,9 @@ window.ELM = window.ELM || {};
       }, [
         el("span", { class: "sb-icon", "aria-hidden": "true" }, el("span", { class: "exam-chip-badge", text: e.code })),
         el("span", { class: "sb-label" }, [
-          el("span", { class: "sb-label-title" }, [e.label, soon ? el("span", { class: "exam-soon-tag", text: "wkrótce" }) : null]),
-          !soon ? el("span", { class: "sb-label-sub", text: days !== null && days > 0 ? days + " " + plural(days, "dzień", "dni", "dni") + " do egzaminu" : (e.description || "").split(",")[0] }) : null
+          el("span", { class: "sb-label-title", text: e.label }),
+          soon ? el("span", { class: "sb-label-sub" }, el("span", { class: "exam-soon-tag", text: "wkrótce" }))
+            : el("span", { class: "sb-label-sub", text: days !== null && days > 0 ? days + " " + plural(days, "dzień", "dni", "dni") + " do egzaminu" : (e.description || "").split(",")[0] })
         ])
       ]));
       list.appendChild(li);

@@ -2937,7 +2937,7 @@ a.notes-item-title { color: var(--accent); text-decoration: underline; text-unde
 }
 .exam-chip.is-soon .exam-chip-badge { background: var(--surface-3); color: var(--ink-muted); box-shadow: inset 0 0 0 1px var(--line-strong); }
 .exam-chip.is-soon .sb-label-title { color: var(--ink-muted); }
-.exam-soon-tag { margin-left: 8px; padding: 1px 7px; border-radius: var(--radius-pill); background: var(--surface-3); color: var(--ink-muted); font-size: var(--fs-2xs); font-weight: 700; vertical-align: middle; }
+.exam-soon-tag { display: inline-block; padding: 1px 7px; border-radius: var(--radius-pill); background: var(--surface-3); color: var(--ink-muted); font-size: var(--fs-2xs); font-weight: 700; vertical-align: middle; }
 .sb-item.exam-chip.is-active { background: color-mix(in srgb, var(--exam-accent, var(--accent)) 12%, var(--surface)); }
 .sb-item.exam-chip.is-active::before { background: var(--exam-accent-2, var(--accent)); }
 .exam-sections { margin-top: 6px; }
