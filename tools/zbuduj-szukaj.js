@@ -4,6 +4,7 @@
  * Grupy i źródła:
  *   pages      podstrony niezbędnika A1–C2 (niezbednik/index.json + *.md) i podsumowania poziomów
  *   exams      strony zakładki „Certyfikat C1” (niezbednik/certyfikat-c1/manifest.json + strony/*.md)
+ *              i aktywnych egzaminów z rejestru dane/egzaminy-manifest.json (np. niezbednik/egzamin-osmoklasisty/)
  *   exercises  zestawy z dane/cwiczenia-tematy.json, mixy z dane/mixes.json, zestawy Use of English C1
  *   lab        czasy z dane/lab-czasow.json
  * Notatki i Dziennik błędów są prywatne — dokłada je przeglądarka (js/search.js), nie ten plik.
@@ -119,6 +120,35 @@ if (fs.existsSync(path.join(C1, "manifest.json"))) {
     add({ id: "c1set:" + s.id, group: "exercises", title: "Use of English Part " + s.part + ": " + s.title, summary: s.instructions || "", text: "", level: "C1", category: "Certyfikat C1", route: "#/certyfikat-c1/cwiczenia/" + s.id });
   });
 }
+
+// ---------- Egzaminy z rejestru (nowy format, np. Egzamin ósmoklasisty) ----------
+const regFile = path.join(ROOT, "dane", "egzaminy-manifest.json");
+if (fs.existsSync(regFile)) readJson(regFile).exams.forEach(function (exam) {
+  const dir = path.join(N, exam.id);
+  if (exam.status !== "active" || exam.existing || !fs.existsSync(path.join(dir, "manifest.json"))) return;
+  const man = readJson(path.join(dir, "manifest.json"));
+  man.sections.forEach(function (sec) {
+    (sec.pages || []).forEach(function (pg) {
+      const file = path.join(dir, pg.file);
+      if (!fs.existsSync(file)) return;
+      const md = splitMd(read(file));
+      add({
+        id: exam.id + ":" + pg.id, group: "exams", title: md.meta.title || pg.label, headings: headings(md.body), summary: md.meta.summary || "",
+        text: clean(md.body.replace(/^#\s+.+$/m, "")), level: null, category: exam.label + " · " + sec.label,
+        route: "#" + exam.route + (pg.id === "przeglad" ? "" : "/" + pg.id)
+      });
+    });
+    (sec.exerciseGroups || []).forEach(function (g) {
+      g.sets.forEach(function (meta) {
+        const file = path.join(dir, meta.file);
+        if (!fs.existsSync(file)) return;
+        const s = readJson(file);
+        add({ id: "examset:" + meta.id, group: "exercises", title: s.title || meta.label, summary: s.intro || "", text: exam.label + " · " + g.label, level: s.level, category: exam.label, route: "#/cwiczenia/zestaw/" + meta.id });
+      });
+    });
+    if (sec.trainer) add({ id: exam.id + ":trener", group: "exercises", title: exam.label + ": " + sec.trainer.label, summary: "Trener pisania z licznikiem wyrazów i samooceną.", text: "", category: exam.label, route: "#" + exam.route + "/trening-pisanie" });
+  });
+});
 
 // ---------- Ćwiczenia (zestawy tematów i mixy) ----------
 const topicTitle = {};
