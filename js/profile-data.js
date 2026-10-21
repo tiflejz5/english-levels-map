@@ -20,6 +20,8 @@
  *   elm_learnprefs_v1 { version: 1, profiles: { <id>: { autoJournal: true|false } } } — ustawienia nauki
  *   elm_notes_v1     { version: 1, profiles: { <id>: { items: { <klucz strony>: { text, updatedAt, title, route } } } } }
  *                    — własne notatki (zwykły tekst, maks. 10 000 znaków)
+ *   elm_exams_v1     { version: 1, profiles: { <id>: { exams: { <idEgzaminu>: { examDate, drafts: { <zadanie>: tekst }, tasks: { <strona>: { <nr>: true } } } } } } }
+ *                    — egzaminy w nowym module (np. Egzamin ósmoklasisty, js/exam-core.js); Certyfikat C1 ma własny klucz elm_c1_v1
  *
  * Wpis dziennika błędów:
  *   { id, createdAt: "RRRR-MM-DD", context, myAnswer, correct, rule, source,
@@ -39,7 +41,8 @@ window.ELM = window.ELM || {};
   const U = ELM.utils;
 
   const KEYS = { journal: "elm_journal_v1", activity: "elm_activity_v1", levelTest: "elm_leveltest_v1", celebrated: "elm_celebrated_v1", exercises: "elm_exercises_v1",
-    attempts: "elm_attempts_v1", autojournal: "elm_autojournal_v1", prefs: "elm_learnprefs_v1", notes: "elm_notes_v1" };
+    attempts: "elm_attempts_v1", autojournal: "elm_autojournal_v1", prefs: "elm_learnprefs_v1", notes: "elm_notes_v1",
+    exams: "elm_exams_v1" };
   const VERSION = 1;
 
   const CATEGORIES = ["Use of English", "Reading", "Writing", "Listening", "Speaking", "Gramatyka", "Słownictwo", "Inne"];
@@ -102,6 +105,7 @@ window.ELM = window.ELM || {};
     if (kind === "autojournal") return { items: {} };
     if (kind === "prefs") return { autoJournal: true };
     if (kind === "notes") return { items: {} };
+    if (kind === "exams") return { exams: {} };
     return { last: null };
   }
 
@@ -234,6 +238,14 @@ window.ELM = window.ELM || {};
       return { items: items };
     }
     if (kind === "prefs") return { autoJournal: raw.autoJournal !== false };
+    if (kind === "exams") {
+      const exams = {};
+      if (U.isPlainObject(raw.exams)) Object.keys(raw.exams).slice(0, 20).forEach(function (id) {
+        if (!EX_ID.test(id)) return;
+        exams[id] = normalizeExam(raw.exams[id]);
+      });
+      return { exams: exams };
+    }
     if (kind === "notes") {
       const items = {};
       if (U.isPlainObject(raw.items)) Object.keys(raw.items).slice(0, 2000).forEach(function (key) {
@@ -254,6 +266,23 @@ window.ELM = window.ELM || {};
   const NOTE_MAX = 10000;
   const ATTEMPT_TYPES = ["multiple-choice", "reorder", "find-error", "short-answer"];
   const ATTEMPT_MODES = ["learn", "exam", "mix", "weak", "review"];
+
+  /** Dane jednego egzaminu: data, szkice trenera pisania, odhaczone listy na stronach. */
+  function normalizeExam(raw) {
+    const out = { examDate: "", drafts: {}, tasks: {} };
+    if (!U.isPlainObject(raw)) return out;
+    if (learn().isDay(raw.examDate)) out.examDate = raw.examDate;
+    if (U.isPlainObject(raw.drafts)) Object.keys(raw.drafts).slice(0, 200).forEach(function (k) {
+      if (EX_ID.test(k) && typeof raw.drafts[k] === "string" && raw.drafts[k]) out.drafts[k] = raw.drafts[k].slice(0, 5000);
+    });
+    if (U.isPlainObject(raw.tasks)) Object.keys(raw.tasks).slice(0, 200).forEach(function (page) {
+      if (!EX_ID.test(page) || !U.isPlainObject(raw.tasks[page])) return;
+      const t = {};
+      Object.keys(raw.tasks[page]).slice(0, 200).forEach(function (i) { if (/^\d{1,3}$/.test(i)) t[i] = raw.tasks[page][i] === true; });
+      out.tasks[page] = t;
+    });
+    return out;
+  }
 
   function optId(v) { return typeof v === "string" && EX_ID.test(v) ? v : null; }
 
@@ -607,6 +636,21 @@ window.ELM = window.ELM || {};
   }
 
   // =====================================================================
+  // EGZAMINY (spec 05) — dane aktywnego profilu dla egzaminu
+  // =====================================================================
+
+  /** Obiekt egzaminu { examDate, drafts, tasks } (tworzony, gdy brak; bez profilu — tymczasowy). */
+  function examData(examId) {
+    const pid = activeId();
+    if (!pid || !EX_ID.test(examId)) return normalizeExam(null);
+    const rec = record("exams", pid);
+    if (!rec.exams[examId]) rec.exams[examId] = normalizeExam(null);
+    return rec.exams[examId];
+  }
+
+  function saveExams() { save("exams"); }
+
+  // =====================================================================
   // NOTATKI (spec 04, część B)
   // =====================================================================
 
@@ -772,6 +816,8 @@ window.ELM = window.ELM || {};
     undoAuto: undoAuto,
     removeAllAuto: removeAllAuto,
     NOTE_MAX: NOTE_MAX,
+    examData: examData,
+    saveExams: saveExams,
     getNote: getNote,
     setNote: setNote,
     removeNote: removeNote,
