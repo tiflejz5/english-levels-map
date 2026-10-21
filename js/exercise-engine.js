@@ -150,6 +150,7 @@ window.ELM = window.ELM || {};
     run = {
       key: cfg.key, title: cfg.title, intro: cfg.intro || "", topic: cfg.topic || null,
       saveId: cfg.saveId || null, isMix: !!cfg.isMix, isWeak: !!cfg.isWeak, repick: cfg.repick || null,
+      passage: cfg.passage || null, exam: cfg.exam || null,
       profileId: profile ? profile.id : null,
       phase: "intro",
       mode: cfg.mode === "exam" ? "exam" : "learn",
@@ -214,7 +215,9 @@ window.ELM = window.ELM || {};
   function logAttempt(p) {
     pd().addAttempt({
       itemId: p.item.id, setId: p.item.setId || null, topic: p.item.topic, level: p.item.level,
-      type: p.item.type, tags: p.item.tags, correct: !!p.res.correct, mode: attemptMode(), answer: userAnswer(p)
+      // Słuchanie przeczytane z transkryptu (brak głosu) — oznaczone, poza statystykami słuchania
+      type: p.item.type, tags: p.st.readMode ? (p.item.tags || []).concat("czytane") : p.item.tags,
+      correct: !!p.res.correct, mode: attemptMode(), answer: userAnswer(p)
     });
   }
 
@@ -287,6 +290,7 @@ window.ELM = window.ELM || {};
   }
 
   function next() {
+    stopSpeaking();
     if (run.i < run.items.length - 1) {
       run.i++;
       render();
@@ -359,6 +363,94 @@ window.ELM = window.ELM || {};
     }));
   }
 
+  // ---------- Słuchanie (kind „listening”, spec 01, sekcja 5): Web Speech API ----------
+
+  let speaking = null; // { p, stop }
+
+  function synth() { return "speechSynthesis" in window && typeof window.SpeechSynthesisUtterance === "function" ? window.speechSynthesis : null; }
+
+  function englishVoices() {
+    const s = synth();
+    if (!s) return [];
+    const all = s.getVoices();
+    return all.filter(function (v) { return /^en[-_]GB/i.test(v.lang); }).concat(all.filter(function (v) { return /^en[-_]US/i.test(v.lang); }), all.filter(function (v) { return /^en/i.test(v.lang) && !/^en[-_](GB|US)/i.test(v.lang); }));
+  }
+
+  /** Brak API albo głosy wczytane, ale żadnego angielskiego. */
+  function noEnglishVoice() {
+    const s = synth();
+    if (!s) return true;
+    const all = s.getVoices();
+    return all.length > 0 && !englishVoices().length;
+  }
+
+  function stopSpeaking() {
+    const s = synth();
+    if (speaking) { speaking.cancelled = true; speaking = null; }
+    if (s) s.cancel();
+  }
+
+  /** Czyta skrypt: wiersze „A: …” / „B: …” różnymi głosami (gdy są), tempo 0,9, krótkie przerwy. */
+  function speakScript(p, onDone) {
+    const s = synth();
+    if (!s) return;
+    stopSpeaking();
+    const voices = englishVoices();
+    const lines = String(p.item.script || "").split("\n").map(function (l) { return l.trim(); }).filter(Boolean);
+    const token = { p: p, cancelled: false };
+    speaking = token;
+    let i = 0;
+    function nextLine() {
+      if (token.cancelled) return;
+      if (i >= lines.length) { speaking = null; onDone(); return; }
+      const m = /^([AB]):\s*(.*)$/.exec(lines[i]);
+      const u = new window.SpeechSynthesisUtterance(m ? m[2] : lines[i]);
+      const voice = voices.length ? voices[m && m[1] === "B" && voices.length > 1 ? 1 : 0] : null;
+      if (voice) u.voice = voice;
+      u.lang = voice ? voice.lang : "en-GB";
+      u.rate = 0.9;
+      u.onend = function () { i++; setTimeout(nextLine, 450); };
+      u.onerror = function () { i++; setTimeout(nextLine, 50); };
+      s.speak(u);
+    }
+    nextLine();
+  }
+
+  function listeningBox(p) {
+    const st = p.st, done = !!p.res;
+    const max = p.item.maxPlays || 2;
+    st.plays = st.plays || 0;
+    const playing = speaking && speaking.p === p;
+    const noVoice = noEnglishVoice();
+    const nodes = [];
+    if (noVoice && !st.readMode) {
+      nodes.push(el("p", { class: "ex-listen-warn", role: "status", text: "Ta przeglądarka nie ma głosu angielskiego." }));
+      nodes.push(el("button", { type: "button", class: "btn btn-secondary btn-small", onclick: function () { st.readMode = true; repaint("first"); } }, ELM.ui.withIcon("file-text", "Pokaż transkrypt do przeczytania")));
+    } else if (!st.readMode) {
+      nodes.push(el("div", { class: "ex-listen-controls" }, [
+        playing
+          ? el("button", { type: "button", class: "btn btn-secondary", "data-fk": "listen", onclick: function () { stopSpeaking(); repaint("listen"); } }, ELM.ui.withIcon("pause", "Zatrzymaj"))
+          : el("button", {
+            type: "button", class: "btn btn-primary", "data-fk": "listen", disabled: !done && st.plays >= max,
+            onclick: function () {
+              if (!done) st.plays++;
+              speakScript(p, function () { repaint(null); });
+              repaint("listen");
+            }
+          }, ELM.ui.withIcon("play", st.plays ? "Odtwórz ponownie" : "Odtwórz")),
+        el("span", { class: "ex-listen-count", "aria-live": "polite", text: "Odsłuchy: " + Math.min(st.plays, max) + "/" + max })
+      ]));
+      nodes.push(el("p", { class: "tool-note ex-listen-note", text: "Głos syntezowany w przeglądarce. To trening rozumienia – nagranie z egzaminu brzmi inaczej." }));
+    }
+    if (st.readMode || done) {
+      const lines = String(p.item.script || "").split("\n").map(function (l) { return el("p", { text: l }); });
+      nodes.push(st.readMode && !done
+        ? el("div", { class: "ex-transcript", lang: "en" }, [el("p", { class: "review-label", text: "Transkrypt (wynik oznaczony jako „czytane”):" })].concat(lines))
+        : el("details", { class: "ex-transcript" }, [el("summary", null, "Pokaż transkrypt")].concat(el("div", { lang: "en" }, lines))));
+    }
+    return el("div", { class: "ex-listen" }, nodes);
+  }
+
   function bodyChoice(p) {
     const st = p.st, done = !!p.res, item = p.item;
     const chosenText = st.chosen !== null ? p.choice.options[st.chosen].text : "";
@@ -371,7 +463,7 @@ window.ELM = window.ELM || {};
         ok ? null : el("span", { class: "visually-hidden", text: " (błędnie)" })
       ]);
     };
-    const nodes = [promptLines(item.prompt || "", gap, "ex-prompt")];
+    const nodes = [item.kind === "listening" ? listeningBox(p) : null, promptLines(item.prompt || "", gap, "ex-prompt")];
     const options = p.choice.options.map(function (o, i) {
       const isCorrect = i === p.choice.correct, isChosen = i === st.chosen;
       let cls = "ex-option";
@@ -644,6 +736,7 @@ window.ELM = window.ELM || {};
   }
 
   function backLink() {
+    if (run.exam && ELM.exams) { const b = ELM.exams.setBack(run.exam); if (b) return b; }
     const t = topicInfo(run.topic);
     return t ? { href: t.href, label: "Wróć do tematu" } : { href: BASE, label: "Wróć do Centrum ćwiczeń" };
   }
@@ -671,6 +764,7 @@ window.ELM = window.ELM || {};
       el("div", { class: "tool-actions" }, [
         el("button", { type: "button", class: "btn btn-primary", onclick: begin, "data-fk": "start" }, ELM.ui.withIcon("play", "Zacznij")),
         t ? el("a", { class: "btn btn-ghost", href: t.href }, "Wróć do tematu") : null,
+        !t && run.exam ? el("a", { class: "btn btn-ghost", href: backLink().href }, backLink().label) : null,
         ELM.notes && run.saveId ? ELM.notes.button("set:" + run.saveId, { title: "Ćwiczenia · " + run.title, route: location.hash }) : null
       ])
     ]));
@@ -710,6 +804,14 @@ window.ELM = window.ELM || {};
       : el("button", { type: "button", class: "btn btn-primary ex-check", "data-fk": "check", onclick: check },
         run.mode === "exam" ? (last ? "Zakończ i zobacz wynik" : ELM.ui.withIcon("arrow-right", "Dalej")) : "Sprawdź");
 
+    // Tekst do czytania (passage): na szerokim ekranie obok zadań, na wąskim zwijany
+    if (run.passage) {
+      view.classList.add("has-passage");
+      view.appendChild(el("details", { class: "card ex-passage", open: true }, [
+        el("summary", { class: "ex-passage-title" }, [ELM.icon("file-text", { size: 18 }), " Tekst do zadań"]),
+        el("div", { class: "md ex-passage-text", lang: "en" }, ELM.markdown.render(ELM.markdown.parse(run.passage).blocks))
+      ]));
+    }
     view.appendChild(el("section", { class: "card ex-card ex-type-" + p.item.type + (done ? (p.res.correct ? " is-correct" : " is-wrong") : ""), "aria-labelledby": "ex-type" }, [
       el("h2", { class: "ex-type", id: "ex-type", text: TYPE_LABEL[p.item.type] || "Zadanie" }),
       el("div", { class: "ex-body" }, body),
@@ -920,7 +1022,8 @@ window.ELM = window.ELM || {};
         if (location.hash !== hash) return;
         if (!sets.length) { run = { key: key, missing: true, profileId: profile && profile.id }; return render(); }
         const s = sets[0];
-        newRun({ key: key, title: s.title, intro: s.intro, items: s.items, mode: s.defaultMode, topic: s.topic, saveId: s.id });
+        const meta = (ELM.CWICZENIA && ELM.CWICZENIA.sets[s.id]) || {};
+        newRun({ key: key, title: s.title, intro: s.intro, items: s.items, mode: s.defaultMode, topic: s.topic, saveId: s.id, passage: s.passage || null, exam: meta.exam || null });
         render();
       });
       return null;
@@ -1011,6 +1114,8 @@ window.ELM = window.ELM || {};
   }
 
   /** Wejście z innego widoku: skończona sesja zaczyna się od ekranu startowego. */
+  window.addEventListener("hashchange", function () { stopSpeaking(); });
+
   function onEnter() {
     if (run && run.missing) { run = null; return; } // np. słabe punkty mogły się już pojawić
     if (!run || run.phase !== "done") return;

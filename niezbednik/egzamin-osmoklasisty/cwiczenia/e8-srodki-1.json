@@ -1,0 +1,138 @@
+{
+  "version": 1,
+  "id": "e8-srodki-1",
+  "topic": null,
+  "level": "A2",
+  "title": "Środki językowe – luki i układanie zdań",
+  "intro": "12 zadań. Pisownia musi być w pełni poprawna.",
+  "passage": null,
+  "items": [
+    {
+      "type": "short-answer",
+      "context": "Moja mama pracuje w szpitalu.",
+      "prompt": "My mum ___ in a hospital.",
+      "accepted": [
+        "works"
+      ],
+      "explanation": "Present Simple, 3. osoba: works.",
+      "id": "e8-srodki-1-01"
+    },
+    {
+      "type": "short-answer",
+      "context": "Wczoraj oglądaliśmy film.",
+      "prompt": "We ___ a film yesterday.",
+      "accepted": [
+        "watched"
+      ],
+      "explanation": "Past Simple, czasownik regularny: watched.",
+      "id": "e8-srodki-1-02"
+    },
+    {
+      "type": "short-answer",
+      "context": "Czy lubisz muzykę?",
+      "prompt": "___ you like music?",
+      "accepted": [
+        "Do",
+        "do"
+      ],
+      "explanation": "Pytanie w Present Simple dla you: Do.",
+      "id": "e8-srodki-1-03"
+    },
+    {
+      "type": "short-answer",
+      "context": "Mam dwa koty.",
+      "prompt": "I have two ___.",
+      "accepted": [
+        "cats"
+      ],
+      "explanation": "Liczba mnoga: cats.",
+      "id": "e8-srodki-1-04"
+    },
+    {
+      "type": "short-answer",
+      "context": "Ona jest wyższa od brata.",
+      "prompt": "She is ___ than her brother.",
+      "accepted": [
+        "taller"
+      ],
+      "explanation": "Stopień wyższy krótkiego przymiotnika: taller.",
+      "id": "e8-srodki-1-05"
+    },
+    {
+      "type": "short-answer",
+      "context": "Jutro jadę do Krakowa.",
+      "prompt": "Tomorrow I ___ going to travel to Kraków.",
+      "accepted": [
+        "am"
+      ],
+      "explanation": "I am going to + czasownik.",
+      "id": "e8-srodki-1-06"
+    },
+    {
+      "type": "short-answer",
+      "context": "Nie mam czasu.",
+      "prompt": "I ___ have time.",
+      "accepted": [
+        "don't",
+        "do not"
+      ],
+      "explanation": "Przeczenie Present Simple: don't.",
+      "id": "e8-srodki-1-07"
+    },
+    {
+      "type": "short-answer",
+      "context": "Mieszkam tu od trzech lat.",
+      "prompt": "I have lived here ___ three years.",
+      "accepted": [
+        "for"
+      ],
+      "explanation": "For + okres, since + moment.",
+      "id": "e8-srodki-1-08"
+    },
+    {
+      "type": "reorder",
+      "context": "Gdzie jest dworzec?",
+      "answers": [
+        "Where is the station?"
+      ],
+      "explanation": "Szyk pytania: słowo pytające + is + podmiot.",
+      "id": "e8-srodki-1-09"
+    },
+    {
+      "type": "reorder",
+      "context": "Nie lubię pomidorów.",
+      "answers": [
+        "I don't like tomatoes."
+      ],
+      "explanation": "Przeczenie: don't + like.",
+      "extraTokens": [
+        "doesn't"
+      ],
+      "id": "e8-srodki-1-10"
+    },
+    {
+      "type": "reorder",
+      "context": "Pojechaliśmy nad morze w lipcu.",
+      "answers": [
+        "We went to the seaside in July."
+      ],
+      "explanation": "Went to druga forma go.",
+      "extraTokens": [
+        "goed"
+      ],
+      "id": "e8-srodki-1-11"
+    },
+    {
+      "type": "reorder",
+      "context": "On nigdy nie jada ryb.",
+      "answers": [
+        "He never eats fish."
+      ],
+      "explanation": "Never przed czasownikiem, 3. osoba: eats.",
+      "extraTokens": [
+        "eat"
+      ],
+      "id": "e8-srodki-1-12"
+    }
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "id": "powiazania-e8",
+  "description": "Ramka „Na egzaminie ósmoklasisty” na stronach tematów",
+  "links": [
+    {
+      "itemId": "a1-czasy-present-simple",
+      "examParts": [
+        "Środki językowe",
+        "Wypowiedź pisemna"
+      ],
+      "note": "Present Simple wraca w lukach, parafrazach i opisach w e-mailach.",
+      "exercises": [
+        "e8-srodki-1"
+      ]
+    },
+    {
+      "itemId": "a2-czasy-past-simple",
+      "examParts": [
+        "Środki językowe",
+        "Wypowiedź pisemna"
+      ],
+      "note": "Past Simple to czas relacji z wydarzeń w e-mailu i na blogu.",
+      "exercises": [
+        "e8-srodki-1"
+      ]
+    },
+    {
+      "itemId": "a1-czasy-going-to",
+      "examParts": [
+        "Wypowiedź pisemna"
+      ],
+      "note": "Plany i zamiary w trzecim podpunkcie wypowiedzi.",
+      "exercises": []
+    },
+    {
+      "itemId": "a2-funkcje-propozycje-zaproszenia",
+      "examParts": [
+        "Funkcje językowe",
+        "Wypowiedź pisemna"
+      ],
+      "note": "Propozycje i zaproszenia to klasyk w dialogach i e-mailach.",
+      "exercises": [
+        "e8-funkcje-1"
+      ]
+    },
+    {
+      "itemId": "a2-funkcje-pytanie-o-droge",
+      "examParts": [
+        "Funkcje językowe",
+        "Słuchanie"
+      ],
+      "note": "Pytanie o drogę i wskazówki w krótkich dialogach.",
+      "exercises": [
+        "e8-funkcje-1"
+      ]
+    },
+    {
+      "itemId": "a1-funkcje-zamawianie",
+      "examParts": [
+        "Funkcje językowe"
+      ],
+      "note": "Zamawianie i prośby wracają w dialogach.",
+      "exercises": [
+        "e8-funkcje-1"
+      ]
+    },
+    {
+      "itemId": "a2-gramatyka-stopniowanie-przymiotnikow",
+      "examParts": [
+        "Środki językowe"
+      ],
+      "note": "Stopniowanie często pojawia się w lukach i tłumaczeniu fragmentów.",
+      "exercises": [
+        "e8-srodki-1"
+      ]
+    },
+    {
+      "itemId": "a1-slownictwo",
+      "examParts": [
+        "Czytanie",
+        "Słuchanie"
+      ],
+      "note": "Podstawowe słownictwo wymagane na egzaminie.",
+      "exercises": []
+    },
+    {
+      "itemId": "a2-slownictwo",
+      "examParts": [
+        "Czytanie",
+        "Słuchanie",
+        "Wypowiedź pisemna"
+      ],
+      "note": "Słownictwo tematyczne na poziomie A2.",
+      "exercises": []
+    }
+  ]
+}

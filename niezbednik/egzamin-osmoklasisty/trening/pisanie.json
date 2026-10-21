@@ -1,0 +1,163 @@
+{
+  "id": "trening-pisanie",
+  "timeMinutes": 20,
+  "wordRange": [
+    50,
+    120
+  ],
+  "targetRange": [
+    70,
+    100
+  ],
+  "warnBelow": 40,
+  "rubric": [
+    {
+      "id": "tresc",
+      "label": "Treść",
+      "max": 4
+    },
+    {
+      "id": "spojnosc",
+      "label": "Spójność i logika",
+      "max": 2
+    },
+    {
+      "id": "zakres",
+      "label": "Zakres środków językowych",
+      "max": 2
+    },
+    {
+      "id": "poprawnosc",
+      "label": "Poprawność środków językowych",
+      "max": 2
+    }
+  ],
+  "genericChecklist": [
+    "Czy odniosłem/am się do wszystkich trzech punktów?",
+    "Czy mam 50–120 wyrazów?",
+    "Czy zdania są proste i poprawne?",
+    "Czy sprawdziłem/am pisownię i czasy?"
+  ],
+  "tasks": [
+    {
+      "id": "email-holiday",
+      "genre": "email",
+      "part": 1,
+      "title": "E-mail do kolegi – wakacje",
+      "opening": "Hi Tom,",
+      "prompt": "Napisz e-mail (50–120 wyrazów). Zacznij od podanego początku (nie liczy się do limitu). W tekście odnieś się do wszystkich trzech punktów:\n• opisz, gdzie spędziłeś/aś ostatnie wakacje\n• napisz, co tam robiłeś/aś\n• zaproś Toma, żeby pojechał z tobą w przyszłym roku",
+      "bullets": [
+        "opisz, gdzie spędziłeś/aś ostatnie wakacje",
+        "napisz, co tam robiłeś/aś",
+        "zaproś Toma, żeby pojechał z tobą w przyszłym roku"
+      ],
+      "points": 10,
+      "genreChecklist": [
+        "Czy napisałem/am początek zgodnie z poleceniem?",
+        "Czy odniosłem/am się do wszystkich 3 punktów?",
+        "Czy zakończyłem/am tekst pożegnaniem?"
+      ],
+      "model": "Hi Tom,\nThanks for your email. Last summer I went to the seaside with my family. We stayed in a small hotel near the beach. Every day I swam in the sea and played volleyball with my cousins. In the evening we ate ice cream and walked along the pier. It was fantastic! Next year I want to go there again. Would you like to come with me? We can swim, play games and visit the old town. Write back soon.\nBest wishes,\nXYZ"
+    },
+    {
+      "id": "email-birthday",
+      "genre": "email",
+      "part": 1,
+      "title": "E-mail – zaproszenie na urodziny",
+      "opening": "Hi Ola,",
+      "prompt": "Napisz e-mail (50–120 wyrazów). Zacznij od podanego początku (nie liczy się do limitu). W tekście odnieś się do wszystkich trzech punktów:\n• napisz, kiedy i gdzie będzie impreza\n• napisz, co będziecie robić\n• poproś o odpowiedź i zapytaj o prezent lub jedzenie",
+      "bullets": [
+        "napisz, kiedy i gdzie będzie impreza",
+        "napisz, co będziecie robić",
+        "poproś o odpowiedź i zapytaj o prezent lub jedzenie"
+      ],
+      "points": 10,
+      "genreChecklist": [
+        "Czy napisałem/am początek zgodnie z poleceniem?",
+        "Czy odniosłem/am się do wszystkich 3 punktów?",
+        "Czy zakończyłem/am tekst pożegnaniem?"
+      ],
+      "model": "Hi Ola,\nI'm writing to invite you to my birthday party. It will be on Saturday, 12 May, at 5 p.m. at my house. We are going to eat pizza, play board games and watch a film. My friends from school will come, too. Can you come? Please tell me if you like pizza with cheese or with ham. You don't have to bring a present, just come with a good mood! Let me know soon.\nSee you,\nXYZ"
+    },
+    {
+      "id": "blog-weekend",
+      "genre": "blog",
+      "part": 1,
+      "title": "Wpis na blogu – weekend",
+      "opening": "Hello everyone!",
+      "prompt": "Napisz wpis na blogu (50–120 wyrazów). Zacznij od podanego początku (nie liczy się do limitu). W tekście odnieś się do wszystkich trzech punktów:\n• napisz, co robiłeś/aś w weekend\n• napisz, co ci się podobało najbardziej\n• zaproponuj czytelnikom, jak spędzić wolny czas",
+      "bullets": [
+        "napisz, co robiłeś/aś w weekend",
+        "napisz, co ci się podobało najbardziej",
+        "zaproponuj czytelnikom, jak spędzić wolny czas"
+      ],
+      "points": 10,
+      "genreChecklist": [
+        "Czy napisałem/am początek zgodnie z poleceniem?",
+        "Czy odniosłem/am się do wszystkich 3 punktów?",
+        "Czy zakończyłem/am tekst pożegnaniem?"
+      ],
+      "model": "Hello everyone!\nLast weekend was great. On Saturday I met my friends in the park, and we played football for two hours. On Sunday I helped my dad in the garden, and then we cooked dinner together. My favourite moment was the football match because we won! I think a weekend outside is the best idea. You should try it. Go to a park, take a ball and invite your friends. It is simple, fun and free. See you next time!\nXYZ"
+    },
+    {
+      "id": "email-school-trip",
+      "genre": "email",
+      "part": 1,
+      "title": "E-mail – wycieczka szkolna",
+      "opening": "Dear Mr Brown,",
+      "prompt": "Napisz e-mail (50–120 wyrazów). Zacznij od podanego początku (nie liczy się do limitu). W tekście odnieś się do wszystkich trzech punktów:\n• napisz, dokąd klasa pojedzie na wycieczkę\n• napisz, czego potrzebujecie (np. bilety, jedzenie)\n• zapytaj o godzinę wyjazdu",
+      "bullets": [
+        "napisz, dokąd klasa pojedzie na wycieczkę",
+        "napisz, czego potrzebujecie (np. bilety, jedzenie)",
+        "zapytaj o godzinę wyjazdu"
+      ],
+      "points": 10,
+      "genreChecklist": [
+        "Czy napisałem/am początek zgodnie z poleceniem?",
+        "Czy odniosłem/am się do wszystkich 3 punktów?",
+        "Czy zakończyłem/am tekst pożegnaniem?"
+      ],
+      "model": "Dear Mr Brown,\nOur class is going to visit the science museum next Friday. We want to see an interesting exhibition about space and take a lot of photos. We need tickets for 25 students and two teachers, and we would like lunch in the museum café. Could you tell me what time the bus leaves? I think it is at eight, but I am not sure. Thank you for your help.\nBest wishes,\nXYZ"
+    },
+    {
+      "id": "blog-hobby",
+      "genre": "blog",
+      "part": 1,
+      "title": "Wpis na blogu – hobby",
+      "opening": "Hi, readers!",
+      "prompt": "Napisz wpis na blogu (50–120 wyrazów). Zacznij od podanego początku (nie liczy się do limitu). W tekście odnieś się do wszystkich trzech punktów:\n• napisz, jakie masz hobby\n• napisz, od kiedy je masz i dlaczego je lubisz\n• napisz, czy polecasz je innym",
+      "bullets": [
+        "napisz, jakie masz hobby",
+        "napisz, od kiedy je masz i dlaczego je lubisz",
+        "napisz, czy polecasz je innym"
+      ],
+      "points": 10,
+      "genreChecklist": [
+        "Czy napisałem/am początek zgodnie z poleceniem?",
+        "Czy odniosłem/am się do wszystkich 3 punktów?",
+        "Czy zakończyłem/am tekst pożegnaniem?"
+      ],
+      "model": "Hi, readers!\nMy hobby is drawing. I have been drawing since I was seven, because my grandmother gave me a box of pencils. I like it because I can relax after school and show my ideas on paper. Last month I made a picture of my cat and my friends said it was very good. I recommend drawing to everybody. You don't need much, only paper and a pencil. Try it and send me your pictures!\nXYZ"
+    },
+    {
+      "id": "email-help",
+      "genre": "email",
+      "part": 1,
+      "title": "E-mail – prośba o pomoc",
+      "opening": "Hi Kasia,",
+      "prompt": "Napisz e-mail (50–120 wyrazów). Zacznij od podanego początku (nie liczy się do limitu). W tekście odnieś się do wszystkich trzech punktów:\n• napisz, że potrzebujesz pomocy w zadaniu domowym\n• napisz, z jakiego przedmiotu i czego dotyczy zadanie\n• zaproponuj spotkanie i powiedz kiedy",
+      "bullets": [
+        "napisz, że potrzebujesz pomocy w zadaniu domowym",
+        "napisz, z jakiego przedmiotu i czego dotyczy zadanie",
+        "zaproponuj spotkanie i powiedz kiedy"
+      ],
+      "points": 10,
+      "genreChecklist": [
+        "Czy napisałem/am początek zgodnie z poleceniem?",
+        "Czy odniosłem/am się do wszystkich 3 punktów?",
+        "Czy zakończyłem/am tekst pożegnaniem?"
+      ],
+      "model": "Hi Kasia,\nI need your help with my homework. It is for English, and we have to write a short story about a trip. I don't know how to start, and I am not sure about the past tense. You are very good at English, so maybe you can explain it to me? Can we meet tomorrow at 4 p.m. in the school library? We can work for an hour. If you can't come, please tell me. Thanks a lot!\nXYZ"
+    }
+  ]
+}

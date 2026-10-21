@@ -7,7 +7,8 @@
     "zasoby": "node tools/zbuduj-zasoby.js",
     "dane": "node tools/zbuduj-niezbednik.js && node tools/zbuduj-cwiczenia.js",
     "validate": "node tools/waliduj-cwiczenia.js",
-    "build": "node tools/zbuduj-zasoby.js && node tools/zbuduj-niezbednik.js && node tools/waliduj-cwiczenia.js && node tools/zbuduj-cwiczenia.js && node tools/zbuduj-szukaj.js",
+    "build": "node tools/zbuduj-zasoby.js && node tools/zbuduj-niezbednik.js && node tools/waliduj-cwiczenia.js && node tools/zbuduj-egzaminy.js && node tools/zbuduj-cwiczenia.js && node tools/zbuduj-szukaj.js",
+    "egzaminy": "node tools/zbuduj-egzaminy.js",
     "szukaj": "node tools/zbuduj-szukaj.js",
     "test": "node tools/testy.js"
   },

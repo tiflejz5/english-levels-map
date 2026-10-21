@@ -75,6 +75,34 @@ Object.keys(map.topics || {}).forEach(function (topic) {
   });
 });
 
+// Zestawy egzaminów w nowym formacie (spec 05): niezbednik/<idEgzaminu>/cwiczenia/*.json z grup manifestu
+const examRegistry = fs.existsSync(path.join(DANE, "egzaminy-manifest.json")) ? readJson(path.join(DANE, "egzaminy-manifest.json")).exams || [] : [];
+examRegistry.forEach(function (exam) {
+  const dir = path.join(ROOT, "niezbednik", exam.id);
+  if (exam.status !== "active" || exam.existing || !fs.existsSync(path.join(dir, "manifest.json"))) return;
+  readJson(path.join(dir, "manifest.json")).sections.forEach(function (sec) {
+    (sec.exerciseGroups || []).forEach(function (g) {
+      g.sets.forEach(function (meta) {
+        const file = path.join(dir, meta.file);
+        if (!fs.existsSync(file)) { warnings.push(exam.id + ": brak pliku zestawu " + meta.file + " (pomijam)"); return; }
+        const set = readJson(file);
+        set.items = (set.items || []).map(function (it) {
+          return Object.assign({ topic: set.topic || null, level: set.level || null, tags: [], setId: meta.id }, it);
+        });
+        const rel = "niezbednik/" + exam.id + "/" + meta.file.replace(/\.json$/, ".js");
+        writeJs(path.join(ROOT, rel), "Zestaw egzaminu " + meta.id,
+          "(ELM.EX_SETS = ELM.EX_SETS || {})[" + JSON.stringify(meta.id) + "] = " + JSON.stringify(set) + ";");
+        sets[meta.id] = {
+          id: meta.id, topic: null, level: set.level || null, title: set.title || meta.label, intro: set.intro || "",
+          count: set.items.length, types: typeCounts(set.items), defaultMode: set.defaultMode === "exam" ? "exam" : "learn",
+          file: rel, exam: exam.id, group: g.label, hasPassage: !!set.passage,
+          listening: set.items.some(function (it) { return it.kind === "listening"; })
+        };
+      });
+    });
+  });
+});
+
 const mixes = fs.existsSync(path.join(DANE, "mixes.json")) ? (readJson(path.join(DANE, "mixes.json")).mixes || []) : [];
 
 // Laboratorium czasów + skrót „punkt niezbędnika → czas” (link „Zobacz na osi czasu” bez wczytywania całego Labu)

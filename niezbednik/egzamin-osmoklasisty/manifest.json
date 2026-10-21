@@ -1,0 +1,151 @@
+{
+  "id": "egzamin-osmoklasisty",
+  "label": "Egzamin ósmoklasisty",
+  "title": "Egzamin ósmoklasisty z angielskiego",
+  "route": "/egzamin-osmoklasisty",
+  "sections": [
+    {
+      "id": "start",
+      "label": "Start",
+      "pages": [
+        {
+          "id": "przeglad",
+          "file": "strony/przeglad.md",
+          "label": "Przegląd egzaminu"
+        },
+        {
+          "id": "plan-powtorki",
+          "file": "strony/plan-powtorki.md",
+          "label": "Plan powtórki"
+        }
+      ]
+    },
+    {
+      "id": "czesci",
+      "label": "Części arkusza",
+      "pages": [
+        {
+          "id": "sluchanie",
+          "file": "strony/sluchanie.md",
+          "label": "Słuchanie"
+        },
+        {
+          "id": "funkcje-jezykowe",
+          "file": "strony/funkcje-jezykowe.md",
+          "label": "Funkcje językowe"
+        },
+        {
+          "id": "czytanie",
+          "file": "strony/czytanie.md",
+          "label": "Czytanie"
+        },
+        {
+          "id": "srodki-jezykowe",
+          "file": "strony/srodki-jezykowe.md",
+          "label": "Środki językowe"
+        },
+        {
+          "id": "wypowiedz-pisemna",
+          "file": "strony/wypowiedz-pisemna.md",
+          "label": "Wypowiedź pisemna"
+        }
+      ]
+    },
+    {
+      "id": "przygotowanie",
+      "label": "Przygotowanie",
+      "pages": [
+        {
+          "id": "gramatyka-pod-egzamin",
+          "file": "strony/gramatyka-pod-egzamin.md",
+          "label": "Gramatyka pod egzamin"
+        },
+        {
+          "id": "slownictwo-tematyczne",
+          "file": "strony/slownictwo-tematyczne.md",
+          "label": "Słownictwo tematyczne"
+        },
+        {
+          "id": "dzien-egzaminu",
+          "file": "strony/dzien-egzaminu.md",
+          "label": "Dzień egzaminu"
+        }
+      ]
+    },
+    {
+      "id": "cwiczenia",
+      "label": "Ćwiczenia",
+      "exerciseGroups": [
+        {
+          "part": "sluchanie",
+          "label": "Słuchanie",
+          "sets": [
+            {
+              "id": "e8-sluchanie-1",
+              "file": "cwiczenia/e8-sluchanie-1.json",
+              "label": "5 dialogów",
+              "maxScore": 5
+            }
+          ]
+        },
+        {
+          "part": "funkcje",
+          "label": "Funkcje językowe",
+          "sets": [
+            {
+              "id": "e8-funkcje-1",
+              "file": "cwiczenia/e8-funkcje-1.json",
+              "label": "10 dialogów",
+              "maxScore": 10
+            }
+          ]
+        },
+        {
+          "part": "czytanie",
+          "label": "Czytanie",
+          "sets": [
+            {
+              "id": "e8-czytanie-1",
+              "file": "cwiczenia/e8-czytanie-1.json",
+              "label": "Pocztówka z Edynburga",
+              "maxScore": 5
+            },
+            {
+              "id": "e8-czytanie-2",
+              "file": "cwiczenia/e8-czytanie-2.json",
+              "label": "Dzień sportu",
+              "maxScore": 5
+            }
+          ]
+        },
+        {
+          "part": "srodki",
+          "label": "Środki językowe",
+          "sets": [
+            {
+              "id": "e8-srodki-1",
+              "file": "cwiczenia/e8-srodki-1.json",
+              "label": "Luki i układanie zdań",
+              "maxScore": 12
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "trening",
+      "label": "Trener pisania",
+      "trainer": {
+        "id": "trening-pisanie",
+        "file": "trening/pisanie.json",
+        "label": "Wypowiedź pisemna"
+      }
+    }
+  ],
+  "links": [
+    {
+      "label": "Informator CKE",
+      "url": "https://cke.gov.pl"
+    }
+  ]
+}

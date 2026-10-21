@@ -201,6 +201,7 @@ window.ELM = window.ELM || {};
   //   "#/laboratorium-czasow[/…]" → Laboratorium czasów (js/tense-lab.js)
   //   "#/statystyki"      → Statystyki (js/stats-page.js)
   //   "#/notatki"         → Moje notatki (js/notes.js)
+  //   "#/<egzamin>[/…]"   → egzamin z rejestru dane/egzaminy-manifest.json (js/exam-core.js)
   // =====================================================================
 
   /** Odczytuje adres i ustawia state.view, state.route i wybrany poziom. */
@@ -208,6 +209,7 @@ window.ELM = window.ELM || {};
     const hash = location.hash || "";
     const level = /^#\/([abcABC][12])\/?$/.exec(hash);
     const c1 = ELM.c1 ? ELM.c1.parseRoute(hash) : null;
+    const exam = ELM.exams ? ELM.exams.parseRoute(hash) : null;
     const journal = ELM.journal ? ELM.journal.parseRoute(hash) : null;
     const today = ELM.today ? ELM.today.parseRoute(hash) : null;
     const levelTest = ELM.levelTest ? ELM.levelTest.parseRoute(hash) : null;
@@ -245,6 +247,9 @@ window.ELM = window.ELM || {};
     } else if (c1) {
       state.view = "c1"; // zakładka „Certyfikat C1”
       state.c1Route = c1;
+    } else if (exam) {
+      state.view = "exam"; // pozostałe egzaminy z rejestru (js/exam-core.js)
+      state.toolRoute = exam;
     } else if (level) {
       state.view = "level";
       state.ui.levelId = level[1].toUpperCase();
@@ -260,7 +265,7 @@ window.ELM = window.ELM || {};
 
   /** Zakres wizualny sekcji: html[data-section="certyfikat"] w zakładce C1 (tokeny w css/style.css). */
   function syncSection() {
-    document.documentElement.setAttribute("data-section", state.view === "c1" ? "certyfikat" : "app");
+    document.documentElement.setAttribute("data-section", state.view === "c1" ? "certyfikat" : state.view === "exam" ? state.toolRoute.examId : "app");
   }
 
   /** Reakcja na zmianę adresu (linki, „Wróć”, logo, przycisk Wstecz). */

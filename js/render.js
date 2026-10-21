@@ -164,7 +164,8 @@ window.ELM = window.ELM || {};
         " we wszystkich kategoriach (" + s.percent + "%)");
     });
 
-    // Pod poziomami: zakładka „Certyfikat C1”
+    // Pod poziomami: grupa „Egzaminy” z rejestru (E8, matury, B2…), na końcu Certyfikat C1 (własny moduł)
+    if (ELM.exams) ELM.exams.renderNav();
     if (ELM.c1) ELM.c1.renderNav();
   }
 
@@ -179,6 +180,7 @@ window.ELM = window.ELM || {};
     // Strona główna, zakładka „Certyfikat C1” albo podstrona zamiast listy
     if (ELM.state.view === "home") return ELM.niezbednik.renderHome();
     if (ELM.state.view === "c1") return ELM.c1.render(ELM.state.c1Route);
+    if (ELM.state.view === "exam") return ELM.exams.render(ELM.state.toolRoute);
     if (ELM.state.view === "journal") return ELM.journal.render(ELM.state.toolRoute);
     if (ELM.state.view === "today") return ELM.today.render();
     if (ELM.state.view === "leveltest") return ELM.levelTest.render();
