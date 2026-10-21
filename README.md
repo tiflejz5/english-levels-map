@@ -143,6 +143,7 @@ Nazwa profilu: spacje na początku i końcu są obcinane, najwyżej 30 znaków, 
 | `elm_autojournal_v1` | błędy dodane automatycznie do Dziennika błędów **per profil**: `{ items: { <id zadania>: { entryId, created, wrongCount, lastWrongAt, returned } } }`; sam wpis jest w `elm_journal_v1` (bez zmiany formatu, łączy go `ref = "ex:<id zadania>"`) |
 | `elm_learnprefs_v1` | ustawienia nauki **per profil**: `{ autoJournal: true / false }` (menu profilu → Ustawienia nauki) |
 | `elm_notes_v1`    | notatki **per profil**: `{ items: { <klucz strony>: { text, updatedAt, title, route } } }`, zwykły tekst ≤ 10 000 znaków |
+| `elm_exams_v1`    | egzaminy z rejestru (nie C1) **per profil**: `{ exams: { <id egzaminu>: { examDate, drafts: { <zadanie>: tekst }, tasks: { <strona>: { <nr>: true } } } } }` (w eksporcie, imporcie i resecie) |
 | `elm_search_recent_v1` | ostatnie wyszukiwania `{ version: 1, items: [...] }` (globalnie dla urządzenia, poza eksportem, czyszczone przez „Resetuj dane”) |
 
 Wpis dziennika: `{ id, createdAt: "RRRR-MM-DD", context, myAnswer, correct, rule, source, category, itemId, ref, review: { stage, due, mastered } }`. Przy zapisie i imporcie pola są sprawdzane i przycinane (np. kontekst do 2000 znaków, odpowiedzi do 1000, źródło do 200). Wpisy bez kontekstu albo poprawnej odpowiedzi są odrzucane. Usunięcie profilu usuwa też jego dziennik, serię i wynik testu.
@@ -193,6 +194,30 @@ Kształt treści:
 - Identyfikatory to prefiks, czas i losowy ciąg (`utils.uid`), nigdy indeks tablicy.
 - `store.migrate(data)` sprawdza `version`. Przy zmianie struktury podnieś `CURRENT_VERSION` w `store.js` i dopisz krok migracji.
 - `store.normalizeContent(data)` waliduje dane przy starcie i przy imporcie. Poważne błędy zatrzymują wczytywanie z opisem po polsku, drobne braki (pola, id) są uzupełniane.
+
+## Egzaminy (rozbudowa v2, etap 3)
+
+Rejestr `dane/egzaminy-manifest.json` jest jedynym źródłem etykiet, kodów, kolorów, statusów i opisów egzaminów. Steruje grupą „Egzaminy” w lewym panelu (E8, MP, MR, B2, a na końcu C1).
+
+| Status w rejestrze | Co widać | Kod |
+|---|---|---|
+| `active` + folder `niezbednik/<id>/` (np. Egzamin ósmoklasisty) | strony, ćwiczenia, trener pisania, odliczanie, ramki „Na egzaminie …” | `js/exam-core.js` |
+| `soon` (Matura podstawowa, Matura rozszerzona, Certyfikat B2) | strona „W trakcie pracy” z opisem z rejestru | `js/exam-core.js` |
+| `existing` (Certyfikat C1) | dotychczasowy moduł bez zmian (`#/certyfikat-c1`, `elm_c1_v1`) | `js/c1-*.js` |
+
+- **Folder egzaminu** ma ten sam format co C1: `manifest.json`, `powiazania.json`, `strony/*.md`, `cwiczenia/*.json` (silnik zadań, także `kind: reading` z `passage` i `kind: listening` ze `script`) oraz `trening/pisanie.json`.
+- **Budowanie:**
+  - `tools/zbuduj-egzaminy.js` tworzy `dane/egzaminy-rejestr.js` (mały, wczytywany przy starcie) i `niezbednik/<id>-dane.js` (ładowany po wejściu do zakładki);
+  - zestawy egzaminu buduje `tools/zbuduj-cwiczenia.js`;
+  - strony trafiają do wyszukiwarki;
+  - walidator sprawdza rejestr, manifest, powiązania i zestawy.
+- **Trener pisania** to wspólny silnik `js/writing-trainer.js`. C1 korzysta z niego przez `js/c1-writing.js`, a E8 ma własną konfigurację: licznik według reguł CKE (`js/exam-logic.js`) i strefy < 40 / 40–49 / 50–120 / > 120.
+- **Słuchanie** korzysta z syntezatora mowy przeglądarki (Web Speech API): najwyżej 2 odsłuchy, dwa głosy, transkrypt po odpowiedzi. Bez głosu angielskiego jest transkrypt do przeczytania, a wynik ma znacznik „czytane”.
+- **Klimat wizualny:** `html[data-section="<id egzaminu>"]`. E8 ma turkus i żółty, w obu motywach.
+
+**Aktywacja egzaminu** (np. matury): zmień `status` na `active` w rejestrze, dodaj folder `niezbednik/<id>/` i uruchom `npm run build`. Nawigacja nie wymaga zmian w kodzie.
+
+Informacje o egzaminie ósmoklasisty są w stanie na październik 2026. Przed udostępnieniem aplikacji innym sprawdź aktualny komunikat na cke.gov.pl.
 
 ## Ćwiczenia i Laboratorium czasów (rozbudowa v2)
 
@@ -276,6 +301,9 @@ english-levels-map/
 │  ├─ search-logic.js    silnik wyszukiwarki bez DOM (polskie znaki, prefiksy, literówki)
 │  ├─ search.js          wyszukiwarka: pasek, skróty, combobox
 │  ├─ notes.js           własne notatki (panel i strona „Moje notatki”)
+│  ├─ exam-core.js       egzaminy z rejestru: nawigacja, strony, „W trakcie pracy”, ramki, odliczanie
+│  ├─ exam-logic.js      liczenie wyrazów (reguły egzaminu ósmoklasisty) i strefy licznika
+│  ├─ writing-trainer.js wspólny silnik trenera pisania (C1, E8)
 │  ├─ niezbednik.js      podstrony niezbędnika: routing #/a1/…, dopasowanie, widok
 │  ├─ render.js          rysowanie lewego panelu i strony poziomu
 │  ├─ data-menu.js       sekcja „Dane”: eksport, import, reset
@@ -288,6 +316,7 @@ english-levels-map/
 ├─ tools/zbuduj-cwiczenia.js   ćwiczenia i Lab: JSON → pliki .js ładowane na żądanie
 ├─ tools/waliduj-cwiczenia.js  walidator danych ćwiczeń (npm run validate)
 ├─ tools/zbuduj-szukaj.js      indeks wyszukiwarki (dane/szukaj-indeks.js)
+├─ tools/zbuduj-egzaminy.js    rejestr egzaminów i dane aktywnych egzaminów
 ├─ cwiczenia/tematy/     zestawy zadań (*.json źródło, *.js generowane)
 ├─ dane/                 mapa zestawów, mixy, Laboratorium czasów (lab-dane.js generowany)
 ├─ scripts/              skrypty z paczki rozbudowy (walidator i generatory w Pythonie)
