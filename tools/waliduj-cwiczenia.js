@@ -13,7 +13,11 @@
  *     kontrasty z istniejącymi czasami, niezbednikIds,
  *   - dane/lab-wybor-czasu.json: start, każde next istnieje, każdy result to istniejący czas,
  *     brak martwych węzłów i cykli,
- *   - dane/mixes.json: id, tematy istnieją i mają zestawy, typy znane.
+ *   - dane/mixes.json: id, tematy istnieją i mają zestawy, typy znane,
+ *   - dane/egzaminy-manifest.json (rejestr egzaminów) i foldery aktywnych egzaminów w nowym formacie
+ *     (niezbednik/<id>/): manifest (strony, zestawy, trener), zestawy (jak wyżej), powiązania (itemId
+ *     istnieje w niezbednik/index.json, zestawy istnieją), wzorce trenera pisania w limicie wyrazów;
+ *     powiązania Certyfikatu C1 (itemId).
  *
  * Odpowiednik skryptu z paczki: scripts/validate_exercises.py (Python).
  * Użycie: node tools/waliduj-cwiczenia.js
@@ -235,8 +239,86 @@ if (mixes) {
   });
 }
 
+// ---------- Egzaminy (spec 05) ----------
+let examCount = 0;
+const reg = readJson("dane/egzaminy-manifest.json");
+if (reg) {
+  const seenIds = new Set(), seenCodes = new Set();
+  (reg.exams || []).forEach(function (ex) {
+    const at = "egzaminy " + (ex.id || "?");
+    examCount++;
+    if (!/^[a-z0-9][a-z0-9-]*$/.test(ex.id || "")) err(at + ": id tylko małe litery, cyfry i myślniki");
+    if (seenIds.has(ex.id)) err(at + ": zdublowane id"); seenIds.add(ex.id);
+    if (!nonEmpty(ex.code) || ex.code.length > 3) err(at + ": code — krótki kod (do 3 znaków)");
+    if (seenCodes.has(ex.code)) err(at + ": zdublowany kod " + ex.code); seenCodes.add(ex.code);
+    if (!nonEmpty(ex.label)) err(at + ": brak label");
+    if (ex.route !== "/" + ex.id) err(at + ": route musi być „/" + ex.id + "”");
+    if (["active", "soon"].indexOf(ex.status) === -1) err(at + ": status musi być active albo soon");
+    if (ex.status === "soon" && !nonEmpty(ex.soonDescription)) err(at + ": egzamin „soon” wymaga soonDescription");
+    ["accent", "accent2"].forEach(function (k) { if (ex[k] != null && !/^#[0-9a-fA-F]{6}$/.test(ex[k])) err(at + ": " + k + " musi być kolorem #rrggbb"); });
+    if (ex.suggestedDate != null && !/^\d{4}-\d{2}-\d{2}$/.test(ex.suggestedDate)) err(at + ": suggestedDate w formacie RRRR-MM-DD");
+    if (ex.status !== "active") return;
+    const dir = "niezbednik/" + ex.id;
+    const man = readJson(dir + "/manifest.json");
+    if (!man) { err(at + ": brak " + dir + "/manifest.json"); return; }
+    if (man.id !== ex.id) err(at + ": manifest.id (" + man.id + ") ≠ id w rejestrze");
+    const examSets = new Set();
+    (man.sections || []).forEach(function (sec) {
+      (sec.pages || []).forEach(function (pg) {
+        const file = path.join(ROOT, dir, pg.file);
+        if (!fs.existsSync(file)) { err(at + ": brak strony " + pg.file); return; }
+        const fm = /^---\n[\s\S]*?^id:\s*(.+)$/m.exec(fs.readFileSync(file, "utf8").replace(/\r\n/g, "\n"));
+        if (fm && fm[1].trim() !== pg.id) err(at + ": " + pg.file + " ma id „" + fm[1].trim() + "”, a manifest „" + pg.id + "”");
+      });
+      (sec.exerciseGroups || []).forEach(function (g) {
+        (g.sets || []).forEach(function (meta) {
+          examSets.add(meta.id);
+          if (ex.existing) return; // C1: stary format zestawów, własny generator
+          const set = readJson(dir + "/" + meta.file);
+          if (!set) { err(at + ": brak zestawu " + meta.file); return; }
+          if (set.id !== meta.id) err(at + ": " + meta.file + " ma id „" + set.id + "”, a manifest „" + meta.id + "”");
+          if (!Array.isArray(set.items) || !set.items.length) { err(at + ": " + meta.file + " bez zadań"); return; }
+          set.items.forEach(function (it) { checkItem(Object.assign({ topic: set.topic, level: set.level }, it), meta.file, set); });
+        });
+      });
+      if (sec.trainer && !ex.existing) {
+        const T = readJson(dir + "/" + sec.trainer.file);
+        if (!T) { err(at + ": brak trenera " + sec.trainer.file); return; }
+        if (!Array.isArray(T.wordRange) || T.wordRange.length !== 2) err(at + ": trener bez wordRange");
+        (T.tasks || []).forEach(function (t) {
+          const wat = at + " trener " + (t.id || "?");
+          if (!nonEmpty(t.prompt) || !nonEmpty(t.title)) err(wat + ": brak title / prompt");
+          if (!Array.isArray(t.bullets) || t.bullets.length !== 3) err(wat + ": potrzebne 3 podpunkty (bullets)");
+          if (nonEmpty(t.model) && Array.isArray(T.wordRange)) {
+            const n = countE8(t.model, t.opening);
+            if (n < T.wordRange[0] || n > T.wordRange[1]) err(wat + ": wzorzec ma " + n + " wyrazów (limit " + T.wordRange.join("–") + ")");
+          }
+        });
+      }
+    });
+    if (!ex.existing) {
+      const links = readJson(dir + "/powiazania.json");
+      (links && links.links || []).forEach(function (l) {
+        if (!topics.has(l.itemId)) err(at + " powiązania: nieznany temat " + l.itemId);
+        (l.exercises || []).forEach(function (s) { if (!examSets.has(s)) err(at + " powiązania " + l.itemId + ": nieznany zestaw " + s); });
+      });
+    }
+  });
+}
+// Certyfikat C1: powiązania wskazują istniejące tematy
+const c1links = readJson("niezbednik/certyfikat-c1/powiazania.json");
+(c1links && c1links.links || []).forEach(function (l) { if (!topics.has(l.itemId)) err("C1 powiązania: nieznany temat " + l.itemId); });
+
+/** Liczenie wyrazów wg reguł egzaminu ósmoklasisty (jak js/exam-logic.js). */
+function countE8(text, opening) {
+  let t = String(text || "").trim();
+  const open = String(opening || "").trim();
+  if (open && t.slice(0, open.length).toLowerCase() === open.toLowerCase()) t = t.slice(open.length);
+  return t.split(/\s+/).filter(function (w) { return w && /[\p{L}\p{N}]/u.test(w) && w.replace(/[^\p{L}\p{N}]/gu, "") !== "XYZ"; }).length;
+}
+
 console.log("Walidacja ćwiczeń: zestawy " + setIds.size + ", zadania " + itemCount + ", czasy " + tenses.size +
-  ", węzły drzewa " + (tree ? Object.keys(tree.nodes || {}).length : 0) + ", mixy " + (mixes ? (mixes.mixes || []).length : 0));
+  ", węzły drzewa " + (tree ? Object.keys(tree.nodes || {}).length : 0) + ", mixy " + (mixes ? (mixes.mixes || []).length : 0) + ", egzaminy " + examCount);
 warnings.forEach(function (w) { console.warn("UWAGA: " + w); });
 if (errors.length) {
   console.error("BŁĘDY (" + errors.length + "):");

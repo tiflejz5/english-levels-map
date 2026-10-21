@@ -288,6 +288,70 @@
   --topo-color: #f3ecda;
 }
 
+/* ===================== TOKENY: EGZAMIN ÓSMOKLASISTY (html[data-section="egzamin-osmoklasisty"], js/exam-core.js) =====================
+   Przyjazny, szkolny i energiczny (bez dziecinności): głęboki turkus + słoneczny żółty akcent, ciepłe tło.
+   Żółty zawsze z ciemnym tekstem. Nadpisuje tylko powierzchnie, tekst, linie i akcent. */
+:root:not([data-theme="dark"])[data-section="egzamin-osmoklasisty"] {
+  --bg: #f8f5ec;
+  --surface: #fffefa;
+  --surface-2: #eaf3f0;
+  --surface-3: #d9eae5;
+  --surface-raised: #ffffff;
+  --empty-bg: #f3f1e7;
+  --row-hover: #f1f7f4;
+  --hover: rgba(11, 92, 100, 0.06);
+  --topbar-bg: rgba(248, 245, 236, 0.88);
+  --sticky-bg: rgba(248, 245, 236, 0.94);
+  --ink: #17282b;
+  --ink-muted: #48595b;
+  --ink-faint: #5a6b6d;
+  --line: #d7e3df;
+  --line-strong: #b7cdc7;
+  --line-control: #6c8784;
+  --accent: #0a6770;
+  --accent-soft: rgba(14, 124, 134, 0.12);
+  --accent-bg: #0a5c64;
+  --accent-hover: #0d6d76;
+  --on-accent: #ffffff;
+  --info-bg: #fff4cc;
+  --info-border: #e9c450;
+  --focus-color: #0a6770;
+  --focus-ring: 0 0 0 3px rgba(14, 124, 134, 0.35);
+  --topo-color: #0a5c64;
+  --e8-yellow: #f5b800;
+  --e8-on-yellow: #1d2426;
+}
+:root[data-theme="dark"][data-section="egzamin-osmoklasisty"] {
+  --bg: #0a181b;
+  --surface: #0d2024;
+  --surface-2: #142d32;
+  --surface-3: #1c3a40;
+  --surface-raised: #12292e;
+  --empty-bg: #0c1d20;
+  --row-hover: rgba(95, 208, 216, 0.05);
+  --hover: rgba(236, 244, 242, 0.06);
+  --topbar-bg: rgba(10, 24, 27, 0.86);
+  --sticky-bg: rgba(10, 24, 27, 0.94);
+  --ink: #ecf4f2;
+  --ink-muted: #a9bebb;
+  --ink-faint: #8fa7a4;
+  --line: #1f383d;
+  --line-strong: #2d4d53;
+  --line-control: #6f9095;
+  --accent: #66d3da;
+  --accent-soft: rgba(102, 211, 218, 0.14);
+  --accent-bg: #f5c84a;
+  --accent-hover: #f8d670;
+  --on-accent: #10201f;
+  --info-bg: rgba(245, 200, 74, 0.08);
+  --info-border: rgba(245, 200, 74, 0.35);
+  --focus-color: #66d3da;
+  --focus-ring: 0 0 0 3px rgba(102, 211, 218, 0.4);
+  --topo-color: #66d3da;
+  --e8-yellow: #f5c84a;
+  --e8-on-yellow: #10201f;
+}
+
 /* ===================== TOKENY WSPÓLNE: typografia, odstępy, promienie, ruch ===================== */
 :root {
   /* Fonty: display z charakterem atlasu + czytelny tekst; systemowe jako zapas */
@@ -2860,3 +2924,122 @@ a.notes-item-title { color: var(--accent); text-decoration: underline; text-unde
 @media (min-width: 1100px) {
   body.notes-open .main { padding-right: 416px; transition: padding var(--dur-base) var(--ease-out); }
 }
+
+/* ===================== EGZAMINY: rejestr, nawigacja, E8, „W trakcie pracy” (rozbudowa v2, etap 3; DESIGN.md 3.13) ===================== */
+/* Grupa „Egzaminy” w lewym panelu: chipy z kodem w kolorze egzaminu z rejestru (--exam-accent) */
+.exams-nav .sb-caption { margin-top: 14px; }
+.exams-nav + .c1-nav > .sb-sep { display: none; }
+.exam-list { margin-bottom: 4px; }
+.exam-chip-badge {
+  display: inline-grid; place-content: center; min-width: 34px; height: 34px; padding: 0 4px; border-radius: 10px;
+  background: var(--exam-accent, var(--surface-3)); color: #ffffff; font: 800 var(--fs-xs) var(--font); letter-spacing: 0.02em;
+  box-shadow: inset 0 -3px 0 var(--exam-accent-2, transparent);
+}
+.exam-chip.is-soon .exam-chip-badge { background: var(--surface-3); color: var(--ink-muted); box-shadow: inset 0 0 0 1px var(--line-strong); }
+.exam-chip.is-soon .sb-label-title { color: var(--ink-muted); }
+.exam-soon-tag { display: inline-block; padding: 1px 7px; border-radius: var(--radius-pill); background: var(--surface-3); color: var(--ink-muted); font-size: var(--fs-2xs); font-weight: 700; vertical-align: middle; }
+.sb-item.exam-chip.is-active { background: color-mix(in srgb, var(--exam-accent, var(--accent)) 12%, var(--surface)); }
+.sb-item.exam-chip.is-active::before { background: var(--exam-accent-2, var(--accent)); }
+.exam-sections { margin-top: 6px; }
+
+/* Nagłówek zakładki egzaminu */
+.exam-wordmark { align-items: center; }
+.exam-wordmark-badge {
+  display: inline-grid; place-content: center; min-width: 40px; height: 40px; padding: 0 6px; border-radius: 12px;
+  background: var(--accent-bg); color: var(--on-accent); font: 800 var(--fs-sm) var(--font);
+  box-shadow: inset 0 -4px 0 var(--e8-yellow, var(--accent));
+}
+.exam-overview-top { display: grid; gap: 12px; margin: 0 0 24px; }
+.exam-overview-top .c1-countdown { margin: 0; }
+.exam-date-hint { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; margin: 8px 0 0; font-size: var(--fs-sm); color: var(--ink-muted); }
+.exam-date-hint .btn { min-height: 44px; }
+.exam-facts-note { margin: 0; }
+.exam-facts-note .callout-title { margin: 0 0 6px; font-weight: 650; }
+.exam-facts-note p:last-child { margin: 0; }
+.exam-groups { display: flex; flex-direction: column; gap: 20px; }
+.exam-tts-note { display: inline-flex; align-items: center; gap: 6px; margin: 0; font-size: var(--fs-xs-plus); color: var(--ink-muted); }
+
+/* Klimat E8: żółty akcent (zawsze z ciemnym tekstem) w znakach i paskach */
+[data-section="egzamin-osmoklasisty"] .exam-view .c1-title::after,
+[data-section="egzamin-osmoklasisty"] .exam-page h1::after {
+  content: ""; display: block; width: 64px; height: 6px; margin-top: 10px; border-radius: var(--radius-pill); background: var(--e8-yellow);
+}
+[data-section="egzamin-osmoklasisty"] .ex-set-card { border-top-color: var(--accent); }
+[data-section="egzamin-osmoklasisty"] .c1-nav-badge { background: var(--e8-yellow); color: var(--e8-on-yellow); }
+
+/* Ramki „Na egzaminie …” (kolor egzaminu z rejestru); kilka ramek jedna pod drugą */
+.exam-boxes { display: flex; flex-direction: column; gap: 12px; margin: 0 0 18px; }
+.exam-boxes > .callout { margin: 0; }
+.exam-box {
+  background: color-mix(in srgb, var(--exam-accent, var(--accent)) 7%, var(--surface));
+  border-color: color-mix(in srgb, var(--exam-accent, var(--accent)) 45%, transparent);
+  box-shadow: inset 4px 0 0 var(--exam-accent-2, var(--exam-accent, var(--accent)));
+}
+.exam-box .c1-exam-box-head { display: flex; align-items: center; gap: 10px; }
+.exam-box .exam-box-title { color: var(--ink); font-weight: 700; text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--exam-accent, var(--accent)) 60%, transparent); text-underline-offset: 3px; }
+.exam-box .c1-chip { background: var(--surface); border: 1px solid color-mix(in srgb, var(--exam-accent, var(--accent)) 45%, transparent); color: var(--ink); }
+.exam-box .c1-exam-box-links a { color: var(--ink); font-weight: 600; }
+
+/* Trener pisania E8: strefy licznika, podany początek, samoocena, porównanie ze wzorem */
+.c1-words.is-warn strong { color: var(--warning); }
+.c1-words.is-over strong { color: var(--warning); }
+.c1-words.is-low, .c1-words.is-over { font-weight: 600; }
+.exam-view .c1-words.is-low strong { color: var(--danger); }
+.exam-view .c1-words.is-low .c1-words-hint { color: var(--danger); }
+.exam-view .c1-words.is-over .c1-words-hint, .exam-view .c1-words.is-warn .c1-words-hint { color: var(--ink); }
+.exam-view .c1-words { padding: 6px 12px; border-radius: var(--radius-sm); border: 1px solid var(--line); }
+.exam-view .c1-words.is-low { background: var(--danger-soft); border-color: var(--danger-border); }
+.exam-view .c1-words.is-warn, .exam-view .c1-words.is-over { background: var(--warning-soft); border-color: var(--warning-border); }
+.exam-view .c1-words.is-ok { background: var(--success-soft); border-color: var(--success); }
+.wt-note { display: flex; align-items: center; gap: 6px; margin: 6px 0 10px; }
+.wt-opening { margin: 0 0 8px; font-family: var(--font-display); }
+.wt-bullets { margin-bottom: 14px; padding: 14px 18px; }
+.wt-rub-rows { display: grid; gap: 8px; max-width: 520px; }
+.wt-rub-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.wt-rub-select { width: 80px; min-height: 44px; }
+.wt-rub-total { margin: 10px 0 6px; font-size: var(--fs-md); }
+.wt-rub-notes { margin: 0; padding-left: 18px; font-size: var(--fs-sm); color: var(--ink-muted); }
+.wt-compare-cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.wt-col { margin: 0; padding: 12px 14px; border-radius: var(--radius-sm); border: 1px solid var(--line); background: var(--surface); }
+.wt-col.is-model { background: var(--surface-2); }
+.wt-col figcaption { margin-bottom: 6px; font-size: var(--fs-xs-plus); font-weight: 700; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.04em; }
+.wt-text { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+
+/* Silnik zadań: tekst do czytania i słuchanie */
+.ex-passage { max-width: 780px; margin-bottom: 14px; padding: 14px 18px; }
+.ex-passage-title { display: flex; align-items: center; gap: 8px; min-height: 44px; cursor: pointer; font-weight: 700; }
+.ex-passage-text { margin-top: 8px; font-size: var(--fs-md); }
+.ex-passage-text p:last-child { margin-bottom: 0; }
+@media (min-width: 1100px) {
+  .ex-view.has-passage { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 20px; align-items: start; }
+  .ex-view.has-passage > .tool-head { grid-column: 1 / -1; }
+  .ex-view.has-passage > .ex-passage { position: sticky; top: 80px; grid-column: 1; grid-row: 2; max-height: calc(100vh - 100px); overflow: auto; }
+  .ex-view.has-passage > .ex-card { grid-column: 2; grid-row: 2; }
+}
+.ex-listen { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; padding: 12px 14px; border-radius: var(--radius); background: var(--surface-2); }
+.ex-listen-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.ex-listen-controls .btn { min-height: 44px; }
+.ex-listen-count { font-weight: 650; font-variant-numeric: tabular-nums; }
+.ex-listen-note { margin: 0; font-size: var(--fs-sm); }
+.ex-listen-warn { margin: 0; font-weight: 650; color: var(--warning); }
+.ex-transcript p { margin: 0 0 4px; }
+.ex-transcript summary { min-height: 44px; display: inline-flex; align-items: center; cursor: pointer; color: var(--accent); font-weight: 600; }
+
+/* Strona „W trakcie pracy” */
+.soon-card { display: flex; flex-wrap: wrap; align-items: center; gap: 24px 32px; max-width: 820px; padding: 28px 32px; }
+.soon-art { width: 150px; height: 150px; flex-shrink: 0; }
+.soon-beam { stroke: var(--line-control); stroke-width: 4; stroke-linecap: round; }
+.soon-ring { fill: var(--surface-2); stroke: var(--accent); stroke-width: 4; }
+.soon-needle { fill: var(--accent); }
+.soon-dot { fill: var(--surface); }
+.soon-body { flex: 1 1 320px; min-width: 0; }
+.soon-badge { display: inline-flex; align-items: center; gap: 6px; margin: 0 0 10px; padding: 6px 14px; border-radius: var(--radius-pill); background: var(--warning-soft); color: var(--ink); border: 1px solid var(--warning-border); font-weight: 700; }
+.soon-title { margin: 0 0 8px; font-family: var(--font-display); font-size: var(--fs-2xl); font-weight: 640; }
+.soon-desc { margin: 0 0 6px; font-size: var(--fs-md); }
+
+@media (max-width: 760px) {
+  .wt-compare-cols { grid-template-columns: 1fr; }
+  .soon-card { padding: 20px 16px; }
+  .soon-art { width: 110px; height: 110px; }
+}
+.notes-btn { min-width: 44px; justify-content: center; }

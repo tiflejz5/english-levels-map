@@ -214,7 +214,7 @@ window.ELM = window.ELM || {};
 
     const article = el("article", { class: "md" }, ELM.markdown.render(doc.blocks, { hiddenSections: HIDDEN_SECTIONS }));
     // Ramka „Na egzaminie C1” (z certyfikat-c1/powiazania.json) zaraz pod wstępem
-    if (ELM.c1) ELM.c1.insertAfterIntro(article, ELM.c1.examBoxFor(found.item.id));
+    if (ELM.c1) ELM.c1.insertAfterIntro(article, ELM.exams ? ELM.exams.examBoxesFor(found.item.id) : ELM.c1.examBoxFor(found.item.id));
     if (ELM.callouts) ELM.callouts.apply(article); // wyróżnione sekcje i tabele (js/callouts.js)
     view.appendChild(article);
     // „Sprawdź się”: zestawy zadań tematu i link do Laboratorium czasów (indeks wczytywany na żądanie)

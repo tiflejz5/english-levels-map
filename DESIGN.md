@@ -409,6 +409,34 @@ Pominięte. Aplikacja nie jest w React, a brief dopuszczał ten krok tylko dla R
   - Panel pojawia się z prawej (400 px) na szerokim ekranie, a na telefonie jako dolna szuflada (do 70% wysokości).
   - Pole tekstowe w `--lh-body`, a pod nim status zapisu i licznik (od 80% limitu, przy limicie w `--danger`).
 
+### 3.13 Egzaminy (rozbudowa v2, etap 3)
+
+- **Grupa „Egzaminy” w panelu.**
+  - Chip z kodem z rejestru (34 px, zaokrąglenie 10 px) ma tło w kolorze egzaminu (`--exam-accent` z rejestru) i dolny pasek w drugim kolorze (`--exam-accent-2`).
+  - Pozycje „wkrótce” mają chip w `--surface-3` z obwódką, wyszarzony tytuł i plakietkę „wkrótce”.
+  - Tekst na chipie jest biały (na turkusie E8 #0e7c86 kontrast 4,88:1).
+- **Egzamin ósmoklasisty**: `html[data-section="egzamin-osmoklasisty"]` w klimacie przyjaznym, szkolnym i energicznym, bez dziecinności.
+
+  | Token | Jasny | Ciemny |
+  |---|---|---|
+  | `--bg` / `--surface` | `#f8f5ec` / `#fffefa` (ciepłe tło) | `#0a181b` / `#0d2024` |
+  | `--accent` | `#0a6770` (głęboki turkus) | `#66d3da` |
+  | `--accent-bg` / `--on-accent` | `#0a5c64` / biały | `#f5c84a` / `#10201f` (żółty z ciemnym tekstem) |
+  | `--e8-yellow` / `--e8-on-yellow` | `#f5b800` / `#1d2426` | `#f5c84a` / `#10201f` |
+
+  - Żółty jest akcentem (pasek pod tytułem, dolna krawędź znaku E8, plakietki wyników) i zawsze dostaje ciemny tekst.
+  - `tools/kontrast.js` sprawdza wszystkie pary także w zakresach E8 jasny i E8 ciemny (razem 678 par).
+- **Ramki „Na egzaminie …”.**
+  - Każdy egzamin ma osobną ramkę w swoim kolorze (tło 7% koloru egzaminu, lewy pasek), w kolejności z rejestru.
+  - Kilka ramek stoi jedna pod drugą z odstępem 12 px.
+- **Trener pisania E8.**
+  - Licznik ma strefy w ramce: czerwona < 40 („Poniżej 40 wyrazów ocenia się tylko treść”), żółta 40–49 i > 120 („Przekraczasz limit”), zielona 50–120. Kolor zawsze idzie w parze z tekstem.
+  - Po zakończeniu: podpunkty, samoocena wg kryteriów 4/2/2/2 i wzór obok tekstu.
+- **Silnik zadań.**
+  - Tekst do czytania na szerokim ekranie jest przyklejonym panelem obok zadań, a na wąskim zwijanym blokiem.
+  - Słuchanie ma panel `--surface-2` z „Odtwórz”, licznikiem „Odsłuchy: n/2” i notą o głosie syntezowanym.
+- **„W trakcie pracy”.** Karta z ilustracją SVG (kompas na rusztowaniu, w tokenach), plakietką w `--warning-soft`, opisem z rejestru i przyciskami „Wróć do Dziś” oraz „Zobacz: Egzamin ósmoklasisty”. Bez pustych tabel i martwych linków.
+
 ## 4. Ruch
 
 - **Proste rzeczy tylko w CSS.** Hover, focus, pojawianie się i przejścia kolorów robi CSS. Animujemy `opacity` i `transform`. Wyjątek to krótkie przejście kolorów przy zmianie motywu (klasa `html.theme-anim`).
