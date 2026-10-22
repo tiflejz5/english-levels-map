@@ -8,6 +8,9 @@
  *   "multiple-choice-cloze" — Part 1: wybór A/B/C/D, 1 pkt
  *
  * Najlepszy wynik zestawu zapisuje ELM.c1.store (localStorage, klucz elm_c1_v1).
+ * Ten sam komponent rysuje zestawy w formacie C1 w innych egzaminach (np. Matura
+ * podstawowa, spec 06 sekcja 3): ELM.c1Exercises.renderWith(view, ctx) — ctx podaje
+ * dane zestawu, nawigację i zapis wyniku (dla egzaminów z rejestru: elm_exercises_v1).
  * Przy błędnej odpowiedzi przycisk „Dodaj do dziennika błędów” otwiera
  * wstępnie wypełniony formularz (js/journal.js) — nic nie zapisuje się
  * bez zatwierdzenia.
@@ -21,6 +24,10 @@ window.ELM = window.ELM || {};
   const el = U.el;
 
   function c1() { return ELM.c1; }
+
+  // Kontekst rysowanego zestawu (klucz wpisu w dzienniku, kategoria) — ustawia renderWith
+  let current = { refPrefix: null, category: "Use of English" };
+  function refOf(ex, n) { return (current.refPrefix || "c1:" + ex.id) + ":" + n; }
 
   // =====================================================================
   // NORMALIZACJA I SŁOWA
@@ -207,8 +214,8 @@ window.ELM = window.ELM || {};
             correct: item.model,
             rule: item.explanation || "",
             source: ex.title + ", pyt. " + item.n,
-            category: "Use of English",
-            ref: "c1:" + ex.id + ":" + item.n
+            category: current.category,
+            ref: refOf(ex, item.n)
           };
         })));
       }
@@ -311,8 +318,8 @@ window.ELM = window.ELM || {};
         correct: correctText(g),
         rule: g.explanation || "",
         source: ex.title + ", luka " + g.n,
-        category: "Use of English",
-        ref: "c1:" + ex.id + ":" + g.n
+        category: current.category,
+        ref: refOf(ex, g.n)
       };
     }
 
@@ -344,26 +351,48 @@ window.ELM = window.ELM || {};
   // STRONA ZESTAWU
   // =====================================================================
 
-  function bestText(id, max) {
-    const best = c1().store.bestScore(id);
+  function bestText(ctx, max) {
+    const best = ctx.bestScore();
     return best === null ? "Najlepszy wynik: jeszcze brak" : "Najlepszy wynik: " + best + " / " + max;
   }
 
+  /** Zestaw Certyfikatu C1 (#/certyfikat-c1/cwiczenia/<id>) — dane i wyniki w elm_c1_v1 (bez zmian). */
   function render(view, id) {
-    const ex = ELM.C1 && ELM.C1.exercises[id];
-    const found = c1().findSet(id);
-    if (!ex || !found) { view.appendChild(c1().notFound("Nie znaleziono takiego zestawu ćwiczeń.")); return null; }
+    return renderWith(view, {
+      ex: ELM.C1 && ELM.C1.exercises[id],
+      found: c1().findSet(id),
+      crumb: function (label) { return c1().crumb(label); },
+      notFound: function (msg) { return c1().notFound(msg); },
+      bestScore: function () { return c1().store.bestScore(id); },
+      recordScore: function (score) { return c1().store.recordScore(id, score); },
+      listHref: c1().BASE + "/cwiczenia",
+      hrefSet: function (sid) { return c1().hrefSet(sid); },
+      refPrefix: "c1:" + id,
+      category: "Use of English",
+      afterScore: function () { c1().renderNav(); }
+    });
+  }
+
+  /**
+   * ctx: { ex, found: { set, group }, crumb(label), notFound(msg), bestScore() → liczba | null,
+   *        recordScore(score, max) → true przy nowym rekordzie, listHref, hrefSet(id),
+   *        refPrefix (klucz wpisu w dzienniku), category (kategoria wpisu), afterScore() }
+   */
+  function renderWith(view, ctx) {
+    const ex = ctx.ex, found = ctx.found;
+    current = { refPrefix: ctx.refPrefix, category: ctx.category || "Use of English" };
+    if (!ex || !found) { view.appendChild(ctx.notFound("Nie znaleziono takiego zestawu ćwiczeń.")); return null; }
 
     const max = ex.maxScore || found.set.maxScore;
     const control = ex.type === "transformation" ? buildTransformation(ex)
       : ["word-formation", "open-cloze", "multiple-choice-cloze"].indexOf(ex.type) !== -1 ? buildCloze(ex)
       : null;
-    if (!control) { view.appendChild(c1().notFound("Nieznany typ ćwiczenia: " + ex.type)); return null; }
+    if (!control) { view.appendChild(ctx.notFound("Nieznany typ ćwiczenia: " + ex.type)); return null; }
 
-    const best = el("p", { class: "c1-ex-best", text: bestText(id, max) });
+    const best = el("p", { class: "c1-ex-best", text: bestText(ctx, max) });
     const result = el("p", { class: "c1-ex-result", "aria-live": "polite" });
 
-    view.appendChild(c1().crumb(found.group.label));
+    view.appendChild(ctx.crumb(found.group.label));
     view.appendChild(el("header", { class: "c1-ex-head" }, [
       el("h1", { class: "c1-title", text: ex.title }),
       ex.focus ? el("p", { class: "c1-ex-focus", text: ex.focus }) : null,
@@ -378,14 +407,13 @@ window.ELM = window.ELM || {};
           class: "btn btn-primary",
           onclick: function () {
             const score = control.check();
-            const record = c1().store.recordScore(id, score);
+            const record = ctx.recordScore(score, max);
             if (ELM.markActivity) ELM.markActivity(); // ukończone ćwiczenie = dzień nauki
-            result.replaceChildren(
-              el("strong", { text: "Wynik: " + score + " / " + max }),
-              record ? el("span", { class: "c1-record", text: " · nowy najlepszy wynik!" }) : null
-            );
-            best.textContent = bestText(id, max);
-            c1().renderNav();
+            // (null nie trafia do replaceChildren — inaczej na stronie pojawiał się tekst „null”)
+            result.replaceChildren(el("strong", { text: "Wynik: " + score + " / " + max }));
+            if (record) result.appendChild(el("span", { class: "c1-record", text: " · nowy najlepszy wynik!" }));
+            best.textContent = bestText(ctx, max);
+            if (ctx.afterScore) ctx.afterScore();
           }
         }, "Sprawdź"),
         el("button", { type: "button", class: "btn btn-secondary", onclick: function () { control.showAnswers(); } }, "Pokaż odpowiedzi"),
@@ -402,14 +430,15 @@ window.ELM = window.ELM || {};
     const sets = found.group.sets;
     const next = sets[sets.indexOf(found.set) + 1];
     view.appendChild(el("nav", { class: "c1-pager", "aria-label": "Zestawy" }, [
-      el("a", { class: "btn btn-secondary", href: c1().BASE + "/cwiczenia" }, ELM.ui.withIcon("arrow-left", "Wszystkie zestawy")),
-      next ? el("a", { class: "btn btn-secondary", href: c1().hrefSet(next.id) }, [next.label, ELM.icon("arrow-right", { size: 18 })]) : null
+      el("a", { class: "btn btn-secondary", href: ctx.listHref }, ELM.ui.withIcon("arrow-left", "Wszystkie zestawy")),
+      next ? el("a", { class: "btn btn-secondary", href: ctx.hrefSet(next.id) }, [next.label, ELM.icon("arrow-right", { size: 18 })]) : null
     ]));
     return ex.title;
   }
 
   ELM.c1Exercises = {
     render: render,
+    renderWith: renderWith,
     // do testów i ewentualnego użycia gdzie indziej
     norm: norm,
     tokens: tokens,

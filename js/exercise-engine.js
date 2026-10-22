@@ -485,7 +485,8 @@ window.ELM = window.ELM || {};
         ])
       ]);
     });
-    nodes.push(el("div", { class: "ex-options", role: "radiogroup", "aria-labelledby": "ex-prompt" }, options));
+    // fixedOrder (np. True / False / Not given): kolejność z pliku, przyciski w jednym rzędzie
+    nodes.push(el("div", { class: "ex-options" + (item.fixedOrder ? " is-row" : ""), role: "radiogroup", "aria-labelledby": "ex-prompt" }, options));
     if (!done) nodes.push(el("p", { class: "tool-note ex-keys-hint", text: "Klawiatura: cyfry 1–" + options.length + " wybierają odpowiedź, Enter sprawdza." }));
     return nodes;
   }

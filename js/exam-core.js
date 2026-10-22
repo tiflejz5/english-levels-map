@@ -353,7 +353,7 @@ window.ELM = window.ELM || {};
       counter: function (n, T) {
         const z = L.writingZone(n, T);
         const hint = {
-          low: " · Poniżej " + T.warnBelow + " wyrazów oceniana jest tylko treść",
+          low: " · Poniżej " + T.warnBelow + " wyrazów ocenia się tylko treść",
           warn: " · jeszcze trochę – limit to " + T.wordRange[0] + "–" + T.wordRange[1],
           ok: " · w limicie " + T.wordRange[0] + "–" + T.wordRange[1],
           over: " · Przekraczasz limit (" + T.wordRange[1] + ")"
