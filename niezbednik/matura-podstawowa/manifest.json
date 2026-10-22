@@ -1,0 +1,163 @@
+{
+  "id": "matura-podstawowa",
+  "label": "Matura podstawowa",
+  "title": "Matura podstawowa z angielskiego",
+  "route": "/matura-podstawowa",
+  "sections": [
+    {
+      "id": "start",
+      "label": "Start",
+      "pages": [
+        {
+          "id": "przeglad",
+          "file": "strony/przeglad.md",
+          "label": "Przegląd egzaminu"
+        },
+        {
+          "id": "plan-powtorki",
+          "file": "strony/plan-powtorki.md",
+          "label": "Plan powtórki"
+        }
+      ]
+    },
+    {
+      "id": "czesci",
+      "label": "Części egzaminu",
+      "pages": [
+        {
+          "id": "sluchanie",
+          "file": "strony/sluchanie.md",
+          "label": "Słuchanie"
+        },
+        {
+          "id": "czytanie",
+          "file": "strony/czytanie.md",
+          "label": "Czytanie"
+        },
+        {
+          "id": "srodki-jezykowe",
+          "file": "strony/srodki-jezykowe.md",
+          "label": "Środki językowe"
+        },
+        {
+          "id": "wypowiedz-pisemna",
+          "file": "strony/wypowiedz-pisemna.md",
+          "label": "Wypowiedź pisemna"
+        },
+        {
+          "id": "matura-ustna",
+          "file": "strony/matura-ustna.md",
+          "label": "Matura ustna"
+        }
+      ]
+    },
+    {
+      "id": "przygotowanie",
+      "label": "Przygotowanie",
+      "pages": [
+        {
+          "id": "gramatyka-pod-egzamin",
+          "file": "strony/gramatyka-pod-egzamin.md",
+          "label": "Gramatyka pod egzamin"
+        },
+        {
+          "id": "slownictwo-tematyczne",
+          "file": "strony/slownictwo-tematyczne.md",
+          "label": "Słownictwo tematyczne"
+        },
+        {
+          "id": "dzien-egzaminu",
+          "file": "strony/dzien-egzaminu.md",
+          "label": "Dzień egzaminu"
+        }
+      ]
+    },
+    {
+      "id": "cwiczenia",
+      "label": "Ćwiczenia",
+      "exerciseGroups": [
+        {
+          "part": "sluchanie",
+          "label": "Słuchanie",
+          "sets": [
+            {
+              "id": "mp-sluchanie-1",
+              "file": "cwiczenia/mp-sluchanie-1.json",
+              "label": "6 nagrań",
+              "maxScore": 6
+            }
+          ]
+        },
+        {
+          "part": "czytanie",
+          "label": "Czytanie",
+          "sets": [
+            {
+              "id": "mp-czytanie-1",
+              "file": "cwiczenia/mp-czytanie-1.json",
+              "label": "Blog o telefonie",
+              "maxScore": 5
+            },
+            {
+              "id": "mp-czytanie-2",
+              "file": "cwiczenia/mp-czytanie-2.json",
+              "label": "Prawda, fałsz, brak informacji",
+              "maxScore": 7
+            }
+          ]
+        },
+        {
+          "part": "srodki",
+          "label": "Środki językowe",
+          "sets": [
+            {
+              "id": "mp-minidialogi-1",
+              "file": "cwiczenia/mp-minidialogi-1.json",
+              "label": "Mini-dialogi",
+              "maxScore": 6
+            },
+            {
+              "id": "mp-srodki-cloze-1",
+              "file": "cwiczenia/mp-srodki-cloze-1.json",
+              "label": "Luki: wybór",
+              "maxScore": 8
+            },
+            {
+              "id": "mp-srodki-slowotworstwo-1",
+              "file": "cwiczenia/mp-srodki-slowotworstwo-1.json",
+              "label": "Słowotwórstwo",
+              "maxScore": 8
+            },
+            {
+              "id": "mp-srodki-transformacje-1",
+              "file": "cwiczenia/mp-srodki-transformacje-1.json",
+              "label": "Transformacje",
+              "maxScore": 8
+            },
+            {
+              "id": "mp-srodki-tlumaczenie-1",
+              "file": "cwiczenia/mp-srodki-tlumaczenie-1.json",
+              "label": "Tłumaczenie fragmentów",
+              "maxScore": 6
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "trening",
+      "label": "Trener pisania",
+      "trainer": {
+        "id": "trening-pisanie",
+        "file": "trening/pisanie.json",
+        "label": "Wypowiedź pisemna"
+      }
+    }
+  ],
+  "links": [
+    {
+      "label": "Informator CKE",
+      "url": "https://cke.gov.pl"
+    }
+  ]
+}

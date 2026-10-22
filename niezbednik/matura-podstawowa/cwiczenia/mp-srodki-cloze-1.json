@@ -1,0 +1,99 @@
+{
+  "id": "mp-srodki-cloze-1",
+  "part": 1,
+  "type": "multiple-choice-cloze",
+  "title": "A day at the beach",
+  "instructions": "Wybierz słowo (A, B, C lub D), które najlepiej pasuje do luki. Każda luka to 1 punkt.",
+  "maxScore": 8,
+  "text": "Last summer we {{1}} a trip to the seaside. We got up early because the train {{2}} at six. When we arrived, the weather was lovely, so we {{3}} a swim at once. After lunch my brother {{4}} a sandcastle while I was reading. {{5}} the afternoon it started to rain, and we had to look for shelter. We spent two hours in a small café {{6}} hot chocolate. It was not the day we had planned, but we {{7}} a great time. I hope we can {{8}} there again next year.",
+  "gaps": [
+    {
+      "n": 1,
+      "options": {
+        "A": "did",
+        "B": "took",
+        "C": "went",
+        "D": "made"
+      },
+      "answer": "B",
+      "explanation": "take a trip = wybrać się na wycieczkę."
+    },
+    {
+      "n": 2,
+      "options": {
+        "A": "left",
+        "B": "was leaving",
+        "C": "leaves",
+        "D": "has left"
+      },
+      "answer": "A",
+      "explanation": "Past Simple: pociąg odjeżdżał o szóstej (left)."
+    },
+    {
+      "n": 3,
+      "options": {
+        "A": "had",
+        "B": "made",
+        "C": "did",
+        "D": "got"
+      },
+      "answer": "A",
+      "explanation": "have a swim = popływać."
+    },
+    {
+      "n": 4,
+      "options": {
+        "A": "built",
+        "B": "builded",
+        "C": "was built",
+        "D": "has built"
+      },
+      "answer": "A",
+      "explanation": "Past Simple, nieregularny: build, built."
+    },
+    {
+      "n": 5,
+      "options": {
+        "A": "At",
+        "B": "In",
+        "C": "On",
+        "D": "By"
+      },
+      "answer": "B",
+      "explanation": "in the afternoon."
+    },
+    {
+      "n": 6,
+      "options": {
+        "A": "drink",
+        "B": "drinking",
+        "C": "drunk",
+        "D": "to drink"
+      },
+      "answer": "B",
+      "explanation": "Zwrot z -ing opisujący czynność: drinking hot chocolate."
+    },
+    {
+      "n": 7,
+      "options": {
+        "A": "had",
+        "B": "made",
+        "C": "took",
+        "D": "gave"
+      },
+      "answer": "A",
+      "explanation": "have a great time = świetnie się bawić."
+    },
+    {
+      "n": 8,
+      "options": {
+        "A": "going",
+        "B": "go",
+        "C": "to go",
+        "D": "went"
+      },
+      "answer": "B",
+      "explanation": "Po can czasownik w formie podstawowej: can go."
+    }
+  ]
+}
