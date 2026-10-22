@@ -17,7 +17,11 @@
  *   - dane/egzaminy-manifest.json (rejestr egzaminów) i foldery aktywnych egzaminów w nowym formacie
  *     (niezbednik/<id>/): manifest (strony, zestawy, trener), zestawy (jak wyżej), powiązania (itemId
  *     istnieje w niezbednik/index.json, zestawy istnieją), wzorce trenera pisania w limicie wyrazów;
- *     powiązania Certyfikatu C1 (itemId).
+ *     powiązania Certyfikatu C1 (itemId),
+ *   - (odpowiednik scripts/validate_matura.py) zestawy egzaminów w formacie C1 (multiple-choice-cloze,
+ *     word-formation, open-cloze: luki {{n}} w tekście = gaps, maxScore = liczba luk, odpowiedzi, słowo
+ *     bazowe ≠ odpowiedź), linki [[id]] w stronach egzaminu (strona modułu, temat niezbędnika albo zestaw),
+ *     3–5 podpunktów w zadaniach pisania, choiceGroup zgodne z choiceGroups.
  *
  * Odpowiednik skryptu z paczki: scripts/validate_exercises.py (Python).
  * Użycie: node tools/waliduj-cwiczenia.js
@@ -263,12 +267,18 @@ if (reg) {
     if (!man) { err(at + ": brak " + dir + "/manifest.json"); return; }
     if (man.id !== ex.id) err(at + ": manifest.id (" + man.id + ") ≠ id w rejestrze");
     const examSets = new Set();
+    const pageIds = new Set();
+    const pageTexts = [];
     (man.sections || []).forEach(function (sec) {
       (sec.pages || []).forEach(function (pg) {
+        pageIds.add(pg.id);
         const file = path.join(ROOT, dir, pg.file);
         if (!fs.existsSync(file)) { err(at + ": brak strony " + pg.file); return; }
-        const fm = /^---\n[\s\S]*?^id:\s*(.+)$/m.exec(fs.readFileSync(file, "utf8").replace(/\r\n/g, "\n"));
+        const md = fs.readFileSync(file, "utf8").replace(/\r\n/g, "\n");
+        if (!/^\uFEFF?---\n/.test(md)) err(at + ": " + pg.file + " bez frontmatter");
+        const fm = /^---\n[\s\S]*?^id:\s*(.+)$/m.exec(md);
         if (fm && fm[1].trim() !== pg.id) err(at + ": " + pg.file + " ma id „" + fm[1].trim() + "”, a manifest „" + pg.id + "”");
+        pageTexts.push({ file: pg.file, md: md });
       });
       (sec.exerciseGroups || []).forEach(function (g) {
         (g.sets || []).forEach(function (meta) {
@@ -277,7 +287,8 @@ if (reg) {
           const set = readJson(dir + "/" + meta.file);
           if (!set) { err(at + ": brak zestawu " + meta.file); return; }
           if (set.id !== meta.id) err(at + ": " + meta.file + " ma id „" + set.id + "”, a manifest „" + meta.id + "”");
-          if (!Array.isArray(set.items) || !set.items.length) { err(at + ": " + meta.file + " bez zadań"); return; }
+          if (!Array.isArray(set.items) && isC1Format(set.type)) { checkC1Set(set, at + " " + meta.file, meta); return; }
+          if (!Array.isArray(set.items) || !set.items.length) { err(at + ": " + meta.file + " bez zadań (ani formatu C1)"); return; }
           set.items.forEach(function (it) { checkItem(Object.assign({ topic: set.topic, level: set.level }, it), meta.file, set); });
         });
       });
@@ -288,13 +299,21 @@ if (reg) {
         (T.tasks || []).forEach(function (t) {
           const wat = at + " trener " + (t.id || "?");
           if (!nonEmpty(t.prompt) || !nonEmpty(t.title)) err(wat + ": brak title / prompt");
-          if (!Array.isArray(t.bullets) || t.bullets.length !== 3) err(wat + ": potrzebne 3 podpunkty (bullets)");
+          if (!Array.isArray(t.bullets) || t.bullets.length < 3 || t.bullets.length > 5) err(wat + ": potrzebne 3–5 podpunktów (bullets)");
+          if (T.choiceGroups && t.choiceGroup != null && !Object.prototype.hasOwnProperty.call(T.choiceGroups, t.choiceGroup)) err(wat + ": choiceGroup „" + t.choiceGroup + "” nie ma w choiceGroups");
           if (nonEmpty(t.model) && Array.isArray(T.wordRange)) {
             const n = countE8(t.model, t.opening);
             if (n < T.wordRange[0] || n > T.wordRange[1]) err(wat + ": wzorzec ma " + n + " wyrazów (limit " + T.wordRange.join("–") + ")");
           }
         });
       }
+    });
+    // Linki [[id]] w stronach: strona tego modułu, temat niezbędnika albo zestaw egzaminu
+    pageTexts.forEach(function (pt) {
+      (pt.md.match(/\[\[([^\]|]+)(?:\|[^\]]*)?\]\]/g) || []).forEach(function (m) {
+        const id = /\[\[([^\]|]+)/.exec(m)[1].trim();
+        if (!pageIds.has(id) && !topics.has(id) && !examSets.has(id)) err(at + ": " + pt.file + " — martwy link [[" + id + "]]");
+      });
     });
     if (!ex.existing) {
       const links = readJson(dir + "/powiazania.json");
@@ -308,6 +327,31 @@ if (reg) {
 // Certyfikat C1: powiązania wskazują istniejące tematy
 const c1links = readJson("niezbednik/certyfikat-c1/powiazania.json");
 (c1links && c1links.links || []).forEach(function (l) { if (!topics.has(l.itemId)) err("C1 powiązania: nieznany temat " + l.itemId); });
+
+/** Zestaw w formacie C1 (komponent js/c1-exercises.js). */
+function checkC1Set(d, at, meta) {
+  if (!nonEmpty(d.title)) err(at + ": brak title");
+  if (!nonEmpty(d.text) || !Array.isArray(d.gaps) || !d.gaps.length) { err(at + ": brak text albo gaps"); return; }
+  const ns = d.gaps.map(function (g) { return g.n; });
+  const inText = (d.text.match(/\{\{(\d+)\}\}/g) || []).map(function (m) { return Number(m.slice(2, -2)); });
+  if (ns.slice().sort(function (a, b) { return a - b; }).join(",") !== inText.slice().sort(function (a, b) { return a - b; }).join(",")) err(at + ": luki {{n}} w tekście ≠ gaps");
+  if (new Set(ns).size !== ns.length) err(at + ": powtórzone numery luk");
+  if (d.maxScore !== d.gaps.length) err(at + ": maxScore (" + d.maxScore + ") ≠ liczba luk (" + d.gaps.length + ")");
+  if (meta && meta.maxScore != null && meta.maxScore !== d.maxScore) err(at + ": maxScore w manifeście (" + meta.maxScore + ") ≠ w zestawie (" + d.maxScore + ")");
+  d.gaps.forEach(function (g) {
+    const gat = at + " luka " + g.n;
+    if (!nonEmpty(g.explanation)) err(gat + ": brak explanation");
+    if (d.type === "multiple-choice-cloze") {
+      if (!g.options || !Object.prototype.hasOwnProperty.call(g.options, g.answer)) err(gat + ": answer spoza options");
+    } else {
+      if (!Array.isArray(g.accept) || !g.accept.length) err(gat + ": brak accept");
+      if (d.type === "word-formation" && (!nonEmpty(g.stem) || (g.accept || []).some(function (a) { return String(a).toUpperCase() === g.stem.toUpperCase(); }))) err(gat + ": brak stem albo stem = odpowiedź");
+    }
+  });
+}
+function isC1Format(type) {
+  return ["multiple-choice-cloze", "word-formation", "open-cloze", "transformation"].indexOf(type) !== -1;
+}
 
 /** Liczenie wyrazów wg reguł egzaminu ósmoklasisty (jak js/exam-logic.js). */
 function countE8(text, opening) {
