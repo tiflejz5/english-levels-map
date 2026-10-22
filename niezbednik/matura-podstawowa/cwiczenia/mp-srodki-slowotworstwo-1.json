@@ -1,0 +1,75 @@
+{
+  "id": "mp-srodki-slowotworstwo-1",
+  "part": 3,
+  "type": "word-formation",
+  "title": "A volunteer weekend",
+  "instructions": "Utwórz od słowa w nawiasie słowo, które pasuje do luki. Uważaj na przedrostki, liczbę mnogą i pisownię. Każda luka to 1 punkt.",
+  "maxScore": 8,
+  "text": "Last weekend I took part in a {{1}} project in our town. It was a very {{2}} experience for me. At first I felt a bit {{3}} because I didn't know anyone. However, the other volunteers were {{4}} and soon we became friends. We cleaned the river bank {{5}} and collected a lot of rubbish left by visitors. The organisers thanked us for our {{6}} and promised to send each of us a small {{7}}. I'm sure I will join them again, because I think {{8}} others is important.",
+  "gaps": [
+    {
+      "n": 1,
+      "stem": "VOLUNTEER",
+      "accept": [
+        "VOLUNTARY"
+      ],
+      "explanation": "Przymiotnik: voluntary project."
+    },
+    {
+      "n": 2,
+      "stem": "REWARD",
+      "accept": [
+        "REWARDING"
+      ],
+      "explanation": "Przymiotnik: rewarding experience."
+    },
+    {
+      "n": 3,
+      "stem": "COMFORT",
+      "accept": [
+        "UNCOMFORTABLE"
+      ],
+      "explanation": "Przeczenie przymiotnika: comfort → uncomfortable."
+    },
+    {
+      "n": 4,
+      "stem": "FRIEND",
+      "accept": [
+        "FRIENDLY"
+      ],
+      "explanation": "Przymiotnik: friendly."
+    },
+    {
+      "n": 5,
+      "stem": "CARE",
+      "accept": [
+        "CAREFULLY"
+      ],
+      "explanation": "Przysłówek: carefully."
+    },
+    {
+      "n": 6,
+      "stem": "CONTRIBUTE",
+      "accept": [
+        "CONTRIBUTION"
+      ],
+      "explanation": "Rzeczownik po our: contribution."
+    },
+    {
+      "n": 7,
+      "stem": "CERTIFY",
+      "accept": [
+        "CERTIFICATE"
+      ],
+      "explanation": "Rzeczownik: a small certificate."
+    },
+    {
+      "n": 8,
+      "stem": "HELP",
+      "accept": [
+        "HELPING"
+      ],
+      "explanation": "Rzeczownik odczasownikowy jako podmiot: helping others is important."
+    }
+  ]
+}

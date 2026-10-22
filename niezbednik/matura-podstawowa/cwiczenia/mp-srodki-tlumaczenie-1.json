@@ -1,0 +1,74 @@
+{
+  "version": 1,
+  "id": "mp-srodki-tlumaczenie-1",
+  "topic": null,
+  "level": "B1",
+  "title": "Tłumaczenie fragmentów",
+  "intro": "Dokończ zdanie po angielsku.",
+  "passage": null,
+  "items": [
+    {
+      "type": "short-answer",
+      "context": "Nie mogę przyjść, bo muszę pracować.",
+      "prompt": "I can't come because I ___ work.",
+      "accepted": [
+        "have to",
+        "must"
+      ],
+      "explanation": "have to/must.",
+      "id": "mp-srodki-tlumaczenie-1-01"
+    },
+    {
+      "type": "short-answer",
+      "context": "Kupiłem bilety dwa dni temu.",
+      "prompt": "I bought the tickets two days ___.",
+      "accepted": [
+        "ago"
+      ],
+      "explanation": "ago.",
+      "id": "mp-srodki-tlumaczenie-1-02"
+    },
+    {
+      "type": "short-answer",
+      "context": "Mój brat uczy się angielskiego od pięciu lat.",
+      "prompt": "My brother has been learning English ___ five years.",
+      "accepted": [
+        "for"
+      ],
+      "explanation": "for + okres.",
+      "id": "mp-srodki-tlumaczenie-1-03"
+    },
+    {
+      "type": "short-answer",
+      "context": "Czy mógłbyś mi pomóc?",
+      "prompt": "___ you help me?",
+      "accepted": [
+        "Could",
+        "Can",
+        "Would"
+      ],
+      "explanation": "Uprzejma prośba: Could.",
+      "id": "mp-srodki-tlumaczenie-1-04"
+    },
+    {
+      "type": "short-answer",
+      "context": "Jeśli jutro będzie padać, zostaniemy w domu.",
+      "prompt": "If it ___ tomorrow, we will stay at home.",
+      "accepted": [
+        "rains"
+      ],
+      "explanation": "I okres warunkowy: if + Present Simple.",
+      "id": "mp-srodki-tlumaczenie-1-05"
+    },
+    {
+      "type": "short-answer",
+      "context": "Nie lubię, gdy ktoś się spóźnia.",
+      "prompt": "I don't like it when people are ___.",
+      "accepted": [
+        "late"
+      ],
+      "explanation": "be late.",
+      "id": "mp-srodki-tlumaczenie-1-06"
+    }
+  ]
+}

@@ -1,0 +1,169 @@
+{
+  "id": "trening-pisanie",
+  "timeMinutes": 25,
+  "wordRange": [
+    100,
+    150
+  ],
+  "targetRange": [
+    110,
+    140
+  ],
+  "warnBelow": 80,
+  "rubric": [
+    {
+      "id": "tresc",
+      "label": "Treść",
+      "max": 5
+    },
+    {
+      "id": "spojnosc",
+      "label": "Spójność i logika",
+      "max": 2
+    },
+    {
+      "id": "zakres",
+      "label": "Zakres środków językowych",
+      "max": 3
+    },
+    {
+      "id": "poprawnosc",
+      "label": "Poprawność środków językowych",
+      "max": 2
+    }
+  ],
+  "genericChecklist": [
+    "Czy odniosłem/am się do wszystkich 4 punktów?",
+    "Czy mam 100–150 wyrazów?",
+    "Czy zakończyłem/am tekst pożegnaniem?",
+    "Czy sprawdziłem/am pisownię i czasy?"
+  ],
+  "tasks": [
+    {
+      "id": "email-exchange",
+      "genre": "email",
+      "part": 1,
+      "title": "E-mail do kolegi z zagranicy",
+      "opening": "Hi Ben,",
+      "prompt": "Piszesz e-mail do kolegi z Anglii, który przyjedzie do Ciebie na wymianę szkolną.\n\nW tekście:\n• napisz, jak spędzicie pierwszy dzień\n• poinformuj, jaką pogodę zwykle ma Polska w tym miesiącu\n• zapytaj o jego dietę lub alergie\n• zaproponuj miejsce, które chcesz mu pokazać",
+      "bullets": [
+        "napisz, jak spędzicie pierwszy dzień",
+        "poinformuj, jaką pogodę zwykle ma Polska w tym miesiącu",
+        "zapytaj o jego dietę lub alergie",
+        "zaproponuj miejsce, które chcesz mu pokazać"
+      ],
+      "points": 12,
+      "genreChecklist": [
+        "Czy odniosłem/am się do wszystkich 4 punktów?",
+        "Czy mam 100–150 wyrazów?",
+        "Czy mam wstęp i zakończenie?"
+      ],
+      "model": "Hi Ben,\nThanks for your last message. I'm really happy that you are coming to Poland! On your first day we will have lunch at my house and then I'll show you around our school. You can meet my friends there. In October the weather here is usually cool and sometimes rainy, so please bring a warm jacket and an umbrella.\nCould you tell me if you are on a special diet or if you have any allergies? My mum is planning the menu and she wants to be sure that you can eat everything. I'd also like to take you to the old town on Saturday because it is beautiful and there are many cafés there. I'm sure you will love it.\nWrite back soon,\nXYZ"
+    },
+    {
+      "id": "blog-trip",
+      "genre": "blog",
+      "part": 1,
+      "title": "Wpis na blogu – wycieczka",
+      "opening": "Hello everyone!",
+      "prompt": "Prowadzisz bloga o podróżach. Napisz relację z niedawnej wycieczki.\n\nW tekście:\n• napisz, dokąd pojechałeś/aś i z kim\n• opisz, co najbardziej Ci się podobało\n• wspomnij o problemie, który się pojawił\n• poradź czytelnikom, czy warto tam jechać",
+      "bullets": [
+        "napisz, dokąd pojechałeś/aś i z kim",
+        "opisz, co najbardziej Ci się podobało",
+        "wspomnij o problemie, który się pojawił",
+        "poradź czytelnikom, czy warto tam jechać"
+      ],
+      "points": 12,
+      "genreChecklist": [
+        "Czy odniosłem/am się do wszystkich 4 punktów?",
+        "Czy mam 100–150 wyrazów?",
+        "Czy mam wstęp i zakończenie?"
+      ],
+      "model": "Hello everyone!\nLast weekend I went to Kraków with my class. We travelled by train, and it took about three hours. The best part of the trip was the visit to Wawel Castle, because the view of the river was fantastic and our guide told us many interesting stories.\nUnfortunately, there was a problem on Sunday. Our train was delayed and we waited at the station for an hour, so we were tired when we got home. However, it did not spoil the whole trip.\nI think you should definitely go to Kraków if you have time. Book your tickets early and wear comfortable shoes, because you will walk a lot. See you next time!\nXYZ"
+    },
+    {
+      "id": "forum-sport",
+      "genre": "forum",
+      "part": 1,
+      "title": "Wpis na forum – sport",
+      "opening": "Hi everyone,",
+      "prompt": "Na forum młodzieżowym ktoś pyta o pomysły na sport po szkole. Napisz odpowiedź.\n\nW tekście:\n• napisz, jaki sport uprawiasz i jak często\n• wyjaśnij, dlaczego go lubisz\n• opowiedz o ostatnim meczu lub treningu\n• zaproponuj, czy ta osoba może do Ciebie dołączyć",
+      "bullets": [
+        "napisz, jaki sport uprawiasz i jak często",
+        "wyjaśnij, dlaczego go lubisz",
+        "opowiedz o ostatnim meczu lub treningu",
+        "zaproponuj, czy ta osoba może do Ciebie dołączyć"
+      ],
+      "points": 12,
+      "genreChecklist": [
+        "Czy odniosłem/am się do wszystkich 4 punktów?",
+        "Czy mam 100–150 wyrazów?",
+        "Czy mam wstęp i zakończenie?"
+      ],
+      "model": "Hi everyone,\nI saw your question about sport after school and I'd like to share my experience. I play basketball twice a week with my school team. We train on Tuesdays and Thursdays and we have a match every second Saturday.\nI love this sport because it is fast and I can spend time with my friends. It also helps me forget about homework and stress. Last Saturday we played against another school and we won by four points! I scored six points myself, so I was really proud.\nIf you want to try it, you can join us next Thursday at 5 p.m. in the school gym. We always need new players, and nobody will laugh at you if you make mistakes. Let me know!\nXYZ"
+    },
+    {
+      "id": "email-complaint",
+      "genre": "email",
+      "part": 1,
+      "title": "E-mail – reklamacja",
+      "opening": "Dear Sir or Madam,",
+      "prompt": "Kupiłeś/aś w internetowym sklepie słuchawki, które nie działają. Napisz e-mail do sklepu.\n\nW tekście:\n• napisz, co kupiłeś/aś i kiedy\n• opisz, na czym polega problem\n• zapytaj, czy możesz dostać zwrot pieniędzy lub nowy produkt\n• poproś o szybką odpowiedź",
+      "bullets": [
+        "napisz, co kupiłeś/aś i kiedy",
+        "opisz, na czym polega problem",
+        "zapytaj, czy możesz dostać zwrot pieniędzy lub nowy produkt",
+        "poproś o szybką odpowiedź"
+      ],
+      "points": 12,
+      "genreChecklist": [
+        "Czy odniosłem/am się do wszystkich 4 punktów?",
+        "Czy mam 100–150 wyrazów?",
+        "Czy mam wstęp i zakończenie?"
+      ],
+      "model": "Dear Sir or Madam,\nI'm writing to complain about a product that I bought from your shop. On 3 October I ordered a pair of wireless headphones, and they arrived two days later.\nUnfortunately, the left headphone does not work at all, and the sound in the right one is very quiet. I have charged them several times, but nothing has changed. I have attached a photo of the product and a copy of the receipt.\nCould you tell me whether I can have my money back or get a new pair? I would prefer a new pair, but I will accept a refund, too. I would be grateful if you could answer as soon as possible, because I need the headphones for school.\nYours faithfully,\nXYZ"
+    },
+    {
+      "id": "blog-hobby",
+      "genre": "blog",
+      "part": 1,
+      "title": "Wpis na blogu – hobby",
+      "opening": "Hi, readers!",
+      "prompt": "Prowadzisz bloga o czasie wolnym. Napisz o swoim hobby.\n\nW tekście:\n• napisz, czym się interesujesz\n• wyjaśnij, od kiedy to robisz\n• opowiedz o swoim największym sukcesie\n• poradź, jak zacząć",
+      "bullets": [
+        "napisz, czym się interesujesz",
+        "wyjaśnij, od kiedy to robisz",
+        "opowiedz o swoim największym sukcesie",
+        "poradź, jak zacząć"
+      ],
+      "points": 12,
+      "genreChecklist": [
+        "Czy odniosłem/am się do wszystkich 4 punktów?",
+        "Czy mam 100–150 wyrazów?",
+        "Czy mam wstęp i zakończenie?"
+      ],
+      "model": "Hi, readers!\nToday I want to write about my hobby, which is photography. I take pictures of nature, mostly in the forest near my house. I started three years ago when my dad gave me his old camera.\nMy biggest success was last spring, when my photo of a fox won a school competition. I was very surprised, because I didn't think it was good enough. The prize was a small tripod, which I use every day now.\nIf you would like to start, you don't need an expensive camera. Your phone is enough. Go for a walk, look around and take pictures of things that you like. After some time you will notice small details that you have never seen before. Good luck!\nXYZ"
+    },
+    {
+      "id": "email-invite",
+      "genre": "email",
+      "part": 1,
+      "title": "E-mail – zaproszenie",
+      "opening": "Hi Anna,",
+      "prompt": "Organizujesz wspólne wyjście do kina dla klasy. Napisz e-mail do koleżanki.\n\nW tekście:\n• napisz, na jaki film chcesz iść i kiedy\n• wyjaśnij, dlaczego wybrałeś/aś ten film\n• zapytaj, czy ma jakieś preferencje co do miejsca\n• poproś o odpowiedź do piątku",
+      "bullets": [
+        "napisz, na jaki film chcesz iść i kiedy",
+        "wyjaśnij, dlaczego wybrałeś/aś ten film",
+        "zapytaj, czy ma jakieś preferencje co do miejsca",
+        "poproś o odpowiedź do piątku"
+      ],
+      "points": 12,
+      "genreChecklist": [
+        "Czy odniosłem/am się do wszystkich 4 punktów?",
+        "Czy mam 100–150 wyrazów?",
+        "Czy mam wstęp i zakończenie?"
+      ],
+      "model": "Hi Anna,\nI hope you are well. I'm writing because our class is going to the cinema next Saturday at 6 p.m., and I'd love you to come with us. We want to see the new science fiction film, which has great reviews.\nI chose this film because many people in our class like this genre and the story is supposed to be exciting. I've also heard that the special effects are amazing.\nWould you prefer to sit in the front or at the back? And do you want to meet in front of the cinema or go there together from school? Please let me know by Friday so that I can book the tickets.\nSee you soon,\nXYZ"
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "id": "powiazania-mp",
+  "description": "Ramka „Na maturze podstawowej” na stronach tematów",
+  "links": [
+    {
+      "itemId": "b1-czasy-present-perfect-vs-past-simple",
+      "examParts": [
+        "Środki językowe",
+        "Wypowiedź pisemna"
+      ],
+      "note": "Wybór między Present Perfect a Past Simple wraca w lukach i transformacjach.",
+      "exercises": [
+        "mp-srodki-transformacje-1",
+        "mp-srodki-cloze-1"
+      ]
+    },
+    {
+      "itemId": "b1-gramatyka-strona-bierna",
+      "examParts": [
+        "Środki językowe"
+      ],
+      "note": "Strona bierna to typowa transformacja.",
+      "exercises": [
+        "mp-srodki-transformacje-1"
+      ]
+    },
+    {
+      "itemId": "b1-gramatyka-mowa-zalezna",
+      "examParts": [
+        "Środki językowe"
+      ],
+      "note": "Mowa zależna w transformacjach.",
+      "exercises": [
+        "mp-srodki-transformacje-1"
+      ]
+    },
+    {
+      "itemId": "b1-gramatyka-conditionals-0-1-2",
+      "examParts": [
+        "Środki językowe",
+        "Wypowiedź pisemna"
+      ],
+      "note": "Okresy warunkowe w lukach i rozwinięciu tekstu.",
+      "exercises": [
+        "mp-srodki-tlumaczenie-1"
+      ]
+    },
+    {
+      "itemId": "b1-funkcje-rady",
+      "examParts": [
+        "Środki językowe",
+        "Matura ustna",
+        "Wypowiedź pisemna"
+      ],
+      "note": "Rady wracają w mini-dialogach, odpowiedziach ustnych i ostatnim punkcie tekstu.",
+      "exercises": [
+        "mp-minidialogi-1"
+      ]
+    },
+    {
+      "itemId": "b1-funkcje-skargi",
+      "examParts": [
+        "Wypowiedź pisemna"
+      ],
+      "note": "E-mail reklamacyjny.",
+      "exercises": []
+    },
+    {
+      "itemId": "b1-funkcje-strategie-ratunkowe",
+      "examParts": [
+        "Matura ustna"
+      ],
+      "note": "Gdy brakuje słowa na ustnej.",
+      "exercises": []
+    },
+    {
+      "itemId": "b1-slownictwo",
+      "examParts": [
+        "Czytanie",
+        "Słuchanie",
+        "Wypowiedź pisemna"
+      ],
+      "note": "Słownictwo tematyczne B1.",
+      "exercises": []
+    }
+  ]
+}

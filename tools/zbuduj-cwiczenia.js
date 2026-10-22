@@ -86,7 +86,8 @@ examRegistry.forEach(function (exam) {
         const file = path.join(dir, meta.file);
         if (!fs.existsSync(file)) { warnings.push(exam.id + ": brak pliku zestawu " + meta.file + " (pomijam)"); return; }
         const set = readJson(file);
-        set.items = (set.items || []).map(function (it) {
+        if (!Array.isArray(set.items)) return; // format C1 (cloze, słowotwórstwo…): js/c1-exercises.js, dane w niezbednik/<id>-dane.js
+        set.items = set.items.map(function (it) {
           return Object.assign({ topic: set.topic || null, level: set.level || null, tags: [], setId: meta.id }, it);
         });
         const rel = "niezbednik/" + exam.id + "/" + meta.file.replace(/\.json$/, ".js");

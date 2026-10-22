@@ -19,8 +19,9 @@
  *   genrePage(task)         { href, label } strony o gatunku albo null
  *   timerKey(task)          klucz timera (ELM.c1.timer — wspólny dla trenerów)
  *   timerNote               opcjonalna wskazówka przy timerze
- *   examExtras              true → E8: podany początek, podpunkty do odhaczenia, samoocena
- *                           wg kryteriów (rubric), wzorcowa odpowiedź obok tekstu
+ *   examExtras              true → egzaminy z rejestru: podany początek, podpunkty do odhaczenia,
+ *                           samoocena wg kryteriów (rubric), wzorcowa odpowiedź obok tekstu
+ *   rubricNotes             dodatkowe uwagi pod samooceną (zasady oceny danego egzaminu)
  * Szkic zapisuje się automatycznie; pole tekstowe bez sprawdzania pisowni (jak na egzaminie).
  */
 window.ELM = window.ELM || {};
@@ -223,7 +224,7 @@ window.ELM = window.ELM || {};
       sum();
       const notes = [];
       if (T.warnBelow && n < T.warnBelow) notes.push("Masz mniej niż " + T.warnBelow + " wyrazów – oceniana jest wtedy tylko treść.");
-      notes.push("0 pkt za treść oznacza 0 pkt za całą wypowiedź; 1 pkt za treść – pozostałe kryteria najwyżej po 1 pkt.");
+      (cfg.rubricNotes || []).forEach(function (t) { notes.push(t); }); // zasady oceny potwierdzone dla danego egzaminu
       return el("div", { class: "c1-check-group wt-rubric" }, [
         el("h3", { class: "c1-check-title", text: "Samoocena wg kryteriów" }),
         el("div", { class: "wt-rub-rows" }, rows),

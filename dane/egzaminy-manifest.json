@@ -18,9 +18,12 @@
       "code": "MP",
       "label": "Matura podstawowa",
       "route": "/matura-podstawowa",
-      "status": "soon",
+      "status": "active",
+      "accent": "#2f6b4f",
+      "accent2": "#b4672f",
+      "suggestedDate": "2027-05-06",
       "order": 2,
-      "soonDescription": "Format arkusza, typy zadań i ćwiczenia pod maturę na poziomie podstawowym."
+      "description": "Przygotowanie do matury z angielskiego na poziomie podstawowym (B1): słuchanie, czytanie, środki językowe, pisanie i ustna."
     },
     {
       "id": "matura-rozszerzona",

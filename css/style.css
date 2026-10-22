@@ -352,6 +352,74 @@
   --e8-on-yellow: #10201f;
 }
 
+/* ===================== TOKENY: MATURA PODSTAWOWA (html[data-section="matura-podstawowa"], js/exam-core.js) =====================
+   Spokojny, skupiony, szkolny: głęboka zieleń (forest) na ciepłym papierowym beżu, akcent miedziany (spec 06, sekcja 5).
+   W ciemnym motywie jasna miedź z ciemnym tekstem. Nadpisuje tylko powierzchnie, tekst, linie i akcent. */
+:root:not([data-theme="dark"])[data-section="matura-podstawowa"] {
+  --bg: #f8f5ed;
+  --surface: #fffdf7;
+  --surface-2: #ece6d6;
+  --surface-3: #ddd5c0;
+  --surface-raised: #ffffff;
+  --empty-bg: #f1ece0;
+  --row-hover: #f4efe3;
+  --hover: rgba(31, 72, 52, 0.06);
+  --topbar-bg: rgba(248, 245, 237, 0.88);
+  --sticky-bg: rgba(248, 245, 237, 0.94);
+  --ink: #1b2a22;
+  --ink-muted: #4a584f;
+  --ink-faint: #5b6960;
+  --line: #ddd5c1;
+  --line-strong: #c4b9a0;
+  --line-control: #77735f;
+  --accent: #28603f;
+  --accent-soft: rgba(47, 107, 79, 0.12);
+  --accent-bg: #245a41;
+  --accent-hover: #2f6b4f;
+  --on-accent: #ffffff;
+  --info-bg: #f7e9db;
+  --info-border: #dcb08a;
+  --focus-color: #28603f;
+  --focus-ring: 0 0 0 3px rgba(47, 107, 79, 0.35);
+  --topo-color: #245a41;
+  --exam-mark: #b4672f;
+  --exam-mark-ink: #874819;
+  --exam-mark-bg: #874819;
+  --exam-on-mark: #ffffff;
+}
+:root[data-theme="dark"][data-section="matura-podstawowa"] {
+  --bg: #0d1612;
+  --surface: #101c16;
+  --surface-2: #16261e;
+  --surface-3: #1e3127;
+  --surface-raised: #13211a;
+  --empty-bg: #0f1914;
+  --row-hover: rgba(143, 208, 173, 0.05);
+  --hover: rgba(236, 242, 236, 0.06);
+  --topbar-bg: rgba(13, 22, 18, 0.86);
+  --sticky-bg: rgba(13, 22, 18, 0.94);
+  --ink: #edf2ec;
+  --ink-muted: #aab9ad;
+  --ink-faint: #8fa293;
+  --line: #1f3328;
+  --line-strong: #2d4638;
+  --line-control: #6f8c7a;
+  --accent: #8fd0ad;
+  --accent-soft: rgba(143, 208, 173, 0.14);
+  --accent-bg: #e3a06a;
+  --accent-hover: #eab384;
+  --on-accent: #1b120b;
+  --info-bg: rgba(227, 160, 106, 0.08);
+  --info-border: rgba(227, 160, 106, 0.35);
+  --focus-color: #8fd0ad;
+  --focus-ring: 0 0 0 3px rgba(143, 208, 173, 0.4);
+  --topo-color: #8fd0ad;
+  --exam-mark: #e3a06a;
+  --exam-mark-ink: #e9b182;
+  --exam-mark-bg: #e3a06a;
+  --exam-on-mark: #1b120b;
+}
+
 /* ===================== TOKENY WSPÓLNE: typografia, odstępy, promienie, ruch ===================== */
 :root {
   /* Fonty: display z charakterem atlasu + czytelny tekst; systemowe jako zapas */
@@ -3043,3 +3111,18 @@ a.notes-item-title { color: var(--accent); text-decoration: underline; text-unde
   .soon-art { width: 110px; height: 110px; }
 }
 .notes-btn { min-width: 44px; justify-content: center; }
+
+/* Zadania z fixedOrder (np. True / False / Not given): opcje w podanej kolejności, w jednym rzędzie */
+.ex-options.is-row { flex-direction: row; flex-wrap: wrap; }
+.ex-options.is-row .ex-option { flex: 1 1 96px; min-width: 0; }
+
+/* Klimat matury podstawowej: miedziany akcent (pasek pod tytułem, dolna krawędź znaku MP, plakietki wyników) */
+[data-section="matura-podstawowa"] .exam-view .c1-title::after,
+[data-section="matura-podstawowa"] .exam-page h1::after {
+  content: ""; display: block; width: 64px; height: 6px; margin-top: 10px; border-radius: var(--radius-pill); background: var(--exam-mark);
+}
+[data-section="matura-podstawowa"] .exam-wordmark-badge { box-shadow: inset 0 -4px 0 var(--exam-mark); }
+[data-section="matura-podstawowa"] .ex-set-card { border-top-color: var(--accent); }
+[data-section="matura-podstawowa"] .c1-nav-badge { background: var(--exam-mark-bg); color: var(--exam-on-mark); }
+[data-section="matura-podstawowa"] .c1-ex.card { border-top-color: var(--accent-bg); }
+[data-section="matura-podstawowa"] .c1-ex-instr { border-left-color: var(--exam-mark); }
