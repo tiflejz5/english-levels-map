@@ -143,7 +143,9 @@ if (fs.existsSync(regFile)) readJson(regFile).exams.forEach(function (exam) {
         const file = path.join(dir, meta.file);
         if (!fs.existsSync(file)) return;
         const s = readJson(file);
-        add({ id: "examset:" + meta.id, group: "exercises", title: s.title || meta.label, summary: s.intro || "", text: exam.label + " · " + g.label, level: s.level, category: exam.label, route: "#/cwiczenia/zestaw/" + meta.id });
+        const c1format = !Array.isArray(s.items);
+        add({ id: "examset:" + meta.id, group: "exercises", title: s.title || meta.label, summary: s.intro || s.instructions || "", text: exam.label + " · " + g.label, level: s.level || null, category: exam.label,
+          route: c1format ? "#" + exam.route + "/cwiczenia/" + meta.id : "#/cwiczenia/zestaw/" + meta.id });
       });
     });
     if (sec.trainer) add({ id: exam.id + ":trener", group: "exercises", title: exam.label + ": " + sec.trainer.label, summary: "Trener pisania z licznikiem wyrazów i samooceną.", text: "", category: exam.label, route: "#" + exam.route + "/trening-pisanie" });

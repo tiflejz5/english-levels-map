@@ -58,7 +58,7 @@ window.ELM = window.ELM || {};
       const parts = (m[1] || "").replace(/\/+$/, "").split("/").filter(Boolean);
       if (e.status !== "active") return { examId: e.id, kind: "soon" };
       if (!parts.length) return { examId: e.id, kind: "page", id: "przeglad" };
-      if (parts[0] === "cwiczenia") return { examId: e.id, kind: "exercises" };
+      if (parts[0] === "cwiczenia") return parts[1] ? { examId: e.id, kind: "set", id: parts[1] } : { examId: e.id, kind: "exercises" };
       if (parts[0] === "trening-pisanie") return { examId: e.id, kind: "writing", task: parts[1] || null };
       return { examId: e.id, kind: "page", id: parts[0] };
     }
@@ -88,7 +88,7 @@ window.ELM = window.ELM || {};
   function sectionIdOf(e, route) {
     if (!route) return null;
     if (route.kind === "page") { const f = findPage(e, route.id); return f ? f.section.id : null; }
-    if (route.kind === "exercises") { const s = sections(e).find(function (x) { return x.exerciseGroups; }); return s ? s.id : null; }
+    if (route.kind === "exercises" || route.kind === "set") { const s = sections(e).find(function (x) { return x.exerciseGroups; }); return s ? s.id : null; }
     if (route.kind === "writing") { const s = trainerSection(e); return s ? s.id : null; }
     return null;
   }
@@ -223,16 +223,28 @@ window.ELM = window.ELM || {};
     ]);
   }
 
+  // Linki [[id]] w stronach egzaminu: najpierw dotychczasowe (zestawy C1, tematy), potem strony bieżącego egzaminu
+  let wikiExam = null;
+  const prevResolve = ELM.markdown.resolveWiki;
+  ELM.markdown.resolveWiki = function (id) {
+    const r = prevResolve ? prevResolve(id) : null;
+    if (r || !wikiExam) return r;
+    const f = findPage(wikiExam, id);
+    return f ? { href: hrefPage(wikiExam, id), text: f.page.label, kind: "exam" } : null;
+  };
+
   function renderPage(view, e, id) {
     const found = findPage(e, id);
     const text = found && data(e).pages[id];
     if (!text) { view.appendChild(notFound(e)); return null; }
     const doc = ELM.markdown.parse(text);
+    wikiExam = e;
     view.appendChild(el("div", { class: "c1-page-tools" }, [
       crumb(e, found.section.label),
       ELM.notes ? ELM.notes.button(e.code.toLowerCase() + ":" + id, { title: e.code + " · " + (doc.meta.title || found.page.label), route: location.hash }) : null
     ]));
     const article = el("article", { class: "md c1-page exam-page" }, ELM.markdown.render(doc.blocks, { hiddenSections: HIDDEN_SECTIONS }));
+    wikiExam = null; // kontekst linków [[id]] tylko na czas rysowania strony egzaminu
     if (id === "przeglad") {
       // Nota o aktualności (stan na październik 2026 + link do CKE) — chyba że treść strony już ją ma
       const hasNote = /Stan na październik 2026/i.test(text);
@@ -258,7 +270,12 @@ window.ELM = window.ELM || {};
     ELM.exercises.loadIndex().then(function (index) {
       box.replaceChildren();
       section.exerciseGroups.forEach(function (g) {
-        const cards = g.sets.map(function (s) { return index.sets[s.id]; }).filter(Boolean).map(function (meta) {
+        const cards = g.sets.map(function (s) {
+          // Format C1 (cloze, słowotwórstwo): karta z wynikiem z elm_exercises_v1, zestaw w zakładce egzaminu
+          if (data(e).exercises && data(e).exercises[s.id]) return c1SetCard(e, s, data(e).exercises[s.id]);
+          return index.sets[s.id];
+        }).filter(Boolean).map(function (meta) {
+          if (meta.nodeType) return meta;
           const card = ELM.exercises.setCard(meta);
           if (meta.listening) card.insertBefore(el("p", { class: "exam-tts-note" }, [ELM.icon("volume-2", { size: 14 }), " Głos syntezowany w przeglądarce"]), card.children[1]);
           if (meta.hasPassage) card.insertBefore(el("p", { class: "exam-tts-note" }, [ELM.icon("file-text", { size: 14 }), " Tekst do przeczytania"]), card.children[1]);
@@ -273,9 +290,50 @@ window.ELM = window.ELM || {};
     return section.label;
   }
 
+  /** Karta zestawu w formacie C1 (jak karty silnika zadań). */
+  function c1SetCard(e, s, ex) {
+    const score = pd() ? pd().setScore(s.id) : null;
+    const max = ex.maxScore || s.maxScore;
+    return el("article", { class: "card ex-set-card" }, [
+      el("h3", { class: "ex-set-title", text: ex.title || s.label }),
+      el("p", { class: "ex-set-meta", text: max + " " + plural(max, "luka", "luki", "luk") + " · " + (C1_FORMAT_LABEL[ex.type] || "zadanie z lukami") }),
+      el("p", { class: "ex-set-score" + (score ? "" : " is-empty") }, score
+        ? [el("span", null, ["Najlepszy: ", el("strong", { class: "num", text: score.best.score + "/" + score.best.total })]), el("span", null, ["Ostatni: ", el("span", { class: "num", text: score.last.score + "/" + score.last.total })])]
+        : "Jeszcze nie rozwiązany"),
+      el("a", { class: "btn btn-primary btn-small", href: base(e) + "/cwiczenia/" + s.id, "aria-label": (score ? "Zacznij ponownie: " : "Zacznij: ") + (ex.title || s.label) }, ELM.ui.withIcon("play", score ? "Zacznij ponownie" : "Zacznij"))
+    ]);
+  }
+
+  const C1_FORMAT_LABEL = { "multiple-choice-cloze": "wybór słowa w tekście", "word-formation": "słowotwórstwo", "open-cloze": "luki otwarte", "transformation": "transformacje" };
+
+  /** Zestaw w formacie C1 w zakładce egzaminu: komponent C1, wynik w elm_exercises_v1. */
+  function renderC1Set(view, e, id) {
+    let found = null;
+    sections(e).forEach(function (s) { (s.exerciseGroups || []).forEach(function (g) { g.sets.forEach(function (x) { if (x.id === id) found = { set: x, group: g }; }); }); });
+    const ex = data(e).exercises && data(e).exercises[id];
+    if (!found || !ex) { view.appendChild(notFound(e, "Nie znaleziono takiego zestawu ćwiczeń.")); return null; }
+    return ELM.c1Exercises.renderWith(view, {
+      ex: ex,
+      found: found,
+      crumb: function (label) { return crumb(e, label); },
+      notFound: function (msg) { return notFound(e, msg); },
+      bestScore: function () { const s = pd().setScore(id); return s ? s.best.score : null; },
+      recordScore: function (score, max) { const r = pd().saveSetScore(id, score, max); return !!r && (r.improved || r.best === r.last && r.recent.length === 1); },
+      listHref: base(e) + "/cwiczenia",
+      hrefSet: function (sid) { return base(e) + "/cwiczenia/" + sid; },
+      refPrefix: e.code.toLowerCase() + ":" + id,
+      category: "Gramatyka",
+      afterScore: function () { renderNav(); }
+    });
+  }
+
   // ---------- Trener pisania (wspólny silnik, konfiguracja egzaminu) ----------
 
   const trainers = {};
+  // Egzaminy, dla których zasady liczenia wyrazów są potwierdzone w informatorze (inne: „liczenie orientacyjne”)
+  const COUNTING_CONFIRMED = ["egzamin-osmoklasisty"];
+  // Zasady oceny z informatora (spec 05, 5.1) — tylko tam, gdzie są potwierdzone
+  const RUBRIC_NOTES = { "egzamin-osmoklasisty": ["0 pkt za treść oznacza 0 pkt za całą wypowiedź; 1 pkt za treść – pozostałe kryteria najwyżej po 1 pkt."] };
 
   function writingTrainer(e) {
     if (trainers[e.id]) return trainers[e.id];
@@ -295,7 +353,7 @@ window.ELM = window.ELM || {};
       counter: function (n, T) {
         const z = L.writingZone(n, T);
         const hint = {
-          low: " · Poniżej " + T.warnBelow + " wyrazów ocenia się tylko treść",
+          low: " · Poniżej " + T.warnBelow + " wyrazów oceniana jest tylko treść",
           warn: " · jeszcze trochę – limit to " + T.wordRange[0] + "–" + T.wordRange[1],
           ok: " · w limicie " + T.wordRange[0] + "–" + T.wordRange[1],
           over: " · Przekraczasz limit (" + T.wordRange[1] + ")"
@@ -315,7 +373,9 @@ window.ELM = window.ELM || {};
       genreTitle: function () { return "Forma wypowiedzi"; },
       genrePage: function () { const f = findPage(e, "wypowiedz-pisemna"); return f ? { href: hrefPage(e, "wypowiedz-pisemna"), label: f.page.label } : null; },
       timerKey: function (task) { return e.id + ":writing:" + task.id; },
-      timerNote: "Zostaw 2–3 minuty na sprawdzenie pisowni – edytor jej nie podkreśla, tak jak arkusz.",
+      timerNote: "Zostaw 2–3 minuty na sprawdzenie pisowni – edytor jej nie podkreśla, tak jak arkusz." +
+        (COUNTING_CONFIRMED.indexOf(e.id) === -1 ? " Licznik wyrazów jest orientacyjny (zasady jak na egzaminie ósmoklasisty)." : ""),
+      rubricNotes: RUBRIC_NOTES[e.id] || [],
       examExtras: true
     });
     return trainers[e.id];
@@ -385,6 +445,7 @@ window.ELM = window.ELM || {};
     let title = null;
     if (route.kind === "page") title = renderPage(view, e, route.id);
     else if (route.kind === "exercises") title = renderExercises(view, e);
+    else if (route.kind === "set") title = renderC1Set(view, e, route.id);
     else if (route.kind === "writing") title = writingTrainer(e).render(view, route.task);
     document.title = (title ? title + " · " : "") + e.label + " · English Levels Map";
     if (title && pd()) pd().setLastPage(location.hash, e.label + " · " + title);
@@ -474,14 +535,15 @@ window.ELM = window.ELM || {};
       if (!meta) { console.warn("Ramka " + e.code + ": nieznany zestaw " + id); return null; }
       const score = pd() ? pd().setScore(id) : null;
       return el("li", null, [
-        el("a", { href: "#/cwiczenia/zestaw/" + id }, [meta.group + ": " + meta.label, ELM.icon("chevron-right", { size: 16 })]),
+        el("a", { href: meta.href || "#/cwiczenia/zestaw/" + id }, [meta.group + ": " + meta.label, ELM.icon("chevron-right", { size: 16 })]),
         el("span", { class: "c1-exam-box-best", text: score ? "najlepszy wynik " + score.best.score + "/" + score.best.total : "jeszcze nie rozwiązany" })
       ]);
     }).filter(Boolean);
-    return el("aside", { class: "exam-box callout exam-box-" + e.id, style: e.accent ? "--exam-accent:" + e.accent + ";--exam-accent-2:" + (e.accent2 || e.accent) : null, "aria-label": "Na egzaminie: " + e.label }, [
+    const title = (reg().boxTitles && reg().boxTitles[e.id]) || "Na egzaminie: " + e.label;
+    return el("aside", { class: "exam-box callout exam-box-" + e.id, style: e.accent ? "--exam-accent:" + e.accent + ";--exam-accent-2:" + (e.accent2 || e.accent) : null, "aria-label": title }, [
       el("div", { class: "c1-exam-box-head" }, [
         el("span", { class: "exam-chip-badge", "aria-hidden": "true", text: e.code }),
-        el("a", { class: "c1-exam-box-title exam-box-title", href: base(e) }, "Na egzaminie: " + e.label)
+        el("a", { class: "c1-exam-box-title exam-box-title", href: base(e) }, title)
       ]),
       (link.examParts || []).length ? el("div", { class: "c1-chips" }, link.examParts.map(function (p) { return el("span", { class: "c1-chip", text: p }); })) : null,
       link.note ? el("p", { class: "c1-exam-box-note" }, ELM.markdown.inline(link.note)) : null,
