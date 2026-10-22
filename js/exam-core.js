@@ -330,6 +330,8 @@ window.ELM = window.ELM || {};
   // ---------- Trener pisania (wspólny silnik, konfiguracja egzaminu) ----------
 
   const trainers = {};
+  const NUMBER_WORDS = { 2: "dwa", 3: "trzy", 4: "cztery", 5: "pięć" };
+  const GENRES = { email: "e-mail", blog: "wpis na blogu", forum: "wpis na forum", letter: "list", article: "artykuł", essay: "rozprawka" };
   // Egzaminy, dla których zasady liczenia wyrazów są potwierdzone w informatorze (inne: „liczenie orientacyjne”)
   const COUNTING_CONFIRMED = ["egzamin-osmoklasisty"];
   // Zasady oceny z informatora (spec 05, 5.1) — tylko tam, gdzie są potwierdzone
@@ -362,11 +364,18 @@ window.ELM = window.ELM || {};
       },
       listTitle: "Trener pisania",
       listLead: function (T) {
-        return "E-mail albo wpis na blogu, jak na egzaminie: " + T.wordRange[0] + "–" + T.wordRange[1] + " wyrazów (bez podanego początku), " +
-          T.timeMinutes + " minut, trzy podpunkty do omówienia. Licznik liczy wyrazy według zasad CKE, a szkic zapisuje się sam w Twoim profilu.";
+        // Formy i liczba podpunktów z zadań w pisanie.json (np. E8: 3, matura podstawowa: 4)
+        const genres = [];
+        T.tasks.forEach(function (t) { const g = GENRES[t.genre] || t.genre; if (genres.indexOf(g) === -1) genres.push(g); });
+        const bullets = Math.max.apply(null, T.tasks.map(function (t) { return (t.bullets || []).length; }));
+        const forms = genres.length > 1 ? genres.slice(0, -1).join(", ") + " albo " + genres[genres.length - 1] : genres[0];
+        return forms.charAt(0).toUpperCase() + forms.slice(1) + ", jak na egzaminie: " + T.wordRange[0] + "–" + T.wordRange[1] + " wyrazów (bez podanego początku), " +
+          T.timeMinutes + " minut, " + (NUMBER_WORDS[bullets] || bullets) + " " + plural(bullets, "podpunkt", "podpunkty", "podpunktów") + " do omówienia. " +
+          (COUNTING_CONFIRMED.indexOf(e.id) !== -1 ? "Licznik liczy wyrazy według zasad CKE" : "Licznik liczy wyrazy orientacyjnie") + ", a szkic zapisuje się sam w Twoim profilu.";
       },
       chips: function (task, T, inList) {
-        const out = [task.genre === "blog" ? "Wpis na blogu" : "E-mail", task.points ? task.points + " pkt" : null];
+        const g = GENRES[task.genre] || task.genre;
+        const out = [g.charAt(0).toUpperCase() + g.slice(1), task.points ? task.points + " pkt" : null];
         if (!inList) out.push(T.wordRange[0] + "–" + T.wordRange[1] + " wyrazów");
         return out.filter(Boolean);
       },
