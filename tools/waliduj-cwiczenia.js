@@ -78,7 +78,9 @@ function checkItem(it, where, set) {
 
   if (it.type === "multiple-choice") {
     const o = it.options;
-    if (!Array.isArray(o) || o.length < 2 || o.length > 4 || !o.every(nonEmpty)) err(at + ": options — 2–4 niepuste opcje");
+    // Do ośmiu opcji tylko bez tasowania (fixedOrder, np. B2 Listening Part 3: A–H); tasowane — 2–4
+    const maxOpts = it.fixedOrder ? 8 : 4;
+    if (!Array.isArray(o) || o.length < 2 || o.length > maxOpts || !o.every(nonEmpty)) err(at + ": options — 2–" + maxOpts + " niepuste opcje");
     else if (new Set(o).size !== o.length) err(at + ": powtórzone opcje");
     if (!Number.isInteger(it.correct) || !Array.isArray(o) || it.correct < 0 || it.correct >= o.length) err(at + ": correct poza zakresem");
     if (it.optionNotes != null) {
@@ -88,7 +90,7 @@ function checkItem(it, where, set) {
     if (it.kind != null && KINDS.indexOf(it.kind) === -1) err(at + ": nieznany kind " + it.kind);
     if ((it.kind == null || it.kind === "form") && String(it.prompt || "").indexOf("___") === -1) err(at + ": kind „form” wymaga luki ___ w prompt");
     if (it.kind === "reading" && !nonEmpty(set.passage)) err(at + ": kind „reading” bez passage w zestawie");
-    if (it.kind === "listening" && !nonEmpty(it.script)) err(at + ": kind „listening” bez script");
+    if (it.kind === "listening" && !nonEmpty(it.script) && !nonEmpty(set && set.script)) err(at + ": kind „listening” bez script (w zadaniu ani w zestawie)");
   } else if (it.type === "reorder") {
     const a = it.answers;
     if (!Array.isArray(a) || !a.length || !a.every(nonEmpty)) { err(at + ": brak answers"); return; }
