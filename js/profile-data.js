@@ -24,6 +24,8 @@
  *                    choices: { <grupa wyboru>: <zadanie> } } } } } }  (choices: wybór jednego z dwóch zadań, matura rozszerzona;
  *                    w starszych danych brak pola → {})
  *                    — egzaminy w nowym module (np. Egzamin ósmoklasisty, js/exam-core.js); Certyfikat C1 ma własny klucz elm_c1_v1
+ *   elm_speaking_v1  { version: 1, profiles: { <id>: { sessions: [ { day, exam, part: 1–4, scores: { <kryterium>: 1–5 } } ] } } }
+ *                    — historia sesji trenera Speaking (samoocena, js/speaking-trainer.js; najnowsze na końcu, maks. 500)
  *
  * Wpis dziennika błędów:
  *   { id, createdAt: "RRRR-MM-DD", context, myAnswer, correct, rule, source,
@@ -44,7 +46,7 @@ window.ELM = window.ELM || {};
 
   const KEYS = { journal: "elm_journal_v1", activity: "elm_activity_v1", levelTest: "elm_leveltest_v1", celebrated: "elm_celebrated_v1", exercises: "elm_exercises_v1",
     attempts: "elm_attempts_v1", autojournal: "elm_autojournal_v1", prefs: "elm_learnprefs_v1", notes: "elm_notes_v1",
-    exams: "elm_exams_v1" };
+    exams: "elm_exams_v1", speaking: "elm_speaking_v1" };
   const VERSION = 1;
 
   const CATEGORIES = ["Use of English", "Reading", "Writing", "Listening", "Speaking", "Gramatyka", "Słownictwo", "Inne"];
@@ -108,6 +110,7 @@ window.ELM = window.ELM || {};
     if (kind === "prefs") return { autoJournal: true };
     if (kind === "notes") return { items: {} };
     if (kind === "exams") return { exams: {} };
+    if (kind === "speaking") return { sessions: [] };
     return { last: null };
   }
 
@@ -240,6 +243,9 @@ window.ELM = window.ELM || {};
       return { items: items };
     }
     if (kind === "prefs") return { autoJournal: raw.autoJournal !== false };
+    if (kind === "speaking") {
+      return { sessions: (Array.isArray(raw.sessions) ? raw.sessions : []).slice(-SPEAKING_MAX).map(normalizeSpeakingSession).filter(Boolean) };
+    }
     if (kind === "exams") {
       const exams = {};
       if (U.isPlainObject(raw.exams)) Object.keys(raw.exams).slice(0, 20).forEach(function (id) {
@@ -290,6 +296,20 @@ window.ELM = window.ELM || {};
   }
 
   function optId(v) { return typeof v === "string" && EX_ID.test(v) ? v : null; }
+
+  const SPEAKING_MAX = 500;
+  /** Sesja trenera Speaking: dzień, egzamin, część 1–4, oceny 1–5 (do 8 kryteriów) albo null. */
+  function normalizeSpeakingSession(raw) {
+    if (!U.isPlainObject(raw) || !learn().isDay(raw.day) || !EX_ID.test(raw.exam || "")) return null;
+    if (!Number.isInteger(raw.part) || raw.part < 1 || raw.part > 4) return null;
+    const scores = {};
+    if (U.isPlainObject(raw.scores)) Object.keys(raw.scores).slice(0, 8).forEach(function (k) {
+      const v = raw.scores[k];
+      if (/^[a-z]{1,10}$/.test(k) && Number.isInteger(v) && v >= 1 && v <= 5) scores[k] = v;
+    });
+    if (!Object.keys(scores).length) return null;
+    return { day: raw.day, exam: raw.exam, part: raw.part, scores: scores };
+  }
 
   /** Podejście (dziennik podejść) albo null przy złym formacie. */
   function normalizeAttempt(raw) {
@@ -656,6 +676,29 @@ window.ELM = window.ELM || {};
   function saveExams() { save("exams"); }
 
   // =====================================================================
+  // TRENER SPEAKING (spec 09, sekcja 5) — historia sesji z samooceną
+  // =====================================================================
+
+  /** Sesje aktywnego profilu dla egzaminu (najnowsze na końcu). */
+  function speakingSessions(examId) {
+    if (!activeId()) return [];
+    return record("speaking", activeId()).sessions.filter(function (s) { return s.exam === examId; });
+  }
+
+  /** Zapisuje sesję { exam, part, scores }. Zwraca zapisaną sesję albo null (brak profilu / zły format). */
+  function addSpeakingSession(fields) {
+    if (!activeId()) return null;
+    const s = normalizeSpeakingSession(Object.assign({}, fields, { day: learn().today() }));
+    if (!s) return null;
+    const list = record("speaking", activeId()).sessions;
+    list.push(s);
+    if (list.length > SPEAKING_MAX) list.splice(0, list.length - SPEAKING_MAX);
+    save("speaking");
+    markActivity();
+    return s;
+  }
+
+  // =====================================================================
   // NOTATKI (spec 04, część B)
   // =====================================================================
 
@@ -823,6 +866,8 @@ window.ELM = window.ELM || {};
     NOTE_MAX: NOTE_MAX,
     examData: examData,
     saveExams: saveExams,
+    speakingSessions: speakingSessions,
+    addSpeakingSession: addSpeakingSession,
     getNote: getNote,
     setNote: setNote,
     removeNote: removeNote,
