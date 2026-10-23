@@ -3201,6 +3201,7 @@ a.notes-item-title { color: var(--accent); text-decoration: underline; text-unde
 /* Zadania z fixedOrder (np. True / False / Not given): opcje w podanej kolejności, w jednym rzędzie */
 .ex-options.is-row { flex-direction: row; flex-wrap: wrap; }
 .ex-options.is-row .ex-option { flex: 1 1 96px; min-width: 0; }
+.ex-options.is-letters { display: grid; grid-template-columns: repeat(auto-fit, minmax(64px, 1fr)); }
 
 /* Klimat matury podstawowej: miedziany akcent (pasek pod tytułem, dolna krawędź znaku MP, plakietki wyników) */
 [data-section="matura-podstawowa"] .exam-view .c1-title::after,
