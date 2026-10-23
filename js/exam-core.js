@@ -343,6 +343,19 @@ window.ELM = window.ELM || {};
   // Co się ocenia poniżej warnBelow (spec 06, 4.2): mianownik (samoocena) i biernik (licznik „ocenia się tylko …”)
   const LOW_SCOPE = { "matura-rozszerzona": { nom: "realizacja zadania", acc: "realizację zadania" } };
   const LOW_DEFAULT = { nom: "treść", acc: "treść" };
+  // Egzaminy Cambridge (spec 09, 4): angielskie nazwy form, Part 1 / Part 2, wersje egzaminu przy formach,
+  // strony o formach, komunikaty licznika (bez reguł CKE „poniżej … ocenia się tylko …”)
+  const CAMBRIDGE_WRITING = {
+    "certyfikat-b2": {
+      genres: { essay: "Essay", article: "Article", email: "Email", letter: "Letter", review: "Review", report: "Report", story: "Story" },
+      genresPl: { essay: "esej", article: "artykuł", email: "e-mail", letter: "list", review: "recenzja", report: "raport", story: "opowiadanie" },
+      variants: { report: "B2 First", story: "B2 First for Schools" },
+      pages: { essay: "writing-esej", article: "writing-artykul-email-recenzja", email: "writing-artykul-email-recenzja", letter: "writing-artykul-email-recenzja", review: "writing-artykul-email-recenzja", report: "writing-raport", story: "writing-opowiadanie" },
+      parts: { 1: ["Part 1 – esej", "Obowiązkowy na egzaminie."], 2: ["Part 2 – jedno zadanie do wyboru", "Na egzaminie wybierasz jedno z kilku zadań. Raport jest tylko w B2 First, opowiadanie tylko w B2 First for Schools."] },
+      low: "za krótko, ryzyko niskiej oceny za treść",
+      over: "tekst może być za długi"
+    }
+  };
   // Egzaminy, dla których zasady liczenia wyrazów są potwierdzone w informatorze (inne: „liczenie orientacyjne”)
   const COUNTING_CONFIRMED = ["egzamin-osmoklasisty"];
   // Zasady oceny z informatora (spec 05, 5.1) — tylko tam, gdzie są potwierdzone
@@ -352,8 +365,13 @@ window.ELM = window.ELM || {};
     if (trainers[e.id]) return trainers[e.id];
     const L = ELM.examLogic;
     const href = function (taskId) { return base(e) + "/trening-pisanie" + (taskId ? "/" + taskId : ""); };
-    const wordsLabel = function (n) { return n + " " + plural(n, "wyraz", "wyrazy", "wyrazów"); };
+    const cam = CAMBRIDGE_WRITING[e.id] || null;
+    const wordsLabel = cam
+      ? function (n) { return n + " " + plural(n, "słowo", "słowa", "słów"); }
+      : function (n) { return n + " " + plural(n, "wyraz", "wyrazy", "wyrazów"); };
+    const unit = cam ? "słów" : "wyrazów";
     const low = LOW_SCOPE[e.id] || LOW_DEFAULT;
+    const genreName = function (g) { return cam ? cam.genres[g] || g : GENRES[g] || g; };
     trainers[e.id] = ELM.writingTrainer.create({
       trainer: function () { return data(e) && data(e).trainers["trening-pisanie"]; },
       section: function () { return trainerSection(e); },
@@ -368,15 +386,27 @@ window.ELM = window.ELM || {};
       counter: function (n, T) {
         const z = L.writingZone(n, T);
         const hint = {
-          low: " · Poniżej " + T.warnBelow + " wyrazów ocenia się tylko " + low.acc,
+          low: cam ? " · " + cam.low : " · Poniżej " + T.warnBelow + " wyrazów ocenia się tylko " + low.acc,
           warn: " · jeszcze trochę – limit to " + T.wordRange[0] + "–" + T.wordRange[1],
           ok: " · w limicie " + T.wordRange[0] + "–" + T.wordRange[1],
-          over: " · Przekraczasz limit (" + T.wordRange[1] + ")"
+          over: cam ? " · " + cam.over + " (limit " + T.wordRange[1] + ")" : " · Przekraczasz limit (" + T.wordRange[1] + ")"
         }[z];
         return { cls: { low: "is-low", warn: "is-warn", ok: "is-ok", over: "is-over" }[z], hint: hint };
       },
       listTitle: "Trener pisania",
       listLead: function (T) {
+        if (cam) {
+          // B2: Part 1 esej, Part 2 formy z pliku (z wersją egzaminu przy raporcie i opowiadaniu)
+          const p2 = [];
+          T.tasks.forEach(function (t) {
+            if (t.part !== 2) return;
+            const g = (cam.genresPl[t.genre] || t.genre) + (cam.variants[t.genre] ? " (" + cam.variants[t.genre] + ")" : "");
+            if (p2.indexOf(g) === -1) p2.push(g);
+          });
+          return "Part 1: esej (obowiązkowy). Part 2: jedno zadanie do wyboru – " +
+            (p2.length > 1 ? p2.slice(0, -1).join(", ") + " albo " + p2[p2.length - 1] : p2[0] || "") + ". Każdy tekst " +
+            T.wordRange[0] + "–" + T.wordRange[1] + " słów, ok. " + T.timeMinutes + " minut na zadanie. Licznik liczy słowa orientacyjnie, a szkic zapisuje się sam w Twoim profilu.";
+        }
         // Formy i liczba podpunktów z zadań w pisanie.json (np. E8: 3, matura podstawowa: 4, rozszerzona: elementy w poleceniu)
         const genres = [];
         T.tasks.forEach(function (t) { const g = GENRES[t.genre] || t.genre; if (genres.indexOf(g) === -1) genres.push(g); });
@@ -389,16 +419,29 @@ window.ELM = window.ELM || {};
           (COUNTING_CONFIRMED.indexOf(e.id) !== -1 ? "Licznik liczy wyrazy według zasad CKE" : "Licznik liczy wyrazy orientacyjnie") + ", a szkic zapisuje się sam w Twoim profilu.";
       },
       chips: function (task, T, inList) {
-        const g = GENRES[task.genre] || task.genre;
-        const out = [g.charAt(0).toUpperCase() + g.slice(1), task.points ? task.points + " pkt" : null];
-        if (!inList) out.push(T.wordRange[0] + "–" + T.wordRange[1] + " wyrazów");
+        const g = genreName(task.genre);
+        const out = [cam && task.part ? "Part " + task.part : null, g.charAt(0).toUpperCase() + g.slice(1),
+          cam && cam.variants[task.genre] ? cam.variants[task.genre] : null, task.points ? task.points + " pkt" : null];
+        if (!inList) out.push(T.wordRange[0] + "–" + T.wordRange[1] + " " + unit);
         return out.filter(Boolean);
       },
       genreTitle: function () { return "Forma wypowiedzi"; },
-      genrePage: function () { const f = findPage(e, "wypowiedz-pisemna"); return f ? { href: hrefPage(e, "wypowiedz-pisemna"), label: f.page.label } : null; },
+      genrePage: function (task) {
+        const id = cam ? cam.pages[task.genre] || "writing" : "wypowiedz-pisemna";
+        const f = findPage(e, id);
+        return f ? { href: hrefPage(e, id), label: f.page.label } : null;
+      },
+      partGroups: cam ? function (T, tasks) {
+        return Object.keys(cam.parts).map(function (n) {
+          return { label: cam.parts[n][0], note: cam.parts[n][1], tasks: tasks.filter(function (t) { return String(t.part) === n; }) };
+        });
+      } : null,
+      lowNote: cam ? function (n, T) { return "Masz mniej niż " + T.warnBelow + " słów – " + cam.low + "."; } : null,
       timerKey: function (task) { return e.id + ":writing:" + task.id; },
-      timerNote: "Zostaw 2–3 minuty na sprawdzenie pisowni – edytor jej nie podkreśla, tak jak arkusz." +
-        (COUNTING_CONFIRMED.indexOf(e.id) === -1 ? " Licznik wyrazów jest orientacyjny (zasady jak na egzaminie ósmoklasisty)." : ""),
+      timerNote: cam
+        ? "Zostaw kilka minut na sprawdzenie pisowni – edytor jej nie podkreśla. Licznik słów jest orientacyjny."
+        : "Zostaw 2–3 minuty na sprawdzenie pisowni – edytor jej nie podkreśla, tak jak arkusz." +
+          (COUNTING_CONFIRMED.indexOf(e.id) === -1 ? " Licznik wyrazów jest orientacyjny (zasady jak na egzaminie ósmoklasisty)." : ""),
       rubricNotes: RUBRIC_NOTES[e.id] || [],
       lowScope: low.nom,
       examExtras: true
