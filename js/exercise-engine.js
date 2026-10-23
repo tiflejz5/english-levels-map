@@ -393,7 +393,7 @@ window.ELM = window.ELM || {};
     if (s) s.cancel();
   }
 
-  /** Czyta skrypt: wiersze „A: …” / „B: …” różnymi głosami (gdy są), tempo 0,9, krótkie przerwy.
+  /** Czyta skrypt: wiersze z mówcą („A: …”, „Man: …”, „Speaker 2: …”) dwoma głosami en-GB/en-US (gdy są), tempo 0,9, krótkie przerwy.
    *  owner — zadanie (p) albo cała sesja (run) przy wspólnym nagraniu zestawu. */
   function speakScript(owner, script, onDone) {
     const s = synth();
@@ -403,13 +403,23 @@ window.ELM = window.ELM || {};
     const lines = String(script || "").split("\n").map(function (l) { return l.trim(); }).filter(Boolean);
     const token = { p: owner, cancelled: false };
     speaking = token;
+    // Mówcy: „A:” / „B:” jak dotąd (A — pierwszy głos, B — drugi); inne etykiety („Man:”, „Interviewer:”,
+    // „Speaker 2:”) dostają głosy na przemian w kolejności pojawienia się. Etykiety nie są czytane.
+    const order = [];
+    function voiceIndex(label) {
+      if (!label) return 0;
+      if (label === "A" || label === "B") return label === "B" ? 1 : 0;
+      if (order.indexOf(label) === -1) order.push(label);
+      return order.indexOf(label) % 2;
+    }
     let i = 0;
     function nextLine() {
       if (token.cancelled) return;
       if (i >= lines.length) { speaking = null; onDone(); return; }
-      const m = /^([AB]):\s*(.*)$/.exec(lines[i]);
+      const m = /^([A-Z][A-Za-z]*(?: [A-Z0-9][A-Za-z0-9]*)?):\s*(.*)$/.exec(lines[i]);
       const u = new window.SpeechSynthesisUtterance(m ? m[2] : lines[i]);
-      const voice = voices.length ? voices[m && m[1] === "B" && voices.length > 1 ? 1 : 0] : null;
+      const k = voiceIndex(m && m[1]);
+      const voice = voices.length ? voices[k && voices.length > 1 ? 1 : 0] : null;
       if (voice) u.voice = voice;
       u.lang = voice ? voice.lang : "en-GB";
       u.rate = 0.9;
