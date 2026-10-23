@@ -9,6 +9,7 @@
  *     #/<trasa>/<strona>                 strona z strony/*.md
  *     #/<trasa>/cwiczenia                lista zestawów (silnik zadań, js/exercise-engine.js)
  *     #/<trasa>/trening-pisanie[/<id>]   trener pisania (js/writing-trainer.js)
+ *     #/<trasa>/trening-mowienie         trener Speaking (js/speaking-trainer.js; B2 First)
  *   status „soon”: #/<trasa>             strona „W trakcie pracy”
  *   „existing” (Certyfikat C1): własny, niezmieniony moduł js/c1-*.js
  *
@@ -60,6 +61,7 @@ window.ELM = window.ELM || {};
       if (!parts.length) return { examId: e.id, kind: "page", id: "przeglad" };
       if (parts[0] === "cwiczenia") return parts[1] ? { examId: e.id, kind: "set", id: parts[1] } : { examId: e.id, kind: "exercises" };
       if (parts[0] === "trening-pisanie") return { examId: e.id, kind: "writing", task: parts[1] || null };
+      if (parts[0] === "trening-mowienie") return { examId: e.id, kind: "speaking" };
       return { examId: e.id, kind: "page", id: parts[0] };
     }
     return null;
@@ -84,9 +86,13 @@ window.ELM = window.ELM || {};
   /** Trenery sekcji: „trainer” (E8, matury) albo lista „trainers” (B2: Writing i Speaking). */
   function sectionTrainers(s) { return Array.isArray(s.trainers) ? s.trainers : s.trainer ? [s.trainer] : []; }
   function writingTrainerOf(s) { return sectionTrainers(s).find(function (t) { return t.id === "trening-pisanie"; }) || null; }
+  function speakingTrainerOf(s) { return sectionTrainers(s).find(function (t) { return t.type === "speaking"; }) || null; }
 
   function trainerSection(e) {
     return sections(e).find(function (s) { return !!writingTrainerOf(s); }) || null;
+  }
+  function speakingSection(e) {
+    return sections(e).find(function (s) { return !!speakingTrainerOf(s); }) || null;
   }
 
   function sectionIdOf(e, route) {
@@ -94,6 +100,7 @@ window.ELM = window.ELM || {};
     if (route.kind === "page") { const f = findPage(e, route.id); return f ? f.section.id : null; }
     if (route.kind === "exercises" || route.kind === "set") { const s = sections(e).find(function (x) { return x.exerciseGroups; }); return s ? s.id : null; }
     if (route.kind === "writing") { const s = trainerSection(e); return s ? s.id : null; }
+    if (route.kind === "speaking") { const s = speakingSection(e); return s ? s.id : null; }
     return null;
   }
 
@@ -449,6 +456,25 @@ window.ELM = window.ELM || {};
     return trainers[e.id];
   }
 
+  // ---------- Trener Speaking (B2 First, spec 09 sekcja 5) ----------
+
+  const speakers = {};
+
+  function speakingTrainer(e) {
+    if (speakers[e.id]) return speakers[e.id];
+    speakers[e.id] = ELM.speakingTrainer.create({
+      data: function () {
+        const s = speakingSection(e);
+        return s && data(e) ? data(e).trainers[speakingTrainerOf(s).id] || null : null;
+      },
+      section: function () { return speakingSection(e); },
+      crumb: function (label) { return crumb(e, label); },
+      notFound: function (msg) { return notFound(e, msg); },
+      examId: e.id
+    });
+    return speakers[e.id];
+  }
+
   // =====================================================================
   // STRONA „W TRAKCIE PRACY”
   // =====================================================================
@@ -515,6 +541,7 @@ window.ELM = window.ELM || {};
     else if (route.kind === "exercises") title = renderExercises(view, e);
     else if (route.kind === "set") title = renderC1Set(view, e, route.id);
     else if (route.kind === "writing") title = writingTrainer(e).render(view, route.task);
+    else if (route.kind === "speaking") title = speakingTrainer(e).render(view);
     document.title = (title ? title + " · " : "") + e.label + " · English Levels Map";
     if (title && pd()) pd().setLastPage(location.hash, e.label + " · " + title);
   }
@@ -532,6 +559,7 @@ window.ELM = window.ELM || {};
       href: href, "aria-current": active ? "page" : null
     }, [
       extraClass === "is-trainer" ? ELM.icon("pencil", { size: 16, class: "c1-nav-icon" }) : null,
+      extraClass === "is-trainer is-speaking" ? ELM.icon("mic", { size: 16, class: "c1-nav-icon" }) : null,
       el("span", { class: "c1-nav-label", text: label }),
       badge ? el("span", { class: "c1-nav-badge", text: badge }) : null
     ]));
@@ -576,6 +604,7 @@ window.ELM = window.ELM || {};
           if (s.exerciseGroups) ul.appendChild(navItem(base(e) + "/cwiczenia", "Wszystkie zestawy", route.kind === "exercises"));
           // Trener pisania (trener Speaking B2 dochodzi w kolejnym etapie)
           if (writingTrainerOf(s)) ul.appendChild(navItem(base(e) + "/trening-pisanie", writingTrainerOf(s).label, route.kind === "writing", null, "is-trainer"));
+          if (speakingTrainerOf(s)) ul.appendChild(navItem(base(e) + "/trening-mowienie", speakingTrainerOf(s).label, route.kind === "speaking", null, "is-trainer is-speaking"));
           secs.appendChild(el("div", { class: "c1-sec" + (s.id === current ? " is-current" : "") }, [
             el("button", {
               type: "button", class: "c1-sec-toggle", "aria-expanded": open ? "true" : "false", "aria-controls": listId,

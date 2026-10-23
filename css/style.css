@@ -3226,6 +3226,72 @@ a.notes-item-title { color: var(--accent); text-decoration: underline; text-unde
 .wt-choice-locked { margin: auto 0 0; font-size: var(--fs-xs-plus); color: var(--ink-muted); }
 .wt-choice-badge { background: var(--accent-bg); color: var(--on-accent); border-color: transparent; }
 .wt-choice-note p { margin: 0 0 10px; }
+/* Trener Speaking (B2 First, js/speaking-trainer.js): zakładki części, timer z paskiem, karty, samoocena */
+.sp-privacy { display: flex; align-items: center; gap: 6px; margin: 0 0 16px; }
+.sp-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; border-bottom: 1px solid var(--line); }
+.sp-tab {
+  min-height: 44px; padding: 8px 16px; border: 0; border-bottom: 3px solid transparent; margin-bottom: -1px;
+  background: none; color: var(--ink-muted); font: inherit; font-weight: 600; cursor: pointer; border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+}
+.sp-tab:hover { color: var(--ink); background: var(--hover); }
+.sp-tab[aria-selected="true"] { color: var(--accent); border-bottom-color: var(--accent); }
+.sp-tab:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+.sp-panel { padding: 20px 22px; margin-bottom: 16px; }
+.sp-part-title { margin-top: 0; }
+.sp-intro { margin: 0 0 12px; color: var(--ink-muted); }
+.sp-controls, .sp-actions { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 10px; margin: 12px 0; }
+.sp-field { display: grid; gap: 4px; min-width: 200px; }
+.sp-topic-select { min-height: 44px; }
+.sp-question { margin: 8px 0; padding: 14px 16px; border-radius: var(--radius-sm); background: var(--surface-2); }
+.sp-q-count { margin: 0 0 4px; font-size: var(--fs-xs-plus); color: var(--ink-muted); }
+.sp-q-text { margin: 0; font-size: var(--fs-md); font-weight: 600; line-height: var(--lh-body); }
+.sp-card-question { margin-bottom: 12px; }
+.sp-pictures { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 0 0 12px; }
+.sp-picture { display: flex; gap: 12px; align-items: flex-start; margin: 0; padding: 16px; min-height: 96px; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); background: var(--surface-2); }
+.sp-picture figcaption { font-size: var(--fs-md); }
+.sp-picture-mark { flex: none; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--accent-bg); color: var(--on-accent); font-weight: 700; }
+.sp-reminder { margin: 0 0 12px; }
+.sp-partner, .sp-decision { margin-top: 12px; padding: 14px 16px; border-left: 4px solid var(--accent); border-radius: var(--radius-sm); background: var(--surface-2); }
+.sp-partner:focus-visible, .sp-decision:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+.sp-modes { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin: 0 0 6px; padding: 0; border: 0; }
+.sp-modes legend { float: left; margin-right: 8px; }
+.sp-mode { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; cursor: pointer; }
+.sp-mode input { width: 18px; height: 18px; accent-color: var(--accent); }
+.sp-mode-note { margin: 0 0 12px; }
+.sp-mindmap { display: grid; justify-items: center; gap: 12px; margin: 4px 0 12px; padding: 18px; border: 1px dashed var(--line-strong); border-radius: var(--radius-lg); }
+.sp-central { max-width: 520px; margin: 0; padding: 14px 18px; border-radius: var(--radius-sm); background: var(--surface-2); text-align: center; font-weight: 600; }
+.sp-options { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.sp-option { padding: 8px 14px; border: 1px solid var(--accent); border-radius: var(--radius-pill); color: var(--ink); background: var(--surface); }
+.sp-timer { display: grid; grid-template-columns: auto auto 1fr; align-items: center; gap: 6px 14px; margin: 12px 0; padding: 12px 16px; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); background: var(--surface); }
+.sp-timer-label { font-size: var(--fs-xs-plus); color: var(--ink-muted); }
+.sp-timer-display { font-family: var(--font-display); font-size: 1.75rem; font-weight: 700; min-width: 5ch; }
+.sp-timer-buttons { display: flex; gap: 8px; justify-self: end; }
+.sp-timer-bar { grid-column: 1 / -1; height: 6px; border-radius: var(--radius-pill); background: var(--surface-3); overflow: hidden; }
+.sp-timer-fill { display: block; height: 100%; width: 0; background: var(--accent-bg); transition: width 0.25s linear; }
+.sp-timer.is-danger .sp-timer-display, .sp-timer.is-over .sp-timer-display { color: var(--danger); }
+.sp-timer.is-danger .sp-timer-fill, .sp-timer.is-over .sp-timer-fill { background: var(--danger); }
+@media (prefers-reduced-motion: reduce) { .sp-timer-fill { transition: none; } }
+.sp-self { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); }
+.sp-self-form { display: grid; gap: 12px; }
+.sp-crit { display: grid; gap: 4px; max-width: 560px; }
+.sp-crit-label { font-weight: 600; }
+.sp-crit-row { display: flex; align-items: center; gap: 12px; }
+.sp-crit-row input[type="range"] { flex: 1; min-height: 44px; accent-color: var(--accent); }
+.sp-crit-value { min-width: 2ch; font-size: var(--fs-md); font-weight: 700; }
+.sp-crit .tool-note { margin: 0; }
+.sp-history { padding: 18px 22px; }
+.sp-history .section-title { margin-top: 0; }
+.sp-history-list { display: grid; gap: 8px; margin: 8px 0 0; padding-left: 1.4em; }
+.sp-history-list li { display: grid; gap: 2px; }
+.sp-history-head { font-weight: 600; }
+.sp-history-scores { color: var(--ink-muted); font-size: var(--fs-sm); }
+@media (max-width: 640px) {
+  .sp-pictures { grid-template-columns: 1fr; }
+  .sp-panel, .sp-history { padding: 16px; }
+  .sp-timer { grid-template-columns: auto 1fr; }
+  .sp-timer-buttons { grid-column: 1 / -1; justify-self: start; }
+}
+
 /* Trener pisania B2: zadania w grupach Part 1 / Part 2 */
 .wt-part-title { margin: 22px 0 4px; }
 .wt-part-note { margin: 0 0 12px; }

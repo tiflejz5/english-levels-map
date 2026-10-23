@@ -151,6 +151,8 @@ if (fs.existsSync(regFile)) readJson(regFile).exams.forEach(function (exam) {
     // Trener pisania („trainer” albo pozycja „trainers” o id trening-pisanie)
     const writing = Array.isArray(sec.trainers) ? sec.trainers.find(function (t) { return t.id === "trening-pisanie"; }) : sec.trainer;
     if (writing) add({ id: exam.id + ":trener", group: "exercises", title: exam.label + ": " + writing.label, summary: "Trener pisania z licznikiem wyrazów i samooceną.", text: "", category: exam.label, route: "#" + exam.route + "/trening-pisanie" });
+    const speaking = Array.isArray(sec.trainers) ? sec.trainers.find(function (t) { return t.type === "speaking"; }) : null;
+    if (speaking) add({ id: exam.id + ":mowienie", group: "exercises", title: exam.label + ": " + speaking.label, summary: "Trener Speaking: cztery części, timery, losowane karty i samoocena.", text: "Part 1 Part 2 Part 3 Part 4 speaking mówienie", category: exam.label, route: "#" + exam.route + "/trening-mowienie" });
   });
 });
 
