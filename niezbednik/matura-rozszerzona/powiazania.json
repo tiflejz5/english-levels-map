@@ -1,0 +1,75 @@
+{
+  "id": "powiazania-mr",
+  "description": "Ramka „Na maturze rozszerzonej” na stronach tematów",
+  "links": [
+    {
+      "itemId": "b2-czasy-laczenie-czasow",
+      "examParts": [
+        "Środki językowe",
+        "Wypowiedź pisemna"
+      ],
+      "note": "Łączenie czasów wraca w lukach i w narracji.",
+      "exercises": [
+        "mr-uoe-cloze-1"
+      ]
+    },
+    {
+      "itemId": "b1-gramatyka-strona-bierna",
+      "examParts": [
+        "Środki językowe"
+      ],
+      "note": "Strona bierna z say, believe, think w uzupełnianiu zdań.",
+      "exercises": [
+        "mr-uoe-uzupelnianie-1"
+      ]
+    },
+    {
+      "itemId": "b1-gramatyka-mowa-zalezna",
+      "examParts": [
+        "Środki językowe"
+      ],
+      "note": "Mowa zależna w uzupełnianiu zdań.",
+      "exercises": [
+        "mr-uoe-uzupelnianie-1"
+      ]
+    },
+    {
+      "itemId": "b1-gramatyka-conditionals-0-1-2",
+      "examParts": [
+        "Środki językowe",
+        "Wypowiedź pisemna"
+      ],
+      "note": "Warunki i wish w zdaniach i rozprawkach.",
+      "exercises": [
+        "mr-uoe-uzupelnianie-1"
+      ]
+    },
+    {
+      "itemId": "b1-funkcje-opinia",
+      "examParts": [
+        "Wypowiedź pisemna",
+        "Matura ustna"
+      ],
+      "note": "Wyrażanie opinii w rozprawce i na ustnej.",
+      "exercises": []
+    },
+    {
+      "itemId": "b1-funkcje-skargi",
+      "examParts": [
+        "Wypowiedź pisemna"
+      ],
+      "note": "List formalny ze skargą.",
+      "exercises": []
+    },
+    {
+      "itemId": "b2-slownictwo",
+      "examParts": [
+        "Czytanie",
+        "Środki językowe",
+        "Wypowiedź pisemna"
+      ],
+      "note": "Słownictwo B2 w kolokacjach.",
+      "exercises": []
+    }
+  ]
+}

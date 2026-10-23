@@ -1,0 +1,172 @@
+{
+  "id": "matura-rozszerzona",
+  "label": "Matura rozszerzona",
+  "title": "Matura rozszerzona z angielskiego",
+  "route": "/matura-rozszerzona",
+  "sections": [
+    {
+      "id": "start",
+      "label": "Start",
+      "pages": [
+        {
+          "id": "przeglad",
+          "file": "strony/przeglad.md",
+          "label": "Przegląd egzaminu"
+        },
+        {
+          "id": "plan-powtorki",
+          "file": "strony/plan-powtorki.md",
+          "label": "Plan powtórki"
+        }
+      ]
+    },
+    {
+      "id": "czesci",
+      "label": "Części arkusza",
+      "pages": [
+        {
+          "id": "sluchanie",
+          "file": "strony/sluchanie.md",
+          "label": "Słuchanie"
+        },
+        {
+          "id": "czytanie",
+          "file": "strony/czytanie.md",
+          "label": "Czytanie"
+        },
+        {
+          "id": "use-of-english",
+          "file": "strony/use-of-english.md",
+          "label": "Środki językowe"
+        }
+      ]
+    },
+    {
+      "id": "pisanie",
+      "label": "Pisanie i ustna",
+      "pages": [
+        {
+          "id": "wypowiedz-pisemna",
+          "file": "strony/wypowiedz-pisemna.md",
+          "label": "Wypowiedź pisemna"
+        },
+        {
+          "id": "rozprawka",
+          "file": "strony/rozprawka.md",
+          "label": "Rozprawka"
+        },
+        {
+          "id": "list-formalny",
+          "file": "strony/list-formalny.md",
+          "label": "List formalny"
+        },
+        {
+          "id": "artykul",
+          "file": "strony/artykul.md",
+          "label": "Artykuł"
+        },
+        {
+          "id": "matura-ustna",
+          "file": "strony/matura-ustna.md",
+          "label": "Matura ustna"
+        }
+      ]
+    },
+    {
+      "id": "przygotowanie",
+      "label": "Przygotowanie",
+      "pages": [
+        {
+          "id": "slownictwo-i-kolokacje",
+          "file": "strony/slownictwo-i-kolokacje.md",
+          "label": "Słownictwo i kolokacje"
+        },
+        {
+          "id": "gramatyka-pod-egzamin",
+          "file": "strony/gramatyka-pod-egzamin.md",
+          "label": "Gramatyka pod egzamin"
+        },
+        {
+          "id": "dzien-egzaminu",
+          "file": "strony/dzien-egzaminu.md",
+          "label": "Dzień egzaminu"
+        }
+      ]
+    },
+    {
+      "id": "cwiczenia",
+      "label": "Ćwiczenia",
+      "exerciseGroups": [
+        {
+          "part": "sluchanie",
+          "label": "Słuchanie",
+          "sets": [
+            {
+              "id": "mr-sluchanie-1",
+              "file": "cwiczenia/mr-sluchanie-1.json",
+              "label": "6 wypowiedzi",
+              "maxScore": 6
+            }
+          ]
+        },
+        {
+          "part": "czytanie",
+          "label": "Czytanie",
+          "sets": [
+            {
+              "id": "mr-czytanie-1",
+              "file": "cwiczenia/mr-czytanie-1.json",
+              "label": "Wstawianie zdań",
+              "maxScore": 5
+            },
+            {
+              "id": "mr-czytanie-2",
+              "file": "cwiczenia/mr-czytanie-2.json",
+              "label": "Dwa teksty",
+              "maxScore": 6
+            }
+          ]
+        },
+        {
+          "part": "uoe",
+          "label": "Środki językowe",
+          "sets": [
+            {
+              "id": "mr-uoe-cloze-1",
+              "file": "cwiczenia/mr-uoe-cloze-1.json",
+              "label": "Luki: wybór",
+              "maxScore": 6
+            },
+            {
+              "id": "mr-uoe-slowotworstwo-1",
+              "file": "cwiczenia/mr-uoe-slowotworstwo-1.json",
+              "label": "Słowotwórstwo",
+              "maxScore": 8
+            },
+            {
+              "id": "mr-uoe-uzupelnianie-1",
+              "file": "cwiczenia/mr-uoe-uzupelnianie-1.json",
+              "label": "Uzupełnianie zdań",
+              "maxScore": 6
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "trening",
+      "label": "Trener pisania",
+      "trainer": {
+        "id": "trening-pisanie",
+        "file": "trening/pisanie.json",
+        "label": "Wypowiedź pisemna"
+      }
+    }
+  ],
+  "links": [
+    {
+      "label": "Informator CKE",
+      "url": "https://cke.gov.pl"
+    }
+  ]
+}

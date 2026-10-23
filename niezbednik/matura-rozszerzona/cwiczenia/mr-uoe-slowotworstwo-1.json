@@ -1,0 +1,75 @@
+{
+  "id": "mr-uoe-slowotworstwo-1",
+  "part": 3,
+  "type": "word-formation",
+  "title": "Technology and everyday life",
+  "instructions": "Utwórz od słowa w nawiasie słowo, które pasuje do luki. Uważaj na przedrostki, liczbę mnogą i pisownię. Każda luka to 1 punkt.",
+  "maxScore": 8,
+  "text": "Modern technology has changed our methods of {{1}}. It is hard to imagine our lives without it. Smartphones offer us a great deal of {{2}}, but they can also make us less {{3}} to the world around us. Many people feel that they are {{4}} on their devices. Experts suggest that we should be more {{5}} when we choose how much time to spend online. A lack of {{6}} can lead to health problems, which is why a growing number of schools has introduced screen-free hours. It is {{7}} to say that technology itself is bad. The real question is how {{8}} we use it.",
+  "gaps": [
+    {
+      "n": 1,
+      "stem": "COMMUNICATE",
+      "accept": [
+        "COMMUNICATION"
+      ],
+      "explanation": "Rzeczownik po of: methods of communication."
+    },
+    {
+      "n": 2,
+      "stem": "CONVENIENT",
+      "accept": [
+        "CONVENIENCE"
+      ],
+      "explanation": "Rzeczownik po a great deal of: convenience."
+    },
+    {
+      "n": 3,
+      "stem": "ATTENTION",
+      "accept": [
+        "ATTENTIVE"
+      ],
+      "explanation": "Przymiotnik: less attentive to."
+    },
+    {
+      "n": 4,
+      "stem": "DEPEND",
+      "accept": [
+        "DEPENDENT"
+      ],
+      "explanation": "Przymiotnik: dependent on."
+    },
+    {
+      "n": 5,
+      "stem": "SELECT",
+      "accept": [
+        "SELECTIVE"
+      ],
+      "explanation": "Przymiotnik: selective."
+    },
+    {
+      "n": 6,
+      "stem": "ACTIVE",
+      "accept": [
+        "ACTIVITY"
+      ],
+      "explanation": "Rzeczownik: a lack of activity."
+    },
+    {
+      "n": 7,
+      "stem": "FAIR",
+      "accept": [
+        "UNFAIR"
+      ],
+      "explanation": "Przeczenie: It is unfair to say."
+    },
+    {
+      "n": 8,
+      "stem": "WISE",
+      "accept": [
+        "WISELY"
+      ],
+      "explanation": "Przysłówek: how wisely."
+    }
+  ]
+}

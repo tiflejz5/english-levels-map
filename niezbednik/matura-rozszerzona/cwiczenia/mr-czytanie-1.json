@@ -1,0 +1,86 @@
+{
+  "version": 1,
+  "id": "mr-czytanie-1",
+  "topic": null,
+  "level": "B2",
+  "title": "Czytanie – wstawianie zdań do tekstu",
+  "intro": "Przeczytaj tekst i wybierz zdanie (A–G) pasujące do każdej luki. Dwa zdania są nadmiarowe.",
+  "passage": "**The case for a longer summer holiday**\n\nEvery year, teachers complain that students forget a great deal during the summer. [1] Yet the idea of shortening the holiday keeps coming back. Supporters argue that a shorter break would help children remember more of what they learned.\n\nHowever, many experts disagree. They point out that the summer is the only time when young people can follow their own interests. [2] A teenager who spends July building a robot, for instance, may learn more than in a month of lessons.\n\nAnother argument concerns health. School terms are demanding, and constant pressure can lead to exhaustion. [3] Several studies suggest that students who rest properly return to class with greater concentration.\n\nFinally, families need time together. [4] A long break gives them the chance to travel, visit relatives or simply spend time without a timetable.\n\nIn conclusion, the summer holiday should not be treated as lost time. [5] Perhaps the real challenge is to make school more interesting, not to make the holiday shorter.\n\n**Sentences:**\nA. This is a worry that has existed for decades.\nB. Such experiences develop skills which classrooms rarely teach.\nC. In reality, rest is an important part of learning.\nD. During term time, parents and children often meet only in the evening.\nE. It gives young people room to grow in ways that school cannot provide.\nF. Most schools have changed the length of the holiday several times.\nG. Experts have not yet agreed on the best number of lessons.",
+  "items": [
+    {
+      "type": "multiple-choice",
+      "kind": "reading",
+      "prompt": "Które zdanie pasuje do luki [1]?",
+      "options": [
+        "A",
+        "C",
+        "D",
+        "E"
+      ],
+      "correct": 0,
+      "explanation": "Zdanie A nawiązuje do skargi nauczycieli: a worry that has existed for decades.",
+      "fixedOrder": true,
+      "id": "mr-czytanie-1-01"
+    },
+    {
+      "type": "multiple-choice",
+      "kind": "reading",
+      "prompt": "Które zdanie pasuje do luki [2]?",
+      "options": [
+        "A",
+        "B",
+        "D",
+        "F"
+      ],
+      "correct": 1,
+      "explanation": "Zdanie B rozwija przykład z robotem: Such experiences.",
+      "fixedOrder": true,
+      "id": "mr-czytanie-1-02"
+    },
+    {
+      "type": "multiple-choice",
+      "kind": "reading",
+      "prompt": "Które zdanie pasuje do luki [3]?",
+      "options": [
+        "A",
+        "C",
+        "E",
+        "G"
+      ],
+      "correct": 1,
+      "explanation": "Zdanie C łączy się z tematem zmęczenia i odpoczynku.",
+      "fixedOrder": true,
+      "id": "mr-czytanie-1-03"
+    },
+    {
+      "type": "multiple-choice",
+      "kind": "reading",
+      "prompt": "Które zdanie pasuje do luki [4]?",
+      "options": [
+        "A",
+        "D",
+        "F",
+        "G"
+      ],
+      "correct": 1,
+      "explanation": "Zdanie D wprowadza potrzebę czasu rodzinnego.",
+      "fixedOrder": true,
+      "id": "mr-czytanie-1-04"
+    },
+    {
+      "type": "multiple-choice",
+      "kind": "reading",
+      "prompt": "Które zdanie pasuje do luki [5]?",
+      "options": [
+        "D",
+        "E",
+        "F",
+        "G"
+      ],
+      "correct": 1,
+      "explanation": "Zdanie E podsumowuje wartość wakacji.",
+      "fixedOrder": true,
+      "id": "mr-czytanie-1-05"
+    }
+  ]
+}

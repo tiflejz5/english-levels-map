@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "id": "mr-czytanie-2",
+  "topic": null,
+  "level": "B2",
+  "title": "Czytanie – dwa teksty powiązane tematycznie",
+  "intro": "Przeczytaj oba teksty i odpowiedz na pytania.",
+  "passage": "**Text 1 – Alex**\n\nI've been using an e-reader for five years, and I wouldn't go back. It is light, I can carry hundreds of books on holiday, and I can read in the dark. People say they love the smell of paper, but I'd rather have the convenience. What matters to me is the story, not the object.\n\n**Text 2 – Maya**\n\nI understand why people like e-readers, but I can't give up paper books. When I read on a screen, I get tired and find it hard to concentrate. Paper books also make wonderful gifts, and my shelves tell the story of my life. Besides, nothing is more relaxing than turning a real page.",
+  "items": [
+    {
+      "type": "multiple-choice",
+      "kind": "reading",
+      "prompt": "What does Alex say about his e-reader?",
+      "options": [
+        "It is cheap.",
+        "It lets him read anywhere, even in the dark.",
+        "It smells like a paper book."
+      ],
+      "correct": 1,
+      "explanation": "Alex: light, many books, reading in the dark.",
+      "optionNotes": [
+        "Cena nie jest wspomniana.",
+        null,
+        "Zapach papieru to argument przeciwny."
+      ],
+      "id": "mr-czytanie-2-01"
+    },
+    {
+      "type": "multiple-choice",
+      "kind": "reading",
+      "prompt": "Why does Maya prefer paper books?",
+      "options": [
+        "They are cheaper.",
+        "Screens make her tired.",
+        "She doesn't like gifts."
+      ],
+      "correct": 1,
+      "explanation": "Maya: tired and harder to concentrate on a screen.",
+      "optionNotes": [
+        "Nie.",
+        null,
+        "Przeciwnie, lubi prezenty."
+      ],
+      "id": "mr-czytanie-2-02"
+    },
+    {
+      "type": "multiple-choice",
+      "kind": "reading",
+      "prompt": "What do both writers agree on?",
+      "options": [
+        "Books are important to them.",
+        "E-readers are too expensive.",
+        "Paper smells better."
+      ],
+      "correct": 0,
+      "explanation": "Obydwoje cenią czytanie książek.",
+      "optionNotes": [
+        null,
+        "Nie.",
+        "Nie."
+      ],
+      "id": "mr-czytanie-2-03"
+    },
+    {
+      "type": "multiple-choice",
+      "kind": "reading",
+      "prompt": "What is the main difference between their opinions?",
+      "options": [
+        "Alex values convenience, Maya values the physical experience.",
+        "Alex reads more than Maya.",
+        "Maya cannot afford an e-reader."
+      ],
+      "correct": 0,
+      "explanation": "Wygoda kontra doświadczenie fizyczne.",
+      "optionNotes": [
+        null,
+        "Brak informacji.",
+        "Brak informacji."
+      ],
+      "id": "mr-czytanie-2-04"
+    },
+    {
+      "type": "multiple-choice",
+      "kind": "reading",
+      "prompt": "What does Maya say about her bookshelves?",
+      "options": [
+        "They are too full.",
+        "They represent her life story.",
+        "They are a gift from Alex."
+      ],
+      "correct": 1,
+      "explanation": "My shelves tell the story of my life.",
+      "optionNotes": [
+        "Nie.",
+        null,
+        "Nie."
+      ],
+      "id": "mr-czytanie-2-05"
+    },
+    {
+      "type": "multiple-choice",
+      "kind": "reading",
+      "prompt": "Which statement is true for Alex?",
+      "options": [
+        "He prefers the story to the form of the book.",
+        "He never reads on holiday.",
+        "He misses the smell of paper."
+      ],
+      "correct": 0,
+      "explanation": "What matters is the story, not the object.",
+      "optionNotes": [
+        null,
+        "Przeciwnie.",
+        "Przeciwnie."
+      ],
+      "id": "mr-czytanie-2-06"
+    }
+  ]
+}

@@ -22,6 +22,9 @@
  *   examExtras              true → egzaminy z rejestru: podany początek, podpunkty do odhaczenia,
  *                           samoocena wg kryteriów (rubric), wzorcowa odpowiedź obok tekstu
  *   rubricNotes             dodatkowe uwagi pod samooceną (zasady oceny danego egzaminu)
+ *   lowScope                co się ocenia poniżej warnBelow (mianownik), np. „treść”, „realizacja zadania”
+ *   choices()               opcjonalnie: obiekt { grupa: idZadania } — wybór jednego z dwóch zadań
+ *                           (zadania z choiceGroup, opis grupy w T.choiceGroups; spec 06, 4.1)
  * Szkic zapisuje się automatycznie; pole tekstowe bez sprawdzania pisowni (jak na egzaminie).
  */
 window.ELM = window.ELM || {};
@@ -64,12 +67,74 @@ window.ELM = window.ELM || {};
 
   function create(cfg) {
 
+    // ---------- Grupy wyboru (jedno z dwóch zadań) ----------
+
+    function groupOf(T, task) { return cfg.choices && T.choiceGroups && task.choiceGroup && T.choiceGroups[task.choiceGroup] ? task.choiceGroup : null; }
+    function groupTasks(T, g) { return T.tasks.filter(function (t) { return t.choiceGroup === g; }); }
+    /** Wybrane zadanie grupy (tylko istniejące) albo null. */
+    function chosenIn(T, g) {
+      const id = cfg.choices()[g];
+      return groupTasks(T, g).find(function (t) { return t.id === id; }) || null;
+    }
+    /** Wybór można zmienić, gdy szkic wybranego zadania jest pusty. */
+    function canChange(T, g) {
+      const cur = chosenIn(T, g);
+      return !cur || !cfg.countWords(cfg.drafts()[cur.id], cur);
+    }
+    function choose(g, taskId) { cfg.choices()[g] = taskId; cfg.save(); }
+
+    /** Opis grupy bez powtórzonego nagłówka („Wybierz jedno z dwóch zadań: rozprawka lub list” → „Rozprawka lub list”). */
+    function groupDesc(text) {
+      const t = String(text || "").replace(/^\s*Wybierz jedno z dwóch zadań\s*[:–-]?\s*/i, "");
+      return t ? t.charAt(0).toUpperCase() + t.slice(1) : "";
+    }
+
+    function groupCard(T, g) {
+      const drafts = cfg.drafts();
+      const cur = chosenIn(T, g);
+      const change = canChange(T, g);
+      const titleId = "wt-choice-" + g;
+      return el("section", { class: "card wt-choice", "aria-labelledby": titleId }, [
+        el("h2", { class: "wt-choice-title", id: titleId, text: "Wybierz jedno z dwóch zadań" }),
+        groupDesc(T.choiceGroups[g]) ? el("p", { class: "wt-choice-desc", text: groupDesc(T.choiceGroups[g]) }) : null,
+        el("div", { class: "wt-choice-options" }, groupTasks(T, g).map(function (task) {
+          const words = cfg.countWords(drafts[task.id], task);
+          const isCur = cur && cur.id === task.id;
+          let action;
+          if (isCur) {
+            action = el("a", { class: "btn btn-primary", href: cfg.href(task.id) }, [words ? "Pisz dalej" : "Zacznij pisać", ELM.icon("chevron-right", { size: 18 })]);
+          } else if (change) {
+            action = el("button", {
+              type: "button", class: "btn btn-secondary",
+              onclick: function () { choose(g, task.id); location.hash = cfg.href(task.id); }
+            }, cur ? "Zmień na to zadanie" : "Wybieram to zadanie");
+          } else {
+            action = el("p", { class: "wt-choice-locked", text: "Żeby zmienić wybór, wyczyść szkic wybranego zadania." });
+          }
+          return el("article", { class: "wt-choice-option" + (isCur ? " is-chosen" : cur ? " is-other" : "") }, [
+            el("span", { class: "c1-chips" }, cfg.chips(task, T, true).map(function (c) { return el("span", { class: "c1-chip", text: c }); })
+              .concat(isCur ? [el("span", { class: "c1-chip wt-choice-badge", text: "Twój wybór" })] : [])),
+            el("h3", { class: "wt-choice-task", text: task.title }),
+            el("p", { class: "wt-choice-prompt", text: task.prompt }),
+            el("p", { class: "c1-set-card-best" + (words ? " has-score" : ""), text: words ? "Szkic: " + cfg.wordsLabel(words) : "Nowe zadanie" }),
+            action
+          ]);
+        }))
+      ]);
+    }
+
     function renderList(view, T, sectionLabel) {
       const drafts = cfg.drafts();
       view.appendChild(cfg.crumb(sectionLabel));
       view.appendChild(el("h1", { class: "c1-title", text: cfg.listTitle }));
       view.appendChild(el("p", { class: "c1-lead", text: cfg.listLead(T) }));
-      view.appendChild(el("div", { class: "c1-set-grid" }, T.tasks.map(function (task) {
+      // Grupy wyboru w kolejności pierwszego zadania; pozostałe zadania jak dotąd (siatka kart)
+      const groups = [];
+      T.tasks.forEach(function (t) { const g = groupOf(T, t); if (g && groups.indexOf(g) === -1) groups.push(g); });
+      groups.forEach(function (g) { view.appendChild(groupCard(T, g)); });
+      const rest = T.tasks.filter(function (t) { return !groupOf(T, t); });
+      if (!rest.length) return;
+      view.appendChild(el("div", { class: "c1-set-grid" }, rest.map(function (task) {
         const words = cfg.countWords(drafts[task.id], task);
         return el("a", { class: "card c1-set-card", href: cfg.href(task.id) }, [
           el("span", { class: "c1-chips" }, cfg.chips(task, T, true).map(function (c) { return el("span", { class: "c1-chip", text: c }); })),
@@ -77,6 +142,22 @@ window.ELM = window.ELM || {};
           el("span", { class: "c1-set-card-best" + (words ? " has-score" : ""), text: words ? "Szkic: " + cfg.wordsLabel(words) : "Nowe zadanie" })
         ]);
       })));
+    }
+
+    /** Zadanie z grupy, w której wybrano inne zadanie: zamiast edytora — informacja i ewentualna zmiana wyboru. */
+    function renderOtherChoice(view, T, task, g, cur) {
+      const change = canChange(T, g);
+      view.appendChild(el("section", { class: "card wt-choice wt-choice-note", "aria-label": "Wybór zadania" }, [
+        el("p", null, ["W tej grupie wybrano już zadanie ", el("a", { href: cfg.href(cur.id) }, cur.title), ". Na egzaminie piszesz tylko jedno z dwóch."]),
+        change
+          ? el("button", { type: "button", class: "btn btn-primary", onclick: function () {
+              choose(g, task.id);
+              view.replaceChildren();
+              renderTask(view, T, task, cfg.section().label);
+              const h = view.querySelector("h1"); if (h) { h.tabIndex = -1; h.focus(); }
+            } }, "Zmień wybór na to zadanie")
+          : el("p", { class: "wt-choice-locked", text: "Żeby zmienić wybór, wyczyść szkic wybranego zadania." })
+      ]));
     }
 
     function renderTask(view, T, task, sectionLabel) {
@@ -90,6 +171,16 @@ window.ELM = window.ELM || {};
 
       // Polecenie — akapity zachowane (white-space: pre-wrap)
       view.appendChild(el("section", { class: "card c1-prompt", "aria-label": "Polecenie" }, el("p", { class: "c1-prompt-text", text: task.prompt })));
+
+      // Grupa wyboru: inne zadanie wybrane → bez edytora; brak wyboru → wybór przy pierwszym zapisanym tekście
+      const group = groupOf(T, task);
+      if (group) {
+        const cur = chosenIn(T, group);
+        if (cur && cur.id !== task.id) { renderOtherChoice(view, T, task, group, cur); return; }
+        view.appendChild(el("p", { class: "tool-note wt-note" }, [ELM.icon("info", { size: 16 }),
+          cur ? " To Twój wybór w tej grupie. Zmienisz go na liście zadań, gdy szkic będzie pusty."
+              : " Na egzaminie wybierasz jedno z dwóch zadań. Zaczęcie pisania wybiera to zadanie."]));
+      }
 
       // E8: podpunkty do odhaczenia już w trakcie pisania
       if (cfg.examExtras && task.bullets && task.bullets.length) {
@@ -124,6 +215,7 @@ window.ELM = window.ELM || {};
           clearTimeout(saveTimer);
           saveTimer = setTimeout(function () {
             drafts[task.id] = area.value;
+            if (group && !chosenIn(T, group) && area.value.trim()) cfg.choices()[group] = task.id;
             cfg.save();
             saved.textContent = "Szkic zapisany";
           }, 400);
@@ -152,6 +244,7 @@ window.ELM = window.ELM || {};
           class: "btn btn-primary",
           onclick: function () {
             drafts[task.id] = area.value;
+            if (group && !chosenIn(T, group) && area.value.trim()) cfg.choices()[group] = task.id;
             cfg.save();
             if (ELM.markActivity) ELM.markActivity(); // ukończona sesja trenera = dzień nauki
             fillChecklist();
@@ -223,7 +316,7 @@ window.ELM = window.ELM || {};
       });
       sum();
       const notes = [];
-      if (T.warnBelow && n < T.warnBelow) notes.push("Masz mniej niż " + T.warnBelow + " wyrazów – oceniana jest wtedy tylko treść.");
+      if (T.warnBelow && n < T.warnBelow) notes.push("Masz mniej niż " + T.warnBelow + " wyrazów – oceniana jest wtedy tylko " + (cfg.lowScope || "treść") + ".");
       (cfg.rubricNotes || []).forEach(function (t) { notes.push(t); }); // zasady oceny potwierdzone dla danego egzaminu
       return el("div", { class: "c1-check-group wt-rubric" }, [
         el("h3", { class: "c1-check-title", text: "Samoocena wg kryteriów" }),
@@ -241,7 +334,7 @@ window.ELM = window.ELM || {};
           el("figure", { class: "wt-col" }, [el("figcaption", { text: "Twój tekst" }), el("p", { class: "wt-text", lang: "en", text: (task.opening ? task.opening + "\n" : "") + (text || "(pusty)") })]),
           el("figure", { class: "wt-col is-model" }, [el("figcaption", { text: "Przykładowa odpowiedź (" + cfg.wordsLabel(cfg.countWords(task.model, task)) + ")" }), el("p", { class: "wt-text", lang: "en", text: task.model })])
         ]),
-        el("p", { class: "tool-note", text: "Wzór to jedna z możliwych odpowiedzi. Sprawdź, czy Twój tekst odnosi się do wszystkich podpunktów i ma podobną długość." })
+        el("p", { class: "tool-note", text: "Wzór to jedna z możliwych odpowiedzi. Sprawdź, czy Twój tekst odnosi się do wszystkich " + (task.bullets && task.bullets.length ? "podpunktów" : "elementów polecenia") + " i ma podobną długość." })
       ]);
     }
 
