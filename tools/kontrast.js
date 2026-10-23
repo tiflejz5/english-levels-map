@@ -34,6 +34,8 @@ const mpLight = Object.assign({}, light, block(":root:not([data-theme=\"dark\"])
 const mpDark = Object.assign({}, dark, block(":root[data-theme=\"dark\"][data-section=\"matura-podstawowa\"]"));
 const mrLight = Object.assign({}, light, block(":root:not([data-theme=\"dark\"])[data-section=\"matura-rozszerzona\"]"));
 const mrDark = Object.assign({}, dark, block(":root[data-theme=\"dark\"][data-section=\"matura-rozszerzona\"]"));
+const b2Light = Object.assign({}, light, block(":root:not([data-theme=\"dark\"])[data-section=\"certyfikat-b2\"]"));
+const b2Dark = Object.assign({}, dark, block(":root[data-theme=\"dark\"][data-section=\"certyfikat-b2\"]"));
 
 function parse(c) {
   c = c.trim();
@@ -134,7 +136,7 @@ pairs.push(
 
 let fails = 0;
 let checked = 0;
-[["JASNY", light], ["CIEMNY", dark], ["C1 JASNY", c1Light], ["C1 CIEMNY", c1Dark], ["E8 JASNY", e8Light], ["E8 CIEMNY", e8Dark], ["MP JASNY", mpLight], ["MP CIEMNY", mpDark], ["MR JASNY", mrLight], ["MR CIEMNY", mrDark]].forEach(function (theme) {
+[["JASNY", light], ["CIEMNY", dark], ["C1 JASNY", c1Light], ["C1 CIEMNY", c1Dark], ["E8 JASNY", e8Light], ["E8 CIEMNY", e8Dark], ["MP JASNY", mpLight], ["MP CIEMNY", mpDark], ["MR JASNY", mrLight], ["MR CIEMNY", mrDark], ["B2 JASNY", b2Light], ["B2 CIEMNY", b2Dark]].forEach(function (theme) {
   const t = theme[1];
   const bad = [];
   pairs.concat(t["exam-mark-bg"] ? [["exam-on-mark", "exam-mark-bg", null, 4.5, "plakietka wyniku egzaminu / tło"], ["exam-mark-ink", "bg", null, 4.5, "tekst w kolorze akcentu egzaminu / tło"]] : []).forEach(function (p) {

@@ -489,6 +489,75 @@
   --exam-on-mark: #1b120b;
 }
 
+/* ===================== TOKENY: CERTYFIKAT B2 (html[data-section="certyfikat-b2"], js/exam-core.js) =====================
+   Chłodny turkus/morski na jasnej, lekko morskiej kartce, ciepły bursztynowy akcent (spec 09, sekcja 6).
+   Inaczej niż C1 (granat + złoto na kości słoniowej) i MR (indygo + miedź): przyciski zawsze turkusowe,
+   bursztyn tylko jako znak egzaminu (podkreślenie tytułu, plakietki wyników). */
+:root:not([data-theme="dark"])[data-section="certyfikat-b2"] {
+  --bg: #f3f7f8;
+  --surface: #ffffff;
+  --surface-2: #e5eef1;
+  --surface-3: #d4e3e8;
+  --surface-raised: #ffffff;
+  --empty-bg: #ecf3f5;
+  --row-hover: #edf4f6;
+  --hover: rgba(31, 111, 139, 0.06);
+  --topbar-bg: rgba(243, 247, 248, 0.88);
+  --sticky-bg: rgba(243, 247, 248, 0.94);
+  --ink: #12252c;
+  --ink-muted: #435a62;
+  --ink-faint: #526a72;
+  --line: #d3e1e6;
+  --line-strong: #b1c7cf;
+  --line-control: #66808a;
+  --accent: #1a6380;
+  --accent-soft: rgba(31, 111, 139, 0.1);
+  --accent-bg: #1f6f8b;
+  --accent-hover: #1a6380;
+  --on-accent: #ffffff;
+  --info-bg: #fbf1d8;
+  --info-border: #e6c56c;
+  --focus-color: #1a6380;
+  --focus-ring: 0 0 0 3px rgba(31, 111, 139, 0.35);
+  --topo-color: #1f6f8b;
+  --exam-mark: #d9a21b;
+  --exam-mark-ink: #7f5a00;
+  --exam-mark-bg: #d9a21b;
+  --exam-on-mark: #1d1405;
+}
+:root[data-theme="dark"][data-section="certyfikat-b2"] {
+  --bg: #0a1518;
+  --surface: #0f1e22;
+  --surface-2: #15282d;
+  --surface-3: #1d3339;
+  --surface-raised: #122428;
+  --empty-bg: #0d1a1e;
+  --row-hover: rgba(127, 208, 230, 0.05);
+  --hover: rgba(232, 243, 246, 0.06);
+  --topbar-bg: rgba(10, 21, 24, 0.86);
+  --sticky-bg: rgba(10, 21, 24, 0.94);
+  --ink: #e8f2f4;
+  --ink-muted: #a7bcc2;
+  --ink-faint: #8ca3aa;
+  --line: #1f343a;
+  --line-strong: #2e4a51;
+  --line-control: #6d8f98;
+  --accent: #7fd0e6;
+  --accent-soft: rgba(127, 208, 230, 0.14);
+  --accent-bg: #7fd0e6;
+  --accent-hover: #9adcee;
+  --on-accent: #06222b;
+  --info-bg: rgba(227, 178, 60, 0.08);
+  --info-border: rgba(227, 178, 60, 0.35);
+  --focus-color: #7fd0e6;
+  --focus-ring: 0 0 0 3px rgba(127, 208, 230, 0.4);
+  --topo-color: #7fd0e6;
+  --exam-mark: #e3b23c;
+  --exam-mark-ink: #ecc566;
+  --exam-mark-bg: #e3b23c;
+  --exam-on-mark: #1d1405;
+}
+
 /* ===================== TOKENY WSPÓLNE: typografia, odstępy, promienie, ruch ===================== */
 :root {
   /* Fonty: display z charakterem atlasu + czytelny tekst; systemowe jako zapas */
@@ -3227,3 +3296,15 @@ a.notes-item-title { color: var(--accent); text-decoration: underline; text-unde
 [data-section="matura-rozszerzona"] .c1-ex.card { border-top-color: var(--accent-bg); }
 [data-section="matura-rozszerzona"] .c1-ex-instr { border-left-color: var(--exam-mark); }
 [data-section="matura-rozszerzona"] .wt-choice { border-top: 3px solid var(--accent-bg); }
+
+/* Klimat Certyfikatu B2: bursztynowe podkreślenie tytułu (jak zakreślacz), bursztynowa krawędź znaku B2,
+   karty z turkusem u góry */
+[data-section="certyfikat-b2"] .exam-view .c1-title,
+[data-section="certyfikat-b2"] .exam-page h1 {
+  text-decoration: underline; text-decoration-color: var(--exam-mark); text-decoration-thickness: 4px; text-underline-offset: 10px; text-decoration-skip-ink: none;
+}
+[data-section="certyfikat-b2"] .exam-wordmark-badge { box-shadow: inset 0 -4px 0 var(--exam-mark); }
+[data-section="certyfikat-b2"] .ex-set-card { border-top-color: var(--accent); }
+[data-section="certyfikat-b2"] .c1-nav-badge { background: var(--exam-mark-bg); color: var(--exam-on-mark); }
+[data-section="certyfikat-b2"] .c1-ex.card { border-top-color: var(--accent-bg); }
+[data-section="certyfikat-b2"] .c1-ex-instr { border-left-color: var(--exam-mark); }
