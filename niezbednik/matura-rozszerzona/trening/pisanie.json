@@ -1,0 +1,107 @@
+{
+  "id": "trening-pisanie",
+  "timeMinutes": 40,
+  "wordRange": [
+    200,
+    250
+  ],
+  "targetRange": [
+    210,
+    240
+  ],
+  "warnBelow": 160,
+  "choiceGroups": {
+    "A": "Wybierz jedno z dwóch zadań: rozprawka lub list formalny",
+    "B": "Wybierz jedno z dwóch zadań: artykuł lub rozprawka"
+  },
+  "rubric": [
+    {
+      "id": "realizacja",
+      "label": "Realizacja zadania",
+      "max": 5
+    },
+    {
+      "id": "spojnosc",
+      "label": "Spójność i logika",
+      "max": 2
+    },
+    {
+      "id": "zakres",
+      "label": "Zakres środków językowych",
+      "max": 3
+    },
+    {
+      "id": "poprawnosc",
+      "label": "Poprawność środków językowych",
+      "max": 3
+    }
+  ],
+  "genericChecklist": [
+    "Czy odniosłem/am się do wszystkich elementów polecenia?",
+    "Czy mam 200–250 wyrazów?",
+    "Czy tekst ma akapity i łączniki?",
+    "Czy sprawdziłem/am pisownię i interpunkcję?"
+  ],
+  "tasks": [
+    {
+      "id": "essay-phones",
+      "genre": "essay",
+      "choiceGroup": "A",
+      "part": 1,
+      "title": "Rozprawka – telefony w szkole",
+      "prompt": "Napisz rozprawkę na temat: „Czy należy zakazać używania telefonów komórkowych w szkołach?”. W rozprawce: 1) omów możliwe korzyści zakazu, 2) omów jego możliwe wady, 3) wyraź własne stanowisko.",
+      "points": 13,
+      "genreChecklist": [
+        "Czy mam wstęp, dwa elementy i zakończenie?",
+        "Czy użyłem/am formalnych łączników?",
+        "Czy mam 200–250 wyrazów?"
+      ],
+      "model": "Nowadays, almost every teenager owns a smartphone, and the question of whether schools should ban them causes heated debate. In my opinion, a complete ban is not the best solution, although there are good reasons to limit phone use.\n\nOn the one hand, a ban would help students to concentrate. When phones stay in lockers, pupils are less likely to check messages during a lesson, and they talk to each other during breaks instead of looking at screens. Furthermore, a ban reduces the risk of cyberbullying at school, as it is harder to film or photograph classmates.\n\nOn the other hand, phones are useful tools. Students can use them to look up information, translate a word or take a photo of the board. A total ban would also make it difficult for parents to contact their children in an emergency. For instance, in case of a sudden change of timetable, a short message can save a lot of worry.\n\nAll things considered, I believe that schools should introduce clear rules rather than an absolute ban. Phones could be switched off during lessons and used only when the teacher allows it. In this way, students would learn to use technology responsibly, which is a skill they will need for the rest of their lives."
+    },
+    {
+      "id": "letter-cycle",
+      "genre": "letter",
+      "choiceGroup": "A",
+      "part": 1,
+      "title": "List formalny – ścieżki rowerowe",
+      "prompt": "Napisz list formalny do urzędu miasta w sprawie braku ścieżek rowerowych. W liście: 1) opisz problem, 2) wyjaśnij, dlaczego jest ważny, 3) zaproponuj rozwiązanie.",
+      "points": 13,
+      "genreChecklist": [
+        "Czy zacząłem/am od Dear Sir or Madam i skończyłem/am Yours faithfully?",
+        "Czy ton jest formalny?",
+        "Czy mam 200–250 wyrazów?"
+      ],
+      "model": "Dear Sir or Madam,\n\nI am writing to express my concern about the lack of safe cycle paths in our town. I have been cycling to school for three years, and I have noticed that the situation is getting worse every year.\n\nAt the moment, cyclists have to ride on busy roads, because the nearest cycle path ends two kilometres before the town centre. Last month a classmate was nearly hit by a lorry when she was cycling along Mickiewicza Street. Unfortunately, this is not an isolated incident, as many people in my neighbourhood have had similar experiences.\n\nThis problem is important for several reasons. First of all, safe paths would encourage more residents to leave their cars at home, which would reduce traffic and pollution. In addition, they would make our town more attractive for tourists, who often travel by bike.\n\nI would therefore like to suggest that the council builds a continuous path along the main road, from the housing estate to the town centre. Even a simple path separated from the road by a painted line would be a great improvement for everyone who cycles every day.\n\nI would be grateful if you could consider my proposal. I look forward to hearing from you.\n\nYours faithfully,\nXYZ"
+    },
+    {
+      "id": "article-volunteering",
+      "genre": "article",
+      "choiceGroup": "B",
+      "part": 1,
+      "title": "Artykuł – wolontariat",
+      "prompt": "Napisz artykuł do szkolnej gazetki na temat: „Czy wolontariat to dobry sposób na spędzanie wolnego czasu przez młodzież?”. W artykule: 1) omów korzyści dla wolontariuszy, 2) omów trudności, 3) wyraź opinię.",
+      "points": 13,
+      "genreChecklist": [
+        "Czy mam tytuł i ciekawy początek?",
+        "Czy ton jest półformalny i zaangażowany?",
+        "Czy mam 200–250 wyrazów?"
+      ],
+      "model": "Is volunteering worth your time?\n\nImagine spending your Saturday morning helping at an animal shelter or teaching children to read. Many young people choose this kind of activity, and I think they are right.\n\nFirst of all, volunteering brings real benefits. It gives you the chance to learn useful skills such as teamwork, communication and organisation. What is more, it can make a big difference on your CV, because employers value people who take responsibility. Above all, helping others makes you feel needed, which improves your mood and confidence.\n\nNevertheless, there are some difficulties. Teenagers have a lot of homework, and finding time every week is not always easy. Some volunteers also say that they feel tired or sad after working with people in difficult situations. For this reason, it is important to choose an activity which you really care about and to talk to someone when the job becomes stressful.\n\nIf you ask me, the advantages are much greater than the problems. Start small, for example with two hours a month, and see how it feels. You may be surprised to discover how much you gain by giving a little of your time, and how many people will be grateful for your help."
+    },
+    {
+      "id": "essay-social-media",
+      "genre": "essay",
+      "choiceGroup": "B",
+      "part": 1,
+      "title": "Rozprawka – media społecznościowe",
+      "prompt": "Napisz rozprawkę na temat: „Czy media społecznościowe sprawiają, że ludzie są bliżej siebie?”. W rozprawce: 1) omów argumenty za, 2) omów argumenty przeciw, 3) wyraź własne zdanie.",
+      "points": 13,
+      "genreChecklist": [
+        "Czy mam wstęp, dwa elementy i zakończenie?",
+        "Czy użyłem/am formalnych łączników?",
+        "Czy mam 200–250 wyrazów?"
+      ],
+      "model": "Social media has become part of everyday life for millions of people. Some say that it brings us closer together, while others claim that it makes us lonelier. In this essay I will consider both points of view.\n\nTo begin with, social media makes it easy to stay in touch. People who live in different countries can talk to each other every day, share photos and celebrate important moments together. Moreover, it helps people with similar interests to find each other, for instance in online groups about music or sport. Without these platforms, many friendships would never exist.\n\nHowever, there are also serious disadvantages. Many users spend hours looking at other people's lives instead of talking to the people next to them. As a result, they may feel left out or unhappy about their own lives. In addition, online conversations are often short and superficial, which means that real closeness is difficult to build.\n\nAll things considered, I believe that social media is neither good nor bad in itself. It can bring people closer if it is used as an addition to real meetings, not as a replacement for them. Everyone should therefore decide for themselves how much time they spend online."
+    }
+  ]
+}

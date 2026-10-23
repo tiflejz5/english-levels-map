@@ -1,0 +1,77 @@
+{
+  "id": "mr-uoe-cloze-1",
+  "part": 1,
+  "type": "multiple-choice-cloze",
+  "title": "The value of volunteering",
+  "instructions": "Wybierz słowo (A, B, C lub D), które najlepiej pasuje do luki. Każda luka to 1 punkt.",
+  "maxScore": 6,
+  "text": "Volunteering is often seen as something that only benefits others, but it also brings many advantages to the volunteers themselves. For example, working in a team helps young people {{1}} their confidence. Many employers {{2}} voluntary work very highly. Moreover, volunteers often {{3}} new friends who share their values. Some people worry that they will not have enough time, but even a few hours a week can {{4}} a real difference. The key is to choose an activity that you genuinely {{5}} about. If you do, the experience will certainly {{6}} you in the long run.",
+  "gaps": [
+    {
+      "n": 1,
+      "options": {
+        "A": "raise",
+        "B": "build",
+        "C": "hold",
+        "D": "turn"
+      },
+      "answer": "B",
+      "explanation": "build confidence = budować pewność siebie."
+    },
+    {
+      "n": 2,
+      "options": {
+        "A": "value",
+        "B": "pay",
+        "C": "count",
+        "D": "keep"
+      },
+      "answer": "A",
+      "explanation": "value something highly = wysoko cenić."
+    },
+    {
+      "n": 3,
+      "options": {
+        "A": "make",
+        "B": "do",
+        "C": "get",
+        "D": "take"
+      },
+      "answer": "A",
+      "explanation": "make friends."
+    },
+    {
+      "n": 4,
+      "options": {
+        "A": "do",
+        "B": "make",
+        "C": "give",
+        "D": "put"
+      },
+      "answer": "B",
+      "explanation": "make a difference."
+    },
+    {
+      "n": 5,
+      "options": {
+        "A": "care",
+        "B": "mind",
+        "C": "worry",
+        "D": "matter"
+      },
+      "answer": "A",
+      "explanation": "care about something."
+    },
+    {
+      "n": 6,
+      "options": {
+        "A": "benefit",
+        "B": "profit",
+        "C": "gain",
+        "D": "earn"
+      },
+      "answer": "A",
+      "explanation": "benefit someone = przynieść korzyść."
+    }
+  ]
+}

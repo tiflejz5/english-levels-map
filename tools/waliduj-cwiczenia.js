@@ -21,7 +21,7 @@
  *   - (odpowiednik scripts/validate_matura.py) zestawy egzaminów w formacie C1 (multiple-choice-cloze,
  *     word-formation, open-cloze: luki {{n}} w tekście = gaps, maxScore = liczba luk, odpowiedzi, słowo
  *     bazowe ≠ odpowiedź), linki [[id]] w stronach egzaminu (strona modułu, temat niezbędnika albo zestaw),
- *     3–5 podpunktów w zadaniach pisania, choiceGroup zgodne z choiceGroups.
+ *     3–5 podpunktów w zadaniach pisania (jeśli są), choiceGroup zgodne z choiceGroups (po 2 zadania).
  *
  * Odpowiednik skryptu z paczki: scripts/validate_exercises.py (Python).
  * Użycie: node tools/waliduj-cwiczenia.js
@@ -299,12 +299,18 @@ if (reg) {
         (T.tasks || []).forEach(function (t) {
           const wat = at + " trener " + (t.id || "?");
           if (!nonEmpty(t.prompt) || !nonEmpty(t.title)) err(wat + ": brak title / prompt");
-          if (!Array.isArray(t.bullets) || t.bullets.length < 3 || t.bullets.length > 5) err(wat + ": potrzebne 3–5 podpunktów (bullets)");
-          if (T.choiceGroups && t.choiceGroup != null && !Object.prototype.hasOwnProperty.call(T.choiceGroups, t.choiceGroup)) err(wat + ": choiceGroup „" + t.choiceGroup + "” nie ma w choiceGroups");
+          // Podpunkty opcjonalne (matura rozszerzona ma elementy w poleceniu); jeśli są, to 3–5
+          if (t.bullets != null && (!Array.isArray(t.bullets) || t.bullets.length < 3 || t.bullets.length > 5)) err(wat + ": potrzebne 3–5 podpunktów (bullets)");
+          if (t.choiceGroup != null && !(T.choiceGroups && Object.prototype.hasOwnProperty.call(T.choiceGroups, t.choiceGroup))) err(wat + ": choiceGroup „" + t.choiceGroup + "” nie ma w choiceGroups");
           if (nonEmpty(t.model) && Array.isArray(T.wordRange)) {
             const n = countE8(t.model, t.opening);
             if (n < T.wordRange[0] || n > T.wordRange[1]) err(wat + ": wzorzec ma " + n + " wyrazów (limit " + T.wordRange.join("–") + ")");
           }
+        });
+        // Grupa wyboru to dokładnie dwa zadania do wyboru
+        Object.keys(T.choiceGroups || {}).forEach(function (g) {
+          const n = (T.tasks || []).filter(function (t) { return t.choiceGroup === g; }).length;
+          if (n !== 2) err(at + " trener: grupa wyboru " + g + " ma " + n + " zadań (potrzebne 2)");
         });
       }
     });
