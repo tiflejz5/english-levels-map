@@ -284,7 +284,7 @@ window.ELM = window.ELM || {};
       out.tasks[page] = t;
     });
     if (U.isPlainObject(raw.choices)) Object.keys(raw.choices).slice(0, 20).forEach(function (g) {
-      if (/^[A-Za-z0-9]{1,10}$/.test(g) && EX_ID.test(raw.choices[g] || "")) out.choices[g] = raw.choices[g];
+      if (/^[A-Za-z0-9]{1,10}$/.test(g) && typeof raw.choices[g] === "string" && EX_ID.test(raw.choices[g])) out.choices[g] = raw.choices[g];
     });
     return out;
   }
