@@ -1,0 +1,173 @@
+{
+  "id": "trening-mowienie",
+  "version": 1,
+  "criteria": [
+    {
+      "id": "gv",
+      "label": "Grammar and Vocabulary",
+      "hint": "Różnorodne struktury i słownictwo, mało błędów."
+    },
+    {
+      "id": "dm",
+      "label": "Discourse Management",
+      "hint": "Rozwijam odpowiedzi, łączę myśli, mówię płynnie."
+    },
+    {
+      "id": "pr",
+      "label": "Pronunciation",
+      "hint": "Wyraźne głoski, akcent zdaniowy i intonacja."
+    },
+    {
+      "id": "ic",
+      "label": "Interactive Communication",
+      "hint": "Reaguję na partnera, zadaję pytania, pomagam rozmowie."
+    }
+  ],
+  "part1": {
+    "title": "Part 1 – rozmowa z egzaminatorem",
+    "seconds": 120,
+    "groups": [
+      {
+        "topic": "Dom i okolica",
+        "questions": [
+          "Where do you live? What do you like about it?",
+          "Do you prefer living in a flat or a house? Why?",
+          "What would you change about your neighbourhood?"
+        ]
+      },
+      {
+        "topic": "Czas wolny",
+        "questions": [
+          "What do you usually do at the weekend?",
+          "Tell me about a hobby you have.",
+          "What did you do last weekend?"
+        ]
+      },
+      {
+        "topic": "Nauka i praca",
+        "questions": [
+          "What are you studying? Why did you choose it?",
+          "What would your ideal job be?",
+          "How do you usually prepare for exams?"
+        ]
+      },
+      {
+        "topic": "Podróże",
+        "questions": [
+          "Where did you go on your last holiday?",
+          "What kind of holiday do you prefer? Why?",
+          "Which country would you like to visit in the future?"
+        ]
+      }
+    ]
+  },
+  "part2": {
+    "title": "Part 2 – porównaj dwie sytuacje (opis słowny zamiast zdjęć)",
+    "seconds": 60,
+    "cards": [
+      {
+        "a": "A family having a picnic in a park",
+        "b": "A group of friends eating in a restaurant",
+        "question": "Why might the people have chosen to eat in these places?"
+      },
+      {
+        "a": "A student studying alone in a library",
+        "b": "Students working together on a project in a classroom",
+        "question": "How might the students be feeling?"
+      },
+      {
+        "a": "A person running along a beach at sunrise",
+        "b": "A group of people playing basketball in a gym",
+        "question": "What are the advantages of exercising in these ways?"
+      },
+      {
+        "a": "A tourist taking photos in front of a famous monument",
+        "b": "A tourist relaxing in a hotel pool",
+        "question": "Why might people choose these kinds of holiday?"
+      },
+      {
+        "a": "A chef cooking in a busy restaurant kitchen",
+        "b": "A person cooking dinner at home for their family",
+        "question": "What might be difficult about these situations?"
+      },
+      {
+        "a": "A person working at a laptop in a café",
+        "b": "A person working in a crowded open-plan office",
+        "question": "Which might be better for concentrating, and why?"
+      }
+    ]
+  },
+  "part3": {
+    "title": "Part 3 – wspólna rozmowa (z partnerem)",
+    "discussionSeconds": 120,
+    "decisionSeconds": 60,
+    "tasks": [
+      {
+        "central": "A school is planning to organise an event to raise money for charity. Talk about how good each of these ideas would be, then decide which would raise the most money.",
+        "options": [
+          "a bake sale",
+          "a sports match",
+          "a concert",
+          "a car wash",
+          "a quiz night"
+        ],
+        "decision": "Which would raise the most money?"
+      },
+      {
+        "central": "A town wants to encourage young people to spend more time outdoors. Talk about the advantages of each idea and decide which is the best.",
+        "options": [
+          "a new skate park",
+          "a cycling festival",
+          "free sports lessons",
+          "a youth camping trip",
+          "an outdoor cinema"
+        ],
+        "decision": "Which is the best idea for the town?"
+      },
+      {
+        "central": "Some students want to improve their English over the summer. Talk about how useful each way would be, then decide which is the most effective.",
+        "options": [
+          "watching films in English",
+          "a language course abroad",
+          "a conversation club",
+          "reading English books",
+          "online lessons"
+        ],
+        "decision": "Which is the most effective way?"
+      }
+    ]
+  },
+  "part4": {
+    "title": "Part 4 – dyskusja",
+    "seconds": 240,
+    "groups": [
+      {
+        "topic": "Charytatywne zbiórki",
+        "questions": [
+          "Do you think young people should be encouraged to do charity work? Why?",
+          "What is the best way to persuade people to give money?",
+          "Is it better to give time or money to a charity?",
+          "How can schools help students to care about others?"
+        ]
+      },
+      {
+        "topic": "Czas w naturze",
+        "questions": [
+          "Do you think people spend enough time outdoors these days?",
+          "What are the benefits of spending time in nature?",
+          "Why do some people prefer to stay at home?",
+          "How can cities provide more green space?"
+        ]
+      },
+      {
+        "topic": "Nauka języków",
+        "questions": [
+          "Why is it important to learn foreign languages?",
+          "Is it better to learn a language at school or abroad?",
+          "Do you think everyone will speak English in the future?",
+          "What helps you to learn languages effectively?"
+        ]
+      }
+    ]
+  }
+}

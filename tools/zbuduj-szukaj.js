@@ -143,12 +143,16 @@ if (fs.existsSync(regFile)) readJson(regFile).exams.forEach(function (exam) {
         const file = path.join(dir, meta.file);
         if (!fs.existsSync(file)) return;
         const s = readJson(file);
-        const c1format = !Array.isArray(s.items);
+        const c1format = !Array.isArray(s.items) || ["multiple-choice-cloze", "word-formation", "open-cloze", "transformation"].indexOf(s.type) !== -1;
         add({ id: "examset:" + meta.id, group: "exercises", title: s.title || meta.label, summary: s.intro || s.instructions || "", text: exam.label + " · " + g.label, level: s.level || null, category: exam.label,
           route: c1format ? "#" + exam.route + "/cwiczenia/" + meta.id : "#/cwiczenia/zestaw/" + meta.id });
       });
     });
-    if (sec.trainer) add({ id: exam.id + ":trener", group: "exercises", title: exam.label + ": " + sec.trainer.label, summary: "Trener pisania z licznikiem wyrazów i samooceną.", text: "", category: exam.label, route: "#" + exam.route + "/trening-pisanie" });
+    // Trener pisania („trainer” albo pozycja „trainers” o id trening-pisanie)
+    const writing = Array.isArray(sec.trainers) ? sec.trainers.find(function (t) { return t.id === "trening-pisanie"; }) : sec.trainer;
+    if (writing) add({ id: exam.id + ":trener", group: "exercises", title: exam.label + ": " + writing.label, summary: "Trener pisania z licznikiem wyrazów i samooceną.", text: "", category: exam.label, route: "#" + exam.route + "/trening-pisanie" });
+    const speaking = Array.isArray(sec.trainers) ? sec.trainers.find(function (t) { return t.type === "speaking"; }) : null;
+    if (speaking) add({ id: exam.id + ":mowienie", group: "exercises", title: exam.label + ": " + speaking.label, summary: "Trener Speaking: cztery części, timery, losowane karty i samoocena.", text: "Part 1 Part 2 Part 3 Part 4 speaking mówienie", category: exam.label, route: "#" + exam.route + "/trening-mowienie" });
   });
 });
 

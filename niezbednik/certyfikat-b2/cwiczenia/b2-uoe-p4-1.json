@@ -1,0 +1,114 @@
+{
+  "id": "b2-uoe-p4-1",
+  "part": 4,
+  "type": "transformation",
+  "title": "Strona bierna, warunki i mowa zależna",
+  "focus": "Podstawowe struktury B2",
+  "wordLimit": [
+    2,
+    5
+  ],
+  "instructions": "Uzupełnij drugie zdanie tak, żeby znaczyło to samo co pierwsze. Użyj podanego słowa bez zmieniania go. Wpisz od 2 do 5 słów, łącznie ze słowem kluczowym (skróty typu doesn't liczą się jako dwa słowa). Każda odpowiedź jest warta 2 punkty – po 1 za każdą część.",
+  "maxScore": 12,
+  "items": [
+    {
+      "n": 1,
+      "first": "They are repairing the road at the moment.",
+      "keyword": "BEING",
+      "before": "The road",
+      "after": "at the moment.",
+      "parts": [
+        [
+          "IS BEING"
+        ],
+        [
+          "REPAIRED"
+        ]
+      ],
+      "model": "IS BEING REPAIRED",
+      "explanation": "Present Continuous passive: is being repaired."
+    },
+    {
+      "n": 2,
+      "first": "If I had more time, I would learn Spanish.",
+      "keyword": "WISH",
+      "before": "I",
+      "after": "more time to learn Spanish.",
+      "parts": [
+        [
+          "WISH I HAD"
+        ]
+      ],
+      "model": "WISH I HAD",
+      "explanation": "I wish + Past Simple."
+    },
+    {
+      "n": 3,
+      "first": "'I'll call you tomorrow,' said Tom.",
+      "keyword": "WOULD",
+      "before": "Tom said that he",
+      "after": "me the next day.",
+      "parts": [
+        [
+          "WOULD"
+        ],
+        [
+          "CALL"
+        ]
+      ],
+      "model": "WOULD CALL",
+      "explanation": "Mowa zależna: would call."
+    },
+    {
+      "n": 4,
+      "first": "It is possible that she forgot the appointment.",
+      "keyword": "MIGHT",
+      "before": "She",
+      "after": "the appointment.",
+      "parts": [
+        [
+          "MIGHT HAVE"
+        ],
+        [
+          "FORGOTTEN"
+        ]
+      ],
+      "model": "MIGHT HAVE FORGOTTEN",
+      "explanation": "might have + III forma."
+    },
+    {
+      "n": 5,
+      "first": "I started learning English five years ago.",
+      "keyword": "BEEN",
+      "before": "I",
+      "after": "English for five years.",
+      "parts": [
+        [
+          "HAVE BEEN"
+        ],
+        [
+          "LEARNING"
+        ]
+      ],
+      "model": "HAVE BEEN LEARNING",
+      "explanation": "Present Perfect Continuous z for."
+    },
+    {
+      "n": 6,
+      "first": "My sister is shorter than me.",
+      "keyword": "NOT",
+      "before": "My sister",
+      "after": "as me.",
+      "parts": [
+        [
+          "IS NOT"
+        ],
+        [
+          "AS TALL"
+        ]
+      ],
+      "model": "IS NOT AS TALL",
+      "explanation": "not as tall as = niższa."
+    }
+  ]
+}

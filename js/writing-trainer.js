@@ -23,6 +23,8 @@
  *                           samoocena wg kryteriów (rubric), wzorcowa odpowiedź obok tekstu
  *   rubricNotes             dodatkowe uwagi pod samooceną (zasady oceny danego egzaminu)
  *   lowScope                co się ocenia poniżej warnBelow (mianownik), np. „treść”, „realizacja zadania”
+ *   lowNote(n, T)           opcjonalnie: własna uwaga w samoocenie poniżej warnBelow (zamiast lowScope)
+ *   partGroups(T)           opcjonalnie: [{ label, tasks }] — lista zadań w grupach (B2: Part 1 / Part 2)
  *   choices()               opcjonalnie: obiekt { grupa: idZadania } — wybór jednego z dwóch zadań
  *                           (zadania z choiceGroup, opis grupy w T.choiceGroups; spec 06, 4.1)
  * Szkic zapisuje się automatycznie; pole tekstowe bez sprawdzania pisowni (jak na egzaminie).
@@ -134,14 +136,25 @@ window.ELM = window.ELM || {};
       groups.forEach(function (g) { view.appendChild(groupCard(T, g)); });
       const rest = T.tasks.filter(function (t) { return !groupOf(T, t); });
       if (!rest.length) return;
-      view.appendChild(el("div", { class: "c1-set-grid" }, rest.map(function (task) {
-        const words = cfg.countWords(drafts[task.id], task);
-        return el("a", { class: "card c1-set-card", href: cfg.href(task.id) }, [
-          el("span", { class: "c1-chips" }, cfg.chips(task, T, true).map(function (c) { return el("span", { class: "c1-chip", text: c }); })),
-          el("span", { class: "c1-set-card-title", text: task.title }),
-          el("span", { class: "c1-set-card-best" + (words ? " has-score" : ""), text: words ? "Szkic: " + cfg.wordsLabel(words) : "Nowe zadanie" })
-        ]);
-      })));
+      function grid(tasks) {
+        return el("div", { class: "c1-set-grid" }, tasks.map(function (task) {
+          const words = cfg.countWords(drafts[task.id], task);
+          return el("a", { class: "card c1-set-card", href: cfg.href(task.id) }, [
+            el("span", { class: "c1-chips" }, cfg.chips(task, T, true).map(function (c) { return el("span", { class: "c1-chip", text: c }); })),
+            el("span", { class: "c1-set-card-title", text: task.title }),
+            el("span", { class: "c1-set-card-best" + (words ? " has-score" : ""), text: words ? "Szkic: " + cfg.wordsLabel(words) : "Nowe zadanie" })
+          ]);
+        }));
+      }
+      // Grupy części (B2: Part 1 – esej, Part 2 – jedno z kilku zadań); bez konfiguracji — jedna siatka
+      const parts = cfg.partGroups ? cfg.partGroups(T, rest) : null;
+      if (!parts) { view.appendChild(grid(rest)); return; }
+      parts.forEach(function (g) {
+        if (!g.tasks.length) return;
+        view.appendChild(el("h2", { class: "section-title wt-part-title", text: g.label }));
+        if (g.note) view.appendChild(el("p", { class: "tool-note wt-part-note", text: g.note }));
+        view.appendChild(grid(g.tasks));
+      });
     }
 
     /** Zadanie z grupy, w której wybrano inne zadanie: zamiast edytora — informacja i ewentualna zmiana wyboru. */
@@ -316,7 +329,7 @@ window.ELM = window.ELM || {};
       });
       sum();
       const notes = [];
-      if (T.warnBelow && n < T.warnBelow) notes.push("Masz mniej niż " + T.warnBelow + " wyrazów – oceniana jest wtedy tylko " + (cfg.lowScope || "treść") + ".");
+      if (T.warnBelow && n < T.warnBelow) notes.push(cfg.lowNote ? cfg.lowNote(n, T) : "Masz mniej niż " + T.warnBelow + " wyrazów – oceniana jest wtedy tylko " + (cfg.lowScope || "treść") + ".");
       (cfg.rubricNotes || []).forEach(function (t) { notes.push(t); }); // zasady oceny potwierdzone dla danego egzaminu
       return el("div", { class: "c1-check-group wt-rubric" }, [
         el("h3", { class: "c1-check-title", text: "Samoocena wg kryteriów" }),

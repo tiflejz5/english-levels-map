@@ -2,7 +2,8 @@
  * c1-exercises.js — interaktywne zestawy Use of English (cwiczenia/*.json).
  *
  * Typy:
- *   "transformation"        — Part 4: 3–6 słów, słowo kluczowe, 2 pkt (po 1 za część)
+ *   "transformation"        — Part 4: limit słów z pola wordLimit [min, max] (B2: 2–5; brak pola = 3–6
+ *                             jak w C1), słowo kluczowe, 2 pkt (po 1 za część; zadanie z jedną częścią: 2 pkt)
  *   "word-formation"        — Part 3: luka + słowo bazowe (stem), 1 pkt
  *   "open-cloze"            — Part 2: jedno słowo (skrót = dwa słowa), 1 pkt
  *   "multiple-choice-cloze" — Part 1: wybór A/B/C/D, 1 pkt
@@ -74,16 +75,29 @@ window.ELM = window.ELM || {};
   // OCENA
   // =====================================================================
 
+  const DEFAULT_WORD_LIMIT = [3, 6]; // C1 Advanced; B2 First podaje wordLimit [2, 5] w zestawie
+
+  /** Limit słów zestawu transformacji: pole wordLimit [min, max] albo 3–6. */
+  function wordLimitOf(ex) {
+    const w = ex && ex.wordLimit;
+    return Array.isArray(w) && w.length === 2 && w[0] >= 1 && w[0] <= w[1] ? w : DEFAULT_WORD_LIMIT;
+  }
+
+  /** Maksimum za zadanie: 2 pkt (Cambridge) — po 1 za część, a przy jednej części 2 za całość. */
+  function itemMax(item) { return item.parts.length === 1 ? 2 : item.parts.length; }
+
   /**
-   * Part 4 (jak Cambridge): 3–6 słów, słowo kluczowe bez zmian, po 1 pkt
-   * za każdą część; kolejna część liczy się, gdy występuje PO poprzedniej.
+   * Part 4 (jak Cambridge): liczba słów w limicie (limit = [min, max], domyślnie 3–6),
+   * słowo kluczowe bez zmian, po 1 pkt za każdą część; kolejna część liczy się,
+   * gdy występuje PO poprzedniej. Zadanie z jedną częścią: 2 pkt albo 0.
    */
-  function scoreTransformation(item, answer) {
+  function scoreTransformation(item, answer, limit) {
+    const lim = Array.isArray(limit) ? limit : DEFAULT_WORD_LIMIT;
     const t = tokens(answer);
     const parts = item.parts.map(function () { return false; });
     if (!t.length) return { score: 0, parts: parts, msg: "Brak odpowiedzi." };
-    if (t.length < 3 || t.length > 6) {
-      return { score: 0, parts: parts, msg: "Wpisz 3–6 słów (masz " + t.length + " " + c1().plural(t.length, "słowo", "słowa", "słów") + ", skróty liczą się jako dwa)." };
+    if (t.length < lim[0] || t.length > lim[1]) {
+      return { score: 0, parts: parts, msg: "Wpisz " + lim[0] + "–" + lim[1] + " słów (masz " + t.length + " " + c1().plural(t.length, "słowo", "słowa", "słów") + ", skróty liczą się jako dwa)." };
     }
     if (!findSeq(t, tokens(item.keyword), 0).length) {
       return { score: 0, parts: parts, msg: "Użyj słowa kluczowego bez zmian (" + item.keyword + ")." };
@@ -101,7 +115,7 @@ window.ELM = window.ELM || {};
       });
       if (bestEnd !== -1) { parts[k] = true; cursor = bestEnd; }
     });
-    const score = parts.filter(Boolean).length;
+    const score = parts.filter(Boolean).length * (itemMax(item) / item.parts.length);
     return { score: score, parts: parts, msg: null };
   }
 
@@ -171,6 +185,7 @@ window.ELM = window.ELM || {};
   // =====================================================================
 
   function buildTransformation(ex) {
+    const limit = wordLimitOf(ex);
     const rows = ex.items.map(function (item) {
       const input = answerInput("c1-tr-input", "Odpowiedź do zdania " + item.n);
       const feedback = el("div", { class: "c1-feedback", hidden: true, "aria-live": "polite" });
@@ -191,8 +206,8 @@ window.ELM = window.ELM || {};
       const parts = [];
       if (r.result) {
         parts.push(el("p", { class: "c1-feedback-head" }, [
-          mark(r.result.score === r.item.parts.length),
-          el("strong", { text: r.result.score + " / " + r.item.parts.length + " pkt" }),
+          mark(r.result.score === itemMax(r.item)),
+          el("strong", { text: r.result.score + " / " + itemMax(r.item) + " pkt" }),
           r.result.msg ? el("span", { class: "c1-feedback-msg", text: r.result.msg }) : null
         ]));
         if (!r.result.msg) {
@@ -203,7 +218,7 @@ window.ELM = window.ELM || {};
       }
       if (r.showAnswer) parts.push(el("p", { class: "c1-answer" }, [el("span", { text: "Odpowiedź: " }), el("strong", { text: r.item.model })]));
       if (r.result || r.showAnswer) parts.push(el("p", { class: "c1-explanation", text: r.item.explanation }));
-      if (r.result && r.result.score < r.item.parts.length && r.input.value.trim()) {
+      if (r.result && r.result.score < itemMax(r.item) && r.input.value.trim()) {
         const answer = r.input.value.trim();
         const item = r.item;
         parts.push(el("p", { class: "c1-journal" }, journalButton(function () {
@@ -221,20 +236,20 @@ window.ELM = window.ELM || {};
       }
       r.feedback.replaceChildren.apply(r.feedback, parts);
       r.feedback.hidden = !parts.length;
-      r.input.classList.toggle("is-ok", !!r.result && r.result.score === r.item.parts.length);
-      r.input.classList.toggle("is-bad", !!r.result && r.result.score < r.item.parts.length);
+      r.input.classList.toggle("is-ok", !!r.result && r.result.score === itemMax(r.item));
+      r.input.classList.toggle("is-bad", !!r.result && r.result.score < itemMax(r.item));
     }
 
     return {
       node: el("ol", { class: "c1-tr-list" }, rows.map(function (r) { return r.node; })),
       check: function () {
         let score = 0;
-        rows.forEach(function (r) { r.result = scoreTransformation(r.item, r.input.value); score += r.result.score; paintRow(r); });
+        rows.forEach(function (r) { r.result = scoreTransformation(r.item, r.input.value, limit); score += r.result.score; paintRow(r); });
         return score;
       },
       showAnswers: function () { rows.forEach(function (r) { r.showAnswer = true; paintRow(r); }); },
       reset: function () { rows.forEach(function (r) { r.input.value = ""; r.result = null; r.showAnswer = false; paintRow(r); }); },
-      scoreOf: scoreTransformation
+      scoreOf: function (item, answer) { return scoreTransformation(item, answer, limit); }
     };
   }
 

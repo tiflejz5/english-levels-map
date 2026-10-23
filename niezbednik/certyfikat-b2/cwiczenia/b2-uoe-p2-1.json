@@ -1,0 +1,71 @@
+{
+  "id": "b2-uoe-p2-1",
+  "part": 2,
+  "type": "open-cloze",
+  "title": "A weekend in the mountains",
+  "instructions": "Wpisz w każdą lukę dokładnie jedno słowo. Skróty typu don't nie są poprawną odpowiedzią. Każda luka to 1 punkt.",
+  "maxScore": 8,
+  "text": "Last weekend my friends and I decided to go hiking {{1}} the mountains. We set off early in the morning, {{2}} the weather forecast had promised sun. After two hours, however, the sky turned grey, and it started to rain. We had not taken any waterproof jackets, so we got completely wet. {{3}} spite of this, we continued walking until we reached a small mountain hut. The owner was very kind. He gave us hot tea and made a fire, {{4}} helped us to warm up. We stayed there for an hour, talking and laughing. When the rain stopped, we went down. {{5}} we were tired and hungry, we felt happy. It was not the weekend we had planned, but it was {{6}} of the best weekends we have ever had. Next time, we will check the forecast more carefully, and we will not forget {{7}} take proper clothes. After all, as the saying goes, there is no bad weather, only bad {{8}}.",
+  "gaps": [
+    {
+      "n": 1,
+      "accept": [
+        "IN"
+      ],
+      "explanation": "hiking in the mountains."
+    },
+    {
+      "n": 2,
+      "accept": [
+        "BECAUSE",
+        "AS",
+        "SINCE"
+      ],
+      "explanation": "Powód: because/as/since."
+    },
+    {
+      "n": 3,
+      "accept": [
+        "IN"
+      ],
+      "explanation": "in spite of."
+    },
+    {
+      "n": 4,
+      "accept": [
+        "WHICH"
+      ],
+      "explanation": "Zdanie względne: which helped us."
+    },
+    {
+      "n": 5,
+      "accept": [
+        "ALTHOUGH",
+        "THOUGH"
+      ],
+      "explanation": "Przeciwstawienie: although."
+    },
+    {
+      "n": 6,
+      "accept": [
+        "ONE"
+      ],
+      "explanation": "one of the best = jeden z najlepszych."
+    },
+    {
+      "n": 7,
+      "accept": [
+        "TO"
+      ],
+      "explanation": "forget to take."
+    },
+    {
+      "n": 8,
+      "accept": [
+        "CLOTHES",
+        "CLOTHING"
+      ],
+      "explanation": "Przysłowie: bad clothes."
+    }
+  ]
+}

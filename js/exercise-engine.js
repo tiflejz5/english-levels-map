@@ -151,6 +151,8 @@ window.ELM = window.ELM || {};
       key: cfg.key, title: cfg.title, intro: cfg.intro || "", topic: cfg.topic || null,
       saveId: cfg.saveId || null, isMix: !!cfg.isMix, isWeak: !!cfg.isWeak, repick: cfg.repick || null,
       passage: cfg.passage || null, exam: cfg.exam || null,
+      // Wspólne nagranie zestawu (B2 Listening Parts 2–4): jeden licznik odsłuchów dla wszystkich zadań
+      script: cfg.script || null, listen: { plays: 0, readMode: false },
       profileId: profile ? profile.id : null,
       phase: "intro",
       mode: cfg.mode === "exam" ? "exam" : "learn",
@@ -290,7 +292,8 @@ window.ELM = window.ELM || {};
   }
 
   function next() {
-    stopSpeaking();
+    // Wspólne nagranie gra dalej przy przejściu do kolejnego zadania; kończy się z zestawem
+    if (!run.script || run.i >= run.items.length - 1) stopSpeaking();
     if (run.i < run.items.length - 1) {
       run.i++;
       render();
@@ -390,22 +393,33 @@ window.ELM = window.ELM || {};
     if (s) s.cancel();
   }
 
-  /** Czyta skrypt: wiersze „A: …” / „B: …” różnymi głosami (gdy są), tempo 0,9, krótkie przerwy. */
-  function speakScript(p, onDone) {
+  /** Czyta skrypt: wiersze z mówcą („A: …”, „Man: …”, „Speaker 2: …”) dwoma głosami en-GB/en-US (gdy są), tempo 0,9, krótkie przerwy.
+   *  owner — zadanie (p) albo cała sesja (run) przy wspólnym nagraniu zestawu. */
+  function speakScript(owner, script, onDone) {
     const s = synth();
     if (!s) return;
     stopSpeaking();
     const voices = englishVoices();
-    const lines = String(p.item.script || "").split("\n").map(function (l) { return l.trim(); }).filter(Boolean);
-    const token = { p: p, cancelled: false };
+    const lines = String(script || "").split("\n").map(function (l) { return l.trim(); }).filter(Boolean);
+    const token = { p: owner, cancelled: false };
     speaking = token;
+    // Mówcy: „A:” / „B:” jak dotąd (A — pierwszy głos, B — drugi); inne etykiety („Man:”, „Interviewer:”,
+    // „Speaker 2:”) dostają głosy na przemian w kolejności pojawienia się. Etykiety nie są czytane.
+    const order = [];
+    function voiceIndex(label) {
+      if (!label) return 0;
+      if (label === "A" || label === "B") return label === "B" ? 1 : 0;
+      if (order.indexOf(label) === -1) order.push(label);
+      return order.indexOf(label) % 2;
+    }
     let i = 0;
     function nextLine() {
       if (token.cancelled) return;
       if (i >= lines.length) { speaking = null; onDone(); return; }
-      const m = /^([AB]):\s*(.*)$/.exec(lines[i]);
+      const m = /^([A-Z][A-Za-z]*(?: [A-Z0-9][A-Za-z0-9]*)?):\s*(.*)$/.exec(lines[i]);
       const u = new window.SpeechSynthesisUtterance(m ? m[2] : lines[i]);
-      const voice = voices.length ? voices[m && m[1] === "B" && voices.length > 1 ? 1 : 0] : null;
+      const k = voiceIndex(m && m[1]);
+      const voice = voices.length ? voices[k && voices.length > 1 ? 1 : 0] : null;
       if (voice) u.voice = voice;
       u.lang = voice ? voice.lang : "en-GB";
       u.rate = 0.9;
@@ -417,10 +431,18 @@ window.ELM = window.ELM || {};
   }
 
   function listeningBox(p) {
-    const st = p.st, done = !!p.res;
+    // Nagranie zadania (script w zadaniu) albo wspólne nagranie zestawu (script zestawu, spec 09, 3.2):
+    // wtedy licznik odsłuchów jest jeden dla całego zestawu, a transkrypt widać dopiero po ostatnim zadaniu
+    const shared = !p.item.script && !!run.script;
+    const owner = shared ? run : p;
+    const script = shared ? run.script : p.item.script;
+    const st = shared ? run.listen : p.st;
+    const done = shared ? run.items.every(function (q) { return !!q.res; }) : !!p.res;
+    // Zadanie ze wspólnym nagraniem poza swoim zestawem (np. w powtórce błędów) — bez nagrania
+    if (!script) return el("p", { class: "tool-note ex-listen-note", text: "Nagranie do tego zadania jest w pełnym zestawie – odpowiedz z pamięci albo otwórz zestaw." });
     const max = p.item.maxPlays || 2;
     st.plays = st.plays || 0;
-    const playing = speaking && speaking.p === p;
+    const playing = speaking && speaking.p === owner;
     const noVoice = noEnglishVoice();
     const nodes = [];
     if (noVoice && !st.readMode) {
@@ -434,16 +456,16 @@ window.ELM = window.ELM || {};
             type: "button", class: "btn btn-primary", "data-fk": "listen", disabled: !done && st.plays >= max,
             onclick: function () {
               if (!done) st.plays++;
-              speakScript(p, function () { repaint(null); });
+              speakScript(owner, script, function () { repaint(null); });
               repaint("listen");
             }
           }, ELM.ui.withIcon("play", st.plays ? "Odtwórz ponownie" : "Odtwórz")),
         el("span", { class: "ex-listen-count", "aria-live": "polite", text: "Odsłuchy: " + Math.min(st.plays, max) + "/" + max })
       ]));
-      nodes.push(el("p", { class: "tool-note ex-listen-note", text: "Głos syntezowany w przeglądarce. To trening rozumienia – nagranie z egzaminu brzmi inaczej." }));
+      nodes.push(el("p", { class: "tool-note ex-listen-note", text: (shared ? "Jedno nagranie do wszystkich zadań zestawu. " : "") + "Głos syntezowany w przeglądarce. To trening rozumienia – nagranie z egzaminu brzmi inaczej." }));
     }
     if (st.readMode || done) {
-      const lines = String(p.item.script || "").split("\n").map(function (l) { return el("p", { text: l }); });
+      const lines = String(script || "").split("\n").map(function (l) { return el("p", { text: l }); });
       nodes.push(st.readMode && !done
         ? el("div", { class: "ex-transcript", lang: "en" }, [el("p", { class: "review-label", text: "Transkrypt (wynik oznaczony jako „czytane”):" })].concat(lines))
         : el("details", { class: "ex-transcript" }, [el("summary", null, "Pokaż transkrypt")].concat(el("div", { lang: "en" }, lines))));
@@ -485,8 +507,12 @@ window.ELM = window.ELM || {};
         ])
       ]);
     });
-    // fixedOrder (np. True / False / Not given): kolejność z pliku, przyciski w jednym rzędzie
-    nodes.push(el("div", { class: "ex-options" + (item.fixedOrder ? " is-row" : ""), role: "radiogroup", "aria-labelledby": "ex-prompt" }, options));
+    // fixedOrder (np. True / False / Not given): kolejność z pliku, przyciski w jednym rzędzie;
+    // same litery (B2 Reading Part 6–7: A–G, A–D) — zwarta siatka, wszystkie w jednym rzędzie
+    const letters = item.fixedOrder && p.choice.options.every(function (o) { return /^[A-H]$/.test(String(o.text).trim()); });
+    // (długie opcje A–H, np. B2 Listening Part 3, zostają jedna pod drugą)
+    const row = item.fixedOrder && (letters || p.choice.options.length <= 4);
+    nodes.push(el("div", { class: "ex-options" + (row ? " is-row" : "") + (letters ? " is-letters" : ""), role: "radiogroup", "aria-labelledby": "ex-prompt" }, options));
     if (!done) nodes.push(el("p", { class: "tool-note ex-keys-hint", text: "Klawiatura: cyfry 1–" + options.length + " wybierają odpowiedź, Enter sprawdza." }));
     return nodes;
   }
@@ -653,6 +679,7 @@ window.ELM = window.ELM || {};
       return input;
     };
     return [
+      item.kind === "listening" ? listeningBox(p) : null, // B2 Listening Part 2: uzupełnianie zdań
       item.context ? el("p", { class: "ex-context" }, [el("span", { class: "review-label", text: "Po polsku: " }), el("span", { text: item.context })]) : null,
       promptLines(item.prompt || "", gap, "ex-prompt")
     ];
@@ -864,6 +891,12 @@ window.ELM = window.ELM || {};
       el("div", { class: "tool-actions" }, actions)
     ]));
 
+    // Wspólne nagranie zestawu: transkrypt dopiero po zakończeniu (spec 09, 3.2)
+    if (run.script) {
+      view.appendChild(el("details", { class: "card ex-transcript ex-set-transcript" }, [el("summary", null, "Pokaż transkrypt nagrania")].concat(
+        el("div", { lang: "en" }, String(run.script).split("\n").map(function (l) { return el("p", { text: l }); })))));
+    }
+
     view.appendChild(el("section", { class: "card ex-review" }, [
       el("h2", { class: "section-title", text: wrong.length ? "Do poprawki (" + wrong.length + ")" : "Bez błędów – brawo!" }),
       wrong.length ? el("ol", { class: "ex-wrong" }, wrong.map(function (p) {
@@ -1024,7 +1057,7 @@ window.ELM = window.ELM || {};
         if (!sets.length) { run = { key: key, missing: true, profileId: profile && profile.id }; return render(); }
         const s = sets[0];
         const meta = (ELM.CWICZENIA && ELM.CWICZENIA.sets[s.id]) || {};
-        newRun({ key: key, title: s.title, intro: s.intro, items: s.items, mode: s.defaultMode, topic: s.topic, saveId: s.id, passage: s.passage || null, exam: meta.exam || null });
+        newRun({ key: key, title: s.title, intro: s.intro, items: s.items, mode: s.defaultMode, topic: s.topic, saveId: s.id, passage: s.passage || null, script: s.script || null, exam: meta.exam || null });
         render();
       });
       return null;
