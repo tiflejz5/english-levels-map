@@ -304,10 +304,7 @@ if (reg) {
         if (ex.existing) return;
         const T = readJson(dir + "/" + tr.file);
         if (!T) { err(at + ": brak trenera " + tr.file); return; }
-        if (tr.type === "speaking") {
-          ["part1", "part2", "part3", "part4"].forEach(function (k) { if (!T[k]) err(at + " trener Speaking: brak " + k); });
-          return;
-        }
+        if (tr.type === "speaking") { checkSpeaking(T, at + " trener Speaking"); return; }
         if (!Array.isArray(T.wordRange) || T.wordRange.length !== 2) err(at + ": trener bez wordRange");
         if (T.rubric != null && !(Array.isArray(T.rubric) && T.rubric.length && T.rubric.every(function (r) { return nonEmpty(r.id) && nonEmpty(r.label) && Number.isInteger(r.max) && r.max > 0; }))) err(at + ": rubric — lista { id, label, max > 0 }");
         (T.tasks || []).forEach(function (t) {
@@ -354,6 +351,30 @@ if (reg) {
 // Certyfikat C1: powiązania wskazują istniejące tematy
 const c1links = readJson("niezbednik/certyfikat-c1/powiazania.json");
 (c1links && c1links.links || []).forEach(function (l) { if (!topics.has(l.itemId)) err("C1 powiązania: nieznany temat " + l.itemId); });
+
+/** Dane trenera Speaking (js/speaking-trainer.js, spec 09 sekcja 5). */
+function checkSpeaking(T, at) {
+  const pos = function (x) { return Number.isInteger(x) && x > 0; };
+  const crit = T.criteria;
+  if (!Array.isArray(crit) || !crit.length || crit.length > 8) err(at + ": criteria — 1–8 kryteriów");
+  else crit.forEach(function (c) {
+    if (!/^[a-z]{1,10}$/.test(c.id || "") || !nonEmpty(c.label) || !nonEmpty(c.hint)) err(at + ": kryterium wymaga id (a–z, do 10 znaków), label i hint");
+  });
+  ["part1", "part2", "part3", "part4"].forEach(function (k) { if (!T[k] || !nonEmpty(T[k].title)) err(at + ": brak " + k + " (z title)"); });
+  [["part1", T.part1], ["part4", T.part4]].forEach(function (x) {
+    if (!x[1]) return;
+    if (!pos(x[1].seconds)) err(at + " " + x[0] + ": seconds > 0");
+    if (!Array.isArray(x[1].groups) || !x[1].groups.length || !x[1].groups.every(function (g) { return nonEmpty(g.topic) && Array.isArray(g.questions) && g.questions.length && g.questions.every(nonEmpty); })) err(at + " " + x[0] + ": groups — temat i niepuste pytania");
+  });
+  if (T.part2) {
+    if (!pos(T.part2.seconds)) err(at + " part2: seconds > 0");
+    if (!Array.isArray(T.part2.cards) || !T.part2.cards.length || !T.part2.cards.every(function (c) { return nonEmpty(c.a) && nonEmpty(c.b) && nonEmpty(c.question); })) err(at + " part2: cards — a, b i question");
+  }
+  if (T.part3) {
+    if (!pos(T.part3.discussionSeconds) || !pos(T.part3.decisionSeconds)) err(at + " part3: discussionSeconds i decisionSeconds > 0");
+    if (!Array.isArray(T.part3.tasks) || !T.part3.tasks.length || !T.part3.tasks.every(function (t) { return nonEmpty(t.central) && nonEmpty(t.decision) && Array.isArray(t.options) && t.options.length === 5 && t.options.every(nonEmpty); })) err(at + " part3: tasks — central, decision i 5 opcji");
+  }
+}
 
 /** Zestaw w formacie C1 (komponent js/c1-exercises.js). */
 function checkC1Set(d, at, meta) {
