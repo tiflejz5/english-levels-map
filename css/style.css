@@ -3274,6 +3274,8 @@ a.notes-item-title { color: var(--accent); text-decoration: underline; text-unde
 .ex-options.is-row { flex-direction: row; flex-wrap: wrap; }
 .ex-options.is-row .ex-option { flex: 1 1 96px; min-width: 0; }
 .ex-options.is-letters { display: grid; grid-template-columns: repeat(auto-fit, minmax(64px, 1fr)); }
+/* W kafelkach z literą wynik pokazuje ikona ✓ / ✗; etykiety „Poprawna” / „Twoja odpowiedź” tylko dla czytników */
+.ex-options.is-letters .lt-tag { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
 /* Klimat matury podstawowej: miedziany akcent (pasek pod tytułem, dolna krawędź znaku MP, plakietki wyników) */
 [data-section="matura-podstawowa"] .exam-view .c1-title::after,
