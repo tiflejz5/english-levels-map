@@ -81,8 +81,12 @@ window.ELM = window.ELM || {};
     return null;
   }
 
+  /** Trenery sekcji: „trainer” (E8, matury) albo lista „trainers” (B2: Writing i Speaking). */
+  function sectionTrainers(s) { return Array.isArray(s.trainers) ? s.trainers : s.trainer ? [s.trainer] : []; }
+  function writingTrainerOf(s) { return sectionTrainers(s).find(function (t) { return t.id === "trening-pisanie"; }) || null; }
+
   function trainerSection(e) {
-    return sections(e).find(function (s) { return s.trainer && s.trainer.id === "trening-pisanie"; }) || null;
+    return sections(e).find(function (s) { return !!writingTrainerOf(s); }) || null;
   }
 
   function sectionIdOf(e, route) {
@@ -214,9 +218,13 @@ window.ELM = window.ELM || {};
   /** Źródła (linki z manifestu) — na stronie przeglądu, pod notą o aktualności danych. */
   function sourcesNote(e) {
     const links = (data(e).manifest.links || []).filter(function (l) { return /^https:\/\//.test(l.url); });
+    // Źródło faktów: Cambridge English (B2 First) albo CKE (E8, matury) — po domenie linków z manifestu
+    const cambridge = links.some(function (l) { return /(^|\.)cambridgeenglish\.org\//.test(l.url.replace(/^https:\/\//, "")); });
     return el("aside", { class: "callout callout-trap exam-facts-note", "aria-label": "Aktualność informacji" }, [
       el("p", { class: "callout-title" }, [el("span", { class: "callout-icon", "aria-hidden": "true" }, ELM.icon("info", { size: 20 })), "Stan na październik 2026"]),
-      el("p", null, ["Format, punktacja i terminy pochodzą z informatora i komunikatów CKE. Przed egzaminem sprawdź aktualny komunikat CKE" +
+      el("p", null, [(cambridge
+        ? "Format egzaminu pochodzi z oficjalnej strony Cambridge English. Terminy ustala centrum egzaminacyjne. Przed egzaminem sprawdź aktualne informacje"
+        : "Format, punktacja i terminy pochodzą z informatora i komunikatów CKE. Przed egzaminem sprawdź aktualny komunikat CKE") +
         (links.length ? ": " : "."), links.length ? links.map(function (l, i) {
         return [i ? ", " : "", el("a", { href: l.url, target: "_blank", rel: "noopener noreferrer" }, [l.label, el("span", { class: "visually-hidden", text: " (otwiera się w nowej karcie)" })])];
       }) : null])
@@ -523,7 +531,8 @@ window.ELM = window.ELM || {};
           const ul = el("ul", { class: "c1-sec-list", id: listId, hidden: !open });
           (s.pages || []).forEach(function (p) { ul.appendChild(navItem(hrefPage(e, p.id), p.label, route.kind === "page" && route.id === p.id)); });
           if (s.exerciseGroups) ul.appendChild(navItem(base(e) + "/cwiczenia", "Wszystkie zestawy", route.kind === "exercises"));
-          if (s.trainer) ul.appendChild(navItem(base(e) + "/trening-pisanie", s.trainer.label, route.kind === "writing", null, "is-trainer"));
+          // Trener pisania (trener Speaking B2 dochodzi w kolejnym etapie)
+          if (writingTrainerOf(s)) ul.appendChild(navItem(base(e) + "/trening-pisanie", writingTrainerOf(s).label, route.kind === "writing", null, "is-trainer"));
           secs.appendChild(el("div", { class: "c1-sec" + (s.id === current ? " is-current" : "") }, [
             el("button", {
               type: "button", class: "c1-sec-toggle", "aria-expanded": open ? "true" : "false", "aria-controls": listId,

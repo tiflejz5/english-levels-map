@@ -34,6 +34,9 @@ function readJson(file) { return JSON.parse(read(file)); }
 const registry = readJson(path.join(ROOT, "dane", "egzaminy-manifest.json"));
 const exams = (registry.exams || []).slice().sort(function (a, b) { return (a.order || 99) - (b.order || 99); });
 const C1_TYPES = ["multiple-choice-cloze", "word-formation", "open-cloze", "transformation"];
+/** Trenery sekcji: „trainer” (jeden, E8 i matury) albo „trainers” (lista, np. B2: Writing i Speaking). */
+function sectionTrainers(sec) { return Array.isArray(sec.trainers) ? sec.trainers : sec.trainer ? [sec.trainer] : []; }
+
 const links = {};
 const boxTitles = {};
 const sets = {};
@@ -55,7 +58,8 @@ exams.forEach(function (exam) {
       g.sets.forEach(function (s) {
         const file = path.join(dir, s.file);
         const json = fs.existsSync(file) ? readJson(file) : null;
-        const c1 = !!json && !json.items && C1_TYPES.indexOf(json.type) !== -1;
+        // Format C1 rozpoznajemy po typie (transformacje mają własne „items”, ale to nie zadania silnika)
+        const c1 = !!json && C1_TYPES.indexOf(json.type) !== -1;
         if (c1) exercises[s.id] = json;
         sets[s.id] = {
           exam: exam.id, label: s.label, group: g.label, maxScore: s.maxScore || null, format: c1 ? "c1" : "items",
@@ -63,10 +67,10 @@ exams.forEach(function (exam) {
         };
       });
     });
-    if (sec.trainer) {
-      const file = path.join(dir, sec.trainer.file);
-      if (fs.existsSync(file)) trainers[sec.trainer.id] = readJson(file);
-    }
+    sectionTrainers(sec).forEach(function (t) {
+      const file = path.join(dir, t.file);
+      if (fs.existsSync(file)) trainers[t.id] = readJson(file);
+    });
   });
   if (fs.existsSync(path.join(dir, "powiazania.json"))) {
     const pw = readJson(path.join(dir, "powiazania.json"));

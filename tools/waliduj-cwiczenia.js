@@ -287,14 +287,19 @@ if (reg) {
           const set = readJson(dir + "/" + meta.file);
           if (!set) { err(at + ": brak zestawu " + meta.file); return; }
           if (set.id !== meta.id) err(at + ": " + meta.file + " ma id „" + set.id + "”, a manifest „" + meta.id + "”");
-          if (!Array.isArray(set.items) && isC1Format(set.type)) { checkC1Set(set, at + " " + meta.file, meta); return; }
+          if (isC1Format(set.type)) { checkC1Set(set, at + " " + meta.file, meta); return; }
           if (!Array.isArray(set.items) || !set.items.length) { err(at + ": " + meta.file + " bez zadań (ani formatu C1)"); return; }
           set.items.forEach(function (it) { checkItem(Object.assign({ topic: set.topic, level: set.level }, it), meta.file, set); });
         });
       });
-      if (sec.trainer && !ex.existing) {
-        const T = readJson(dir + "/" + sec.trainer.file);
-        if (!T) { err(at + ": brak trenera " + sec.trainer.file); return; }
+      (Array.isArray(sec.trainers) ? sec.trainers : sec.trainer ? [sec.trainer] : []).forEach(function (tr) {
+        if (ex.existing) return;
+        const T = readJson(dir + "/" + tr.file);
+        if (!T) { err(at + ": brak trenera " + tr.file); return; }
+        if (tr.type === "speaking") {
+          ["part1", "part2", "part3", "part4"].forEach(function (k) { if (!T[k]) err(at + " trener Speaking: brak " + k); });
+          return;
+        }
         if (!Array.isArray(T.wordRange) || T.wordRange.length !== 2) err(at + ": trener bez wordRange");
         (T.tasks || []).forEach(function (t) {
           const wat = at + " trener " + (t.id || "?");
@@ -312,7 +317,7 @@ if (reg) {
           const n = (T.tasks || []).filter(function (t) { return t.choiceGroup === g; }).length;
           if (n !== 2) err(at + " trener: grupa wyboru " + g + " ma " + n + " zadań (potrzebne 2)");
         });
-      }
+      });
     });
     // Linki [[id]] w stronach: strona tego modułu, temat niezbędnika albo zestaw egzaminu
     pageTexts.forEach(function (pt) {
@@ -337,6 +342,7 @@ const c1links = readJson("niezbednik/certyfikat-c1/powiazania.json");
 /** Zestaw w formacie C1 (komponent js/c1-exercises.js). */
 function checkC1Set(d, at, meta) {
   if (!nonEmpty(d.title)) err(at + ": brak title");
+  if (d.type === "transformation") { checkTransformation(d, at, meta); return; }
   if (!nonEmpty(d.text) || !Array.isArray(d.gaps) || !d.gaps.length) { err(at + ": brak text albo gaps"); return; }
   const ns = d.gaps.map(function (g) { return g.n; });
   const inText = (d.text.match(/\{\{(\d+)\}\}/g) || []).map(function (m) { return Number(m.slice(2, -2)); });
@@ -354,6 +360,31 @@ function checkC1Set(d, at, meta) {
       if (d.type === "word-formation" && (!nonEmpty(g.stem) || (g.accept || []).some(function (a) { return String(a).toUpperCase() === g.stem.toUpperCase(); }))) err(gat + ": brak stem albo stem = odpowiedź");
     }
   });
+}
+/** Part 4: maxScore = 2 × zadania, słowo kluczowe we wzorze, wzór w limicie słów (wordLimit, domyślnie 3–6 jak C1). */
+function checkTransformation(d, at, meta) {
+  const lim = Array.isArray(d.wordLimit) ? d.wordLimit : [3, 6];
+  if (d.wordLimit != null && !(Array.isArray(d.wordLimit) && d.wordLimit.length === 2 && d.wordLimit[0] >= 1 && d.wordLimit[0] <= d.wordLimit[1])) err(at + ": wordLimit musi być [min, max]");
+  if (!Array.isArray(d.items) || !d.items.length) { err(at + ": brak items"); return; }
+  if (d.maxScore !== 2 * d.items.length) err(at + ": maxScore (" + d.maxScore + ") ≠ 2 × liczba zadań (" + d.items.length + ")");
+  if (meta && meta.maxScore != null && meta.maxScore !== d.maxScore) err(at + ": maxScore w manifeście (" + meta.maxScore + ") ≠ w zestawie (" + d.maxScore + ")");
+  d.items.forEach(function (it) {
+    const iat = at + " #" + it.n;
+    if (!nonEmpty(it.first) || !nonEmpty(it.keyword) || !nonEmpty(it.model) || !nonEmpty(it.explanation)) err(iat + ": brak first / keyword / model / explanation");
+    if (!Array.isArray(it.parts) || it.parts.length < 1 || it.parts.length > 2 || !it.parts.every(function (p) { return Array.isArray(p) && p.length && p.every(nonEmpty); })) err(iat + ": parts — jedna albo dwie części z wariantami");
+    const words = transformationTokens(it.model || "");
+    if (words.length < lim[0] || words.length > lim[1]) err(iat + ": wzór ma " + words.length + " słów (limit " + lim[0] + "–" + lim[1] + ", skróty liczą się jako dwa)");
+    if (nonEmpty(it.keyword) && String(it.model || "").toUpperCase().split(/\s+/).indexOf(it.keyword.toUpperCase()) === -1) err(iat + ": wzór nie zawiera słowa kluczowego " + it.keyword);
+  });
+}
+/** Słowa jak w js/c1-exercises.js: skróty (doesn't, I'm) liczą się jako dwa. */
+function transformationTokens(text) {
+  const out = [];
+  String(text).toUpperCase().replace(/[’‘`´]/g, "'").replace(/[^\p{L}\p{N}'\s]/gu, "").split(/\s+/).filter(Boolean).forEach(function (w) {
+    const m = /^(.+?)(N'T|'S|'RE|'VE|'D|'LL|'M)$/.exec(w);
+    if (m) out.push(m[1], m[2]); else out.push(w);
+  });
+  return out;
 }
 function isC1Format(type) {
   return ["multiple-choice-cloze", "word-formation", "open-cloze", "transformation"].indexOf(type) !== -1;

@@ -86,7 +86,8 @@ examRegistry.forEach(function (exam) {
         const file = path.join(dir, meta.file);
         if (!fs.existsSync(file)) { warnings.push(exam.id + ": brak pliku zestawu " + meta.file + " (pomijam)"); return; }
         const set = readJson(file);
-        if (!Array.isArray(set.items)) return; // format C1 (cloze, słowotwórstwo…): js/c1-exercises.js, dane w niezbednik/<id>-dane.js
+        // format C1 (cloze, słowotwórstwo, transformacje): js/c1-exercises.js, dane w niezbednik/<id>-dane.js
+        if (!Array.isArray(set.items) || ["multiple-choice-cloze", "word-formation", "open-cloze", "transformation"].indexOf(set.type) !== -1) return;
         set.items = set.items.map(function (it) {
           return Object.assign({ topic: set.topic || null, level: set.level || null, tags: [], setId: meta.id }, it);
         });
