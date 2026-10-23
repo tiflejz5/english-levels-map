@@ -21,7 +21,11 @@
  *   - (odpowiednik scripts/validate_matura.py) zestawy egzaminów w formacie C1 (multiple-choice-cloze,
  *     word-formation, open-cloze: luki {{n}} w tekście = gaps, maxScore = liczba luk, odpowiedzi, słowo
  *     bazowe ≠ odpowiedź), linki [[id]] w stronach egzaminu (strona modułu, temat niezbędnika albo zestaw),
- *     3–5 podpunktów w zadaniach pisania (jeśli są), choiceGroup zgodne z choiceGroups (po 2 zadania).
+ *     3–5 podpunktów w zadaniach pisania (jeśli są), choiceGroup zgodne z choiceGroups (po 2 zadania),
+ *   - (odpowiednik scripts/b2/validate_b2.py) transformacje z wordLimit (wzór w limicie, słowo kluczowe,
+ *     maxScore = 2 × zadania), do 8 opcji przy fixedOrder, wspólny script zestawu, pliki zestawów spoza
+ *     manifestu, słabe wyjaśnienia „Zob.” w słowotwórstwie, part 1/2 i rubryka w trenerze pisania,
+ *     trener Speaking (part1–part4).
  *
  * Odpowiednik skryptu z paczki: scripts/validate_exercises.py (Python).
  * Użycie: node tools/waliduj-cwiczenia.js
@@ -269,6 +273,7 @@ if (reg) {
     if (!man) { err(at + ": brak " + dir + "/manifest.json"); return; }
     if (man.id !== ex.id) err(at + ": manifest.id (" + man.id + ") ≠ id w rejestrze");
     const examSets = new Set();
+    const setFiles = new Set();
     const pageIds = new Set();
     const pageTexts = [];
     (man.sections || []).forEach(function (sec) {
@@ -285,6 +290,7 @@ if (reg) {
       (sec.exerciseGroups || []).forEach(function (g) {
         (g.sets || []).forEach(function (meta) {
           examSets.add(meta.id);
+          setFiles.add(meta.file);
           if (ex.existing) return; // C1: stary format zestawów, własny generator
           const set = readJson(dir + "/" + meta.file);
           if (!set) { err(at + ": brak zestawu " + meta.file); return; }
@@ -303,11 +309,13 @@ if (reg) {
           return;
         }
         if (!Array.isArray(T.wordRange) || T.wordRange.length !== 2) err(at + ": trener bez wordRange");
+        if (T.rubric != null && !(Array.isArray(T.rubric) && T.rubric.length && T.rubric.every(function (r) { return nonEmpty(r.id) && nonEmpty(r.label) && Number.isInteger(r.max) && r.max > 0; }))) err(at + ": rubric — lista { id, label, max > 0 }");
         (T.tasks || []).forEach(function (t) {
           const wat = at + " trener " + (t.id || "?");
           if (!nonEmpty(t.prompt) || !nonEmpty(t.title)) err(wat + ": brak title / prompt");
           // Podpunkty opcjonalne (matura rozszerzona ma elementy w poleceniu); jeśli są, to 3–5
           if (t.bullets != null && (!Array.isArray(t.bullets) || t.bullets.length < 3 || t.bullets.length > 5)) err(wat + ": potrzebne 3–5 podpunktów (bullets)");
+          if (t.part != null && [1, 2].indexOf(t.part) === -1) err(wat + ": part musi być 1 albo 2");
           if (t.choiceGroup != null && !(T.choiceGroups && Object.prototype.hasOwnProperty.call(T.choiceGroups, t.choiceGroup))) err(wat + ": choiceGroup „" + t.choiceGroup + "” nie ma w choiceGroups");
           if (nonEmpty(t.model) && Array.isArray(T.wordRange)) {
             const n = countE8(t.model, t.opening);
@@ -321,6 +329,12 @@ if (reg) {
         });
       });
     });
+    // Każdy plik zestawu w folderze modułu jest w manifeście (inaczej nie trafi do aplikacji)
+    if (!ex.existing && fs.existsSync(path.join(ROOT, dir, "cwiczenia"))) {
+      fs.readdirSync(path.join(ROOT, dir, "cwiczenia")).filter(function (f) { return /\.json$/.test(f); }).forEach(function (f) {
+        if (!setFiles.has("cwiczenia/" + f)) err(at + ": cwiczenia/" + f + " nie ma w manifeście");
+      });
+    }
     // Linki [[id]] w stronach: strona tego modułu, temat niezbędnika albo zestaw egzaminu
     pageTexts.forEach(function (pt) {
       (pt.md.match(/\[\[([^\]|]+)(?:\|[^\]]*)?\]\]/g) || []).forEach(function (m) {
@@ -360,6 +374,7 @@ function checkC1Set(d, at, meta) {
     } else {
       if (!Array.isArray(g.accept) || !g.accept.length) err(gat + ": brak accept");
       if (d.type === "word-formation" && (!nonEmpty(g.stem) || (g.accept || []).some(function (a) { return String(a).toUpperCase() === g.stem.toUpperCase(); }))) err(gat + ": brak stem albo stem = odpowiedź");
+      if (d.type === "word-formation" && /(^|\s)Zob\./.test(g.explanation || "")) err(gat + ": słabe wyjaśnienie („Zob.” zamiast reguły)");
     }
   });
 }
