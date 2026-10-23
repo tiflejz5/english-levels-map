@@ -420,6 +420,75 @@
   --exam-on-mark: #1b120b;
 }
 
+/* ===================== TOKENY: MATURA ROZSZERZONA (html[data-section="matura-rozszerzona"], js/exam-core.js) =====================
+   Ambitny, redakcyjny: chłodne indygo na chłodnej, jasnoszarej kartce, akcent miedziany (spec 06, sekcja 5).
+   Celowo inaczej niż C1 (granat + złoto na kości słoniowej): chłodniejsze tło, indygo zamiast granatu, miedź zamiast złota.
+   W ciemnym motywie jasne indygo (barwinek) na przyciskach, miedź jako znak egzaminu. */
+:root:not([data-theme="dark"])[data-section="matura-rozszerzona"] {
+  --bg: #f4f5f9;
+  --surface: #ffffff;
+  --surface-2: #e8eaf2;
+  --surface-3: #d9dceb;
+  --surface-raised: #ffffff;
+  --empty-bg: #eef0f6;
+  --row-hover: #eff1f7;
+  --hover: rgba(47, 63, 143, 0.06);
+  --topbar-bg: rgba(244, 245, 249, 0.88);
+  --sticky-bg: rgba(244, 245, 249, 0.94);
+  --ink: #161a2e;
+  --ink-muted: #474d66;
+  --ink-faint: #575d77;
+  --line: #d9dce8;
+  --line-strong: #b9bed3;
+  --line-control: #6c7290;
+  --accent: #2f3f8f;
+  --accent-soft: rgba(47, 63, 143, 0.1);
+  --accent-bg: #2f3f8f;
+  --accent-hover: #3a4ba3;
+  --on-accent: #ffffff;
+  --info-bg: #f8ebe1;
+  --info-border: #e0b494;
+  --focus-color: #2f3f8f;
+  --focus-ring: 0 0 0 3px rgba(47, 63, 143, 0.35);
+  --topo-color: #2f3f8f;
+  --exam-mark: #c26a2e;
+  --exam-mark-ink: #9a4c17;
+  --exam-mark-bg: #9a4c17;
+  --exam-on-mark: #ffffff;
+}
+:root[data-theme="dark"][data-section="matura-rozszerzona"] {
+  --bg: #0c0e1a;
+  --surface: #12152a;
+  --surface-2: #191d36;
+  --surface-3: #222744;
+  --surface-raised: #151933;
+  --empty-bg: #10132a;
+  --row-hover: rgba(170, 180, 240, 0.05);
+  --hover: rgba(236, 238, 248, 0.06);
+  --topbar-bg: rgba(12, 14, 26, 0.86);
+  --sticky-bg: rgba(12, 14, 26, 0.94);
+  --ink: #eceef8;
+  --ink-muted: #aeb3cc;
+  --ink-faint: #9197b4;
+  --line: #232842;
+  --line-strong: #333a5c;
+  --line-control: #737ba0;
+  --accent: #aab4f0;
+  --accent-soft: rgba(170, 180, 240, 0.14);
+  --accent-bg: #aab4f0;
+  --accent-hover: #c0c8f6;
+  --on-accent: #12152a;
+  --info-bg: rgba(227, 154, 104, 0.08);
+  --info-border: rgba(227, 154, 104, 0.35);
+  --focus-color: #aab4f0;
+  --focus-ring: 0 0 0 3px rgba(170, 180, 240, 0.4);
+  --topo-color: #aab4f0;
+  --exam-mark: #e39a68;
+  --exam-mark-ink: #eaae86;
+  --exam-mark-bg: #e39a68;
+  --exam-on-mark: #1b120b;
+}
+
 /* ===================== TOKENY WSPÓLNE: typografia, odstępy, promienie, ruch ===================== */
 :root {
   /* Fonty: display z charakterem atlasu + czytelny tekst; systemowe jako zapas */
@@ -3143,3 +3212,14 @@ a.notes-item-title { color: var(--accent); text-decoration: underline; text-unde
 [data-section="matura-podstawowa"] .c1-nav-badge { background: var(--exam-mark-bg); color: var(--exam-on-mark); }
 [data-section="matura-podstawowa"] .c1-ex.card { border-top-color: var(--accent-bg); }
 [data-section="matura-podstawowa"] .c1-ex-instr { border-left-color: var(--exam-mark); }
+
+/* Klimat matury rozszerzonej: redakcyjny — tytuł z miedzianą kreską po lewej (jak wyróżniony lead),
+   cienka miedziana linia pod znakiem MR, karty z indygo u góry */
+[data-section="matura-rozszerzona"] .exam-view .c1-title,
+[data-section="matura-rozszerzona"] .exam-page h1 { padding-left: 16px; border-left: 4px solid var(--exam-mark); }
+[data-section="matura-rozszerzona"] .exam-wordmark-badge { box-shadow: inset 0 -3px 0 var(--exam-mark); }
+[data-section="matura-rozszerzona"] .ex-set-card { border-top-color: var(--accent); }
+[data-section="matura-rozszerzona"] .c1-nav-badge { background: var(--exam-mark-bg); color: var(--exam-on-mark); }
+[data-section="matura-rozszerzona"] .c1-ex.card { border-top-color: var(--accent-bg); }
+[data-section="matura-rozszerzona"] .c1-ex-instr { border-left-color: var(--exam-mark); }
+[data-section="matura-rozszerzona"] .wt-choice { border-top: 3px solid var(--accent-bg); }
