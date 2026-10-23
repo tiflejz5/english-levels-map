@@ -18,6 +18,7 @@ require(path.join(__dirname, "..", "js", "learning.js"));
 require(path.join(__dirname, "..", "js", "exercise-logic.js"));
 require(path.join(__dirname, "..", "js", "learning-stats.js"));
 require(path.join(__dirname, "..", "js", "search-logic.js"));
+require(path.join(__dirname, "..", "js", "exam-logic.js"));
 const L = global.ELM.learn;
 const X = global.ELM.exLogic;
 
@@ -474,6 +475,17 @@ test("snippet i highlight: części z flagą hit, bez HTML", function () {
   assert.ok(s.some(function (p) { return p.hit && p.text === "Wrocławiu"; }));
   assert.ok(s.map(function (p) { return p.text; }).join("").indexOf("<b>") !== -1); // tekst bez zmian, do textContent
   assert.deepStrictEqual(SR.highlight("Present Perfect", "perf").filter(function (p) { return p.hit; }).map(function (p) { return p.text; }), ["Perfect"]);
+});
+
+console.log("\nEgzaminy: strefy licznika (spec 06, 4.2)");
+const EL = global.ELM.examLogic;
+test("writingZone: matura podstawowa (<80, 80–99, 100–150, >150)", function () {
+  const T = { wordRange: [100, 150], warnBelow: 80 };
+  assert.deepStrictEqual([79, 80, 99, 100, 150, 151].map(function (n) { return EL.writingZone(n, T); }), ["low", "warn", "warn", "ok", "ok", "over"]);
+});
+test("writingZone: matura rozszerzona (<160, 160–199, 200–250, >250)", function () {
+  const T = { wordRange: [200, 250], warnBelow: 160 };
+  assert.deepStrictEqual([159, 160, 199, 200, 250, 251].map(function (n) { return EL.writingZone(n, T); }), ["low", "warn", "warn", "ok", "ok", "over"]);
 });
 
 console.log("\nWynik: " + passed + " ok, " + failures.length + " błędów");

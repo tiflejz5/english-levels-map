@@ -20,7 +20,9 @@
  *   elm_learnprefs_v1 { version: 1, profiles: { <id>: { autoJournal: true|false } } } — ustawienia nauki
  *   elm_notes_v1     { version: 1, profiles: { <id>: { items: { <klucz strony>: { text, updatedAt, title, route } } } } }
  *                    — własne notatki (zwykły tekst, maks. 10 000 znaków)
- *   elm_exams_v1     { version: 1, profiles: { <id>: { exams: { <idEgzaminu>: { examDate, drafts: { <zadanie>: tekst }, tasks: { <strona>: { <nr>: true } } } } } } }
+ *   elm_exams_v1     { version: 1, profiles: { <id>: { exams: { <idEgzaminu>: { examDate, drafts: { <zadanie>: tekst }, tasks: { <strona>: { <nr>: true } },
+ *                    choices: { <grupa wyboru>: <zadanie> } } } } } }  (choices: wybór jednego z dwóch zadań, matura rozszerzona;
+ *                    w starszych danych brak pola → {})
  *                    — egzaminy w nowym module (np. Egzamin ósmoklasisty, js/exam-core.js); Certyfikat C1 ma własny klucz elm_c1_v1
  *
  * Wpis dziennika błędów:
@@ -267,9 +269,9 @@ window.ELM = window.ELM || {};
   const ATTEMPT_TYPES = ["multiple-choice", "reorder", "find-error", "short-answer"];
   const ATTEMPT_MODES = ["learn", "exam", "mix", "weak", "review"];
 
-  /** Dane jednego egzaminu: data, szkice trenera pisania, odhaczone listy na stronach. */
+  /** Dane jednego egzaminu: data, szkice trenera pisania, odhaczone listy na stronach, wybrane zadania w grupach wyboru. */
   function normalizeExam(raw) {
-    const out = { examDate: "", drafts: {}, tasks: {} };
+    const out = { examDate: "", drafts: {}, tasks: {}, choices: {} };
     if (!U.isPlainObject(raw)) return out;
     if (learn().isDay(raw.examDate)) out.examDate = raw.examDate;
     if (U.isPlainObject(raw.drafts)) Object.keys(raw.drafts).slice(0, 200).forEach(function (k) {
@@ -280,6 +282,9 @@ window.ELM = window.ELM || {};
       const t = {};
       Object.keys(raw.tasks[page]).slice(0, 200).forEach(function (i) { if (/^\d{1,3}$/.test(i)) t[i] = raw.tasks[page][i] === true; });
       out.tasks[page] = t;
+    });
+    if (U.isPlainObject(raw.choices)) Object.keys(raw.choices).slice(0, 20).forEach(function (g) {
+      if (/^[A-Za-z0-9]{1,10}$/.test(g) && EX_ID.test(raw.choices[g] || "")) out.choices[g] = raw.choices[g];
     });
     return out;
   }
@@ -639,7 +644,7 @@ window.ELM = window.ELM || {};
   // EGZAMINY (spec 05) — dane aktywnego profilu dla egzaminu
   // =====================================================================
 
-  /** Obiekt egzaminu { examDate, drafts, tasks } (tworzony, gdy brak; bez profilu — tymczasowy). */
+  /** Obiekt egzaminu { examDate, drafts, tasks, choices } (tworzony, gdy brak; bez profilu — tymczasowy). */
   function examData(examId) {
     const pid = activeId();
     if (!pid || !EX_ID.test(examId)) return normalizeExam(null);

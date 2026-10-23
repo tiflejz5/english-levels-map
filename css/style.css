@@ -3072,6 +3072,23 @@ a.notes-item-title { color: var(--accent); text-decoration: underline; text-unde
 .wt-col.is-model { background: var(--surface-2); }
 .wt-col figcaption { margin-bottom: 6px; font-size: var(--fs-xs-plus); font-weight: 700; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.04em; }
 .wt-text { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+/* Grupa wyboru (matura rozszerzona, spec 06, 4.1): jedno z dwóch zadań, tematy obok siebie */
+.wt-choice { margin-bottom: 16px; padding: 18px 20px; }
+.wt-choice-title { margin: 0 0 4px; font-family: var(--font-display); font-size: var(--fs-lg); }
+.wt-choice-desc { margin: 0 0 14px; color: var(--ink-muted); }
+.wt-choice-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.wt-choice-option { display: flex; flex-direction: column; gap: 8px; padding: 14px 16px; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); background: var(--surface); }
+.wt-choice-option .c1-chips { margin: 0; }
+.wt-choice-option.is-chosen { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.wt-choice-option.is-other { background: var(--surface-2); }
+.wt-choice-task { margin: 0; font-size: var(--fs-md); font-weight: 700; }
+.wt-choice-prompt { margin: 0; color: var(--ink-muted); }
+.wt-choice-option .c1-set-card-best { margin: 0; }
+.wt-choice-option > .btn { align-self: flex-start; margin-top: auto; }
+.wt-choice-locked { margin: auto 0 0; font-size: var(--fs-xs-plus); color: var(--ink-muted); }
+.wt-choice-badge { background: var(--accent-bg); color: var(--on-accent); border-color: transparent; }
+.wt-choice-note p { margin: 0 0 10px; }
+@media (max-width: 640px) { .wt-choice-options { grid-template-columns: 1fr; } .wt-choice { padding: 14px 16px; } }
 
 /* Silnik zadań: tekst do czytania i słuchanie */
 .ex-passage { max-width: 780px; margin-bottom: 14px; padding: 14px 18px; }

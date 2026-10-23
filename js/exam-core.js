@@ -331,7 +331,10 @@ window.ELM = window.ELM || {};
 
   const trainers = {};
   const NUMBER_WORDS = { 2: "dwa", 3: "trzy", 4: "cztery", 5: "pięć" };
-  const GENRES = { email: "e-mail", blog: "wpis na blogu", forum: "wpis na forum", letter: "list", article: "artykuł", essay: "rozprawka" };
+  const GENRES = { email: "e-mail", blog: "wpis na blogu", forum: "wpis na forum", letter: "list formalny", article: "artykuł", essay: "rozprawka" };
+  // Co się ocenia poniżej warnBelow (spec 06, 4.2): mianownik (samoocena) i biernik (licznik „ocenia się tylko …”)
+  const LOW_SCOPE = { "matura-rozszerzona": { nom: "realizacja zadania", acc: "realizację zadania" } };
+  const LOW_DEFAULT = { nom: "treść", acc: "treść" };
   // Egzaminy, dla których zasady liczenia wyrazów są potwierdzone w informatorze (inne: „liczenie orientacyjne”)
   const COUNTING_CONFIRMED = ["egzamin-osmoklasisty"];
   // Zasady oceny z informatora (spec 05, 5.1) — tylko tam, gdzie są potwierdzone
@@ -342,6 +345,7 @@ window.ELM = window.ELM || {};
     const L = ELM.examLogic;
     const href = function (taskId) { return base(e) + "/trening-pisanie" + (taskId ? "/" + taskId : ""); };
     const wordsLabel = function (n) { return n + " " + plural(n, "wyraz", "wyrazy", "wyrazów"); };
+    const low = LOW_SCOPE[e.id] || LOW_DEFAULT;
     trainers[e.id] = ELM.writingTrainer.create({
       trainer: function () { return data(e) && data(e).trainers["trening-pisanie"]; },
       section: function () { return trainerSection(e); },
@@ -350,12 +354,13 @@ window.ELM = window.ELM || {};
       href: href,
       drafts: function () { return pd().examData(e.id).drafts; },
       save: function () { pd().saveExams(); },
+      choices: function () { return pd().examData(e.id).choices; },
       countWords: function (text, task) { return L.countWordsE8(text, task && task.opening); },
       wordsLabel: wordsLabel,
       counter: function (n, T) {
         const z = L.writingZone(n, T);
         const hint = {
-          low: " · Poniżej " + T.warnBelow + " wyrazów ocenia się tylko treść",
+          low: " · Poniżej " + T.warnBelow + " wyrazów ocenia się tylko " + low.acc,
           warn: " · jeszcze trochę – limit to " + T.wordRange[0] + "–" + T.wordRange[1],
           ok: " · w limicie " + T.wordRange[0] + "–" + T.wordRange[1],
           over: " · Przekraczasz limit (" + T.wordRange[1] + ")"
@@ -364,13 +369,15 @@ window.ELM = window.ELM || {};
       },
       listTitle: "Trener pisania",
       listLead: function (T) {
-        // Formy i liczba podpunktów z zadań w pisanie.json (np. E8: 3, matura podstawowa: 4)
+        // Formy i liczba podpunktów z zadań w pisanie.json (np. E8: 3, matura podstawowa: 4, rozszerzona: elementy w poleceniu)
         const genres = [];
         T.tasks.forEach(function (t) { const g = GENRES[t.genre] || t.genre; if (genres.indexOf(g) === -1) genres.push(g); });
         const bullets = Math.max.apply(null, T.tasks.map(function (t) { return (t.bullets || []).length; }));
+        const opening = T.tasks.some(function (t) { return t.opening; });
         const forms = genres.length > 1 ? genres.slice(0, -1).join(", ") + " albo " + genres[genres.length - 1] : genres[0];
-        return forms.charAt(0).toUpperCase() + forms.slice(1) + ", jak na egzaminie: " + T.wordRange[0] + "–" + T.wordRange[1] + " wyrazów (bez podanego początku), " +
-          T.timeMinutes + " minut, " + (NUMBER_WORDS[bullets] || bullets) + " " + plural(bullets, "podpunkt", "podpunkty", "podpunktów") + " do omówienia. " +
+        return forms.charAt(0).toUpperCase() + forms.slice(1) + ", jak na egzaminie: " + T.wordRange[0] + "–" + T.wordRange[1] + " wyrazów" + (opening ? " (bez podanego początku)" : "") + ", " +
+          T.timeMinutes + " minut" + (bullets ? ", " + (NUMBER_WORDS[bullets] || bullets) + " " + plural(bullets, "podpunkt", "podpunkty", "podpunktów") + " do omówienia" : "") + ". " +
+          (T.choiceGroups ? "Na egzaminie wybierasz jedno z dwóch zadań – tu też. " : "") +
           (COUNTING_CONFIRMED.indexOf(e.id) !== -1 ? "Licznik liczy wyrazy według zasad CKE" : "Licznik liczy wyrazy orientacyjnie") + ", a szkic zapisuje się sam w Twoim profilu.";
       },
       chips: function (task, T, inList) {
@@ -385,6 +392,7 @@ window.ELM = window.ELM || {};
       timerNote: "Zostaw 2–3 minuty na sprawdzenie pisowni – edytor jej nie podkreśla, tak jak arkusz." +
         (COUNTING_CONFIRMED.indexOf(e.id) === -1 ? " Licznik wyrazów jest orientacyjny (zasady jak na egzaminie ósmoklasisty)." : ""),
       rubricNotes: RUBRIC_NOTES[e.id] || [],
+      lowScope: low.nom,
       examExtras: true
     });
     return trainers[e.id];
