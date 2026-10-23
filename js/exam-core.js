@@ -469,7 +469,8 @@ window.ELM = window.ELM || {};
   }
 
   // =====================================================================
-  // NAWIGACJA: grupa „Egzaminy” (rejestr; C1 rysuje się w #c1-nav swoim modułem)
+  // NAWIGACJA: grupa „Egzaminy” (rejestr; C1 rysuje się w #c1-nav swoim modułem).
+  // Aktywne egzaminy w #exams-nav, egzaminy „w trakcie pracy” na końcu grupy (#exams-soon-nav, pod C1).
   // =====================================================================
 
   const expanded = {};
@@ -489,8 +490,10 @@ window.ELM = window.ELM || {};
     const box = document.getElementById("exams-nav");
     if (!box) return;
     box.replaceChildren();
+    const soonBox = document.getElementById("exams-soon-nav");
     const route = ELM.state && ELM.state.view === "exam" ? ELM.state.toolRoute : null;
     const list = el("ul", { class: "sb-list exam-list" });
+    const soonList = el("ul", { class: "sb-list exam-list" });
     exams().filter(isGeneric).forEach(function (e) {
       const here = route && route.examId === e.id;
       const soon = e.status !== "active";
@@ -509,7 +512,7 @@ window.ELM = window.ELM || {};
             : el("span", { class: "sb-label-sub", text: days !== null && days > 0 ? days + " " + plural(days, "dzień", "dni", "dni") + " do egzaminu" : (e.description || "").split(",")[0] })
         ])
       ]));
-      list.appendChild(li);
+      (soon && soonBox ? soonList : list).appendChild(li);
       // Sekcje aktywnego egzaminu, gdy w nim jesteśmy (tylko w rozwiniętym panelu)
       if (here && data(e) && !soon) {
         const current = sectionIdOf(e, route);
@@ -539,6 +542,10 @@ window.ELM = window.ELM || {};
     });
     box.appendChild(el("p", { class: "sb-caption", id: "sb-exams-caption", text: "Egzaminy" }));
     box.appendChild(list);
+    if (soonBox) {
+      soonBox.replaceChildren();
+      if (soonList.children.length) soonBox.appendChild(soonList);
+    }
   }
 
   // =====================================================================
