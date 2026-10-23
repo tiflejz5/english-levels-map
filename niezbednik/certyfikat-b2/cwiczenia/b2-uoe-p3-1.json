@@ -1,0 +1,75 @@
+{
+  "id": "b2-uoe-p3-1",
+  "part": 3,
+  "type": "word-formation",
+  "title": "City life",
+  "instructions": "Utwórz od słowa wielkimi literami słowo, które pasuje do luki. Uważaj na przedrostki, liczbę mnogą i pisownię. Każda luka to 1 punkt.",
+  "maxScore": 8,
+  "text": "Living in a big city has both {{1}} and disadvantages. The main {{2}} is the choice of jobs and entertainment. In addition, public transport is usually more {{3}} than in small towns. On the other hand, the cost of living can be very high, and housing is often {{4}}. Many residents also complain about the {{5}} of the air and constant noise. As a result, some people leave the city to find a more {{6}} life in the countryside. However, a growing number of cities are now trying to become more {{7}} places by building parks and cycle lanes. Their {{8}} shows that city life can be made much healthier.",
+  "gaps": [
+    {
+      "n": 1,
+      "stem": "ADVANTAGE",
+      "accept": [
+        "ADVANTAGES"
+      ],
+      "explanation": "Liczba mnoga: advantages and disadvantages."
+    },
+    {
+      "n": 2,
+      "stem": "ATTRACT",
+      "accept": [
+        "ATTRACTION"
+      ],
+      "explanation": "Rzeczownik po The main: attraction."
+    },
+    {
+      "n": 3,
+      "stem": "RELY",
+      "accept": [
+        "RELIABLE"
+      ],
+      "explanation": "Przymiotnik: more reliable."
+    },
+    {
+      "n": 4,
+      "stem": "AFFORD",
+      "accept": [
+        "UNAFFORDABLE"
+      ],
+      "explanation": "Przeczenie przymiotnika: unaffordable."
+    },
+    {
+      "n": 5,
+      "stem": "POLLUTE",
+      "accept": [
+        "POLLUTION"
+      ],
+      "explanation": "Rzeczownik: the pollution of the air."
+    },
+    {
+      "n": 6,
+      "stem": "PEACE",
+      "accept": [
+        "PEACEFUL"
+      ],
+      "explanation": "Przymiotnik: peaceful."
+    },
+    {
+      "n": 7,
+      "stem": "SUSTAIN",
+      "accept": [
+        "SUSTAINABLE"
+      ],
+      "explanation": "Przymiotnik: sustainable."
+    },
+    {
+      "n": 8,
+      "stem": "SUCCEED",
+      "accept": [
+        "SUCCESS"
+      ],
+      "explanation": "Rzeczownik: Their success."
+    }
+  ]
+}

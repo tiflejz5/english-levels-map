@@ -1,0 +1,117 @@
+{
+  "id": "b2-uoe-p4-2",
+  "part": 4,
+  "type": "transformation",
+  "title": "Struktury emfatyczne i modalne",
+  "focus": "Bardziej wymagające transformacje",
+  "wordLimit": [
+    2,
+    5
+  ],
+  "instructions": "Uzupełnij drugie zdanie tak, żeby znaczyło to samo co pierwsze. Użyj podanego słowa bez zmieniania go. Wpisz od 2 do 5 słów, łącznie ze słowem kluczowym (skróty typu doesn't liczą się jako dwa słowa). Każda odpowiedź jest warta 2 punkty – po 1 za każdą część.",
+  "maxScore": 12,
+  "items": [
+    {
+      "n": 1,
+      "first": "It's a pity I didn't go to the party.",
+      "keyword": "WISH",
+      "before": "I",
+      "after": "to the party.",
+      "parts": [
+        [
+          "WISH I HAD"
+        ],
+        [
+          "GONE"
+        ]
+      ],
+      "model": "WISH I HAD GONE",
+      "explanation": "wish + Past Perfect."
+    },
+    {
+      "n": 2,
+      "first": "People say that he is a talented painter.",
+      "keyword": "SAID",
+      "before": "He",
+      "after": "a talented painter.",
+      "parts": [
+        [
+          "IS SAID"
+        ],
+        [
+          "TO BE"
+        ]
+      ],
+      "model": "IS SAID TO BE",
+      "explanation": "Strona bierna z say: is said to be."
+    },
+    {
+      "n": 3,
+      "first": "You should see a doctor.",
+      "keyword": "BETTER",
+      "before": "You",
+      "after": "a doctor.",
+      "parts": [
+        [
+          "HAD BETTER"
+        ],
+        [
+          "SEE"
+        ]
+      ],
+      "model": "HAD BETTER SEE",
+      "explanation": "had better + bezokolicznik bez to."
+    },
+    {
+      "n": 4,
+      "first": "He couldn't open the door because he had lost the key.",
+      "keyword": "SINCE",
+      "before": "He couldn't open the door",
+      "after": "lost the key.",
+      "parts": [
+        [
+          "SINCE HE"
+        ],
+        [
+          "HAD"
+        ]
+      ],
+      "model": "SINCE HE HAD",
+      "explanation": "since jako przyczyna."
+    },
+    {
+      "n": 5,
+      "first": "We began the meeting at nine and it is still going on.",
+      "keyword": "BEEN",
+      "before": "The meeting",
+      "after": "since nine.",
+      "parts": [
+        [
+          "HAS BEEN"
+        ],
+        [
+          "GOING ON"
+        ]
+      ],
+      "model": "HAS BEEN GOING ON",
+      "explanation": "Present Perfect Continuous."
+    },
+    {
+      "n": 6,
+      "first": "I find it hard to get up early.",
+      "keyword": "USED",
+      "before": "I am not",
+      "after": "up early.",
+      "parts": [
+        [
+          "USED TO"
+        ],
+        [
+          "GETTING"
+        ]
+      ],
+      "model": "USED TO GETTING",
+      "explanation": "be used to + -ing."
+    }
+  ]
+}

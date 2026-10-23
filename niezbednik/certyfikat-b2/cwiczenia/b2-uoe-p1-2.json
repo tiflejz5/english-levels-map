@@ -1,0 +1,99 @@
+{
+  "id": "b2-uoe-p1-2",
+  "part": 1,
+  "type": "multiple-choice-cloze",
+  "title": "Working from home",
+  "instructions": "Wybierz słowo (A, B, C lub D), które najlepiej pasuje do luki. Każda luka to 1 punkt.",
+  "maxScore": 8,
+  "text": "More and more people are {{1}} to work from home, and the trend is likely to continue. One of the main {{2}} is the time saved on travelling. Employees can also {{3}} their working hours to suit their family life. However, there are drawbacks. Some people find it hard to {{4}} their private life from their work, especially when the office is in the living room. Others miss the contact with colleagues and {{5}} lonely. Managers, too, face new {{6}}, as it is more difficult to {{7}} how well the team is working. Experts therefore recommend that companies keep a {{8}} between remote and office work.",
+  "gaps": [
+    {
+      "n": 1,
+      "options": {
+        "A": "choosing",
+        "B": "deciding",
+        "C": "judging",
+        "D": "preferring"
+      },
+      "answer": "A",
+      "explanation": "choose to work = decydować się pracować."
+    },
+    {
+      "n": 2,
+      "options": {
+        "A": "benefits",
+        "B": "profits",
+        "C": "gains",
+        "D": "rewards"
+      },
+      "answer": "A",
+      "explanation": "the main benefits."
+    },
+    {
+      "n": 3,
+      "options": {
+        "A": "adapt",
+        "B": "adjust",
+        "C": "arrange",
+        "D": "regulate"
+      },
+      "answer": "B",
+      "explanation": "adjust working hours = dopasować godziny."
+    },
+    {
+      "n": 4,
+      "options": {
+        "A": "separate",
+        "B": "divide",
+        "C": "split",
+        "D": "part"
+      },
+      "answer": "A",
+      "explanation": "separate X from Y."
+    },
+    {
+      "n": 5,
+      "options": {
+        "A": "feel",
+        "B": "find",
+        "C": "get",
+        "D": "seem"
+      },
+      "answer": "A",
+      "explanation": "feel lonely."
+    },
+    {
+      "n": 6,
+      "options": {
+        "A": "challenges",
+        "B": "problems",
+        "C": "fights",
+        "D": "difficulties"
+      },
+      "answer": "A",
+      "explanation": "face new challenges (kolokacja)."
+    },
+    {
+      "n": 7,
+      "options": {
+        "A": "measure",
+        "B": "monitor",
+        "C": "count",
+        "D": "weigh"
+      },
+      "answer": "B",
+      "explanation": "monitor how well = śledzić, jak dobrze."
+    },
+    {
+      "n": 8,
+      "options": {
+        "A": "balance",
+        "B": "level",
+        "C": "scale",
+        "D": "rate"
+      },
+      "answer": "A",
+      "explanation": "keep a balance between."
+    }
+  ]
+}

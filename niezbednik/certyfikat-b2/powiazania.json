@@ -1,0 +1,100 @@
+{
+  "id": "powiazania-b2",
+  "description": "Ramka „Na egzaminie B2 First” na stronach tematów",
+  "links": [
+    {
+      "itemId": "b2-czasy-laczenie-czasow",
+      "examParts": [
+        "Use of English – Parts 1–4",
+        "Writing"
+      ],
+      "note": "Łączenie czasów w lukach i w narracji.",
+      "exercises": [
+        "b2-uoe-p1-1",
+        "b2-uoe-p4-1"
+      ]
+    },
+    {
+      "itemId": "b2-gramatyka-wish-if-only",
+      "examParts": [
+        "Use of English – Part 4"
+      ],
+      "note": "Wish + Past Simple / Past Perfect to częste transformacje.",
+      "exercises": [
+        "b2-uoe-p4-1",
+        "b2-uoe-p4-2"
+      ]
+    },
+    {
+      "itemId": "b1-gramatyka-strona-bierna",
+      "examParts": [
+        "Use of English – Part 4"
+      ],
+      "note": "Strona bierna z say i w czasach ciągłych.",
+      "exercises": [
+        "b2-uoe-p4-1",
+        "b2-uoe-p4-2"
+      ]
+    },
+    {
+      "itemId": "b1-gramatyka-mowa-zalezna",
+      "examParts": [
+        "Use of English – Part 4"
+      ],
+      "note": "Mowa zależna w transformacjach.",
+      "exercises": [
+        "b2-uoe-p4-1"
+      ]
+    },
+    {
+      "itemId": "b2-gramatyka-modalne-przeszlosc",
+      "examParts": [
+        "Use of English – Part 4",
+        "Writing"
+      ],
+      "note": "might have, must have, should have: spekulacje o przeszłości.",
+      "exercises": [
+        "b2-uoe-p4-1"
+      ]
+    },
+    {
+      "itemId": "b2-funkcje-spekulowanie",
+      "examParts": [
+        "Speaking – Part 2",
+        "Speaking – Part 3"
+      ],
+      "note": "Spekulowanie przy porównywaniu zdjęć i w dyskusji.",
+      "exercises": []
+    },
+    {
+      "itemId": "b2-funkcje-argumentowanie",
+      "examParts": [
+        "Writing – esej",
+        "Speaking – Part 4"
+      ],
+      "note": "Argumentowanie w eseju i dyskusji.",
+      "exercises": []
+    },
+    {
+      "itemId": "b2-funkcje-negocjowanie",
+      "examParts": [
+        "Speaking – Part 3"
+      ],
+      "note": "Dochodzenie do wspólnej decyzji.",
+      "exercises": []
+    },
+    {
+      "itemId": "b2-slownictwo",
+      "examParts": [
+        "Use of English – Parts 1 i 3",
+        "Reading",
+        "Writing"
+      ],
+      "note": "Kolokacje i słowotwórstwo B2.",
+      "exercises": [
+        "b2-uoe-p3-1",
+        "b2-uoe-p3-2"
+      ]
+    }
+  ]
+}

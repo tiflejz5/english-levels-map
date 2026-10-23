@@ -1,0 +1,294 @@
+{
+  "id": "certyfikat-b2",
+  "label": "Certyfikat B2",
+  "title": "Cambridge B2 First",
+  "route": "/certyfikat-b2",
+  "sections": [
+    {
+      "id": "start",
+      "label": "Start",
+      "pages": [
+        {
+          "id": "przeglad",
+          "file": "strony/przeglad.md",
+          "label": "Przegląd egzaminu"
+        },
+        {
+          "id": "plan-powtorki",
+          "file": "strony/plan-powtorki.md",
+          "label": "Plan powtórki"
+        }
+      ]
+    },
+    {
+      "id": "reading-uoe",
+      "label": "Reading and Use of English",
+      "pages": [
+        {
+          "id": "use-of-english",
+          "file": "strony/use-of-english.md",
+          "label": "Use of English – Parts 1–4"
+        },
+        {
+          "id": "reading",
+          "file": "strony/reading.md",
+          "label": "Reading – Parts 5–7"
+        }
+      ]
+    },
+    {
+      "id": "writing",
+      "label": "Writing",
+      "pages": [
+        {
+          "id": "writing",
+          "file": "strony/writing.md",
+          "label": "Przegląd"
+        },
+        {
+          "id": "writing-esej",
+          "file": "strony/writing-esej.md",
+          "label": "Esej"
+        },
+        {
+          "id": "writing-artykul-email-recenzja",
+          "file": "strony/writing-artykul-email-recenzja.md",
+          "label": "Artykuł, e-mail, recenzja"
+        },
+        {
+          "id": "writing-raport",
+          "file": "strony/writing-raport.md",
+          "label": "Raport"
+        },
+        {
+          "id": "writing-opowiadanie",
+          "file": "strony/writing-opowiadanie.md",
+          "label": "Opowiadanie"
+        }
+      ]
+    },
+    {
+      "id": "listening-speaking",
+      "label": "Listening i Speaking",
+      "pages": [
+        {
+          "id": "listening",
+          "file": "strony/listening.md",
+          "label": "Listening – Parts 1–4"
+        },
+        {
+          "id": "speaking",
+          "file": "strony/speaking.md",
+          "label": "Speaking – Parts 1–4"
+        }
+      ]
+    },
+    {
+      "id": "przygotowanie",
+      "label": "Przygotowanie",
+      "pages": [
+        {
+          "id": "gramatyka-pod-egzamin",
+          "file": "strony/gramatyka-pod-egzamin.md",
+          "label": "Gramatyka pod egzamin"
+        },
+        {
+          "id": "slownictwo",
+          "file": "strony/slownictwo.md",
+          "label": "Słownictwo i kolokacje"
+        },
+        {
+          "id": "dzien-egzaminu",
+          "file": "strony/dzien-egzaminu.md",
+          "label": "Dzień egzaminu"
+        }
+      ]
+    },
+    {
+      "id": "cwiczenia",
+      "label": "Ćwiczenia",
+      "exerciseGroups": [
+        {
+          "part": 1,
+          "label": "Part 1 – Multiple-choice cloze",
+          "sets": [
+            {
+              "id": "b2-uoe-p1-1",
+              "file": "cwiczenia/b2-uoe-p1-1.json",
+              "label": "Learning to cook",
+              "maxScore": 8
+            },
+            {
+              "id": "b2-uoe-p1-2",
+              "file": "cwiczenia/b2-uoe-p1-2.json",
+              "label": "Working from home",
+              "maxScore": 8
+            }
+          ]
+        },
+        {
+          "part": 2,
+          "label": "Part 2 – Open cloze",
+          "sets": [
+            {
+              "id": "b2-uoe-p2-1",
+              "file": "cwiczenia/b2-uoe-p2-1.json",
+              "label": "A weekend in the mountains",
+              "maxScore": 8
+            },
+            {
+              "id": "b2-uoe-p2-2",
+              "file": "cwiczenia/b2-uoe-p2-2.json",
+              "label": "A new hobby",
+              "maxScore": 8
+            }
+          ]
+        },
+        {
+          "part": 3,
+          "label": "Part 3 – Word formation",
+          "sets": [
+            {
+              "id": "b2-uoe-p3-1",
+              "file": "cwiczenia/b2-uoe-p3-1.json",
+              "label": "City life",
+              "maxScore": 8
+            },
+            {
+              "id": "b2-uoe-p3-2",
+              "file": "cwiczenia/b2-uoe-p3-2.json",
+              "label": "Online shopping",
+              "maxScore": 8
+            }
+          ]
+        },
+        {
+          "part": 4,
+          "label": "Part 4 – Key word transformation",
+          "sets": [
+            {
+              "id": "b2-uoe-p4-1",
+              "file": "cwiczenia/b2-uoe-p4-1.json",
+              "label": "Strona bierna, warunki, mowa zależna",
+              "maxScore": 12
+            },
+            {
+              "id": "b2-uoe-p4-2",
+              "file": "cwiczenia/b2-uoe-p4-2.json",
+              "label": "Emfaza i modalne",
+              "maxScore": 12
+            }
+          ]
+        },
+        {
+          "part": 5,
+          "label": "Part 5 – Multiple choice",
+          "sets": [
+            {
+              "id": "b2-reading-p5-1",
+              "file": "cwiczenia/b2-reading-p5-1.json",
+              "label": "Learning to live with less",
+              "maxScore": 6
+            }
+          ]
+        },
+        {
+          "part": 6,
+          "label": "Part 6 – Gapped text",
+          "sets": [
+            {
+              "id": "b2-reading-p6-1",
+              "file": "cwiczenia/b2-reading-p6-1.json",
+              "label": "A year without a phone",
+              "maxScore": 6
+            }
+          ]
+        },
+        {
+          "part": 7,
+          "label": "Part 7 – Multiple matching",
+          "sets": [
+            {
+              "id": "b2-reading-p7-1",
+              "file": "cwiczenia/b2-reading-p7-1.json",
+              "label": "Four people, first jobs",
+              "maxScore": 10
+            }
+          ]
+        },
+        {
+          "part": "L1",
+          "label": "Listening Part 1",
+          "sets": [
+            {
+              "id": "b2-listening-p1-1",
+              "file": "cwiczenia/b2-listening-p1-1.json",
+              "label": "8 krótkich nagrań",
+              "maxScore": 8
+            }
+          ]
+        },
+        {
+          "part": "L2",
+          "label": "Listening Part 2",
+          "sets": [
+            {
+              "id": "b2-listening-p2-1",
+              "file": "cwiczenia/b2-listening-p2-1.json",
+              "label": "Obóz żeglarski",
+              "maxScore": 10
+            }
+          ]
+        },
+        {
+          "part": "L3",
+          "label": "Listening Part 3",
+          "sets": [
+            {
+              "id": "b2-listening-p3-1",
+              "file": "cwiczenia/b2-listening-p3-1.json",
+              "label": "Dopasowanie",
+              "maxScore": 5
+            }
+          ]
+        },
+        {
+          "part": "L4",
+          "label": "Listening Part 4",
+          "sets": [
+            {
+              "id": "b2-listening-p4-1",
+              "file": "cwiczenia/b2-listening-p4-1.json",
+              "label": "Wywiad",
+              "maxScore": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "trening",
+      "label": "Trenery",
+      "trainers": [
+        {
+          "id": "trening-pisanie",
+          "file": "trening/pisanie.json",
+          "label": "Writing",
+          "type": "writing"
+        },
+        {
+          "id": "trening-mowienie",
+          "file": "trening/mowienie.json",
+          "label": "Speaking",
+          "type": "speaking"
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "Cambridge English – B2 First",
+      "url": "https://www.cambridgeenglish.org/exams-and-tests/first/"
+    }
+  ]
+}

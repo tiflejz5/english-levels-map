@@ -1,0 +1,75 @@
+{
+  "id": "b2-uoe-p3-2",
+  "part": 3,
+  "type": "word-formation",
+  "title": "Online shopping",
+  "instructions": "Utwórz od słowa wielkimi literami słowo, które pasuje do luki. Uważaj na przedrostki, liczbę mnogą i pisownię. Każda luka to 1 punkt.",
+  "maxScore": 8,
+  "text": "Online shopping has gained great {{1}} in recent years. Customers appreciate the {{2}} of buying things without leaving home. Prices are often lower, and there is a much wider {{3}} of products. However, there are also some {{4}}. For example, it is impossible to try on clothes, and a wrong size can be {{5}}. Some shoppers have also had {{6}} experiences with companies which did not deliver on time. Experts advise {{7}} to read opinions of other customers before they buy. A little {{8}} before you click can save a lot of money and stress.",
+  "gaps": [
+    {
+      "n": 1,
+      "stem": "POPULAR",
+      "accept": [
+        "POPULARITY"
+      ],
+      "explanation": "Rzeczownik po great: popularity."
+    },
+    {
+      "n": 2,
+      "stem": "CONVENIENT",
+      "accept": [
+        "CONVENIENCE"
+      ],
+      "explanation": "Rzeczownik po the."
+    },
+    {
+      "n": 3,
+      "stem": "SELECT",
+      "accept": [
+        "SELECTION"
+      ],
+      "explanation": "Rzeczownik: wider selection."
+    },
+    {
+      "n": 4,
+      "stem": "DISADVANTAGE",
+      "accept": [
+        "DISADVANTAGES"
+      ],
+      "explanation": "Liczba mnoga po some."
+    },
+    {
+      "n": 5,
+      "stem": "FRUSTRATE",
+      "accept": [
+        "FRUSTRATING"
+      ],
+      "explanation": "Przymiotnik: frustrating."
+    },
+    {
+      "n": 6,
+      "stem": "PLEASE",
+      "accept": [
+        "UNPLEASANT"
+      ],
+      "explanation": "Przeczący przymiotnik: unpleasant."
+    },
+    {
+      "n": 7,
+      "stem": "SHOP",
+      "accept": [
+        "SHOPPERS"
+      ],
+      "explanation": "Rzeczownik w liczbie mnogiej: advise shoppers."
+    },
+    {
+      "n": 8,
+      "stem": "PLAN",
+      "accept": [
+        "PLANNING"
+      ],
+      "explanation": "Rzeczownik: A little planning."
+    }
+  ]
+}

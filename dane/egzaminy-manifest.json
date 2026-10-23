@@ -40,11 +40,14 @@
     {
       "id": "certyfikat-b2",
       "code": "B2",
-      "label": "Certyfikat B2 (Cambridge)",
+      "label": "Certyfikat B2",
       "route": "/certyfikat-b2",
-      "status": "soon",
+      "status": "active",
+      "accent": "#1f6f8b",
+      "accent2": "#d9a21b",
+      "suggestedDate": null,
       "order": 4,
-      "soonDescription": "Przygotowanie do Cambridge B2 First: Reading, Use of English, Writing i Listening."
+      "description": "Cambridge B2 First: Reading and Use of English, Writing, Listening i Speaking."
     },
     {
       "id": "certyfikat-c1",

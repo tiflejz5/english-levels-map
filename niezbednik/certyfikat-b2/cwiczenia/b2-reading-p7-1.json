@@ -1,0 +1,161 @@
+{
+  "version": 1,
+  "id": "b2-reading-p7-1",
+  "topic": null,
+  "level": "B2",
+  "title": "Reading Part 7 – dopasowanie",
+  "intro": "Przeczytaj cztery krótkie teksty i zdecyduj, która osoba odpowiada każdemu stwierdzeniu.",
+  "passage": "**Four people talk about their first job**\n\n**A – Piotr**\nMy first job was in a bookshop. The manager trusted me to organise the shelves, which I enjoyed because I like order. The pay was low, but I got a discount on books, which I used a lot. I stayed for a year and then left to go to university. The best thing was learning how to talk to customers who didn't know what they wanted.\n\n**B – Hannah**\nI worked as a waitress at a seaside café. It was exhausting, as we had hundreds of customers in summer and no time to rest. My colleagues were great, though, and we often went swimming after work. I learned to stay calm under pressure, which later helped me in exams.\n\n**C – Luis**\nI delivered newspapers before school. It was cold and dark in winter, and I hated getting up early. But I earned enough to buy my first bike. My father said that the job would teach me responsibility, and he was right. I never missed a day, even when I was ill.\n\n**D – Karen**\nI helped at a veterinary clinic on Saturdays. I wasn't allowed to do anything medical, so I mostly cleaned and answered the phone. Still, I loved being around animals and decided to become a vet. Unfortunately, the money was very poor, and I had to ask my parents for help sometimes.",
+  "items": [
+    {
+      "type": "multiple-choice",
+      "kind": "reading",
+      "prompt": "Która osoba learned to deal with stress?",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct": 1,
+      "explanation": "Dowód w tekście osoby B.",
+      "fixedOrder": true,
+      "id": "b2-reading-p7-1-01"
+    },
+    {
+      "type": "multiple-choice",
+      "kind": "reading",
+      "prompt": "Która osoba was influenced by the job when choosing a career?",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct": 3,
+      "explanation": "Dowód w tekście osoby D.",
+      "fixedOrder": true,
+      "id": "b2-reading-p7-1-02"
+    },
+    {
+      "type": "multiple-choice",
+      "kind": "reading",
+      "prompt": "Która osoba was encouraged by a parent?",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct": 2,
+      "explanation": "Dowód w tekście osoby C.",
+      "fixedOrder": true,
+      "id": "b2-reading-p7-1-03"
+    },
+    {
+      "type": "multiple-choice",
+      "kind": "reading",
+      "prompt": "Która osoba was glad about a reduction in prices of products?",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct": 0,
+      "explanation": "Dowód w tekście osoby A.",
+      "fixedOrder": true,
+      "id": "b2-reading-p7-1-04"
+    },
+    {
+      "type": "multiple-choice",
+      "kind": "reading",
+      "prompt": "Która osoba did not enjoy the working hours?",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct": 2,
+      "explanation": "Dowód w tekście osoby C.",
+      "fixedOrder": true,
+      "id": "b2-reading-p7-1-05"
+    },
+    {
+      "type": "multiple-choice",
+      "kind": "reading",
+      "prompt": "Która osoba made friends at work?",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct": 1,
+      "explanation": "Dowód w tekście osoby B.",
+      "fixedOrder": true,
+      "id": "b2-reading-p7-1-06"
+    },
+    {
+      "type": "multiple-choice",
+      "kind": "reading",
+      "prompt": "Która osoba was not paid well enough?",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct": 3,
+      "explanation": "Dowód w tekście osoby D.",
+      "fixedOrder": true,
+      "id": "b2-reading-p7-1-07"
+    },
+    {
+      "type": "multiple-choice",
+      "kind": "reading",
+      "prompt": "Która osoba was responsible for the arrangement of goods?",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct": 0,
+      "explanation": "Dowód w tekście osoby A.",
+      "fixedOrder": true,
+      "id": "b2-reading-p7-1-08"
+    },
+    {
+      "type": "multiple-choice",
+      "kind": "reading",
+      "prompt": "Która osoba never missed work?",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct": 2,
+      "explanation": "Dowód w tekście osoby C.",
+      "fixedOrder": true,
+      "id": "b2-reading-p7-1-09"
+    },
+    {
+      "type": "multiple-choice",
+      "kind": "reading",
+      "prompt": "Która osoba did a job that was physically tiring?",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct": 1,
+      "explanation": "Dowód w tekście osoby B.",
+      "fixedOrder": true,
+      "id": "b2-reading-p7-1-10"
+    }
+  ]
+}

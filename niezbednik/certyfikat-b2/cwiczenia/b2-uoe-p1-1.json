@@ -1,0 +1,99 @@
+{
+  "id": "b2-uoe-p1-1",
+  "part": 1,
+  "type": "multiple-choice-cloze",
+  "title": "Learning to cook",
+  "instructions": "Wybierz słowo (A, B, C lub D), które najlepiej pasuje do luki. Każda luka to 1 punkt.",
+  "maxScore": 8,
+  "text": "Learning to cook can be one of the most {{1}} things you do in your free time. At first, it may seem difficult, but with a little {{2}} you will soon notice progress. Many beginners {{3}} the mistake of trying complicated recipes. A better idea is to {{4}} with simple dishes such as soup or pasta. Cooking with friends is also a good way to {{5}} new ideas. If a recipe goes wrong, do not {{6}} up. Even professional chefs {{7}} mistakes, and they often learn more from them than from their successes. In the end, the {{8}} of a delicious meal made with your own hands is hard to beat.",
+  "gaps": [
+    {
+      "n": 1,
+      "options": {
+        "A": "rewarding",
+        "B": "reliable",
+        "C": "reasonable",
+        "D": "relevant"
+      },
+      "answer": "A",
+      "explanation": "rewarding = dający satysfakcję."
+    },
+    {
+      "n": 2,
+      "options": {
+        "A": "practice",
+        "B": "practise",
+        "C": "practical",
+        "D": "practically"
+      },
+      "answer": "A",
+      "explanation": "Rzeczownik po a little: practice (BrE rzeczownik)."
+    },
+    {
+      "n": 3,
+      "options": {
+        "A": "do",
+        "B": "make",
+        "C": "take",
+        "D": "have"
+      },
+      "answer": "B",
+      "explanation": "make a mistake."
+    },
+    {
+      "n": 4,
+      "options": {
+        "A": "begin",
+        "B": "start",
+        "C": "open",
+        "D": "go"
+      },
+      "answer": "B",
+      "explanation": "start with = zacząć od."
+    },
+    {
+      "n": 5,
+      "options": {
+        "A": "exchange",
+        "B": "share",
+        "C": "divide",
+        "D": "spread"
+      },
+      "answer": "B",
+      "explanation": "share ideas = dzielić się pomysłami."
+    },
+    {
+      "n": 6,
+      "options": {
+        "A": "give",
+        "B": "put",
+        "C": "take",
+        "D": "hold"
+      },
+      "answer": "A",
+      "explanation": "give up = poddać się."
+    },
+    {
+      "n": 7,
+      "options": {
+        "A": "make",
+        "B": "do",
+        "C": "cause",
+        "D": "create"
+      },
+      "answer": "A",
+      "explanation": "make mistakes."
+    },
+    {
+      "n": 8,
+      "options": {
+        "A": "satisfaction",
+        "B": "satisfied",
+        "C": "satisfy",
+        "D": "satisfying"
+      },
+      "answer": "A",
+      "explanation": "Rzeczownik po the: satisfaction."
+    }
+  ]
+}

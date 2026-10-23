@@ -1,0 +1,68 @@
+{
+  "id": "b2-uoe-p2-2",
+  "part": 2,
+  "type": "open-cloze",
+  "title": "A new hobby",
+  "instructions": "Wpisz w każdą lukę dokładnie jedno słowo. Skróty typu don't nie są poprawną odpowiedzią. Każda luka to 1 punkt.",
+  "maxScore": 8,
+  "text": "My cousin has always enjoyed taking photographs, but it was only last year {{1}} he decided to turn his hobby into something more serious. He bought a second-hand camera and started attending a course at the local cultural centre. {{2}} first he found it difficult to understand how the settings work, but his teacher was patient and explained everything {{3}} the end of the lesson. Now he spends almost every weekend outside, looking {{4}} interesting subjects. He says that photography has taught him to notice details that he would never have seen otherwise. Last month his picture of an old bridge was published in a local magazine, {{5}} made him extremely proud. Although he does not earn any money yet, he hopes {{6}} be able to work as a professional photographer one day. In the meantime, he is saving up for a better lens. His advice to anyone {{7}} wants to try is simple: do not wait for the perfect equipment, but start {{8}} what you have.",
+  "gaps": [
+    {
+      "n": 1,
+      "accept": [
+        "THAT"
+      ],
+      "explanation": "It was ... that: zdanie rozszczepione."
+    },
+    {
+      "n": 2,
+      "accept": [
+        "AT"
+      ],
+      "explanation": "At first."
+    },
+    {
+      "n": 3,
+      "accept": [
+        "BY"
+      ],
+      "explanation": "by the end of the lesson."
+    },
+    {
+      "n": 4,
+      "accept": [
+        "FOR"
+      ],
+      "explanation": "look for = szukać."
+    },
+    {
+      "n": 5,
+      "accept": [
+        "WHICH"
+      ],
+      "explanation": "Zdanie względne odnoszące się do całego poprzedniego."
+    },
+    {
+      "n": 6,
+      "accept": [
+        "TO"
+      ],
+      "explanation": "hope to be able to."
+    },
+    {
+      "n": 7,
+      "accept": [
+        "WHO",
+        "THAT"
+      ],
+      "explanation": "anyone who wants."
+    },
+    {
+      "n": 8,
+      "accept": [
+        "WITH"
+      ],
+      "explanation": "start with what you have."
+    }
+  ]
+}

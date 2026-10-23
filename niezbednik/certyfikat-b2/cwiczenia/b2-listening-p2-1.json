@@ -1,0 +1,141 @@
+{
+  "version": 1,
+  "id": "b2-listening-p2-1",
+  "topic": null,
+  "level": "B2",
+  "title": "Listening Part 2 – obóz żeglarski (syntezator mowy)",
+  "intro": "Posłuchaj wypowiedzi dwa razy i uzupełnij zdania.",
+  "passage": null,
+  "script": "Hello everyone. Today I'd like to tell you about the Youth Sailing Camp, which takes place every summer on a lake in the north of the country. The camp lasts ten days, and it's open to teenagers aged between thirteen and seventeen.\n\nMost participants have never sailed before, so on the first day we teach the basics. You'll learn the names of the parts of the boat, and you'll practise tying knots. The first lesson on the water is usually on the second day, in small boats for two people.\n\nEach morning, the group starts with a short run along the beach. After breakfast, we have lessons until noon. In the afternoon, you can choose between windsurfing and kayaking. In the evenings, we often sit around a campfire and sing songs.\n\nAccommodation is in tents, which are set up in a forest near the lake. Don't worry about the cold. We give everyone a warm sleeping bag. The price for the whole camp is four hundred and fifty pounds, and this includes all meals. You only need to bring your own towel and a waterproof jacket.\n\nOn the last day, there's a race, and the winners get a small trophy. Last year the winner was a fifteen-year-old girl who had never sailed before the camp! If you're interested, please book before the end of May, because places are limited to forty people.",
+  "defaultMode": "exam",
+  "items": [
+    {
+      "type": "short-answer",
+      "kind": "listening",
+      "context": "Uzupełnij zdanie jednym do trzech słów lub liczbą.",
+      "prompt": "The camp takes place on a lake in the ___ of the country.",
+      "accepted": [
+        "north",
+        "the north"
+      ],
+      "explanation": "The north.",
+      "maxPlays": 2,
+      "id": "b2-listening-p2-1-01"
+    },
+    {
+      "type": "short-answer",
+      "kind": "listening",
+      "context": "Uzupełnij zdanie jednym do trzech słów lub liczbą.",
+      "prompt": "Participants must be between thirteen and ___ years old.",
+      "accepted": [
+        "17",
+        "seventeen"
+      ],
+      "explanation": "Seventeen.",
+      "maxPlays": 2,
+      "id": "b2-listening-p2-1-02"
+    },
+    {
+      "type": "short-answer",
+      "kind": "listening",
+      "context": "Uzupełnij zdanie jednym do trzech słów lub liczbą.",
+      "prompt": "On the first day, participants practise tying ___.",
+      "accepted": [
+        "knots"
+      ],
+      "explanation": "Knots.",
+      "maxPlays": 2,
+      "id": "b2-listening-p2-1-03"
+    },
+    {
+      "type": "short-answer",
+      "kind": "listening",
+      "context": "Uzupełnij zdanie jednym do trzech słów lub liczbą.",
+      "prompt": "The first lesson on the water is on the ___ day.",
+      "accepted": [
+        "second",
+        "2nd"
+      ],
+      "explanation": "The second day.",
+      "maxPlays": 2,
+      "id": "b2-listening-p2-1-04"
+    },
+    {
+      "type": "short-answer",
+      "kind": "listening",
+      "context": "Uzupełnij zdanie jednym do trzech słów lub liczbą.",
+      "prompt": "Each morning begins with a short ___ along the beach.",
+      "accepted": [
+        "run"
+      ],
+      "explanation": "A short run.",
+      "maxPlays": 2,
+      "id": "b2-listening-p2-1-05"
+    },
+    {
+      "type": "short-answer",
+      "kind": "listening",
+      "context": "Uzupełnij zdanie jednym do trzech słów lub liczbą.",
+      "prompt": "In the afternoon, participants can choose between windsurfing and ___.",
+      "accepted": [
+        "kayaking"
+      ],
+      "explanation": "Kayaking.",
+      "maxPlays": 2,
+      "id": "b2-listening-p2-1-06"
+    },
+    {
+      "type": "short-answer",
+      "kind": "listening",
+      "context": "Uzupełnij zdanie jednym do trzech słów lub liczbą.",
+      "prompt": "Participants sleep in ___.",
+      "accepted": [
+        "tents",
+        "tent",
+        "a tent"
+      ],
+      "explanation": "Tents in a forest.",
+      "maxPlays": 2,
+      "id": "b2-listening-p2-1-07"
+    },
+    {
+      "type": "short-answer",
+      "kind": "listening",
+      "context": "Uzupełnij zdanie jednym do trzech słów lub liczbą.",
+      "prompt": "The camp costs ___ pounds.",
+      "accepted": [
+        "450",
+        "four hundred and fifty",
+        "four hundred fifty"
+      ],
+      "explanation": "450 pounds.",
+      "maxPlays": 2,
+      "id": "b2-listening-p2-1-08"
+    },
+    {
+      "type": "short-answer",
+      "kind": "listening",
+      "context": "Uzupełnij zdanie jednym do trzech słów lub liczbą.",
+      "prompt": "Participants must bring a towel and a ___ jacket.",
+      "accepted": [
+        "waterproof"
+      ],
+      "explanation": "A waterproof jacket.",
+      "maxPlays": 2,
+      "id": "b2-listening-p2-1-09"
+    },
+    {
+      "type": "short-answer",
+      "kind": "listening",
+      "context": "Uzupełnij zdanie jednym do trzech słów lub liczbą.",
+      "prompt": "Places are limited to ___ people.",
+      "accepted": [
+        "40",
+        "forty"
+      ],
+      "explanation": "Forty people.",
+      "maxPlays": 2,
+      "id": "b2-listening-p2-1-10"
+    }
+  ]
+}
