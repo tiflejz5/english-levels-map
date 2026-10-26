@@ -18,6 +18,7 @@
  *   exportTsv(cards)                   TSV zgodny z importem Anki (przód, tył, tagi; cloze jako {{c1::…}})
  *   sanitizeState(raw)                 stan z localStorage / importu → poprawny stan albo wyjątek
  *   emptyState(), pruneDaily(daily, keep?)
+ *   daily: { <dzień>: { new, reviews (powtórki kart w stanie review), again, good (Dobrze+Łatwe), answers (wszystkie oceny), minutes } }
  */
 window.ELM = window.ELM || {};
 
@@ -435,7 +436,8 @@ window.ELM = window.ELM || {};
       const x = daily[d];
       if (!DAY_RE.test(d) || !x || typeof x !== "object") return;
       out.daily[d] = { new: num(x.new, 0, 1e5) ? Math.floor(x.new) : 0, reviews: num(x.reviews, 0, 1e5) ? Math.floor(x.reviews) : 0,
-        again: num(x.again, 0, 1e5) ? Math.floor(x.again) : 0, good: num(x.good, 0, 1e5) ? Math.floor(x.good) : 0, minutes: num(x.minutes, 0, 1440) ? Math.round(x.minutes) : 0 };
+        again: num(x.again, 0, 1e5) ? Math.floor(x.again) : 0, good: num(x.good, 0, 1e5) ? Math.floor(x.good) : 0,
+        answers: num(x.answers, 0, 1e5) ? Math.floor(x.answers) : 0, minutes: num(x.minutes, 0, 1440) ? Math.round(x.minutes) : 0 };
     });
     out.daily = pruneDaily(out.daily, 400);
     return out;
