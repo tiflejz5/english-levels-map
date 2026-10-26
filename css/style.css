@@ -3510,3 +3510,18 @@ a.notes-item-title { color: var(--accent); text-decoration: underline; text-unde
   .fc-row-actions { justify-content: flex-start; }
   .fc-form { padding: 16px; }
 }
+
+/* Fiszki: integracje — kafelek „Dziś”, przycisk przy zaznaczeniu, Dziennik, Statystyki */
+.bento-fiszki { grid-column: span 12; }
+@media (max-width: 1023px) { .bento-fiszki { grid-column: span 6; } }
+.fc-sel-btn { position: fixed; z-index: 60; box-shadow: var(--shadow-lg); }
+.journal-in-fiszki { display: inline-flex; align-items: center; gap: 4px; min-height: 36px; padding: 0 6px; font-size: var(--fs-sm); font-weight: 600; color: var(--success); }
+.st-fiszki { grid-column: 1 / -1; }
+.fc-st-bars { display: flex; align-items: flex-end; gap: 3px; height: 96px; margin: 4px 0 12px; padding: 0 2px; border-bottom: 1px solid var(--line-strong); }
+.fc-st-bar { flex: 1 1 0; min-width: 2px; border-radius: 3px 3px 0 0; background: var(--accent-bg); }
+.fc-st-bar.is-zero { background: var(--surface-3); }
+.fc-st-forecast { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; margin: 4px 0 12px; padding: 0; list-style: none; }
+.fc-st-forecast li { display: grid; justify-items: center; gap: 2px; padding: 8px 4px; border-radius: var(--radius-sm); background: var(--surface-2); }
+.fc-st-fc-day { font-size: var(--fs-xs-plus); color: var(--ink-muted); }
+.fc-st-forecast strong { font-size: var(--fs-md); }
+.st-stat-note { margin: 2px 0 0; }

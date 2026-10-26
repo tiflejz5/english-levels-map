@@ -226,7 +226,7 @@ window.ELM = window.ELM || {};
       return { wrap: wrap, input: input };
     };
     const deckSel = el("select", { id: "fc-f-deck", class: "field" }, decks.map(function (d) { return el("option", { value: d.id, selected: d.id === fill.deck, text: d.title }); })
-      .concat([el("option", { value: "__new", selected: !decks.length, text: "+ Nowa talia…" })]));
+      .concat([el("option", { value: "__new", selected: !decks.some(function (d) { return d.id === fill.deck; }), text: "+ Nowa talia…" })]));
     const typeSel = el("select", { id: "fc-f-type", class: "field" }, [["basic", "Zwykła (przód i tył)"], ["cloze", "Z luką (zdanie z {{…}})"], ["typed", "Do wpisania (przód i odpowiedzi)"]]
       .map(function (t) { return el("option", { value: t[0], selected: fill.type === t[0], text: t[1] }); }));
     const front = field("fc-f-front", "Przód", fill.front, { area: true });

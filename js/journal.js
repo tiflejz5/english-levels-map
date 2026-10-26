@@ -277,6 +277,14 @@ window.ELM = window.ELM || {};
         link ? el("div", { class: "journal-row" }, [el("dt", { text: "Niezbędnik" }), el("dd", null, link)]) : null
       ]),
       el("div", { class: "journal-actions" }, [
+        // Fiszki (spec 10, 5.4): karta w talii „Moje błędy”, bez duplikatów
+        ELM.fiszki ? (ELM.fiszki.hasJournalCard(e)
+          ? el("span", { class: "journal-in-fiszki" }, [ELM.icon("check", { size: 14 }), " W fiszkach"])
+          : el("button", {
+            type: "button", class: "btn btn-secondary btn-small",
+            "aria-label": "Dodaj do fiszek: " + e.context.slice(0, 60),
+            onclick: function () { const r = ELM.fiszki.addFromJournal(e, { onUndo: rerender }); if (r.status !== "no-profile") rerender(); }
+          }, ELM.ui.withIcon("layers", "Dodaj do fiszek"))) : null,
         el("button", {
           type: "button",
           class: "btn btn-secondary btn-small",

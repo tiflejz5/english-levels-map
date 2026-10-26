@@ -286,6 +286,7 @@ window.ELM = window.ELM || {};
     }
     grid.appendChild(activityTile(today));
     grid.appendChild(journalTile(today));
+    if (ELM.fiszki) { const f = ELM.fiszki.statsTile(); if (f) grid.appendChild(f); } // sekcja „Fiszki” (spec 10, 5.5)
     view.appendChild(grid);
     U.setScroll(0);
   }

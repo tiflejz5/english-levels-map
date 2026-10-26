@@ -707,8 +707,177 @@ window.ELM = window.ELM || {};
 
   window.addEventListener("hashchange", function () { if (!parseRoute(location.hash)) lastRoute = null; });
 
+  // =====================================================================
+  // INTEGRACJE (spec 10, 5.4–5.5)
+  // =====================================================================
+
+  function journalSource(e) { return e.ref ? String(e.ref) : "journal:" + e.id; }
+
+  /** Czy wpis dziennika ma już kartę (deduplikacja po sourceItemId). */
+  function hasJournalCard(e) {
+    if (!hasProfile()) return false;
+    const sid = journalSource(e);
+    return st().userCards.some(function (c) { return c.sourceItemId === sid; });
+  }
+
+  /** Karta z wpisu dziennika: cloze, gdy kontekst ma lukę ___, inaczej zwykła (przód = kontekst, tył = poprawna + reguła). */
+  function cardFromJournal(e) {
+    const correct = String(e.correct || "").replace(/[{}|]/g, " ").replace(/\s+/g, " ").trim().slice(0, 200);
+    const rule = String(e.rule || "").slice(0, 500);
+    const gapLine = String(e.context || "").split("\n").find(function (l) { return /_{3,}/.test(l); });
+    if (gapLine && correct) {
+      const res = L().makeCard({ type: "cloze", front: gapLine.replace(/_{3,}/, "{{" + correct + "}}").slice(0, 500), back: rule });
+      if (!res.error) return res.card;
+    }
+    return L().makeCard({ type: "basic", front: String(e.context || "").slice(0, 500) || "?", back: correct || "—", note: rule }).card;
+  }
+
+  /** Dodaje wpis dziennika do talii „Moje błędy”. opts.silent — bez komunikatu. → { status, card } */
+  function addFromJournal(e, opts) {
+    opts = opts || {};
+    if (!hasProfile()) return { status: "no-profile" };
+    if (hasJournalCard(e)) {
+      if (!opts.silent) ELM.ui.toast({ text: "Ta karta jest już w fiszkach (talia „Moje błędy”).", icon: "layers" });
+      return { status: "exists" };
+    }
+    const card = cardFromJournal(e);
+    if (!card) return { status: "error" };
+    ELM.fiszkiBrowse.ensureDeck(MISTAKES_ID, "Moje błędy", "mistakes");
+    const added = ELM.fiszkiBrowse.addCard(MISTAKES_ID, card, { sourceItemId: journalSource(e) });
+    if (!opts.silent) {
+      ELM.ui.toast({ text: "Dodano do fiszek (talia „Moje błędy”).", icon: "layers",
+        action: { label: "Cofnij", onClick: function () { ELM.fiszkiBrowse.removeCard(added.id); if (opts.onUndo) opts.onUndo(); } } });
+    }
+    return { status: "added", card: added };
+  }
+
+  /** Błąd z ćwiczenia trafił do dziennika: dodaj fiszkę, jeśli włączono „automatycznie dodawaj”. */
+  function autoAddFromJournal(e) {
+    if (!e || !hasProfile() || !st().settings.autoAddMistakes) return;
+    addFromJournal(e, { silent: true });
+  }
+
+  // ---------- Zaznaczenie tekstu na stronie tematu ----------
+
+  let selBtn = null, selTimer = null;
+
+  function selectionText() {
+    if (!ELM.state || ELM.state.view !== "page") return "";
+    const s = window.getSelection && window.getSelection();
+    if (!s || s.isCollapsed || !s.rangeCount) return "";
+    const n = s.anchorNode && (s.anchorNode.nodeType === 1 ? s.anchorNode : s.anchorNode.parentElement);
+    if (!n || !n.closest("#view article.md") || n.closest("input, textarea, [contenteditable], .notes-panel")) return "";
+    return s.toString().replace(/\s+/g, " ").trim().slice(0, 300);
+  }
+
+  function openFromSelection(text) {
+    if (!hasProfile()) { ELM.ui.toast({ text: "Dodaj profil, żeby zapisywać fiszki.", icon: "layers" }); return; }
+    ELM.fiszkiBrowse.prefill({ type: "basic", front: text });
+    const own = st().userDecks.filter(function (d) { return !d.system; });
+    hideSelButton();
+    location.hash = HASH + "/talia/" + (own.length ? own[0].id : "nowa") + "/nowa";
+  }
+
+  function hideSelButton() { if (selBtn) selBtn.hidden = true; }
+
+  function updateSelButton() {
+    const text = selectionText();
+    if (!text) { hideSelButton(); return; }
+    if (!selBtn) {
+      selBtn = el("button", { type: "button", class: "btn btn-primary btn-small fc-sel-btn", hidden: true,
+        "aria-label": "Dodaj zaznaczony tekst do fiszek (Ctrl+Shift+F)",
+        onmousedown: function (e) { e.preventDefault(); }, // nie gubi zaznaczenia
+        onclick: function () { const t = selectionText(); if (t) openFromSelection(t); } }, ELM.ui.withIcon("layers", "Dodaj do fiszek"));
+      document.body.appendChild(selBtn);
+    }
+    const r = window.getSelection().getRangeAt(0).getBoundingClientRect();
+    selBtn.hidden = false;
+    const top = r.top > 56 ? r.top - 44 : r.bottom + 8;
+    selBtn.style.top = Math.max(8, top) + "px";
+    selBtn.style.left = Math.max(8, Math.min(window.innerWidth - 200, r.left)) + "px";
+  }
+
+  document.addEventListener("selectionchange", function () { clearTimeout(selTimer); selTimer = setTimeout(updateSelButton, 150); });
+  window.addEventListener("hashchange", hideSelButton);
+  window.addEventListener("scroll", function () { if (selBtn && !selBtn.hidden) updateSelButton(); }, { passive: true });
+  document.addEventListener("keydown", function (e) {
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === "F" || e.key === "f")) {
+      const t = selectionText();
+      if (t) { e.preventDefault(); openFromSelection(t); }
+    }
+  });
+
+  // ---------- Kafelek „Dziś” i sekcja w Statystykach ----------
+
+  /** Kafelek „Fiszki do powtórki: N” na pulpicie Dziś (bez profilu — null). */
+  function todayTile() {
+    if (!hasProfile()) return null;
+    const sum = dueSummary();
+    const next = sum.total ? null : nextDue(now());
+    return el("section", { class: "card bento-tile bento-fiszki", "aria-labelledby": "fc-today-title" }, [
+      el("h2", { class: "tile-title", id: "fc-today-title" }, ["Fiszki do powtórki"]),
+      sum.total
+        ? el("p", { class: "tile-big" }, [el("span", { class: "today-number num", text: String(sum.total) }),
+          el("span", { class: "tile-unit", text: plural(sum.total, "karta", "karty", "kart") + " na dziś (w tym nowe: " + sum.fresh + ")" })])
+        : el("p", { class: "tool-note", text: next ? "Na dziś koniec. Najbliższa powtórka: " + fmtWhen(next) + "." : "Włącz talię w zakładce Fiszki, żeby zacząć." }),
+      el("a", { class: "btn " + (sum.total ? "btn-primary" : "btn-secondary") + " tile-action", href: sum.total ? HASH + "/sesja" : HASH }, ELM.ui.withIcon("layers", sum.total ? "Ucz się teraz" : "Otwórz fiszki"))
+    ]);
+  }
+
+  /** Sekcja „Fiszki” w Statystykach: powtórki z 30 dni, odsetek poprawnych (od 20 powtórek), opanowane, prognoza 7 dni. */
+  function statsTile() {
+    if (!hasProfile()) return null;
+    const s = st(), t = now(), dayMs = H().DAY;
+    const days = [];
+    for (let i = 29; i >= 0; i--) days.push(L().studyDay(t - i * dayMs));
+    const per = days.map(function (d) { return (s.daily[d] && s.daily[d].answers) || 0; });
+    const total = per.reduce(function (a, b) { return a + b; }, 0);
+    const good = days.reduce(function (a, d) { return a + ((s.daily[d] && s.daily[d].good) || 0); }, 0);
+    let mastered = 0;
+    const forecast = [0, 0, 0, 0, 0, 0, 0];
+    const end0 = L().dayEnd(t);
+    Object.keys(s.cards).forEach(function (id) {
+      const x = s.cards[id];
+      if (x.suspended || x.state === "new") return;
+      if (x.state === "review" && x.interval >= 21) mastered++;
+      const due = Math.max(x.due, x.buriedUntil || 0);
+      const k = due < end0 ? 0 : Math.floor((due - end0) / dayMs) + 1;
+      if (k < 7) forecast[k]++;
+    });
+    const head = el("h2", { class: "tile-title", id: "st-fiszki", text: "Fiszki" });
+    if (!total && !Object.keys(s.cards).length) {
+      return el("section", { class: "card st-tile st-fiszki", "aria-labelledby": "st-fiszki" }, [head,
+        el("p", { class: "st-empty", text: "Nie masz jeszcze powtórek fiszek. Zacznij od talii w zakładce Fiszki – statystyki pojawią się po pierwszej sesji." }),
+        el("p", null, el("a", { class: "btn btn-secondary btn-small", href: HASH }, "Otwórz fiszki"))]);
+    }
+    const max = Math.max(1, Math.max.apply(null, per));
+    const bars = el("div", { class: "fc-st-bars", role: "img", "aria-label": "Powtórki fiszek w ostatnich 30 dniach: razem " + total + ", najwięcej jednego dnia: " + Math.max.apply(null, per) + "." },
+      per.map(function (n, i) { return el("span", { class: "fc-st-bar" + (n ? "" : " is-zero"), style: "height:" + Math.max(n ? 6 : 2, Math.round(100 * n / max)) + "%", title: days[i].slice(8, 10) + "." + days[i].slice(5, 7) + ": " + n, "aria-hidden": "true" }); }));
+    const stat = function (label, value, note) {
+      return el("div", { class: "st-stat" }, [el("p", { class: "st-stat-label", text: label }), el("p", { class: "st-stat-value", text: value }), note ? el("p", { class: "st-stat-note tool-note", text: note }) : null]);
+    };
+    const pct = total >= 20 ? Math.round(100 * good / total) + "%" : "—";
+    const fLabels = ["dziś", "jutro"].concat([2, 3, 4, 5, 6].map(function (k) { return new Date(t + k * dayMs).toLocaleDateString("pl-PL", { weekday: "short" }); }));
+    return el("section", { class: "card st-tile st-fiszki", "aria-labelledby": "st-fiszki" }, [head,
+      el("div", { class: "st-stats is-three" }, [
+        stat("Powtórki (30 dni)", String(total)),
+        stat("Dobrze lub Łatwe (30 dni)", pct, total >= 20 ? null : "Pokażemy od 20 powtórek (teraz: " + total + ")."),
+        stat("Opanowane karty", String(mastered), "interwał co najmniej 21 dni")
+      ]),
+      el("p", { class: "review-label", text: "Powtórki dziennie – ostatnie 30 dni" }),
+      bars,
+      el("p", { class: "review-label", text: "Prognoza powtórek na 7 dni" }),
+      el("ol", { class: "fc-st-forecast" }, forecast.map(function (n, i) {
+        return el("li", null, [el("span", { class: "fc-st-fc-day", text: fLabels[i] }), el("strong", { class: "num", text: String(n) })]);
+      })),
+      el("p", null, el("a", { class: "btn btn-secondary btn-small", href: HASH }, "Otwórz fiszki"))
+    ]);
+  }
+
   ELM.fiszki = {
     HASH: HASH, MISTAKES_ID: MISTAKES_ID, parseRoute: parseRoute, render: render, badgeCount: badgeCount, dueSummary: dueSummary,
+    hasJournalCard: hasJournalCard, addFromJournal: addFromJournal, autoAddFromJournal: autoAddFromJournal,
+    todayTile: todayTile, statsTile: statsTile, openFromSelection: openFromSelection,
     // dla przeglądania / edycji i integracji
     internal: { st: st, saveState: saveState, allDecks: allDecks, deckById: deckById, cardsOf: cardsOf, cardById: cardById, enabled: enabled,
       toggleDeck: toggleDeck, renderFront: renderFront, renderBack: renderBack, head: head, plural: plural, downloadText: downloadText,

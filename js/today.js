@@ -428,7 +428,8 @@ window.ELM = window.ELM || {};
       streakTile(),
       exam,
       addTile(),
-      continueTile()
+      continueTile(),
+      ELM.fiszki ? ELM.fiszki.todayTile() : null // kafelek „Fiszki do powtórki” (spec 10, 5.5)
     ]));
     document.title = "Dziś · English Levels Map";
     U.setScroll(keepScroll);
