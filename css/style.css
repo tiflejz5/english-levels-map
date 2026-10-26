@@ -3380,6 +3380,8 @@ a.notes-item-title { color: var(--accent); text-decoration: underline; text-unde
 [data-section="certyfikat-b2"] .c1-ex-instr { border-left-color: var(--exam-mark); }
 
 /* ===================== FISZKI (js/fiszki.js, spec 10) ===================== */
+/* Elementy ukrywane atrybutem hidden (przycisk przy zaznaczeniu, pola formularza) nie mogą wracać przez display */
+.fiszki-view [hidden], .fc-sel-btn[hidden] { display: none; }
 .btn-large { min-height: 52px; padding: 12px 24px; font-size: var(--fs-md); }
 .fiszki-view .tool-title { display: flex; align-items: center; gap: 12px; }
 .fc-hero { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 20px 24px; margin-bottom: 24px; }

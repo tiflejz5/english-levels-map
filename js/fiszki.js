@@ -372,7 +372,8 @@ window.ELM = window.ELM || {};
     session = {
       byId: byId, queue: q.queue.slice(), pool: q.learning.slice(), total: q.queue.length + q.learning.length,
       done: 0, current: null, revealed: false, typed: null, undo: [], startedAt: t,
-      grades: { again: 0, hard: 0, good: 0, easy: 0 }, againById: {}, finished: false, root: null
+      grades: { again: 0, hard: 0, good: 0, easy: 0 }, againById: {}, finished: false, root: null,
+      profileId: app().getActiveProfile().id
     };
     advance();
   }
@@ -694,6 +695,8 @@ window.ELM = window.ELM || {};
     if (!hasProfile()) { session = null; noProfile(view); return; }
     // Nowa sesja przy każdym wejściu z innej strony; przerysowanie tej samej sesji zostawia stan
     if (route.kind === "session" && lastRoute !== location.hash && session) session.stale = true;
+    // Sesja należy do profilu — po zmianie profilu zaczynamy od nowa
+    if (session && session.profileId !== app().getActiveProfile().id) session.stale = true;
     lastRoute = location.hash;
     if (!index().every(function (d) { return loaded(d.id); })) {
       view.appendChild(el("p", { class: "tool-note", role: "status", text: "Wczytuję talie…" }));
