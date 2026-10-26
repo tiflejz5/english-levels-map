@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "decks": [
+    {
+      "id": "czasowniki-frazowe",
+      "title": "Czasowniki frazowe B2–C1",
+      "description": "30 częstych czasowników frazowych w zdaniach. Uzupełnij brakujący czasownik frazowy.",
+      "level": "B2-C1",
+      "file": "czasowniki-frazowe.json",
+      "count": 30
+    },
+    {
+      "id": "kolokacje",
+      "title": "Kolokacje B2–C1",
+      "description": "30 kolokacji w zdaniach. Wpisz brakujący wyraz.",
+      "level": "B2-C1",
+      "file": "kolokacje.json",
+      "count": 30
+    },
+    {
+      "id": "laczniki",
+      "title": "Łączniki i wyrażenia spójności",
+      "description": "24 łączniki do rozprawek, listów i Use of English. Wpisz brakujące wyrażenie.",
+      "level": "B1-C1",
+      "file": "laczniki.json",
+      "count": 24
+    },
+    {
+      "id": "slowotworstwo",
+      "title": "Rodziny wyrazów",
+      "description": "24 zadania ze słowotwórstwa: utwórz rzeczownik lub przeciwieństwo. Przydatne w Part 3.",
+      "level": "B1-C1",
+      "file": "slowotworstwo.json",
+      "count": 24
+    },
+    {
+      "id": "pulapki-polakow",
+      "title": "Pułapki Polaków",
+      "description": "24 typowe błędy: przetłumacz zdanie i sprawdź zasadę.",
+      "level": "A2-B2",
+      "file": "pulapki-polakow.json",
+      "count": 24
+    },
+    {
+      "id": "slownictwo-podstawowe",
+      "title": "Słownictwo podstawowe A2–B1",
+      "description": "30 słów do przetłumaczenia z polskiego na angielski.",
+      "level": "A2-B1",
+      "file": "slownictwo-podstawowe.json",
+      "count": 30
+    }
+  ]
+}

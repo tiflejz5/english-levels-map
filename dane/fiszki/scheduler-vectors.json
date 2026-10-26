@@ -1,0 +1,690 @@
+{
+ "version": 1,
+ "config": {
+  "learningSteps": [
+   1,
+   10
+  ],
+  "relearnSteps": [
+   10
+  ],
+  "graduatingInterval": 1,
+  "easyInterval": 4,
+  "startEase": 2.5,
+  "minEase": 1.3,
+  "maxEase": 2.8,
+  "hardMultiplier": 1.2,
+  "easyBonus": 1.3,
+  "lapseMultiplier": 0.5,
+  "maxInterval": 365
+ },
+ "startTimeMs": 1793527200000,
+ "note": "Ka\u017cdy krok wykonywany dok\u0142adnie w chwili due poprzedniej karty. Pola karty: state, step, ease, interval (dni), pendingInterval, lapses, reps, due (ms).",
+ "scenarios": [
+  {
+   "name": "nowa-good-good-good",
+   "steps": [
+    {
+     "grade": "good",
+     "now": 1793527200000,
+     "card": {
+      "state": "learning",
+      "step": 1,
+      "ease": 2.5,
+      "interval": 0,
+      "pendingInterval": 0,
+      "lapses": 0,
+      "reps": 1,
+      "due": 1793527800000
+     }
+    },
+    {
+     "grade": "good",
+     "now": 1793527800000,
+     "card": {
+      "state": "review",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 1,
+      "pendingInterval": 0,
+      "lapses": 0,
+      "reps": 2,
+      "due": 1793614200000
+     }
+    },
+    {
+     "grade": "good",
+     "now": 1793614200000,
+     "card": {
+      "state": "review",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 3,
+      "pendingInterval": 0,
+      "lapses": 0,
+      "reps": 3,
+      "due": 1793873400000
+     }
+    },
+    {
+     "grade": "good",
+     "now": 1793873400000,
+     "card": {
+      "state": "review",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 8,
+      "pendingInterval": 0,
+      "lapses": 0,
+      "reps": 4,
+      "due": 1794564600000
+     }
+    },
+    {
+     "grade": "good",
+     "now": 1794564600000,
+     "card": {
+      "state": "review",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 20,
+      "pendingInterval": 0,
+      "lapses": 0,
+      "reps": 5,
+      "due": 1796292600000
+     }
+    }
+   ]
+  },
+  {
+   "name": "nowa-easy",
+   "steps": [
+    {
+     "grade": "easy",
+     "now": 1793527200000,
+     "card": {
+      "state": "review",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 4,
+      "pendingInterval": 0,
+      "lapses": 0,
+      "reps": 1,
+      "due": 1793872800000
+     }
+    },
+    {
+     "grade": "good",
+     "now": 1793872800000,
+     "card": {
+      "state": "review",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 10,
+      "pendingInterval": 0,
+      "lapses": 0,
+      "reps": 2,
+      "due": 1794736800000
+     }
+    },
+    {
+     "grade": "good",
+     "now": 1794736800000,
+     "card": {
+      "state": "review",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 25,
+      "pendingInterval": 0,
+      "lapses": 0,
+      "reps": 3,
+      "due": 1796896800000
+     }
+    }
+   ]
+  },
+  {
+   "name": "again-w-nauce",
+   "steps": [
+    {
+     "grade": "good",
+     "now": 1793527200000,
+     "card": {
+      "state": "learning",
+      "step": 1,
+      "ease": 2.5,
+      "interval": 0,
+      "pendingInterval": 0,
+      "lapses": 0,
+      "reps": 1,
+      "due": 1793527800000
+     }
+    },
+    {
+     "grade": "again",
+     "now": 1793527800000,
+     "card": {
+      "state": "learning",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 0,
+      "pendingInterval": 0,
+      "lapses": 0,
+      "reps": 2,
+      "due": 1793527860000
+     }
+    },
+    {
+     "grade": "good",
+     "now": 1793527860000,
+     "card": {
+      "state": "learning",
+      "step": 1,
+      "ease": 2.5,
+      "interval": 0,
+      "pendingInterval": 0,
+      "lapses": 0,
+      "reps": 3,
+      "due": 1793528460000
+     }
+    },
+    {
+     "grade": "good",
+     "now": 1793528460000,
+     "card": {
+      "state": "review",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 1,
+      "pendingInterval": 0,
+      "lapses": 0,
+      "reps": 4,
+      "due": 1793614860000
+     }
+    }
+   ]
+  },
+  {
+   "name": "lapse-i-relearn",
+   "steps": [
+    {
+     "grade": "easy",
+     "now": 1793527200000,
+     "card": {
+      "state": "review",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 4,
+      "pendingInterval": 0,
+      "lapses": 0,
+      "reps": 1,
+      "due": 1793872800000
+     }
+    },
+    {
+     "grade": "good",
+     "now": 1793872800000,
+     "card": {
+      "state": "review",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 10,
+      "pendingInterval": 0,
+      "lapses": 0,
+      "reps": 2,
+      "due": 1794736800000
+     }
+    },
+    {
+     "grade": "good",
+     "now": 1794736800000,
+     "card": {
+      "state": "review",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 25,
+      "pendingInterval": 0,
+      "lapses": 0,
+      "reps": 3,
+      "due": 1796896800000
+     }
+    },
+    {
+     "grade": "again",
+     "now": 1796896800000,
+     "card": {
+      "state": "relearning",
+      "step": 0,
+      "ease": 2.3,
+      "interval": 25,
+      "pendingInterval": 13,
+      "lapses": 1,
+      "reps": 4,
+      "due": 1796897400000
+     }
+    },
+    {
+     "grade": "good",
+     "now": 1796897400000,
+     "card": {
+      "state": "review",
+      "step": 0,
+      "ease": 2.3,
+      "interval": 13,
+      "pendingInterval": 13,
+      "lapses": 1,
+      "reps": 5,
+      "due": 1798020600000
+     }
+    },
+    {
+     "grade": "good",
+     "now": 1798020600000,
+     "card": {
+      "state": "review",
+      "step": 0,
+      "ease": 2.3,
+      "interval": 30,
+      "pendingInterval": 13,
+      "lapses": 1,
+      "reps": 6,
+      "due": 1800612600000
+     }
+    }
+   ]
+  },
+  {
+   "name": "hard-w-powtorce",
+   "steps": [
+    {
+     "grade": "easy",
+     "now": 1793527200000,
+     "card": {
+      "state": "review",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 4,
+      "pendingInterval": 0,
+      "lapses": 0,
+      "reps": 1,
+      "due": 1793872800000
+     }
+    },
+    {
+     "grade": "hard",
+     "now": 1793872800000,
+     "card": {
+      "state": "review",
+      "step": 0,
+      "ease": 2.35,
+      "interval": 5,
+      "pendingInterval": 0,
+      "lapses": 0,
+      "reps": 2,
+      "due": 1794304800000
+     }
+    },
+    {
+     "grade": "hard",
+     "now": 1794304800000,
+     "card": {
+      "state": "review",
+      "step": 0,
+      "ease": 2.2,
+      "interval": 6,
+      "pendingInterval": 0,
+      "lapses": 0,
+      "reps": 3,
+      "due": 1794823200000
+     }
+    },
+    {
+     "grade": "good",
+     "now": 1794823200000,
+     "card": {
+      "state": "review",
+      "step": 0,
+      "ease": 2.2,
+      "interval": 13,
+      "pendingInterval": 0,
+      "lapses": 0,
+      "reps": 4,
+      "due": 1795946400000
+     }
+    }
+   ]
+  },
+  {
+   "name": "easy-w-powtorce",
+   "steps": [
+    {
+     "grade": "easy",
+     "now": 1793527200000,
+     "card": {
+      "state": "review",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 4,
+      "pendingInterval": 0,
+      "lapses": 0,
+      "reps": 1,
+      "due": 1793872800000
+     }
+    },
+    {
+     "grade": "easy",
+     "now": 1793872800000,
+     "card": {
+      "state": "review",
+      "step": 0,
+      "ease": 2.65,
+      "interval": 13,
+      "pendingInterval": 0,
+      "lapses": 0,
+      "reps": 2,
+      "due": 1794996000000
+     }
+    },
+    {
+     "grade": "easy",
+     "now": 1794996000000,
+     "card": {
+      "state": "review",
+      "step": 0,
+      "ease": 2.8,
+      "interval": 45,
+      "pendingInterval": 0,
+      "lapses": 0,
+      "reps": 3,
+      "due": 1798884000000
+     }
+    },
+    {
+     "grade": "easy",
+     "now": 1798884000000,
+     "card": {
+      "state": "review",
+      "step": 0,
+      "ease": 2.8,
+      "interval": 164,
+      "pendingInterval": 0,
+      "lapses": 0,
+      "reps": 4,
+      "due": 1813053600000
+     }
+    },
+    {
+     "grade": "easy",
+     "now": 1813053600000,
+     "card": {
+      "state": "review",
+      "step": 0,
+      "ease": 2.8,
+      "interval": 365,
+      "pendingInterval": 0,
+      "lapses": 0,
+      "reps": 5,
+      "due": 1844589600000
+     }
+    },
+    {
+     "grade": "easy",
+     "now": 1844589600000,
+     "card": {
+      "state": "review",
+      "step": 0,
+      "ease": 2.8,
+      "interval": 365,
+      "pendingInterval": 0,
+      "lapses": 0,
+      "reps": 6,
+      "due": 1876125600000
+     }
+    },
+    {
+     "grade": "easy",
+     "now": 1876125600000,
+     "card": {
+      "state": "review",
+      "step": 0,
+      "ease": 2.8,
+      "interval": 365,
+      "pendingInterval": 0,
+      "lapses": 0,
+      "reps": 7,
+      "due": 1907661600000
+     }
+    },
+    {
+     "grade": "easy",
+     "now": 1907661600000,
+     "card": {
+      "state": "review",
+      "step": 0,
+      "ease": 2.8,
+      "interval": 365,
+      "pendingInterval": 0,
+      "lapses": 0,
+      "reps": 8,
+      "due": 1939197600000
+     }
+    }
+   ]
+  },
+  {
+   "name": "limit-365",
+   "steps": [
+    {
+     "grade": "easy",
+     "now": 1793527200000,
+     "card": {
+      "state": "review",
+      "step": 0,
+      "ease": 2.5,
+      "interval": 4,
+      "pendingInterval": 0,
+      "lapses": 0,
+      "reps": 1,
+      "due": 1793872800000
+     }
+    },
+    {
+     "grade": "easy",
+     "now": 1793872800000,
+     "card": {
+      "state": "review",
+      "step": 0,
+      "ease": 2.65,
+      "interval": 13,
+      "pendingInterval": 0,
+      "lapses": 0,
+      "reps": 2,
+      "due": 1794996000000
+     }
+    },
+    {
+     "grade": "easy",
+     "now": 1794996000000,
+     "card": {
+      "state": "review",
+      "step": 0,
+      "ease": 2.8,
+      "interval": 45,
+      "pendingInterval": 0,
+      "lapses": 0,
+      "reps": 3,
+      "due": 1798884000000
+     }
+    },
+    {
+     "grade": "easy",
+     "now": 1798884000000,
+     "card": {
+      "state": "review",
+      "step": 0,
+      "ease": 2.8,
+      "interval": 164,
+      "pendingInterval": 0,
+      "lapses": 0,
+      "reps": 4,
+      "due": 1813053600000
+     }
+    },
+    {
+     "grade": "easy",
+     "now": 1813053600000,
+     "card": {
+      "state": "review",
+      "step": 0,
+      "ease": 2.8,
+      "interval": 365,
+      "pendingInterval": 0,
+      "lapses": 0,
+      "reps": 5,
+      "due": 1844589600000
+     }
+    },
+    {
+     "grade": "easy",
+     "now": 1844589600000,
+     "card": {
+      "state": "review",
+      "step": 0,
+      "ease": 2.8,
+      "interval": 365,
+      "pendingInterval": 0,
+      "lapses": 0,
+      "reps": 6,
+      "due": 1876125600000
+     }
+    },
+    {
+     "grade": "easy",
+     "now": 1876125600000,
+     "card": {
+      "state": "review",
+      "step": 0,
+      "ease": 2.8,
+      "interval": 365,
+      "pendingInterval": 0,
+      "lapses": 0,
+      "reps": 7,
+      "due": 1907661600000
+     }
+    },
+    {
+     "grade": "easy",
+     "now": 1907661600000,
+     "card": {
+      "state": "review",
+      "step": 0,
+      "ease": 2.8,
+      "interval": 365,
+      "pendingInterval": 0,
+      "lapses": 0,
+      "reps": 8,
+      "due": 1939197600000
+     }
+    },
+    {
+     "grade": "easy",
+     "now": 1939197600000,
+     "card": {
+      "state": "review",
+      "step": 0,
+      "ease": 2.8,
+      "interval": 365,
+      "pendingInterval": 0,
+      "lapses": 0,
+      "reps": 9,
+      "due": 1970733600000
+     }
+    },
+    {
+     "grade": "easy",
+     "now": 1970733600000,
+     "card": {
+      "state": "review",
+      "step": 0,
+      "ease": 2.8,
+      "interval": 365,
+      "pendingInterval": 0,
+      "lapses": 0,
+      "reps": 10,
+      "due": 2002269600000
+     }
+    },
+    {
+     "grade": "easy",
+     "now": 2002269600000,
+     "card": {
+      "state": "review",
+      "step": 0,
+      "ease": 2.8,
+      "interval": 365,
+      "pendingInterval": 0,
+      "lapses": 0,
+      "reps": 11,
+      "due": 2033805600000
+     }
+    },
+    {
+     "grade": "easy",
+     "now": 2033805600000,
+     "card": {
+      "state": "review",
+      "step": 0,
+      "ease": 2.8,
+      "interval": 365,
+      "pendingInterval": 0,
+      "lapses": 0,
+      "reps": 12,
+      "due": 2065341600000
+     }
+    },
+    {
+     "grade": "easy",
+     "now": 2065341600000,
+     "card": {
+      "state": "review",
+      "step": 0,
+      "ease": 2.8,
+      "interval": 365,
+      "pendingInterval": 0,
+      "lapses": 0,
+      "reps": 13,
+      "due": 2096877600000
+     }
+    },
+    {
+     "grade": "easy",
+     "now": 2096877600000,
+     "card": {
+      "state": "review",
+      "step": 0,
+      "ease": 2.8,
+      "interval": 365,
+      "pendingInterval": 0,
+      "lapses": 0,
+      "reps": 14,
+      "due": 2128413600000
+     }
+    },
+    {
+     "grade": "easy",
+     "now": 2128413600000,
+     "card": {
+      "state": "review",
+      "step": 0,
+      "ease": 2.8,
+      "interval": 365,
+      "pendingInterval": 0,
+      "lapses": 0,
+      "reps": 15,
+      "due": 2159949600000
+     }
+    }
+   ]
+  }
+ ]
+}

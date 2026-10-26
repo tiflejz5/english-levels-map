@@ -1,0 +1,346 @@
+{
+  "version": 1,
+  "id": "slowotworstwo",
+  "title": "Rodziny wyrazów",
+  "description": "24 zadania ze słowotwórstwa: utwórz rzeczownik lub przeciwieństwo. Przydatne w Part 3.",
+  "level": "B1-C1",
+  "cards": [
+    {
+      "type": "typed",
+      "front": "decide",
+      "accepted": [
+        "decision"
+      ],
+      "back": "decision",
+      "hint": "rzeczownik",
+      "id": "slowotworstwo-001",
+      "tags": [
+        "slowotworstwo",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "succeed",
+      "accepted": [
+        "success"
+      ],
+      "back": "success",
+      "hint": "rzeczownik (sukces)",
+      "id": "slowotworstwo-002",
+      "tags": [
+        "slowotworstwo",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "explain",
+      "accepted": [
+        "explanation"
+      ],
+      "back": "explanation",
+      "hint": "rzeczownik",
+      "id": "slowotworstwo-003",
+      "tags": [
+        "slowotworstwo",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "compete",
+      "accepted": [
+        "competition"
+      ],
+      "back": "competition",
+      "hint": "rzeczownik",
+      "id": "slowotworstwo-004",
+      "tags": [
+        "slowotworstwo",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "imagine",
+      "accepted": [
+        "imagination"
+      ],
+      "back": "imagination",
+      "hint": "rzeczownik",
+      "id": "slowotworstwo-005",
+      "tags": [
+        "slowotworstwo",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "able",
+      "accepted": [
+        "ability"
+      ],
+      "back": "ability",
+      "hint": "rzeczownik",
+      "id": "slowotworstwo-006",
+      "tags": [
+        "slowotworstwo",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "free",
+      "accepted": [
+        "freedom"
+      ],
+      "back": "freedom",
+      "hint": "rzeczownik",
+      "id": "slowotworstwo-007",
+      "tags": [
+        "slowotworstwo",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "strong",
+      "accepted": [
+        "strength"
+      ],
+      "back": "strength",
+      "hint": "rzeczownik",
+      "id": "slowotworstwo-008",
+      "tags": [
+        "slowotworstwo",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "deep",
+      "accepted": [
+        "depth"
+      ],
+      "back": "depth",
+      "hint": "rzeczownik",
+      "id": "slowotworstwo-009",
+      "tags": [
+        "slowotworstwo",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "long",
+      "accepted": [
+        "length"
+      ],
+      "back": "length",
+      "hint": "rzeczownik",
+      "id": "slowotworstwo-010",
+      "tags": [
+        "slowotworstwo",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "high",
+      "accepted": [
+        "height"
+      ],
+      "back": "height",
+      "hint": "rzeczownik",
+      "id": "slowotworstwo-011",
+      "tags": [
+        "slowotworstwo",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "safe",
+      "accepted": [
+        "safety"
+      ],
+      "back": "safety",
+      "hint": "rzeczownik",
+      "id": "slowotworstwo-012",
+      "tags": [
+        "slowotworstwo",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "behave",
+      "accepted": [
+        "behaviour",
+        "behavior"
+      ],
+      "back": "behaviour",
+      "hint": "rzeczownik",
+      "id": "slowotworstwo-013",
+      "tags": [
+        "slowotworstwo",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "employ",
+      "accepted": [
+        "employee"
+      ],
+      "back": "employee",
+      "hint": "osoba zatrudniona",
+      "id": "slowotworstwo-014",
+      "tags": [
+        "slowotworstwo",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "responsible",
+      "accepted": [
+        "responsibility"
+      ],
+      "back": "responsibility",
+      "hint": "rzeczownik",
+      "id": "slowotworstwo-015",
+      "tags": [
+        "slowotworstwo",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "persuade",
+      "accepted": [
+        "persuasion"
+      ],
+      "back": "persuasion",
+      "hint": "rzeczownik",
+      "id": "slowotworstwo-016",
+      "tags": [
+        "slowotworstwo",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "polite",
+      "accepted": [
+        "impolite"
+      ],
+      "back": "impolite",
+      "hint": "przeciwieństwo",
+      "id": "slowotworstwo-017",
+      "tags": [
+        "slowotworstwo",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "possible",
+      "accepted": [
+        "impossible"
+      ],
+      "back": "impossible",
+      "hint": "przeciwieństwo",
+      "id": "slowotworstwo-018",
+      "tags": [
+        "slowotworstwo",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "legal",
+      "accepted": [
+        "illegal"
+      ],
+      "back": "illegal",
+      "hint": "przeciwieństwo",
+      "id": "slowotworstwo-019",
+      "tags": [
+        "slowotworstwo",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "regular",
+      "accepted": [
+        "irregular"
+      ],
+      "back": "irregular",
+      "hint": "przeciwieństwo",
+      "id": "slowotworstwo-020",
+      "tags": [
+        "slowotworstwo",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "relevant",
+      "accepted": [
+        "irrelevant"
+      ],
+      "back": "irrelevant",
+      "hint": "przeciwieństwo",
+      "id": "slowotworstwo-021",
+      "tags": [
+        "slowotworstwo",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "mature",
+      "accepted": [
+        "immature"
+      ],
+      "back": "immature",
+      "hint": "przeciwieństwo",
+      "id": "slowotworstwo-022",
+      "tags": [
+        "slowotworstwo",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "patient",
+      "accepted": [
+        "impatient"
+      ],
+      "back": "impatient",
+      "hint": "przeciwieństwo",
+      "id": "slowotworstwo-023",
+      "tags": [
+        "slowotworstwo",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "honest",
+      "accepted": [
+        "dishonest"
+      ],
+      "back": "dishonest",
+      "hint": "przeciwieństwo",
+      "id": "slowotworstwo-024",
+      "tags": [
+        "slowotworstwo",
+        "use-of-english"
+      ]
+    }
+  ]
+}
