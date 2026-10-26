@@ -1,0 +1,99 @@
+{
+  "id": "uoe-p1-6",
+  "part": 1,
+  "type": "multiple-choice-cloze",
+  "title": "Learning from failure",
+  "instructions": "Wybierz słowo (A, B, C lub D), które najlepiej pasuje do luki. Każda luka to 1 punkt.",
+  "maxScore": 8,
+  "text": "In many cultures, failure is still seen as something to be {{1}} of. Yet researchers increasingly argue that setbacks are an essential {{2}} of learning. When we make mistakes, our brains {{3}} attention to the gap between what we expected and what actually happened, and this is precisely what drives improvement. Several successful entrepreneurs have {{4}} out the benefits of early failure; one of them {{5}} his first business as 'the most expensive lesson of my life'. {{6}} this, not everyone benefits equally. People who are {{7}} of punishment tend to take fewer risks and therefore learn less. Schools and workplaces can help by {{8}} an atmosphere in which honest mistakes are treated as opportunities rather than offences.",
+  "gaps": [
+    {
+      "n": 1,
+      "options": {
+        "A": "ashamed",
+        "B": "embarrassing",
+        "C": "humiliating",
+        "D": "regretting"
+      },
+      "answer": "A",
+      "explanation": "Be ashamed of = wstydzić się czegoś."
+    },
+    {
+      "n": 2,
+      "options": {
+        "A": "part",
+        "B": "section",
+        "C": "portion",
+        "D": "segment"
+      },
+      "answer": "A",
+      "explanation": "An essential part of = istotna część."
+    },
+    {
+      "n": 3,
+      "options": {
+        "A": "pay",
+        "B": "take",
+        "C": "make",
+        "D": "spend"
+      },
+      "answer": "A",
+      "explanation": "Pay attention to = zwracać uwagę na."
+    },
+    {
+      "n": 4,
+      "options": {
+        "A": "pointed",
+        "B": "pulled",
+        "C": "picked",
+        "D": "pushed"
+      },
+      "answer": "A",
+      "explanation": "Point out = wskazywać na."
+    },
+    {
+      "n": 5,
+      "options": {
+        "A": "described",
+        "B": "explained",
+        "C": "announced",
+        "D": "reported"
+      },
+      "answer": "A",
+      "explanation": "Describe X as Y = określać X jako Y."
+    },
+    {
+      "n": 6,
+      "options": {
+        "A": "Despite",
+        "B": "Although",
+        "C": "However",
+        "D": "Whereas"
+      },
+      "answer": "A",
+      "explanation": "Despite + this (rzeczownik/zaimek) = pomimo tego."
+    },
+    {
+      "n": 7,
+      "options": {
+        "A": "fearful",
+        "B": "fearing",
+        "C": "feared",
+        "D": "frightening"
+      },
+      "answer": "A",
+      "explanation": "Be fearful of = bać się czegoś."
+    },
+    {
+      "n": 8,
+      "options": {
+        "A": "fostering",
+        "B": "raising",
+        "C": "growing",
+        "D": "feeding"
+      },
+      "answer": "A",
+      "explanation": "Foster an atmosphere = pielęgnować atmosferę."
+    }
+  ]
+}

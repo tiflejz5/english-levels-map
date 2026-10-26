@@ -1,0 +1,9 @@
+{
+  "note": "Dla każdego itemId znajdź wpis w certyfikat-c1/powiazania.json i DOPISZ podane id do tablicy exercises (bez usuwania istniejących). Jeśli wpisu brak, pomiń i zgłoś w podsumowaniu.",
+  "addExercises": {
+    "b2-gramatyka-gerund-infinitive-zmiana-znaczenia": ["uoe-p4-wzorce-czasownikowe"],
+    "b2-gramatyka-przyczyna-przeciwienstwo": ["uoe-p4-spojniki-przyczyna", "uoe-p2-5"],
+    "b2-slownictwo": ["uoe-p3-5", "uoe-p3-6", "uoe-p1-5"],
+    "c1-slownictwo": ["uoe-p1-4", "uoe-p1-6", "uoe-p3-7", "uoe-p4-czasowniki-frazowe"]
+  }
+}

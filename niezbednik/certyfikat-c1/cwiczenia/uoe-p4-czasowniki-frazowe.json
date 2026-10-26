@@ -1,0 +1,113 @@
+{
+  "id": "uoe-p4-czasowniki-frazowe",
+  "part": 4,
+  "type": "transformation",
+  "title": "Czasowniki frazowe i kolokacje",
+  "focus": "Call off, put up with, make up, look up to, run out of, come into effect",
+  "instructions": "Uzupełnij drugie zdanie tak, żeby znaczyło to samo co pierwsze. Użyj podanego słowa bez zmieniania go. Wpisz od 3 do 6 słów, łącznie ze słowem kluczowym (skróty typu doesn't liczą się jako dwa słowa). Każda odpowiedź jest warta 2 punkty – po 1 za każdą część.",
+  "maxScore": 12,
+  "items": [
+    {
+      "n": 1,
+      "first": "They decided not to hold the meeting because of a lack of interest.",
+      "keyword": "OFF",
+      "before": "The meeting",
+      "after": "because of a lack of interest.",
+      "parts": [
+        [
+          "WAS CALLED"
+        ],
+        [
+          "OFF"
+        ]
+      ],
+      "model": "WAS CALLED OFF",
+      "explanation": "Call off = odwołać."
+    },
+    {
+      "n": 2,
+      "first": "I find it hard to tolerate his rudeness.",
+      "keyword": "UP",
+      "before": "I can't",
+      "after": "his rudeness.",
+      "parts": [
+        [
+          "PUT UP"
+        ],
+        [
+          "WITH"
+        ]
+      ],
+      "model": "PUT UP WITH",
+      "explanation": "Put up with = znosić."
+    },
+    {
+      "n": 3,
+      "first": "He invented an excuse for being late.",
+      "keyword": "UP",
+      "before": "He",
+      "after": "for being late.",
+      "parts": [
+        [
+          "MADE UP"
+        ],
+        [
+          "AN EXCUSE"
+        ]
+      ],
+      "model": "MADE UP AN EXCUSE",
+      "explanation": "Make up an excuse = zmyślić wymówkę."
+    },
+    {
+      "n": 4,
+      "first": "Everyone admires her for her honesty.",
+      "keyword": "LOOKED",
+      "before": "She",
+      "after": "by everyone because of her honesty.",
+      "parts": [
+        [
+          "IS LOOKED"
+        ],
+        [
+          "UP TO"
+        ]
+      ],
+      "model": "IS LOOKED UP TO",
+      "explanation": "Look up to = podziwiać (strona bierna)."
+    },
+    {
+      "n": 5,
+      "first": "We have almost no paper left.",
+      "keyword": "RUNNING",
+      "before": "We are",
+      "after": "paper.",
+      "parts": [
+        [
+          "RUNNING OUT"
+        ],
+        [
+          "OF"
+        ]
+      ],
+      "model": "RUNNING OUT OF",
+      "explanation": "Run out of = skończyć się."
+    },
+    {
+      "n": 6,
+      "first": "The new rules will start to apply in September.",
+      "keyword": "EFFECT",
+      "before": "The new rules will",
+      "after": "in September.",
+      "parts": [
+        [
+          "COME INTO"
+        ],
+        [
+          "EFFECT"
+        ]
+      ],
+      "model": "COME INTO EFFECT",
+      "explanation": "Come into effect = wejść w życie."
+    }
+  ]
+}

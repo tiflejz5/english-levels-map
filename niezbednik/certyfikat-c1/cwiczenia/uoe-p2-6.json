@@ -1,0 +1,69 @@
+{
+  "id": "uoe-p2-6",
+  "part": 2,
+  "type": "open-cloze",
+  "title": "Island communities",
+  "instructions": "Wpisz w każdą lukę dokładnie jedno słowo. Skróty typu don't liczą się jako dwa słowa, więc nie są poprawną odpowiedzią. Każda luka to 1 punkt.",
+  "maxScore": 8,
+  "text": "On the remote island of Tristan da Cunha, around 250 people live {{1}} what is often described as the most isolated community on earth. The nearest inhabited land is more than two thousand kilometres away, {{2}} means that supplies arrive only a few times a year by ship. Residents have learnt to rely {{3}} themselves, growing potatoes and fishing for lobster. Not only {{4}} they manage to survive, they have also built a close-knit society in which everyone knows everybody else. Visitors are rare, and those who do come are often surprised {{5}} the warmth of the welcome. Although life is simple, the islanders are by no {{6}} unaware of the modern world. Satellite internet has been available for several years, and many young people wish they {{7}} travel abroad for study. Yet the majority choose to return, saying that nowhere else offers {{8}} a sense of belonging.",
+  "gaps": [
+    {
+      "n": 1,
+      "accept": [
+        "IN"
+      ],
+      "explanation": "Live in = mieszkać w."
+    },
+    {
+      "n": 2,
+      "accept": [
+        "WHICH"
+      ],
+      "explanation": "Zdanie względne odnoszące się do całej sytuacji: which means."
+    },
+    {
+      "n": 3,
+      "accept": [
+        "ON",
+        "UPON"
+      ],
+      "explanation": "Rely on = polegać na."
+    },
+    {
+      "n": 4,
+      "accept": [
+        "DO"
+      ],
+      "explanation": "Not only do they manage = inwersja po not only."
+    },
+    {
+      "n": 5,
+      "accept": [
+        "AT",
+        "BY"
+      ],
+      "explanation": "Surprised at/by = zaskoczony czymś."
+    },
+    {
+      "n": 6,
+      "accept": [
+        "MEANS"
+      ],
+      "explanation": "By no means = bynajmniej."
+    },
+    {
+      "n": 7,
+      "accept": [
+        "COULD"
+      ],
+      "explanation": "Wish + could = żałować, że nie można."
+    },
+    {
+      "n": 8,
+      "accept": [
+        "SUCH"
+      ],
+      "explanation": "Such a sense of belonging = takie poczucie przynależności."
+    }
+  ]
+}

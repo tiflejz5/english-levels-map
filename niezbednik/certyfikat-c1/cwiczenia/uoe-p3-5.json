@@ -1,0 +1,78 @@
+{
+  "id": "uoe-p3-5",
+  "part": 3,
+  "type": "word-formation",
+  "title": "AI in the classroom",
+  "instructions": "Utwórz od słowa podanego przy luce słowo, które pasuje do luki. Uważaj na przedrostki, liczbę mnogą i pisownię. Każda luka to 1 punkt.",
+  "maxScore": 8,
+  "text": "The arrival of artificial intelligence in the classroom has sparked a {{1}} debate among teachers. Supporters argue that AI tools can offer students {{2}} feedback instantly, making it possible to work at their own pace. Many teachers also welcome the {{3}} in time spent marking homework. Opponents, however, warn of a growing {{4}} on technology which may weaken pupils' ability to think independently. There are also concerns about {{5}} in automatically generated explanations, and about how pupils' data is {{6}}. Some educators go further and say that excessive use of AI is {{7}} because it encourages shortcuts. Most agree, though, that the technology is here to stay, so the question is how to use it {{8}}.",
+  "gaps": [
+    {
+      "n": 1,
+      "stem": "CONTROVERSY",
+      "accept": [
+        "CONTROVERSIAL"
+      ],
+      "explanation": "Przymiotnik przed debate: controversial."
+    },
+    {
+      "n": 2,
+      "stem": "PERSON",
+      "accept": [
+        "PERSONALISED",
+        "PERSONALIZED"
+      ],
+      "explanation": "Przymiotnik przed feedback: personalised."
+    },
+    {
+      "n": 3,
+      "stem": "REDUCE",
+      "accept": [
+        "REDUCTION"
+      ],
+      "explanation": "Rzeczownik po the: reduction."
+    },
+    {
+      "n": 4,
+      "stem": "RELY",
+      "accept": [
+        "RELIANCE"
+      ],
+      "explanation": "Growing reliance on = rosnące uzależnienie od."
+    },
+    {
+      "n": 5,
+      "stem": "ACCURATE",
+      "accept": [
+        "INACCURACIES",
+        "INACCURACY"
+      ],
+      "explanation": "Przeczący rzeczownik: inaccuracies."
+    },
+    {
+      "n": 6,
+      "stem": "PROTECT",
+      "accept": [
+        "PROTECTED"
+      ],
+      "explanation": "Strona bierna: is protected."
+    },
+    {
+      "n": 7,
+      "stem": "PRODUCE",
+      "accept": [
+        "UNPRODUCTIVE",
+        "COUNTERPRODUCTIVE"
+      ],
+      "explanation": "Przymiotnik przeczący: unproductive."
+    },
+    {
+      "n": 8,
+      "stem": "RESPONSIBLE",
+      "accept": [
+        "RESPONSIBLY"
+      ],
+      "explanation": "Przysłówek: use it responsibly."
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "id": "uoe-p2-7",
+  "part": 2,
+  "type": "open-cloze",
+  "title": "The case for boredom",
+  "instructions": "Wpisz w każdą lukę dokładnie jedno słowo. Skróty typu don't liczą się jako dwa słowa, więc nie są poprawną odpowiedzią. Każda luka to 1 punkt.",
+  "maxScore": 8,
+  "text": "In an age of constant stimulation, boredom is generally regarded as something to be avoided {{1}} all costs. We reach for our phones the moment we find ourselves waiting {{2}} a bus or standing in a queue. Psychologists, {{3}}, suggest that this habit may be doing us more harm than good. Boredom, they argue, is a signal telling us that {{4}} we are doing is no longer rewarding, and it pushes us to look for something new. People who are never bored may therefore miss {{5}} on opportunities to think creatively. In one experiment, volunteers who had spent time copying phone numbers came up {{6}} more original ideas than those who had gone straight to the task. Of course, this is not to say that we should deliberately make ourselves miserable. Rather, we should allow ourselves {{7}} time to do nothing in particular, and see where our minds wander. Such moments, however dull they may seem, can be {{8}} unexpected source of inspiration.",
+  "gaps": [
+    {
+      "n": 1,
+      "accept": [
+        "AT"
+      ],
+      "explanation": "At all costs = za wszelką cenę."
+    },
+    {
+      "n": 2,
+      "accept": [
+        "FOR"
+      ],
+      "explanation": "Wait for = czekać na."
+    },
+    {
+      "n": 3,
+      "accept": [
+        "HOWEVER",
+        "THOUGH"
+      ],
+      "explanation": "Przerywnik kontrastu: psychologists, however, suggest."
+    },
+    {
+      "n": 4,
+      "accept": [
+        "WHAT"
+      ],
+      "explanation": "What we are doing = to, co robimy."
+    },
+    {
+      "n": 5,
+      "accept": [
+        "OUT"
+      ],
+      "explanation": "Miss out on = tracić okazję."
+    },
+    {
+      "n": 6,
+      "accept": [
+        "WITH"
+      ],
+      "explanation": "Come up with = wymyślić."
+    },
+    {
+      "n": 7,
+      "accept": [
+        "SOME",
+        "ENOUGH",
+        "MORE"
+      ],
+      "explanation": "Allow ourselves some time = pozwolić sobie na trochę czasu."
+    },
+    {
+      "n": 8,
+      "accept": [
+        "AN"
+      ],
+      "explanation": "An unexpected source = nieoczekiwane źródło."
+    }
+  ]
+}

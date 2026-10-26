@@ -1,0 +1,99 @@
+{
+  "id": "uoe-p1-4",
+  "part": 1,
+  "type": "multiple-choice-cloze",
+  "title": "The return of vinyl",
+  "instructions": "Wybierz słowo (A, B, C lub D), które najlepiej pasuje do luki. Każda luka to 1 punkt.",
+  "maxScore": 8,
+  "text": "Few people would have predicted that vinyl records would {{1}} a comeback in the age of streaming. Yet sales have been {{2}} steadily for over a decade. Fans {{3}} the sound as warmer and richer, but for many the real appeal lies elsewhere: the large sleeves, the ritual of lowering the needle and the sense of owning something tangible. Record shops, once on the {{4}} of extinction, are now thriving in many cities. Some critics dismiss the trend as mere nostalgia, yet a {{5}} number of buyers are under thirty and have never owned a cassette player. The industry is, however, not without its {{6}}. Pressing plants struggle to {{7}} up with demand, and prices have risen sharply. Whether the revival will last remains to be {{8}}.",
+  "gaps": [
+    {
+      "n": 1,
+      "options": {
+        "A": "make",
+        "B": "take",
+        "C": "pull",
+        "D": "reach"
+      },
+      "answer": "A",
+      "explanation": "Make a comeback = wrócić do łask."
+    },
+    {
+      "n": 2,
+      "options": {
+        "A": "rising",
+        "B": "raising",
+        "C": "arising",
+        "D": "lifting"
+      },
+      "answer": "A",
+      "explanation": "Rise jest nieprzechodnie: sales have been rising. Raise wymaga dopełnienia."
+    },
+    {
+      "n": 3,
+      "options": {
+        "A": "describe",
+        "B": "explain",
+        "C": "state",
+        "D": "tell"
+      },
+      "answer": "A",
+      "explanation": "Describe X as Y = określać X jako Y."
+    },
+    {
+      "n": 4,
+      "options": {
+        "A": "brink",
+        "B": "rim",
+        "C": "corner",
+        "D": "border"
+      },
+      "answer": "A",
+      "explanation": "On the brink of extinction = na progu wyginięcia."
+    },
+    {
+      "n": 5,
+      "options": {
+        "A": "considerable",
+        "B": "plentiful",
+        "C": "profound",
+        "D": "intense"
+      },
+      "answer": "A",
+      "explanation": "A considerable number = spora liczba. Pozostałe nie łączą się z number."
+    },
+    {
+      "n": 6,
+      "options": {
+        "A": "drawbacks",
+        "B": "damages",
+        "C": "losses",
+        "D": "harms"
+      },
+      "answer": "A",
+      "explanation": "Not without its drawbacks = nie bez wad."
+    },
+    {
+      "n": 7,
+      "options": {
+        "A": "keep",
+        "B": "hold",
+        "C": "stay",
+        "D": "go"
+      },
+      "answer": "A",
+      "explanation": "Keep up with demand = nadążać za popytem."
+    },
+    {
+      "n": 8,
+      "options": {
+        "A": "seen",
+        "B": "looked",
+        "C": "watched",
+        "D": "noticed"
+      },
+      "answer": "A",
+      "explanation": "Remains to be seen = to się dopiero okaże."
+    }
+  ]
+}
