@@ -1,0 +1,309 @@
+{
+  "version": 1,
+  "id": "czasowniki-frazowe",
+  "title": "Czasowniki frazowe B2–C1",
+  "description": "30 częstych czasowników frazowych w zdaniach. Uzupełnij brakujący czasownik frazowy.",
+  "level": "B2-C1",
+  "cards": [
+    {
+      "type": "cloze",
+      "text": "She {{came up with}} a brilliant solution.",
+      "hint": "wymyślić",
+      "id": "czasowniki-frazowe-001",
+      "tags": [
+        "czasowniki-frazowe",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "cloze",
+      "text": "We've {{run out of}} milk.",
+      "hint": "skończyć się, zabraknąć",
+      "id": "czasowniki-frazowe-002",
+      "tags": [
+        "czasowniki-frazowe",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "cloze",
+      "text": "I can't {{put up with}} this noise any longer.",
+      "hint": "znosić, tolerować",
+      "id": "czasowniki-frazowe-003",
+      "tags": [
+        "czasowniki-frazowe",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "cloze",
+      "text": "The meeting was {{called off}} at the last minute.",
+      "hint": "odwołać",
+      "id": "czasowniki-frazowe-004",
+      "tags": [
+        "czasowniki-frazowe",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "cloze",
+      "text": "He {{takes after}} his father.",
+      "hint": "być podobnym do (rodzica)",
+      "id": "czasowniki-frazowe-005",
+      "tags": [
+        "czasowniki-frazowe",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "cloze",
+      "text": "Please {{fill in}} this form.",
+      "hint": "wypełnić (formularz)",
+      "id": "czasowniki-frazowe-006",
+      "tags": [
+        "czasowniki-frazowe",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "cloze",
+      "text": "The plane {{took off}} an hour late.",
+      "hint": "wystartować",
+      "id": "czasowniki-frazowe-007",
+      "tags": [
+        "czasowniki-frazowe",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "cloze",
+      "text": "I need to {{cut down on|cut back on}} sugar.",
+      "hint": "ograniczyć",
+      "id": "czasowniki-frazowe-008",
+      "tags": [
+        "czasowniki-frazowe",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "cloze",
+      "text": "She {{looks up to}} her older sister.",
+      "hint": "podziwiać",
+      "id": "czasowniki-frazowe-009",
+      "tags": [
+        "czasowniki-frazowe",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "cloze",
+      "text": "They {{set up}} the company in 2015.",
+      "hint": "założyć",
+      "id": "czasowniki-frazowe-010",
+      "tags": [
+        "czasowniki-frazowe",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "cloze",
+      "text": "Don't {{give up}}; you're nearly there.",
+      "hint": "poddawać się",
+      "id": "czasowniki-frazowe-011",
+      "tags": [
+        "czasowniki-frazowe",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "cloze",
+      "text": "I'll {{look into}} the problem tomorrow.",
+      "hint": "zbadać, zająć się",
+      "id": "czasowniki-frazowe-012",
+      "tags": [
+        "czasowniki-frazowe",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "cloze",
+      "text": "He {{turned down}} the job offer.",
+      "hint": "odrzucić",
+      "id": "czasowniki-frazowe-013",
+      "tags": [
+        "czasowniki-frazowe",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "cloze",
+      "text": "We {{ran into}} an old friend at the station.",
+      "hint": "wpaść na kogoś",
+      "id": "czasowniki-frazowe-014",
+      "tags": [
+        "czasowniki-frazowe",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "cloze",
+      "text": "Prices have {{gone up}} again.",
+      "hint": "wzrosnąć",
+      "id": "czasowniki-frazowe-015",
+      "tags": [
+        "czasowniki-frazowe",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "cloze",
+      "text": "She is {{getting over}} a bad cold.",
+      "hint": "dochodzić do siebie po",
+      "id": "czasowniki-frazowe-016",
+      "tags": [
+        "czasowniki-frazowe",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "cloze",
+      "text": "Let's {{sort out}} the details later.",
+      "hint": "uporządkować, załatwić",
+      "id": "czasowniki-frazowe-017",
+      "tags": [
+        "czasowniki-frazowe",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "cloze",
+      "text": "He {{brought up}} the subject at dinner.",
+      "hint": "poruszyć temat",
+      "id": "czasowniki-frazowe-018",
+      "tags": [
+        "czasowniki-frazowe",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "cloze",
+      "text": "The project {{fell through}}.",
+      "hint": "nie dojść do skutku",
+      "id": "czasowniki-frazowe-019",
+      "tags": [
+        "czasowniki-frazowe",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "cloze",
+      "text": "I'm {{looking forward to}} the holidays.",
+      "hint": "nie móc się doczekać",
+      "id": "czasowniki-frazowe-020",
+      "tags": [
+        "czasowniki-frazowe",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "cloze",
+      "text": "Can you {{pick me up}} at six?",
+      "hint": "odebrać mnie",
+      "id": "czasowniki-frazowe-021",
+      "tags": [
+        "czasowniki-frazowe",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "cloze",
+      "text": "They {{broke up}} last month.",
+      "hint": "rozstać się",
+      "id": "czasowniki-frazowe-022",
+      "tags": [
+        "czasowniki-frazowe",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "cloze",
+      "text": "She {{pointed out}} a mistake in my essay.",
+      "hint": "zwrócić uwagę na",
+      "id": "czasowniki-frazowe-023",
+      "tags": [
+        "czasowniki-frazowe",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "cloze",
+      "text": "He {{got away with}} cheating.",
+      "hint": "ujść na sucho",
+      "id": "czasowniki-frazowe-024",
+      "tags": [
+        "czasowniki-frazowe",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "cloze",
+      "text": "I must {{catch up on}} my sleep.",
+      "hint": "nadrobić (zaległości)",
+      "id": "czasowniki-frazowe-025",
+      "tags": [
+        "czasowniki-frazowe",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "cloze",
+      "text": "The company is {{carrying out}} a survey.",
+      "hint": "przeprowadzać",
+      "id": "czasowniki-frazowe-026",
+      "tags": [
+        "czasowniki-frazowe",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "cloze",
+      "text": "Please {{turn off|switch off}} your phones.",
+      "hint": "wyłączyć",
+      "id": "czasowniki-frazowe-027",
+      "tags": [
+        "czasowniki-frazowe",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "cloze",
+      "text": "She {{ended up}} staying the night.",
+      "hint": "w końcu wylądować",
+      "id": "czasowniki-frazowe-028",
+      "tags": [
+        "czasowniki-frazowe",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "cloze",
+      "text": "It {{turned out}} that he was right.",
+      "hint": "okazać się",
+      "id": "czasowniki-frazowe-029",
+      "tags": [
+        "czasowniki-frazowe",
+        "use-of-english"
+      ]
+    },
+    {
+      "type": "cloze",
+      "text": "I {{get along with|get on with}} my colleagues.",
+      "hint": "dogadywać się z",
+      "id": "czasowniki-frazowe-030",
+      "tags": [
+        "czasowniki-frazowe",
+        "use-of-english"
+      ]
+    }
+  ]
+}

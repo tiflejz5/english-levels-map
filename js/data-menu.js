@@ -33,7 +33,9 @@ window.ELM = window.ELM || {};
       data: {
         content: ELM.store.wrapExport("content", ELM.state.content),
         progress: ELM.store.wrapExport("progress", ELM.state.profiles),
-        learning: ELM.profileData.exportData()
+        learning: ELM.profileData.exportData(),
+        // Fiszki (js/fiszki-store.js): { <profileId>: stan } — nowa część, starsze pliki jej nie mają
+        fiszki: ELM.fiszkiStore ? ELM.fiszkiStore.exportData() : undefined
       }
     });
   }
@@ -78,11 +80,12 @@ window.ELM = window.ELM || {};
 
   /** Plik z obiema częściami: walidacja obu → jedno potwierdzenie → zapis. */
   function importBackup(obj) {
-    let content, profiles, learning;
+    let content, profiles, learning, fiszki;
     try {
       if (!U.isPlainObject(obj.data) || !obj.data.content || !obj.data.progress) throw new Error("Plik kopii jest niekompletny.");
       if (typeof obj.version === "number" && obj.version > 2) throw new Error("Plik pochodzi z nowszej wersji aplikacji. Zaktualizuj pliki strony.");
       learning = ELM.profileData.parseImport(obj.data.learning);
+      fiszki = ELM.fiszkiStore ? ELM.fiszkiStore.parseImport(obj.data.fiszki) : null; // brak w starym pliku → null
       content = ELM.store.parseContentImport(JSON.stringify(obj.data.content));
       const parsed = ELM.store.parseProgressImport(JSON.stringify(obj.data.progress));
       if (parsed.type !== "profiles") throw new Error("Kopia nie zawiera listy profili.");
@@ -103,7 +106,7 @@ window.ELM = window.ELM || {};
     }).then(function (ok) {
       if (!ok) return false;
       app().replaceContent(content);
-      app().replaceProfiles(profiles, learning);
+      app().replaceProfiles(profiles, learning, fiszki);
       ELM.dialogs.alert({ title: "Gotowe", message: "Dane zostały zaimportowane." });
       return true;
     });
@@ -182,7 +185,7 @@ window.ELM = window.ELM || {};
   function resetAll() {
     ELM.dialogs.confirm({
       title: "Zresetować dane?",
-      message: "Zostaną usunięte wszystkie profile z ich postępem „Umiem”, dziennikiem błędów, serią nauki i wynikami testu poziomu oraz zmiany w treści listy. " +
+      message: "Zostaną usunięte wszystkie profile z ich postępem „Umiem”, dziennikiem błędów, serią nauki, wynikami testu poziomu i fiszkami oraz zmiany w treści listy. " +
         "Aplikacja wróci do stanu jak przy pierwszym otwarciu: bazowa lista umiejętności, bez żadnych profili.\n\n" +
         "Zalecenie: najpierw zrób „Eksportuj dane”, żeby mieć kopię.\n\n" +
         "Dane zakładki „Certyfikat C1” (wyniki ćwiczeń, szkice, data egzaminu) zostają.",
@@ -198,6 +201,7 @@ window.ELM = window.ELM || {};
       if (!ok) return;
       ELM.store.clearAll();
       ELM.profileData.clearAll();
+      if (ELM.fiszkiStore) ELM.fiszkiStore.clearAll(); // fiszki wszystkich profili (elm.<id>.fiszki)
       if (ELM.search) ELM.search.clearRecent(); // ostatnie wyszukiwania (na urządzeniu)
       app().replaceProfiles(ELM.createEmptyProfiles());
       app().replaceContent(ELM.createDefaultData());

@@ -265,6 +265,7 @@ window.ELM = window.ELM || {};
     const rec = { undo: r.undo, action: r.action };
     run.journal.added.push(rec);
     p.journal = r.action;
+    if (ELM.fiszki && r.entry) ELM.fiszki.autoAddFromJournal(r.entry); // opcja „automatycznie dodawaj błędy do fiszek” (domyślnie wyłączona)
     if (ELM.app.refreshLearning) ELM.app.refreshLearning();
     if (!withToast) return;
     const text = r.action === "create" ? "Dodano do dziennika błędów"

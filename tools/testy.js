@@ -19,6 +19,8 @@ require(path.join(__dirname, "..", "js", "exercise-logic.js"));
 require(path.join(__dirname, "..", "js", "learning-stats.js"));
 require(path.join(__dirname, "..", "js", "search-logic.js"));
 require(path.join(__dirname, "..", "js", "exam-logic.js"));
+require(path.join(__dirname, "..", "js", "fiszki-logic.js"));
+require(path.join(__dirname, "..", "js", "fiszki-harmonogram.js"));
 const L = global.ELM.learn;
 const X = global.ELM.exLogic;
 
@@ -486,6 +488,178 @@ test("writingZone: matura podstawowa (<80, 80–99, 100–150, >150)", function 
 test("writingZone: matura rozszerzona (<160, 160–199, 200–250, >250)", function () {
   const T = { wordRange: [200, 250], warnBelow: 160 };
   assert.deepStrictEqual([159, 160, 199, 200, 250, 251].map(function (n) { return EL.writingZone(n, T); }), ["low", "warn", "warn", "ok", "ok", "over"]);
+});
+
+console.log("\nFiszki: harmonogram (spec 10, sekcja 3; wektory dane/fiszki/scheduler-vectors.json)");
+const FH = global.ELM.fiszkiHarmonogram;
+const VEC = JSON.parse(require("fs").readFileSync(path.join(__dirname, "..", "dane", "fiszki", "scheduler-vectors.json"), "utf8"));
+const CARD_FIELDS = ["state", "step", "ease", "interval", "pendingInterval", "lapses", "reps", "due"];
+test("wektory: konfiguracja zgodna z domyślną", function () {
+  Object.keys(VEC.config).forEach(function (k) { assert.deepStrictEqual(FH.DEFAULT_CONFIG[k], VEC.config[k], k); });
+});
+VEC.scenarios.forEach(function (sc) {
+  test("schedule: scenariusz „" + sc.name + "” (" + sc.steps.length + " kroków)", function () {
+    let card = FH.newCard();
+    sc.steps.forEach(function (st, i) {
+      const before = JSON.stringify(card);
+      const next = FH.schedule(card, st.grade, st.now);
+      assert.strictEqual(JSON.stringify(card), before, "krok " + (i + 1) + ": karta wejściowa zmieniona");
+      CARD_FIELDS.forEach(function (f) { assert.strictEqual(next[f], st.card[f], "krok " + (i + 1) + " (" + st.grade + "): " + f); });
+      card = next;
+    });
+  });
+});
+test("schedule: oceny liczbowe 1–4 = again/hard/good/easy, nieznana ocena → błąd", function () {
+  const c = FH.newCard();
+  ["again", "hard", "good", "easy"].forEach(function (g, i) { assert.deepStrictEqual(FH.schedule(c, i + 1, 1000), FH.schedule(c, g, 1000)); });
+  assert.throws(function () { FH.schedule(c, "super", 1000); });
+});
+test("schedule: rozproszenie ±5% tylko dla interwałów ≥ 3 d, losowość z zewnątrz", function () {
+  const rev = { state: "review", step: 0, ease: 2.5, interval: 40, pendingInterval: 0, lapses: 0, reps: 5, due: 0 };
+  const base = FH.schedule(rev, "good", 0).interval; // 100
+  assert.strictEqual(FH.schedule(rev, "good", 0, null, { fuzz: true, random: function () { return 1; } }).interval, base + 5);
+  assert.strictEqual(FH.schedule(rev, "good", 0, null, { fuzz: true, random: function () { return 0; } }).interval, base - 5);
+  const grad = FH.schedule(Object.assign(FH.newCard(), { state: "learning", step: 1 }), "good", 0, null, { fuzz: true, random: function () { return 1; } });
+  assert.strictEqual(grad.interval, 1); // 1 d < 3 d — bez rozproszenia
+});
+test("preview i formatDelay: podgląd terminów czterech ocen", function () {
+  const pv = FH.preview(FH.newCard(), 0);
+  assert.deepStrictEqual(["again", "hard", "good", "easy"].map(function (g) { return FH.formatDelay(pv[g].delay); }), ["1 min", "1 min", "10 min", "4 d"]);
+  assert.strictEqual(FH.formatDelay(3 * FH.DAY), "3 d");
+  assert.strictEqual(FH.formatDelay(90 * FH.DAY), "3 mies.");
+});
+
+console.log("\nFiszki: ocena odpowiedzi, cloze, kolejka, TSV/CSV, stan (spec 10, sekcja 8)");
+const FL = global.ELM.fiszkiLogic;
+test("normalize: małe litery, spacje, apostrofy, interpunkcja na brzegach", function () {
+  assert.strictEqual(FL.normalize("  Don’t   Give Up!  "), "don't give up");
+  assert.strictEqual(FL.normalize("„Come up with”."), "come up with");
+  assert.strictEqual(FL.normalize("well-known"), "well-known"); // myślnik w środku zostaje
+});
+test("checkAnswer: dokładnie / literówka (Levenshtein 1, ≥ 5 znaków) / błąd / puste", function () {
+  assert.deepStrictEqual(FL.checkAnswer("Decision", ["decision"]).result, "exact");
+  assert.strictEqual(FL.checkAnswer("decison", ["decision"]).result, "typo");
+  assert.strictEqual(FL.checkAnswer("decison", ["decision"]).suggested, "hard");
+  assert.strictEqual(FL.checkAnswer("decide", ["decision"]).suggested, "again");
+  assert.strictEqual(FL.checkAnswer("bok", ["box"]).result, "wrong"); // krótkie: bez tolerancji
+  assert.strictEqual(FL.checkAnswer("   ", ["box"]).result, "empty");
+});
+test("checkAnswer: alternatywy a|b, wielkość liter i apostrofy", function () {
+  const alts = FL.parseCloze("I {{gave up|quit}} smoking.").answers;
+  assert.strictEqual(FL.checkAnswer("QUIT", alts).result, "exact");
+  assert.strictEqual(FL.checkAnswer("gave up", alts).expected, "gave up");
+  assert.strictEqual(FL.checkAnswer("can't", ["can’t"]).result, "exact");
+  assert.strictEqual(FL.levenshtein("kitten", "sitting"), 3);
+});
+test("parseCloze: jedna luka, alternatywy, błędne wejścia", function () {
+  const c = FL.parseCloze("She {{came up with}} a plan.");
+  assert.deepStrictEqual([c.ok, c.before, c.answers, c.after], [true, "She ", ["came up with"], " a plan."]);
+  assert.strictEqual(FL.parseCloze("Bez luki").ok, false);
+  assert.strictEqual(FL.parseCloze("{{a}} i {{b}}").ok, false);
+  assert.strictEqual(FL.parseCloze("Pusta {{a|}} alternatywa").ok, false);
+  assert.strictEqual(FL.parseCloze("Pusta {{ }} luka").ok, false);
+  assert.strictEqual(FL.parseCloze("Zły {{nawias} tekst").ok, false);
+  assert.strictEqual(FL.frontText({ type: "cloze", text: "We've {{run out of}} milk." }), "We've _____ milk.");
+});
+test("Anki: {{c1::…}} ↔ {{…}}", function () {
+  assert.strictEqual(FL.fromAnki("I {{c1::gave up::przestać}} it."), "I {{gave up}} it.");
+  assert.strictEqual(FL.toAnki("I {{gave up|quit}} it.", "przestać"), "I {{c1::gave up::przestać}} it.");
+});
+test("studyDay: granica dnia o 04:00 (czas lokalny)", function () {
+  assert.strictEqual(FL.studyDay(new Date(2026, 10, 2, 3, 59).getTime()), "2026-11-01");
+  assert.strictEqual(FL.studyDay(new Date(2026, 10, 2, 4, 0).getTime()), "2026-11-02");
+  assert.strictEqual(FL.dayStart("2026-11-02"), new Date(2026, 10, 2, 4, 0).getTime());
+  assert.strictEqual(FL.dayEnd(new Date(2026, 10, 2, 23, 0).getTime()), new Date(2026, 10, 3, 4, 0).getTime());
+});
+test("buildQueue: kolejność nauka → powtórki (najbardziej zaległe) → nowe, limity, zawieszone i odłożone", function () {
+  const now = new Date(2026, 10, 2, 12, 0).getTime(), H = 3600000;
+  const cards = [];
+  for (let i = 1; i <= 15; i++) cards.push({ id: "t-" + String(i).padStart(3, "0"), deck: "t" });
+  const st = {
+    "t-001": { state: "review", due: now - 48 * H, interval: 3 }, "t-002": { state: "review", due: now - 2 * H, interval: 3 },
+    "t-003": { state: "review", due: now + 10 * H, interval: 3 },            // jeszcze dziś (przed 04:00 jutro)
+    "t-004": { state: "review", due: now + 30 * H, interval: 3 },            // jutro — pomijana
+    "t-005": { state: "learning", due: now - 60000, step: 1 }, "t-006": { state: "relearning", due: now + 5 * 60000 },
+    "t-007": { state: "review", due: now - H, suspended: true }, "t-008": { state: "review", due: now - H, buriedUntil: now + H }
+  };
+  const q = FL.buildQueue({ cards: cards, state: st, now: now, settings: { newPerDay: 3, reviewsPerDay: 100 } });
+  assert.deepStrictEqual(q.learning, ["t-005", "t-006"]);
+  assert.deepStrictEqual(q.review, ["t-001", "t-002", "t-003"]);
+  assert.deepStrictEqual(q.fresh, ["t-009", "t-010", "t-011"]);
+  const lim = FL.buildQueue({ cards: cards, state: st, now: now, settings: { newPerDay: 10, reviewsPerDay: 2 }, today: { new: 8, reviews: 1 } });
+  assert.deepStrictEqual([lim.review, lim.fresh], [["t-001"], ["t-009", "t-010"]]);
+  assert.strictEqual(FL.buildQueue({ cards: cards, state: st, now: now, settings: { newPerDay: 3 }, today: { new: 3 }, extraNew: 5 }).fresh.length, 5);
+  const def = FL.buildQueue({ cards: cards, state: {}, now: now });
+  assert.strictEqual(def.fresh.length, 10); // domyślnie 10 nowych
+});
+test("buildQueue: talia „losowo” tasuje nowe tylko w swojej talii", function () {
+  const cards = ["a-001", "a-002", "a-003", "b-001", "b-002"].map(function (id) { return { id: id, deck: id.slice(0, 1) }; });
+  const q = FL.buildQueue({ cards: cards, state: {}, now: 0, settings: { newPerDay: 10, randomDecks: ["a"] }, random: function () { return 0; } });
+  assert.deepStrictEqual(q.fresh, ["a-002", "a-003", "a-001", "b-001", "b-002"]);
+});
+test("pickNext: nauka z terminem teraz → kolejka → nauka w ciągu 20 min", function () {
+  const now = 1000000000;
+  const st = { L1: { due: now + 5 * 60000 }, L2: { due: now - 1 } };
+  assert.deepStrictEqual(FL.pickNext(["L1", "L2"], ["Q1"], st, now), { id: "L2", from: "learning" });
+  assert.deepStrictEqual(FL.pickNext(["L1"], ["Q1"], st, now), { id: "Q1", from: "queue" });
+  assert.deepStrictEqual(FL.pickNext(["L1"], [], st, now), { id: "L1", from: "ahead" });
+  assert.strictEqual(FL.pickNext([], [], st, now), null);
+});
+test("deckStats: nowe / w nauce / opanowane (≥ 21 d) / zawieszone", function () {
+  const s = FL.deckStats([{ id: "a" }, { id: "b" }, { id: "c" }, { id: "d" }, { id: "e" }],
+    { b: { state: "learning", due: 0 }, c: { state: "review", interval: 30, due: 9e15 }, d: { state: "review", interval: 5, due: 0 }, e: { state: "review", suspended: true } }, 1);
+  assert.deepStrictEqual([s.new, s.learning, s.mastered, s.review, s.suspended, s.due], [1, 1, 1, 1, 1, 2]);
+});
+test("parseDelimited: tab / średnik, cudzysłowy RFC 4180, nowe linie w polu, polskie znaki", function () {
+  const p = FL.parseDelimited('typ;przód;tył\nbasic;"Mam ""20"" lat";"I am 20;\nyears"\nbasic;Żółć;bile\n');
+  assert.strictEqual(p.separator, ";");
+  assert.deepStrictEqual(p.rows[1].cells, ["basic", 'Mam "20" lat', "I am 20;\nyears"]);
+  assert.deepStrictEqual(p.rows[2], { line: 4, cells: ["basic", "Żółć", "bile"] });
+  assert.strictEqual(FL.parseDelimited("a\tb\n").separator, "\t");
+});
+test("importCards: kolumny spec, format Anki ({{c1::…}}), odrzucenia z powodem, limit", function () {
+  const r = FL.importCards("typ\tprzód\ttył\tpodpowiedź\tprzykład\tnotatka\ttagi\n" +
+    "cloze\tShe {{c1::came up with}} it.\t\twymyślić\t\t\tfrazowe c1\n" +
+    "typed\tlodówka\tfridge|refrigerator\n" +
+    "cloze\tBez luki\n" +
+    "kosmos\ta\tb\n" +
+    "basic\tZgadzam się.\tI agree.\n");
+  assert.strictEqual(r.cards.length, 3);
+  assert.deepStrictEqual(r.cards[0], { type: "cloze", tags: ["frazowe", "c1"], text: "She {{came up with}} it.", hint: "wymyślić" });
+  assert.deepStrictEqual(r.cards[1].accepted, ["fridge", "refrigerator"]);
+  assert.deepStrictEqual(r.rejected.map(function (x) { return x.line; }), [4, 5]);
+  const anki = FL.importCards("I {{c1::gave up}} smoking.\tprzestać\tfrazowe\nZgadzam się.\tI agree.\t\n");
+  assert.deepStrictEqual(anki.cards.map(function (c) { return c.type; }), ["cloze", "basic"]);
+  assert.strictEqual(FL.importCards("basic\t" + "x".repeat(501) + "\ty\n").rejected[0].reason.indexOf("500") !== -1, true);
+  assert.strictEqual(FL.importCards("basic\ta\tb\nbasic\tc\td\nbasic\te\tf\n", { limit: 2 }).cards.length, 2);
+});
+test("exportTsv: Anki (przód, tył, tagi), cloze jako {{c1::…}}, eksport → import", function () {
+  const cards = [{ type: "cloze", text: "I {{gave up|quit}} it.", hint: "przestać", tags: ["a"] }, { type: "basic", front: "Mam 20 lat.", back: "I am 20.", note: "Nie: I have", tags: [] }];
+  const tsv = FL.exportTsv(cards);
+  assert.strictEqual(tsv.split("\n")[0], "I {{c1::gave up::przestać}} it.\t\ta");
+  const back = FL.importCards(tsv);
+  assert.deepStrictEqual([back.cards[0].type, back.cards[0].text, back.cards[1].front], ["cloze", "I {{gave up}} it.", "Mam 20 lat."]);
+});
+test("sanitizeState: uszkodzone dane, nieznana wersja, zbyt długie pola, przycinanie daily", function () {
+  assert.throws(function () { FL.sanitizeState(null); });
+  assert.throws(function () { FL.sanitizeState({ version: 2 }); });
+  const daily = {};
+  for (let i = 0; i < 410; i++) daily[new Date(Date.UTC(2025, 0, 1 + i)).toISOString().slice(0, 10)] = { new: 1, reviews: 2, again: 0, minutes: 3 };
+  const s = FL.sanitizeState({
+    version: 1,
+    cards: { "kolokacje-001": { state: "review", ease: 9, interval: 5, due: 5 }, "zly id!": { state: "review" }, "x-001": { state: "dziwny" } },
+    userDecks: [{ id: "u-1", title: "Moje" }, { id: "zły", title: "x" }],
+    userCards: [{ id: "u-c1", deck: "u-1", type: "basic", front: "a".repeat(800), back: "b" }, { id: "u-c2", deck: "u-1", type: "magia", front: "a", back: "b" }, { id: "u-c3", deck: "u-9", type: "basic", front: "a", back: "b" }],
+    settings: { newPerDay: 5, enabledDecks: ["kolokacje", 7], typeAnswerFirst: "tak" },
+    daily: daily
+  });
+  assert.deepStrictEqual(Object.keys(s.cards), ["kolokacje-001"]);
+  assert.strictEqual(s.cards["kolokacje-001"].ease, 2.5);
+  assert.deepStrictEqual(s.userDecks.map(function (d) { return d.id; }), ["u-1"]);
+  assert.deepStrictEqual([s.userCards.length, s.userCards[0].front.length], [1, 500]);
+  assert.deepStrictEqual([s.settings.newPerDay, s.settings.enabledDecks, s.settings.typeAnswerFirst], [5, ["kolokacje"], false]);
+  assert.strictEqual(Object.keys(s.daily).length, 400);
+  assert.strictEqual(Object.keys(s.daily)[0], "2025-01-11");
 });
 
 console.log("\nWynik: " + passed + " ok, " + failures.length + " błędów");

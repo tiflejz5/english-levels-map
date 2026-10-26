@@ -85,11 +85,14 @@ window.ELM = window.ELM || {};
     const st = ELM.state;
     const hasProfile = app().hasProfiles();
     const due = hasProfile && ELM.profileData ? ELM.profileData.dueCount() : 0;
+    const cardsDue = hasProfile && ELM.fiszki ? ELM.fiszki.badgeCount() : 0; // fiszki do powtórki dziś (w tym nowe)
     const items = [
       { href: "#/dzis", label: "Dziś", icon: "sunrise", active: st.view === "today" },
       { href: "#/test-poziomu", label: "Test poziomu", icon: "target", active: st.view === "leveltest" },
       { href: "#/cwiczenia", label: "Ćwiczenia", icon: "dumbbell", active: st.view === "exercises" },
       { href: "#/laboratorium-czasow", label: "Lab czasów", icon: "flask-conical", active: st.view === "lab" },
+      { href: "#/fiszki", label: "Fiszki", icon: "layers", active: st.view === "fiszki",
+        badge: cardsDue ? String(cardsDue) : null, badgeLabel: cardsDue ? cardsDue + " " + (cardsDue === 1 ? "karta" : cardsDue % 10 >= 2 && cardsDue % 10 <= 4 && (cardsDue % 100 < 12 || cardsDue % 100 > 14) ? "karty" : "kart") + " do powtórki" : null },
       { href: "#/statystyki", label: "Statystyki", icon: "chart-column", active: st.view === "stats" },
       { href: "#/bledy", label: "Dziennik błędów", icon: "notebook-pen", active: st.view === "journal",
         badge: due ? String(due) : null, badgeLabel: due ? "powtórki na dziś: " + due : null }
@@ -188,6 +191,7 @@ window.ELM = window.ELM || {};
     if (ELM.state.view === "lab") return ELM.tenseLab.render(ELM.state.toolRoute);
     if (ELM.state.view === "stats") return ELM.statsPage.render();
     if (ELM.state.view === "notes") return ELM.notes.render();
+    if (ELM.state.view === "fiszki") return ELM.fiszki.render();
     if (ELM.state.route) return ELM.niezbednik.renderPage(ELM.state.route);
     ELM.niezbednik.computeLinks();
     const view = document.getElementById("view");

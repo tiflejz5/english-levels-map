@@ -42,7 +42,7 @@ const ICONS = [
   "pin", "pin-off", "panel-left-open", "panel-left-close",
   "flame", "calendar-days", "map-pin", "list-checks", "sparkles", "notebook-text", "eye",
   "flask-conical", "dumbbell", "volume-2", "shuffle", "arrow-left-right", "split", "layout-grid", "route",
-  "chart-column", "notebook", "clock", "corner-down-left", "file-text", "graduation-cap", "undo-2"
+  "chart-column", "notebook", "clock", "corner-down-left", "file-text", "graduation-cap", "undo-2", "layers"
 ];
 
 function need(file) {

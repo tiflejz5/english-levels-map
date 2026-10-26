@@ -201,6 +201,7 @@ window.ELM = window.ELM || {};
   //   "#/laboratorium-czasow[/…]" → Laboratorium czasów (js/tense-lab.js)
   //   "#/statystyki"      → Statystyki (js/stats-page.js)
   //   "#/notatki"         → Moje notatki (js/notes.js)
+  //   "#/fiszki[/…]"      → Fiszki (js/fiszki.js)
   //   "#/<egzamin>[/…]"   → egzamin z rejestru dane/egzaminy-manifest.json (js/exam-core.js)
   // =====================================================================
 
@@ -217,6 +218,7 @@ window.ELM = window.ELM || {};
     const lab = ELM.tenseLab ? ELM.tenseLab.parseRoute(hash) : null;
     const statsRoute = ELM.statsPage ? ELM.statsPage.parseRoute(hash) : null;
     const notesRoute = ELM.notes ? ELM.notes.parseRoute(hash) : null;
+    const fiszkiRoute = ELM.fiszki ? ELM.fiszki.parseRoute(hash) : null;
     state.route = null;
     state.c1Route = null;
     state.toolRoute = null;
@@ -244,6 +246,9 @@ window.ELM = window.ELM || {};
     } else if (notesRoute) {
       state.view = "notes";
       state.toolRoute = notesRoute;
+    } else if (fiszkiRoute) {
+      state.view = "fiszki";
+      state.toolRoute = fiszkiRoute;
     } else if (c1) {
       state.view = "c1"; // zakładka „Certyfikat C1”
       state.c1Route = c1;
@@ -435,12 +440,14 @@ window.ELM = window.ELM || {};
 
   /**
    * Zastępuje wszystkie profile (import / reset). learning — zaimportowane
-   * dane nauki (dziennik, aktywność, test) albo null (stary plik bez nich).
-   * Dane nauki profili, których już nie ma, są usuwane.
+   * dane nauki (dziennik, aktywność, test) albo null (stary plik bez nich); fiszki — zaimportowane
+   * fiszki ({ <profileId>: stan }) albo null. Dane nauki i fiszki profili, których już nie ma, są usuwane.
    */
-  function replaceProfiles(profilesData, learning) {
+  function replaceProfiles(profilesData, learning, fiszki) {
     state.profiles = profilesData;
-    if (ELM.profileData) ELM.profileData.applyImport(learning || null, profilesData.profiles.map(function (p) { return p.id; }));
+    const ids = profilesData.profiles.map(function (p) { return p.id; });
+    if (ELM.profileData) ELM.profileData.applyImport(learning || null, ids);
+    if (ELM.fiszkiStore) ELM.fiszkiStore.applyImport(fiszki || null, ids);
     profilesChanged();
   }
 

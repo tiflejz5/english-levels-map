@@ -1,0 +1,434 @@
+{
+  "version": 1,
+  "id": "slownictwo-podstawowe",
+  "title": "Słownictwo podstawowe A2–B1",
+  "description": "30 słów do przetłumaczenia z polskiego na angielski.",
+  "level": "A2-B1",
+  "cards": [
+    {
+      "type": "typed",
+      "front": "lodówka",
+      "accepted": [
+        "fridge",
+        "refrigerator"
+      ],
+      "back": "fridge",
+      "id": "slownictwo-podstawowe-001",
+      "tags": [
+        "slownictwo",
+        "e8",
+        "matura"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "sąsiad",
+      "accepted": [
+        "neighbour",
+        "neighbor"
+      ],
+      "back": "neighbour",
+      "id": "slownictwo-podstawowe-002",
+      "tags": [
+        "slownictwo",
+        "e8",
+        "matura"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "pożyczyć od kogoś",
+      "accepted": [
+        "borrow"
+      ],
+      "back": "borrow",
+      "id": "slownictwo-podstawowe-003",
+      "tags": [
+        "slownictwo",
+        "e8",
+        "matura"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "pożyczyć komuś",
+      "accepted": [
+        "lend"
+      ],
+      "back": "lend",
+      "id": "slownictwo-podstawowe-004",
+      "tags": [
+        "slownictwo",
+        "e8",
+        "matura"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "zniżka",
+      "accepted": [
+        "discount"
+      ],
+      "back": "discount",
+      "id": "slownictwo-podstawowe-005",
+      "tags": [
+        "slownictwo",
+        "e8",
+        "matura"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "paragon",
+      "accepted": [
+        "receipt"
+      ],
+      "back": "receipt",
+      "id": "slownictwo-podstawowe-006",
+      "tags": [
+        "slownictwo",
+        "e8",
+        "matura"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "bagaż",
+      "accepted": [
+        "luggage",
+        "baggage"
+      ],
+      "back": "luggage",
+      "id": "slownictwo-podstawowe-007",
+      "tags": [
+        "slownictwo",
+        "e8",
+        "matura"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "opóźnienie",
+      "accepted": [
+        "delay"
+      ],
+      "back": "delay",
+      "id": "slownictwo-podstawowe-008",
+      "tags": [
+        "slownictwo",
+        "e8",
+        "matura"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "umiejętność",
+      "accepted": [
+        "skill"
+      ],
+      "back": "skill",
+      "id": "slownictwo-podstawowe-009",
+      "tags": [
+        "slownictwo",
+        "e8",
+        "matura"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "doświadczenie",
+      "accepted": [
+        "experience"
+      ],
+      "back": "experience",
+      "id": "slownictwo-podstawowe-010",
+      "tags": [
+        "slownictwo",
+        "e8",
+        "matura"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "wynajmować",
+      "accepted": [
+        "rent"
+      ],
+      "back": "rent",
+      "id": "slownictwo-podstawowe-011",
+      "tags": [
+        "slownictwo",
+        "e8",
+        "matura"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "mieszkanie",
+      "accepted": [
+        "flat",
+        "apartment"
+      ],
+      "back": "flat",
+      "id": "slownictwo-podstawowe-012",
+      "tags": [
+        "slownictwo",
+        "e8",
+        "matura"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "spotkanie",
+      "accepted": [
+        "meeting"
+      ],
+      "back": "meeting",
+      "id": "slownictwo-podstawowe-013",
+      "tags": [
+        "slownictwo",
+        "e8",
+        "matura"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "ostateczny termin",
+      "accepted": [
+        "deadline"
+      ],
+      "back": "deadline",
+      "id": "slownictwo-podstawowe-014",
+      "tags": [
+        "slownictwo",
+        "e8",
+        "matura"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "zaproszenie",
+      "accepted": [
+        "invitation"
+      ],
+      "back": "invitation",
+      "id": "slownictwo-podstawowe-015",
+      "tags": [
+        "slownictwo",
+        "e8",
+        "matura"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "środowisko",
+      "accepted": [
+        "environment"
+      ],
+      "back": "environment",
+      "id": "slownictwo-podstawowe-016",
+      "tags": [
+        "slownictwo",
+        "e8",
+        "matura"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "zdrowy",
+      "accepted": [
+        "healthy"
+      ],
+      "back": "healthy",
+      "id": "slownictwo-podstawowe-017",
+      "tags": [
+        "slownictwo",
+        "e8",
+        "matura"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "ubezpieczenie",
+      "accepted": [
+        "insurance"
+      ],
+      "back": "insurance",
+      "id": "slownictwo-podstawowe-018",
+      "tags": [
+        "slownictwo",
+        "e8",
+        "matura"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "wygrać",
+      "accepted": [
+        "win"
+      ],
+      "back": "win",
+      "id": "slownictwo-podstawowe-019",
+      "tags": [
+        "slownictwo",
+        "e8",
+        "matura"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "przegrać",
+      "accepted": [
+        "lose"
+      ],
+      "back": "lose",
+      "id": "slownictwo-podstawowe-020",
+      "tags": [
+        "slownictwo",
+        "e8",
+        "matura"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "zapomnieć",
+      "accepted": [
+        "forget"
+      ],
+      "back": "forget",
+      "id": "slownictwo-podstawowe-021",
+      "tags": [
+        "slownictwo",
+        "e8",
+        "matura"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "przypominać sobie",
+      "accepted": [
+        "remember"
+      ],
+      "back": "remember",
+      "id": "slownictwo-podstawowe-022",
+      "tags": [
+        "slownictwo",
+        "e8",
+        "matura"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "przyjaciel",
+      "accepted": [
+        "friend"
+      ],
+      "back": "friend",
+      "id": "slownictwo-podstawowe-023",
+      "tags": [
+        "slownictwo",
+        "e8",
+        "matura"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "bilet",
+      "accepted": [
+        "ticket"
+      ],
+      "back": "ticket",
+      "id": "slownictwo-podstawowe-024",
+      "tags": [
+        "slownictwo",
+        "e8",
+        "matura"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "pogoda",
+      "accepted": [
+        "weather"
+      ],
+      "back": "weather",
+      "id": "slownictwo-podstawowe-025",
+      "tags": [
+        "slownictwo",
+        "e8",
+        "matura"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "kłopot, problem",
+      "accepted": [
+        "trouble",
+        "problem"
+      ],
+      "back": "trouble",
+      "id": "slownictwo-podstawowe-026",
+      "tags": [
+        "slownictwo",
+        "e8",
+        "matura"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "zmęczony",
+      "accepted": [
+        "tired"
+      ],
+      "back": "tired",
+      "id": "slownictwo-podstawowe-027",
+      "tags": [
+        "slownictwo",
+        "e8",
+        "matura"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "głodny",
+      "accepted": [
+        "hungry"
+      ],
+      "back": "hungry",
+      "id": "slownictwo-podstawowe-028",
+      "tags": [
+        "slownictwo",
+        "e8",
+        "matura"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "wyprzedaż",
+      "accepted": [
+        "sale"
+      ],
+      "back": "sale",
+      "id": "slownictwo-podstawowe-029",
+      "tags": [
+        "slownictwo",
+        "e8",
+        "matura"
+      ]
+    },
+    {
+      "type": "typed",
+      "front": "wypożyczalnia",
+      "accepted": [
+        "rental"
+      ],
+      "back": "rental",
+      "id": "slownictwo-podstawowe-030",
+      "tags": [
+        "slownictwo",
+        "e8",
+        "matura"
+      ]
+    }
+  ]
+}
