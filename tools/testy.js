@@ -19,6 +19,7 @@ require(path.join(__dirname, "..", "js", "exercise-logic.js"));
 require(path.join(__dirname, "..", "js", "learning-stats.js"));
 require(path.join(__dirname, "..", "js", "search-logic.js"));
 require(path.join(__dirname, "..", "js", "exam-logic.js"));
+require(path.join(__dirname, "..", "js", "fiszki-harmonogram.js"));
 const L = global.ELM.learn;
 const X = global.ELM.exLogic;
 
@@ -486,6 +487,45 @@ test("writingZone: matura podstawowa (<80, 80–99, 100–150, >150)", function 
 test("writingZone: matura rozszerzona (<160, 160–199, 200–250, >250)", function () {
   const T = { wordRange: [200, 250], warnBelow: 160 };
   assert.deepStrictEqual([159, 160, 199, 200, 250, 251].map(function (n) { return EL.writingZone(n, T); }), ["low", "warn", "warn", "ok", "ok", "over"]);
+});
+
+console.log("\nFiszki: harmonogram (spec 10, sekcja 3; wektory dane/fiszki/scheduler-vectors.json)");
+const FH = global.ELM.fiszkiHarmonogram;
+const VEC = JSON.parse(require("fs").readFileSync(path.join(__dirname, "..", "dane", "fiszki", "scheduler-vectors.json"), "utf8"));
+const CARD_FIELDS = ["state", "step", "ease", "interval", "pendingInterval", "lapses", "reps", "due"];
+test("wektory: konfiguracja zgodna z domyślną", function () {
+  Object.keys(VEC.config).forEach(function (k) { assert.deepStrictEqual(FH.DEFAULT_CONFIG[k], VEC.config[k], k); });
+});
+VEC.scenarios.forEach(function (sc) {
+  test("schedule: scenariusz „" + sc.name + "” (" + sc.steps.length + " kroków)", function () {
+    let card = FH.newCard();
+    sc.steps.forEach(function (st, i) {
+      const before = JSON.stringify(card);
+      const next = FH.schedule(card, st.grade, st.now);
+      assert.strictEqual(JSON.stringify(card), before, "krok " + (i + 1) + ": karta wejściowa zmieniona");
+      CARD_FIELDS.forEach(function (f) { assert.strictEqual(next[f], st.card[f], "krok " + (i + 1) + " (" + st.grade + "): " + f); });
+      card = next;
+    });
+  });
+});
+test("schedule: oceny liczbowe 1–4 = again/hard/good/easy, nieznana ocena → błąd", function () {
+  const c = FH.newCard();
+  ["again", "hard", "good", "easy"].forEach(function (g, i) { assert.deepStrictEqual(FH.schedule(c, i + 1, 1000), FH.schedule(c, g, 1000)); });
+  assert.throws(function () { FH.schedule(c, "super", 1000); });
+});
+test("schedule: rozproszenie ±5% tylko dla interwałów ≥ 3 d, losowość z zewnątrz", function () {
+  const rev = { state: "review", step: 0, ease: 2.5, interval: 40, pendingInterval: 0, lapses: 0, reps: 5, due: 0 };
+  const base = FH.schedule(rev, "good", 0).interval; // 100
+  assert.strictEqual(FH.schedule(rev, "good", 0, null, { fuzz: true, random: function () { return 1; } }).interval, base + 5);
+  assert.strictEqual(FH.schedule(rev, "good", 0, null, { fuzz: true, random: function () { return 0; } }).interval, base - 5);
+  const grad = FH.schedule(Object.assign(FH.newCard(), { state: "learning", step: 1 }), "good", 0, null, { fuzz: true, random: function () { return 1; } });
+  assert.strictEqual(grad.interval, 1); // 1 d < 3 d — bez rozproszenia
+});
+test("preview i formatDelay: podgląd terminów czterech ocen", function () {
+  const pv = FH.preview(FH.newCard(), 0);
+  assert.deepStrictEqual(["again", "hard", "good", "easy"].map(function (g) { return FH.formatDelay(pv[g].delay); }), ["1 min", "1 min", "10 min", "4 d"]);
+  assert.strictEqual(FH.formatDelay(3 * FH.DAY), "3 d");
+  assert.strictEqual(FH.formatDelay(90 * FH.DAY), "3 mies.");
 });
 
 console.log("\nWynik: " + passed + " ok, " + failures.length + " błędów");
