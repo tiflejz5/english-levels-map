@@ -103,6 +103,24 @@ window.ELM.C1 = {
         "file": "cwiczenia/uoe-p4-mieszany.json",
         "label": "Zestaw mieszany – jak na egzaminie",
         "maxScore": 12
+       },
+       {
+        "id": "uoe-p4-wzorce-czasownikowe",
+        "file": "cwiczenia/uoe-p4-wzorce-czasownikowe.json",
+        "label": "Wzorce czasownikowe: -ing i bezokolicznik",
+        "maxScore": 12
+       },
+       {
+        "id": "uoe-p4-czasowniki-frazowe",
+        "file": "cwiczenia/uoe-p4-czasowniki-frazowe.json",
+        "label": "Czasowniki frazowe i kolokacje",
+        "maxScore": 12
+       },
+       {
+        "id": "uoe-p4-spojniki-przyczyna",
+        "file": "cwiczenia/uoe-p4-spojniki-przyczyna.json",
+        "label": "Spójniki, przyczyna i przeciwieństwo",
+        "maxScore": 12
        }
       ]
      },
@@ -132,6 +150,24 @@ window.ELM.C1 = {
         "id": "uoe-p3-4",
         "file": "cwiczenia/uoe-p3-4.json",
         "label": "City cycling",
+        "maxScore": 8
+       },
+       {
+        "id": "uoe-p3-5",
+        "file": "cwiczenia/uoe-p3-5.json",
+        "label": "AI in the classroom",
+        "maxScore": 8
+       },
+       {
+        "id": "uoe-p3-6",
+        "file": "cwiczenia/uoe-p3-6.json",
+        "label": "Urban farming",
+        "maxScore": 8
+       },
+       {
+        "id": "uoe-p3-7",
+        "file": "cwiczenia/uoe-p3-7.json",
+        "label": "A short history of coffee",
         "maxScore": 8
        }
       ]
@@ -163,6 +199,24 @@ window.ELM.C1 = {
         "file": "cwiczenia/uoe-p2-4.json",
         "label": "Why we procrastinate",
         "maxScore": 8
+       },
+       {
+        "id": "uoe-p2-5",
+        "file": "cwiczenia/uoe-p2-5.json",
+        "label": "The smell of memory",
+        "maxScore": 8
+       },
+       {
+        "id": "uoe-p2-6",
+        "file": "cwiczenia/uoe-p2-6.json",
+        "label": "Island communities",
+        "maxScore": 8
+       },
+       {
+        "id": "uoe-p2-7",
+        "file": "cwiczenia/uoe-p2-7.json",
+        "label": "The case for boredom",
+        "maxScore": 8
        }
       ]
      },
@@ -186,6 +240,24 @@ window.ELM.C1 = {
         "id": "uoe-p1-3",
         "file": "cwiczenia/uoe-p1-3.json",
         "label": "A career change",
+        "maxScore": 8
+       },
+       {
+        "id": "uoe-p1-4",
+        "file": "cwiczenia/uoe-p1-4.json",
+        "label": "The return of vinyl",
+        "maxScore": 8
+       },
+       {
+        "id": "uoe-p1-5",
+        "file": "cwiczenia/uoe-p1-5.json",
+        "label": "Urban green spaces",
+        "maxScore": 8
+       },
+       {
+        "id": "uoe-p1-6",
+        "file": "cwiczenia/uoe-p1-6.json",
+        "label": "Learning from failure",
         "maxScore": 8
        }
       ]
@@ -1226,6 +1298,349 @@ window.ELM.C1 = {
     }
    ]
   },
+  "uoe-p4-wzorce-czasownikowe": {
+   "id": "uoe-p4-wzorce-czasownikowe",
+   "part": 4,
+   "type": "transformation",
+   "title": "Wzorce czasownikowe: -ing i bezokolicznik",
+   "focus": "Regret, get used to, can't help, it's no use, object to, look forward to",
+   "instructions": "Uzupełnij drugie zdanie tak, żeby znaczyło to samo co pierwsze. Użyj podanego słowa bez zmieniania go. Wpisz od 3 do 6 słów, łącznie ze słowem kluczowym (skróty typu doesn't liczą się jako dwa słowa). Każda odpowiedź jest warta 2 punkty – po 1 za każdą część.",
+   "maxScore": 12,
+   "items": [
+    {
+     "n": 1,
+     "first": "I'm sorry that I didn't tell you earlier.",
+     "keyword": "REGRET",
+     "before": "I",
+     "after": "you earlier.",
+     "parts": [
+      [
+       "REGRET NOT"
+      ],
+      [
+       "TELLING",
+       "HAVING TOLD"
+      ]
+     ],
+     "model": "REGRET NOT TELLING",
+     "explanation": "Regret + -ing: żałować, że się coś zrobiło."
+    },
+    {
+     "n": 2,
+     "first": "Practising every day no longer feels strange to Maya.",
+     "keyword": "USED",
+     "before": "Maya has",
+     "after": "every day.",
+     "parts": [
+      [
+       "GOT USED TO",
+       "BECOME USED TO"
+      ],
+      [
+       "PRACTISING"
+      ]
+     ],
+     "model": "GOT USED TO PRACTISING",
+     "explanation": "Get used to + -ing = przyzwyczaić się do."
+    },
+    {
+     "n": 3,
+     "first": "I found it impossible not to laugh at his hat.",
+     "keyword": "HELP",
+     "before": "I",
+     "after": "at his hat.",
+     "parts": [
+      [
+       "COULDN'T HELP",
+       "COULD NOT HELP"
+      ],
+      [
+       "LAUGHING"
+      ]
+     ],
+     "model": "COULDN'T HELP LAUGHING",
+     "explanation": "Can't help + -ing = nie móc się powstrzymać."
+    },
+    {
+     "n": 4,
+     "first": "There is no point arguing with him.",
+     "keyword": "USE",
+     "before": "It is",
+     "after": "with him.",
+     "parts": [
+      [
+       "NO USE"
+      ],
+      [
+       "ARGUING"
+      ]
+     ],
+     "model": "NO USE ARGUING",
+     "explanation": "It's no use + -ing."
+    },
+    {
+     "n": 5,
+     "first": "She doesn't mind getting up early.",
+     "keyword": "OBJECT",
+     "before": "She doesn't",
+     "after": "up early.",
+     "parts": [
+      [
+       "OBJECT TO"
+      ],
+      [
+       "GETTING"
+      ]
+     ],
+     "model": "OBJECT TO GETTING",
+     "explanation": "Object to + -ing = sprzeciwiać się (to jest przyimek)."
+    },
+    {
+     "n": 6,
+     "first": "I am eager to see you again next month.",
+     "keyword": "FORWARD",
+     "before": "I am looking",
+     "after": "you again next month.",
+     "parts": [
+      [
+       "FORWARD TO"
+      ],
+      [
+       "SEEING"
+      ]
+     ],
+     "model": "FORWARD TO SEEING",
+     "explanation": "Look forward to + -ing."
+    }
+   ]
+  },
+  "uoe-p4-czasowniki-frazowe": {
+   "id": "uoe-p4-czasowniki-frazowe",
+   "part": 4,
+   "type": "transformation",
+   "title": "Czasowniki frazowe i kolokacje",
+   "focus": "Call off, put up with, make up, look up to, run out of, come into effect",
+   "instructions": "Uzupełnij drugie zdanie tak, żeby znaczyło to samo co pierwsze. Użyj podanego słowa bez zmieniania go. Wpisz od 3 do 6 słów, łącznie ze słowem kluczowym (skróty typu doesn't liczą się jako dwa słowa). Każda odpowiedź jest warta 2 punkty – po 1 za każdą część.",
+   "maxScore": 12,
+   "items": [
+    {
+     "n": 1,
+     "first": "They decided not to hold the meeting because of a lack of interest.",
+     "keyword": "OFF",
+     "before": "The meeting",
+     "after": "because of a lack of interest.",
+     "parts": [
+      [
+       "WAS CALLED"
+      ],
+      [
+       "OFF"
+      ]
+     ],
+     "model": "WAS CALLED OFF",
+     "explanation": "Call off = odwołać."
+    },
+    {
+     "n": 2,
+     "first": "I find it hard to tolerate his rudeness.",
+     "keyword": "UP",
+     "before": "I can't",
+     "after": "his rudeness.",
+     "parts": [
+      [
+       "PUT UP"
+      ],
+      [
+       "WITH"
+      ]
+     ],
+     "model": "PUT UP WITH",
+     "explanation": "Put up with = znosić."
+    },
+    {
+     "n": 3,
+     "first": "He invented an excuse for being late.",
+     "keyword": "UP",
+     "before": "He",
+     "after": "for being late.",
+     "parts": [
+      [
+       "MADE UP"
+      ],
+      [
+       "AN EXCUSE"
+      ]
+     ],
+     "model": "MADE UP AN EXCUSE",
+     "explanation": "Make up an excuse = zmyślić wymówkę."
+    },
+    {
+     "n": 4,
+     "first": "Everyone admires her for her honesty.",
+     "keyword": "LOOKED",
+     "before": "She",
+     "after": "by everyone because of her honesty.",
+     "parts": [
+      [
+       "IS LOOKED"
+      ],
+      [
+       "UP TO"
+      ]
+     ],
+     "model": "IS LOOKED UP TO",
+     "explanation": "Look up to = podziwiać (strona bierna)."
+    },
+    {
+     "n": 5,
+     "first": "We have almost no paper left.",
+     "keyword": "RUNNING",
+     "before": "We are",
+     "after": "paper.",
+     "parts": [
+      [
+       "RUNNING OUT"
+      ],
+      [
+       "OF"
+      ]
+     ],
+     "model": "RUNNING OUT OF",
+     "explanation": "Run out of = skończyć się."
+    },
+    {
+     "n": 6,
+     "first": "The new rules will start to apply in September.",
+     "keyword": "EFFECT",
+     "before": "The new rules will",
+     "after": "in September.",
+     "parts": [
+      [
+       "COME INTO"
+      ],
+      [
+       "EFFECT"
+      ]
+     ],
+     "model": "COME INTO EFFECT",
+     "explanation": "Come into effect = wejść w życie."
+    }
+   ]
+  },
+  "uoe-p4-spojniki-przyczyna": {
+   "id": "uoe-p4-spojniki-przyczyna",
+   "part": 4,
+   "type": "transformation",
+   "title": "Spójniki, przyczyna i przeciwieństwo",
+   "focus": "In spite of, due to, as long as, in contrast to, as a result of, although",
+   "instructions": "Uzupełnij drugie zdanie tak, żeby znaczyło to samo co pierwsze. Użyj podanego słowa bez zmieniania go. Wpisz od 3 do 6 słów, łącznie ze słowem kluczowym (skróty typu doesn't liczą się jako dwa słowa). Każda odpowiedź jest warta 2 punkty – po 1 za każdą część.",
+   "maxScore": 12,
+   "items": [
+    {
+     "n": 1,
+     "first": "Although it was raining, they carried on playing.",
+     "keyword": "SPITE",
+     "before": "They carried on playing",
+     "after": "the rain.",
+     "parts": [
+      [
+       "IN SPITE"
+      ],
+      [
+       "OF"
+      ]
+     ],
+     "model": "IN SPITE OF",
+     "explanation": "In spite of + rzeczownik = pomimo."
+    },
+    {
+     "n": 2,
+     "first": "He couldn't attend the meeting as he was ill.",
+     "keyword": "DUE",
+     "before": "He couldn't attend the meeting",
+     "after": "ill.",
+     "parts": [
+      [
+       "DUE TO"
+      ],
+      [
+       "BEING"
+      ]
+     ],
+     "model": "DUE TO BEING",
+     "explanation": "Due to + -ing = z powodu."
+    },
+    {
+     "n": 3,
+     "first": "I'll lend you the book provided that you return it by Friday.",
+     "keyword": "LONG",
+     "before": "I'll lend you the book",
+     "after": "you return it by Friday.",
+     "parts": [
+      [
+       "AS LONG"
+      ],
+      [
+       "AS"
+      ]
+     ],
+     "model": "AS LONG AS",
+     "explanation": "As long as = pod warunkiem, że."
+    },
+    {
+     "n": 4,
+     "first": "Whereas his brother is outgoing, Paul is rather shy.",
+     "keyword": "CONTRAST",
+     "before": "In",
+     "after": "outgoing brother, Paul is rather shy.",
+     "parts": [
+      [
+       "CONTRAST TO",
+       "CONTRAST WITH"
+      ],
+      [
+       "HIS"
+      ]
+     ],
+     "model": "CONTRAST TO HIS",
+     "explanation": "In contrast to = w przeciwieństwie do."
+    },
+    {
+     "n": 5,
+     "first": "Because of the heavy traffic, we missed the start of the concert.",
+     "keyword": "RESULT",
+     "before": "As",
+     "after": "heavy traffic, we missed the start of the concert.",
+     "parts": [
+      [
+       "A RESULT"
+      ],
+      [
+       "OF THE"
+      ]
+     ],
+     "model": "A RESULT OF THE",
+     "explanation": "As a result of = w wyniku."
+    },
+    {
+     "n": 6,
+     "first": "Despite his lack of experience, he got the job.",
+     "keyword": "ALTHOUGH",
+     "before": "He got the job",
+     "after": "experience.",
+     "parts": [
+      [
+       "ALTHOUGH HE"
+      ],
+      [
+       "LACKED"
+      ]
+     ],
+     "model": "ALTHOUGH HE LACKED",
+     "explanation": "Although + zdanie, w miejsce despite + rzeczownik."
+    }
+   ]
+  },
   "uoe-p3-1": {
    "id": "uoe-p3-1",
    "part": 3,
@@ -1528,6 +1943,235 @@ window.ELM.C1 = {
     }
    ]
   },
+  "uoe-p3-5": {
+   "id": "uoe-p3-5",
+   "part": 3,
+   "type": "word-formation",
+   "title": "AI in the classroom",
+   "instructions": "Utwórz od słowa podanego przy luce słowo, które pasuje do luki. Uważaj na przedrostki, liczbę mnogą i pisownię. Każda luka to 1 punkt.",
+   "maxScore": 8,
+   "text": "The arrival of artificial intelligence in the classroom has sparked a {{1}} debate among teachers. Supporters argue that AI tools can offer students {{2}} feedback instantly, making it possible to work at their own pace. Many teachers also welcome the {{3}} in time spent marking homework. Opponents, however, warn of a growing {{4}} on technology which may weaken pupils' ability to think independently. There are also concerns about {{5}} in automatically generated explanations, and about how pupils' data is {{6}}. Some educators go further and say that excessive use of AI is {{7}} because it encourages shortcuts. Most agree, though, that the technology is here to stay, so the question is how to use it {{8}}.",
+   "gaps": [
+    {
+     "n": 1,
+     "stem": "CONTROVERSY",
+     "accept": [
+      "CONTROVERSIAL"
+     ],
+     "explanation": "Przymiotnik przed debate: controversial."
+    },
+    {
+     "n": 2,
+     "stem": "PERSON",
+     "accept": [
+      "PERSONALISED",
+      "PERSONALIZED"
+     ],
+     "explanation": "Przymiotnik przed feedback: personalised."
+    },
+    {
+     "n": 3,
+     "stem": "REDUCE",
+     "accept": [
+      "REDUCTION"
+     ],
+     "explanation": "Rzeczownik po the: reduction."
+    },
+    {
+     "n": 4,
+     "stem": "RELY",
+     "accept": [
+      "RELIANCE"
+     ],
+     "explanation": "Growing reliance on = rosnące uzależnienie od."
+    },
+    {
+     "n": 5,
+     "stem": "ACCURATE",
+     "accept": [
+      "INACCURACIES",
+      "INACCURACY"
+     ],
+     "explanation": "Przeczący rzeczownik: inaccuracies."
+    },
+    {
+     "n": 6,
+     "stem": "PROTECT",
+     "accept": [
+      "PROTECTED"
+     ],
+     "explanation": "Strona bierna: is protected."
+    },
+    {
+     "n": 7,
+     "stem": "PRODUCE",
+     "accept": [
+      "UNPRODUCTIVE",
+      "COUNTERPRODUCTIVE"
+     ],
+     "explanation": "Przymiotnik przeczący: unproductive."
+    },
+    {
+     "n": 8,
+     "stem": "RESPONSIBLE",
+     "accept": [
+      "RESPONSIBLY"
+     ],
+     "explanation": "Przysłówek: use it responsibly."
+    }
+   ]
+  },
+  "uoe-p3-6": {
+   "id": "uoe-p3-6",
+   "part": 3,
+   "type": "word-formation",
+   "title": "Urban farming",
+   "instructions": "Utwórz od słowa podanego przy luce słowo, które pasuje do luki. Uważaj na przedrostki, liczbę mnogą i pisownię. Każda luka to 1 punkt.",
+   "maxScore": 8,
+   "text": "A growing number of city dwellers are turning to {{1}} on rooftops and in disused car parks. Supporters stress the {{2}} benefits, such as shorter transport routes and less {{3}} waste. Locally grown vegetables are also {{4}} fresher than those transported over long distances. For many participants, however, the main {{5}} is social: community gardens bring neighbours together and give a sense of {{6}}. Not everything is rosy. Setting up a rooftop garden can be {{7}}, and the harvest is rarely enough to make a {{8}} difference to a family's food bill.",
+   "gaps": [
+    {
+     "n": 1,
+     "stem": "FARM",
+     "accept": [
+      "FARMING"
+     ],
+     "explanation": "Rzeczownik odczasownikowy: farming."
+    },
+    {
+     "n": 2,
+     "stem": "ENVIRONMENT",
+     "accept": [
+      "ENVIRONMENTAL"
+     ],
+     "explanation": "Przymiotnik przed benefits."
+    },
+    {
+     "n": 3,
+     "stem": "PACK",
+     "accept": [
+      "PACKAGING"
+     ],
+     "explanation": "Packaging waste = odpady opakowaniowe."
+    },
+    {
+     "n": 4,
+     "stem": "SIGNIFICANT",
+     "accept": [
+      "SIGNIFICANTLY"
+     ],
+     "explanation": "Przysłówek przed przymiotnikiem fresher."
+    },
+    {
+     "n": 5,
+     "stem": "ATTRACT",
+     "accept": [
+      "ATTRACTION"
+     ],
+     "explanation": "The main attraction = główny atut."
+    },
+    {
+     "n": 6,
+     "stem": "BELONG",
+     "accept": [
+      "BELONGING"
+     ],
+     "explanation": "A sense of belonging = poczucie przynależności."
+    },
+    {
+     "n": 7,
+     "stem": "EXPENSE",
+     "accept": [
+      "EXPENSIVE"
+     ],
+     "explanation": "Przymiotnik po be."
+    },
+    {
+     "n": 8,
+     "stem": "SUBSTANCE",
+     "accept": [
+      "SUBSTANTIAL"
+     ],
+     "explanation": "A substantial difference = zasadnicza różnica."
+    }
+   ]
+  },
+  "uoe-p3-7": {
+   "id": "uoe-p3-7",
+   "part": 3,
+   "type": "word-formation",
+   "title": "A short history of coffee",
+   "instructions": "Utwórz od słowa podanego przy luce słowo, które pasuje do luki. Uważaj na przedrostki, liczbę mnogą i pisownię. Każda luka to 1 punkt.",
+   "maxScore": 8,
+   "text": "According to legend, coffee was discovered by an Ethiopian goat herder who noticed the {{1}} lively behaviour of his animals after they had eaten red berries. By the fifteenth century, the drink had spread to Arabia, where coffee houses became popular places for {{2}} and the exchange of news. European authorities viewed these gatherings with {{3}}, and some even tried to ban the drink. Such attempts proved {{4}}, and by the seventeenth century cafés had appeared in cities from Venice to London. Today, coffee is one of the world's most valuable {{5}}. Yet its production raises serious {{6}} questions, since many growers earn very little. Campaigners call for greater {{7}} in the supply chain, so that consumers can see who profits from their {{8}}.",
+   "gaps": [
+    {
+     "n": 1,
+     "stem": "USUAL",
+     "accept": [
+      "UNUSUALLY"
+     ],
+     "explanation": "Przysłówek z przeczeniem: unusually lively."
+    },
+    {
+     "n": 2,
+     "stem": "DISCUSS",
+     "accept": [
+      "DISCUSSION",
+      "DISCUSSIONS"
+     ],
+     "explanation": "Rzeczownik po for: discussion."
+    },
+    {
+     "n": 3,
+     "stem": "SUSPECT",
+     "accept": [
+      "SUSPICION"
+     ],
+     "explanation": "Rzeczownik po with: suspicion."
+    },
+    {
+     "n": 4,
+     "stem": "SUCCESS",
+     "accept": [
+      "UNSUCCESSFUL"
+     ],
+     "explanation": "Przeczący przymiotnik: unsuccessful."
+    },
+    {
+     "n": 5,
+     "stem": "EXPORT",
+     "accept": [
+      "EXPORTS"
+     ],
+     "explanation": "Rzeczownik w liczbie mnogiej po most valuable."
+    },
+    {
+     "n": 6,
+     "stem": "ETHIC",
+     "accept": [
+      "ETHICAL"
+     ],
+     "explanation": "Przymiotnik przed questions."
+    },
+    {
+     "n": 7,
+     "stem": "TRANSPARENT",
+     "accept": [
+      "TRANSPARENCY"
+     ],
+     "explanation": "Rzeczownik po greater."
+    },
+    {
+     "n": 8,
+     "stem": "PURCHASE",
+     "accept": [
+      "PURCHASES"
+     ],
+     "explanation": "Rzeczownik po their."
+    }
+   ]
+  },
   "uoe-p2-1": {
    "id": "uoe-p2-1",
    "part": 2,
@@ -1799,6 +2443,216 @@ window.ELM.C1 = {
       "ON"
      ],
      "explanation": "Carry on = kontynuować."
+    }
+   ]
+  },
+  "uoe-p2-5": {
+   "id": "uoe-p2-5",
+   "part": 2,
+   "type": "open-cloze",
+   "title": "The smell of memory",
+   "instructions": "Wpisz w każdą lukę dokładnie jedno słowo. Skróty typu don't liczą się jako dwa słowa, więc nie są poprawną odpowiedzią. Każda luka to 1 punkt.",
+   "maxScore": 8,
+   "text": "Few things bring back memories as vividly {{1}} a familiar smell. A whiff of freshly baked bread can transport us instantly to our grandmother's kitchen, {{2}} a certain perfume may remind us of a person we have not seen for years. Scientists believe this happens {{3}} the part of the brain that processes smells is closely linked to the areas responsible for emotion and memory. {{4}} other senses, smell does not pass through the thalamus, a kind of relay station, before reaching these areas. Researchers have even suggested that smells could be used to help people suffering {{5}} memory loss, although it is far from clear how effective such treatments would be. Whatever the answer, it is hard to deny {{6}} powerful a role scent plays in our lives. No sooner had the study been published {{7}} perfume companies began to show interest, hoping to turn its findings into profit. It remains {{8}} be seen whether they will succeed.",
+   "gaps": [
+    {
+     "n": 1,
+     "accept": [
+      "AS"
+     ],
+     "explanation": "As ... as w porównaniu: as vividly as."
+    },
+    {
+     "n": 2,
+     "accept": [
+      "WHILE",
+      "WHEREAS",
+      "AND"
+     ],
+     "explanation": "Łącznik zestawiający dwie sytuacje: while/whereas."
+    },
+    {
+     "n": 3,
+     "accept": [
+      "BECAUSE",
+      "SINCE",
+      "AS"
+     ],
+     "explanation": "Przyczyna: this happens because..."
+    },
+    {
+     "n": 4,
+     "accept": [
+      "UNLIKE"
+     ],
+     "explanation": "Unlike other senses = w odróżnieniu od innych zmysłów."
+    },
+    {
+     "n": 5,
+     "accept": [
+      "FROM"
+     ],
+     "explanation": "Suffer from = cierpieć na."
+    },
+    {
+     "n": 6,
+     "accept": [
+      "HOW"
+     ],
+     "explanation": "Deny how powerful = zaprzeczać, jak potężna."
+    },
+    {
+     "n": 7,
+     "accept": [
+      "THAN"
+     ],
+     "explanation": "No sooner had... than = ledwie... a już."
+    },
+    {
+     "n": 8,
+     "accept": [
+      "TO"
+     ],
+     "explanation": "It remains to be seen = okaże się."
+    }
+   ]
+  },
+  "uoe-p2-6": {
+   "id": "uoe-p2-6",
+   "part": 2,
+   "type": "open-cloze",
+   "title": "Island communities",
+   "instructions": "Wpisz w każdą lukę dokładnie jedno słowo. Skróty typu don't liczą się jako dwa słowa, więc nie są poprawną odpowiedzią. Każda luka to 1 punkt.",
+   "maxScore": 8,
+   "text": "On the remote island of Tristan da Cunha, around 250 people live {{1}} what is often described as the most isolated community on earth. The nearest inhabited land is more than two thousand kilometres away, {{2}} means that supplies arrive only a few times a year by ship. Residents have learnt to rely {{3}} themselves, growing potatoes and fishing for lobster. Not only {{4}} they manage to survive, they have also built a close-knit society in which everyone knows everybody else. Visitors are rare, and those who do come are often surprised {{5}} the warmth of the welcome. Although life is simple, the islanders are by no {{6}} unaware of the modern world. Satellite internet has been available for several years, and many young people wish they {{7}} travel abroad for study. Yet the majority choose to return, saying that nowhere else offers {{8}} a sense of belonging.",
+   "gaps": [
+    {
+     "n": 1,
+     "accept": [
+      "IN"
+     ],
+     "explanation": "Live in = mieszkać w."
+    },
+    {
+     "n": 2,
+     "accept": [
+      "WHICH"
+     ],
+     "explanation": "Zdanie względne odnoszące się do całej sytuacji: which means."
+    },
+    {
+     "n": 3,
+     "accept": [
+      "ON",
+      "UPON"
+     ],
+     "explanation": "Rely on = polegać na."
+    },
+    {
+     "n": 4,
+     "accept": [
+      "DO"
+     ],
+     "explanation": "Not only do they manage = inwersja po not only."
+    },
+    {
+     "n": 5,
+     "accept": [
+      "AT",
+      "BY"
+     ],
+     "explanation": "Surprised at/by = zaskoczony czymś."
+    },
+    {
+     "n": 6,
+     "accept": [
+      "MEANS"
+     ],
+     "explanation": "By no means = bynajmniej."
+    },
+    {
+     "n": 7,
+     "accept": [
+      "COULD"
+     ],
+     "explanation": "Wish + could = żałować, że nie można."
+    },
+    {
+     "n": 8,
+     "accept": [
+      "SUCH"
+     ],
+     "explanation": "Such a sense of belonging = takie poczucie przynależności."
+    }
+   ]
+  },
+  "uoe-p2-7": {
+   "id": "uoe-p2-7",
+   "part": 2,
+   "type": "open-cloze",
+   "title": "The case for boredom",
+   "instructions": "Wpisz w każdą lukę dokładnie jedno słowo. Skróty typu don't liczą się jako dwa słowa, więc nie są poprawną odpowiedzią. Każda luka to 1 punkt.",
+   "maxScore": 8,
+   "text": "In an age of constant stimulation, boredom is generally regarded as something to be avoided {{1}} all costs. We reach for our phones the moment we find ourselves waiting {{2}} a bus or standing in a queue. Psychologists, {{3}}, suggest that this habit may be doing us more harm than good. Boredom, they argue, is a signal telling us that {{4}} we are doing is no longer rewarding, and it pushes us to look for something new. People who are never bored may therefore miss {{5}} on opportunities to think creatively. In one experiment, volunteers who had spent time copying phone numbers came up {{6}} more original ideas than those who had gone straight to the task. Of course, this is not to say that we should deliberately make ourselves miserable. Rather, we should allow ourselves {{7}} time to do nothing in particular, and see where our minds wander. Such moments, however dull they may seem, can be {{8}} unexpected source of inspiration.",
+   "gaps": [
+    {
+     "n": 1,
+     "accept": [
+      "AT"
+     ],
+     "explanation": "At all costs = za wszelką cenę."
+    },
+    {
+     "n": 2,
+     "accept": [
+      "FOR"
+     ],
+     "explanation": "Wait for = czekać na."
+    },
+    {
+     "n": 3,
+     "accept": [
+      "HOWEVER",
+      "THOUGH"
+     ],
+     "explanation": "Przerywnik kontrastu: psychologists, however, suggest."
+    },
+    {
+     "n": 4,
+     "accept": [
+      "WHAT"
+     ],
+     "explanation": "What we are doing = to, co robimy."
+    },
+    {
+     "n": 5,
+     "accept": [
+      "OUT"
+     ],
+     "explanation": "Miss out on = tracić okazję."
+    },
+    {
+     "n": 6,
+     "accept": [
+      "WITH"
+     ],
+     "explanation": "Come up with = wymyślić."
+    },
+    {
+     "n": 7,
+     "accept": [
+      "SOME",
+      "ENOUGH",
+      "MORE"
+     ],
+     "explanation": "Allow ourselves some time = pozwolić sobie na trochę czasu."
+    },
+    {
+     "n": 8,
+     "accept": [
+      "AN"
+     ],
+     "explanation": "An unexpected source = nieoczekiwane źródło."
     }
    ]
   },
@@ -2096,6 +2950,303 @@ window.ELM.C1 = {
      },
      "answer": "B",
      "explanation": "Stand in your way = stać na przeszkodzie."
+    }
+   ]
+  },
+  "uoe-p1-4": {
+   "id": "uoe-p1-4",
+   "part": 1,
+   "type": "multiple-choice-cloze",
+   "title": "The return of vinyl",
+   "instructions": "Wybierz słowo (A, B, C lub D), które najlepiej pasuje do luki. Każda luka to 1 punkt.",
+   "maxScore": 8,
+   "text": "Few people would have predicted that vinyl records would {{1}} a comeback in the age of streaming. Yet sales have been {{2}} steadily for over a decade. Fans {{3}} the sound as warmer and richer, but for many the real appeal lies elsewhere: the large sleeves, the ritual of lowering the needle and the sense of owning something tangible. Record shops, once on the {{4}} of extinction, are now thriving in many cities. Some critics dismiss the trend as mere nostalgia, yet a {{5}} number of buyers are under thirty and have never owned a cassette player. The industry is, however, not without its {{6}}. Pressing plants struggle to {{7}} up with demand, and prices have risen sharply. Whether the revival will last remains to be {{8}}.",
+   "gaps": [
+    {
+     "n": 1,
+     "options": {
+      "A": "make",
+      "B": "take",
+      "C": "pull",
+      "D": "reach"
+     },
+     "answer": "A",
+     "explanation": "Make a comeback = wrócić do łask."
+    },
+    {
+     "n": 2,
+     "options": {
+      "A": "rising",
+      "B": "raising",
+      "C": "arising",
+      "D": "lifting"
+     },
+     "answer": "A",
+     "explanation": "Rise jest nieprzechodnie: sales have been rising. Raise wymaga dopełnienia."
+    },
+    {
+     "n": 3,
+     "options": {
+      "A": "describe",
+      "B": "explain",
+      "C": "state",
+      "D": "tell"
+     },
+     "answer": "A",
+     "explanation": "Describe X as Y = określać X jako Y."
+    },
+    {
+     "n": 4,
+     "options": {
+      "A": "brink",
+      "B": "rim",
+      "C": "corner",
+      "D": "border"
+     },
+     "answer": "A",
+     "explanation": "On the brink of extinction = na progu wyginięcia."
+    },
+    {
+     "n": 5,
+     "options": {
+      "A": "considerable",
+      "B": "plentiful",
+      "C": "profound",
+      "D": "intense"
+     },
+     "answer": "A",
+     "explanation": "A considerable number = spora liczba. Pozostałe nie łączą się z number."
+    },
+    {
+     "n": 6,
+     "options": {
+      "A": "drawbacks",
+      "B": "damages",
+      "C": "losses",
+      "D": "harms"
+     },
+     "answer": "A",
+     "explanation": "Not without its drawbacks = nie bez wad."
+    },
+    {
+     "n": 7,
+     "options": {
+      "A": "keep",
+      "B": "hold",
+      "C": "stay",
+      "D": "go"
+     },
+     "answer": "A",
+     "explanation": "Keep up with demand = nadążać za popytem."
+    },
+    {
+     "n": 8,
+     "options": {
+      "A": "seen",
+      "B": "looked",
+      "C": "watched",
+      "D": "noticed"
+     },
+     "answer": "A",
+     "explanation": "Remains to be seen = to się dopiero okaże."
+    }
+   ]
+  },
+  "uoe-p1-5": {
+   "id": "uoe-p1-5",
+   "part": 1,
+   "type": "multiple-choice-cloze",
+   "title": "Urban green spaces",
+   "instructions": "Wybierz słowo (A, B, C lub D), które najlepiej pasuje do luki. Każda luka to 1 punkt.",
+   "maxScore": 8,
+   "text": "Cities around the world are discovering that parks are not a luxury but a necessity. Studies show that residents with {{1}} to green spaces report lower stress levels and better physical health. Planners are therefore under pressure to {{2}} room for trees even in the most densely built districts. This is easier said than {{3}}, since land is expensive and every square metre {{4}} a high price. Some cities have responded by turning rooftops into gardens or {{5}} abandoned railway lines into public walkways. Critics point out that such projects can {{6}} up property prices, forcing out the very residents they were meant to benefit. Even so, most experts agree that the long-term benefits far {{7}} the costs, provided that new green areas are {{8}} fairly across the whole city.",
+   "gaps": [
+    {
+     "n": 1,
+     "options": {
+      "A": "access",
+      "B": "entry",
+      "C": "admission",
+      "D": "entrance"
+     },
+     "answer": "A",
+     "explanation": "Access to = dostęp do."
+    },
+    {
+     "n": 2,
+     "options": {
+      "A": "make",
+      "B": "do",
+      "C": "bring",
+      "D": "set"
+     },
+     "answer": "A",
+     "explanation": "Make room for = zrobić miejsce dla."
+    },
+    {
+     "n": 3,
+     "options": {
+      "A": "done",
+      "B": "made",
+      "C": "put",
+      "D": "got"
+     },
+     "answer": "A",
+     "explanation": "Easier said than done = łatwiej powiedzieć niż zrobić."
+    },
+    {
+     "n": 4,
+     "options": {
+      "A": "fetches",
+      "B": "buys",
+      "C": "earns",
+      "D": "wins"
+     },
+     "answer": "A",
+     "explanation": "Fetch a high price = osiągać wysoką cenę."
+    },
+    {
+     "n": 5,
+     "options": {
+      "A": "converting",
+      "B": "exchanging",
+      "C": "replacing",
+      "D": "translating"
+     },
+     "answer": "A",
+     "explanation": "Convert X into Y = przekształcać X w Y."
+    },
+    {
+     "n": 6,
+     "options": {
+      "A": "push",
+      "B": "hold",
+      "C": "lay",
+      "D": "take"
+     },
+     "answer": "A",
+     "explanation": "Push up prices = podbijać ceny."
+    },
+    {
+     "n": 7,
+     "options": {
+      "A": "outweigh",
+      "B": "overcome",
+      "C": "overlook",
+      "D": "outlast"
+     },
+     "answer": "A",
+     "explanation": "Outweigh = przeważać nad."
+    },
+    {
+     "n": 8,
+     "options": {
+      "A": "distributed",
+      "B": "scattered",
+      "C": "dispersed",
+      "D": "deposited"
+     },
+     "answer": "A",
+     "explanation": "Distribute fairly = sprawiedliwie rozdzielać."
+    }
+   ]
+  },
+  "uoe-p1-6": {
+   "id": "uoe-p1-6",
+   "part": 1,
+   "type": "multiple-choice-cloze",
+   "title": "Learning from failure",
+   "instructions": "Wybierz słowo (A, B, C lub D), które najlepiej pasuje do luki. Każda luka to 1 punkt.",
+   "maxScore": 8,
+   "text": "In many cultures, failure is still seen as something to be {{1}} of. Yet researchers increasingly argue that setbacks are an essential {{2}} of learning. When we make mistakes, our brains {{3}} attention to the gap between what we expected and what actually happened, and this is precisely what drives improvement. Several successful entrepreneurs have {{4}} out the benefits of early failure; one of them {{5}} his first business as 'the most expensive lesson of my life'. {{6}} this, not everyone benefits equally. People who are {{7}} of punishment tend to take fewer risks and therefore learn less. Schools and workplaces can help by {{8}} an atmosphere in which honest mistakes are treated as opportunities rather than offences.",
+   "gaps": [
+    {
+     "n": 1,
+     "options": {
+      "A": "ashamed",
+      "B": "embarrassing",
+      "C": "humiliating",
+      "D": "regretting"
+     },
+     "answer": "A",
+     "explanation": "Be ashamed of = wstydzić się czegoś."
+    },
+    {
+     "n": 2,
+     "options": {
+      "A": "part",
+      "B": "section",
+      "C": "portion",
+      "D": "segment"
+     },
+     "answer": "A",
+     "explanation": "An essential part of = istotna część."
+    },
+    {
+     "n": 3,
+     "options": {
+      "A": "pay",
+      "B": "take",
+      "C": "make",
+      "D": "spend"
+     },
+     "answer": "A",
+     "explanation": "Pay attention to = zwracać uwagę na."
+    },
+    {
+     "n": 4,
+     "options": {
+      "A": "pointed",
+      "B": "pulled",
+      "C": "picked",
+      "D": "pushed"
+     },
+     "answer": "A",
+     "explanation": "Point out = wskazywać na."
+    },
+    {
+     "n": 5,
+     "options": {
+      "A": "described",
+      "B": "explained",
+      "C": "announced",
+      "D": "reported"
+     },
+     "answer": "A",
+     "explanation": "Describe X as Y = określać X jako Y."
+    },
+    {
+     "n": 6,
+     "options": {
+      "A": "Despite",
+      "B": "Although",
+      "C": "However",
+      "D": "Whereas"
+     },
+     "answer": "A",
+     "explanation": "Despite + this (rzeczownik/zaimek) = pomimo tego."
+    },
+    {
+     "n": 7,
+     "options": {
+      "A": "fearful",
+      "B": "fearing",
+      "C": "feared",
+      "D": "frightening"
+     },
+     "answer": "A",
+     "explanation": "Be fearful of = bać się czegoś."
+    },
+    {
+     "n": 8,
+     "options": {
+      "A": "fostering",
+      "B": "raising",
+      "C": "growing",
+      "D": "feeding"
+     },
+     "answer": "A",
+     "explanation": "Foster an atmosphere = pielęgnować atmosferę."
     }
    ]
   }
@@ -2512,7 +3663,8 @@ window.ELM.C1 = {
     ],
     "note": "Wzorce czasowników (remind sb to, apologise for -ing) sprawdzane są w Part 4, a przyimki i formy po nich w Part 2.",
     "exercises": [
-     "uoe-p4-mowa-zalezna"
+     "uoe-p4-mowa-zalezna",
+     "uoe-p4-wzorce-czasownikowe"
     ]
    },
    {
@@ -2523,7 +3675,9 @@ window.ELM.C1 = {
     "note": "Despite / in spite of + rzeczownik to częsta luka w Part 2 i transformacja w Part 4 (in spite of a lack of experience).",
     "exercises": [
      "uoe-p4-nominalizacja-zwroty",
-     "uoe-p2-2"
+     "uoe-p2-2",
+     "uoe-p4-spojniki-przyczyna",
+     "uoe-p2-5"
     ]
    },
    {
@@ -2563,7 +3717,10 @@ window.ELM.C1 = {
     "exercises": [
      "uoe-p3-1",
      "uoe-p3-2",
-     "uoe-p1-1"
+     "uoe-p1-1",
+     "uoe-p3-5",
+     "uoe-p3-6",
+     "uoe-p1-5"
     ]
    },
    {
@@ -2575,7 +3732,11 @@ window.ELM.C1 = {
     "note": "Precyzyjne kolokacje (draw a conclusion, pose a threat) to sedno Part 1 i podnoszą ocenę za Language w Writing.",
     "exercises": [
      "uoe-p1-2",
-     "uoe-p1-3"
+     "uoe-p1-3",
+     "uoe-p1-4",
+     "uoe-p1-6",
+     "uoe-p3-7",
+     "uoe-p4-czasowniki-frazowe"
     ]
    },
    {
