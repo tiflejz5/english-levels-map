@@ -435,12 +435,14 @@ window.ELM = window.ELM || {};
 
   /**
    * Zastępuje wszystkie profile (import / reset). learning — zaimportowane
-   * dane nauki (dziennik, aktywność, test) albo null (stary plik bez nich).
-   * Dane nauki profili, których już nie ma, są usuwane.
+   * dane nauki (dziennik, aktywność, test) albo null (stary plik bez nich); fiszki — zaimportowane
+   * fiszki ({ <profileId>: stan }) albo null. Dane nauki i fiszki profili, których już nie ma, są usuwane.
    */
-  function replaceProfiles(profilesData, learning) {
+  function replaceProfiles(profilesData, learning, fiszki) {
     state.profiles = profilesData;
-    if (ELM.profileData) ELM.profileData.applyImport(learning || null, profilesData.profiles.map(function (p) { return p.id; }));
+    const ids = profilesData.profiles.map(function (p) { return p.id; });
+    if (ELM.profileData) ELM.profileData.applyImport(learning || null, ids);
+    if (ELM.fiszkiStore) ELM.fiszkiStore.applyImport(fiszki || null, ids);
     profilesChanged();
   }
 

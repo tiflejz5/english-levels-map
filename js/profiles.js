@@ -421,6 +421,7 @@ window.ELM = window.ELM || {};
       if (ok) {
         list.splice(index, 1);
         if (ELM.profileData) ELM.profileData.removeProfile(profileId);
+        if (ELM.fiszkiStore) ELM.fiszkiStore.removeProfile(profileId);
         if (data().activeId === profileId) {
           // Po usunięciu ostatniego profilu: brak aktywnego → ekran powitalny
           data().activeId = list.length ? list[Math.min(index, list.length - 1)].id : null;
