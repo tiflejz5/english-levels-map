@@ -1,0 +1,114 @@
+{
+  "id": "uoe-p4-spojniki-przyczyna",
+  "part": 4,
+  "type": "transformation",
+  "title": "Spójniki, przyczyna i przeciwieństwo",
+  "focus": "In spite of, due to, as long as, in contrast to, as a result of, although",
+  "instructions": "Uzupełnij drugie zdanie tak, żeby znaczyło to samo co pierwsze. Użyj podanego słowa bez zmieniania go. Wpisz od 3 do 6 słów, łącznie ze słowem kluczowym (skróty typu doesn't liczą się jako dwa słowa). Każda odpowiedź jest warta 2 punkty – po 1 za każdą część.",
+  "maxScore": 12,
+  "items": [
+    {
+      "n": 1,
+      "first": "Although it was raining, they carried on playing.",
+      "keyword": "SPITE",
+      "before": "They carried on playing",
+      "after": "the rain.",
+      "parts": [
+        [
+          "IN SPITE"
+        ],
+        [
+          "OF"
+        ]
+      ],
+      "model": "IN SPITE OF",
+      "explanation": "In spite of + rzeczownik = pomimo."
+    },
+    {
+      "n": 2,
+      "first": "He couldn't attend the meeting as he was ill.",
+      "keyword": "DUE",
+      "before": "He couldn't attend the meeting",
+      "after": "ill.",
+      "parts": [
+        [
+          "DUE TO"
+        ],
+        [
+          "BEING"
+        ]
+      ],
+      "model": "DUE TO BEING",
+      "explanation": "Due to + -ing = z powodu."
+    },
+    {
+      "n": 3,
+      "first": "I'll lend you the book provided that you return it by Friday.",
+      "keyword": "LONG",
+      "before": "I'll lend you the book",
+      "after": "you return it by Friday.",
+      "parts": [
+        [
+          "AS LONG"
+        ],
+        [
+          "AS"
+        ]
+      ],
+      "model": "AS LONG AS",
+      "explanation": "As long as = pod warunkiem, że."
+    },
+    {
+      "n": 4,
+      "first": "Whereas his brother is outgoing, Paul is rather shy.",
+      "keyword": "CONTRAST",
+      "before": "In",
+      "after": "outgoing brother, Paul is rather shy.",
+      "parts": [
+        [
+          "CONTRAST TO",
+          "CONTRAST WITH"
+        ],
+        [
+          "HIS"
+        ]
+      ],
+      "model": "CONTRAST TO HIS",
+      "explanation": "In contrast to = w przeciwieństwie do."
+    },
+    {
+      "n": 5,
+      "first": "Because of the heavy traffic, we missed the start of the concert.",
+      "keyword": "RESULT",
+      "before": "As",
+      "after": "heavy traffic, we missed the start of the concert.",
+      "parts": [
+        [
+          "A RESULT"
+        ],
+        [
+          "OF THE"
+        ]
+      ],
+      "model": "A RESULT OF THE",
+      "explanation": "As a result of = w wyniku."
+    },
+    {
+      "n": 6,
+      "first": "Despite his lack of experience, he got the job.",
+      "keyword": "ALTHOUGH",
+      "before": "He got the job",
+      "after": "experience.",
+      "parts": [
+        [
+          "ALTHOUGH HE"
+        ],
+        [
+          "LACKED"
+        ]
+      ],
+      "model": "ALTHOUGH HE LACKED",
+      "explanation": "Although + zdanie, w miejsce despite + rzeczownik."
+    }
+  ]
+}

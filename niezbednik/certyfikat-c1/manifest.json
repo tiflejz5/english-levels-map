@@ -96,6 +96,24 @@
               "file": "cwiczenia/uoe-p4-mieszany.json",
               "label": "Zestaw mieszany – jak na egzaminie",
               "maxScore": 12
+            },
+            {
+              "id": "uoe-p4-wzorce-czasownikowe",
+              "file": "cwiczenia/uoe-p4-wzorce-czasownikowe.json",
+              "label": "Wzorce czasownikowe: -ing i bezokolicznik",
+              "maxScore": 12
+            },
+            {
+              "id": "uoe-p4-czasowniki-frazowe",
+              "file": "cwiczenia/uoe-p4-czasowniki-frazowe.json",
+              "label": "Czasowniki frazowe i kolokacje",
+              "maxScore": 12
+            },
+            {
+              "id": "uoe-p4-spojniki-przyczyna",
+              "file": "cwiczenia/uoe-p4-spojniki-przyczyna.json",
+              "label": "Spójniki, przyczyna i przeciwieństwo",
+              "maxScore": 12
             }
           ]
         },
@@ -125,6 +143,24 @@
               "id": "uoe-p3-4",
               "file": "cwiczenia/uoe-p3-4.json",
               "label": "City cycling",
+              "maxScore": 8
+            },
+            {
+              "id": "uoe-p3-5",
+              "file": "cwiczenia/uoe-p3-5.json",
+              "label": "AI in the classroom",
+              "maxScore": 8
+            },
+            {
+              "id": "uoe-p3-6",
+              "file": "cwiczenia/uoe-p3-6.json",
+              "label": "Urban farming",
+              "maxScore": 8
+            },
+            {
+              "id": "uoe-p3-7",
+              "file": "cwiczenia/uoe-p3-7.json",
+              "label": "A short history of coffee",
               "maxScore": 8
             }
           ]
@@ -156,6 +192,24 @@
               "file": "cwiczenia/uoe-p2-4.json",
               "label": "Why we procrastinate",
               "maxScore": 8
+            },
+            {
+              "id": "uoe-p2-5",
+              "file": "cwiczenia/uoe-p2-5.json",
+              "label": "The smell of memory",
+              "maxScore": 8
+            },
+            {
+              "id": "uoe-p2-6",
+              "file": "cwiczenia/uoe-p2-6.json",
+              "label": "Island communities",
+              "maxScore": 8
+            },
+            {
+              "id": "uoe-p2-7",
+              "file": "cwiczenia/uoe-p2-7.json",
+              "label": "The case for boredom",
+              "maxScore": 8
             }
           ]
         },
@@ -179,6 +233,24 @@
               "id": "uoe-p1-3",
               "file": "cwiczenia/uoe-p1-3.json",
               "label": "A career change",
+              "maxScore": 8
+            },
+            {
+              "id": "uoe-p1-4",
+              "file": "cwiczenia/uoe-p1-4.json",
+              "label": "The return of vinyl",
+              "maxScore": 8
+            },
+            {
+              "id": "uoe-p1-5",
+              "file": "cwiczenia/uoe-p1-5.json",
+              "label": "Urban green spaces",
+              "maxScore": 8
+            },
+            {
+              "id": "uoe-p1-6",
+              "file": "cwiczenia/uoe-p1-6.json",
+              "label": "Learning from failure",
               "maxScore": 8
             }
           ]

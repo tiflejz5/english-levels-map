@@ -1,0 +1,99 @@
+{
+  "id": "uoe-p1-5",
+  "part": 1,
+  "type": "multiple-choice-cloze",
+  "title": "Urban green spaces",
+  "instructions": "Wybierz słowo (A, B, C lub D), które najlepiej pasuje do luki. Każda luka to 1 punkt.",
+  "maxScore": 8,
+  "text": "Cities around the world are discovering that parks are not a luxury but a necessity. Studies show that residents with {{1}} to green spaces report lower stress levels and better physical health. Planners are therefore under pressure to {{2}} room for trees even in the most densely built districts. This is easier said than {{3}}, since land is expensive and every square metre {{4}} a high price. Some cities have responded by turning rooftops into gardens or {{5}} abandoned railway lines into public walkways. Critics point out that such projects can {{6}} up property prices, forcing out the very residents they were meant to benefit. Even so, most experts agree that the long-term benefits far {{7}} the costs, provided that new green areas are {{8}} fairly across the whole city.",
+  "gaps": [
+    {
+      "n": 1,
+      "options": {
+        "A": "access",
+        "B": "entry",
+        "C": "admission",
+        "D": "entrance"
+      },
+      "answer": "A",
+      "explanation": "Access to = dostęp do."
+    },
+    {
+      "n": 2,
+      "options": {
+        "A": "make",
+        "B": "do",
+        "C": "bring",
+        "D": "set"
+      },
+      "answer": "A",
+      "explanation": "Make room for = zrobić miejsce dla."
+    },
+    {
+      "n": 3,
+      "options": {
+        "A": "done",
+        "B": "made",
+        "C": "put",
+        "D": "got"
+      },
+      "answer": "A",
+      "explanation": "Easier said than done = łatwiej powiedzieć niż zrobić."
+    },
+    {
+      "n": 4,
+      "options": {
+        "A": "fetches",
+        "B": "buys",
+        "C": "earns",
+        "D": "wins"
+      },
+      "answer": "A",
+      "explanation": "Fetch a high price = osiągać wysoką cenę."
+    },
+    {
+      "n": 5,
+      "options": {
+        "A": "converting",
+        "B": "exchanging",
+        "C": "replacing",
+        "D": "translating"
+      },
+      "answer": "A",
+      "explanation": "Convert X into Y = przekształcać X w Y."
+    },
+    {
+      "n": 6,
+      "options": {
+        "A": "push",
+        "B": "hold",
+        "C": "lay",
+        "D": "take"
+      },
+      "answer": "A",
+      "explanation": "Push up prices = podbijać ceny."
+    },
+    {
+      "n": 7,
+      "options": {
+        "A": "outweigh",
+        "B": "overcome",
+        "C": "overlook",
+        "D": "outlast"
+      },
+      "answer": "A",
+      "explanation": "Outweigh = przeważać nad."
+    },
+    {
+      "n": 8,
+      "options": {
+        "A": "distributed",
+        "B": "scattered",
+        "C": "dispersed",
+        "D": "deposited"
+      },
+      "answer": "A",
+      "explanation": "Distribute fairly = sprawiedliwie rozdzielać."
+    }
+  ]
+}

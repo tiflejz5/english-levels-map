@@ -1,0 +1,76 @@
+{
+  "id": "uoe-p3-7",
+  "part": 3,
+  "type": "word-formation",
+  "title": "A short history of coffee",
+  "instructions": "Utwórz od słowa podanego przy luce słowo, które pasuje do luki. Uważaj na przedrostki, liczbę mnogą i pisownię. Każda luka to 1 punkt.",
+  "maxScore": 8,
+  "text": "According to legend, coffee was discovered by an Ethiopian goat herder who noticed the {{1}} lively behaviour of his animals after they had eaten red berries. By the fifteenth century, the drink had spread to Arabia, where coffee houses became popular places for {{2}} and the exchange of news. European authorities viewed these gatherings with {{3}}, and some even tried to ban the drink. Such attempts proved {{4}}, and by the seventeenth century cafés had appeared in cities from Venice to London. Today, coffee is one of the world's most valuable {{5}}. Yet its production raises serious {{6}} questions, since many growers earn very little. Campaigners call for greater {{7}} in the supply chain, so that consumers can see who profits from their {{8}}.",
+  "gaps": [
+    {
+      "n": 1,
+      "stem": "USUAL",
+      "accept": [
+        "UNUSUALLY"
+      ],
+      "explanation": "Przysłówek z przeczeniem: unusually lively."
+    },
+    {
+      "n": 2,
+      "stem": "DISCUSS",
+      "accept": [
+        "DISCUSSION",
+        "DISCUSSIONS"
+      ],
+      "explanation": "Rzeczownik po for: discussion."
+    },
+    {
+      "n": 3,
+      "stem": "SUSPECT",
+      "accept": [
+        "SUSPICION"
+      ],
+      "explanation": "Rzeczownik po with: suspicion."
+    },
+    {
+      "n": 4,
+      "stem": "SUCCESS",
+      "accept": [
+        "UNSUCCESSFUL"
+      ],
+      "explanation": "Przeczący przymiotnik: unsuccessful."
+    },
+    {
+      "n": 5,
+      "stem": "EXPORT",
+      "accept": [
+        "EXPORTS"
+      ],
+      "explanation": "Rzeczownik w liczbie mnogiej po most valuable."
+    },
+    {
+      "n": 6,
+      "stem": "ETHIC",
+      "accept": [
+        "ETHICAL"
+      ],
+      "explanation": "Przymiotnik przed questions."
+    },
+    {
+      "n": 7,
+      "stem": "TRANSPARENT",
+      "accept": [
+        "TRANSPARENCY"
+      ],
+      "explanation": "Rzeczownik po greater."
+    },
+    {
+      "n": 8,
+      "stem": "PURCHASE",
+      "accept": [
+        "PURCHASES"
+      ],
+      "explanation": "Rzeczownik po their."
+    }
+  ]
+}

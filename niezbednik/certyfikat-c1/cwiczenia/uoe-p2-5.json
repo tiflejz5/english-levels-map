@@ -1,0 +1,71 @@
+{
+  "id": "uoe-p2-5",
+  "part": 2,
+  "type": "open-cloze",
+  "title": "The smell of memory",
+  "instructions": "Wpisz w każdą lukę dokładnie jedno słowo. Skróty typu don't liczą się jako dwa słowa, więc nie są poprawną odpowiedzią. Każda luka to 1 punkt.",
+  "maxScore": 8,
+  "text": "Few things bring back memories as vividly {{1}} a familiar smell. A whiff of freshly baked bread can transport us instantly to our grandmother's kitchen, {{2}} a certain perfume may remind us of a person we have not seen for years. Scientists believe this happens {{3}} the part of the brain that processes smells is closely linked to the areas responsible for emotion and memory. {{4}} other senses, smell does not pass through the thalamus, a kind of relay station, before reaching these areas. Researchers have even suggested that smells could be used to help people suffering {{5}} memory loss, although it is far from clear how effective such treatments would be. Whatever the answer, it is hard to deny {{6}} powerful a role scent plays in our lives. No sooner had the study been published {{7}} perfume companies began to show interest, hoping to turn its findings into profit. It remains {{8}} be seen whether they will succeed.",
+  "gaps": [
+    {
+      "n": 1,
+      "accept": [
+        "AS"
+      ],
+      "explanation": "As ... as w porównaniu: as vividly as."
+    },
+    {
+      "n": 2,
+      "accept": [
+        "WHILE",
+        "WHEREAS",
+        "AND"
+      ],
+      "explanation": "Łącznik zestawiający dwie sytuacje: while/whereas."
+    },
+    {
+      "n": 3,
+      "accept": [
+        "BECAUSE",
+        "SINCE",
+        "AS"
+      ],
+      "explanation": "Przyczyna: this happens because..."
+    },
+    {
+      "n": 4,
+      "accept": [
+        "UNLIKE"
+      ],
+      "explanation": "Unlike other senses = w odróżnieniu od innych zmysłów."
+    },
+    {
+      "n": 5,
+      "accept": [
+        "FROM"
+      ],
+      "explanation": "Suffer from = cierpieć na."
+    },
+    {
+      "n": 6,
+      "accept": [
+        "HOW"
+      ],
+      "explanation": "Deny how powerful = zaprzeczać, jak potężna."
+    },
+    {
+      "n": 7,
+      "accept": [
+        "THAN"
+      ],
+      "explanation": "No sooner had... than = ledwie... a już."
+    },
+    {
+      "n": 8,
+      "accept": [
+        "TO"
+      ],
+      "explanation": "It remains to be seen = okaże się."
+    }
+  ]
+}

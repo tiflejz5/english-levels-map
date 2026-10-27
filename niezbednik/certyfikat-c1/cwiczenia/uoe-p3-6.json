@@ -1,0 +1,75 @@
+{
+  "id": "uoe-p3-6",
+  "part": 3,
+  "type": "word-formation",
+  "title": "Urban farming",
+  "instructions": "Utwórz od słowa podanego przy luce słowo, które pasuje do luki. Uważaj na przedrostki, liczbę mnogą i pisownię. Każda luka to 1 punkt.",
+  "maxScore": 8,
+  "text": "A growing number of city dwellers are turning to {{1}} on rooftops and in disused car parks. Supporters stress the {{2}} benefits, such as shorter transport routes and less {{3}} waste. Locally grown vegetables are also {{4}} fresher than those transported over long distances. For many participants, however, the main {{5}} is social: community gardens bring neighbours together and give a sense of {{6}}. Not everything is rosy. Setting up a rooftop garden can be {{7}}, and the harvest is rarely enough to make a {{8}} difference to a family's food bill.",
+  "gaps": [
+    {
+      "n": 1,
+      "stem": "FARM",
+      "accept": [
+        "FARMING"
+      ],
+      "explanation": "Rzeczownik odczasownikowy: farming."
+    },
+    {
+      "n": 2,
+      "stem": "ENVIRONMENT",
+      "accept": [
+        "ENVIRONMENTAL"
+      ],
+      "explanation": "Przymiotnik przed benefits."
+    },
+    {
+      "n": 3,
+      "stem": "PACK",
+      "accept": [
+        "PACKAGING"
+      ],
+      "explanation": "Packaging waste = odpady opakowaniowe."
+    },
+    {
+      "n": 4,
+      "stem": "SIGNIFICANT",
+      "accept": [
+        "SIGNIFICANTLY"
+      ],
+      "explanation": "Przysłówek przed przymiotnikiem fresher."
+    },
+    {
+      "n": 5,
+      "stem": "ATTRACT",
+      "accept": [
+        "ATTRACTION"
+      ],
+      "explanation": "The main attraction = główny atut."
+    },
+    {
+      "n": 6,
+      "stem": "BELONG",
+      "accept": [
+        "BELONGING"
+      ],
+      "explanation": "A sense of belonging = poczucie przynależności."
+    },
+    {
+      "n": 7,
+      "stem": "EXPENSE",
+      "accept": [
+        "EXPENSIVE"
+      ],
+      "explanation": "Przymiotnik po be."
+    },
+    {
+      "n": 8,
+      "stem": "SUBSTANCE",
+      "accept": [
+        "SUBSTANTIAL"
+      ],
+      "explanation": "A substantial difference = zasadnicza różnica."
+    }
+  ]
+}

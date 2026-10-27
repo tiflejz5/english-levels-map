@@ -1,0 +1,116 @@
+{
+  "id": "uoe-p4-wzorce-czasownikowe",
+  "part": 4,
+  "type": "transformation",
+  "title": "Wzorce czasownikowe: -ing i bezokolicznik",
+  "focus": "Regret, get used to, can't help, it's no use, object to, look forward to",
+  "instructions": "Uzupełnij drugie zdanie tak, żeby znaczyło to samo co pierwsze. Użyj podanego słowa bez zmieniania go. Wpisz od 3 do 6 słów, łącznie ze słowem kluczowym (skróty typu doesn't liczą się jako dwa słowa). Każda odpowiedź jest warta 2 punkty – po 1 za każdą część.",
+  "maxScore": 12,
+  "items": [
+    {
+      "n": 1,
+      "first": "I'm sorry that I didn't tell you earlier.",
+      "keyword": "REGRET",
+      "before": "I",
+      "after": "you earlier.",
+      "parts": [
+        [
+          "REGRET NOT"
+        ],
+        [
+          "TELLING",
+          "HAVING TOLD"
+        ]
+      ],
+      "model": "REGRET NOT TELLING",
+      "explanation": "Regret + -ing: żałować, że się coś zrobiło."
+    },
+    {
+      "n": 2,
+      "first": "Practising every day no longer feels strange to Maya.",
+      "keyword": "USED",
+      "before": "Maya has",
+      "after": "every day.",
+      "parts": [
+        [
+          "GOT USED TO",
+          "BECOME USED TO"
+        ],
+        [
+          "PRACTISING"
+        ]
+      ],
+      "model": "GOT USED TO PRACTISING",
+      "explanation": "Get used to + -ing = przyzwyczaić się do."
+    },
+    {
+      "n": 3,
+      "first": "I found it impossible not to laugh at his hat.",
+      "keyword": "HELP",
+      "before": "I",
+      "after": "at his hat.",
+      "parts": [
+        [
+          "COULDN'T HELP",
+          "COULD NOT HELP"
+        ],
+        [
+          "LAUGHING"
+        ]
+      ],
+      "model": "COULDN'T HELP LAUGHING",
+      "explanation": "Can't help + -ing = nie móc się powstrzymać."
+    },
+    {
+      "n": 4,
+      "first": "There is no point arguing with him.",
+      "keyword": "USE",
+      "before": "It is",
+      "after": "with him.",
+      "parts": [
+        [
+          "NO USE"
+        ],
+        [
+          "ARGUING"
+        ]
+      ],
+      "model": "NO USE ARGUING",
+      "explanation": "It's no use + -ing."
+    },
+    {
+      "n": 5,
+      "first": "She doesn't mind getting up early.",
+      "keyword": "OBJECT",
+      "before": "She doesn't",
+      "after": "up early.",
+      "parts": [
+        [
+          "OBJECT TO"
+        ],
+        [
+          "GETTING"
+        ]
+      ],
+      "model": "OBJECT TO GETTING",
+      "explanation": "Object to + -ing = sprzeciwiać się (to jest przyimek)."
+    },
+    {
+      "n": 6,
+      "first": "I am eager to see you again next month.",
+      "keyword": "FORWARD",
+      "before": "I am looking",
+      "after": "you again next month.",
+      "parts": [
+        [
+          "FORWARD TO"
+        ],
+        [
+          "SEEING"
+        ]
+      ],
+      "model": "FORWARD TO SEEING",
+      "explanation": "Look forward to + -ing."
+    }
+  ]
+}
