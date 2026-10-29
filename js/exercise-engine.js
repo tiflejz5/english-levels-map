@@ -1,7 +1,8 @@
 /*
  * exercise-engine.js — silnik zadań: sesja zestawu (Nauka / Egzamin),
- * cztery typy zadań, ekran wyników, sekcja „Sprawdź się” na stronach tematów.
- * Specyfikacja: docs/rozbudowa-v2/spec/01-typy-zadan.md.
+ * dziewięć typów zadań, ekran wyników, sekcja „Sprawdź się” na stronach tematów.
+ * Specyfikacja: docs/rozbudowa-v2/spec/01-typy-zadan.md; typy gap-fill, match,
+ * transformation, translate, dictation i wynik w punktach: docs/rozbudowa-v6/spec/12-nowe-typy-zadan.md.
  *
  * Adresy:
  *   #/cwiczenia[/mieszane]           Centrum ćwiczeń (js/exercise-hub.js)
@@ -35,13 +36,23 @@ window.ELM = window.ELM || {};
     "multiple-choice": "Wybierz poprawną odpowiedź",
     "reorder": "Ułóż zdanie",
     "find-error": "Znajdź i popraw błąd",
-    "short-answer": "Uzupełnij lukę"
+    "short-answer": "Uzupełnij lukę",
+    "gap-fill": "Luki do wpisania",
+    "match": "Dopasuj pary",
+    "transformation": "Transformacje zdań",
+    "translate": "Tłumaczenie zdań",
+    "dictation": "Dyktando"
   };
   const TYPE_SHORT = {
     "multiple-choice": "wybór odpowiedzi",
     "reorder": "układanie zdań",
     "find-error": "szukanie błędów",
-    "short-answer": "krótkie odpowiedzi"
+    "short-answer": "krótkie odpowiedzi",
+    "gap-fill": "luki do wpisania",
+    "match": "dopasowanie par",
+    "transformation": "transformacje zdań",
+    "translate": "tłumaczenie zdań",
+    "dictation": "dyktando"
   };
 
   // =====================================================================
@@ -135,9 +146,10 @@ window.ELM = window.ELM || {};
 
   /** Zadanie przygotowane do sesji: wylosowana kolejność opcji / wyrazów i stan odpowiedzi. */
   function prepare(item) {
-    const p = { item: item, st: { chosen: null, line: [], range: null, anchor: null, fix: "", text: "", noError: false }, res: null };
+    const p = { item: item, st: { chosen: null, line: [], range: null, anchor: null, fix: "", text: "", noError: false, texts: [], pairs: {}, sel: null, plays: 0, hint: false }, res: null };
     if (item.type === "multiple-choice") p.choice = X().prepareChoice(item);
     if (item.type === "reorder") p.tokens = X().reorderTokens(item);
+    if (item.type === "match") p.right = X().prepareMatch(item);
     return p;
   }
 
@@ -180,14 +192,29 @@ window.ELM = window.ELM || {};
     if (p.item.type === "multiple-choice") return { chosen: st.chosen === null ? null : p.choice.options[st.chosen].original };
     if (p.item.type === "reorder") return { words: st.line.map(function (t) { return t.text; }) };
     if (p.item.type === "find-error") return st.noError ? { noError: true } : { range: st.range, fix: st.fix };
+    if (p.item.type === "gap-fill") return { texts: st.texts };
+    if (p.item.type === "match") {
+      const pairs = {};
+      Object.keys(st.pairs).forEach(function (i) { pairs[i] = rightById(p, st.pairs[i]).text; });
+      return { pairs: pairs };
+    }
+    // Dyktando bez głosu angielskiego: pominięte (nie liczy się do wyniku ani statystyk)
+    if (p.item.type === "dictation" && noEnglishVoice()) return { skipped: true };
     return { text: st.text };
   }
+
+  function rightById(p, id) { return p.right.find(function (r) { return r.id === id; }) || { id: id, text: "" }; }
 
   const NEED_ANSWER = {
     "multiple-choice": "Najpierw wybierz odpowiedź.",
     "reorder": "Najpierw ułóż zdanie z wyrazów poniżej.",
     "find-error": "Najpierw kliknij wyraz z błędem albo wybierz „Brak błędu”.",
-    "short-answer": "Najpierw wpisz odpowiedź w lukę."
+    "short-answer": "Najpierw wpisz odpowiedź w lukę.",
+    "gap-fill": "Najpierw wpisz odpowiedzi w luki.",
+    "match": "Najpierw połącz co najmniej jedną parę.",
+    "transformation": "Najpierw uzupełnij zdanie.",
+    "translate": "Najpierw wpisz tłumaczenie.",
+    "dictation": "Najpierw odsłuchaj nagranie i wpisz, co słyszysz."
   };
 
   /** „Sprawdź” (Nauka) albo „Dalej” (Egzamin). */
@@ -201,9 +228,13 @@ window.ELM = window.ELM || {};
       return;
     }
     p.res = res;
-    logAttempt(p);
-    if (res.correct) creditReview(p);
-    else if (run.mode !== "exam") toJournal(p, !run.isMix && !run.isWeak); // Egzamin: dopiero po zakończeniu sesji
+    stopSpeaking();
+    // Dyktando pominięte (brak głosu): bez dziennika podejść, statystyk i dziennika błędów
+    if (!res.skipped) {
+      logAttempt(p);
+      if (res.correct) creditReview(p);
+      else if (run.mode !== "exam") toJournal(p, !run.isMix && !run.isWeak); // Egzamin: dopiero po zakończeniu sesji
+    }
     if (run.mode === "exam") return next();
     render();
     animate(res.correct);
@@ -246,12 +277,19 @@ window.ELM = window.ELM || {};
     if (item.type === "multiple-choice") context = String(item.prompt || "") + "\n" + item.options.join(" / ");
     else if (item.type === "reorder") context = (item.context ? item.context + " – " : "") + "Ułóż zdanie";
     else if (item.type === "find-error") context = item.tokens.join(" ");
+    else if (item.type === "gap-fill") context = (item.context ? item.context + "\n" : "") + gapText(item, function () { return "___"; });
+    else if (item.type === "match") context = item.prompt || "Dopasuj pary";
+    else if (item.type === "transformation") context = item.source + "\n" + String(item.keyword).toUpperCase() + "\n" + [item.before, "___", item.after].filter(Boolean).join(" ");
+    else if (item.type === "translate") context = "Przetłumacz: " + item.source;
+    else if (item.type === "dictation") context = "Dyktando: " + item.text;
     else context = (item.context ? item.context + "\n" : "") + item.prompt;
     const rule = (item.explanation || "") + (item.trap ? " Pułapka: " + item.trap : "");
+    // Dopasowanie: w dzienniku tylko błędne pary (moje i poprawne)
+    const wrongPairs = item.type === "match" && p.res && p.res.pairs ? item.pairs.filter(function (_, i) { return !p.res.pairs[i]; }) : null;
     return {
       context: context,
-      myAnswer: userAnswer(p) || "(brak odpowiedzi)",
-      correct: modelAnswer(item),
+      myAnswer: (wrongPairs ? matchText(p, true) : userAnswer(p)) || "(brak odpowiedzi)",
+      correct: wrongPairs ? wrongPairs.map(function (x) { return x[0] + " – " + x[1]; }).join("; ") : modelAnswer(item),
       rule: rule.trim(),
       source: "Zestaw: " + run.title,
       category: journalCategory(item.topic),
@@ -310,7 +348,7 @@ window.ELM = window.ELM || {};
   function finish() {
     run.phase = "done";
     // Egzamin: błędy trafiają do dziennika dopiero po zakończeniu sesji
-    if (run.mode === "exam") run.items.forEach(function (p) { if (p.res && !p.res.correct) toJournal(p, false); });
+    if (run.mode === "exam") run.items.forEach(function (p) { if (isWrong(p)) toJournal(p, false); });
     // Wynik w punktach (zadanie może dawać kilka punktów); zestaw ze starych typów: punkt = poprawne zadanie
     const s = X().sessionScore(run.items);
     run.score = s.score;
@@ -325,6 +363,9 @@ window.ELM = window.ELM || {};
     focusLater(".ex-result .btn-primary, .ex-result .btn");
   }
 
+  /** Zadanie bez pełnej liczby punktów (pominięte dyktando się nie liczy). */
+  function isWrong(p) { return !(p.res && (p.res.correct || p.res.skipped)); }
+
   /** „Pstryknięcie” albo drżenie karty (CSS; przy ograniczonym ruchu bez animacji). */
   function animate(ok) {
     const card = document.querySelector(".ex-card");
@@ -334,8 +375,11 @@ window.ELM = window.ELM || {};
     card.classList.add(ok ? "is-pop" : "is-shake");
   }
 
+  let focusTimer = null;
+  /** Fokus po przerysowaniu; nowsze wywołanie zastępuje oczekujące (szybkie klawisze nie przeskakują fokusem wstecz). */
   function focusLater(selector) {
-    setTimeout(function () {
+    clearTimeout(focusTimer);
+    focusTimer = setTimeout(function () {
       const n = document.querySelector(selector);
       if (n) n.focus({ preventScroll: true });
     }, 0);
@@ -690,6 +734,300 @@ window.ELM = window.ELM || {};
     ];
   }
 
+  // ---------- Nowe typy (paczka v6, spec 12, sekcja 2) ----------
+
+  /** Pole tekstowe bez podpowiedzi przeglądarki (angielski tekst). */
+  function textField(tag, attrs) {
+    return el(tag, Object.assign({ autocomplete: "off", autocapitalize: "off", spellcheck: "false", lang: "en" }, attrs));
+  }
+
+  /** Szerokość pola luki: wg najdłuższej odpowiedzi z zapasem, zaokrąglona (nie zdradza długości dokładnie). */
+  function gapWidth(accepted) {
+    const longest = Math.max.apply(null, accepted.map(function (a) { return String(a).length; }));
+    return Math.max(6, Math.ceil((longest + 3) / 4) * 4) + "ch";
+  }
+
+  function bodyGapFill(p) {
+    const st = p.st, done = !!p.res, item = p.item;
+    const n = item.gaps.length;
+    const hints = [];
+    const parts = String(item.text).split(/\{\{(\d+)\}\}/);
+    const sentence = parts.map(function (part, k) {
+      if (k % 2 === 0) return part || null;
+      const i = Number(part) - 1;
+      const gap = item.gaps[i] || { accepted: [""] };
+      const r = done && p.res.gaps ? p.res.gaps[i] : null;
+      if (gap.hint) hints.push(el("li", { id: "ex-gap-hint-" + i }, [el("span", { class: "review-label", text: "Luka " + (i + 1) + ": " }), gap.hint]));
+      const input = textField("input", {
+        type: "text", class: "field ex-gap-input" + (r ? (r.correct ? " is-ok" : " is-bad") : ""),
+        value: st.texts[i] || "", disabled: done, "data-fk": i === 0 ? "first" : "gap-" + i,
+        "aria-label": "Luka " + (i + 1) + " z " + n + (r ? (r.correct ? " – poprawnie" : " – błędnie") : ""),
+        "aria-describedby": gap.hint ? "ex-gap-hint-" + i : null,
+        oninput: function () { st.texts[i] = input.value; }
+      });
+      input.style.width = gapWidth(gap.accepted);
+      if (!r) return input;
+      return el("span", { class: "ex-gap-result" }, [
+        input,
+        el("span", { class: "ex-gap-mark " + (r.correct ? "is-ok" : "is-bad"), "aria-hidden": "true" }, ELM.icon(r.correct ? "check" : "x", { size: 16 })),
+        r.correct ? null : el("span", { class: "ex-gap-model" }, [el("span", { class: "visually-hidden", text: "poprawnie: " }), gap.accepted[0]])
+      ]);
+    });
+    return [
+      item.context ? el("p", { class: "ex-context" }, [el("span", { class: "review-label", text: "Po polsku: " }), el("span", { text: item.context })]) : null,
+      el("p", { class: "ex-prompt ex-gapfill", id: "ex-prompt", lang: "en" }, sentence),
+      hints.length ? el("ul", { class: "ex-gap-hints tool-note" }, hints) : null,
+      done ? null : el("p", { class: "tool-note ex-keys-hint", text: n > 1 ? "Tab przechodzi do następnej luki, Enter sprawdza." : "Enter sprawdza." })
+    ];
+  }
+
+  const MATCH_HEADS = {
+    definition: ["Słowo", "Definicja"],
+    halves: ["Początek zdania", "Zakończenie"],
+    translation: ["Po polsku", "Po angielsku"],
+    response: ["Wypowiedź", "Reakcja"]
+  };
+  const LETTERS = "ABCDEFGH";
+
+  /** Lewa kolumna połączona z prawą: indeks lewej albo -1. */
+  function pairedLeft(st, rightId) {
+    const k = Object.keys(st.pairs).find(function (i) { return st.pairs[i] === rightId; });
+    return k === undefined ? -1 : Number(k);
+  }
+
+  /** Kliknięcie elementu: wybór, połączenie pary albo rozłączenie (kliknięcie połączonego elementu). */
+  function matchPick(p, side, index) {
+    const st = p.st;
+    if (side === "left") {
+      if (st.pairs[index] !== undefined) { delete st.pairs[index]; st.sel = { side: "left", index: index }; return; }
+      if (st.sel && st.sel.side === "right") { link(st, index, p.right[st.sel.index].id); return; }
+      st.sel = st.sel && st.sel.side === "left" && st.sel.index === index ? null : { side: "left", index: index };
+      return;
+    }
+    const r = p.right[index];
+    const owner = pairedLeft(st, r.id);
+    if (owner !== -1) { delete st.pairs[owner]; st.sel = null; return; }
+    if (st.sel && st.sel.side === "left") { link(st, st.sel.index, r.id); return; }
+    st.sel = st.sel && st.sel.side === "right" && st.sel.index === index ? null : { side: "right", index: index };
+  }
+
+  function link(st, left, rightId) {
+    const prev = pairedLeft(st, rightId);
+    if (prev !== -1) delete st.pairs[prev];
+    st.pairs[left] = rightId;
+    st.sel = null;
+  }
+
+  /** Strzałki w kolumnie przenoszą fokus między elementami. */
+  function columnKeys(e) {
+    if (e.key !== "ArrowDown" && e.key !== "ArrowUp") return;
+    const list = Array.prototype.slice.call(e.currentTarget.querySelectorAll("button"));
+    const i = list.indexOf(document.activeElement);
+    if (i === -1) return;
+    e.preventDefault();
+    list[(i + (e.key === "ArrowDown" ? 1 : list.length - 1)) % list.length].focus();
+  }
+
+  function bodyMatch(p) {
+    const st = p.st, done = !!p.res, item = p.item;
+    const heads = MATCH_HEADS[item.mode] || ["Lewa kolumna", "Prawa kolumna"];
+    const langL = item.mode === "translation" ? "pl" : "en";
+    if (done) {
+      return [
+        el("p", { class: "ex-match-prompt", id: "ex-prompt", text: item.prompt || "Dopasuj pary." }),
+        el("ol", { class: "ex-match-result" }, item.pairs.map(function (pair, i) {
+          const ok = p.res.pairs[i];
+          const chosen = st.pairs[i] !== undefined ? rightById(p, st.pairs[i]).text : "";
+          return el("li", { class: ok ? "is-ok" : "is-bad" }, [
+            el("span", { class: "ex-match-letter", "aria-hidden": "true", text: LETTERS[i] }),
+            el("span", { class: "ex-gap-mark", "aria-hidden": "true" }, ELM.icon(ok ? "check" : "x", { size: 16 })),
+            el("span", { class: "ex-match-left", lang: langL, text: pair[0] }),
+            el("span", { class: "ex-match-arrow", "aria-hidden": "true", text: "–" }),
+            ok ? el("span", { class: "ex-match-right", lang: "en", text: pair[1] }) : el("span", { class: "ex-match-right" }, [
+              el("span", { class: "visually-hidden", text: "Twoja para: " }),
+              chosen ? el("s", { class: "ex-match-wrong", lang: "en", text: chosen }) : el("span", { class: "ex-match-wrong is-empty", text: "bez pary" }),
+              el("span", { class: "visually-hidden", text: ", poprawnie: " }),
+              el("strong", { lang: "en", text: pair[1] })
+            ])
+          ]);
+        }))
+      ];
+    }
+    const repaintMatch = function (key) { repaint(key); };
+    const left = item.pairs.map(function (pair, i) {
+      const rid = st.pairs[i];
+      const rIndex = rid !== undefined ? p.right.findIndex(function (r) { return r.id === rid; }) : -1;
+      const selected = st.sel && st.sel.side === "left" && st.sel.index === i;
+      return el("li", null, el("button", {
+        type: "button", class: "ex-match-item" + (selected ? " is-selected" : "") + (rIndex !== -1 ? " is-paired" : ""),
+        "aria-pressed": selected ? "true" : "false", "data-fk": i === 0 ? "first" : "L" + i,
+        "aria-label": LETTERS[i] + ": " + pair[0] + (rIndex !== -1 ? ". Połączone z " + (rIndex + 1) + ": " + p.right[rIndex].text + ". Kliknij, żeby rozłączyć." : ""),
+        onclick: function () { matchPick(p, "left", i); repaintMatch(i === 0 ? "first" : "L" + i); }
+      }, [
+        el("span", { class: "ex-key", "aria-hidden": "true", text: LETTERS[i] }),
+        el("span", { class: "ex-match-text", lang: langL, text: pair[0] }),
+        rIndex !== -1 ? el("span", { class: "ex-match-tag", "aria-hidden": "true", text: "↔ " + (rIndex + 1) }) : null
+      ]));
+    });
+    const right = p.right.map(function (r, i) {
+      const owner = pairedLeft(st, r.id);
+      const selected = st.sel && st.sel.side === "right" && st.sel.index === i;
+      return el("li", null, el("button", {
+        type: "button", class: "ex-match-item" + (selected ? " is-selected" : "") + (owner !== -1 ? " is-paired" : ""),
+        "aria-pressed": selected ? "true" : "false", "data-fk": "R" + i,
+        "aria-label": (i + 1) + ": " + r.text + (owner !== -1 ? ". Połączone z " + LETTERS[owner] + ". Kliknij, żeby rozłączyć." : ""),
+        onclick: function () { matchPick(p, "right", i); repaintMatch("R" + i); }
+      }, [
+        el("span", { class: "ex-key", "aria-hidden": "true", text: String(i + 1) }),
+        el("span", { class: "ex-match-text", lang: "en", text: r.text }),
+        owner !== -1 ? el("span", { class: "ex-match-tag", "aria-hidden": "true", text: "↔ " + LETTERS[owner] }) : null
+      ]));
+    });
+    const sel = st.sel;
+    const status = sel
+      ? (sel.side === "left" ? "Wybrano " + LETTERS[sel.index] + ": „" + item.pairs[sel.index][0] + "”. Teraz wybierz element z prawej kolumny (cyfry 1–" + p.right.length + ")."
+        : "Wybrano " + (sel.index + 1) + ": „" + p.right[sel.index].text + "”. Teraz wybierz element z lewej kolumny.")
+      : "Połączono " + Object.keys(st.pairs).length + " z " + item.pairs.length + " par.";
+    return [
+      el("p", { class: "ex-match-prompt", id: "ex-prompt", text: item.prompt || "Dopasuj pary." }),
+      el("div", { class: "ex-match" }, [
+        el("div", { class: "ex-match-col" }, [el("p", { class: "field-label", id: "ex-match-l", text: heads[0] }), el("ol", { class: "ex-match-list", "aria-labelledby": "ex-match-l", onkeydown: columnKeys }, left)]),
+        el("div", { class: "ex-match-col" }, [el("p", { class: "field-label", id: "ex-match-r", text: heads[1] }), el("ol", { class: "ex-match-list", "aria-labelledby": "ex-match-r", onkeydown: columnKeys }, right)])
+      ]),
+      el("p", { class: "tool-note ex-match-status", role: "status", "aria-live": "polite", text: status }),
+      el("p", { class: "tool-note ex-keys-hint", text: "Kliknij element z lewej, potem pasujący z prawej. Strzałki przechodzą w kolumnie, cyfry wybierają element z prawej, Enter sprawdza." })
+    ];
+  }
+
+  function bodyTransformation(p) {
+    const st = p.st, done = !!p.res, item = p.item;
+    const lim = X().transformationLimit(item);
+    const count = el("span", { class: "ex-tr-count num", id: "ex-tr-count" });
+    const showCount = function () {
+      const n = X().trTokens(st.text).length;
+      count.textContent = n + " z " + lim[0] + "–" + lim[1] + " słów";
+      count.classList.toggle("is-over", n > lim[1]);
+    };
+    const input = textField("input", {
+      type: "text", class: "field ex-gap-input ex-tr-input" + (done ? (p.res.correct ? " is-ok" : " is-bad") : ""),
+      value: st.text, disabled: done, "data-fk": "first",
+      "aria-label": "Uzupełnij zdanie, używając słowa " + item.keyword, "aria-describedby": "ex-tr-count",
+      oninput: function () { st.text = input.value; showCount(); }
+    });
+    showCount();
+    return [
+      el("p", { class: "ex-tr-source", lang: "en", text: item.source }),
+      el("p", { class: "ex-tr-keyword" }, [el("span", { class: "visually-hidden", text: "Słowo kluczowe: " }), el("span", { class: "c1-keyword", lang: "en", text: String(item.keyword).toUpperCase() })]),
+      el("p", { class: "ex-prompt ex-tr-line", id: "ex-prompt", lang: "en" }, [item.before ? item.before + " " : null, input, item.after ? " " + item.after : null]),
+      el("p", { class: "tool-note" }, [count, " · słowo kluczowe bez zmian, skróty liczą się jako dwa słowa."])
+    ];
+  }
+
+  function bodyTranslate(p) {
+    const st = p.st, done = !!p.res, item = p.item;
+    const area = textField("textarea", {
+      class: "field ex-sentence-input" + (done ? (p.res.correct ? " is-ok" : " is-bad") : ""), id: "ex-answer", rows: "3",
+      disabled: done, "data-fk": "first", oninput: function () { st.text = area.value; }
+    });
+    area.value = st.text;
+    return [
+      el("p", { class: "ex-context" }, el("span", { class: "review-label", text: "Przetłumacz na angielski:" })),
+      el("p", { class: "ex-prompt", id: "ex-prompt", lang: "pl", text: item.source }),
+      el("label", { class: "field-label", for: "ex-answer", text: "Twoje tłumaczenie" }),
+      area,
+      done ? null : el("div", { class: "ex-tools" }, [
+        item.hint ? el("button", { type: "button", class: "btn btn-ghost btn-small", "aria-expanded": st.hint ? "true" : "false", "aria-controls": "ex-hint",
+          onclick: function () { st.hint = !st.hint; repaint("hint"); }, "data-fk": "hint" }, ELM.ui.withIcon("circle-question-mark", st.hint ? "Ukryj podpowiedź" : "Podpowiedź")) : null,
+        el("span", { class: "tool-note", text: "Enter sprawdza, Shift+Enter – nowa linia." })
+      ]),
+      item.hint && (st.hint || done) ? el("p", { class: "ex-hint", id: "ex-hint" }, [el("span", { class: "review-label", text: "Podpowiedź: " }), el("span", { lang: "en", text: item.hint })]) : null
+    ];
+  }
+
+  /** Czyta jeden tekst (dyktando) głosem en-GB / en-US w podanym tempie. */
+  function speakText(owner, text, rate, onDone) {
+    const s = synth();
+    if (!s) return;
+    stopSpeaking();
+    const token = { p: owner, cancelled: false };
+    speaking = token;
+    const voice = englishVoices()[0] || null;
+    const u = new window.SpeechSynthesisUtterance(text);
+    if (voice) u.voice = voice;
+    u.lang = voice ? voice.lang : "en-GB";
+    u.rate = rate;
+    u.onend = u.onerror = function () { if (token.cancelled) return; speaking = null; onDone(); };
+    s.speak(u);
+  }
+
+  function bodyDictation(p) {
+    const st = p.st, done = !!p.res, item = p.item;
+    const max = item.maxPlays || 3;
+    if (done && p.res.skipped || !done && noEnglishVoice()) {
+      return [
+        el("p", { class: "visually-hidden", id: "ex-prompt", text: "Dyktando" }),
+        el("div", { class: "ex-listen" }, [
+          el("p", { class: "ex-listen-warn", role: "status", text: "Ta przeglądarka nie ma głosu angielskiego." }),
+          el("p", { class: "tool-note ex-listen-note", text: "Dyktando wymaga syntezatora mowy. Pominięte zadanie nie liczy się do wyniku ani do statystyk." }),
+          done ? null : el("button", { type: "button", class: "btn btn-secondary", "data-fk": "first", onclick: check }, ELM.ui.withIcon("arrow-right", "Pomiń"))
+        ])
+      ];
+    }
+    const playing = speaking && speaking.p === p;
+    const play = function (rate, key) {
+      if (!done) st.plays++;
+      speakText(p, item.text, rate, function () { repaint(null); });
+      repaint(key);
+    };
+    const used = !done && st.plays >= max;
+    const controls = playing
+      ? [el("button", { type: "button", class: "btn btn-secondary", "data-fk": "listen", onclick: function () { stopSpeaking(); repaint("listen"); } }, ELM.ui.withIcon("pause", "Zatrzymaj"))]
+      : done
+        ? [el("button", { type: "button", class: "btn btn-secondary", "data-fk": "listen", onclick: function () { play(0.9, "listen"); } }, ELM.ui.withIcon("rotate-ccw", "Odtwórz jeszcze raz"))]
+        : [
+          el("button", { type: "button", class: "btn btn-primary", "data-fk": "listen", disabled: used, onclick: function () { play(0.9, "listen"); } }, ELM.ui.withIcon("play", st.plays ? "Odtwórz ponownie" : "Odtwórz")),
+          el("button", { type: "button", class: "btn btn-secondary", "data-fk": "slow", disabled: used, onclick: function () { play(0.7, "slow"); } }, ELM.ui.withIcon("timer", "Wolniej"))
+        ];
+    if (!done) controls.push(el("span", { class: "ex-listen-count", "aria-live": "polite", text: "Odsłuchy: " + Math.min(st.plays, max) + "/" + max }));
+    const area = textField("textarea", {
+      class: "field ex-sentence-input" + (done ? (p.res.correct ? " is-ok" : " is-bad") : ""), id: "ex-answer", rows: "3",
+      disabled: done, "data-fk": st.plays || done ? "first" : "answer", oninput: function () { st.text = area.value; }
+    });
+    area.value = st.text;
+    return [
+      el("p", { class: "visually-hidden", id: "ex-prompt", text: "Dyktando: odsłuchaj zdanie i zapisz je." }),
+      el("div", { class: "ex-listen" }, [
+        el("div", { class: "ex-listen-controls" }, controls),
+        el("p", { class: "tool-note ex-listen-note", text: "Głos syntezowany w przeglądarce. „Wolniej” też zużywa odsłuch." })
+      ]),
+      el("label", { class: "field-label", for: "ex-answer", text: "Zapisz, co słyszysz" }),
+      area,
+      done ? null : el("p", { class: "tool-note ex-keys-hint", text: "Enter sprawdza, Shift+Enter – nowa linia." })
+    ];
+  }
+
+  /** Porównanie słowo po słowie z najbliższym poprawnym wariantem (translate, dictation). */
+  function diffView(ops) {
+    const show = function (w) { return w === "i" ? "I" : w; };
+    const nodes = [];
+    ops.forEach(function (o, k) {
+      if (k) nodes.push(" ");
+      if (o.op === "same") nodes.push(el("span", { class: "ex-diff-w", text: show(o.word) }));
+      else if (o.op === "missing") nodes.push(el("span", { class: "ex-diff-w is-missing" }, [el("span", { class: "visually-hidden", text: "(brakuje: " }), el("span", { "aria-hidden": "true", text: "+" }), show(o.word), el("span", { class: "visually-hidden", text: ")" })]));
+      else if (o.op === "extra") nodes.push(el("span", { class: "ex-diff-w is-extra" }, [el("span", { class: "visually-hidden", text: "(zbędne: " }), el("s", { text: show(o.got) }), el("span", { class: "visually-hidden", text: ")" })]));
+      else nodes.push(el("span", { class: "ex-diff-w is-replace" }, [el("span", { class: "visually-hidden", text: "(zamiast " }), el("s", { text: show(o.got) }), el("span", { class: "visually-hidden", text: " powinno być " }), " ", el("strong", { text: show(o.word) }), el("span", { class: "visually-hidden", text: ")" })]));
+    });
+    const missing = ops.filter(function (o) { return o.op === "missing"; }).length;
+    const extra = ops.filter(function (o) { return o.op === "extra"; }).length;
+    const repl = ops.filter(function (o) { return o.op === "replace"; }).length;
+    const sum = [missing ? "brakuje: " + missing : null, extra ? "zbędne: " + extra : null, repl ? "zamienione: " + repl : null].filter(Boolean).join(" · ");
+    return el("div", { class: "ex-diff" }, [
+      el("p", { class: "review-label", text: "Słowo po słowie" + (sum ? " (" + sum + ")" : "") + ":" }),
+      el("p", { class: "ex-diff-line", lang: "en" }, nodes),
+      el("p", { class: "tool-note ex-diff-legend", text: "+ brakujące słowo · przekreślone – zbędne · przekreślone i obok pogrubione – zamienione" })
+    ]);
+  }
+
   // =====================================================================
   // INFORMACJA ZWROTNA
   // =====================================================================
@@ -699,11 +1037,30 @@ window.ELM = window.ELM || {};
     if (item.type === "multiple-choice") return item.options[item.correct];
     if (item.type === "reorder") return item.answers[0];
     if (item.type === "short-answer") return String(item.prompt).replace("___", item.accepted[0]);
+    if (item.type === "gap-fill") return gapText(item, function (i) { return item.gaps[i].accepted[0]; });
+    if (item.type === "match") return item.pairs.map(function (p) { return p[0] + " – " + p[1]; }).join("; ");
+    if (item.type === "transformation") return [item.before, item.answers[0], item.after].filter(Boolean).join(" ");
+    if (item.type === "translate") return item.accepted[0];
+    if (item.type === "dictation") return item.text;
     if (item.noError) return "Zdanie jest poprawne – nie ma w nim błędu.";
     const t = item.tokens.slice();
     const fix = item.fixes[0];
     t.splice(item.errorRange[0], item.errorRange[1] - item.errorRange[0] + 1, fix);
     return t.filter(function (w) { return w !== ""; }).join(" ");
+  }
+
+  /** Tekst gap-fill z lukami {{n}} wypełnionymi funkcją fill(indeks). */
+  function gapText(item, fill) {
+    return String(item.text).replace(/\{\{(\d+)\}\}/g, function (m, n) { return fill(Number(n) - 1); });
+  }
+
+  /** Pary dopasowania jako tekst: tylko błędne (onlyWrong) albo wszystkie. */
+  function matchText(p, onlyWrong) {
+    return p.item.pairs.map(function (pair, i) {
+      if (onlyWrong && p.res && p.res.pairs && p.res.pairs[i]) return null;
+      const id = p.st.pairs[i];
+      return pair[0] + " – " + (id !== undefined ? rightById(p, id).text : "(bez pary)");
+    }).filter(Boolean).join("; ");
   }
 
   /** Odpowiedź użytkownika jako tekst (do listy błędów). */
@@ -712,6 +1069,10 @@ window.ELM = window.ELM || {};
     if (item.type === "multiple-choice") return st.chosen === null ? "" : p.choice.options[st.chosen].text;
     if (item.type === "reorder") return st.line.map(function (t) { return t.text; }).join(" ");
     if (item.type === "short-answer") return st.text;
+    if (item.type === "gap-fill") return st.texts.some(function (t) { return t && t.trim(); }) ? gapText(item, function (i) { return "[" + ((st.texts[i] || "").trim() || "…") + "]"; }) : "";
+    if (item.type === "match") return Object.keys(st.pairs).length ? matchText(p, false) : "";
+    if (item.type === "dictation" && p.res && p.res.skipped) return "Pominięte (brak głosu angielskiego)";
+    if (item.type === "transformation" || item.type === "translate" || item.type === "dictation") return st.text.trim();
     if (st.noError) return "Brak błędu";
     if (!st.range) return "";
     return "„" + item.tokens.slice(st.range[0], st.range[1] + 1).join(" ") + "” → „" + st.fix + "”";
@@ -722,6 +1083,11 @@ window.ELM = window.ELM || {};
     if (item.type === "multiple-choice") return String(item.prompt || "").replace(/\n/g, " / ");
     if (item.type === "reorder") return item.context ? "Ułóż: " + item.context : "Ułóż zdanie";
     if (item.type === "find-error") return item.tokens.join(" ");
+    if (item.type === "gap-fill") return (item.context ? item.context + " → " : "") + gapText(item, function () { return "___"; });
+    if (item.type === "match") return item.prompt || "Dopasuj pary";
+    if (item.type === "transformation") return item.source + " (" + String(item.keyword).toUpperCase() + ") → " + [item.before, "___", item.after].filter(Boolean).join(" ");
+    if (item.type === "translate") return "Przetłumacz: " + item.source;
+    if (item.type === "dictation") return "Dyktando";
     return (item.context ? item.context + " → " : "") + item.prompt;
   }
 
@@ -736,13 +1102,32 @@ window.ELM = window.ELM || {};
       else verdict = "Dobry fragment, ale poprawka nie pasuje.";
     }
     if (item.type === "reorder" && !res.correct && res.diffAt >= 0) verdict = "Niestety nie – ułożenie różni się od wyrazu nr " + (res.diffAt + 1) + ".";
+    if (!res.correct && res.points > 0) verdict = "Częściowo dobrze.";
+    if (!res.correct && res.spelling && (item.type === "translate" || item.type === "dictation")) verdict = "Prawie – uwaga na pisownię.";
+    if (res.skipped) verdict = "Pominięte – bez głosu angielskiego to zadanie nie liczy się do wyniku.";
     lines.push(el("p", { class: "lt-verdict" }, [
-      el("span", { class: "c1-mark " + (res.correct ? "is-ok" : "is-bad"), "aria-hidden": "true" }, ELM.icon(res.correct ? "check" : "x", { size: 14 })),
-      el("strong", { text: verdict })
+      el("span", { class: "c1-mark " + (res.correct ? "is-ok" : "is-bad"), "aria-hidden": "true" }, ELM.icon(res.correct ? "check" : res.skipped ? "arrow-right" : "x", { size: 14 })),
+      el("strong", { text: verdict }),
+      res.max > 1 ? el("span", { class: "ex-points num", text: " " + res.points + " / " + res.max + " pkt" }) : null
     ]));
     if (item.type === "short-answer" && res.spelling) lines.push(el("p", { class: "ex-spelling", text: "Uwaga na pisownię – brakuje jednej litery albo jedna jest inna." }));
-    if (!res.correct || item.type === "reorder" || item.type === "find-error") {
-      lines.push(el("p", { class: "journal-row is-right" }, [el("span", { class: "review-label", text: "Poprawnie: " }), el("strong", { text: modelAnswer(item) })]));
+    if (item.type === "gap-fill") {
+      res.gaps.forEach(function (g, i) { if (g.spelling) lines.push(el("p", { class: "ex-spelling", text: "Luka " + (i + 1) + ": uwaga na pisownię – brakuje jednej litery albo jedna jest inna." })); });
+    }
+    if (item.type === "transformation") {
+      if (res.msg) lines.push(el("p", { class: "ex-spelling", text: res.msg }));
+      if (item.parts && !res.msg && !res.correct) {
+        lines.push(el("p", { class: "c1-parts" }, res.parts.map(function (ok, k) {
+          return el("span", { class: "c1-part " + (ok ? "is-ok" : "is-bad") }, [ELM.icon(ok ? "check" : "x", { size: 14 }), " Część " + (k + 1) + ": " + (ok ? "dobrze" : "źle")]);
+        })));
+      }
+    }
+    const sentence = item.type === "translate" || item.type === "dictation";
+    if (sentence && !res.correct && res.diff) lines.push(diffView(res.diff));
+    // Dopasowanie: poprawne pary widać na liście powyżej
+    if ((!res.correct && item.type !== "match") || item.type === "reorder" || item.type === "find-error") {
+      const model = sentence && !res.skipped ? (item.type === "translate" ? item.accepted : [item.text].concat(item.accepted || []))[res.closest || 0] : modelAnswer(item);
+      lines.push(el("p", { class: "journal-row is-right" }, [el("span", { class: "review-label", text: res.skipped ? "Tekst: " : "Poprawnie: " }), el("strong", { lang: sentence ? "en" : null, text: model })]));
     }
     if (p.reviewed) lines.push(el("p", { class: "ex-journal-note is-ok" }, [ELM.icon("check", { size: 14 }), " Zaliczona powtórka z dziennika"]));
     if (p.journalLimit) lines.push(el("p", { class: "ex-journal-note", text: "Dziennik jest pełny na dziś – ten błąd zapisałem tylko w statystykach." }));
@@ -829,6 +1214,11 @@ window.ELM = window.ELM || {};
     if (p.item.type === "multiple-choice") body = bodyChoice(p);
     else if (p.item.type === "reorder") body = bodyReorder(p);
     else if (p.item.type === "find-error") body = bodyFindError(p);
+    else if (p.item.type === "gap-fill") body = bodyGapFill(p);
+    else if (p.item.type === "match") body = bodyMatch(p);
+    else if (p.item.type === "transformation") body = bodyTransformation(p);
+    else if (p.item.type === "translate") body = bodyTranslate(p);
+    else if (p.item.type === "dictation") body = bodyDictation(p);
     else body = bodyShort(p);
 
     const last = run.i === run.items.length - 1;
@@ -869,7 +1259,7 @@ window.ELM = window.ELM || {};
     const pct = total ? Math.round(run.score / total * 100) : 0;
     let comment = COMMENTS.find(function (c) { return pct >= c[0]; })[1];
     if (run.isMix && pct < 50) comment = "Dobry początek. Zajrzyj do tematu oznaczonego „do powtórki”, a potem powtórz błędne zadania.";
-    const wrong = run.items.filter(function (p) { return !(p.res && p.res.correct); });
+    const wrong = run.items.filter(isWrong);
     view.appendChild(head(run.title + (run.retry ? " – poprawka błędów" : "")));
 
     const t = topicInfo(run.topic);
@@ -907,7 +1297,7 @@ window.ELM = window.ELM || {};
       wrong.length ? el("ol", { class: "ex-wrong" }, wrong.map(function (p) {
         const mine = userAnswer(p);
         return el("li", null, [
-          el("p", { class: "ex-wrong-q" }, [el("span", { class: "chip", text: TYPE_SHORT[p.item.type] }), " ", itemSummary(p.item)]),
+          el("p", { class: "ex-wrong-q" }, [el("span", { class: "chip", text: TYPE_SHORT[p.item.type] }), p.res && p.res.max > 1 ? el("span", { class: "chip", text: p.res.points + "/" + p.res.max + " pkt" }) : null, " ", itemSummary(p.item)]),
           el("p", { class: "journal-row is-wrong" }, [el("span", { class: "review-label", text: "Twoja odpowiedź: " }), el("span", { text: mine || "(brak)" })]),
           el("p", { class: "journal-row is-right" }, [el("span", { class: "review-label", text: "Poprawnie: " }), el("strong", { text: modelAnswer(p.item) })]),
           p.item.explanation ? el("p", { class: "ex-wrong-expl", text: p.item.explanation }) : null,
@@ -964,7 +1354,7 @@ window.ELM = window.ELM || {};
     if (updated) lines.push(updated + " " + plural(updated, "błąd był", "błędy były", "błędów było") + " już w dzienniku – " + (updated === 1 ? "jego powtórka" : "ich powtórki") + " jutro.");
     if (j.reviewed) lines.push("Zaliczone powtórki z dziennika: " + j.reviewed + ".");
     if (j.limit) lines.push("Dziennik jest pełny na dziś – kolejne błędy zapisuję tylko w statystykach.");
-    const off = !pd().prefs().autoJournal && run.items.some(function (p) { return p.res && !p.res.correct; });
+    const off = !pd().prefs().autoJournal && run.items.some(function (p) { return p.res && isWrong(p); });
     if (!lines.length && !off) return null;
     const box = el("div", { class: "ex-journal" }, [
       el("span", { class: "ex-journal-icon", "aria-hidden": "true" }, ELM.icon("notebook-pen", { size: 18 })),
@@ -991,6 +1381,7 @@ window.ELM = window.ELM || {};
   function topicBreakdown() {
     const per = {};
     run.items.forEach(function (p) {
+      if (p.res && p.res.skipped) return;
       const k = p.item.topic || "";
       per[k] = per[k] || { ok: 0, n: 0 };
       per[k].n++;
@@ -1020,7 +1411,7 @@ window.ELM = window.ELM || {};
   }
 
   function retryWrong() {
-    const wrong = run.items.filter(function (p) { return !(p.res && p.res.correct); }).map(function (p) { return p.item; });
+    const wrong = run.items.filter(isWrong).map(function (p) { return p.item; });
     newRun(Object.assign({}, run, { items: wrong, retry: true }));
     begin();
   }
@@ -1167,19 +1558,37 @@ window.ELM = window.ELM || {};
   // =====================================================================
 
   document.addEventListener("keydown", function (e) {
-    if (!run || run.phase !== "item" || e.altKey || e.ctrlKey || e.metaKey) return;
+    if (!run || run.phase !== "item" || e.altKey) return;
     if (!document.querySelector(".ex-view .ex-card")) return;
     const p = run.items[run.i];
     const t = e.target;
     const typing = t && (t.tagName === "TEXTAREA" || (t.tagName === "INPUT" && t.type === "text"));
+    // Ctrl/Cmd+Enter = Sprawdź (pola wieloliniowe: tłumaczenie, dyktando); inne skróty z Ctrl/Cmd zostają przeglądarce
+    if (e.ctrlKey || e.metaKey) {
+      if (e.key === "Enter" && typing) { e.preventDefault(); check(); }
+      return;
+    }
     if (e.key === "Enter") {
-      // Na przyciskach Enter działa natywnie; w polu tekstowym i przy opcjach = Sprawdź
+      // Na przyciskach Enter działa natywnie; w polu tekstowym i przy opcjach = Sprawdź; Shift+Enter w polu wieloliniowym = nowa linia
       if (t && t.tagName === "BUTTON" || t && t.tagName === "A") return;
+      if (e.shiftKey && t && t.tagName === "TEXTAREA") return;
       e.preventDefault();
       check();
       return;
     }
     if (p.res || typing) return;
+    if (p.item.type === "match" && /^[1-9]$/.test(e.key)) {
+      // Cyfry wybierają element prawej kolumny (po wybraniu lewej)
+      const i = Number(e.key) - 1;
+      if (i < p.right.length && p.st.sel && p.st.sel.side === "left") {
+        e.preventDefault();
+        matchPick(p, "right", i);
+        // Fokus na następną lewą bez pary (szybkie łączenie z klawiatury); wszystkie połączone → „Sprawdź”
+        const k = p.item.pairs.findIndex(function (_, j) { return p.st.pairs[j] === undefined; });
+        repaint(k === -1 ? "check" : k === 0 ? "first" : "L" + k);
+      }
+      return;
+    }
     if (p.item.type === "multiple-choice" && /^[1-9]$/.test(e.key)) {
       const i = Number(e.key) - 1;
       if (i < p.choice.options.length) { e.preventDefault(); p.st.chosen = i; repaint(i === 0 ? "first" : "opt-" + i); }

@@ -272,7 +272,7 @@ window.ELM = window.ELM || {};
   const EX_ID = /^[a-z0-9][a-z0-9-]{0,99}$/;
   const NOTE_KEY = /^[a-z0-9][a-z0-9:_-]{0,119}$/;
   const NOTE_MAX = 10000;
-  const ATTEMPT_TYPES = ["multiple-choice", "reorder", "find-error", "short-answer"];
+  const ATTEMPT_TYPES = ["multiple-choice", "reorder", "find-error", "short-answer", "gap-fill", "match", "transformation", "translate", "dictation"];
   const ATTEMPT_MODES = ["learn", "exam", "mix", "weak", "review"];
 
   /** Dane jednego egzaminu: data, szkice trenera pisania, odhaczone listy na stronach, wybrane zadania w grupach wyboru. */
