@@ -496,6 +496,7 @@ window.ELM.LEVEL_TEST = {
   {
    "id": "b2-01",
    "level": "B2",
+   "skill": "grammar",
    "type": "multiple-choice",
    "question": "If she had left earlier, she ___ the train.",
    "options": [
@@ -511,6 +512,7 @@ window.ELM.LEVEL_TEST = {
   {
    "id": "b2-02",
    "level": "B2",
+   "skill": "grammar",
    "type": "multiple-choice",
    "question": "The lights are off. They ___ gone to bed already.",
    "options": [
@@ -522,6 +524,136 @@ window.ELM.LEVEL_TEST = {
    "correct": 0,
    "explanation": "Pewny wniosek o przeszłości: must have + 3. forma (na pewno już poszli spać).",
    "itemId": "b2-gramatyka-modalne-przeszlosc"
+  },
+  {
+   "id": "b2-g-03",
+   "level": "B2",
+   "skill": "grammar",
+   "type": "multiple-choice",
+   "question": "I wish I ___ so much money on clothes last month.",
+   "options": [
+    "didn't spend",
+    "wouldn't spend",
+    "hadn't spent",
+    "haven't spent"
+   ],
+   "correct": 2,
+   "explanation": "Żal dotyczący przeszłości (last month): wish + Past Perfect – hadn't spent.",
+   "itemId": "b2-gramatyka-wish-if-only"
+  },
+  {
+   "id": "b2-g-04",
+   "level": "B2",
+   "skill": "grammar",
+   "type": "multiple-choice",
+   "question": "Despite ___ tired, she finished the report before midnight.",
+   "options": [
+    "she was",
+    "of being",
+    "being",
+    "to be"
+   ],
+   "correct": 2,
+   "explanation": "Po despite stoi rzeczownik albo forma -ing (despite being tired), bez of i bez zdania z podmiotem.",
+   "itemId": "b2-gramatyka-przyczyna-przeciwienstwo"
+  },
+  {
+   "id": "b2-g-05",
+   "level": "B2",
+   "skill": "grammar",
+   "type": "multiple-choice",
+   "question": "We're having our kitchen ___ next week.",
+   "options": [
+    "redecorated",
+    "redecorate",
+    "redecorating",
+    "to redecorate"
+   ],
+   "correct": 0,
+   "explanation": "Have something done: ktoś zrobi to dla nas – have + przedmiot + 3. forma (redecorated).",
+   "itemId": "b2-gramatyka-strona-bierna-have-something-done"
+  },
+  {
+   "id": "b2-v-01",
+   "level": "B2",
+   "skill": "vocabulary",
+   "type": "multiple-choice",
+   "question": "Our new manager is very ___ – you can talk to her about any problem.",
+   "options": [
+    "approaching",
+    "approached",
+    "approach",
+    "approachable"
+   ],
+   "correct": 3,
+   "explanation": "Słowotwórstwo: approach + -able = approachable (przystępny, łatwo do niego podejść).",
+   "itemId": "b2-slownictwo"
+  },
+  {
+   "id": "b2-v-02",
+   "level": "B2",
+   "skill": "vocabulary",
+   "type": "multiple-choice",
+   "question": "Don't worry about the test – it'll be a piece of ___.",
+   "options": [
+    "pie",
+    "cake",
+    "bread",
+    "biscuit"
+   ],
+   "correct": 1,
+   "explanation": "Idiom: a piece of cake = bułka z masłem, coś bardzo łatwego.",
+   "itemId": "b2-slownictwo"
+  },
+  {
+   "id": "b2-v-03",
+   "level": "B2",
+   "skill": "vocabulary",
+   "type": "multiple-choice",
+   "question": "The client is leaving early, so we need to ___ the meeting forward to Wednesday.",
+   "options": [
+    "bring",
+    "take",
+    "carry",
+    "set"
+   ],
+   "correct": 0,
+   "explanation": "Bring something forward = przesunąć na wcześniejszy termin (odwrotność: put off / postpone).",
+   "itemId": "b2-slownictwo"
+  },
+  {
+   "id": "b2-r-01",
+   "level": "B2",
+   "skill": "reading",
+   "type": "multiple-choice",
+   "passage": "When the town council announced plans to turn the old railway station into a shopping centre, local residents were divided. Some welcomed the jobs it would bring, while others feared it would draw customers away from the small shops on the high street. After months of debate, the council has chosen a compromise: the main hall will become a covered market for local producers, and only a third of the building will be leased to chain stores.",
+   "question": "What did the council finally decide?",
+   "options": [
+    "To build a shopping centre as first planned.",
+    "To leave the station empty for now.",
+    "To combine a local market with a limited number of chain stores.",
+    "To give the whole building to chain stores."
+   ],
+   "correct": 2,
+   "explanation": "Kompromis: główna hala na targ lokalnych producentów, a sieciom tylko jedna trzecia budynku.",
+   "itemId": ""
+  },
+  {
+   "id": "b2-r-02",
+   "level": "B2",
+   "skill": "reading",
+   "type": "multiple-choice",
+   "passage": "Dear Ms Novak, Thank you for your application for the position of junior designer. We were impressed by your portfolio and would like to invite you to a second interview. This time you will be asked to complete a short practical task, so please bring your laptop. The interview will last about two hours. Could you let us know by Friday whether Tuesday 14 May at 10 a.m. suits you? Kind regards, Tom Hale",
+   "question": "What is the main purpose of the email?",
+   "options": [
+    "To offer Ms Novak the job",
+    "To invite her to the next stage of recruitment",
+    "To ask her to send her portfolio",
+    "To reject her application"
+   ],
+   "correct": 1,
+   "explanation": "Zaproszenie na drugą rozmowę (second interview) – to kolejny etap rekrutacji, a nie oferta pracy.",
+   "itemId": ""
   },
   {
    "id": "c1-01",
