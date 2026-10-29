@@ -1,0 +1,184 @@
+{
+  "version": 1,
+  "id": "b1-czasy-used-to-1",
+  "topic": "b1-czasy-used-to",
+  "level": "B1",
+  "title": "Used to – sprawdź się",
+  "intro": "10 zadań: dyktanda (odsłuchaj zdanie i zapisz je), luki, wybór formy, szukanie błędu i transformacja. Dyktando wymaga głosu angielskiego w przeglądarce – bez niego można je pominąć.",
+  "passage": null,
+  "items": [
+    {
+      "id": "b1-czasy-used-to-1-01",
+      "type": "dictation",
+      "tags": [
+        "used-to",
+        "listening"
+      ],
+      "text": "I used to walk to school with my older brother.",
+      "maxPlays": 3,
+      "explanation": "Used to + bezokolicznik: dawny nawyk, którego już nie ma. W mowie used to wymawiamy /ˈjuːstə/ – z dźwiękiem s, nie z."
+    },
+    {
+      "id": "b1-czasy-used-to-1-02",
+      "type": "dictation",
+      "tags": [
+        "used-to",
+        "negative",
+        "listening"
+      ],
+      "text": "We didn't use to have a car when I was little.",
+      "maxPlays": 3,
+      "explanation": "W przeczeniu po didn't stoi use to (bez -d): didn't use to have."
+    },
+    {
+      "id": "b1-czasy-used-to-1-03",
+      "type": "dictation",
+      "tags": [
+        "used-to",
+        "questions",
+        "listening"
+      ],
+      "text": "Did you use to play any sports at school?",
+      "accepted": [
+        "Did you use to play any sport at school?"
+      ],
+      "maxPlays": 3,
+      "explanation": "W pytaniu po did też use to, bez -d: Did you use to…?"
+    },
+    {
+      "id": "b1-czasy-used-to-1-04",
+      "type": "dictation",
+      "tags": [
+        "used-to",
+        "there-was",
+        "listening"
+      ],
+      "text": "There used to be a small cinema next to the station.",
+      "maxPlays": 3,
+      "explanation": "There used to be = kiedyś był/była (a dziś już nie ma)."
+    },
+    {
+      "id": "b1-czasy-used-to-1-05",
+      "type": "dictation",
+      "tags": [
+        "used-to",
+        "listening"
+      ],
+      "text": "My grandmother used to tell us stories every evening.",
+      "maxPlays": 3,
+      "explanation": "Powtarzająca się czynność z przeszłości: used to tell. Every evening podkreśla, że to był zwyczaj."
+    },
+    {
+      "id": "b1-czasy-used-to-1-06",
+      "type": "dictation",
+      "tags": [
+        "be-used-to",
+        "gerund",
+        "listening"
+      ],
+      "text": "I'm used to getting up early because of my job.",
+      "accepted": [
+        "I am used to getting up early because of my job."
+      ],
+      "maxPlays": 3,
+      "explanation": "Be used to + -ing = być przyzwyczajonym do czegoś (dziś). To inna konstrukcja niż used to + bezokolicznik."
+    },
+    {
+      "id": "b1-czasy-used-to-1-07",
+      "type": "gap-fill",
+      "tags": [
+        "used-to",
+        "negative",
+        "present-simple"
+      ],
+      "text": "My mum {{1}} (not / use to / like) vegetables, but now she {{2}} (eat) them every day.",
+      "gaps": [
+        {
+          "accepted": [
+            "didn't use to like",
+            "did not use to like",
+            "never used to like",
+            "used not to like"
+          ]
+        },
+        {
+          "accepted": [
+            "eats"
+          ]
+        }
+      ],
+      "trap": "W przeczeniu: didn't use to (bez -d), nie „didn't used to”.",
+      "explanation": "Dawniej (i już nie): didn't use to like. Dzisiejszy zwyczaj: Present Simple, eats."
+    },
+    {
+      "id": "b1-czasy-used-to-1-08",
+      "type": "multiple-choice",
+      "kind": "form",
+      "tags": [
+        "used-to",
+        "be-used-to"
+      ],
+      "prompt": "When I lived in London, I ___ the bus to work every day.",
+      "options": [
+        "used to take",
+        "use to take",
+        "was used to take",
+        "am used to taking"
+      ],
+      "correct": 0,
+      "optionNotes": [
+        null,
+        "W twierdzeniu o przeszłości potrzebne used (z -d).",
+        "Be used to łączy się z formą -ing, a tu chodzi o dawny nawyk.",
+        "Am used to = jestem przyzwyczajony teraz, a mowa o czasach w Londynie."
+      ],
+      "explanation": "Dawny nawyk w przeszłości: used to + bezokolicznik (albo zwykłe Past Simple: took)."
+    },
+    {
+      "id": "b1-czasy-used-to-1-09",
+      "type": "find-error",
+      "tags": [
+        "used-to",
+        "questions"
+      ],
+      "tokens": [
+        "Did",
+        "you",
+        "used",
+        "to",
+        "live",
+        "near",
+        "here?"
+      ],
+      "errorRange": [
+        2,
+        2
+      ],
+      "fixes": [
+        "use"
+      ],
+      "explanation": "Po did czasownik ma formę podstawową: Did you use to live near here?"
+    },
+    {
+      "id": "b1-czasy-used-to-1-10",
+      "type": "transformation",
+      "tags": [
+        "used-to"
+      ],
+      "source": "When I was a child, I often played in my grandparents' garden.",
+      "keyword": "USED",
+      "before": "As a child, I",
+      "after": "in my grandparents' garden.",
+      "answers": [
+        "used to play",
+        "often used to play",
+        "used to often play"
+      ],
+      "wordLimit": [
+        2,
+        5
+      ],
+      "explanation": "Często powtarzana czynność z dzieciństwa: used to + bezokolicznik."
+    }
+  ]
+}

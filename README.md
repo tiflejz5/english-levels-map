@@ -139,7 +139,7 @@ Nazwa profilu: spacje na początku i końcu są obcinane, najwyżej 30 znaków, 
 | `elm_activity_v1` | dni nauki **per profil**: `{ version: 1, profiles: { <id>: { days: ["RRRR-MM-DD"…], lastPage: { hash, title } } } }` |
 | `elm_leveltest_v1`| ostatni wynik testu poziomu **per profil**: `{ version: 1, profiles: { <id>: { last: { date, level, answers } } } }` |
 | `elm_exercises_v1`| wyniki zestawów ćwiczeń **per profil**: `{ version: 1, profiles: { <id>: { sets: { <id zestawu lub mixu>: { best, last, recent } }, lastMix: [id zadań…], dismissed: { <id zestawu>: dzień } } } }`, gdzie `best` / `last` = `{ score, total, date }`, `recent` — ostatnie 5 wyników (sugestia „Umiem”), `dismissed` — „Nie teraz” przy sugestii (w eksporcie, imporcie i resecie) |
-| `elm_attempts_v1` | dziennik podejść **per profil**: każda odpowiedź w zadaniach `{ t, day, itemId, setId, topic, level, type, tags, correct, mode, answer }`; bufor 3000 wpisów, starsze w `aggregates` (`{ n, ok, topic, type, level }` na zadanie) |
+| `elm_attempts_v1` | dziennik podejść **per profil**: każda odpowiedź w zadaniach `{ t, day, itemId, setId, topic, level, type, tags, correct, mode, answer }` (zadania za kilka punktów mają dodatkowo opcjonalne `points` i `max`; pominięte dyktando nie trafia do dziennika); bufor 3000 wpisów, starsze w `aggregates` (`{ n, ok, topic, type, level }` na zadanie) |
 | `elm_autojournal_v1` | błędy dodane automatycznie do Dziennika błędów **per profil**: `{ items: { <id zadania>: { entryId, created, wrongCount, lastWrongAt, returned } } }`; sam wpis jest w `elm_journal_v1` (bez zmiany formatu, łączy go `ref = "ex:<id zadania>"`) |
 | `elm_learnprefs_v1` | ustawienia nauki **per profil**: `{ autoJournal: true / false }` (menu profilu → Ustawienia nauki) |
 | `elm_notes_v1`    | notatki **per profil**: `{ items: { <klucz strony>: { text, updatedAt, title, route } } }`, zwykły tekst ≤ 10 000 znaków |
@@ -230,7 +230,19 @@ Specyfikacje: [docs/rozbudowa-v2/](docs/rozbudowa-v2/00-CZYTAJ-TO.md).
 | `#/cwiczenia/mix/<id>`, `#/cwiczenia/sesja` | gotowy mix / zestaw z generatora | `js/exercise-engine.js` |
 | `#/laboratorium-czasow[/<czas>]`, `…/dobierz`, `…/porownaj/<a>/<b>` | Laboratorium czasów: mapa, karta z osią, „Dobierz czas”, porównanie | `js/tense-lab.js` |
 
-- **Typy zadań:** `multiple-choice`, `reorder`, `find-error`, `short-answer` (spec 01). Ocena, tasowanie i losowanie mixów są w `js/exercise-logic.js` (bez DOM, testy w `tools/testy.js`).
+- **Typy zadań:** `multiple-choice`, `reorder`, `find-error`, `short-answer` (spec 01) oraz z paczki v6 (`docs/rozbudowa-v6/spec/12-nowe-typy-zadan.md`) `gap-fill`, `match`, `transformation`, `translate`, `dictation`. Ocena, tasowanie i losowanie mixów są w `js/exercise-logic.js` (bez DOM, testy w `tools/testy.js`). Wzór danych nowych typów: `docs/rozbudowa-v6/przyklady/cwiczenia/v6-pilot-nowe-typy.json`.
+
+  | Typ | Po polsku | Pola | Punkty |
+  |---|---|---|---|
+  | `gap-fill` | Luki do wpisania | `text` z lukami `{{1}}…{{n}}` (1–4), `gaps: [{ accepted: […], hint? }]`, `context?` | 1 za każdą lukę |
+  | `match` | Dopasuj pary | `mode` (`definition`, `halves`, `translation`, `response`), `prompt`, `pairs: [[lewa, prawa]…]` (3–6), `extraRight?` (≤ 2) | 1 za każdą parę |
+  | `transformation` | Transformacje zdań | `source`, `keyword`, `before`, `after`, `answers` (pełne wypełnienia luki), `wordLimit?` (domyślnie `[2, 5]`), `parts?` (dwie części) | 1, a z `parts` 2 |
+  | `translate` | Tłumaczenie zdań | `source` (po polsku), `accepted` (1–8, pierwsze wzorcowe), `hint?` | 1 |
+  | `dictation` | Dyktando | `text` (4–30 słów), `accepted?`, `maxPlays?` (1–5, domyślnie 3) | 1; bez głosu angielskiego pominięte (0 z 0) |
+
+- **Punkty:** ocena zwraca `{ correct, points, max }` (`ELM.exLogic.maxPoints(item)`, stare typy = 1 pkt), a wynik sesji i zapis zestawu (`elm_exercises_v1`: `best`/`last` = `{ score, total, date }`) liczą się w punktach. Dla zestawów ze starych typów wynik jest taki sam jak wcześniej (test regresyjny). `correct` = pełna liczba punktów; dziennik błędów, „Powtórz tylko błędne”, statystyki i wagi losowania liczą jak dotąd po `correct`.
+- **Porównanie zdań** (`translate`, `dictation`, `transformation` bez `parts`): `normalizeSentence` — bez przecinków i interpunkcji, skróty `n't`, `'re`, `'ve`, `'ll`, `'m`, `won't`, `can't` rozwijane po obu stronach, a `'s` / `'d` sprawdzane w obu odczytaniach (is/has, would/had). Przy błędzie: porównanie słowo po słowie z najbliższym wariantem (brak / zbędne / zamienione) i uwaga o literówce.
+- **Transformacje** w C1/B2 Part 4 (`js/c1-exercises.js`) i w typie `transformation` oceniane są tą samą funkcją `ELM.exLogic.scoreTransformationParts` (test zgodności na wszystkich zadaniach Part 4).
 - **Dane:**
   - zestawy to pliki `cwiczenia/tematy/<id>.json`, a mapę temat → zestawy trzyma `dane/cwiczenia-tematy.json`;
   - mixy są w `dane/mixes.json`, a Lab w `dane/lab-czasow.json` i `dane/lab-wybor-czasu.json`;

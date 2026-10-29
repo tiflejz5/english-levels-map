@@ -20,7 +20,10 @@ window.ELM = window.ELM || {};
   const el = U.el;
   const HASH = "#/statystyki";
   const SVG_NS = "http://www.w3.org/2000/svg";
-  const TYPE_LABEL = { "multiple-choice": "Wybór odpowiedzi", "reorder": "Ułóż zdanie", "find-error": "Znajdź błąd", "short-answer": "Krótka odpowiedź" };
+  const TYPE_LABEL = {
+    "multiple-choice": "Wybór odpowiedzi", "reorder": "Ułóż zdanie", "find-error": "Znajdź błąd", "short-answer": "Krótka odpowiedź",
+    "gap-fill": "Luki do wpisania", "match": "Dopasuj pary", "transformation": "Transformacje zdań", "translate": "Tłumaczenie zdań", "dictation": "Dyktando"
+  };
   const WEEKDAYS = ["Pn", "Wt", "Śr", "Cz", "Pt", "Sb", "Nd"];
 
   function pd() { return ELM.profileData; }

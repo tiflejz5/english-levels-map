@@ -2678,6 +2678,73 @@ html.focus-mode .c1-writing-area { box-shadow: 0 0 0 4px var(--accent-soft); }
 .ex-gap-input.is-ok { border-color: var(--success); background: var(--success-soft); }
 .ex-gap-input.is-bad { border-color: var(--danger); background: var(--danger-soft); text-decoration: line-through; text-decoration-color: var(--strike); }
 
+/* Luki do wpisania (gap-fill, paczka v6): pola w zdaniu, wzór obok błędnego pola */
+.ex-gapfill { line-height: 2.1; }
+.ex-gapfill .ex-gap-input { width: 11ch; }
+.ex-gap-result { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 2px 6px; vertical-align: middle; max-width: 100%; }
+.ex-gap-mark.is-ok { color: var(--success); }
+.ex-gap-mark.is-bad { color: var(--danger); }
+.ex-gap-model { padding: 0 8px; border-radius: var(--radius-xs); background: var(--success-soft); color: var(--success); font-family: var(--font); font-size: var(--fs-md); font-weight: 700; line-height: 1.6; }
+.ex-gap-hints { list-style: none; margin: -6px 0 12px; padding: 0; }
+
+/* Dopasuj pary (match): dwie kolumny, na telefonie jedna pod drugą */
+.ex-match-prompt { margin: 0 0 12px; font-weight: 600; }
+.ex-match { display: grid; grid-template-columns: 1fr; gap: 14px; }
+@media (min-width: 640px) { .ex-match { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); } }
+.ex-match-col .field-label { margin-bottom: 6px; }
+.ex-match-list { list-style: none; display: flex; flex-direction: column; gap: 8px; margin: 0; padding: 0; }
+.ex-match-item {
+  display: flex; align-items: flex-start; gap: 10px; width: 100%; min-height: 48px; padding: 9px 12px; text-align: left;
+  border: 1px solid var(--line-control); border-radius: var(--radius); background: var(--surface); color: var(--ink);
+  font: inherit; font-size: var(--fs-md); cursor: pointer;
+  transition: background var(--transition), border-color var(--transition);
+}
+.ex-match-item:hover { background: var(--surface-2); border-color: var(--accent); }
+.ex-match-item.is-selected { border-color: var(--accent); background: var(--accent-soft); box-shadow: inset 0 0 0 2px var(--accent); }
+.ex-match-item.is-selected .ex-key { background: var(--accent-bg); color: var(--on-accent); }
+.ex-match-item.is-paired { border-style: dashed; border-color: var(--accent); }
+.ex-match-text { flex: 1; min-width: 0; padding-top: 3px; overflow-wrap: anywhere; }
+.ex-match-tag { flex-shrink: 0; align-self: center; padding: 2px 8px; border-radius: var(--radius-pill); background: var(--accent-bg); color: var(--on-accent); font-size: var(--fs-xs-plus); font-weight: 700; white-space: nowrap; }
+.ex-match-status { margin: 12px 0 0; }
+.ex-match-result { list-style: none; display: flex; flex-direction: column; gap: 8px; margin: 0; padding: 0; }
+.ex-match-result li {
+  display: grid; grid-template-columns: auto auto minmax(0, 1fr); align-items: start; gap: 4px 10px; padding: 10px 12px;
+  border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface);
+}
+.ex-match-result li.is-ok { border-color: var(--success); background: var(--success-soft); }
+.ex-match-result li.is-bad { border-color: var(--danger-border); background: var(--danger-soft); }
+.ex-match-result .ex-gap-mark { padding-top: 3px; }
+.ex-match-result li.is-ok .ex-gap-mark { color: var(--success); }
+.ex-match-result li.is-bad .ex-gap-mark { color: var(--danger); }
+.ex-match-letter { font-weight: 700; color: var(--ink-muted); }
+.ex-match-left { font-weight: 650; }
+.ex-match-arrow { display: none; }
+.ex-match-right { grid-column: 3; display: flex; flex-wrap: wrap; gap: 2px 10px; }
+.ex-match-wrong { color: var(--danger); text-decoration-color: var(--strike); }
+.ex-match-wrong.is-empty { font-style: italic; }
+
+/* Transformacje zdań */
+.ex-tr-source { margin: 0 0 10px; font-size: var(--fs-md); }
+.ex-tr-keyword { margin: 0 0 10px; }
+.ex-tr-line { line-height: 2.1; }
+.ex-tr-line .ex-tr-input { width: min(22ch, 100%); }
+.ex-tr-count { font-weight: 650; font-variant-numeric: tabular-nums; }
+.ex-tr-count.is-over { color: var(--danger); }
+
+/* Tłumaczenie i dyktando: pole wieloliniowe, podpowiedź, porównanie słowo po słowie */
+.ex-sentence-input { width: 100%; min-height: 88px; font-size: var(--fs-md); line-height: 1.5; resize: vertical; }
+.ex-sentence-input.is-ok { border-color: var(--success); background: var(--success-soft); }
+.ex-sentence-input.is-bad { border-color: var(--danger); background: var(--danger-soft); }
+.ex-hint { margin: 10px 0 0; padding: 8px 12px; border-radius: var(--radius-sm); background: var(--info-bg); }
+.ex-points { margin-left: 6px; font-weight: 650; }
+.ex-diff { margin: 8px 0; padding: 10px 12px; border-radius: var(--radius-sm); background: var(--surface); border: 1px solid var(--line); }
+.ex-diff .review-label { margin: 0 0 4px; }
+.ex-diff-line { margin: 0 0 4px; font-size: var(--fs-md); line-height: 1.9; }
+.ex-diff-w.is-missing { padding: 0 4px; border: 1px dashed var(--success); border-radius: var(--radius-xs); color: var(--success); font-weight: 700; }
+.ex-diff-w.is-extra s, .ex-diff-w.is-replace s { color: var(--danger); text-decoration-color: var(--strike); }
+.ex-diff-w.is-replace strong { color: var(--success); }
+.ex-diff-legend { margin: 0; font-size: var(--fs-sm); }
+
 /* Informacja zwrotna */
 .ex-status:empty { display: none; }
 .ex-status.is-hint { margin: 0 0 14px; padding: 10px 14px; border-radius: var(--radius); background: var(--info-bg); font-size: var(--fs-sm-plus); }

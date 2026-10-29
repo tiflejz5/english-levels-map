@@ -1,0 +1,239 @@
+{
+  "version": 1,
+  "id": "b1-gramatyka-strona-bierna-1",
+  "topic": "b1-gramatyka-strona-bierna",
+  "level": "B1",
+  "title": "Strona bierna – sprawdź się",
+  "intro": "10 zadań: luki do wpisania, transformacja, wybór formy i szukanie błędu. Luki liczą się osobno – każda to punkt.",
+  "passage": null,
+  "items": [
+    {
+      "id": "b1-gramatyka-strona-bierna-1-01",
+      "type": "gap-fill",
+      "tags": [
+        "passive",
+        "present-perfect"
+      ],
+      "text": "This bridge {{1}} (build) in 1890 and it {{2}} (repair) three times since then.",
+      "gaps": [
+        {
+          "accepted": [
+            "was built"
+          ]
+        },
+        {
+          "accepted": [
+            "has been repaired"
+          ],
+          "hint": "3 słowa"
+        }
+      ],
+      "trap": "Since then wymaga Present Perfect – także w stronie biernej: has been + 3. forma.",
+      "explanation": "Data w przeszłości → was built. Od tamtej pory do dziś → has been repaired."
+    },
+    {
+      "id": "b1-gramatyka-strona-bierna-1-02",
+      "type": "gap-fill",
+      "tags": [
+        "passive",
+        "present-simple",
+        "irregular-verbs"
+      ],
+      "text": "English {{1}} (speak) in many countries, and it {{2}} (teach) in almost every school.",
+      "gaps": [
+        {
+          "accepted": [
+            "is spoken"
+          ]
+        },
+        {
+          "accepted": [
+            "is taught"
+          ]
+        }
+      ],
+      "explanation": "Fakty ogólne: Present Simple w stronie biernej, czyli is + 3. forma. Speak – spoke – spoken, teach – taught – taught."
+    },
+    {
+      "id": "b1-gramatyka-strona-bierna-1-03",
+      "type": "gap-fill",
+      "tags": [
+        "passive",
+        "past-simple",
+        "irregular-verbs"
+      ],
+      "context": "Wczoraj ukradziono mi rower.",
+      "text": "My bike {{1}} (steal) yesterday.",
+      "gaps": [
+        {
+          "accepted": [
+            "was stolen"
+          ]
+        }
+      ],
+      "trap": "Steal jest nieregularny: steal – stole – stolen. Forma „stealed” nie istnieje.",
+      "explanation": "Yesterday → Past Simple w stronie biernej: was + 3. forma."
+    },
+    {
+      "id": "b1-gramatyka-strona-bierna-1-04",
+      "type": "gap-fill",
+      "tags": [
+        "passive",
+        "present-continuous",
+        "future"
+      ],
+      "text": "A new hospital {{1}} (build) in our town at the moment. It {{2}} (open) next spring.",
+      "gaps": [
+        {
+          "accepted": [
+            "is being built"
+          ],
+          "hint": "3 słowa"
+        },
+        {
+          "accepted": [
+            "will be opened",
+            "will open",
+            "is going to be opened",
+            "is going to open",
+            "is opening"
+          ]
+        }
+      ],
+      "explanation": "At the moment → Present Continuous w stronie biernej: is being built. Przyszłość: will be opened (albo zwyczajnie will open – szpital się otworzy)."
+    },
+    {
+      "id": "b1-gramatyka-strona-bierna-1-05",
+      "type": "gap-fill",
+      "tags": [
+        "passive",
+        "intransitive-verbs"
+      ],
+      "text": "Letters {{1}} (deliver) every morning, but today nothing {{2}} (arrive) yet.",
+      "gaps": [
+        {
+          "accepted": [
+            "are delivered"
+          ]
+        },
+        {
+          "accepted": [
+            "has arrived"
+          ]
+        }
+      ],
+      "trap": "Arrive, happen, die nie mają dopełnienia, więc nie mają strony biernej: „has been arrived” to błąd.",
+      "explanation": "Listy ktoś dostarcza → are delivered. Nic nie przyszło do teraz (yet) → zwykłe Present Perfect: has arrived."
+    },
+    {
+      "id": "b1-gramatyka-strona-bierna-1-06",
+      "type": "gap-fill",
+      "tags": [
+        "passive",
+        "modals"
+      ],
+      "text": "Phones {{1}} (must / not / use) during the exam.",
+      "gaps": [
+        {
+          "accepted": [
+            "must not be used",
+            "mustn't be used"
+          ]
+        }
+      ],
+      "explanation": "Po czasowniku modalnym strona bierna to be + 3. forma: must not be used."
+    },
+    {
+      "id": "b1-gramatyka-strona-bierna-1-07",
+      "type": "transformation",
+      "tags": [
+        "passive",
+        "present-perfect"
+      ],
+      "source": "They have opened a new shop in the city centre.",
+      "keyword": "BEEN",
+      "before": "A new shop",
+      "after": "in the city centre.",
+      "answers": [
+        "has been opened"
+      ],
+      "wordLimit": [
+        2,
+        5
+      ],
+      "explanation": "Present Perfect w stronie biernej: has/have + been + 3. forma. Podmiot w liczbie pojedynczej (a new shop) → has."
+    },
+    {
+      "id": "b1-gramatyka-strona-bierna-1-08",
+      "type": "multiple-choice",
+      "kind": "form",
+      "tags": [
+        "passive",
+        "present-perfect"
+      ],
+      "prompt": "The film ___ by millions of people since it came out.",
+      "options": [
+        "has been seen",
+        "was seen",
+        "has seen",
+        "is seen"
+      ],
+      "correct": 0,
+      "optionNotes": [
+        null,
+        "Since → okres do teraz, więc Present Perfect, nie Past Simple.",
+        "Has seen to strona czynna: to film by oglądał, a nie był oglądany.",
+        "Present Simple nie pasuje do since."
+      ],
+      "explanation": "Since + okres do dziś → Present Perfect; film jest oglądany → strona bierna: has been seen."
+    },
+    {
+      "id": "b1-gramatyka-strona-bierna-1-09",
+      "type": "find-error",
+      "tags": [
+        "passive",
+        "intransitive-verbs"
+      ],
+      "tokens": [
+        "The",
+        "accident",
+        "was",
+        "happened",
+        "at",
+        "six",
+        "o'clock."
+      ],
+      "errorRange": [
+        2,
+        3
+      ],
+      "fixes": [
+        "happened"
+      ],
+      "explanation": "Happen nie ma strony biernej: The accident happened at six o'clock."
+    },
+    {
+      "id": "b1-gramatyka-strona-bierna-1-10",
+      "type": "gap-fill",
+      "tags": [
+        "passive",
+        "present-simple"
+      ],
+      "text": "Coffee {{1}} (grow) in Brazil and {{2}} (export) all over the world.",
+      "gaps": [
+        {
+          "accepted": [
+            "is grown"
+          ]
+        },
+        {
+          "accepted": [
+            "is exported",
+            "exported"
+          ]
+        }
+      ],
+      "explanation": "Fakty ogólne → Present Simple w stronie biernej. W drugiej części is można pominąć: is grown … and (is) exported."
+    }
+  ]
+}
