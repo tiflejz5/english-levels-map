@@ -116,6 +116,7 @@
     {
       "id": "a2-01",
       "level": "A2",
+      "skill": "grammar",
       "type": "multiple-choice",
       "question": "I ___ a great film last weekend.",
       "options": ["see", "have seen", "saw", "was see"],
@@ -126,12 +127,103 @@
     {
       "id": "a2-02",
       "level": "A2",
+      "skill": "grammar",
       "type": "multiple-choice",
       "question": "This exercise is ___ than the last one.",
       "options": ["more easy", "easier", "easiest", "the easier"],
       "correct": 1,
       "explanation": "Krótkie przymiotniki (także zakończone na -y) stopniujemy przez -er: easy → easier than.",
       "itemId": "a2-gramatyka-stopniowanie-przymiotnikow"
+    },
+    {
+      "id": "a2-g-03",
+      "level": "A2",
+      "skill": "grammar",
+      "type": "multiple-choice",
+      "question": "When I came home, my parents ___ dinner.",
+      "options": ["were having", "have had", "are having", "was having"],
+      "correct": 0,
+      "explanation": "Czynność w toku w chwili, gdy wydarzyło się coś innego: Past Continuous. Parents to liczba mnoga – were having.",
+      "itemId": "a2-czasy-past-continuous"
+    },
+    {
+      "id": "a2-g-04",
+      "level": "A2",
+      "skill": "grammar",
+      "type": "multiple-choice",
+      "question": "Have you ever ___ sushi?",
+      "options": ["ate", "eat", "eaten", "eating"],
+      "correct": 2,
+      "explanation": "Doświadczenie: Present Perfect, czyli have + 3. forma. Eat – ate – eaten.",
+      "itemId": "a2-czasy-present-perfect-doswiadczenia"
+    },
+    {
+      "id": "a2-g-05",
+      "level": "A2",
+      "skill": "grammar",
+      "type": "multiple-choice",
+      "question": "You ___ wear a helmet when you ride a motorbike. It's the law.",
+      "options": ["mustn't", "don't have to", "must", "can"],
+      "correct": 2,
+      "explanation": "Obowiązek (tu z przepisów): must. Mustn't = nie wolno, don't have to = nie trzeba.",
+      "itemId": "a2-gramatyka-modalne-must-should"
+    },
+    {
+      "id": "a2-v-01",
+      "level": "A2",
+      "skill": "vocabulary",
+      "type": "multiple-choice",
+      "question": "Can you ___ me your pen for a minute?",
+      "options": ["lend", "borrow", "give back", "take"],
+      "correct": 0,
+      "explanation": "Lend = pożyczyć komuś, borrow = pożyczyć od kogoś. Can you lend me…? = Pożyczysz mi…?",
+      "itemId": "a2-slownictwo"
+    },
+    {
+      "id": "a2-v-02",
+      "level": "A2",
+      "skill": "vocabulary",
+      "type": "multiple-choice",
+      "question": "I'm really interested ___ history.",
+      "options": ["on", "at", "about", "in"],
+      "correct": 3,
+      "explanation": "Stały przyimek: interested in (interesować się czymś).",
+      "itemId": "a2-slownictwo"
+    },
+    {
+      "id": "a2-v-03",
+      "level": "A2",
+      "skill": "vocabulary",
+      "type": "multiple-choice",
+      "question": "It's cold outside – put ___ your coat.",
+      "options": ["in", "on", "up", "off"],
+      "correct": 1,
+      "explanation": "Put on = założyć (ubranie), take off = zdjąć.",
+      "itemId": "a2-slownictwo"
+    },
+    {
+      "id": "a2-r-01",
+      "level": "A2",
+      "skill": "reading",
+      "type": "multiple-choice",
+      "passage": "SWIMMING POOL – NEW OPENING HOURS. From 1 June the pool opens at 6:30 a.m. on weekdays, half an hour earlier than before. At weekends it opens at 8 a.m. as usual. The café on the first floor is closed for repairs until the end of June. Children under 8 must swim with an adult.",
+      "question": "What has changed at the swimming pool?",
+      "options": ["It opens earlier on weekdays.", "It opens earlier at weekends.", "The café has opened on the first floor.", "Children can now swim alone."],
+      "correct": 0,
+      "explanation": "W dni robocze basen otwiera się pół godziny wcześniej. W weekendy bez zmian (as usual), a kawiarnia jest zamknięta.",
+      "itemId": null
+    },
+    {
+      "id": "a2-r-02",
+      "level": "A2",
+      "skill": "reading",
+      "type": "multiple-choice",
+      "passage": "Hi Kuba, thanks for lending me your bike last week – it was great! Sorry I'm giving it back so late. I'll bring it to your house tomorrow after school, at about four o'clock. Will you be at home then? If not, I can leave it in your garden. Bye, Olek",
+      "question": "What is Olek going to do tomorrow?",
+      "options": ["Borrow Kuba's bike", "Repair Kuba's bike", "Return Kuba's bike", "Buy a new bike"],
+      "correct": 2,
+      "explanation": "„I'll bring it to your house tomorrow” – Olek odda (return) pożyczony rower.",
+      "itemId": null
     },
     {
       "id": "b1-01",
