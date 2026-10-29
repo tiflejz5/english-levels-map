@@ -1,0 +1,51 @@
+{
+  "id": "trening-mowienie",
+  "version": 1,
+  "format": "simple",
+  "note": "Na egzaminie ósmoklasisty nie ma części ustnej. To trening, który pomaga w pisaniu i w szkole.",
+  "criteria": [
+    { "id": "zdania", "label": "Odpowiadam pełnym zdaniem", "hint": "Nie jednym słowem: „I like pizza because…”." },
+    { "id": "rozwiniecie", "label": "Dodaję powód lub przykład", "hint": "because, for example, so" },
+    { "id": "plynnosc", "label": "Mówię bez długich przerw", "hint": "Gdy brakuje słowa, opisz je innymi." }
+  ],
+  "cards": [
+    {
+      "id": "e8m-pokoj",
+      "topic": "Dom",
+      "kind": "opis",
+      "task": "Opisz swój pokój i powiedz, co chciałbyś w nim zmienić.",
+      "questions": [
+        "What is there in your room?",
+        "What do you like doing in your room?",
+        "What would you like to change in it? Why?"
+      ],
+      "usefulPhrases": ["There is / There are …", "next to / opposite / under", "I'd like to have …"],
+      "seconds": 60
+    },
+    {
+      "id": "e8m-sklep",
+      "topic": "Zakupy",
+      "kind": "sytuacja",
+      "task": "Kupiłeś bluzę, ale jest za mała. Wracasz do sklepu. Co mówisz sprzedawcy?",
+      "questions": [
+        "What's the problem with the hoodie?",
+        "Would you like a different size or your money back?"
+      ],
+      "usefulPhrases": ["I bought this … yesterday, but …", "Could I change it for …?", "Here's the receipt."],
+      "seconds": 60
+    },
+    {
+      "id": "e8m-wakacje",
+      "topic": "Podróże",
+      "kind": "opinia",
+      "task": "Wolisz wakacje nad morzem czy w górach? Powiedz dlaczego.",
+      "questions": [
+        "Where do you prefer to spend your holidays?",
+        "What can you do there?",
+        "Where would you like to go next summer?"
+      ],
+      "usefulPhrases": ["I prefer … because …", "It's more … than …", "Next summer I'm going to …"],
+      "seconds": 90
+    }
+  ]
+}

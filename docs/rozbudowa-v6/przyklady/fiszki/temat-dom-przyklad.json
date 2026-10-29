@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "id": "temat-dom",
+  "title": "Dom i mieszkanie",
+  "description": "Słowa i wyrażenia o domu, pokojach i obowiązkach domowych. Od A1 do B1.",
+  "level": "A1-B1",
+  "cards": [
+    { "id": "temat-dom-001", "type": "typed", "front": "sypialnia", "accepted": ["bedroom"], "back": "bedroom", "level": "A1", "tags": ["dom", "a1"] },
+    { "id": "temat-dom-002", "type": "typed", "front": "schody", "accepted": ["stairs"], "back": "stairs", "level": "A1", "tags": ["dom", "a1"], "note": "Zawsze w liczbie mnogiej: the stairs." },
+    { "id": "temat-dom-003", "type": "cloze", "text": "Can you {{turn off|switch off}} the light, please?", "hint": "wyłączyć światło", "level": "A1", "tags": ["dom", "a1"] },
+    { "id": "temat-dom-004", "type": "typed", "front": "piętro (np. drugie piętro)", "accepted": ["floor"], "back": "floor", "level": "A2", "tags": ["dom", "a2"], "note": "On the second floor. Storey – piętro jako część budynku w opisie (a three-storey house)." },
+    { "id": "temat-dom-005", "type": "cloze", "text": "It's your turn to {{do}} the washing-up tonight.", "hint": "zmywać naczynia", "level": "A2", "tags": ["dom", "a2", "kolokacje"] },
+    { "id": "temat-dom-006", "type": "typed", "front": "przeprowadzić się (do nowego mieszkania)", "accepted": ["move", "move house"], "back": "move (house)", "level": "A2", "tags": ["dom", "a2"] },
+    { "id": "temat-dom-007", "type": "typed", "front": "właściciel mieszkania (wynajmujący)", "accepted": ["landlord", "landlady"], "back": "landlord / landlady", "level": "B1", "tags": ["dom", "b1"] },
+    { "id": "temat-dom-008", "type": "cloze", "text": "The flat is small, but it's {{within walking distance}} of the station.", "hint": "w odległości spaceru od", "level": "B1", "tags": ["dom", "b1"] }
+  ]
+}

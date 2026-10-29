@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "id": "egz-e8",
+  "title": "Egzamin ósmoklasisty – wyrażenia",
+  "description": "Wyrażenia typowe dla zadań egzaminu ósmoklasisty: reakcje w rozmowie, przyimki, kolokacje. Oryginalne zdania, nie z arkuszy.",
+  "level": "A2",
+  "cards": [
+    { "id": "egz-e8-001", "type": "basic", "front": "Przepraszasz kolegę za spóźnienie.", "back": "Sorry I'm late.", "note": "Bez „for”: Sorry I'm late. Z „for”: Sorry for being late.", "tags": ["e8", "reakcje"] },
+    { "id": "egz-e8-002", "type": "basic", "front": "Ktoś dziękuje ci za pomoc. Co odpowiadasz?", "back": "You're welcome. / No problem.", "tags": ["e8", "reakcje"] },
+    { "id": "egz-e8-003", "type": "cloze", "text": "I'm really {{good at}} drawing, but I'm terrible at maths.", "hint": "dobry w czymś", "tags": ["e8", "matura", "przyimki"] },
+    { "id": "egz-e8-004", "type": "cloze", "text": "Are you {{interested in}} joining our school band?", "hint": "zainteresowany czymś", "tags": ["e8", "matura", "przyimki"] },
+    { "id": "egz-e8-005", "type": "typed", "front": "spędzać czas (z kimś)", "accepted": ["spend time", "spend time with"], "back": "spend time (with)", "tags": ["e8", "kolokacje"] },
+    { "id": "egz-e8-006", "type": "cloze", "text": "Let's {{take}} a photo in front of the castle!", "hint": "zrobić zdjęcie", "note": "Nie: make a photo.", "tags": ["e8", "matura", "kolokacje"] }
+  ]
+}

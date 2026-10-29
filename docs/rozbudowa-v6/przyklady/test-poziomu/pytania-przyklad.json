@@ -1,0 +1,79 @@
+{
+  "version": 1,
+  "questions": [
+    {
+      "id": "a1-v-01",
+      "level": "A1",
+      "skill": "vocabulary",
+      "type": "multiple-choice",
+      "question": "I usually ___ breakfast at 7 o'clock.",
+      "options": ["have", "make", "do", "take"],
+      "correct": 0,
+      "explanation": "Posiłki: have breakfast / lunch / dinner. „Robić śniadanie” w sensie przygotować to make breakfast, ale „jeść” to have.",
+      "itemId": "a1-slownictwo"
+    },
+    {
+      "id": "a1-r-01",
+      "level": "A1",
+      "skill": "reading",
+      "type": "multiple-choice",
+      "passage": "Hi! My name is Marta. I'm from Gdańsk, but now I live in Kraków with my sister. I'm a student. I don't have a car, so I go to university by bike. At the weekend I visit my parents.",
+      "question": "How does Marta get to university?",
+      "options": ["By car", "By bike", "On foot", "By bus"],
+      "correct": 1,
+      "explanation": "W tekście: „I go to university by bike”. Samochodu nie ma (I don't have a car).",
+      "itemId": null
+    },
+    {
+      "id": "b1-g-06",
+      "level": "B1",
+      "skill": "grammar",
+      "type": "multiple-choice",
+      "question": "By the time we got to the cinema, the film ___.",
+      "options": ["already started", "has already started", "had already started", "was already starting"],
+      "correct": 2,
+      "explanation": "Czynność wcześniejsza niż inna czynność w przeszłości: Past Perfect (had started).",
+      "itemId": "b1-czasy-past-perfect"
+    },
+    {
+      "id": "b1-r-01",
+      "level": "B1",
+      "skill": "reading",
+      "type": "multiple-choice",
+      "passage": "Hi Sam, the meeting has moved from Tuesday to Thursday because half the team is at a conference. Same room, same time. Could you tell Ola? She isn't on this mailing list. – Kasia",
+      "question": "Why is Kasia writing to Sam?",
+      "options": ["To cancel the meeting", "To ask Sam to pass on information", "To invite Sam to a conference", "To change the meeting room"],
+      "correct": 1,
+      "explanation": "Spotkanie nie jest odwołane, tylko przeniesione, a sala ta sama. Najważniejsza prośba: „Could you tell Ola?” – Sam ma przekazać wiadomość.",
+      "itemId": null
+    },
+    {
+      "id": "c1-v-01",
+      "level": "C1",
+      "skill": "vocabulary",
+      "type": "multiple-choice",
+      "question": "The new policy has ___ a lot of criticism from teachers.",
+      "options": ["drawn", "pulled", "made", "taken"],
+      "correct": 0,
+      "explanation": "Kolokacja: draw criticism (spotkać się z krytyką). Podobnie draw attention.",
+      "itemId": null
+    },
+    {
+      "id": "c1-r-01",
+      "level": "C1",
+      "skill": "reading",
+      "type": "multiple-choice",
+      "passage": "Few things divide a household like the thermostat. One camp insists that 19 degrees is perfectly comfortable with a jumper on; the other quietly turns the dial up whenever the first leaves the room. Researchers who studied office temperatures found that the standard settings were based on the metabolic rate of a forty-year-old man – which may explain why so many people reach for a cardigan in July.",
+      "question": "What does the writer suggest about office temperatures?",
+      "options": [
+        "They are usually set too high in summer.",
+        "They may not suit a large part of the people who work there.",
+        "They cause more arguments than temperatures at home.",
+        "They were designed after careful research on comfort."
+      ],
+      "correct": 1,
+      "explanation": "Ustawienia oparto na metabolizmie jednej grupy (40-letni mężczyzna), więc wiele osób marznie – nie pasują do dużej części pracowników.",
+      "itemId": null
+    }
+  ]
+}

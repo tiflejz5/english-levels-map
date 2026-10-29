@@ -1,0 +1,91 @@
+{
+  "exam": "matura-rozszerzona",
+  "taskId": "essay-phones",
+  "_uwaga": "Wzór pól do dopisania przy zadaniu essay-phones w niezbednik/matura-rozszerzona/trening/pisanie.json. Tekst `model` zostaje bez zmian; kotwice to dokładne fragmenty tego tekstu.",
+  "modelNotes": {
+    "summary": [
+      "Każdy z trzech elementów polecenia ma osobny akapit, a stanowisko pojawia się już we wstępie i wraca w zakończeniu.",
+      "Akapity zaczynają się od jasnych łączników (On the one hand / On the other hand / All things considered), więc tekst łatwo śledzić.",
+      "Każdy argument ma rozwinięcie: powód, skutek albo przykład z życia szkoły.",
+      "Rejestr jest neutralno-formalny: bez skrótów typu don't, bez zwrotów do czytelnika w stylu „you know”.",
+      "Zakres językowy podnoszą m.in. struktury less likely to, rather than i zdanie względne which is a skill."
+    ],
+    "annotations": [
+      {
+        "anchor": "the question of whether schools should ban them causes heated debate",
+        "type": "struktura",
+        "criterion": "spojnosc",
+        "note": "Wstęp wprowadza temat jako spór – to naturalne przejście do omówienia obu stron."
+      },
+      {
+        "anchor": "In my opinion, a complete ban is not the best solution",
+        "type": "punkty",
+        "criterion": "realizacja",
+        "element": 3,
+        "note": "Stanowisko już we wstępie: element 3 polecenia jest zrealizowany od początku, a zakończenie go potwierdza."
+      },
+      {
+        "anchor": "although there are good reasons to limit phone use",
+        "type": "zakres",
+        "criterion": "zakres",
+        "note": "Ustępstwo z although pokazuje, że autor widzi drugą stronę – i podnosi zakres struktur."
+      },
+      {
+        "anchor": "On the one hand, a ban would help students to concentrate",
+        "type": "punkty",
+        "criterion": "realizacja",
+        "element": 1,
+        "note": "Element 1 (korzyści zakazu) w zdaniu tematycznym akapitu. Egzaminator od razu widzi, co realizuje ten akapit."
+      },
+      {
+        "anchor": "pupils are less likely to check messages",
+        "type": "zakres",
+        "criterion": "zakres",
+        "note": "Be less likely to + bezokolicznik – precyzyjniej niż „won't check”, typowe dla tekstów formalnych."
+      },
+      {
+        "anchor": "Furthermore, a ban reduces the risk of cyberbullying",
+        "type": "lacznik",
+        "criterion": "spojnosc",
+        "note": "Furthermore dodaje drugi argument w tym samym akapicie. Zamiennie: Moreover, What is more."
+      },
+      {
+        "anchor": "On the other hand, phones are useful tools",
+        "type": "punkty",
+        "criterion": "realizacja",
+        "element": 2,
+        "note": "Element 2 (wady zakazu) – para z On the one hand porządkuje cały środek tekstu."
+      },
+      {
+        "anchor": "For instance, in case of a sudden change of timetable",
+        "type": "lacznik",
+        "criterion": "realizacja",
+        "note": "Przykład z życia szkoły rozwija argument. Bez rozwinięć realizacja elementu bywa oceniana jako powierzchowna."
+      },
+      {
+        "anchor": "All things considered, I believe that",
+        "type": "struktura",
+        "criterion": "spojnosc",
+        "note": "Formalne otwarcie zakończenia. Zakończenie powtarza stanowisko innymi słowami, nie kopiuje wstępu."
+      },
+      {
+        "anchor": "schools should introduce clear rules rather than an absolute ban",
+        "type": "rejestr",
+        "criterion": "zakres",
+        "note": "Should + bezokolicznik i rather than – rzeczowy ton rekomendacji, bez emocjonalnych słów typu „terrible”."
+      },
+      {
+        "anchor": "which is a skill they will need for the rest of their lives",
+        "type": "zakres",
+        "criterion": "zakres",
+        "note": "Zdanie względne odnoszące się do całej myśli (which = co) – zgrabne zamknięcie tekstu."
+      },
+      {
+        "anchor": "Students can use them to look up information",
+        "type": "uwaga",
+        "criterion": "zakres",
+        "note": "Do poprawy: trzy krótkie przykłady w jednym zdaniu brzmią jak lista. Mocniej: jeden przykład rozwinięty o skutek."
+      }
+    ]
+  }
+}

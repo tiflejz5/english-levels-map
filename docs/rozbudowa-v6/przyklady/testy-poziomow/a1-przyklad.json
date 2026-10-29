@@ -1,0 +1,164 @@
+{
+  "version": 1,
+  "id": "test-koncowy-a1",
+  "kind": "level-test",
+  "level": "A1",
+  "title": "Test końcowy A1",
+  "intro": "20 pytań z całego poziomu A1. Zaliczenie od 80%.",
+  "draw": 20,
+  "passPercent": 80,
+  "defaultMode": "exam",
+  "items": [
+    {
+      "id": "tk-a1-01",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "a1-czasy-present-simple",
+      "tags": [
+        "present-simple"
+      ],
+      "prompt": "My brother ___ in a shop in Poznań.",
+      "options": [
+        "work",
+        "works",
+        "is work",
+        "working"
+      ],
+      "correct": 1,
+      "explanation": "He/she/it w Present Simple: końcówka -s (works)."
+    },
+    {
+      "id": "tk-a1-02",
+      "type": "gap-fill",
+      "topic": "a1-gramatyka-there-is-there-are",
+      "tags": [
+        "there-is"
+      ],
+      "text": "{{1}} two windows in my room, but {{2}} no desk.",
+      "gaps": [
+        {
+          "accepted": [
+            "there are"
+          ]
+        },
+        {
+          "accepted": [
+            "there is",
+            "there's"
+          ]
+        }
+      ],
+      "explanation": "Liczba mnoga: there are. Liczba pojedyncza (a desk / no desk): there is."
+    },
+    {
+      "id": "tk-a1-03",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "a1-funkcje-zamawianie",
+      "tags": [
+        "ordering"
+      ],
+      "prompt": "A: What would you like?\nB: ___",
+      "options": [
+        "I'd like a cheese sandwich, please.",
+        "I like cheese sandwiches.",
+        "Yes, I would.",
+        "I'm a cheese sandwich."
+      ],
+      "correct": 0,
+      "explanation": "Zamawiamy: I'd like … please. „I like” to ogólne upodobanie, nie zamówienie."
+    },
+    {
+      "id": "tk-a1-04",
+      "type": "short-answer",
+      "topic": "a1-gramatyka-przyimki-miejsca-czasu",
+      "tags": [
+        "prepositions"
+      ],
+      "context": "Moje urodziny są w maju.",
+      "prompt": "My birthday is ___ May.",
+      "accepted": [
+        "in"
+      ],
+      "explanation": "Miesiące: in (in May). Dni: on (on Monday). Godziny: at (at 5)."
+    },
+    {
+      "id": "tk-a1-05",
+      "type": "match",
+      "topic": "a1-slownictwo",
+      "tags": [
+        "family"
+      ],
+      "mode": "translation",
+      "prompt": "Dopasuj słowa.",
+      "pairs": [
+        [
+          "aunt",
+          "ciocia"
+        ],
+        [
+          "grandson",
+          "wnuk"
+        ],
+        [
+          "cousin",
+          "kuzyn / kuzynka"
+        ],
+        [
+          "uncle",
+          "wujek"
+        ]
+      ],
+      "explanation": "Cousin nie zmienia formy – to i kuzyn, i kuzynka."
+    },
+    {
+      "id": "tk-a1-06",
+      "type": "reorder",
+      "topic": "a1-gramatyka-pytania-wh",
+      "tags": [
+        "questions"
+      ],
+      "context": "Gdzie mieszkają twoi rodzice?",
+      "answers": [
+        "Where do your parents live?"
+      ],
+      "explanation": "Pytanie Wh- w Present Simple: Where + do/does + podmiot + czasownik."
+    },
+    {
+      "id": "tk-a1-07",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "a1-czasy-present-continuous",
+      "tags": [
+        "present-continuous"
+      ],
+      "prompt": "Be quiet, please! The baby ___.",
+      "options": [
+        "sleeps",
+        "is sleeping",
+        "sleep",
+        "sleeping"
+      ],
+      "correct": 1,
+      "explanation": "Coś dzieje się teraz (Be quiet!): Present Continuous – is sleeping."
+    },
+    {
+      "id": "tk-a1-08",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "a1-gramatyka-can-cant",
+      "tags": [
+        "can"
+      ],
+      "prompt": "___ you swim?",
+      "options": [
+        "Can",
+        "Do",
+        "Are",
+        "Does"
+      ],
+      "correct": 0,
+      "explanation": "Umiejętność: Can you swim? Po can czasownik bez to i bez -s."
+    }
+  ]
+}

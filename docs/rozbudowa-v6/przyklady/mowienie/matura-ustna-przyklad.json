@@ -1,0 +1,105 @@
+{
+  "id": "trening-mowienie",
+  "version": 1,
+  "format": "matura",
+  "note": "Czasy orientacyjne. Aktualny przebieg i punktację sprawdź w informatorze CKE.",
+  "criteria": [
+    { "id": "komunikacja", "label": "Realizacja zadania", "hint": "Odnoszę się do wszystkich elementów i rozwijam odpowiedzi." },
+    { "id": "zakres", "label": "Zakres środków językowych", "hint": "Różne struktury i słownictwo, nie tylko podstawowe." },
+    { "id": "poprawnosc", "label": "Poprawność", "hint": "Mało błędów, które przeszkadzają w zrozumieniu." },
+    { "id": "wymowa", "label": "Wymowa i płynność", "hint": "Mówię wyraźnie, bez długich przerw." }
+  ],
+  "intro": {
+    "title": "Rozmowa wstępna",
+    "seconds": 120,
+    "groups": [
+      {
+        "id": "intro-czas-wolny",
+        "topic": "Życie prywatne",
+        "questions": [
+          "What do you usually do after school?",
+          "Tell me about something interesting you did last weekend.",
+          "Would you rather spend a free day at home or outdoors? Why?"
+        ]
+      }
+    ]
+  },
+  "roleplay": {
+    "title": "Zadanie 1 – rozmowa z odgrywaniem roli",
+    "prepSeconds": 30,
+    "seconds": 240,
+    "cards": [
+      {
+        "id": "rp-koncert",
+        "topic": "Kultura",
+        "situation": "Jesteś w Londynie na wymianie. Chcesz pójść ze znajomym z Anglii (egzaminator) na koncert. Rozmawiacie o planie.",
+        "elements": [
+          "rodzaj muzyki",
+          "cena biletów",
+          "dojazd na koncert",
+          "co zrobicie po koncercie"
+        ],
+        "examinerLines": [
+          "Hi! So, you said you wanted to go to a concert this weekend?",
+          "Hmm, I'm not a big fan of that kind of music. What else could we see?",
+          "Tickets in London can be really expensive. How much do you want to spend?",
+          "How are we going to get there? It finishes quite late.",
+          "And what about afterwards? Any ideas?"
+        ],
+        "usefulPhrases": [
+          "How about going to …?",
+          "I'd rather … than …",
+          "That sounds good, but …",
+          "We could always …"
+        ]
+      }
+    ]
+  },
+  "picture": {
+    "title": "Zadanie 2 – opis ilustracji i pytania",
+    "seconds": 180,
+    "cards": [
+      {
+        "id": "pic-kuchnia",
+        "topic": "Żywienie",
+        "description": "A family of four is cooking together in a small, bright kitchen. The father is cutting vegetables, the mother is reading a recipe on a tablet, and two teenagers are setting the table and laughing. There is a large pot on the cooker and a bowl of salad on the counter. Through the window you can see that it is raining.",
+        "questions": [
+          "Why do you think the family decided to cook together?",
+          "Tell me about a time when you cooked something for other people.",
+          "Do you think young people today know how to cook? Why?"
+        ],
+        "usefulPhrases": [
+          "In the picture I can see …",
+          "In the foreground / background …",
+          "It looks like …",
+          "I think they're feeling …"
+        ]
+      }
+    ]
+  },
+  "choice": {
+    "title": "Zadanie 3 – wybór i uzasadnienie",
+    "prepSeconds": 60,
+    "seconds": 240,
+    "cards": [
+      {
+        "id": "ch-wycieczka-klasowa",
+        "topic": "Podróżowanie i turystyka",
+        "situation": "Twoja klasa wybiera miejsce jednodniowej wycieczki na koniec roku szkolnego.",
+        "options": [
+          "A group of students hiking on a mountain trail with a guide.",
+          "Students in a science centre trying interactive experiments.",
+          "Teenagers kayaking on a quiet river on a sunny day."
+        ],
+        "criteria": [
+          "Wybierz miejsce, które będzie najlepsze dla całej klasy, i uzasadnij swój wybór.",
+          "Wyjaśnij, dlaczego odrzucasz pozostałe propozycje."
+        ],
+        "questions": [
+          "Why is it important for classmates to spend time together outside school?",
+          "Tell me about the most memorable school trip you have been on."
+        ]
+      }
+    ]
+  }
+}

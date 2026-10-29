@@ -1,0 +1,150 @@
+{
+  "version": 1,
+  "id": "v6-pilot-nowe-typy",
+  "topic": null,
+  "level": "B1",
+  "title": "Nowe typy zadań – wzór",
+  "intro": "Wzór formatu: po dwa zadania każdego nowego typu. Plik testowy, nie wpinaj go do mapy tematów.",
+  "passage": null,
+  "items": [
+    {
+      "id": "v6-pilot-01",
+      "type": "gap-fill",
+      "topic": "a2-czasy-past-continuous",
+      "level": "A2",
+      "tags": ["past-continuous", "past-simple"],
+      "context": "Wczoraj wieczorem czytałem, kiedy zgasło światło.",
+      "text": "I {{1}} (read) when the lights {{2}} (go) out.",
+      "gaps": [
+        { "accepted": ["was reading"] },
+        { "accepted": ["went"] }
+      ],
+      "explanation": "Dłuższa czynność w tle: Past Continuous (was reading). Krótka, która ją przerwała: Past Simple (went)."
+    },
+    {
+      "id": "v6-pilot-02",
+      "type": "gap-fill",
+      "topic": "b1-gramatyka-strona-bierna",
+      "level": "B1",
+      "tags": ["passive"],
+      "text": "This bridge {{1}} (build) in 1890 and it {{2}} (repair) three times since then.",
+      "gaps": [
+        { "accepted": ["was built"] },
+        { "accepted": ["has been repaired"], "hint": "3 słowa" }
+      ],
+      "trap": "Since then wymaga Present Perfect – także w stronie biernej: has been + 3. forma.",
+      "explanation": "Data w przeszłości → was built. Od tamtej pory do dziś → has been repaired."
+    },
+    {
+      "id": "v6-pilot-03",
+      "type": "match",
+      "topic": "b1-slownictwo",
+      "level": "B1",
+      "tags": ["character", "adjectives"],
+      "mode": "definition",
+      "prompt": "Dopasuj przymiotnik do opisu.",
+      "pairs": [
+        ["reliable", "you can trust them to do what they promise"],
+        ["generous", "happy to give money, time or help"],
+        ["stubborn", "refuses to change their opinion"],
+        ["punctual", "arrives exactly on time"]
+      ],
+      "extraRight": ["easily upset by criticism"],
+      "explanation": "Przymiotniki charakteru przydają się w opisach osób na maturze i w B2 First. „Easily upset by criticism” to sensitive – nie ma go na liście."
+    },
+    {
+      "id": "v6-pilot-04",
+      "type": "match",
+      "topic": "b1-gramatyka-conditionals-0-1-2",
+      "level": "B1",
+      "tags": ["conditionals"],
+      "mode": "halves",
+      "prompt": "Połącz początki zdań z zakończeniami.",
+      "pairs": [
+        ["If you heat ice,", "it melts."],
+        ["If it rains tomorrow,", "we'll stay at home."],
+        ["If I won the lottery,", "I would travel around the world."]
+      ],
+      "explanation": "Zero conditional – fakt zawsze prawdziwy; first – realna przyszłość (will); second – hipoteza (would)."
+    },
+    {
+      "id": "v6-pilot-05",
+      "type": "transformation",
+      "topic": "b1-czasy-present-perfect-vs-past-simple",
+      "level": "B1",
+      "tags": ["present-perfect", "past-simple"],
+      "source": "I haven't seen Tom for three years.",
+      "keyword": "SAW",
+      "before": "The last time",
+      "after": "three years ago.",
+      "answers": ["I saw Tom was", "that I saw Tom was"],
+      "wordLimit": [2, 5],
+      "explanation": "Present Perfect z for ↔ The last time + Past Simple + was … ago."
+    },
+    {
+      "id": "v6-pilot-06",
+      "type": "transformation",
+      "topic": "b1-gramatyka-strona-bierna",
+      "level": "B2",
+      "tags": ["passive"],
+      "source": "People say that the castle is haunted.",
+      "keyword": "SAID",
+      "before": "The castle",
+      "after": "haunted.",
+      "answers": ["is said to be"],
+      "parts": [["is said"], ["to be"]],
+      "wordLimit": [2, 5],
+      "explanation": "Konstrukcja bierna z czasownikami opinii: podmiot + is said + to + bezokolicznik."
+    },
+    {
+      "id": "v6-pilot-07",
+      "type": "translate",
+      "topic": "b1-gramatyka-conditionals-0-1-2",
+      "level": "B1",
+      "tags": ["second-conditional"],
+      "source": "Gdybym miał więcej czasu, nauczyłbym się grać na gitarze.",
+      "accepted": [
+        "If I had more time, I would learn to play the guitar.",
+        "If I had more time, I would learn how to play the guitar.",
+        "I would learn to play the guitar if I had more time."
+      ],
+      "hint": "second conditional",
+      "explanation": "Hipoteza o teraźniejszości: If + Past Simple, would + bezokolicznik. Skrót I'd też jest poprawny."
+    },
+    {
+      "id": "v6-pilot-08",
+      "type": "translate",
+      "topic": "a2-czasy-present-perfect-doswiadczenia",
+      "level": "A2",
+      "tags": ["present-perfect"],
+      "source": "Czy byłeś kiedyś w Londynie?",
+      "accepted": [
+        "Have you ever been to London?",
+        "Have you ever been in London?"
+      ],
+      "explanation": "Doświadczenie bez podanego czasu: Present Perfect z ever. Been to = byłem gdzieś i wróciłem."
+    },
+    {
+      "id": "v6-pilot-09",
+      "type": "dictation",
+      "topic": "b1-czasy-wybor-formy-przyszlej",
+      "level": "B1",
+      "tags": ["going-to", "listening"],
+      "text": "We were going to leave early, but it started raining.",
+      "accepted": ["We were going to leave early but it started raining."],
+      "maxPlays": 3,
+      "explanation": "Was/were going to – plan z przeszłości, który się nie udał."
+    },
+    {
+      "id": "v6-pilot-10",
+      "type": "dictation",
+      "topic": "a2-czasy-present-perfect-doswiadczenia",
+      "level": "A2",
+      "tags": ["present-perfect", "listening"],
+      "text": "I've never eaten anything so spicy in my life.",
+      "accepted": ["I have never eaten anything so spicy in my life."],
+      "maxPlays": 3,
+      "explanation": "Skrót I've słychać jako jedną sylabę – to have, więc po nim 3. forma: eaten."
+    }
+  ]
+}
