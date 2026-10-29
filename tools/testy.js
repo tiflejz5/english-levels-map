@@ -284,6 +284,55 @@ test("reorder: wskazanie pierwszej różnicy", function () {
   const it = { type: "reorder", answers: ["I didn't go to school yesterday."] };
   assert.strictEqual(X.firstDifference(it, ["i", "didn't", "to", "go", "school", "yesterday"]), 2);
 });
+/** Odpowiedź do zadania starego typu: poprawna albo błędna (do testu regresji punktów). */
+function oldTypeAnswer(it, ok) {
+  if (it.type === "multiple-choice") return { chosen: ok ? it.correct : (it.correct + 1) % it.options.length };
+  if (it.type === "reorder") return { words: ok ? X.answerTokens(it.answers[0]) : X.answerTokens(it.answers[0]).reverse() };
+  if (it.type === "find-error") return ok ? (it.noError ? { noError: true } : { range: it.errorRange.slice(), fix: it.fixes[0] }) : (it.noError ? { range: [0, 0], fix: "x" } : { noError: true });
+  return { text: ok ? it.accepted[0] : "zzz" };
+}
+test("punkty: wynik każdego zestawu ze starych typów taki sam jak liczba poprawnych zadań", function () {
+  const OLD = ["multiple-choice", "reorder", "find-error", "short-answer"];
+  // Zestawy tematów i zestawy egzaminów z rejestru (niezbednik/<egzamin>/cwiczenia/*.json w formacie silnika)
+  const NZ = path.join(__dirname, "..", "niezbednik");
+  const examSets = [];
+  fs.readdirSync(NZ).forEach(function (d) {
+    const dir = path.join(NZ, d, "cwiczenia");
+    if (!fs.existsSync(dir) || !fs.statSync(dir).isDirectory()) return;
+    fs.readdirSync(dir).filter(function (f) { return /\.json$/.test(f); }).forEach(function (f) {
+      const s = JSON.parse(fs.readFileSync(path.join(dir, f), "utf8").replace(/^﻿/, ""));
+      if (Array.isArray(s.items) && s.items.length && s.items[0].type) examSets.push(s);
+    });
+  });
+  const sets = exBank.concat(examSets).filter(function (s) { return s.items.every(function (it) { return OLD.indexOf(it.type) !== -1; }); });
+  assert.ok(sets.length >= 25, "za mało zestawów: " + sets.length);
+  sets.forEach(function (s) {
+    for (let seed = 1; seed <= 12; seed++) {
+      const rng = seeded(seed);
+      const results = s.items.map(function (it) {
+        const ok = seed === 1 ? true : seed === 2 ? false : rng() < 0.5;
+        return { item: it, res: X.evaluate(it, oldTypeAnswer(it, ok)) };
+      });
+      // Dotychczasowy wynik: liczba poprawnych zadań / liczba zadań
+      const before = { score: results.filter(function (r) { return r.res.correct; }).length, total: s.items.length };
+      assert.deepStrictEqual(X.sessionScore(results), before, s.id + " (seed " + seed + ")");
+      results.forEach(function (r) {
+        assert.strictEqual(X.maxPoints(r.item), 1);
+        assert.strictEqual(r.res.max, 1);
+        assert.strictEqual(r.res.points, r.res.correct ? 1 : 0, r.item.id);
+      });
+    }
+  });
+});
+test("punkty: sessionScore sumuje punkty i maksima, pomija zadania z max = 0", function () {
+  const r = X.sessionScore([
+    { item: { type: "short-answer" }, res: { correct: true, points: 1, max: 1 } },
+    { item: { type: "x" }, res: { correct: false, points: 1, max: 2 } },
+    { item: { type: "x" }, res: { correct: false, points: 0, max: 0, skipped: true } },
+    { item: { type: "multiple-choice" }, res: null }
+  ]);
+  assert.deepStrictEqual(r, { score: 2, total: 4 });
+});
 test("pickMix: równo po tematach, bez powtórek, limit, filtr typów, ≤ 2 tego samego typu pod rząd", function () {
   for (let s = 1; s < 30; s++) {
     const m = X.pickMix(allItems, { count: 15 }, seeded(s));

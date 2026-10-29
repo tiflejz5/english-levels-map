@@ -7,7 +7,9 @@
  *   shuffle(list, rng)                tasowanie Fishera–Yatesa (kopia listy)
  *   prepareChoice(item, rng)          opcje multiple-choice w losowej kolejności
  *   reorderTokens(item, rng)          wyrazy do ułożenia (nigdy w poprawnej kolejności)
- *   evaluate(item, answer)            { correct, … } dla każdego typu zadania
+ *   evaluate(item, answer)            { correct, points, max, … } dla każdego typu zadania
+ *   maxPoints(item)                   maksimum punktów za zadanie (stare typy: 1)
+ *   sessionScore(results)             wynik sesji w punktach { score, total }
  *   pickMix(pool, opts, rng)          losowanie zestawu mieszanego
  */
 window.ELM = window.ELM || {};
@@ -110,7 +112,31 @@ window.ELM = window.ELM || {};
    *   short-answer:    { text: "…" }
    */
   function evaluate(item, answer) {
-    answer = answer || {};
+    const res = evaluateType(item, answer || {});
+    // Punkty (spec v6 12, sekcja 1): typy jednopunktowe — 1 za poprawne zadanie
+    if (res.max === undefined) { res.max = maxPoints(item); res.points = res.correct ? res.max : 0; }
+    return res;
+  }
+
+  /** Maksimum punktów za zadanie; stare typy — 1. */
+  function maxPoints(item) {
+    return 1;
+  }
+
+  /**
+   * Wynik sesji w punktach: results = [{ item, res }] (res = null → zadanie bez odpowiedzi, 0 z maxPoints).
+   * Zadanie z res.max = 0 (np. dyktando pominięte bez głosu) nie liczy się do wyniku.
+   */
+  function sessionScore(results) {
+    let score = 0, total = 0;
+    results.forEach(function (r) {
+      if (r.res) { score += r.res.points || 0; total += r.res.max; }
+      else total += maxPoints(r.item);
+    });
+    return { score: score, total: total };
+  }
+
+  function evaluateType(item, answer) {
     if (item.type === "multiple-choice") {
       return { correct: answer.chosen === item.correct, answered: Number.isInteger(answer.chosen) };
     }
@@ -212,6 +238,8 @@ window.ELM = window.ELM || {};
     reorderTokens: reorderTokens,
     firstDifference: firstDifference,
     evaluate: evaluate,
+    maxPoints: maxPoints,
+    sessionScore: sessionScore,
     pickMix: pickMix,
     weightedOrder: weightedOrder,
     limitRuns: limitRuns

@@ -219,7 +219,9 @@ window.ELM = window.ELM || {};
       itemId: p.item.id, setId: p.item.setId || null, topic: p.item.topic, level: p.item.level,
       // Słuchanie przeczytane z transkryptu (brak głosu) — oznaczone, poza statystykami słuchania
       type: p.item.type, tags: p.st.readMode ? (p.item.tags || []).concat("czytane") : p.item.tags,
-      correct: !!p.res.correct, mode: attemptMode(), answer: userAnswer(p)
+      correct: !!p.res.correct, mode: attemptMode(), answer: userAnswer(p),
+      // Zadania za kilka punktów: dodatkowo punkty (pola opcjonalne; statystyki liczą po correct)
+      points: p.res.max > 1 ? p.res.points : undefined, max: p.res.max > 1 ? p.res.max : undefined
     });
   }
 
@@ -309,9 +311,11 @@ window.ELM = window.ELM || {};
     run.phase = "done";
     // Egzamin: błędy trafiają do dziennika dopiero po zakończeniu sesji
     if (run.mode === "exam") run.items.forEach(function (p) { if (p.res && !p.res.correct) toJournal(p, false); });
-    const score = run.items.filter(function (p) { return p.res && p.res.correct; }).length;
-    run.score = score;
-    if (!run.retry && run.saveId) run.saved = pd().saveSetScore(run.saveId, score, run.items.length);
+    // Wynik w punktach (zadanie może dawać kilka punktów); zestaw ze starych typów: punkt = poprawne zadanie
+    const s = X().sessionScore(run.items);
+    run.score = s.score;
+    run.total = s.total;
+    if (!run.retry && run.saveId) run.saved = pd().saveSetScore(run.saveId, s.score, s.total);
     run.suggest = umiemSuggestion();
     if (run.isMix) pd().setLastMix(run.items.map(function (p) { return p.item.id; }));
     ELM.markActivity(); // ukończona sesja = dzień nauki
@@ -861,8 +865,8 @@ window.ELM = window.ELM || {};
   ];
 
   function renderDone(view) {
-    const total = run.items.length;
-    const pct = Math.round(run.score / total * 100);
+    const total = run.total;
+    const pct = total ? Math.round(run.score / total * 100) : 0;
     let comment = COMMENTS.find(function (c) { return pct >= c[0]; })[1];
     if (run.isMix && pct < 50) comment = "Dobry początek. Zajrzyj do tematu oznaczonego „do powtórki”, a potem powtórz błędne zadania.";
     const wrong = run.items.filter(function (p) { return !(p.res && p.res.correct); });
@@ -880,7 +884,7 @@ window.ELM = window.ELM || {};
     const saved = run.saved;
     view.appendChild(el("section", { class: "card ex-result", "aria-live": "polite" }, [
       el("p", { class: "ex-result-score" }, [
-        el("strong", { class: "num", text: run.score + "/" + total }),
+        el("strong", { class: "num", text: run.score + "/" + total + " pkt" }),
         el("span", { class: "ex-result-pct num", text: pct + "%" })
       ]),
       el("p", { class: "ex-result-comment", text: comment }),

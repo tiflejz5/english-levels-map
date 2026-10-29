@@ -314,7 +314,7 @@ window.ELM = window.ELM || {};
   /** Podejście (dziennik podejść) albo null przy złym formacie. */
   function normalizeAttempt(raw) {
     if (!U.isPlainObject(raw) || !EX_ID.test(raw.itemId || "") || !learn().isDay(raw.day)) return null;
-    return {
+    const out = {
       t: typeof raw.t === "string" && !isNaN(Date.parse(raw.t)) ? raw.t : raw.day + "T12:00:00.000Z",
       day: raw.day,
       itemId: raw.itemId,
@@ -327,6 +327,12 @@ window.ELM = window.ELM || {};
       mode: ATTEMPT_MODES.indexOf(raw.mode) !== -1 ? raw.mode : "learn",
       answer: text(raw.answer, 200)
     };
+    // Opcjonalnie (zadania za kilka punktów, paczka v6): points ≤ max ≤ 20
+    if (Number.isInteger(raw.max) && raw.max > 0 && raw.max <= 20 && Number.isInteger(raw.points) && raw.points >= 0 && raw.points <= raw.max) {
+      out.points = raw.points;
+      out.max = raw.max;
+    }
+    return out;
   }
 
   /** Wynik zestawu { score, total, date } albo null. */
