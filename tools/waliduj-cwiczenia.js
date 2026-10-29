@@ -186,12 +186,14 @@ function checkV6Item(it, at) {
 const SETS_DIR = path.join(ROOT, "cwiczenia", "tematy");
 const setFiles = fs.existsSync(SETS_DIR) ? fs.readdirSync(SETS_DIR).filter(function (f) { return /\.json$/.test(f); }).sort() : [];
 const setIds = new Set();
+const usedTypes = {};
 setFiles.forEach(function (f) {
   const rel = "cwiczenia/tematy/" + f;
   const set = readJson(rel);
   if (!set) return;
   const id = f.replace(/\.json$/, "");
   setIds.add(id);
+  (set.items || []).forEach(function (it) { if (it && it.type) usedTypes[it.type] = (usedTypes[it.type] || 0) + 1; });
   if (set.id !== id) err(rel + ": id zestawu (" + set.id + ") ≠ nazwa pliku");
   if (set.version !== 1) err(rel + ": version musi być 1");
   if (set.topic != null && !topics.has(set.topic)) err(rel + ": topic " + set.topic + " nie istnieje w niezbednik/index.json");
@@ -199,6 +201,11 @@ setFiles.forEach(function (f) {
   if (!nonEmpty(set.title)) err(rel + ": brak title");
   if (!Array.isArray(set.items) || !set.items.length) { err(rel + ": brak items"); return; }
   set.items.forEach(function (it) { checkItem(Object.assign({ topic: set.topic, level: set.level }, it), f, set); });
+});
+
+// Każdy typ z paczki v6 jest użyty w co najmniej jednym zestawie (jak validate_v6.py --only zadania)
+if (setFiles.length) ["gap-fill", "match", "transformation", "translate", "dictation"].forEach(function (t) {
+  if (!usedTypes[t]) err("zadania: żaden zestaw w cwiczenia/tematy/ nie używa typu " + t);
 });
 
 // ---------- Mapa temat → zestawy ----------

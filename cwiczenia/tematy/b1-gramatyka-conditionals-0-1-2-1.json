@@ -1,0 +1,226 @@
+{
+  "version": 1,
+  "id": "b1-gramatyka-conditionals-0-1-2-1",
+  "topic": "b1-gramatyka-conditionals-0-1-2",
+  "level": "B1",
+  "title": "Zero, First i Second Conditional – sprawdź się",
+  "intro": "10 zadań: tłumaczenie całych zdań, dopasowanie połówek, luki, wybór formy i szukanie błędu. Skróty (I'd, won't) i przecinki nie mają znaczenia.",
+  "passage": null,
+  "items": [
+    {
+      "id": "b1-gramatyka-conditionals-0-1-2-1-01",
+      "type": "translate",
+      "tags": [
+        "second-conditional"
+      ],
+      "source": "Gdybym miał więcej czasu, nauczyłbym się grać na gitarze.",
+      "accepted": [
+        "If I had more time, I would learn to play the guitar.",
+        "If I had more time, I would learn how to play the guitar.",
+        "I would learn to play the guitar if I had more time.",
+        "I would learn how to play the guitar if I had more time.",
+        "If I had more time, I would learn to play guitar.",
+        "I would learn to play guitar if I had more time.",
+        "If I had more time, I would learn how to play guitar.",
+        "I would learn how to play guitar if I had more time."
+      ],
+      "hint": "second conditional",
+      "explanation": "Hipoteza o teraźniejszości: If + Past Simple, would + bezokolicznik. Skrót I'd też jest poprawny."
+    },
+    {
+      "id": "b1-gramatyka-conditionals-0-1-2-1-02",
+      "type": "translate",
+      "tags": [
+        "first-conditional"
+      ],
+      "source": "Jeśli jutro będzie padać, zostaniemy w domu.",
+      "accepted": [
+        "If it rains tomorrow, we will stay at home.",
+        "If it rains tomorrow, we will stay home.",
+        "We will stay at home if it rains tomorrow.",
+        "We will stay home if it rains tomorrow.",
+        "If it is raining tomorrow, we will stay at home.",
+        "If it is raining tomorrow, we will stay home."
+      ],
+      "hint": "first conditional – po if bez will",
+      "trap": "Po if nie stawiamy will, choć po polsku mówimy „będzie padać”: If it rains, nie „If it will rain”.",
+      "explanation": "Realna przyszłość: If + Present Simple, will + bezokolicznik."
+    },
+    {
+      "id": "b1-gramatyka-conditionals-0-1-2-1-03",
+      "type": "translate",
+      "tags": [
+        "second-conditional",
+        "advice"
+      ],
+      "source": "Na twoim miejscu przeprosiłbym ją.",
+      "accepted": [
+        "If I were you, I would apologise to her.",
+        "If I were you, I would apologize to her.",
+        "If I was you, I would apologise to her.",
+        "I would apologise to her if I were you.",
+        "If I were you, I would say sorry to her.",
+        "If I was you, I would say sorry to her.",
+        "I would say sorry to her if I were you.",
+        "I would apologise to her if I was you."
+      ],
+      "hint": "If I were you…",
+      "explanation": "Rada w formie second conditional: If I were you, I would… (was też się spotyka, were jest staranniejsze)."
+    },
+    {
+      "id": "b1-gramatyka-conditionals-0-1-2-1-04",
+      "type": "translate",
+      "tags": [
+        "zero-conditional"
+      ],
+      "source": "Kiedy podgrzewasz lód, on się topi.",
+      "accepted": [
+        "If you heat ice, it melts.",
+        "When you heat ice, it melts.",
+        "Ice melts if you heat it.",
+        "Ice melts when you heat it.",
+        "If ice is heated, it melts.",
+        "When ice is heated, it melts."
+      ],
+      "explanation": "Fakt, który jest zawsze prawdziwy: zero conditional, czyli Present Simple w obu częściach."
+    },
+    {
+      "id": "b1-gramatyka-conditionals-0-1-2-1-05",
+      "type": "translate",
+      "tags": [
+        "first-conditional",
+        "unless"
+      ],
+      "source": "Nie zdasz egzaminu, jeśli nie będziesz się uczyć.",
+      "accepted": [
+        "You won't pass the exam if you don't study.",
+        "You won't pass the exam unless you study.",
+        "If you don't study, you won't pass the exam.",
+        "Unless you study, you won't pass the exam.",
+        "You won't pass your exam if you don't study.",
+        "You won't pass your exam unless you study.",
+        "If you don't study, you won't pass your exam.",
+        "Unless you study, you won't pass your exam."
+      ],
+      "hint": "if … don't albo unless",
+      "trap": "Unless zawiera już przeczenie: unless you study, nie „unless you don't study”.",
+      "explanation": "First conditional z przeczeniem: if you don't study = unless you study; w części głównej won't."
+    },
+    {
+      "id": "b1-gramatyka-conditionals-0-1-2-1-06",
+      "type": "translate",
+      "tags": [
+        "second-conditional",
+        "questions"
+      ],
+      "source": "Co byś zrobił, gdybyś wygrał milion euro?",
+      "accepted": [
+        "What would you do if you won a million euros?",
+        "What would you do if you won a million euro?",
+        "What would you do if you won one million euros?",
+        "If you won a million euros, what would you do?",
+        "If you won a million euro, what would you do?",
+        "If you won one million euros, what would you do?"
+      ],
+      "explanation": "Pytanie o hipotezę: What would you do if you + Past Simple?"
+    },
+    {
+      "id": "b1-gramatyka-conditionals-0-1-2-1-07",
+      "type": "match",
+      "tags": [
+        "conditionals"
+      ],
+      "mode": "halves",
+      "prompt": "Połącz początki zdań z zakończeniami.",
+      "pairs": [
+        [
+          "If you heat ice,",
+          "it melts."
+        ],
+        [
+          "If it rains tomorrow,",
+          "we'll stay at home."
+        ],
+        [
+          "If I won the lottery,",
+          "I would travel around the world."
+        ]
+      ],
+      "explanation": "Zero conditional – fakt zawsze prawdziwy; first – realna przyszłość (will); second – hipoteza (would)."
+    },
+    {
+      "id": "b1-gramatyka-conditionals-0-1-2-1-08",
+      "type": "gap-fill",
+      "tags": [
+        "zero-conditional"
+      ],
+      "text": "If you {{1}} (mix) red and blue, you {{2}} (get) purple.",
+      "gaps": [
+        {
+          "accepted": [
+            "mix"
+          ]
+        },
+        {
+          "accepted": [
+            "get",
+            "will get",
+            "'ll get"
+          ]
+        }
+      ],
+      "explanation": "Stała zależność (jak na lekcji plastyki): zero conditional, czyli Present Simple w obu częściach. Will get też jest poprawne."
+    },
+    {
+      "id": "b1-gramatyka-conditionals-0-1-2-1-09",
+      "type": "multiple-choice",
+      "kind": "form",
+      "tags": [
+        "unless",
+        "first-conditional"
+      ],
+      "prompt": "We'll miss the bus ___ we leave right now.",
+      "options": [
+        "unless",
+        "if",
+        "because",
+        "so"
+      ],
+      "correct": 0,
+      "optionNotes": [
+        null,
+        "If daje zdanie bez sensu: spóźnimy się, jeśli wyjdziemy teraz.",
+        "Because podaje przyczynę, a tu potrzebny warunek.",
+        "So wprowadza skutek, a nie warunek."
+      ],
+      "explanation": "Unless = if … not: spóźnimy się, jeśli nie wyjdziemy teraz."
+    },
+    {
+      "id": "b1-gramatyka-conditionals-0-1-2-1-10",
+      "type": "find-error",
+      "tags": [
+        "first-conditional"
+      ],
+      "tokens": [
+        "If",
+        "it",
+        "will",
+        "rain",
+        "on",
+        "Sunday,",
+        "we'll",
+        "cancel",
+        "the",
+        "trip."
+      ],
+      "errorRange": [
+        2,
+        3
+      ],
+      "fixes": [
+        "rains"
+      ],
+      "explanation": "Po if w first conditional stoi Present Simple: If it rains on Sunday, we'll cancel the trip."
+    }
+  ]
+}
