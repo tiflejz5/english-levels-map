@@ -4,6 +4,7 @@
  * Kamienie milowe (id):
  *   first-umiem, total-10/25/50/100      — liczba „Umiem” w sumie
  *   lvl-a1-25 … lvl-c2-100               — postęp poziomu 25/50/75/100% (wszystkie kategorie)
+ *   lvl-a1-passed … lvl-c2-passed        — zaliczony test końcowy poziomu (js/level-final.js, stan z elm_leveltests_v1)
  *   streak-3/7/14/30                     — seria dni nauki
  *   first-review                         — pierwsza ukończona sesja powtórek (zdarzenie)
  *   level-test                           — ukończony test poziomu (zdarzenie)
@@ -49,6 +50,11 @@ window.ELM = window.ELM || {};
       const text = { 10: "Pierwsza dziesiątka za Tobą.", 25: "Ćwierć setki opanowanych punktów.", 50: "Pół setki. Widać, że to działa.", 100: "Setka. To już spory kawał mapy." }[n];
       return { title: n + " punktów „Umiem”", text: text, icon: "sparkles" };
     }
+    if (/^lvl-..-passed$/.test(id)) {
+      const lvl = id.slice(4, 6).toUpperCase();
+      const r = pd().finalResult(lvl);
+      return { title: lvl + " zaliczony", text: "Test końcowy zaliczony" + (r ? " (" + r.best.score + "/" + r.best.total + " pkt)" : "") + ". Znaczek czeka na Szlaku.", icon: "award", level: lvl };
+    }
     if (/^lvl-/.test(id)) {
       const lvl = id.slice(4, 6).toUpperCase(), step = Number(id.slice(7));
       const name = levelName(lvl);
@@ -86,6 +92,8 @@ window.ELM = window.ELM || {};
     });
     const streak = ELM.learn.streak(pd().activityDays(), ELM.learn.today()).current;
     STREAKS.forEach(function (n) { if (streak >= n) ids.push("streak-" + n); });
+    // Zaliczone testy końcowe poziomów (paczka v6): lvl-<poziom>-passed
+    Object.keys(pd().passedLevels()).forEach(function (lvl) { ids.push("lvl-" + lvl.toLowerCase() + "-passed"); });
     return ids;
   }
 
@@ -118,10 +126,10 @@ window.ELM = window.ELM || {};
   function pickImportant(items) {
     const byKind = {};
     items.forEach(function (x) {
-      const kind = x.id.replace(/-\d+$/, "").replace(/^lvl-..$/, "lvl").replace(/^first-umiem$/, "total");
+      const kind = /^lvl-..-passed$/.test(x.id) ? "passed" : x.id.replace(/-\d+$/, "").replace(/^lvl-..$/, "lvl").replace(/^first-umiem$/, "total");
       byKind[kind] = x; // późniejszy = wyższy próg (kolejność z fromState)
     });
-    const order = ["level-test", "first-review", "lvl", "total", "streak"];
+    const order = ["passed", "level-test", "first-review", "lvl", "total", "streak"];
     return Object.keys(byKind).sort(function (a, b) {
       return order.indexOf(a.replace(/^lvl-.*/, "lvl")) - order.indexOf(b.replace(/^lvl-.*/, "lvl"));
     }).map(function (k) { return byKind[k]; }).slice(0, 2);

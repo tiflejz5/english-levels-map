@@ -321,7 +321,7 @@ window.ELM = window.ELM || {};
     const wrap = el("section", { class: "card bento-tile bento-trail", "aria-labelledby": "trail-title" }, [
       el("div", { class: "trail-head" }, [
         el("h2", { class: "tile-title", id: "trail-title", text: "Szlak A1 → C2" }),
-        el("p", { class: "tool-note", text: "Procent punktów „Umiem” we wszystkich kategoriach poziomu." })
+        el("p", { class: "tool-note", text: "Procent punktów „Umiem” we wszystkich kategoriach poziomu. Pieczątka oznacza zaliczony test końcowy poziomu." })
       ])
     ]);
     const stage = el("div", { class: "trail-stage" });
@@ -375,18 +375,23 @@ window.ELM = window.ELM || {};
       const pt = g.pts[i];
       const name = levelName(s.id);
       const here = i === cur;
+      const passed = ELM.levelFinal ? ELM.levelFinal.passedText(s.id) : null; // „A1 zaliczony 12.11.2026” (test końcowy)
       list.appendChild(el("li", {
         class: "trail-station lvl-" + s.id + (here ? " is-current" : "") + (s.percent >= 100 ? " is-done" : ""),
         style: vertical ? "left:" + pt[0] + "px;top:" + pt[1] + "px" : "left:" + (pt[0] / g.w * 100) + "%;top:" + (pt[1] / g.h * 100) + "%"
       }, el("a", {
         class: "trail-link",
         href: ELM.app.levelHash(s.id),
-        "aria-label": "Poziom " + s.id + (name ? ", " + name : "") + ": " + s.percent + "% punktów „Umiem”" + (here ? " – tu jesteś" : "")
+        "aria-label": "Poziom " + s.id + (name ? ", " + name : "") + ": " + s.percent + "% punktów „Umiem”" + (here ? " – tu jesteś" : "") + (passed ? ". " + passed : "")
       }, [
-        ELM.ui.progressRing(s.percent, { size: 56, stroke: 5, text: s.id }),
+        el("span", { class: "trail-ring" }, [
+          ELM.ui.progressRing(s.percent, { size: 56, stroke: 5, text: s.id }),
+          passed ? ELM.levelFinal.stamp(s.id, { hideText: true, size: 14 }) : null // pieczątka: ikona nagrody, nie tylko kolor
+        ]),
         el("span", { class: "trail-label", "aria-hidden": "true" }, [
           el("span", { class: "trail-name", text: name || s.id }),
           el("span", { class: "trail-pct num", text: s.percent + "%" }),
+          passed ? el("span", { class: "trail-passed", text: "Zaliczony " + ELM.levelFinal.fmtDate(ELM.levelFinal.passedAt(s.id)) }) : null,
           here ? el("span", { class: "trail-here", text: "Tu jesteś" }) : null
         ])
       ])));
@@ -424,6 +429,7 @@ window.ELM = window.ELM || {};
       heroTile(stats, streak, due),
       reviewsTile(due),
       testTip(),
+      ELM.levelFinal ? ELM.levelFinal.todayTip(stats) : null, // „Gotowy na test końcowy A1?” przy ≥ 70% „Umiem”
       trail,
       streakTile(),
       exam,

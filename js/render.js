@@ -142,17 +142,19 @@ window.ELM = window.ELM || {};
         const fill = el("div", { class: "progress-fill", style: "transform:scaleX(" + s.percent / 100 + ")" });
         const count = el("span", { class: "sb-label-sub num" });
         const title = el("span", { class: "sb-label-title" });
+        // Kółko poziomu w opakowaniu: na nim ląduje znaczek zaliczonego testu końcowego (paczka v6)
+        const ringWrap = el("span", { class: "sb-ring-wrap" }, ring);
         const a = sbItem({
           href: app().levelHash(level.id),
           cls: "is-level lvl-" + level.id,
-          icon: ring,
+          icon: ringWrap,
           label: [title, count, el("span", { class: "progress is-small sb-bar", "aria-hidden": "true" }, fill)],
           // Ten sam adres co obecny: przerysuj listę (np. powrót na górę) zamiast nic nie robić
           onclick: function (e) {
             if (location.hash === app().levelHash(level.id)) { e.preventDefault(); app().selectLevel(level.id); }
           }
         });
-        n = levelNodes[level.id] = { a: a, ring: ring, fill: fill, count: count, title: title };
+        n = levelNodes[level.id] = { a: a, ring: ring, ringWrap: ringWrap, fill: fill, count: count, title: title };
         ul.appendChild(el("li", null, a));
       }
       n.title.textContent = level.id + (name ? " · " + name : "");
@@ -163,8 +165,14 @@ window.ELM = window.ELM || {};
       n.ring.setAttribute("aria-hidden", "true");
       n.a.classList.toggle("is-active", active);
       if (active) n.a.setAttribute("aria-current", "page"); else n.a.removeAttribute("aria-current");
+      // Znaczek zaliczonego testu końcowego: ikona nagrody na kółku + tekst „A1 zaliczony 12.11.2026” w etykiecie linku
+      const passedText = ELM.levelFinal ? ELM.levelFinal.passedText(level.id) : null;
+      const oldStamp = n.ringWrap.querySelector(".lvl-stamp");
+      if (oldStamp) oldStamp.remove();
+      if (passedText) n.ringWrap.appendChild(ELM.levelFinal.stamp(level.id, { hideText: true, size: 12 }));
+      n.a.classList.toggle("is-passed", !!passedText);
       n.a.setAttribute("aria-label", "Poziom " + level.id + (name ? ", " + name : "") + ": umiem " + s.done + " z " + s.total +
-        " we wszystkich kategoriach (" + s.percent + "%)");
+        " we wszystkich kategoriach (" + s.percent + "%)" + (passedText ? ". " + passedText : ""));
     });
 
     // Pod poziomami: grupa „Egzaminy” z rejestru (E8, matury, B2…), na końcu Certyfikat C1 (własny moduł)
@@ -243,7 +251,8 @@ window.ELM = window.ELM || {};
       el("div", { class: "level-hero-ring" }, [
         ring,
         el("p", { class: "level-ring-label num", id: "level-ring-label", text: s.done + " z " + s.total + " umiem" }),
-        el("p", { class: "level-ring-scope", text: "wszystkie kategorie" })
+        el("p", { class: "level-ring-scope", text: "wszystkie kategorie" }),
+        ELM.levelFinal ? ELM.levelFinal.headerLabel(level.id) : null // „Zaliczony · 12.11.2026” (test końcowy)
       ])
     ]);
   }
