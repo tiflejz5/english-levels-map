@@ -44,32 +44,8 @@ window.ELM = window.ELM || {};
       .trim();
   }
 
-  // Skróty liczą się jako dwa słowa: DOESN'T = DOES + N'T, I'M = I + 'M …
-  const CONTRACTION = /^(.+?)(N'T|'S|'RE|'VE|'D|'LL|'M)$/;
-
-  function tokens(text) {
-    const out = [];
-    norm(text).split(" ").filter(Boolean).forEach(function (word) {
-      const m = CONTRACTION.exec(word);
-      if (m) out.push(m[1], m[2]);
-      else out.push(word);
-    });
-    return out;
-  }
-
-  /** Pozycje, od których ciąg „needle” występuje w „hay” (od indeksu from). */
-  function findSeq(hay, needle, from) {
-    const hits = [];
-    if (!needle.length) return hits;
-    for (let i = from || 0; i + needle.length <= hay.length; i++) {
-      let ok = true;
-      for (let j = 0; j < needle.length; j++) {
-        if (hay[i + j] !== needle[j]) { ok = false; break; }
-      }
-      if (ok) hits.push(i);
-    }
-    return hits;
-  }
+  /** Słowa odpowiedzi (skrót = dwa słowa) — wspólna logika transformacji w js/exercise-logic.js. */
+  function tokens(text) { return ELM.exLogic.trTokens(text); }
 
   // =====================================================================
   // OCENA
@@ -86,37 +62,9 @@ window.ELM = window.ELM || {};
   /** Maksimum za zadanie: 2 pkt (Cambridge) — po 1 za część, a przy jednej części 2 za całość. */
   function itemMax(item) { return item.parts.length === 1 ? 2 : item.parts.length; }
 
-  /**
-   * Part 4 (jak Cambridge): liczba słów w limicie (limit = [min, max], domyślnie 3–6),
-   * słowo kluczowe bez zmian, po 1 pkt za każdą część; kolejna część liczy się,
-   * gdy występuje PO poprzedniej. Zadanie z jedną częścią: 2 pkt albo 0.
-   */
+  /** Part 4 (jak Cambridge): ELM.exLogic.scoreTransformationParts — ta sama ocena co typ „transformation” silnika zadań. */
   function scoreTransformation(item, answer, limit) {
-    const lim = Array.isArray(limit) ? limit : DEFAULT_WORD_LIMIT;
-    const t = tokens(answer);
-    const parts = item.parts.map(function () { return false; });
-    if (!t.length) return { score: 0, parts: parts, msg: "Brak odpowiedzi." };
-    if (t.length < lim[0] || t.length > lim[1]) {
-      return { score: 0, parts: parts, msg: "Wpisz " + lim[0] + "–" + lim[1] + " słów (masz " + t.length + " " + c1().plural(t.length, "słowo", "słowa", "słów") + ", skróty liczą się jako dwa)." };
-    }
-    if (!findSeq(t, tokens(item.keyword), 0).length) {
-      return { score: 0, parts: parts, msg: "Użyj słowa kluczowego bez zmian (" + item.keyword + ")." };
-    }
-    let cursor = 0;
-    item.parts.forEach(function (variants, k) {
-      let bestEnd = -1;
-      variants.forEach(function (variant) {
-        const v = tokens(variant);
-        const starts = findSeq(t, v, cursor);
-        if (starts.length) {
-          const end = starts[0] + v.length;
-          if (bestEnd === -1 || end < bestEnd) bestEnd = end;
-        }
-      });
-      if (bestEnd !== -1) { parts[k] = true; cursor = bestEnd; }
-    });
-    const score = parts.filter(Boolean).length * (itemMax(item) / item.parts.length);
-    return { score: score, parts: parts, msg: null };
+    return ELM.exLogic.scoreTransformationParts(item, answer, Array.isArray(limit) ? limit : DEFAULT_WORD_LIMIT);
   }
 
   function scoreWordFormation(gap, answer) {

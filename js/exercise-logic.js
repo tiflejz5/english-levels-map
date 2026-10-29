@@ -10,6 +10,7 @@
  *   evaluate(item, answer)            { correct, points, max, … } dla każdego typu zadania
  *   maxPoints(item)                   maksimum punktów za zadanie (stare typy: 1)
  *   sessionScore(results)             wynik sesji w punktach { score, total }
+ *   scoreTransformationParts(item, answer, limit)  transformacja jak Cambridge (też C1/B2 Part 4)
  *   pickMix(pool, opts, rng)          losowanie zestawu mieszanego
  */
 window.ELM = window.ELM || {};
@@ -164,6 +165,91 @@ window.ELM = window.ELM || {};
     return { correct: false, answered: false };
   }
 
+  // =====================================================================
+  // TRANSFORMACJE ZDAŃ (wspólne: C1/B2 Part 4 w js/c1-exercises.js i typ „transformation”)
+  // =====================================================================
+
+  function plural(n, one, few, many) {
+    if (n === 1) return one;
+    const d = n % 10, t = n % 100;
+    return d >= 2 && d <= 4 && (t < 12 || t > 14) ? few : many;
+  }
+
+  /** Wielkie litery, ’ → ', bez interpunkcji (poza apostrofem), pojedyncze spacje. */
+  function trNorm(text) {
+    return String(text || "")
+      .toUpperCase()
+      .replace(/[’‘`´]/g, "'")
+      .replace(/[^\p{L}\p{N}'\s]/gu, "")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  // Skróty liczą się jako dwa słowa: DOESN'T = DOES + N'T, I'M = I + 'M …
+  const CONTRACTION = /^(.+?)(N'T|'S|'RE|'VE|'D|'LL|'M)$/;
+
+  /** Słowa odpowiedzi w transformacji (wielkie litery; skrót = dwa słowa). */
+  function trTokens(text) {
+    const out = [];
+    trNorm(text).split(" ").filter(Boolean).forEach(function (word) {
+      const m = CONTRACTION.exec(word);
+      if (m) out.push(m[1], m[2]);
+      else out.push(word);
+    });
+    return out;
+  }
+
+  /** Pozycje, od których ciąg „needle” występuje w „hay” (od indeksu from). */
+  function findSeq(hay, needle, from) {
+    const hits = [];
+    if (!needle.length) return hits;
+    for (let i = from || 0; i + needle.length <= hay.length; i++) {
+      let ok = true;
+      for (let j = 0; j < needle.length; j++) {
+        if (hay[i + j] !== needle[j]) { ok = false; break; }
+      }
+      if (ok) hits.push(i);
+    }
+    return hits;
+  }
+
+  const TR_DEFAULT_LIMIT = [3, 6]; // C1 Advanced
+
+  /**
+   * Transformacja jak Cambridge (C1/B2 Part 4): liczba słów w limicie (limit = [min, max], domyślnie 3–6),
+   * słowo kluczowe bez zmian, po 1 pkt za każdą część (item.parts = [[warianty]…]); kolejna część liczy się,
+   * gdy występuje PO poprzedniej. Zadanie z jedną częścią: 2 pkt albo 0.
+   * Zwraca { score, parts: [true/false…], msg } (msg — powód 0 pkt przed oceną części albo null).
+   */
+  function scoreTransformationParts(item, answer, limit) {
+    const lim = Array.isArray(limit) ? limit : TR_DEFAULT_LIMIT;
+    const t = trTokens(answer);
+    const parts = item.parts.map(function () { return false; });
+    if (!t.length) return { score: 0, parts: parts, msg: "Brak odpowiedzi." };
+    if (t.length < lim[0] || t.length > lim[1]) {
+      return { score: 0, parts: parts, msg: "Wpisz " + lim[0] + "–" + lim[1] + " słów (masz " + t.length + " " + plural(t.length, "słowo", "słowa", "słów") + ", skróty liczą się jako dwa)." };
+    }
+    if (!findSeq(t, trTokens(item.keyword), 0).length) {
+      return { score: 0, parts: parts, msg: "Użyj słowa kluczowego bez zmian (" + item.keyword + ")." };
+    }
+    let cursor = 0;
+    item.parts.forEach(function (variants, k) {
+      let bestEnd = -1;
+      variants.forEach(function (variant) {
+        const v = trTokens(variant);
+        const starts = findSeq(t, v, cursor);
+        if (starts.length) {
+          const end = starts[0] + v.length;
+          if (bestEnd === -1 || end < bestEnd) bestEnd = end;
+        }
+      });
+      if (bestEnd !== -1) { parts[k] = true; cursor = bestEnd; }
+    });
+    const max = item.parts.length === 1 ? 2 : item.parts.length;
+    const score = parts.filter(Boolean).length * (max / item.parts.length);
+    return { score: score, parts: parts, msg: null };
+  }
+
   /**
    * Zestaw mieszany (spec 02, B.3).
    * pool: zadania (z polem topic); opts: { count, exclude: [id…], types: [typ…], weight: fn(zadanie) → waga }.
@@ -240,6 +326,10 @@ window.ELM = window.ELM || {};
     evaluate: evaluate,
     maxPoints: maxPoints,
     sessionScore: sessionScore,
+    plural: plural,
+    trTokens: trTokens,
+    findSeq: findSeq,
+    scoreTransformationParts: scoreTransformationParts,
     pickMix: pickMix,
     weightedOrder: weightedOrder,
     limitRuns: limitRuns

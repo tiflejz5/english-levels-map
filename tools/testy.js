@@ -333,6 +333,65 @@ test("punkty: sessionScore sumuje punkty i maksima, pomija zadania z max = 0", f
   ]);
   assert.deepStrictEqual(r, { score: 2, total: 4 });
 });
+// Ocena Part 4 sprzed wydzielenia do exercise-logic.js (kopia z js/c1-exercises.js) — wzorzec dla testu zgodności
+const OLD_PART4 = (function () {
+  function norm(text) { return String(text || "").toUpperCase().replace(/[’‘`´]/g, "'").replace(/[^\p{L}\p{N}'\s]/gu, "").replace(/\s+/g, " ").trim(); }
+  const CONTRACTION = /^(.+?)(N'T|'S|'RE|'VE|'D|'LL|'M)$/;
+  function tokens(text) { const out = []; norm(text).split(" ").filter(Boolean).forEach(function (w) { const m = CONTRACTION.exec(w); if (m) out.push(m[1], m[2]); else out.push(w); }); return out; }
+  function findSeq(hay, needle, from) { const hits = []; if (!needle.length) return hits; for (let i = from || 0; i + needle.length <= hay.length; i++) { let ok = true; for (let j = 0; j < needle.length; j++) { if (hay[i + j] !== needle[j]) { ok = false; break; } } if (ok) hits.push(i); } return hits; }
+  function plural(n, one, few, many) { if (n === 1) return one; const d = n % 10, t = n % 100; return d >= 2 && d <= 4 && (t < 12 || t > 14) ? few : many; }
+  function itemMax(item) { return item.parts.length === 1 ? 2 : item.parts.length; }
+  return function (item, answer, limit) {
+    const lim = Array.isArray(limit) ? limit : [3, 6];
+    const t = tokens(answer);
+    const parts = item.parts.map(function () { return false; });
+    if (!t.length) return { score: 0, parts: parts, msg: "Brak odpowiedzi." };
+    if (t.length < lim[0] || t.length > lim[1]) return { score: 0, parts: parts, msg: "Wpisz " + lim[0] + "–" + lim[1] + " słów (masz " + t.length + " " + plural(t.length, "słowo", "słowa", "słów") + ", skróty liczą się jako dwa)." };
+    if (!findSeq(t, tokens(item.keyword), 0).length) return { score: 0, parts: parts, msg: "Użyj słowa kluczowego bez zmian (" + item.keyword + ")." };
+    let cursor = 0;
+    item.parts.forEach(function (variants, k) {
+      let bestEnd = -1;
+      variants.forEach(function (variant) { const v = tokens(variant); const starts = findSeq(t, v, cursor); if (starts.length) { const end = starts[0] + v.length; if (bestEnd === -1 || end < bestEnd) bestEnd = end; } });
+      if (bestEnd !== -1) { parts[k] = true; cursor = bestEnd; }
+    });
+    return { score: parts.filter(Boolean).length * (itemMax(item) / item.parts.length), parts: parts, msg: null };
+  };
+})();
+test("transformacje: wspólna ocena = dotychczasowa ocena C1/B2 Part 4 na wszystkich prawdziwych zadaniach", function () {
+  const NZ = path.join(__dirname, "..", "niezbednik");
+  const sets = [];
+  fs.readdirSync(NZ).forEach(function (d) {
+    const dir = path.join(NZ, d, "cwiczenia");
+    if (!fs.existsSync(dir) || !fs.statSync(dir).isDirectory()) return;
+    fs.readdirSync(dir).filter(function (f) { return /\.json$/.test(f); }).forEach(function (f) {
+      const s = JSON.parse(fs.readFileSync(path.join(dir, f), "utf8").replace(/^﻿/, ""));
+      if (s.type === "transformation") sets.push(s);
+    });
+  });
+  assert.ok(sets.length >= 10, "za mało zestawów Part 4: " + sets.length);
+  let checked = 0;
+  sets.forEach(function (s) {
+    const lim = Array.isArray(s.wordLimit) ? s.wordLimit : undefined;
+    s.items.forEach(function (it) {
+      const first = it.parts.map(function (p) { return p[0]; }).join(" ");
+      const answers = [
+        it.model, it.model.toLowerCase(), first, "", "   ",
+        it.model + " and so on now", it.model.split(" ").slice(0, 2).join(" "),
+        it.model.split(" ").filter(function (w) { return w.toUpperCase() !== it.keyword.toUpperCase(); }).concat("xx").join(" "),
+        it.model.replace(new RegExp("\\b" + it.keyword + "\\b", "i"), it.keyword + "S"),
+        it.parts[0][0] + " xx yy", "xx " + it.parts[it.parts.length - 1][0], it.parts[it.parts.length - 1][0] + " " + it.parts[0][0],
+        it.model.replace(/n't/i, " not").replace(/'s\b/i, " is"), it.model + ".", "„" + it.model + "”"
+      ];
+      it.parts.forEach(function (p) { p.forEach(function (v) { answers.push(v + " " + it.keyword); answers.push(it.keyword + " " + v); }); });
+      answers.forEach(function (a) {
+        assert.deepStrictEqual(X.scoreTransformationParts(it, a, lim), OLD_PART4(it, a, lim), s.id + " #" + it.n + ": „" + a + "”");
+        checked++;
+      });
+      assert.strictEqual(X.scoreTransformationParts(it, it.model, lim).score, 2, s.id + " #" + it.n + " wzór < 2 pkt");
+    });
+  });
+  assert.ok(checked > 500);
+});
 test("pickMix: równo po tematach, bez powtórek, limit, filtr typów, ≤ 2 tego samego typu pod rząd", function () {
   for (let s = 1; s < 30; s++) {
     const m = X.pickMix(allItems, { count: 15 }, seeded(s));
