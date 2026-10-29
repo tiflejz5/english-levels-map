@@ -689,6 +689,104 @@ test("breakdown: punkty według kategorii, tematy z utraconymi punktami, pomini�
   assert.deepStrictEqual(F.breakdown([], catOf), { categories: [], topics: [] });
 });
 
+// ---------- Dane profilu: elm_leveltests_v1 (znaczki poziomów) ----------
+global.localStorage = { _d: {}, getItem: function (k) { return Object.prototype.hasOwnProperty.call(this._d, k) ? this._d[k] : null; }, setItem: function (k, v) { this._d[k] = String(v); }, removeItem: function (k) { delete this._d[k]; } };
+require(path.join(__dirname, "..", "js", "utils.js"));
+let activeProfile = "p1";
+global.ELM.app = { getActiveProfile: function () { return activeProfile ? { id: activeProfile } : null; }, reportSaveError: function () { throw new Error("błąd zapisu"); } };
+require(path.join(__dirname, "..", "js", "profile-data.js"));
+const PD = global.ELM.profileData;
+function freshPD() { PD.clearAll(); activeProfile = "p1"; }
+
+test("elm_leveltests_v1: klucz jest w KEYS obok istniejących, szybki test poziomu ma swój (elm_leveltest_v1)", function () {
+  assert.strictEqual(PD.KEYS.levelTests, "elm_leveltests_v1");
+  assert.strictEqual(PD.KEYS.levelTest, "elm_leveltest_v1");
+});
+test("saveFinalResult: pierwsze zaliczenie, najlepszy wynik wg procentu, znaczek zostaje po porażce", function () {
+  freshPD();
+  assert.strictEqual(PD.finalResult("A1"), null);
+  const fail = PD.saveFinalResult("A1", { score: 12, total: 20, passed: false });
+  assert.deepStrictEqual([fail.passed, fail.firstPass, fail.passedAt], [false, false, null]);
+  const pass = PD.saveFinalResult("A1", { score: 17, total: 20, passed: true });
+  assert.deepStrictEqual([pass.passed, pass.firstPass, pass.best.score], [true, true, 17]);
+  const again = PD.saveFinalResult("A1", { score: 18, total: 22, passed: true }); // 81,8% < 85%
+  assert.deepStrictEqual([again.firstPass, again.best.score, again.last.score], [false, 17, 18]);
+  const worse = PD.saveFinalResult("A1", { score: 9, total: 20, passed: false });
+  assert.strictEqual(worse.passedAt, pass.passedAt); // znaczek nie znika
+  assert.deepStrictEqual(PD.passedLevels(), { A1: pass.passedAt });
+  assert.strictEqual(PD.saveFinalResult("Z9", { score: 1, total: 2, passed: true }), null);
+  assert.strictEqual(PD.saveFinalResult("A2", { score: 5, total: 0, passed: true }), null);
+});
+test("elm_leveltests_v1: dane osobno dla profilu, bez profilu nic się nie zapisuje", function () {
+  freshPD();
+  PD.saveFinalResult("B1", { score: 20, total: 20, passed: true });
+  activeProfile = "p2";
+  assert.strictEqual(PD.finalResult("B1"), null);
+  assert.deepStrictEqual(PD.passedLevels(), {});
+  activeProfile = null;
+  assert.strictEqual(PD.saveFinalResult("B1", { score: 20, total: 20, passed: true }), null);
+  assert.strictEqual(PD.finalResult("B1"), null);
+});
+test("elm_leveltests_v1: eksport zawiera klucz, import odtwarza dane, usunięcie profilu i reset je kasują", function () {
+  freshPD();
+  PD.saveFinalResult("C1", { score: 18, total: 20, passed: true });
+  const exported = JSON.parse(JSON.stringify(PD.exportData()));
+  assert.ok(exported.levelTests && exported.levelTests.profiles.p1.levels.C1.passedAt);
+  PD.clearAll();
+  assert.strictEqual(PD.finalResult("C1"), null);
+  assert.strictEqual(global.localStorage.getItem("elm_leveltests_v1"), null);
+  PD.applyImport(PD.parseImport(exported), ["p1"]);
+  assert.strictEqual(PD.finalResult("C1").best.score, 18);
+  assert.ok(global.localStorage.getItem("elm_leveltests_v1"));
+  PD.removeProfile("p1");
+  assert.strictEqual(PD.finalResult("C1"), null);
+  assert.strictEqual(JSON.parse(global.localStorage.getItem("elm_leveltests_v1")).profiles.p1, undefined);
+});
+test("import starego pliku bez klucza elm_leveltests_v1: część pomijana, dane tej przeglądarki zostają", function () {
+  freshPD();
+  PD.saveFinalResult("A2", { score: 16, total: 20, passed: true });
+  const old = JSON.parse(JSON.stringify(PD.exportData()));
+  delete old.levelTests; // plik z wersji sprzed paczki v6
+  const parsed = PD.parseImport(old);
+  assert.strictEqual(parsed.levelTests, null);
+  assert.ok(parsed.journal && parsed.exercises);
+  PD.applyImport(parsed, ["p1"]);
+  assert.strictEqual(PD.finalResult("A2").passedAt !== null, true);
+  // profil, którego nie ma w pliku, jest usuwany także z nowego klucza
+  PD.applyImport(parsed, ["inny"]);
+  assert.strictEqual(PD.finalResult("A2"), null);
+  // całkiem stary plik bez części „learning”
+  assert.strictEqual(PD.parseImport(undefined), null);
+});
+test("import: uszkodzony albo zbyt nowy klucz elm_leveltests_v1 → błąd, śmieci w danych odfiltrowane", function () {
+  freshPD();
+  assert.throws(function () { PD.parseImport({ levelTests: { version: 99, profiles: {} } }); }, /Nieobsługiwana wersja/);
+  assert.throws(function () { PD.parseImport({ levelTests: { version: 1 } }); }, /Nieprawidłowy format/);
+  const parsed = PD.parseImport({ levelTests: { version: 1, profiles: { p1: { levels: {
+    A1: { passedAt: "kiedyś", best: { score: 30, total: 20, date: "2026-01-01" }, last: { score: 15, total: 20, date: "2026-01-02" } }, // zły dzień, zły best
+    A2: { passedAt: "2026-02-03", best: { score: 16, total: 20, date: "2026-02-03" } },                                               // brak last
+    Z9: { passedAt: "2026-02-03", best: { score: 1, total: 2, date: "2026-02-03" } },                                                 // nieznany poziom
+    B1: "tekst"
+  } } } } });
+  const lv = parsed.levelTests.profiles.p1.levels;
+  assert.deepStrictEqual(Object.keys(lv).sort(), ["A1", "A2"]);
+  assert.deepStrictEqual([lv.A1.passedAt, lv.A1.best.score, lv.A1.last.score], [null, 15, 15]);
+  assert.deepStrictEqual([lv.A2.passedAt, lv.A2.last.score], ["2026-02-03", 16]);
+});
+test("elm_leveltests_v1: uszkodzony zapis w localStorage → pusty stan i kopia _corrupt_backup", function () {
+  // Nowa instancja modułu (pamięć podręczna profileData jest wypełniona dopiero przy pierwszym odczycie)
+  const file = path.join(__dirname, "..", "js", "profile-data.js");
+  const keep = global.ELM.profileData;
+  delete require.cache[require.resolve(file)];
+  global.localStorage.setItem("elm_leveltests_v1", "{niepoprawny json");
+  require(file);
+  assert.deepStrictEqual(global.ELM.profileData.passedLevels(), {});
+  assert.strictEqual(global.localStorage.getItem("elm_leveltests_v1_corrupt_backup"), "{niepoprawny json");
+  global.localStorage.removeItem("elm_leveltests_v1");
+  global.localStorage.removeItem("elm_leveltests_v1_corrupt_backup");
+  global.ELM.profileData = keep;
+});
+
 console.log("\nDziennik podejść i statystyki");
 const T = global.ELM.stats;
 function att(itemId, topic, type, level, correct, day) {
