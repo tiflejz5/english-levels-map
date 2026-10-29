@@ -257,12 +257,8 @@ test("reorderTokens: nigdy od razu w poprawnej kolejności, ten sam zestaw wyraz
 test("evaluate: wzorcowa odpowiedź każdego zadania z cwiczenia/tematy jest poprawna", function () {
   assert.ok(allItems.length >= 60);
   allItems.forEach(function (it) {
-    let ans;
-    if (it.type === "multiple-choice") ans = { chosen: it.correct };
-    else if (it.type === "reorder") ans = { words: X.answerTokens(it.answers[0]) };
-    else if (it.type === "find-error") ans = it.noError ? { noError: true } : { range: it.errorRange.slice(), fix: it.fixes[0] };
-    else ans = { text: it.accepted[0] };
-    assert.ok(X.evaluate(it, ans).correct, it.id);
+    const r = X.evaluate(it, modelAnswerOf(it));
+    assert.ok(r.correct && r.points === r.max && r.max === X.maxPoints(it), it.id);
   });
 });
 test("evaluate: find-error rozróżnia zły fragment i złą poprawkę", function () {
@@ -391,6 +387,126 @@ test("transformacje: wspólna ocena = dotychczasowa ocena C1/B2 Part 4 na wszyst
     });
   });
   assert.ok(checked > 500);
+});
+// ---------- Nowe typy zadań (paczka v6, spec 12) ----------
+const PILOT = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "docs", "rozbudowa-v6", "przyklady", "cwiczenia", "v6-pilot-nowe-typy.json"), "utf8")).items;
+function pilot(id) { return PILOT.find(function (it) { return it.id === id; }); }
+/** Wzorcowa odpowiedź zadania (każdy typ) w formacie evaluate. */
+function modelAnswerOf(it) {
+  if (it.type === "multiple-choice") return { chosen: it.correct };
+  if (it.type === "reorder") return { words: X.answerTokens(it.answers[0]) };
+  if (it.type === "find-error") return it.noError ? { noError: true } : { range: it.errorRange.slice(), fix: it.fixes[0] };
+  if (it.type === "gap-fill") return { texts: it.gaps.map(function (g) { return g.accepted[0]; }) };
+  if (it.type === "match") { const p = {}; it.pairs.forEach(function (x, i) { p[i] = x[1]; }); return { pairs: p }; }
+  if (it.type === "transformation") return { text: it.answers[0] };
+  if (it.type === "dictation") return { text: it.text };
+  return { text: it.accepted[0] };
+}
+
+test("maxPoints: luki i pary po punkcie, transformacja z parts 2, pozostałe 1", function () {
+  assert.strictEqual(X.maxPoints(pilot("v6-pilot-01")), 2);
+  assert.strictEqual(X.maxPoints(pilot("v6-pilot-03")), 4);
+  assert.strictEqual(X.maxPoints(pilot("v6-pilot-05")), 1);
+  assert.strictEqual(X.maxPoints(pilot("v6-pilot-06")), 2);
+  assert.strictEqual(X.maxPoints(pilot("v6-pilot-07")), 1);
+  assert.strictEqual(X.maxPoints(pilot("v6-pilot-09")), 1);
+});
+test("nowe typy: wzorcowa odpowiedź każdego zadania z pliku wzorów daje pełne punkty", function () {
+  PILOT.forEach(function (it) {
+    const r = X.evaluate(it, modelAnswerOf(it));
+    assert.ok(r.correct && r.points === X.maxPoints(it) && r.max === X.maxPoints(it), it.id + " " + JSON.stringify(r));
+  });
+});
+test("gap-fill: punkt za każdą lukę, literówka = 0 pkt z uwagą, wielkość liter bez znaczenia", function () {
+  const it = pilot("v6-pilot-02");
+  const half = X.evaluate(it, { texts: ["Was built", "has repaired"] });
+  assert.deepStrictEqual([half.points, half.max, half.correct], [1, 2, false]);
+  assert.deepStrictEqual(half.gaps.map(function (g) { return g.correct; }), [true, false]);
+  const typo = X.evaluate(it, { texts: ["was bilt", ""] });
+  assert.ok(typo.gaps[0].spelling && !typo.gaps[0].correct && typo.answered);
+  assert.ok(!X.evaluate(it, { texts: ["", " "] }).answered);
+});
+test("match: punkt za każdą parę, extraRight nigdy nie jest poprawne", function () {
+  const it = pilot("v6-pilot-03");
+  const r = X.evaluate(it, { pairs: { 0: it.pairs[0][1], 1: it.pairs[2][1], 2: it.pairs[1][1], 3: it.extraRight[0] } });
+  assert.deepStrictEqual([r.points, r.max, r.correct], [1, 4, false]);
+  assert.deepStrictEqual(r.pairs, [true, false, false, false]);
+  assert.ok(!X.evaluate(it, { pairs: {} }).answered);
+});
+test("prepareMatch: prawa kolumna zawsze przetasowana, z extraRight, bez zgubionych elementów", function () {
+  PILOT.filter(function (it) { return it.type === "match"; }).forEach(function (it) {
+    for (let s = 1; s < 60; s++) {
+      const right = X.prepareMatch(it, seeded(s));
+      assert.ok(!it.pairs.every(function (p, i) { return right[i].text === p[1]; }), it.id + " w poprawnej kolejności");
+      assert.deepStrictEqual(right.map(function (r) { return r.text; }).sort(), it.pairs.map(function (p) { return p[1]; }).concat(it.extraRight || []).sort());
+    }
+  });
+});
+test("transformation: answers, skróty, limit słów, słowo kluczowe; z parts — częściowe punkty", function () {
+  const it = pilot("v6-pilot-05");
+  assert.ok(X.evaluate(it, { text: "that I saw Tom was" }).correct);
+  assert.ok(X.evaluate(it, { text: "i SAW tom was" }).correct);
+  const long = X.evaluate(it, { text: "I saw Tom for the first time was" });
+  assert.ok(!long.correct && /2–5 słów \(masz 8 słów/.test(long.msg));
+  const kw = X.evaluate(it, { text: "I seen Tom was" });
+  assert.ok(!kw.correct && /słowa kluczowego bez zmian \(SAW\)/.test(kw.msg));
+  assert.strictEqual(X.evaluate(it, { text: "I saw him was" }).points, 0);
+  const p = pilot("v6-pilot-06");
+  const one = X.evaluate(p, { text: "is said to being" });
+  assert.deepStrictEqual([one.points, one.max, one.correct], [1, 2, false]);
+  assert.deepStrictEqual(one.parts, [true, false]);
+  assert.strictEqual(X.evaluate(p, { text: "is said to be" }).points, 2);
+  // skrót = dwa słowa: „didn't” mieści się w limicie jak „did not”
+  const c = { type: "transformation", keyword: "NOT", answers: ["did not go"], wordLimit: [2, 3] };
+  assert.ok(X.evaluate({ type: "transformation", keyword: "DID", answers: ["did not go"], wordLimit: [2, 3] }, { text: "didn't go" }).correct);
+  assert.ok(/masz 4 słowa/.test(X.evaluate(c, { text: "didn't not go" }).msg));
+});
+test("normalizeSentence: skróty rozwinięte po obu stronach, przecinki i apostrofy", function () {
+  const N = X.normalizeSentence;
+  assert.strictEqual(N("I don’t know, really."), "i do not know really");
+  assert.strictEqual(N("We won't go"), "we will not go");
+  assert.strictEqual(N("She can't swim"), "she cannot swim");
+  assert.strictEqual(N("They're here and we've seen it"), "they are here and we have seen it");
+  assert.strictEqual(N("I'll call, I'm sure"), "i will call i am sure");
+  assert.strictEqual(N("It isn't, is it?"), "it is not is it");
+  assert.strictEqual(N("Let's go!"), "let us go");
+  assert.strictEqual(N("  Hello ,  world  "), "hello world");
+  // 's i 'd niejednoznaczne — zostają, porównanie sprawdza oba rozwinięcia
+  assert.strictEqual(N("He's gone"), "he's gone");
+  assert.ok(X.sentenceVariants("He's gone").indexOf("he has gone") !== -1);
+  assert.ok(X.sentenceVariants("I'd go").indexOf("i would go") !== -1 && X.sentenceVariants("I'd go").indexOf("i had go") !== -1);
+});
+test("translate: zgodność po normalizacji (skróty, przecinki), I'd = I would, dopełniacz 's zostaje", function () {
+  const it = pilot("v6-pilot-07");
+  assert.ok(X.evaluate(it, { text: "if I had more time I'd learn to play the guitar" }).correct);
+  assert.ok(X.evaluate(it, { text: "If I had more time, I would learn to play the guitar!" }).correct);
+  assert.ok(!X.evaluate(it, { text: "If I have more time, I will learn to play the guitar." }).correct);
+  const pos = { type: "translate", accepted: ["This is John's car."] };
+  assert.ok(X.evaluate(pos, { text: "this is johns car" }).correct === false);
+  assert.ok(X.evaluate(pos, { text: "This is John’s car" }).correct);
+  assert.ok(X.evaluate({ type: "translate", accepted: ["She has gone home."] }, { text: "She's gone home" }).correct);
+  assert.ok(!X.evaluate({ type: "translate", accepted: ["She is at home."] }, { text: "" }).answered);
+});
+test("porównanie słowo po słowie: brak, zbędne, zamienione; najbliższy wariant; literówka", function () {
+  const d = X.wordDiff(["have", "you", "ever", "been", "to", "london"], ["have", "you", "been", "in", "to", "london", "yet"]);
+  assert.deepStrictEqual(d.ops.filter(function (o) { return o.op !== "same"; }), [
+    { op: "missing", word: "ever" }, { op: "extra", got: "in" }, { op: "extra", got: "yet" }
+  ]);
+  const r = X.wordDiff(["i", "went", "home"], ["i", "go", "home"]);
+  assert.deepStrictEqual(r.ops[1], { op: "replace", word: "went", got: "go" });
+  const it = pilot("v6-pilot-08");
+  const res = X.evaluate(it, { text: "Have you ever been in Londn?" });
+  assert.ok(!res.correct && res.spelling && res.closest === 1, JSON.stringify(res));
+  const miss = X.evaluate(it, { text: "Have you been to London?" });
+  assert.ok(!miss.spelling && miss.closest === 0 && miss.diff.some(function (o) { return o.op === "missing" && o.word === "ever"; }));
+});
+test("dictation: tekst i warianty z accepted; pominięte (bez głosu) — 0 z 0, nie wlicza się", function () {
+  const it = pilot("v6-pilot-10");
+  assert.ok(X.evaluate(it, { text: "I have never eaten anything so spicy in my life" }).correct);
+  assert.ok(X.evaluate(it, { text: "ive never eaten anything so spicy in my life" }).correct === false);
+  const s = X.evaluate(it, { skipped: true });
+  assert.deepStrictEqual([s.points, s.max, s.skipped, s.correct], [0, 0, true, false]);
+  assert.deepStrictEqual(X.sessionScore([{ item: it, res: s }, { item: pilot("v6-pilot-03"), res: X.evaluate(pilot("v6-pilot-03"), modelAnswerOf(pilot("v6-pilot-03"))) }]), { score: 4, total: 4 });
 });
 test("pickMix: równo po tematach, bez powtórek, limit, filtr typów, ≤ 2 tego samego typu pod rząd", function () {
   for (let s = 1; s < 30; s++) {
