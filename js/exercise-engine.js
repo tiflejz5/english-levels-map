@@ -1547,6 +1547,9 @@ window.ELM = window.ELM || {};
     focusLater("[data-fk='first']");
   }
 
+  /** Zadanie na ekranie w bieżącej sesji (albo null) — dla testów automatycznych. */
+  function currentItem() { return run && run.phase === "item" && run.items[run.i] ? run.items[run.i].item : null; }
+
   /** Funkcje silnika dla ekranu wyniku testu końcowego (js/level-final.js). */
   function api() {
     return {
@@ -1697,6 +1700,7 @@ window.ELM = window.ELM || {};
     loadTopicItems: loadTopicItems,
     startCustom: startCustom,
     startFinal: startFinal,
+    currentItem: currentItem,
     topicSection: topicSection,
     setCard: setCard,
     typesText: typesText,

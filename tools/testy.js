@@ -689,6 +689,59 @@ test("breakdown: punkty według kategorii, tematy z utraconymi punktami, pomini�
   assert.deepStrictEqual(F.breakdown([], catOf), { categories: [], topics: [] });
 });
 
+// ---------- Prawdziwe pule testów końcowych (niezbednik/testy-poziomow) ----------
+const LV_INDEX = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "niezbednik", "index.json"), "utf8"));
+const LV_CATS = {};
+LV_INDEX.levels.forEach(function (l) { l.items.forEach(function (it) { LV_CATS[it.id] = it.category; }); });
+const POOLS = ["a1", "a2", "b1", "b2", "c1", "c2"].map(function (l) {
+  return JSON.parse(fs.readFileSync(path.join(__dirname, "..", "niezbednik", "testy-poziomow", l + ".json"), "utf8"));
+});
+test("pule testów końcowych: wzorcowa odpowiedź każdego z 180 zadań daje pełne punkty", function () {
+  let n = 0;
+  POOLS.forEach(function (set) {
+    set.items.forEach(function (it) {
+      const r = X.evaluate(it, modelAnswerOf(it));
+      assert.ok(r.correct && r.points === X.maxPoints(it) && r.points === r.max, set.id + " " + it.id + " " + JSON.stringify(r));
+      n++;
+    });
+  });
+  assert.strictEqual(n, 180);
+});
+test("pule testów końcowych: wszystkie warianty accepted / answers są przyjmowane, a pusta odpowiedź nie daje punktów", function () {
+  POOLS.forEach(function (set) {
+    set.items.forEach(function (it) {
+      if (it.type === "translate") it.accepted.forEach(function (a) { assert.ok(X.evaluate(it, { text: a }).correct, it.id + " „" + a + "”"); });
+      if (it.type === "transformation") it.answers.forEach(function (a) { assert.ok(X.evaluate(it, { text: a }).correct, it.id + " „" + a + "”"); });
+      if (it.type === "short-answer") it.accepted.forEach(function (a) { assert.ok(X.evaluate(it, { text: a }).correct, it.id + " „" + a + "”"); });
+      if (it.type === "gap-fill") it.gaps.forEach(function (g, i) { g.accepted.forEach(function (a) {
+        const texts = it.gaps.map(function (x) { return x.accepted[0]; }); texts[i] = a;
+        assert.ok(X.evaluate(it, { texts: texts }).correct, it.id + " luka " + (i + 1) + " „" + a + "”");
+      }); });
+      const empty = X.evaluate(it, it.type === "match" ? { pairs: {} } : it.type === "gap-fill" ? { texts: [] } : it.type === "multiple-choice" ? {} : it.type === "reorder" ? { words: [] } : it.type === "find-error" ? {} : { text: "" });
+      assert.strictEqual(empty.points, 0, it.id + " pusta odpowiedź");
+    });
+  });
+});
+test("pule testów końcowych: losowanie 20 z 30 – proporcje kategorii, zadania z różnych podstron, różne zestawy", function () {
+  POOLS.forEach(function (set) {
+    const cat = function (it) { return LV_CATS[it.topic]; };
+    const pool = {};
+    set.items.forEach(function (it) { pool[cat(it)] = (pool[cat(it)] || 0) + 1; });
+    const seen = new Set();
+    for (let s = 1; s <= 25; s++) {
+      const d = F.drawItems(set.items, set.draw, cat, seeded(s * 7919));
+      assert.strictEqual(d.length, 20);
+      assert.strictEqual(new Set(d.map(function (x) { return x.id; })).size, 20);
+      Object.keys(pool).forEach(function (c) {
+        const got = d.filter(function (it) { return cat(it) === c; }).length;
+        assert.ok(got >= 1 && Math.abs(got - 20 * pool[c] / 30) <= 1.01, set.id + " " + c + ": " + got + " (pula " + pool[c] + ")");
+      });
+      seen.add(d.map(function (x) { return x.id; }).sort().join());
+    }
+    assert.ok(seen.size >= 20, set.id + ": zbyt mało różnych losowań (" + seen.size + ")");
+  });
+});
+
 // ---------- Dane profilu: elm_leveltests_v1 (znaczki poziomów) ----------
 global.localStorage = { _d: {}, getItem: function (k) { return Object.prototype.hasOwnProperty.call(this._d, k) ? this._d[k] : null; }, setItem: function (k, v) { this._d[k] = String(v); }, removeItem: function (k) { delete this._d[k]; } };
 require(path.join(__dirname, "..", "js", "utils.js"));
