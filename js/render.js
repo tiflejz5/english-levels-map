@@ -223,6 +223,8 @@ window.ELM = window.ELM || {};
       const summary = ELM.niezbednik.renderSummary(level.id);
       if (summary) view.appendChild(summary);
     }
+    // Pod podsumowaniem: karta „Test końcowy A1” (paczka v6, spec 13 sekcja 2)
+    if (ELM.levelFinal) view.appendChild(ELM.levelFinal.card(level.id));
 
     U.setScroll(typeof opts.scrollTop === "number" ? opts.scrollTop : scroll);
   }

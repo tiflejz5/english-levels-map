@@ -2783,6 +2783,12 @@ html.focus-mode .c1-writing-area { box-shadow: 0 0 0 4px var(--accent-soft); }
 .sb-ring-wrap .lvl-stamp { top: -3px; right: -5px; width: 16px; height: 16px; }
 .lf-passed .lvl-stamp, .lf-level-card .lvl-stamp { position: static; flex-shrink: 0; width: 24px; height: 24px; }
 .trail-passed { margin-top: 1px; font-size: var(--fs-xs); font-weight: 650; color: var(--lvl-ink); white-space: nowrap; }
+.lf-level-card { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px 20px; margin-top: 24px; padding: 20px 24px; border-left: 4px solid var(--lvl); }
+.lf-level-card-body { flex: 1 1 320px; min-width: 0; }
+.lf-level-card .section-title { display: flex; align-items: center; gap: 8px; margin: 0 0 6px; }
+.lf-level-card p { margin: 0 0 6px; }
+.lf-level-card .btn { min-height: 44px; }
+@media (max-width: 760px) { .lf-level-card { padding: 16px; } .lf-level-card .btn { width: 100%; } }
 .lvl-passed-label { display: inline-flex; align-items: center; gap: 6px; margin: 6px 0 0; padding: 3px 10px; border-radius: var(--radius-pill); background: var(--lvl-soft); color: var(--lvl-ink); font-size: var(--fs-sm); font-weight: 650; }
 
 /* Test końcowy poziomu (paczka v6): ekran startowy i wynik */
