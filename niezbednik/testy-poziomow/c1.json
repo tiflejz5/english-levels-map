@@ -1,0 +1,502 @@
+{
+  "version": 1,
+  "id": "test-koncowy-c1",
+  "kind": "level-test",
+  "level": "C1",
+  "title": "Test końcowy C1",
+  "intro": "20 pytań z całego poziomu C1. Zaliczenie od 80%.",
+  "draw": 20,
+  "passPercent": 80,
+  "defaultMode": "exam",
+  "items": [
+    {
+      "id": "tk-c1-01",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "c1-czasy-dystans-grzecznosc",
+      "prompt": "Which request is the most tentative and polite?",
+      "options": [
+        "I wonder if you could lend me your car.",
+        "I was wondering if you could lend me your car.",
+        "Lend me your car, please.",
+        "I am wondering if you could lend me your car."
+      ],
+      "correct": 1,
+      "explanation": "Past Continuous (I was wondering) dodaje dystansu i uprzejmości – najdelikatniejsza forma prośby."
+    },
+    {
+      "id": "tk-c1-02",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "c1-czasy-narracja-present",
+      "prompt": "Complete the film summary in the tense usually used for plot summaries: “In the opening scene, a detective ___ a body in the park.”",
+      "options": [
+        "found",
+        "has found",
+        "had found",
+        "finds"
+      ],
+      "correct": 3,
+      "explanation": "Streszczenia fabuły piszemy w czasie teraźniejszym: Present Simple (finds)."
+    },
+    {
+      "id": "tk-c1-03",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "c1-czasy-be-to-about-to",
+      "prompt": "The train ___ leave when I reached the platform.",
+      "options": [
+        "was to",
+        "was about to",
+        "would",
+        "is about to"
+      ],
+      "correct": 1,
+      "explanation": "Be about to oznacza „za chwilę”; w przeszłości: was about to leave (pociąg miał właśnie ruszyć)."
+    },
+    {
+      "id": "tk-c1-04",
+      "type": "transformation",
+      "topic": "c1-czasy-be-to-about-to",
+      "source": "It has been announced that the minister will visit Lagos next week.",
+      "keyword": "TO",
+      "before": "The minister",
+      "after": "Lagos next week.",
+      "answers": [
+        "is to visit",
+        "is due to visit",
+        "is scheduled to visit",
+        "is set to visit",
+        "is going to visit"
+      ],
+      "wordLimit": [
+        3,
+        6
+      ],
+      "explanation": "Oficjalny plan w rejestrze formalnym: be to + bezokolicznik (is to visit); także is due to / is scheduled to."
+    },
+    {
+      "id": "tk-c1-05",
+      "type": "gap-fill",
+      "topic": "c1-czasy-narracja-present",
+      "text": "So I'm walking down the street, and this guy suddenly {{1}} (come) up to me and {{2}} (start) shouting.",
+      "gaps": [
+        {
+          "accepted": [
+            "comes"
+          ]
+        },
+        {
+          "accepted": [
+            "starts"
+          ]
+        }
+      ],
+      "explanation": "Narracja potoczna (anegdota) w czasie teraźniejszym: comes up, starts shouting – opowieść brzmi bardziej obrazowo."
+    },
+    {
+      "id": "tk-c1-06",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "c1-gramatyka-inwersja",
+      "prompt": "Never before ___ so many people at the station.",
+      "options": [
+        "I have seen",
+        "I saw",
+        "seen I have",
+        "have I seen"
+      ],
+      "correct": 3,
+      "explanation": "Przysłówek o znaczeniu przeczącym na początku zdania wymaga inwersji: Never before have I seen…"
+    },
+    {
+      "id": "tk-c1-07",
+      "type": "transformation",
+      "topic": "c1-gramatyka-inwersja",
+      "source": "As soon as she sat down, the lights went out.",
+      "keyword": "SOONER",
+      "before": "No",
+      "after": "the lights went out.",
+      "answers": [
+        "sooner had she sat down than"
+      ],
+      "parts": [
+        [
+          "sooner had she"
+        ],
+        [
+          "sat down than"
+        ]
+      ],
+      "wordLimit": [
+        3,
+        6
+      ],
+      "explanation": "No sooner + inwersja (had she sat down) + than: dwie czynności następują tuż po sobie."
+    },
+    {
+      "id": "tk-c1-08",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "c1-gramatyka-cleft-sentences",
+      "prompt": "___ I need right now is a good night's sleep.",
+      "options": [
+        "That",
+        "Which",
+        "It",
+        "What"
+      ],
+      "correct": 3,
+      "explanation": "Zdanie rozszczepione z what: What I need … is … (podkreślamy to, czego potrzebujemy)."
+    },
+    {
+      "id": "tk-c1-09",
+      "type": "gap-fill",
+      "topic": "c1-gramatyka-cleft-sentences",
+      "text": "It {{1}} John who broke the window, not Peter.",
+      "gaps": [
+        {
+          "accepted": [
+            "was"
+          ]
+        }
+      ],
+      "explanation": "Zdanie rozszczepione o przeszłości: It was + wyróżniona osoba + who + czasownik."
+    },
+    {
+      "id": "tk-c1-10",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "c1-gramatyka-warunkowe-bez-if",
+      "prompt": "___ you need any help, please let me know.",
+      "options": [
+        "Would",
+        "Were",
+        "Had",
+        "Should"
+      ],
+      "correct": 3,
+      "explanation": "Pierwszy okres warunkowy bez if: Should you need … (= If you should need …)."
+    },
+    {
+      "id": "tk-c1-11",
+      "type": "transformation",
+      "topic": "c1-gramatyka-warunkowe-bez-if",
+      "source": "If I hadn't missed the bus, I wouldn't have been late.",
+      "keyword": "HAD",
+      "before": "",
+      "after": "missed the bus, I wouldn't have been late.",
+      "answers": [
+        "Had I not"
+      ],
+      "wordLimit": [
+        3,
+        6
+      ],
+      "explanation": "Trzeci okres warunkowy bez if: inwersja Had I not missed… (= If I hadn't missed…)."
+    },
+    {
+      "id": "tk-c1-12",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "c1-gramatyka-konstrukcje-imieslowowe",
+      "prompt": "Not ___ what to do, she asked her teacher for advice.",
+      "options": [
+        "know",
+        "known",
+        "to know",
+        "knowing"
+      ],
+      "correct": 3,
+      "explanation": "Imiesłów czynny z przeczeniem: Not knowing what to do… (= Because she didn't know…)."
+    },
+    {
+      "id": "tk-c1-13",
+      "type": "gap-fill",
+      "topic": "c1-gramatyka-konstrukcje-imieslowowe",
+      "text": "{{1}} (live) in Spain for ten years, he speaks Spanish fluently.",
+      "gaps": [
+        {
+          "accepted": [
+            "Having lived"
+          ],
+          "hint": "2 słowa"
+        }
+      ],
+      "explanation": "Imiesłów perfekt oznacza czynność wcześniejszą od czasownika głównego: Having lived in Spain…"
+    },
+    {
+      "id": "tk-c1-14",
+      "type": "transformation",
+      "topic": "c1-gramatyka-nominalizacja",
+      "source": "They introduced the new policy, and this caused a lot of confusion.",
+      "keyword": "INTRODUCTION",
+      "before": "The",
+      "after": "caused a lot of confusion.",
+      "answers": [
+        "introduction of the new policy"
+      ],
+      "wordLimit": [
+        3,
+        6
+      ],
+      "explanation": "Nominalizacja: czasownik zamieniamy w rzeczownik (introduced → the introduction of …), typowe dla języka formalnego."
+    },
+    {
+      "id": "tk-c1-15",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "c1-gramatyka-elipsa-substytucja",
+      "prompt": "A: I'd love to go to Rome.\nB: So ___ I.",
+      "options": [
+        "do",
+        "would",
+        "am",
+        "did"
+      ],
+      "correct": 1,
+      "explanation": "Elipsa po so: So + operator + podmiot. Operator musi pasować do zdania A (I'd love = I would)."
+    },
+    {
+      "id": "tk-c1-16",
+      "type": "short-answer",
+      "topic": "c1-gramatyka-elipsa-substytucja",
+      "context": "Mam nadzieję, że tak.",
+      "prompt": "A: Are you coming to the party?\nB: I hope ___.",
+      "accepted": [
+        "so"
+      ],
+      "explanation": "Substytucja: so zastępuje całe zdanie (I hope so = I hope I'm coming). Przeczenie: I hope not."
+    },
+    {
+      "id": "tk-c1-17",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "c1-gramatyka-strona-bierna-bezosobowa",
+      "prompt": "He is believed ___ the country last week.",
+      "options": [
+        "to leave",
+        "to have left",
+        "leaving",
+        "that he has left"
+      ],
+      "correct": 1,
+      "explanation": "Strona bierna bezosobowa o przeszłości: is believed + to have + 3. forma."
+    },
+    {
+      "id": "tk-c1-18",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "c1-funkcje-rejestr",
+      "prompt": "You are writing to a university professor you have never met. Which opening is the MOST formal?",
+      "options": [
+        "Dear Prof. Smith, I was hoping you could tell me about the course.",
+        "Hello Professor Smith, can you tell me about the course?",
+        "Hi Prof! Wanna ask about the course.",
+        "Dear Professor Smith, I am writing to enquire about the course."
+      ],
+      "correct": 3,
+      "explanation": "Do nieznanego wykładowcy piszemy formalnie: Dear Professor …, I am writing to enquire…"
+    },
+    {
+      "id": "tk-c1-19",
+      "type": "match",
+      "topic": "c1-funkcje-rejestr",
+      "prompt": "Dopasuj potoczne wyrażenie do formalnego odpowiednika.",
+      "mode": "definition",
+      "pairs": [
+        [
+          "get in touch",
+          "contact"
+        ],
+        [
+          "find out",
+          "ascertain"
+        ],
+        [
+          "ask for",
+          "request"
+        ],
+        [
+          "go up",
+          "increase"
+        ]
+      ],
+      "extraRight": [
+        "postpone"
+      ],
+      "explanation": "Rejestr formalny używa łacińskich czasowników: get in touch – contact, find out – ascertain, ask for – request, go up – increase. „Postpone” to formalny odpowiednik put off, którego nie ma po lewej."
+    },
+    {
+      "id": "tk-c1-20",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "c1-funkcje-hedging",
+      "prompt": "Which sentence is the most cautious (hedged)?",
+      "options": [
+        "The results are inaccurate.",
+        "The results are definitely wrong.",
+        "The results can't be right.",
+        "It would seem that the results may be inaccurate."
+      ],
+      "correct": 3,
+      "explanation": "Hedging łagodzi twierdzenie: It would seem that…, may be. Pozostałe zdania są kategoryczne."
+    },
+    {
+      "id": "tk-c1-21",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "c1-funkcje-hedging",
+      "prompt": "It would seem ___ the economy is slowly recovering.",
+      "options": [
+        "to",
+        "that",
+        "as if to",
+        "like"
+      ],
+      "correct": 1,
+      "explanation": "Po it would seem stoi that + zdanie (ostrożne sformułowanie tezy)."
+    },
+    {
+      "id": "tk-c1-22",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "c1-funkcje-odcienie-opinii-ironia",
+      "prompt": "After spilling coffee on his laptop, your friend says: “Oh, brilliant. Just what I needed!” What does he mean?",
+      "options": [
+        "He is genuinely pleased.",
+        "He is mildly amused.",
+        "He is relieved nothing was damaged.",
+        "He is annoyed and being ironic."
+      ],
+      "correct": 3,
+      "explanation": "To ironia: pozytywne słowa wypowiedziane o nieprzyjemnej sytuacji oznaczają irytację."
+    },
+    {
+      "id": "tk-c1-23",
+      "type": "translate",
+      "topic": "c1-funkcje-odcienie-opinii-ironia",
+      "source": "Delikatnie mówiąc, to nie była dobra decyzja.",
+      "accepted": [
+        "To put it mildly, it wasn't a good decision.",
+        "It wasn't a good decision, to put it mildly.",
+        "To put it mildly, that wasn't a good decision.",
+        "That wasn't a good decision, to put it mildly.",
+        "Putting it mildly, it wasn't a good decision.",
+        "Putting it mildly, that wasn't a good decision."
+      ],
+      "hint": "to put it mildly",
+      "explanation": "Understatement z wyrażeniem to put it mildly (delikatnie mówiąc)."
+    },
+    {
+      "id": "tk-c1-24",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "c1-funkcje-prezentacje",
+      "prompt": "During a presentation you don't understand a question from the audience. You say: ___",
+      "options": [
+        "Sorry, what do you mean?",
+        "I'm afraid your question is unclear.",
+        "What? Repeat!",
+        "I'm sorry, could you rephrase that? I'm not sure I've followed."
+      ],
+      "correct": 3,
+      "explanation": "Uprzejma prośba o doprecyzowanie pytania: could you rephrase that?"
+    },
+    {
+      "id": "tk-c1-25",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "c1-funkcje-implikacje-podteksty",
+      "prompt": "A: How was the hotel?\nB: Well, the beds were comfortable.\nWhat does B imply?",
+      "options": [
+        "The hotel was excellent.",
+        "The hotel wasn't very good overall.",
+        "B slept badly.",
+        "B didn't see the beds."
+      ],
+      "correct": 1,
+      "explanation": "Pochwała jednego drobnego elementu (tylko łóżka) sugeruje, że reszta była słaba – podtekst."
+    },
+    {
+      "id": "tk-c1-26",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "c1-funkcje-parafrazowanie",
+      "prompt": "Which sentence is the best paraphrase of: “Despite initial doubts, the plan proved successful”?",
+      "options": [
+        "The plan failed even though people doubted it.",
+        "People doubted the plan, so it was successful.",
+        "The plan was successful because of the doubts.",
+        "Although people were unsure at first, the plan worked well."
+      ],
+      "correct": 3,
+      "explanation": "Parafraza zachowuje sens: despite initial doubts = although people were unsure at first; proved successful = worked well."
+    },
+    {
+      "id": "tk-c1-27",
+      "type": "transformation",
+      "topic": "c1-funkcje-parafrazowanie",
+      "source": "He said he would not support the proposal.",
+      "keyword": "REFUSED",
+      "before": "He",
+      "after": "the proposal.",
+      "answers": [
+        "refused to support",
+        "refused to back",
+        "refused to endorse",
+        "flatly refused to support"
+      ],
+      "wordLimit": [
+        3,
+        6
+      ],
+      "explanation": "Parafraza czasownikiem: said he would not = refused to (refused to support)."
+    },
+    {
+      "id": "tk-c1-28",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "c1-funkcje-markery-dyskursu",
+      "prompt": "The plan is expensive. ___, it could save us money in the long run.",
+      "options": [
+        "Because of that",
+        "In addition to that",
+        "As a result",
+        "Having said that"
+      ],
+      "correct": 3,
+      "explanation": "Having said that wprowadza kontrast (mimo to). Pozostałe markery oznaczają przyczynę, dodanie albo skutek."
+    },
+    {
+      "id": "tk-c1-29",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "c1-slownictwo",
+      "prompt": "He's always ___ around the bush instead of saying what he really means.",
+      "options": [
+        "hitting",
+        "beating",
+        "cutting",
+        "walking"
+      ],
+      "correct": 1,
+      "explanation": "Idiom: beat around the bush = mówić okrężnie, unikać sedna."
+    },
+    {
+      "id": "tk-c1-30",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "c1-slownictwo",
+      "prompt": "The company is facing a ___ shortage of skilled workers.",
+      "options": [
+        "strong",
+        "hard",
+        "heavy",
+        "severe"
+      ],
+      "correct": 3,
+      "explanation": "Kolokacja: a severe shortage (poważny niedobór). Strong, hard i heavy nie łączą się z shortage."
+    }
+  ]
+}
