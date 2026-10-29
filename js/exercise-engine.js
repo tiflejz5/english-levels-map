@@ -128,7 +128,9 @@ window.ELM = window.ELM || {};
   // =====================================================================
 
   function parseRoute(hash) {
-    const weak = /^#\/cwiczenia\/slabe(?:\/([a-z0-9-]+))?\/?$/.exec(hash || "");
+    const fin = /^#\/([abcABC][12])\/test\/?$/.exec(hash || "");
+    if (fin) return { kind: "final", id: fin[1].toUpperCase() }; // test końcowy poziomu (js/level-final.js)
+    const weak =/^#\/cwiczenia\/slabe(?:\/([a-z0-9-]+))?\/?$/.exec(hash || "");
     if (weak) return { kind: "weak", id: weak[1] || "" }; // trening słabych punktów (cały albo jeden temat)
     const hub = /^#\/cwiczenia(\/mieszane)?\/?$/.exec(hash || "");
     if (hub) return { kind: "hub", section: hub[1] ? "mieszane" : null }; // Centrum ćwiczeń (js/exercise-hub.js)
@@ -143,6 +145,7 @@ window.ELM = window.ELM || {};
     if (route.kind === "set") return BASE + "/zestaw/" + route.id;
     if (route.kind === "mix") return BASE + "/mix/" + route.id;
     if (route.kind === "weak") return BASE + "/slabe" + (route.id ? "/" + route.id : "");
+    if (route.kind === "final") return "#/" + route.id.toLowerCase() + "/test";
     return BASE + "/sesja";
   }
 
@@ -168,6 +171,8 @@ window.ELM = window.ELM || {};
       key: cfg.key, title: cfg.title, intro: cfg.intro || "", topic: cfg.topic || null,
       saveId: cfg.saveId || null, isMix: !!cfg.isMix, isWeak: !!cfg.isWeak, repick: cfg.repick || null,
       passage: cfg.passage || null, exam: cfg.exam || null,
+      // Test końcowy poziomu (js/level-final.js): własny zapis wyniku i ekran wyniku, powrót do poziomu
+      hooks: cfg.hooks || null, back: cfg.back || null, final: null,
       // Wspólne nagranie zestawu (B2 Listening Parts 2–4): jeden licznik odsłuchów dla wszystkich zadań
       script: cfg.script || null, listen: { plays: 0, readMode: false },
       profileId: profile ? profile.id : null,
@@ -358,11 +363,13 @@ window.ELM = window.ELM || {};
     const s = X().sessionScore(run.items);
     run.score = s.score;
     run.total = s.total;
-    if (!run.retry && run.saveId) run.saved = pd().saveSetScore(run.saveId, s.score, s.total);
+    if (run.hooks && run.hooks.finish) run.final = run.hooks.finish(run, s); // test końcowy: własny zapis (elm_leveltests_v1)
+    else if (!run.retry && run.saveId) run.saved = pd().saveSetScore(run.saveId, s.score, s.total);
     run.suggest = umiemSuggestion();
     if (run.isMix) pd().setLastMix(run.items.map(function (p) { return p.item.id; }));
     ELM.markActivity(); // ukończona sesja = dzień nauki
     if (ELM.app.refreshLearning) ELM.app.refreshLearning();
+    if (run.hooks && run.hooks.afterFinish) run.hooks.afterFinish(run); // np. gratulacje za zaliczony poziom
     render();
     U.setScroll(0);
     focusLater(".ex-result .btn-primary, .ex-result .btn");
@@ -1159,6 +1166,7 @@ window.ELM = window.ELM || {};
   }
 
   function backLink() {
+    if (run.back) return run.back;
     if (run.exam && ELM.exams) { const b = ELM.exams.setBack(run.exam); if (b) return b; }
     const t = topicInfo(run.topic);
     return t ? { href: t.href, label: "Wróć do tematu" } : { href: BASE, label: "Wróć do Centrum ćwiczeń" };
@@ -1260,6 +1268,7 @@ window.ELM = window.ELM || {};
   ];
 
   function renderDone(view) {
+    if (run.hooks && run.hooks.renderDone) return run.hooks.renderDone(view, run, api());
     const total = run.total;
     const pct = total ? Math.round(run.score / total * 100) : 0;
     let comment = COMMENTS.find(function (c) { return pct >= c[0]; })[1];
@@ -1523,6 +1532,29 @@ window.ELM = window.ELM || {};
     else location.hash = BASE + "/sesja";
   }
 
+  /**
+   * Test końcowy poziomu: sesja w trybie Egzamin pod adresem #/<poziom>/test. cfg: { level, title, items, hooks, back }
+   * hooks: finish(run, { score, total }) → wynik zapisany w elm_leveltests_v1, renderDone(view, run, api),
+   * afterFinish(run). Bez „Powtórz tylko błędne” i bez wyniku zestawu w elm_exercises_v1.
+   */
+  function startFinal(cfg) {
+    newRun({ key: "final:" + cfg.level, title: cfg.title, items: cfg.items, mode: "exam", hooks: cfg.hooks, back: cfg.back });
+    run.phase = "item";
+    run.i = 0;
+    if (location.hash !== "#/" + cfg.level.toLowerCase() + "/test") { location.hash = "#/" + cfg.level.toLowerCase() + "/test"; return; }
+    render();
+    U.setScroll(0);
+    focusLater("[data-fk='first']");
+  }
+
+  /** Funkcje silnika dla ekranu wyniku testu końcowego (js/level-final.js). */
+  function api() {
+    return {
+      head: head, journalSummary: journalSummary, userAnswer: userAnswer, modelAnswer: modelAnswer,
+      itemSummary: itemSummary, isWrong: isWrong, typeShort: TYPE_SHORT, repaint: repaint
+    };
+  }
+
   function render(route) {
     const view = document.getElementById("view");
     route = route || parseRoute(location.hash);
@@ -1534,6 +1566,9 @@ window.ELM = window.ELM || {};
     view.dataset.file = hrefOf(route);
     view.replaceChildren();
     document.title = "Ćwiczenia · English Levels Map";
+
+    // Test końcowy poziomu: bez rozpoczętej sesji — ekran startowy (js/level-final.js)
+    if (route.kind === "final" && (!run || run.key !== "final:" + route.id)) return ELM.levelFinal.renderStart(view, route.id);
 
     const ready = ensureRun(route);
     if (ready === false) {
@@ -1554,7 +1589,7 @@ window.ELM = window.ELM || {};
   function onEnter() {
     if (run && run.missing) { run = null; return; } // np. słabe punkty mogły się już pojawić
     if (!run || run.phase !== "done") return;
-    if (/^(mix|weak):/.test(run.key)) run = null; // mix / trening: przy następnym wejściu nowe losowanie
+    if (/^(mix|weak|final):/.test(run.key)) run = null; // mix / trening / test końcowy: przy następnym wejściu nowe losowanie
     else if (!run.isMix) newRun(Object.assign({}, run, { items: run.source, retry: false }));
   }
 
@@ -1661,6 +1696,7 @@ window.ELM = window.ELM || {};
     loadSets: loadSets,
     loadTopicItems: loadTopicItems,
     startCustom: startCustom,
+    startFinal: startFinal,
     topicSection: topicSection,
     setCard: setCard,
     typesText: typesText,
