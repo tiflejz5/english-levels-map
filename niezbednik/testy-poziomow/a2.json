@@ -206,12 +206,14 @@
         {
           "accepted": [
             "any"
-          ]
+          ],
+          "hint": "any albo some"
         },
         {
           "accepted": [
             "some"
-          ]
+          ],
+          "hint": "any albo some"
         }
       ],
       "explanation": "Przeczenie: any (aren't any chairs). Twierdzenie: some (some water)."
@@ -221,7 +223,7 @@
       "type": "multiple-choice",
       "kind": "form",
       "topic": "a2-gramatyka-modalne-must-should",
-      "prompt": "You ___ stop at a red light. It's the law.",
+      "prompt": "You ___ stop at a red light. It's against the law not to.",
       "options": [
         "should",
         "could",
@@ -229,7 +231,7 @@
         "must"
       ],
       "correct": 3,
-      "explanation": "Obowiązek z przepisów: must. Should to tylko rada."
+      "explanation": "Obowiązek wynikający z przepisów: must. Should to tylko rada, could i may – możliwość albo pozwolenie."
     },
     {
       "id": "tk-a2-15",
@@ -275,7 +277,8 @@
         },
         {
           "accepted": [
-            "because"
+            "because",
+            "as"
           ]
         }
       ],
@@ -347,14 +350,14 @@
       "pairs": [
         [
           "Would you like to come to my party?",
-          "Yes, I'd love to."
+          "Yes, I'd love to, thank you."
         ],
         [
           "Shall we go for a walk?",
-          "Good idea!"
+          "Good idea, let's go!"
         ],
         [
-          "What about tomorrow at six?",
+          "Can you come to my house tomorrow at six?",
           "Sorry, I'm busy then."
         ],
         [
@@ -389,9 +392,11 @@
       "context": "Idź prosto, a potem skręć w lewo.",
       "prompt": "___ straight on and then turn left.",
       "accepted": [
-        "Go"
+        "Go",
+        "Walk",
+        "Continue"
       ],
-      "explanation": "Wskazujemy drogę trybem rozkazującym: Go straight on and then turn left."
+      "explanation": "Wskazujemy drogę trybem rozkazującym: Go straight on (albo Walk / Continue straight on) and then turn left."
     },
     {
       "id": "tk-a2-25",
@@ -417,7 +422,7 @@
       "options": [
         "He likes football and music.",
         "He's very well, thanks.",
-        "He looks like to me.",
+        "He is like football and music.",
         "He's tall and has dark hair."
       ],
       "correct": 3,
@@ -447,7 +452,8 @@
       "accepted": [
         "I prefer cats to dogs.",
         "I like cats more than dogs.",
-        "I like cats better than dogs."
+        "I like cats better than dogs.",
+        "I prefer cats over dogs."
       ],
       "hint": "prefer … to",
       "explanation": "Wolę A od B: prefer A to B. Można też: like A more than B / like A better than B."
