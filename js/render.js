@@ -78,6 +78,12 @@ window.ELM = window.ELM || {};
     ]);
   }
 
+  /** Poziom, którego test końcowy jest na ekranie (#/a1/test → "A1") albo null — wtedy w panelu świeci poziom, a nie „Ćwiczenia”. */
+  function finalTestLevel() {
+    const m = /^#\/([abcABC][12])\/test\/?$/.exec(location.hash || "");
+    return m ? m[1].toUpperCase() : null;
+  }
+
   /** Górna część lewego panelu: narzędzia nauki (Ćwiczenia, Lab czasów, Dziennik błędów z liczbą powtórek). */
   function renderToolsNav() {
     const box = document.getElementById("tools-nav");
@@ -89,7 +95,7 @@ window.ELM = window.ELM || {};
     const items = [
       { href: "#/dzis", label: "Dziś", icon: "sunrise", active: st.view === "today" },
       { href: "#/test-poziomu", label: "Test poziomu", icon: "target", active: st.view === "leveltest" },
-      { href: "#/cwiczenia", label: "Ćwiczenia", icon: "dumbbell", active: st.view === "exercises" },
+      { href: "#/cwiczenia", label: "Ćwiczenia", icon: "dumbbell", active: st.view === "exercises" && !finalTestLevel() },
       { href: "#/laboratorium-czasow", label: "Lab czasów", icon: "flask-conical", active: st.view === "lab" },
       { href: "#/fiszki", label: "Fiszki", icon: "layers", active: st.view === "fiszki",
         badge: cardsDue ? String(cardsDue) : null, badgeLabel: cardsDue ? cardsDue + " " + (cardsDue === 1 ? "karta" : cardsDue % 10 >= 2 && cardsDue % 10 <= 4 && (cardsDue % 100 < 12 || cardsDue % 100 > 14) ? "karty" : "kart") + " do powtórki" : null },
@@ -134,7 +140,7 @@ window.ELM = window.ELM || {};
     st.content.levels.forEach(function (level) {
       const s = app().getLevelStats(level.id);
       // Poziom jest wyróżniony na jego liście i jego podstronach
-      const active = (st.view === "level" || st.view === "page") && level.id === st.ui.levelId;
+      const active = ((st.view === "level" || st.view === "page") && level.id === st.ui.levelId) || finalTestLevel() === level.id;
       const name = levelName(level);
       let n = levelNodes[level.id];
       if (!n || !ul.contains(n.a)) {
