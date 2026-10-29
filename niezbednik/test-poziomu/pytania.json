@@ -228,6 +228,7 @@
     {
       "id": "b1-01",
       "level": "B1",
+      "skill": "grammar",
       "type": "multiple-choice",
       "question": "I ___ here since 2019.",
       "options": ["live", "lived", "am living", "have lived"],
@@ -238,12 +239,108 @@
     {
       "id": "b1-02",
       "level": "B1",
+      "skill": "grammar",
       "type": "multiple-choice",
       "question": "If I had more free time, I ___ another language.",
       "options": ["will learn", "would learn", "learn", "would have learnt"],
       "correct": 1,
       "explanation": "Second Conditional (sytuacja nierealna teraz): If + Past Simple, would + bezokolicznik.",
       "itemId": "b1-gramatyka-conditionals-0-1-2"
+    },
+    {
+      "id": "b1-g-04",
+      "level": "B1",
+      "skill": "grammar",
+      "type": "multiple-choice",
+      "question": "This is the town ___ my grandparents were born.",
+      "options": ["where", "which", "who", "what"],
+      "correct": 0,
+      "explanation": "Miejsce w zdaniu względnym: where (= in which). Which wymagałoby przyimka: the town which they were born in.",
+      "itemId": "b1-gramatyka-zdania-wzgledne"
+    },
+    {
+      "id": "b1-g-05",
+      "level": "B1",
+      "skill": "grammar",
+      "type": "multiple-choice",
+      "question": "She asked me where ___.",
+      "options": ["did I live", "do I live", "I lived", "I did live"],
+      "correct": 2,
+      "explanation": "W pytaniu zależnym szyk jak w zdaniu oznajmującym (bez do/did): she asked me where I lived.",
+      "itemId": "b1-gramatyka-pytania-posrednie"
+    },
+    {
+      "id": "b1-g-06",
+      "level": "B1",
+      "skill": "grammar",
+      "type": "multiple-choice",
+      "question": "By the time we got to the cinema, the film ___.",
+      "options": ["already started", "has already started", "had already started", "starts"],
+      "correct": 2,
+      "explanation": "Czynność wcześniejsza niż inna czynność w przeszłości: Past Perfect (had started).",
+      "itemId": "b1-czasy-past-perfect"
+    },
+    {
+      "id": "b1-v-01",
+      "level": "B1",
+      "skill": "vocabulary",
+      "type": "multiple-choice",
+      "question": "Have you ___ your homework yet?",
+      "options": ["made", "did", "done", "worked"],
+      "correct": 2,
+      "explanation": "Kolokacja: do homework (nie make). Present Perfect: have done.",
+      "itemId": "b1-slownictwo"
+    },
+    {
+      "id": "b1-v-02",
+      "level": "B1",
+      "skill": "vocabulary",
+      "type": "multiple-choice",
+      "question": "I'm looking forward ___ you next week.",
+      "options": ["to seeing", "to see", "seeing", "for seeing"],
+      "correct": 0,
+      "explanation": "Look forward to + -ing: to jest tu przyimkiem, więc dalej forma -ing.",
+      "itemId": "b1-slownictwo"
+    },
+    {
+      "id": "b1-v-03",
+      "level": "B1",
+      "skill": "vocabulary",
+      "type": "multiple-choice",
+      "question": "Our flights were cancelled, so we had to ___ our holiday until August.",
+      "options": ["give up", "turn down", "find out", "put off"],
+      "correct": 3,
+      "explanation": "Put off = przełożyć na później. Give up = zrezygnować, turn down = odrzucić, find out = dowiedzieć się.",
+      "itemId": "b1-slownictwo"
+    },
+    {
+      "id": "b1-r-01",
+      "level": "B1",
+      "skill": "reading",
+      "type": "multiple-choice",
+      "passage": "Hi Sam, the meeting has moved from Tuesday to Thursday because half the team is at a conference. Same room, same time. Could you tell Ola? She isn't on this mailing list. – Kasia",
+      "question": "Why is Kasia writing to Sam?",
+      "options": ["To cancel the meeting", "To ask Sam to pass on information", "To invite Sam to a conference", "To change the meeting room"],
+      "correct": 1,
+      "explanation": "Spotkanie nie jest odwołane, tylko przeniesione, a sala ta sama. Najważniejsza prośba: „Could you tell Ola?” – Sam ma przekazać wiadomość.",
+      "itemId": null
+    },
+    {
+      "id": "b1-r-02",
+      "level": "B1",
+      "skill": "reading",
+      "type": "multiple-choice",
+      "passage": "I'd heard great things about Bella's, so I booked a table there for my birthday. The pizza was excellent and the staff were friendly, but we waited almost an hour for our main course. The manager apologised and didn't charge us for dessert. I'll definitely go back – but not when I'm in a hurry.",
+      "question": "What does the writer think of the restaurant?",
+      "options": [
+        "It is too expensive for a birthday dinner.",
+        "The food is good, but the service can be slow.",
+        "The staff were rude to them.",
+        "They will never go there again."
+      ],
+      "correct": 1,
+      "explanation": "Pizza była świetna, ale na danie główne czekali prawie godzinę – stąd „not when I'm in a hurry”.",
+      "itemId": null
     },
     {
       "id": "b2-01",
