@@ -462,6 +462,7 @@
     {
       "id": "c1-01",
       "level": "C1",
+      "skill": "grammar",
       "type": "multiple-choice",
       "question": "Not only ___ late, but he also forgot the documents.",
       "options": ["he arrived", "did he arrive", "he did arrive", "arrived he"],
@@ -472,12 +473,113 @@
     {
       "id": "c1-02",
       "level": "C1",
+      "skill": "grammar",
       "type": "multiple-choice",
       "question": "___ I known about the delay, I would have taken a taxi.",
       "options": ["If", "Had", "Should", "Were"],
       "correct": 1,
       "explanation": "Okres warunkowy bez if: Had I known… = If I had known… (Third Conditional z inwersją).",
       "itemId": "c1-gramatyka-warunkowe-bez-if"
+    },
+    {
+      "id": "c1-g-03",
+      "level": "C1",
+      "skill": "grammar",
+      "type": "multiple-choice",
+      "question": "What I need most right now ___ a long holiday.",
+      "options": ["are", "it's", "is", "that is"],
+      "correct": 2,
+      "explanation": "Zdanie rozszczepione z what: What I need … is … – czasownik w liczbie pojedynczej.",
+      "itemId": "c1-gramatyka-cleft-sentences"
+    },
+    {
+      "id": "c1-g-04",
+      "level": "C1",
+      "skill": "grammar",
+      "type": "multiple-choice",
+      "question": "___ by the noise, the baby started to cry.",
+      "options": ["Waking", "Having woken", "Woken", "Woke"],
+      "correct": 2,
+      "explanation": "Konstrukcja imiesłowowa w stronie biernej: dziecko zostało obudzone – Woken by the noise…",
+      "itemId": "c1-gramatyka-konstrukcje-imieslowowe"
+    },
+    {
+      "id": "c1-g-05",
+      "level": "C1",
+      "skill": "grammar",
+      "type": "multiple-choice",
+      "question": "According to the official schedule, the President ___ visit Warsaw next month.",
+      "options": ["is to", "is about to", "is due", "will be to"],
+      "correct": 0,
+      "explanation": "Be to + bezokolicznik: oficjalnie zaplanowane wydarzenie. Be about to = za chwilę, a „due” wymagałoby „to” (is due to visit).",
+      "itemId": "c1-czasy-be-to-about-to"
+    },
+    {
+      "id": "c1-v-01",
+      "level": "C1",
+      "skill": "vocabulary",
+      "type": "multiple-choice",
+      "question": "The new policy has ___ a lot of criticism from teachers.",
+      "options": ["drawn", "pulled", "made", "given"],
+      "correct": 0,
+      "explanation": "Kolokacja: draw criticism (spotkać się z krytyką). Podobnie draw attention.",
+      "itemId": "c1-slownictwo"
+    },
+    {
+      "id": "c1-v-02",
+      "level": "C1",
+      "skill": "vocabulary",
+      "type": "multiple-choice",
+      "question": "The two companies have ___ talks about a possible merger.",
+      "options": ["made", "done", "taken", "held"],
+      "correct": 3,
+      "explanation": "Kolokacja: hold talks (prowadzić rozmowy), podobnie hold a meeting.",
+      "itemId": "c1-slownictwo"
+    },
+    {
+      "id": "c1-v-03",
+      "level": "C1",
+      "skill": "vocabulary",
+      "type": "multiple-choice",
+      "question": "Her ___ to detail makes her an excellent editor.",
+      "options": ["attraction", "attention", "intention", "tension"],
+      "correct": 1,
+      "explanation": "Stałe wyrażenie: attention to detail (dbałość o szczegóły).",
+      "itemId": "c1-slownictwo"
+    },
+    {
+      "id": "c1-r-01",
+      "level": "C1",
+      "skill": "reading",
+      "type": "multiple-choice",
+      "passage": "Few things divide a household like the thermostat. One camp insists that 19 degrees is perfectly comfortable with a jumper on; the other quietly turns the dial up whenever the first leaves the room. Researchers who studied office temperatures found that the standard settings were based on the metabolic rate of a forty-year-old man – which may explain why so many people reach for a cardigan in July.",
+      "question": "What does the writer suggest about office temperatures?",
+      "options": [
+        "They are usually set too high in summer.",
+        "They may not suit a large part of the people who work there.",
+        "They cause more arguments than temperatures at home.",
+        "They were designed after careful research on comfort."
+      ],
+      "correct": 1,
+      "explanation": "Ustawienia oparto na metabolizmie jednej grupy (40-letni mężczyzna), więc wiele osób marznie – nie pasują do dużej części pracowników.",
+      "itemId": null
+    },
+    {
+      "id": "c1-r-02",
+      "level": "C1",
+      "skill": "reading",
+      "type": "multiple-choice",
+      "passage": "Remote work was once sold as the end of the daily commute and the beginning of a calmer, more balanced life. For many people, it has delivered exactly that. Yet a growing number of employees report that the boundary between office and home has simply dissolved: laptops stay open until midnight, and messages keep arriving at weekends. The problem, it seems, is not where we work but the unspoken expectation that we should always be available.",
+      "question": "What is the writer's main point?",
+      "options": [
+        "Constant availability, not location, is the real problem.",
+        "Remote work has failed to reduce commuting.",
+        "Working from home is less productive than office work.",
+        "Remote work has made most employees' lives calmer."
+      ],
+      "correct": 0,
+      "explanation": "Ostatnie zdanie: problemem nie jest miejsce pracy, tylko oczekiwanie, że zawsze będziemy dostępni.",
+      "itemId": null
     },
     {
       "id": "c2-01",
