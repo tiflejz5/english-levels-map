@@ -47,6 +47,13 @@ function typeCounts(items) {
   return out;
 }
 
+// Maksimum punktów zestawu (karta zestawu): ta sama funkcja co w aplikacji (js/exercise-logic.js)
+global.window = global.window || global;
+require(path.join(ROOT, "js", "exercise-logic.js"));
+function pointsOf(items) {
+  return items.reduce(function (s, it) { return s + global.window.ELM.exLogic.maxPoints(it); }, 0);
+}
+
 const topics = {};
 const sets = {};
 Object.keys(map.topics || {}).forEach(function (topic) {
@@ -68,6 +75,7 @@ Object.keys(map.topics || {}).forEach(function (topic) {
       title: set.title || setId,
       intro: set.intro || "",
       count: set.items.length,
+      points: pointsOf(set.items),
       types: typeCounts(set.items),
       defaultMode: set.defaultMode === "exam" ? "exam" : "learn",
       file: "cwiczenia/tematy/" + setId + ".js"
@@ -96,7 +104,7 @@ examRegistry.forEach(function (exam) {
           "(ELM.EX_SETS = ELM.EX_SETS || {})[" + JSON.stringify(meta.id) + "] = " + JSON.stringify(set) + ";");
         sets[meta.id] = {
           id: meta.id, topic: null, level: set.level || null, title: set.title || meta.label, intro: set.intro || "",
-          count: set.items.length, types: typeCounts(set.items), defaultMode: set.defaultMode === "exam" ? "exam" : "learn",
+          count: set.items.length, points: pointsOf(set.items), types: typeCounts(set.items), defaultMode: set.defaultMode === "exam" ? "exam" : "learn",
           file: rel, exam: exam.id, group: g.label, hasPassage: !!set.passage,
           listening: set.items.some(function (it) { return it.kind === "listening"; })
         };

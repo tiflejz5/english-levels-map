@@ -5,7 +5,7 @@
  *   3. Trening słabych punktów (spec 03, pkt 5): tematy z ≥ 5 próbami i trafnością < 70%.
  *
  * Generator: poziom (zakres), tematy (chipy wg kategorii, skrót „Wszystkie czasy”),
- * typy zadań, liczba (10/15/20), tryb. Losowanie: ELM.exLogic.pickMix (równo po
+ * typy zadań (bez dyktanda, gdy przeglądarka nie ma głosu angielskiego), liczba (10/15/20), tryb. Losowanie: ELM.exLogic.pickMix (równo po
  * tematach, bez zadań z ostatniej sesji mieszanej, gdy starcza puli; ≤ 2 tego samego
  * typu pod rząd) z wagami z dziennika podejść: trafność < 60% × 2, nigdy niewidziane × 1,5.
  * Sesję uruchamia ELM.exercises.startCustom (adres #/cwiczenia/sesja).
@@ -139,6 +139,8 @@ window.ELM = window.ELM || {};
   function availableTypes(index) {
     const types = {};
     Object.keys(index.sets).forEach(function (id) { Object.keys(index.sets[id].types).forEach(function (t) { types[t] = true; }); });
+    // Dyktando tylko z głosem angielskim w przeglądarce
+    if (ex().noEnglishVoice()) delete types.dictation;
     return ELM.exLogic.TYPES.filter(function (t) { return types[t]; });
   }
 
@@ -236,7 +238,7 @@ window.ELM = window.ELM || {};
     const topics = gen.topics.slice(), types = gen.types.slice(), from = gen.from, to = gen.to, count = gen.count, mode = gen.mode;
     function pick() {
       return ex().loadTopicItems(topics).then(function (pool) {
-        pool = pool.filter(function (it) { return !it.level || levelIn(it.level, from, to); });
+        pool = ex().playablePool(pool).filter(function (it) { return !it.level || levelIn(it.level, from, to); });
         const res = ELM.exLogic.pickMix(pool, { count: count, types: types, exclude: pd().lastMix(), weight: ELM.stats.mixWeight(pd().attempts()) });
         return res;
       });
@@ -294,7 +296,7 @@ window.ELM = window.ELM || {};
     view.dataset.file = ex().BASE;
     view.replaceChildren(el("header", { class: "tool-head" }, [
       el("h1", { class: "tool-title" }, [el("span", { class: "lab-head-icon", "aria-hidden": "true" }, ELM.icon("dumbbell", { size: 28 })), "Centrum ćwiczeń"]),
-      el("p", { class: "tool-lead", text: "Zestawy zadań do tematów, gotowe zestawy mieszane i losowanie własnego zestawu. Wybór formy, układanie zdań i szukanie błędów – w trybie Nauki albo Egzaminu." })
+      el("p", { class: "tool-lead", text: "Zestawy zadań do tematów, gotowe zestawy mieszane i losowanie własnego zestawu. Wybór formy, układanie zdań, szukanie błędów, luki do wpisania, dopasowanie par, transformacje, tłumaczenie i dyktando – w trybie Nauki albo Egzaminu. Wyniki liczą się w punktach." })
     ]));
     document.title = "Centrum ćwiczeń · English Levels Map";
     ex().loadIndex().then(function (index) {

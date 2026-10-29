@@ -106,6 +106,11 @@ window.ELM = window.ELM || {};
     });
   }
 
+  /** Pula do losowania (mixy, generator, słabe punkty): bez dyktand, gdy przeglądarka nie ma głosu angielskiego. */
+  function playablePool(pool) {
+    return noEnglishVoice() ? pool.filter(function (it) { return it.type !== "dictation"; }) : pool;
+  }
+
   /** Punkt niezbędnika po id: { id, level, title, href } albo null. */
   function topicInfo(id) {
     return id && ELM.journal ? ELM.journal.findItem(id) : null;
@@ -1464,7 +1469,7 @@ window.ELM = window.ELM || {};
       if (!mix) { run = { key: key, missing: true, profileId: profile && profile.id }; return render(); }
       const pick = function () {
         return loadTopicItems(mix.topics).then(function (pool) {
-          const res = X().pickMix(pool, { count: mix.count || 10, types: mix.types, exclude: pd().lastMix(), weight: ELM.stats.mixWeight(pd().attempts()) });
+          const res = X().pickMix(playablePool(pool), { count: mix.count || 10, types: mix.types, exclude: pd().lastMix(), weight: ELM.stats.mixWeight(pd().attempts()) });
           newRun({
             key: key, title: mix.title, intro: mix.description + (res.items.length < (mix.count || 10) ? " W banku jest na razie " + res.items.length + " pasujących zadań." : ""),
             items: res.items, mode: mix.mode, saveId: mix.id, isMix: true
@@ -1489,7 +1494,7 @@ window.ELM = window.ELM || {};
     if (!topics.length) return none("Na razie nie widzę słabych punktów. Zrób kilka zestawów, a podpowiem, nad czym popracować.");
     const pick = function () {
       return loadTopicItems(topics).then(function (pool) {
-        return X().pickMix(pool, { count: 12, weight: ELM.stats.weakWeight(pd().attempts(), ELM.learn.today()) });
+        return X().pickMix(playablePool(pool), { count: 12, weight: ELM.stats.weakWeight(pd().attempts(), ELM.learn.today()) });
       });
     };
     pick().then(function (res) {
@@ -1606,9 +1611,11 @@ window.ELM = window.ELM || {};
   /** Karta zestawu: tytuł, liczba zadań, typy, najlepszy i ostatni wynik, „Zacznij”. */
   function setCard(meta) {
     const score = pd().setScore(meta.id);
+    // Zestaw z zadaniami za kilka punktów: także maksimum punktów (wyniki są w punktach)
+    const points = meta.points && meta.points !== meta.count ? " · " + meta.points + " pkt" : "";
     return el("article", { class: "card ex-set-card lvl-" + (meta.level || "A1") }, [
       el("h3", { class: "ex-set-title", text: meta.title }),
-      el("p", { class: "ex-set-meta", text: meta.count + " zadań · " + typesText(meta.types) }),
+      el("p", { class: "ex-set-meta", text: meta.count + " zadań" + points + " · " + typesText(meta.types) }),
       el("p", { class: "ex-set-score" + (score ? "" : " is-empty") }, score
         ? [el("span", null, ["Najlepszy: ", el("strong", { class: "num", text: scoreText(score.best) })]), el("span", null, ["Ostatni: ", el("span", { class: "num", text: scoreText(score.last) })])]
         : "Jeszcze nie rozwiązany"),
@@ -1644,6 +1651,9 @@ window.ELM = window.ELM || {};
     BASE: BASE,
     asset: asset,
     TYPE_SHORT: TYPE_SHORT,
+    TYPE_LABEL: TYPE_LABEL,
+    playablePool: playablePool,
+    noEnglishVoice: noEnglishVoice,
     parseRoute: parseRoute,
     render: render,
     onEnter: onEnter,
