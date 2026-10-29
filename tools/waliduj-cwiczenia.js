@@ -8,7 +8,8 @@
  *   - zestawy cwiczenia/tematy/*.json: poprawny JSON, id = nazwa pliku, topic istnieje,
  *     id zadań unikalne w całym banku, pola każdego typu (2–4 opcje, correct w zakresie,
  *     optionNotes, multizbiór wyrazów w reorder, errorRange, jedna luka w short-answer…),
- *     explanation, passage dla kind „reading”, script dla kind „listening”,
+ *     explanation, passage dla kind „reading”, script dla kind „listening”; typy z paczki v6 (gap-fill,
+ *     match, transformation, translate, dictation — reguły jak docs/rozbudowa-v6/scripts/validate_v6.py),
  *   - dane/lab-czasow.json: grupy, aspekty, poziomy, współrzędne osi w [-1, 1], from ≤ to,
  *     kontrasty z istniejącymi czasami, niezbednikIds,
  *   - dane/lab-wybor-czasu.json: start, każde next istnieje, każdy result to istniejący czas,
@@ -47,7 +48,7 @@ function readJson(rel) {
 }
 
 const LEVELS = ["A1", "A2", "B1", "B2", "C1", "C2"];
-const TYPES = ["multiple-choice", "reorder", "find-error", "short-answer"];
+const TYPES = ["multiple-choice", "reorder", "find-error", "short-answer", "gap-fill", "match", "transformation", "translate", "dictation"];
 const KINDS = ["form", "function", "reading", "listening"];
 
 // Tematy z niezbędnika
@@ -118,6 +119,67 @@ function checkItem(it, where, set) {
   } else if (it.type === "short-answer") {
     if ((String(it.prompt || "").match(/___/g) || []).length !== 1) err(at + ": prompt musi mieć dokładnie jedną lukę ___");
     if (!Array.isArray(it.accepted) || !it.accepted.length || !it.accepted.every(nonEmpty)) err(at + ": accepted — niepusta lista");
+  } else {
+    checkV6Item(it, at);
+  }
+}
+
+// ---------- Nowe typy zadań (paczka v6, spec 12, sekcja 4; wzór reguł: docs/rozbudowa-v6/scripts/validate_v6.py) ----------
+const MATCH_MODES = ["definition", "halves", "translation", "response"];
+/** Liczba słów jak w Cambridge: skrót (n't, 's, 're, 've, 'd, 'll, 'm) = dwa słowa, poza let's. */
+function cambridgeWords(s) {
+  return String(s).replace(/’/g, "'").trim().split(/\s+/).filter(Boolean).reduce(function (n, w) {
+    return n + (/(n't|'s|'re|'ve|'d|'ll|'m)$/i.test(w) && w.toLowerCase() !== "let's" ? 2 : 1);
+  }, 0);
+}
+function norm6(s) { return String(s).trim().replace(/\s+/g, " ").replace(/’/g, "'").replace(/[.,!?;]+$/, "").toLowerCase(); }
+function escapeRe(s) { return String(s).replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
+
+function checkV6Item(it, at) {
+  if (it.type === "gap-fill") {
+    const nums = (String(it.text || "").match(/\{\{(\d+)\}\}/g) || []).map(function (m) { return Number(m.slice(2, -2)); });
+    const gaps = Array.isArray(it.gaps) ? it.gaps : [];
+    if (nums.length < 1 || nums.length > 4) err(at + ": gap-fill musi mieć 1–4 luki, ma " + nums.length);
+    if (nums.join(",") !== nums.map(function (_, i) { return i + 1; }).join(",")) err(at + ": luki muszą być numerowane {{1}}…{{n}} po kolei");
+    if (gaps.length !== nums.length) err(at + ": gaps ma " + gaps.length + " elementów, a luk jest " + nums.length);
+    gaps.forEach(function (g, i) {
+      if (!g || !Array.isArray(g.accepted) || !g.accepted.length || !g.accepted.every(nonEmpty)) err(at + ": luka " + (i + 1) + " bez accepted");
+      if (g && g.hint != null && !nonEmpty(g.hint)) err(at + ": luka " + (i + 1) + " — hint musi być niepustym tekstem");
+    });
+  } else if (it.type === "match") {
+    const pairs = Array.isArray(it.pairs) ? it.pairs : [];
+    if (pairs.length < 3 || pairs.length > 6) err(at + ": match musi mieć 3–6 par, ma " + pairs.length);
+    if (!pairs.every(function (x) { return Array.isArray(x) && x.length === 2 && nonEmpty(x[0]) && nonEmpty(x[1]); })) { err(at + ": każda para to [lewa, prawa] (niepuste teksty)"); return; }
+    const left = pairs.map(function (x) { return norm6(x[0]); }), right = pairs.map(function (x) { return norm6(x[1]); });
+    if (new Set(left).size !== left.length || new Set(right).size !== right.length) err(at + ": teksty par muszą być unikalne");
+    const extra = it.extraRight == null ? [] : it.extraRight;
+    if (!Array.isArray(extra) || extra.length > 2 || !extra.every(nonEmpty)) err(at + ": extraRight — najwyżej 2 niepuste teksty");
+    else if (extra.some(function (e) { return right.indexOf(norm6(e)) !== -1; })) err(at + ": extraRight powtarza prawą stronę pary");
+    if (MATCH_MODES.indexOf(it.mode) === -1) err(at + ": mode musi być jednym z: " + MATCH_MODES.join(", "));
+  } else if (it.type === "transformation") {
+    const kw = String(it.keyword || "").trim();
+    const answers = Array.isArray(it.answers) ? it.answers : [];
+    const lim = it.wordLimit == null ? [2, 5] : it.wordLimit;
+    if (!(Array.isArray(lim) && lim.length === 2 && lim[0] >= 1 && lim[0] <= lim[1])) { err(at + ": wordLimit musi być [min, max]"); return; }
+    if (!kw || !answers.length || !answers.every(nonEmpty)) err(at + ": transformation wymaga keyword i answers");
+    answers.forEach(function (a) {
+      if (kw && !new RegExp("(^|[^\\w'])" + escapeRe(kw.toLowerCase()) + "(?!\\w)").test(String(a).toLowerCase())) err(at + ": odpowiedź „" + a + "” nie zawiera słowa kluczowego " + kw);
+      const n = cambridgeWords(a);
+      if (n < lim[0] || n > lim[1]) err(at + ": odpowiedź „" + a + "” ma " + n + " słów, limit " + lim[0] + "–" + lim[1]);
+    });
+    if (it.parts != null && (!Array.isArray(it.parts) || it.parts.length !== 2 || !it.parts.every(function (p) { return Array.isArray(p) && p.length && p.every(nonEmpty); }))) err(at + ": parts musi mieć dokładnie 2 elementy (listy wariantów)");
+    ["source", "before", "after"].forEach(function (k) { if (typeof it[k] !== "string") err(at + ": brak pola " + k); });
+    if (!nonEmpty(it.source)) err(at + ": source nie może być puste");
+  } else if (it.type === "translate") {
+    if (!Array.isArray(it.accepted) || it.accepted.length < 1 || it.accepted.length > 8 || !it.accepted.every(nonEmpty)) err(at + ": translate wymaga 1–8 accepted");
+    if (!nonEmpty(it.source)) err(at + ": brak source");
+    if (it.hint != null && !nonEmpty(it.hint)) err(at + ": hint musi być niepustym tekstem");
+  } else if (it.type === "dictation") {
+    const n = String(it.text || "").trim().split(/\s+/).filter(Boolean).length;
+    if (n < 4 || n > 30) err(at + ": dyktando ma " + n + " słów (4–30)");
+    const mp = it.maxPlays == null ? 3 : it.maxPlays;
+    if (!Number.isInteger(mp) || mp < 1 || mp > 5) err(at + ": maxPlays 1–5");
+    if (it.accepted != null && (!Array.isArray(it.accepted) || !it.accepted.every(nonEmpty))) err(at + ": accepted — lista niepustych wariantów");
   }
 }
 
