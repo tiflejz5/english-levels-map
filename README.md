@@ -101,6 +101,21 @@ Zapisujemy wyłącznie listę dni aktywności profilu. Serię liczy `ELM.learn.s
 2. Uruchom `node tools/zbuduj-niezbednik.js`. Skrypt sprawdza schemat, także `skill` i `passage`: błędne pytania pomija i wypisuje „UWAGA”, nieznane `itemId` usuwa (pytanie zostaje bez linku), ostrzega o braku `skill`, o długości tekstu i o poziomie z mniej niż 8 pytaniami albo bez którejś umiejętności, a na koniec wypisuje tabelę poziom × umiejętność. Potem tworzy `niezbednik/test-poziomu-dane.js`. Pełne sprawdzenie proporcji: `python3 docs/rozbudowa-v6/scripts/validate_v6.py . --only test`.
 3. Zwiększ `?v=…` w `index.html`.
 
+## Testy końcowe poziomów A1–C2
+
+Specyfikacja: `docs/rozbudowa-v6/spec/13-test-poziomu-i-testy-koncowe.md` (sekcja 2). Różnią się od szybkiego testu poziomu: sprawdzają **cały poziom**, nie szacują go.
+
+- **Adres:** `#/a1/test` … `#/c2/test`. Karta „Test końcowy” jest pod podsumowaniem na stronie każdego poziomu. Ekran startowy pokazuje liczbę pytań, próg, najlepszy wynik i dzień zaliczenia. Test jest zawsze dostępny (nic go nie blokuje), a przy ≥ 70% „Umiem” na poziomie strona „Dziś” podpowiada „Gotowy na test końcowy A1?”.
+- **Przebieg:** 20 zadań wylosowanych z puli 30, ok. 15 minut, tryb Egzamin w silniku zadań (wyjaśnienia dopiero na końcu), próg **80% punktów** (zadanie wielopunktowe liczy się jako jedno zadanie do losowania, ale próg liczony jest w punktach). Wynik: punkty i procent, „Zaliczony” / „Jeszcze nie”, podział na kategorie, lista podstron do powtórki (z linkami), przy porażce „Najwięcej błędów w: …” i zestawy do tych tematów. Błędy trafiają do Dziennika błędów jak w zwykłych zestawach (z „Cofnij wszystkie”). Test niczego nie zaznacza jako „Umiem”.
+- **Losowanie** (`js/final-logic.js`, czysta funkcja z testami): każda kategoria podstron (czasy, gramatyka, funkcje komunikacyjne, słownictwo) jest reprezentowana proporcjonalnie do jej udziału w puli (metoda największych reszt, najmniej 1 zadanie), zadania jednej kategorii pochodzą z możliwie różnych podstron, a ten sam typ zadania nie występuje więcej niż dwa razy pod rząd.
+- **Znaczek poziomu:** pierwsze zaliczenie zapisuje dzień (`passedAt`); znaczek zostaje po późniejszej porażce. Pieczątka (ikona nagrody w kółku, z tekstem dostępnym „A1 zaliczony 12.11.2026”) pojawia się na Szlaku na stronie „Dziś”, na kółku poziomu w lewym panelu, a w nagłówku strony poziomu jest etykieta „Zaliczony · 12.11.2026”. Kolor nie jest jedynym nośnikiem informacji. Gratulacje: kamień milowy `lvl-<poziom>-passed` (raz na profil). Ukończony test to dzień nauki (`markActivity`).
+- **Dane profilu:** nowy klucz `elm_leveltests_v1` (patrz tabela kluczy), w eksporcie, imporcie (stary plik bez tego klucza zostawia dane tej przeglądarki), resecie i usunięciu profilu. Nie należy go mylić z `elm_leveltest_v1` (szybki test poziomu).
+- **Pule pytań:** `niezbednik/testy-poziomow/<a1|a2|b1|b2|c1|c2>.json` to zwykły zestaw silnika zadań (spec 01 i 12) z polami `kind: "level-test"`, `draw: 20`, `passPercent: 80`, `defaultMode: "exam"` i **30 zadaniami**. Wymagania, które sprawdza `npm run validate`:
+  - każde zadanie ma `topic` (id podstrony **tego** poziomu z `niezbednik/index.json`);
+  - pula pokrywa co najmniej 70% podstron poziomu, ma zadania ze wszystkich kategorii i proporcje zbliżone do listy poziomu (ostrzeżenie przy odchyleniu > 2 zadań);
+  - co najmniej połowa zadań to `multiple-choice` (funkcje komunikacyjne z `kind: "function"`), dalej `gap-fill`, `short-answer`, `match`, `reorder`, `transformation` (od B1), `translate` (od A2); **bez `dictation`** (test nie może zależeć od głosu).
+- **Build:** `node tools/zbuduj-testy-koncowe.js` (część `npm run build` i `npm run dane`) zamienia pule na `niezbednik/testy-poziomow/<poziom>.js` (`ELM.LEVEL_TESTS["A1"]`, ładowane dopiero po wejściu na `#/a1/test`) i dopisuje do zadań kategorię podstrony (`category`). Pliki `.js` są generowane – nie edytuj ich ręcznie. Wzór: `docs/rozbudowa-v6/przyklady/testy-poziomow/a1-przyklad.json`. Pełne sprawdzenie: `python3 docs/rozbudowa-v6/scripts/validate_v6.py . --only zadania,testy-koncowe`.
+
 ## Testy
 
 ```bash
@@ -143,6 +158,7 @@ Nazwa profilu: spacje na początku i końcu są obcinane, najwyżej 30 znaków, 
 | `elm_journal_v1`  | dziennik błędów **per profil**: `{ version: 1, profiles: { <id profilu>: { entries: [wpis…] } } }` |
 | `elm_activity_v1` | dni nauki **per profil**: `{ version: 1, profiles: { <id>: { days: ["RRRR-MM-DD"…], lastPage: { hash, title } } } }` |
 | `elm_leveltest_v1`| ostatni wynik testu poziomu **per profil**: `{ version: 1, profiles: { <id>: { last: { date, level, answers } } } }` |
+| `elm_leveltests_v1` | testy końcowe poziomów i znaczki **per profil** (paczka v6): `{ version: 1, profiles: { <id>: { levels: { "A1": { passedAt: "RRRR-MM-DD" \| null, best: { score, total, date }, last: { score, total, date } } } } } }`; `passedAt` = dzień pierwszego zaliczenia (w eksporcie, imporcie, resecie, usunięcie profilu usuwa jego dane) |
 | `elm_exercises_v1`| wyniki zestawów ćwiczeń **per profil**: `{ version: 1, profiles: { <id>: { sets: { <id zestawu lub mixu>: { best, last, recent } }, lastMix: [id zadań…], dismissed: { <id zestawu>: dzień } } } }`, gdzie `best` / `last` = `{ score, total, date }`, `recent` — ostatnie 5 wyników (sugestia „Umiem”), `dismissed` — „Nie teraz” przy sugestii (w eksporcie, imporcie i resecie) |
 | `elm_attempts_v1` | dziennik podejść **per profil**: każda odpowiedź w zadaniach `{ t, day, itemId, setId, topic, level, type, tags, correct, mode, answer }` (zadania za kilka punktów mają dodatkowo opcjonalne `points` i `max`; pominięte dyktando nie trafia do dziennika); bufor 3000 wpisów, starsze w `aggregates` (`{ n, ok, topic, type, level }` na zadanie) |
 | `elm_autojournal_v1` | błędy dodane automatycznie do Dziennika błędów **per profil**: `{ items: { <id zadania>: { entryId, created, wrongCount, lastWrongAt, returned } } }`; sam wpis jest w `elm_journal_v1` (bez zmiany formatu, łączy go `ref = "ex:<id zadania>"`) |
@@ -171,7 +187,7 @@ Format pliku eksportu:
   data: {
     content:  { app, kind: "content",  version, exportedAt, data: { /* elm_content_v1 */ } },
     progress: { app, kind: "progress", version, exportedAt, data: { /* elm_profiles_v1 */ } },
-    learning: { journal: { /* elm_journal_v1 */ }, activity: { /* elm_activity_v1 */ }, levelTest: { /* elm_leveltest_v1 */ } }
+    learning: { journal: { /* elm_journal_v1 */ }, activity: { /* elm_activity_v1 */ }, levelTest: { /* elm_leveltest_v1 */ }, levelTests: { /* elm_leveltests_v1 */ } }
   }
 }
 ```
@@ -233,6 +249,7 @@ Specyfikacje: [docs/rozbudowa-v2/](docs/rozbudowa-v2/00-CZYTAJ-TO.md).
 | `#/cwiczenia`, `#/cwiczenia/mieszane` | Centrum ćwiczeń: zestawy tematów, gotowe mixy, generator | `js/exercise-hub.js` |
 | `#/cwiczenia/zestaw/<id>` | sesja zestawu (Nauka / Egzamin, wynik, „Powtórz tylko błędne”) | `js/exercise-engine.js` |
 | `#/cwiczenia/mix/<id>`, `#/cwiczenia/sesja` | gotowy mix / zestaw z generatora | `js/exercise-engine.js` |
+| `#/a1/test` … `#/c2/test` | test końcowy poziomu: ekran startowy, sesja Egzamin, wynik, znaczek | `js/level-final.js`, `js/final-logic.js`, silnik `js/exercise-engine.js` |
 | `#/laboratorium-czasow[/<czas>]`, `…/dobierz`, `…/porownaj/<a>/<b>` | Laboratorium czasów: mapa, karta z osią, „Dobierz czas”, porównanie | `js/tense-lab.js` |
 
 - **Typy zadań:** `multiple-choice`, `reorder`, `find-error`, `short-answer` (spec 01) oraz z paczki v6 (`docs/rozbudowa-v6/spec/12-nowe-typy-zadan.md`) `gap-fill`, `match`, `transformation`, `translate`, `dictation`. Ocena, tasowanie i losowanie mixów są w `js/exercise-logic.js` (bez DOM, testy w `tools/testy.js`). Wzór danych nowych typów: `docs/rozbudowa-v6/przyklady/cwiczenia/v6-pilot-nowe-typy.json`.
@@ -299,6 +316,8 @@ english-levels-map/
 │  ├─ journal.js         Dziennik błędów i sesja powtórek
 │  ├─ today.js           strona „Dziś”
 │  ├─ level-test.js      szybki test poziomu
+│  ├─ level-final.js     testy końcowe poziomów A1–C2 (ekran startowy, wynik, znaczek, karta na stronie poziomu)
+│  ├─ final-logic.js     losowanie 20 z 30 z proporcjami kategorii, próg w punktach, podział wyniku (bez DOM)
 │  ├─ default-data.js    dane startowe: lista bazowa albo pusty szkielet
 │  ├─ base-content.js    bazowa lista umiejętności (niezbędnik A1–C2)
 │  ├─ store.js           localStorage, migracja, walidacja, eksport/import
@@ -328,6 +347,7 @@ english-levels-map/
 │  └─ app.js             start, stan, routing, zdarzenia, zapis
 ├─ niezbednik/           podstrony, podsumowania, strona główna, Certyfikat C1 (patrz niżej)
 ├─ tools/zbuduj-niezbednik.js   generator plików *-dane.js (także test-poziomu-dane.js)
+├─ tools/zbuduj-testy-koncowe.js  pule testów końcowych (niezbednik/testy-poziomow/*.json) → pliki .js ładowane na żądanie
 ├─ tools/testy.js        testy jednostkowe (node tools/testy.js)
 ├─ tools/kontrast.js     kontrast WCAG par tokenów (4 zakresy motywów)
 ├─ tools/zbuduj-cwiczenia.js   ćwiczenia i Lab: JSON → pliki .js ładowane na żądanie

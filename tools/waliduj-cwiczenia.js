@@ -10,6 +10,9 @@
  *     optionNotes, multizbiór wyrazów w reorder, errorRange, jedna luka w short-answer…),
  *     explanation, passage dla kind „reading”, script dla kind „listening”; typy z paczki v6 (gap-fill,
  *     match, transformation, translate, dictation — reguły jak docs/rozbudowa-v6/scripts/validate_v6.py),
+ *   - niezbednik/testy-poziomow/<a1…c2>.json (testy końcowe poziomów, paczka v6): kind/draw/passPercent/defaultMode,
+ *     30 zadań, topic z poziomu, bez dyktanda, transformation od B1, translate od A2, min. połowa wyboru,
+ *     pokrycie ≥ 70% podstron poziomu, kategorie obecne i w proporcjach jak na liście,
  *   - dane/lab-czasow.json: grupy, aspekty, poziomy, współrzędne osi w [-1, 1], from ≤ to,
  *     kontrasty z istniejącymi czasami, niezbednikIds,
  *   - dane/lab-wybor-czasu.json: start, każde next istnieje, każdy result to istniejący czas,
@@ -207,6 +210,61 @@ setFiles.forEach(function (f) {
 if (setFiles.length) ["gap-fill", "match", "transformation", "translate", "dictation"].forEach(function (t) {
   if (!usedTypes[t]) err("zadania: żaden zestaw w cwiczenia/tematy/ nie używa typu " + t);
 });
+
+// ---------- Testy końcowe poziomów (paczka v6, spec 13 sekcja 2.2; odpowiednik validate_v6.py --only testy-koncowe) ----------
+const topicLevel = {}, topicCategory = {};
+(index && index.levels || []).forEach(function (l) { l.items.forEach(function (it) { topicLevel[it.id] = l.level; topicCategory[it.id] = it.category; }); });
+let finalPools = 0, finalItems = 0;
+const FINAL_TYPES = ["multiple-choice", "gap-fill", "short-answer", "match", "transformation", "translate", "reorder", "find-error"];
+const FINAL_DIR = path.join(ROOT, "niezbednik", "testy-poziomow");
+if (fs.existsSync(FINAL_DIR)) {
+  LEVELS.forEach(function (lvl) {
+    const f = lvl.toLowerCase() + ".json";
+    const rel = "niezbednik/testy-poziomow/" + f;
+    if (!fs.existsSync(path.join(FINAL_DIR, f))) { err(rel + ": brak puli testu końcowego (potrzebne wszystkie poziomy A1–C2)"); return; }
+    const set = readJson(rel);
+    if (!set) return;
+    finalPools++;
+    const at = rel;
+    if (set.version !== 1) err(at + ": version musi być 1");
+    if (set.kind !== "level-test") err(at + ": kind musi być „level-test”");
+    if (set.id !== "test-koncowy-" + lvl.toLowerCase()) err(at + ": id musi być „test-koncowy-" + lvl.toLowerCase() + "”");
+    if (set.level !== lvl) err(at + ": level musi być " + lvl);
+    if (set.draw !== 20) err(at + ": draw musi być 20");
+    if (set.passPercent !== 80) err(at + ": passPercent musi być 80");
+    if (set.defaultMode !== "exam") err(at + ": defaultMode musi być „exam”");
+    if (!nonEmpty(set.title)) err(at + ": brak title");
+    if (!Array.isArray(set.items) || set.items.length !== 30) { err(at + ": pula musi mieć 30 zadań, ma " + (Array.isArray(set.items) ? set.items.length : 0)); if (!Array.isArray(set.items)) return; }
+    finalItems += set.items.length;
+    let mc = 0;
+    const covered = new Set();
+    const perCat = {};
+    set.items.forEach(function (it) {
+      checkItem(Object.assign({ level: set.level }, it), f, set); // pola wg typu (spec 01 i 12), unikalne id w całym banku
+      const q = at + " " + (it.id || "?");
+      if (!nonEmpty(it.topic)) err(q + ": brak wymaganego topic");
+      else if (topicLevel[it.topic] !== lvl) err(q + ": topic „" + it.topic + "” nie należy do poziomu " + lvl);
+      else { covered.add(it.topic); perCat[topicCategory[it.topic]] = (perCat[topicCategory[it.topic]] || 0) + 1; }
+      if (it.type === "dictation") err(q + ": dyktando niedozwolone w teście końcowym (test nie może zależeć od głosu)");
+      else if (FINAL_TYPES.indexOf(it.type) === -1) err(q + ": typ „" + it.type + "” niedozwolony w teście końcowym");
+      if (it.type === "transformation" && LEVELS.indexOf(lvl) < 2) err(q + ": transformation dopiero od B1");
+      if (it.type === "translate" && LEVELS.indexOf(lvl) < 1) err(q + ": translate dopiero od A2");
+      if (it.type === "multiple-choice") mc++;
+    });
+    if (mc * 2 < set.items.length) err(at + ": zadań wyboru jest " + mc + " z " + set.items.length + " (wymagana co najmniej połowa)");
+    const levelTopics = Object.keys(topicLevel).filter(function (t) { return topicLevel[t] === lvl; });
+    if (covered.size < 0.7 * levelTopics.length) err(at + ": pula pokrywa " + covered.size + " z " + levelTopics.length + " podstron (wymagane co najmniej 70%)");
+    // Proporcje kategorii jak na liście poziomu (ostrzeżenie, gdy odchylenie > 2 zadania od udziału proporcjonalnego)
+    const catCount = {};
+    levelTopics.forEach(function (t) { catCount[topicCategory[t]] = (catCount[topicCategory[t]] || 0) + 1; });
+    Object.keys(catCount).forEach(function (c) {
+      const want = 30 * catCount[c] / levelTopics.length;
+      const got = perCat[c] || 0;
+      if (!got) err(at + ": brak zadań z kategorii „" + c + "”");
+      else if (Math.abs(got - want) > 2) warnings.push(at + ": kategoria „" + c + "” ma " + got + " zadań, a proporcjonalnie ok. " + want.toFixed(1));
+    });
+  });
+}
 
 // ---------- Mapa temat → zestawy ----------
 const map = readJson("dane/cwiczenia-tematy.json");
@@ -506,7 +564,7 @@ function countE8(text, opening) {
 }
 
 console.log("Walidacja ćwiczeń: zestawy " + setIds.size + ", zadania " + itemCount + ", czasy " + tenses.size +
-  ", węzły drzewa " + (tree ? Object.keys(tree.nodes || {}).length : 0) + ", mixy " + (mixes ? (mixes.mixes || []).length : 0) + ", egzaminy " + examCount);
+  ", węzły drzewa " + (tree ? Object.keys(tree.nodes || {}).length : 0) + ", mixy " + (mixes ? (mixes.mixes || []).length : 0) + ", egzaminy " + examCount + ", testy końcowe " + finalPools + " (zadania " + finalItems + ")");
 warnings.forEach(function (w) { console.warn("UWAGA: " + w); });
 if (errors.length) {
   console.error("BŁĘDY (" + errors.length + "):");
