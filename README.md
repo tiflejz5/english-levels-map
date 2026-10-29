@@ -11,7 +11,7 @@ Czysty HTML + CSS + JavaScript. Bez frameworków i bez kroku budowania; npm słu
 - **Strona główna** z opisem i tabelą poziomów.
 - **Certyfikat C1:** strategie do każdej części egzaminu, 19 zestawów Use of English, które sprawdzają się same, trener Writing (timer, licznik słów) i trener Speaking (timery, nagrywanie).
 - **Dziś** (`#/dzis`, na górze lewego panelu): powtórki na dziś, seria nauki („Dni z rzędu”, „Najdłuższa seria”), ostatnie 7 dni, postęp na poziomach A1–C2, „Kontynuuj” (ostatnio otwarta podstrona), odliczanie do egzaminu C1 i skrót „Dodaj błąd”.
-- **Szybki test poziomu** (`#/test-poziomu`): 12 pytań adaptacyjnych, szacowany poziom (orientacyjnie), lista błędnych pytań z linkami do niezbędnika.
+- **Szybki test poziomu** (`#/test-poziomu`): 12 pytań adaptacyjnych z puli 60 (gramatyka, słownictwo, czytanie), szacowany poziom (orientacyjnie), lista błędnych pytań z linkami do niezbędnika.
 - **Dziennik błędów** (`#/bledy`) z powtórkami po 1, 3 i 7 dniach (`#/bledy/powtorki`) i plakietką liczby powtórek na dziś. Błędy z ćwiczeń Certyfikatu C1 i z testu poziomu można dodać jednym przyciskiem.
 - **Menu profilu** (prawy górny róg): lista profili z przełączaniem, zmiana nazwy (✎), usuwanie z potwierdzeniem (✕), „+ Dodaj profil” oraz sekcja **Dane** (Eksportuj / Importuj / Resetuj).
 - **Motyw jasny i ciemny** (przycisk obok menu profilu).
@@ -64,6 +64,7 @@ Zapisujemy wyłącznie listę dni aktywności profilu. Serię liczy `ELM.learn.s
 
 - Start na A2. Dobra odpowiedź → następne pytanie o poziom wyżej (maks. C2), błędna albo „Nie wiem” → o poziom niżej (min. A1). 12 pytań losowanych bez powtórzeń.
 - Gdy pula pytań danego poziomu się skończy, test bierze pytanie z najbliższego poziomu (przy remisie w kierunku ruchu testu), ale **poziom docelowy** się nie zmienia. To on liczy się do wyniku, dzięki czemu przy małej puli wynik nie „odpływa”.
+- Z puli poziomu test najpierw bierze pytania, których nie było w poprzednim podejściu (id z zapisanego wyniku), a spośród nich umiejętność, która w tym podejściu pojawiła się najrzadziej (remis → losowo). To opcjonalne parametry `ELM.learn.pickQuestion(…, { avoidIds, skillCounts })`; pytanie bez `skill` liczy się jak `grammar`.
 - Wynik: średnia poziomów (docelowych) ostatnich 6 pytań, zaokrąglona w dół. Test niczego nie zaznacza jako „Umiem”. Ostatni wynik (data, poziom, odpowiedzi) jest zapisany w profilu i trafia do eksportu.
 
 **Pytania** są w `niezbednik/test-poziomu/pytania.json`:
@@ -75,6 +76,7 @@ Zapisujemy wyłącznie listę dni aktywności profilu. Serię liczy `ELM.learn.s
     {
       "id": "a1-01",
       "level": "A1",
+      "skill": "grammar",
       "type": "multiple-choice",
       "question": "She ___ in a bank in Kraków.",
       "options": ["work", "works", "working", "is work"],
@@ -89,11 +91,14 @@ Zapisujemy wyłącznie listę dni aktywności profilu. Serię liczy `ELM.learn.s
 - `id` musi być unikalne. `level` to jeden z A1–C2, `type` na razie tylko `multiple-choice`.
 - `correct` to indeks poprawnej odpowiedzi w `options`, liczony od 0. `options` może mieć 2 lub więcej odpowiedzi.
 - `itemId` jest opcjonalne. To id punktu z `niezbednik/index.json`, który w wyniku testu pojawi się jako link.
+- `skill`: `grammar`, `vocabulary` albo `reading` (brak = `grammar`). Pula: 10 pytań na poziom – 5 gramatyka, 3 słownictwo, 2 czytanie; nowe pytania mają 4 opcje.
+- `passage` (wymagane przy `reading`): krótki tekst nad pytaniem, A1–B1 30–80 słów, B2–C2 60–130 słów. W wyniku jest podział na umiejętności (procent dopiero od 3 pytań), a na liście błędów tekst jest zwijany.
+- Format i wzór: `docs/rozbudowa-v6/spec/13-test-poziomu-i-testy-koncowe.md` (sekcja 1) i `docs/rozbudowa-v6/przyklady/test-poziomu/pytania-przyklad.json`.
 
 **Jak dodać pytania:**
 
-1. Dopisz pytania do `pytania.json`. Liczba pytań na poziom jest dowolna, ale do sensownego testu przydaje się co najmniej 6–8 na poziom.
-2. Uruchom `node tools/zbuduj-niezbednik.js`. Skrypt sprawdza schemat: błędne pytania pomija i wypisuje „UWAGA”, a nieznane `itemId` usuwa (pytanie zostaje bez linku). Potem tworzy `niezbednik/test-poziomu-dane.js`.
+1. Dopisz pytania do `pytania.json` (docelowo 10 na poziom w proporcji 5/3/2).
+2. Uruchom `node tools/zbuduj-niezbednik.js`. Skrypt sprawdza schemat, także `skill` i `passage`: błędne pytania pomija i wypisuje „UWAGA”, nieznane `itemId` usuwa (pytanie zostaje bez linku), ostrzega o braku `skill`, o długości tekstu i o poziomie z mniej niż 8 pytaniami albo bez którejś umiejętności, a na koniec wypisuje tabelę poziom × umiejętność. Potem tworzy `niezbednik/test-poziomu-dane.js`. Pełne sprawdzenie proporcji: `python3 docs/rozbudowa-v6/scripts/validate_v6.py . --only test`.
 3. Zwiększ `?v=…` w `index.html`.
 
 ## Testy

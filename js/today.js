@@ -270,7 +270,7 @@ window.ELM = window.ELM || {};
     return el("section", { class: "card bento-tile bento-tip", "aria-label": "Test poziomu" }, [
       el("div", { class: "today-tip-body" }, [
         el("h2", { class: "tile-title", text: "Nie wiesz, od czego zacząć?" }),
-        el("p", { class: "tool-note", text: "Szybki test poziomu: 12 pytań, około 5 minut." })
+        el("p", { class: "tool-note", text: "Szybki test poziomu: 12 pytań, ok. 6 minut." })
       ]),
       el("a", { class: "btn btn-primary", href: ELM.levelTest.HASH }, ELM.ui.withIcon("target", "Zrób test poziomu"))
     ]);

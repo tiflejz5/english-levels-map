@@ -138,8 +138,13 @@
      * przy tej samej odległości najpierw w kierunku ruchu testu
      * (preferUp = true po dobrej odpowiedzi → wyżej, inaczej → niżej).
      * random() → [0, 1). Zwraca pytanie albo null, gdy nie ma już żadnych pytań.
+     * opts (opcjonalnie, spec v6 13 sekcja 1.3):
+     *   avoidIds   — id z poprzedniego podejścia (Set albo tablica): pomijane, jeśli pula poziomu na to pozwala,
+     *   skillCounts — { grammar: n, vocabulary: n, reading: n } w tym podejściu: wybór umiejętności,
+     *                 która pojawiła się najrzadziej (remis → losowo), potem losowe pytanie z niej.
+     * Pytanie bez skill liczy się jak grammar.
      */
-    pickQuestion: function (questions, levelIndex, used, random, preferUp) {
+    pickQuestion: function (questions, levelIndex, used, random, preferUp, opts) {
       const rnd = random || Math.random;
       const L = learn.LEVELS;
       for (let dist = 0; dist < L.length; dist++) {
@@ -148,10 +153,33 @@
         for (const idx of candidates) {
           if (idx < 0 || idx >= L.length) continue;
           const pool = questions.filter(function (q) { return q.level === L[idx] && !used.has(q.id); });
-          if (pool.length) return pool[Math.floor(rnd() * pool.length)];
+          if (pool.length) return opts ? learn.pickBalanced(pool, opts, rnd) : pool[Math.floor(rnd() * pool.length)];
         }
       }
       return null;
+    },
+
+    /** Umiejętność pytania (bez pola skill — grammar, zgodność ze starymi pytaniami). */
+    skillOf: function (q) { return q.skill || "grammar"; },
+
+    /** Wybór z puli poziomu: najpierw bez pytań z poprzedniego podejścia, potem najrzadsza umiejętność. */
+    pickBalanced: function (pool, opts, rnd) {
+      const avoid = opts.avoidIds ? new Set(opts.avoidIds) : null;
+      let list = pool;
+      if (avoid) {
+        const fresh = list.filter(function (q) { return !avoid.has(q.id); });
+        if (fresh.length) list = fresh;
+      }
+      if (opts.skillCounts) {
+        const counts = opts.skillCounts;
+        const skills = [];
+        list.forEach(function (q) { const s = learn.skillOf(q); if (skills.indexOf(s) === -1) skills.push(s); });
+        const min = Math.min.apply(null, skills.map(function (s) { return counts[s] || 0; }));
+        const rarest = skills.filter(function (s) { return (counts[s] || 0) === min; });
+        const skill = rarest[Math.floor(rnd() * rarest.length)];
+        list = list.filter(function (q) { return learn.skillOf(q) === skill; });
+      }
+      return list[Math.floor(rnd() * list.length)];
     },
 
     /** Wynik: średnia indeksów poziomów ostatnich 6 pytań, zaokrąglona w dół. */

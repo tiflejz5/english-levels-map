@@ -182,6 +182,76 @@ test("brak pytań → null", function () {
   const q = bank(1);
   assert.strictEqual(L.pickQuestion(q, 0, new Set(q.map(function (x) { return x.id; }))), null);
 });
+/** Pula ze skill: na poziom 5 grammar, 3 vocabulary, 2 reading (id: <poziom>-<skill>-<n>). */
+function skillBank() {
+  const out = [];
+  L.LEVELS.forEach(function (lvl) {
+    [["grammar", 5], ["vocabulary", 3], ["reading", 2]].forEach(function (s) {
+      for (let i = 0; i < s[1]; i++) out.push({ id: lvl + "-" + s[0] + "-" + i, level: lvl, skill: s[0] });
+    });
+  });
+  return out;
+}
+test("pickQuestion bez opts działa jak dotąd (te same wyniki dla tego samego losowania)", function () {
+  const q = skillBank();
+  for (let s = 1; s < 20; s++) {
+    const a = L.pickQuestion(q, 2, new Set(), seeded(s), true);
+    const b = L.pickQuestion(q, 2, new Set(), seeded(s), true, undefined);
+    assert.strictEqual(a.id, b.id);
+  }
+});
+test("pickQuestion: unika pytań z poprzedniego podejścia, gdy pula na to pozwala", function () {
+  const q = skillBank();
+  const b1 = q.filter(function (x) { return x.level === "B1"; }).map(function (x) { return x.id; });
+  const avoid = b1.slice(0, 8);
+  for (let s = 1; s < 50; s++) {
+    const p = L.pickQuestion(q, 2, new Set(), seeded(s), false, { avoidIds: avoid });
+    assert.ok(avoid.indexOf(p.id) === -1, p.id);
+  }
+  // wszystkie z poziomu były w poprzednim podejściu → bierze i tak z poziomu (nie ucieka na inny)
+  const p = L.pickQuestion(q, 2, new Set(), seeded(3), false, { avoidIds: b1 });
+  assert.strictEqual(p.level, "B1");
+});
+test("pickQuestion: równoważy umiejętności — najrzadsza w podejściu, remis losowo", function () {
+  const q = skillBank();
+  for (let s = 1; s < 50; s++) {
+    assert.strictEqual(L.pickQuestion(q, 1, new Set(), seeded(s), false, { skillCounts: { grammar: 2, vocabulary: 1, reading: 0 } }).skill, "reading");
+    assert.notStrictEqual(L.pickQuestion(q, 1, new Set(), seeded(s), false, { skillCounts: { grammar: 1, vocabulary: 1, reading: 1 } }).skill, undefined);
+  }
+  const seen = new Set();
+  for (let s = 1; s < 60; s++) seen.add(L.pickQuestion(q, 1, new Set(), seeded(s * 104729), false, { skillCounts: { grammar: 1, vocabulary: 0, reading: 0 } }).skill);
+  assert.deepStrictEqual(Array.from(seen).sort(), ["reading", "vocabulary"]);
+  // umiejętności brak w puli poziomu (reading wyczerpany) → najrzadsza z dostępnych
+  const used = new Set(["A2-reading-0", "A2-reading-1"]);
+  assert.strictEqual(L.pickQuestion(q, 1, used, seeded(2), false, { skillCounts: { grammar: 3, vocabulary: 1, reading: 0 } }).skill, "vocabulary");
+  // pytanie bez skill = grammar
+  assert.strictEqual(L.pickQuestion([{ id: "x", level: "A1" }], 0, new Set(), seeded(1), false, { skillCounts: { grammar: 5 } }).id, "x");
+});
+test("symulacja 12 pytań z opts: każda umiejętność występuje, kolejne podejście ma inne pytania", function () {
+  const q = skillBank();
+  function run(avoid, seed) {
+    const rnd = seeded(seed);
+    const used = new Set(); const counts = {}; const ids = [];
+    let idx = 1;
+    for (let i = 0; i < L.TEST_LENGTH; i++) {
+      const p = L.pickQuestion(q, idx, used, rnd, i % 2 === 0, { avoidIds: avoid, skillCounts: counts });
+      used.add(p.id); ids.push(p.id); counts[L.skillOf(p)] = (counts[L.skillOf(p)] || 0) + 1;
+      idx = L.nextLevelIndex(idx, i % 2 === 0);
+    }
+    return { ids: ids, counts: counts };
+  }
+  const first = run([], 11);
+  assert.ok(first.counts.grammar >= 1 && first.counts.vocabulary >= 1 && first.counts.reading >= 1, JSON.stringify(first.counts));
+  assert.ok(Math.max(first.counts.grammar, first.counts.vocabulary, first.counts.reading) - Math.min(first.counts.grammar, first.counts.vocabulary, first.counts.reading) <= 1);
+  // Drugie podejście powtarza pytanie tylko wtedy, gdy na danym poziomie zabrakło nowych (10 pytań na poziom)
+  const second = run(first.ids, 12);
+  L.LEVELS.forEach(function (lvl) {
+    const at = function (ids) { return ids.filter(function (id) { return id.indexOf(lvl + "-") === 0; }); };
+    const fresh = 10 - at(first.ids).length;
+    const repeated = at(second.ids).filter(function (id) { return first.ids.indexOf(id) !== -1; }).length;
+    assert.strictEqual(repeated, Math.max(0, at(second.ids).length - fresh), lvl);
+  });
+});
 test("wynik = średnia ostatnich 6 poziomów, zaokrąglona w dół", function () {
   // A2 B1 B2 C1 B2 B1 | B2 C1 B2 C1 C2 C1 → ostatnie 6: 3,4,3,4,5,4 = 23/6 = 3,83 → B2
   const asked = [1, 2, 3, 4, 3, 2, 3, 4, 3, 4, 5, 4];

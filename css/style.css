@@ -1893,6 +1893,19 @@ textarea.field { overflow: auto; }
 .lt-wrong p { margin: 0 0 4px; }
 .lt-wrong-q { font-weight: 600; }
 .lt-last { margin-top: 4px; }
+/* Czytanie (paczka v6): tekst w ramce nad pytaniem, czcionka tekstu treści */
+.lt-passage { margin: 0 0 16px; padding: 14px 18px; border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: var(--radius-sm); background: var(--surface-2); }
+.lt-passage-label { margin: 0 0 6px; font-size: var(--fs-sm); font-weight: 650; color: var(--ink-muted); }
+.lt-passage-text { margin: 0; font-family: var(--font); font-size: var(--fs-md); line-height: 1.65; }
+.lt-skills { margin: 4px 0 14px; }
+.lt-skills-label { margin: 0 0 6px; font-size: var(--fs-sm-plus); font-weight: 600; color: var(--ink-muted); }
+.lt-skills-list { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 6px; padding: 0; }
+.lt-skills-list li { display: inline-flex; align-items: baseline; gap: 8px; padding: 6px 12px; border: 1px solid var(--line); border-radius: var(--radius-pill); background: var(--surface); }
+.lt-skills-pct { font-size: var(--fs-sm); color: var(--ink-muted); }
+.lt-skills .tool-note { margin: 0; }
+.lt-wrong-passage { margin: 0 0 6px; }
+.lt-wrong-passage summary { cursor: pointer; font-size: var(--fs-sm-plus); font-weight: 600; color: var(--accent); min-height: 32px; }
+.lt-wrong-passage p { margin: 6px 0 0; padding: 10px 12px; border-radius: var(--radius-sm); background: var(--surface-2); line-height: 1.6; }
 .welcome-test { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
 @media (max-width: 760px) {
   .lt-card { padding: 20px 16px; }

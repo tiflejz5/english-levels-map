@@ -134,8 +134,12 @@ if (fs.existsSync(path.join(C1_ROOT, "manifest.json"))) {
 
 // =====================================================================
 // SZYBKI TEST POZIOMU (niezbednik/test-poziomu/pytania.json)
-//   { "version": 1, "questions": [{ id, level, type: "multiple-choice",
-//     question, options: [...], correct: <indeks>, explanation, itemId? }] }
+//   { "version": 1, "questions": [{ id, level, skill (grammar | vocabulary | reading),
+//     type: "multiple-choice", passage (przy reading), question, options: [...],
+//     correct: <indeks>, explanation, itemId? }] }
+// Sprawdza skill, passage przy reading (długość: A1–B1 30–80, B2–C2 60–130 słów),
+// ostrzega „UWAGA”, gdy poziom ma < 8 pytań albo brak w nim umiejętności;
+// w konsoli podsumowanie poziom × umiejętność (spec v6 13, 1.5).
 // Wynik: niezbednik/test-poziomu-dane.js (ELM.LEVEL_TEST). Pytania z błędami
 // są pomijane (z ostrzeżeniem), reszta trafia do pliku.
 // =====================================================================
@@ -145,6 +149,8 @@ const TEST_OUT = path.join(ROOT, "test-poziomu-dane.js");
 
 if (fs.existsSync(TEST_FILE)) {
   const LEVELS = ["A1", "A2", "B1", "B2", "C1", "C2"];
+  const SKILLS = ["grammar", "vocabulary", "reading"];
+  const PASSAGE_RANGE = { A1: [30, 80], A2: [30, 80], B1: [30, 80], B2: [60, 130], C1: [60, 130], C2: [60, 130] };
   const itemIds = new Set();
   index.levels.forEach(function (l) { l.items.forEach(function (it) { itemIds.add(it.id); }); });
   const raw = JSON.parse(fs.readFileSync(TEST_FILE, "utf8").replace(/^﻿/, ""));
@@ -168,7 +174,17 @@ if (fs.existsSync(TEST_FILE)) {
     }
     if (!Number.isInteger(q.correct) || q.correct < 0 || q.correct >= q.options.length) return fail("correct musi być indeksem odpowiedzi (od 0)");
     if (q.explanation !== undefined && typeof q.explanation !== "string") return fail("explanation musi być tekstem");
-    if (q.itemId !== undefined && q.itemId !== "" && !itemIds.has(q.itemId)) {
+    // Umiejętność i tekst do czytania (spec v6 13, 1.2); brak skill = grammar (stare pytania)
+    if (q.skill !== undefined && SKILLS.indexOf(q.skill) === -1) return fail("skill musi być jednym z: " + SKILLS.join(", "));
+    if (q.skill === undefined) problems.push(where + ": brak skill (traktowane jak grammar) – uzupełnij");
+    if (q.skill === "reading") {
+      if (typeof q.passage !== "string" || !q.passage.trim()) return fail("pytanie reading wymaga passage");
+      const n = q.passage.trim().split(/\s+/).length;
+      const range = PASSAGE_RANGE[q.level];
+      if (n < range[0] || n > range[1]) problems.push(where + ": passage ma " + n + " słów, dla " + q.level + " wymagane " + range[0] + "–" + range[1]);
+    } else if (q.passage !== undefined && q.passage !== null) return fail("passage tylko przy skill: reading");
+    if (q.skill !== undefined && q.options.length !== 4) problems.push(where + ": nowe pytania mają 4 opcje (ma " + q.options.length + ")");
+    if (q.itemId !== undefined && q.itemId !== null && q.itemId !== "" && !itemIds.has(q.itemId)) { // null = bez linku (np. czytanie)
       problems.push(where + ": nieznane itemId „" + q.itemId + "” – pytanie zostaje, ale bez linku");
       q.itemId = "";
     }
@@ -181,7 +197,21 @@ if (fs.existsSync(TEST_FILE)) {
     " * Odśwież poleceniem: node tools/zbuduj-niezbednik.js\n */\n" +
     "window.ELM = window.ELM || {};\nwindow.ELM.LEVEL_TEST = " + JSON.stringify({ version: 1, questions: questions }, null, 1) + ";\n", "utf8");
   const perLevel = LEVELS.map(function (l) { return l + ": " + questions.filter(function (q) { return q.level === l; }).length; }).join(", ");
+  // Pula poziomu: co najmniej 8 pytań i każda umiejętność (inaczej test powtarza pytania albo pomija umiejętność)
+  const skillOf = function (q) { return q.skill || "grammar"; };
+  const grid = LEVELS.map(function (l) {
+    const atLevel = questions.filter(function (q) { return q.level === l; });
+    const k = atLevel.length, few = k % 10 >= 2 && k % 10 <= 4 && (k % 100 < 12 || k % 100 > 14);
+    if (k < 8) problems.push("poziom " + l + ": tylko " + k + " " + (k === 1 ? "pytanie" : few ? "pytania" : "pytań") + " (zalecane co najmniej 8)");
+    const cells = SKILLS.map(function (s) {
+      const n = atLevel.filter(function (q) { return skillOf(q) === s; }).length;
+      if (!n) problems.push("poziom " + l + ": brak pytań " + s);
+      return n;
+    });
+    return "  " + l + "  " + cells.map(function (n) { return String(n).padStart(7); }).join("") + String(atLevel.length).padStart(8);
+  });
   console.log("Zapisano: " + path.relative(process.cwd(), TEST_OUT));
   console.log("Test poziomu: pytania " + questions.length + " (" + perLevel + ")");
+  console.log("  poziom grammar  vocab reading  razem\n" + grid.join("\n"));
   problems.forEach(function (p) { console.log("UWAGA (test poziomu): " + p); });
 }

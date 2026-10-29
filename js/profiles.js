@@ -472,7 +472,7 @@ window.ELM = window.ELM || {};
       el("div", { class: "welcome-row" }, [input, el("button", { type: "submit", class: "btn btn-primary" }, "Dodaj profil")]),
       error,
       ELM.levelTest ? el("div", { class: "welcome-test" }, [
-        el("p", { class: "tool-note", text: "Nie wiesz, od którego poziomu zacząć? Po dodaniu profilu zrób szybki test poziomu (12 pytań, ok. 5 minut)." }),
+        el("p", { class: "tool-note", text: "Nie wiesz, od którego poziomu zacząć? Po dodaniu profilu zrób szybki test poziomu (12 pytań, ok. 6 minut)." }),
         el("button", { type: "submit", class: "btn btn-secondary", onclick: function () { thenTest = true; } }, "Dodaj profil i zrób test poziomu")
       ]) : null
     ]);
