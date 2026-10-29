@@ -8,7 +8,9 @@
  * Algorytm (ELM.learn): start na A2; poprawna odpowiedź → następne pytanie
  * o poziom wyżej (maks. C2), błędna albo „Nie wiem” → o poziom niżej
  * (min. A1); 12 pytań bez powtórzeń; gdy pula poziomu się skończy —
- * pytanie z sąsiedniego poziomu. Wynik: średnia poziomów ostatnich
+ * pytanie z sąsiedniego poziomu. Z puli poziomu najpierw pytania spoza poprzedniego
+ * podejścia, a wśród nich najrzadsza dotąd umiejętność (grammar / vocabulary / reading,
+ * spec docs/rozbudowa-v6/spec/13 sekcja 1.3). Wynik: średnia poziomów ostatnich
  * 6 pytań, zaokrąglona w dół.
  * „Poziom pytania” w algorytmie to poziom DOCELOWY (ten, o który test chciał
  * zapytać). Gdy pula poziomu jest pusta i trzeba wziąć pytanie z sąsiedniego
@@ -53,8 +55,11 @@ window.ELM = window.ELM || {};
   let run = null;
 
   function start() {
+    const last = pd().lastTest();
     run = {
       profileId: ELM.app.getActiveProfile().id,
+      // Pytania z poprzedniego podejścia — omijane, gdy pula poziomu na to pozwala (spec v6 13, 1.3)
+      avoidIds: last && Array.isArray(last.answers) ? last.answers.map(function (a) { return a.id; }) : [],
       levelIndex: learn().LEVELS.indexOf(learn().START_LEVEL),
       used: new Set(),
       asked: [],      // { q, levelIndex (docelowy), chosen, correct }
@@ -69,7 +74,10 @@ window.ELM = window.ELM || {};
   function nextQuestion() {
     if (run.asked.length >= learn().TEST_LENGTH) return finish();
     const prev = run.asked[run.asked.length - 1];
-    const q = learn().pickQuestion(questions(), run.levelIndex, run.used, Math.random, !!(prev && prev.correct));
+    // Równowaga umiejętności: najrzadsza w tym podejściu (gramatyka, słownictwo, czytanie)
+    const skillCounts = {};
+    run.asked.forEach(function (a) { const s = learn().skillOf(a.q); skillCounts[s] = (skillCounts[s] || 0) + 1; });
+    const q = learn().pickQuestion(questions(), run.levelIndex, run.used, Math.random, !!(prev && prev.correct), { avoidIds: run.avoidIds, skillCounts: skillCounts });
     if (!q) return finish(); // pula pytań się skończyła
     run.used.add(q.id);
     run.current = { q: q, levelIndex: run.levelIndex };
