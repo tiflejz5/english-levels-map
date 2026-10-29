@@ -1,0 +1,504 @@
+{
+  "version": 1,
+  "id": "test-koncowy-c2",
+  "kind": "level-test",
+  "level": "C2",
+  "title": "Test końcowy C2",
+  "intro": "20 pytań z całego poziomu C2. Zaliczenie od 80%.",
+  "draw": 20,
+  "passPercent": 80,
+  "defaultMode": "exam",
+  "items": [
+    {
+      "id": "tk-c2-01",
+      "type": "gap-fill",
+      "topic": "c2-gramatyka-kontrola-pod-presja",
+      "text": "The committee, along with two external advisers, {{1}} (be) due to publish its findings in May.",
+      "gaps": [
+        {
+          "accepted": [
+            "is",
+            "'s"
+          ]
+        }
+      ],
+      "explanation": "Podmiotem jest the committee (liczba pojedyncza); wyrażenie along with nie zmienia liczby orzeczenia: is due.",
+      "trap": "Along with, together with i as well as nie tworzą podmiotu złożonego – czasownik zgadza się z pierwszym rzeczownikiem."
+    },
+    {
+      "id": "tk-c2-02",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "c2-gramatyka-kontrola-pod-presja",
+      "prompt": "The number of students who apply for the course ___ increased steadily over the past decade.",
+      "options": [
+        "have",
+        "are",
+        "were",
+        "has"
+      ],
+      "correct": 3,
+      "explanation": "The number of … to liczba pojedyncza (has increased). Dopiero a number of … łączy się z liczbą mnogą.",
+      "trap": "The number of + liczba pojedyncza, a number of + mnoga."
+    },
+    {
+      "id": "tk-c2-03",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "c2-gramatyka-kontrola-pod-presja",
+      "prompt": "Had it not ___ for your help, we would have failed.",
+      "options": [
+        "be",
+        "been",
+        "being",
+        "were"
+      ],
+      "correct": 1,
+      "explanation": "Trzeci okres warunkowy bez if: Had it not been for … (gdyby nie …)."
+    },
+    {
+      "id": "tk-c2-04",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "c2-gramatyka-lamanie-regul",
+      "prompt": "In informal speech, “I ain't got nothing” is ___.",
+      "options": [
+        "a literal double negative meaning “I have something”",
+        "standard in formal British English",
+        "a question form",
+        "a non-standard double negative that still means a negative"
+      ],
+      "correct": 3,
+      "explanation": "To potoczna, niestandardowa podwójna negacja, która nadal znaczy „nic nie mam”. Nie należy do rejestru formalnego."
+    },
+    {
+      "id": "tk-c2-05",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "c2-gramatyka-lamanie-regul",
+      "prompt": "Which sentence deliberately breaks a grammar rule for effect, as in an advertising slogan?",
+      "options": [
+        "Think differently about your career.",
+        "Think different.",
+        "Thinking differently is important.",
+        "We think about our career differently."
+      ],
+      "correct": 1,
+      "explanation": "„Think different” używa przymiotnika zamiast przysłówka celowo – dla efektu hasła. Pozostałe zdania są standardowe."
+    },
+    {
+      "id": "tk-c2-06",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "c2-gramatyka-subjunctive",
+      "prompt": "It is vital that every employee ___ the safety rules.",
+      "options": [
+        "follows",
+        "will follow",
+        "followed",
+        "follow"
+      ],
+      "correct": 3,
+      "explanation": "Subjunctive po it is vital / essential that: forma podstawowa bez -s (follow), bez względu na osobę."
+    },
+    {
+      "id": "tk-c2-07",
+      "type": "transformation",
+      "topic": "c2-gramatyka-subjunctive",
+      "source": "If it is necessary, we can postpone the meeting.",
+      "keyword": "NEED",
+      "before": "If",
+      "after": ", we can postpone the meeting.",
+      "answers": [
+        "need be",
+        "it needs to be"
+      ],
+      "wordLimit": [
+        2,
+        4
+      ],
+      "explanation": "Stałe wyrażenie z subjunctive: If need be (jeśli zajdzie potrzeba)."
+    },
+    {
+      "id": "tk-c2-08",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "c2-gramatyka-inwersja-fronting",
+      "prompt": "Much ___ I admire her, I can't agree with her proposal.",
+      "options": [
+        "that",
+        "if",
+        "than",
+        "as"
+      ],
+      "correct": 3,
+      "explanation": "Fronting z as: Much as I admire her… (choć bardzo ją podziwiam). Często zastępuje although."
+    },
+    {
+      "id": "tk-c2-09",
+      "type": "gap-fill",
+      "topic": "c2-gramatyka-inwersja-fronting",
+      "text": "Only after the results were published {{1}} we realise the scale of the problem.",
+      "gaps": [
+        {
+          "accepted": [
+            "did",
+            "could"
+          ]
+        }
+      ],
+      "explanation": "Only after … na początku zdania wymaga inwersji w zdaniu głównym: did we realise.",
+      "trap": "Inwersja dotyczy zdania głównego, nie części z only after."
+    },
+    {
+      "id": "tk-c2-10",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "c2-gramatyka-rejestry-skrajne",
+      "prompt": "Which phrase is typical of legal English?",
+      "options": [
+        "no worries, mate",
+        "kinda like",
+        "ain't it",
+        "hereinafter referred to as"
+      ],
+      "correct": 3,
+      "explanation": "Hereinafter referred to as to formuła prawnicza (dalej zwany). Pozostałe wyrażenia są potoczne."
+    },
+    {
+      "id": "tk-c2-11",
+      "type": "match",
+      "topic": "c2-gramatyka-rejestry-skrajne",
+      "prompt": "Dopasuj formalne słowo do jego prostego znaczenia.",
+      "mode": "definition",
+      "pairs": [
+        [
+          "aforementioned",
+          "mentioned earlier"
+        ],
+        [
+          "henceforth",
+          "from now on"
+        ],
+        [
+          "notwithstanding",
+          "in spite of"
+        ],
+        [
+          "ameliorate",
+          "make better"
+        ]
+      ],
+      "extraRight": [
+        "make worse"
+      ],
+      "explanation": "Rejestr formalny i prawniczy: aforementioned (wspomniany wyżej), henceforth (odtąd), notwithstanding (mimo), ameliorate (poprawić). „Make worse” to deteriorate, którego nie ma po lewej."
+    },
+    {
+      "id": "tk-c2-12",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "c2-gramatyka-rejestry-skrajne",
+      "prompt": "Which sentence is written in an academic register?",
+      "options": [
+        "People say cities getting bigger makes things worse.",
+        "Everyone knows cities are unfair.",
+        "Big cities, huh? Not good for fairness.",
+        "It has been argued that urban growth exacerbates inequality."
+      ],
+      "correct": 3,
+      "explanation": "Rejestr akademicki: strona bierna bezosobowa (It has been argued that…) i precyzyjne słownictwo (exacerbates)."
+    },
+    {
+      "id": "tk-c2-13",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "c2-funkcje-plynnosc-intonacja",
+      "prompt": "Which phrase helps you gain time while thinking, without sounding hesitant?",
+      "options": [
+        "Um, um, uh, er…",
+        "Let me think… that's a good question.",
+        "I don't know, I can't say.",
+        "Wait, wait, wait."
+      ],
+      "correct": 1,
+      "explanation": "Płynność: wypełniacz z treścią (Let me think… that's a good question) daje czas bez zawahania."
+    },
+    {
+      "id": "tk-c2-14",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "c2-funkcje-plynnosc-intonacja",
+      "prompt": "In the sentence “I didn't say HE stole it”, the stress on HE suggests that ___.",
+      "options": [
+        "he certainly did not steal it",
+        "the speaker said nothing at all",
+        "he borrowed it",
+        "somebody else may have stolen it"
+      ],
+      "correct": 3,
+      "explanation": "Akcent zdaniowy zmienia znaczenie: nacisk na HE sugeruje, że ktoś inny mógł to ukraść."
+    },
+    {
+      "id": "tk-c2-15",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "c2-funkcje-plynnosc-intonacja",
+      "prompt": "A rising intonation at the end of a statement (“You're leaving?”) usually signals ___.",
+      "options": [
+        "certainty",
+        "a question or surprise",
+        "an order",
+        "finality"
+      ],
+      "correct": 1,
+      "explanation": "Intonacja wznosząca na końcu zdania oznajmującego zamienia je w pytanie albo wyraża zdziwienie."
+    },
+    {
+      "id": "tk-c2-16",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "c2-funkcje-przeformulowanie",
+      "prompt": "Your listener looks confused. Which rephrasing is the most effective?",
+      "options": [
+        "I said what I said.",
+        "You should listen more carefully.",
+        "It's the same thing, really.",
+        "Let me put it another way: we need to cut costs, and fast."
+      ],
+      "correct": 3,
+      "explanation": "Przeformułowanie: Let me put it another way + prostsze, konkretne ujęcie tej samej myśli."
+    },
+    {
+      "id": "tk-c2-17",
+      "type": "translate",
+      "topic": "c2-funkcje-przeformulowanie",
+      "source": "Innymi słowy, projekt się opóźni.",
+      "accepted": [
+        "In other words, the project will be delayed.",
+        "In other words, the project is going to be delayed.",
+        "To put it another way, the project will be delayed.",
+        "Put another way, the project will be delayed.",
+        "That is to say, the project will be delayed.",
+        "In other words, the project will be late.",
+        "In other words, the project is going to be late.",
+        "In other words, the project will run late."
+      ],
+      "hint": "in other words",
+      "explanation": "Przeformułowanie: in other words / to put it another way / that is to say."
+    },
+    {
+      "id": "tk-c2-18",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "c2-funkcje-rozumienie-akcenty-gry-slow",
+      "prompt": "“I used to be a banker, but I lost interest.” What makes this a joke?",
+      "options": [
+        "It is about his salary.",
+        "It is about a bank robbery.",
+        "It contains a grammar mistake.",
+        "It plays on two meanings of “interest”."
+      ],
+      "correct": 3,
+      "explanation": "Gra słów: interest to „zainteresowanie” i „odsetki” – żart opiera się na dwóch znaczeniach jednego słowa."
+    },
+    {
+      "id": "tk-c2-19",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "c2-funkcje-rozumienie-akcenty-gry-slow",
+      "prompt": "“It's a bit of a mixed blessing.” This means ___.",
+      "options": [
+        "it is a disguised advantage that proves harmful",
+        "it has both good and bad sides",
+        "it is an unqualified success",
+        "it is unclear"
+      ],
+      "correct": 1,
+      "explanation": "A mixed blessing to coś, co ma dobre i złe strony."
+    },
+    {
+      "id": "tk-c2-20",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "c2-funkcje-trudne-rozmowy",
+      "prompt": "You must tell an employee that his contract will not be renewed. Which opening is the most appropriate?",
+      "options": [
+        "You're fired, sorry.",
+        "Your work was bad, so we decided no.",
+        "Nothing personal, but you're out.",
+        "I'm afraid I have some difficult news, and I wanted to tell you in person."
+      ],
+      "correct": 3,
+      "explanation": "Trudna wiadomość: łagodne otwarcie (I'm afraid I have some difficult news) i szacunek (powiedzieć osobiście)."
+    },
+    {
+      "id": "tk-c2-21",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "c2-funkcje-trudne-rozmowy",
+      "prompt": "Two colleagues are arguing. As a mediator you say: ___",
+      "options": [
+        "With respect, I think you are both missing the point.",
+        "Let's hear both sides and look for common ground.",
+        "Stop arguing right now.",
+        "I don't care who is right."
+      ],
+      "correct": 1,
+      "explanation": "Mediacja: neutralność i wspólny cel (Let's hear both sides and look for common ground)."
+    },
+    {
+      "id": "tk-c2-22",
+      "type": "match",
+      "topic": "c2-funkcje-trudne-rozmowy",
+      "prompt": "Dopasuj wypowiedź rozmówcy do taktownej reakcji.",
+      "mode": "response",
+      "pairs": [
+        [
+          "I feel you didn't consult me about the change.",
+          "I understand why you feel that way, and I apologise for not involving you in the decision."
+        ],
+        [
+          "We simply can't afford a raise this year.",
+          "I appreciate the constraints; could we revisit it in six months?"
+        ],
+        [
+          "You always interrupt me in meetings.",
+          "That wasn't my intention, and I'll try to be more aware of it."
+        ],
+        [
+          "This is completely unacceptable, and I want it fixed!",
+          "I hear your frustration. Let's see what we can do to put it right."
+        ]
+      ],
+      "extraRight": [
+        "No comment."
+      ],
+      "explanation": "Trudne rozmowy: uznajemy uczucia, przepraszamy, proponujemy rozwiązanie. „No comment” to odmowa odpowiedzi, nie reakcja taktowna."
+    },
+    {
+      "id": "tk-c2-23",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "c2-funkcje-humor-ironia-understatement",
+      "prompt": "After the whole house burned down, he said: “Well, that wasn't ideal.” This is an example of ___.",
+      "options": [
+        "hyperbole",
+        "understatement",
+        "simile",
+        "personification"
+      ],
+      "correct": 1,
+      "explanation": "Understatement (niedopowiedzenie): ogromny problem opisany bardzo łagodnie."
+    },
+    {
+      "id": "tk-c2-24",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "c2-funkcje-humor-ironia-understatement",
+      "prompt": "A: How did the exam go?\nB: Let's just say I won't be framing the certificate.\nWhat does B mean?",
+      "options": [
+        "It went very well.",
+        "He lost the certificate.",
+        "He will buy a frame.",
+        "It went badly."
+      ],
+      "correct": 3,
+      "explanation": "Niedopowiedzenie: nie oprawię certyfikatu w ramkę = egzamin poszedł słabo."
+    },
+    {
+      "id": "tk-c2-25",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "c2-funkcje-humor-ironia-understatement",
+      "prompt": "Which sentence is ironic?",
+      "options": [
+        "“It's raining,” she said as it poured with rain.",
+        "“What lovely weather,” she said as it poured with rain.",
+        "“What lovely weather,” she said under the sun.",
+        "She said nothing about the weather."
+      ],
+      "correct": 1,
+      "explanation": "Ironia: pochwała sytuacji, która jest przeciwna słowom (lovely weather podczas ulewy)."
+    },
+    {
+      "id": "tk-c2-26",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "c2-funkcje-tlumaczenie-mediacja",
+      "prompt": "Translate for an English-speaking colleague, keeping the formal tone: “Uprzejmie informujemy, że termin został przesunięty.”",
+      "options": [
+        "We tell you that the deadline moved.",
+        "We politely inform that the term was pushed.",
+        "Politely we inform you the term is shifted.",
+        "We would like to inform you that the deadline has been postponed."
+      ],
+      "correct": 3,
+      "explanation": "Termin w sensie „data graniczna” to deadline (nie term). Formalny ton: We would like to inform you that…",
+      "trap": "Polskie „termin” to deadline lub date, nie „term”."
+    },
+    {
+      "id": "tk-c2-27",
+      "type": "translate",
+      "topic": "c2-funkcje-tlumaczenie-mediacja",
+      "source": "Podsumowując, umowa zostanie podpisana w przyszłym tygodniu.",
+      "accepted": [
+        "To sum up, the contract will be signed next week.",
+        "To sum up, the agreement will be signed next week.",
+        "To sum up, the contract is going to be signed next week.",
+        "In summary, the contract will be signed next week.",
+        "In summary, the agreement will be signed next week.",
+        "To summarise, the contract will be signed next week.",
+        "To summarise, the agreement will be signed next week.",
+        "Summing up, the contract will be signed next week."
+      ],
+      "hint": "to sum up",
+      "explanation": "Podsumowanie: to sum up / in summary / to summarise. Umowa = contract albo agreement."
+    },
+    {
+      "id": "tk-c2-28",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "c2-slownictwo",
+      "prompt": "His speech was full of ___ remarks that made the audience uncomfortable.",
+      "options": [
+        "covered",
+        "implied",
+        "wrapped",
+        "veiled"
+      ],
+      "correct": 3,
+      "explanation": "Kolokacja: veiled remarks/threats = zawoalowane uwagi (aluzje)."
+    },
+    {
+      "id": "tk-c2-29",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "c2-slownictwo",
+      "prompt": "The proverb “A stitch in time saves nine” means that ___.",
+      "options": [
+        "sewing quickly is useful",
+        "dealing with a problem early prevents bigger problems later",
+        "nine stitches are better than one",
+        "time is money"
+      ],
+      "correct": 1,
+      "explanation": "Przysłowie: szybka reakcja na małą usterkę oszczędza większych kłopotów."
+    },
+    {
+      "id": "tk-c2-30",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "c2-slownictwo",
+      "prompt": "Critics have been ___ in their praise of the new play.",
+      "options": [
+        "unwilling",
+        "unmoving",
+        "unstable",
+        "unstinting"
+      ],
+      "correct": 3,
+      "explanation": "Unstinting praise = szczere, hojne pochwały (bez skąpienia)."
+    }
+  ]
+}
