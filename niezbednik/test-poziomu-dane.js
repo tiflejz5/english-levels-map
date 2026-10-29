@@ -820,6 +820,7 @@ window.ELM.LEVEL_TEST = {
   {
    "id": "c2-01",
    "level": "C2",
+   "skill": "grammar",
    "type": "multiple-choice",
    "question": "The committee recommended that the proposal ___ postponed.",
    "options": [
@@ -835,6 +836,7 @@ window.ELM.LEVEL_TEST = {
   {
    "id": "c2-02",
    "level": "C2",
+   "skill": "grammar",
    "type": "multiple-choice",
    "question": "___ as it may seem, the experiment was a complete success.",
    "options": [
@@ -846,6 +848,136 @@ window.ELM.LEVEL_TEST = {
    "correct": 1,
    "explanation": "Fronting z as: przymiotnik + as + podmiot + may/might + czasownik (Strange as it may seem = choć może się to wydawać dziwne).",
    "itemId": "c2-gramatyka-inwersja-fronting"
+  },
+  {
+   "id": "c2-g-03",
+   "level": "C2",
+   "skill": "grammar",
+   "type": "multiple-choice",
+   "question": "Not until the results were published ___ how serious the problem was.",
+   "options": [
+    "we realised",
+    "had we realise",
+    "did we realise",
+    "we did realise"
+   ],
+   "correct": 2,
+   "explanation": "Not until … na początku zdania: inwersja dopiero w zdaniu głównym – Not until X did we realise…",
+   "itemId": "c2-gramatyka-inwersja-fronting"
+  },
+  {
+   "id": "c2-g-04",
+   "level": "C2",
+   "skill": "grammar",
+   "type": "multiple-choice",
+   "question": "It is essential that every applicant ___ informed of the decision in writing.",
+   "options": [
+    "be",
+    "is",
+    "will be",
+    "was"
+   ],
+   "correct": 0,
+   "explanation": "Subjunctive po it is essential / vital / important that: forma podstawowa be, bez względu na osobę.",
+   "itemId": "c2-gramatyka-subjunctive"
+  },
+  {
+   "id": "c2-g-05",
+   "level": "C2",
+   "skill": "grammar",
+   "type": "multiple-choice",
+   "question": "So ___ was the storm that all ferries were cancelled.",
+   "options": [
+    "severely",
+    "much severe",
+    "such severe",
+    "severe"
+   ],
+   "correct": 3,
+   "explanation": "Fronting z so: So + przymiotnik + be + podmiot + that… (So severe was the storm that…).",
+   "itemId": "c2-gramatyka-inwersja-fronting"
+  },
+  {
+   "id": "c2-v-01",
+   "level": "C2",
+   "skill": "vocabulary",
+   "type": "multiple-choice",
+   "question": "His explanation was so ___ that nobody could follow it.",
+   "options": [
+    "conventional",
+    "convoluted",
+    "consensual",
+    "conclusive"
+   ],
+   "correct": 1,
+   "explanation": "Convoluted = zawiły, pokrętny. Conventional = konwencjonalny, conclusive = rozstrzygający.",
+   "itemId": "c2-slownictwo"
+  },
+  {
+   "id": "c2-v-02",
+   "level": "C2",
+   "skill": "vocabulary",
+   "type": "multiple-choice",
+   "question": "The negotiations have reached an ___, with neither side willing to compromise.",
+   "options": [
+    "impasse",
+    "impact",
+    "impulse",
+    "imposition"
+   ],
+   "correct": 0,
+   "explanation": "Reach an impasse = utknąć w martwym punkcie.",
+   "itemId": "c2-slownictwo"
+  },
+  {
+   "id": "c2-v-03",
+   "level": "C2",
+   "skill": "vocabulary",
+   "type": "multiple-choice",
+   "question": "After years of rivalry, the two brothers finally buried the ___.",
+   "options": [
+    "axe",
+    "sword",
+    "hatchet",
+    "knife"
+   ],
+   "correct": 2,
+   "explanation": "Idiom: bury the hatchet = zakopać topór wojenny. Po angielsku to hatchet, nie axe.",
+   "itemId": "c2-slownictwo"
+  },
+  {
+   "id": "c2-r-01",
+   "level": "C2",
+   "skill": "reading",
+   "type": "multiple-choice",
+   "passage": "There is a peculiar irony in the way we now celebrate 'disruption'. The word once described a fault – a train that failed to run, a lesson interrupted by noise. Today it is a badge of honour, attached to any company that sells an old service through a new app. Few pause to ask who exactly is disrupted, and at what cost; the drivers, couriers and small shopkeepers rarely appear in the press releases.",
+   "question": "What is the writer's attitude to the modern use of 'disruption'?",
+   "options": [
+    "Enthusiastic about technological progress",
+    "Sceptical, because its cost to some people is ignored",
+    "Neutral – the word has simply changed its meaning",
+    "Amused by how quickly language changes"
+   ],
+   "correct": 1,
+   "explanation": "Autor zwraca uwagę na ironię i pyta, kto ponosi koszty (kierowcy, kurierzy) – to postawa sceptyczna.",
+   "itemId": ""
+  },
+  {
+   "id": "c2-r-02",
+   "level": "C2",
+   "skill": "reading",
+   "type": "multiple-choice",
+   "passage": "Translators are often praised for being invisible: a good translation, we are told, reads as if it had been written in the target language. Yet this ideal can erase precisely what makes a foreign text worth reading – its unfamiliar rhythms, its references, its slightly awkward jokes. Some translators now deliberately leave traces of the original, trusting readers to tolerate a little strangeness in exchange for a closer encounter with another culture.",
+   "question": "Why do some translators leave traces of the original text?",
+   "options": [
+    "To show off their knowledge of the source language",
+    "Because readers prefer texts that are easy to read",
+    "Because readers have complained about invisible translations",
+    "To give readers a closer experience of the source culture"
+   ],
+   "correct": 3,
+   "explanation": "„In exchange for a closer encounter with another culture” – odrobina obcości w zamian za bliższy kontakt z inną kulturą.",
+   "itemId": ""
   }
  ]
 };
