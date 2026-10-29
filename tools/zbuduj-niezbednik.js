@@ -184,7 +184,7 @@ if (fs.existsSync(TEST_FILE)) {
       if (n < range[0] || n > range[1]) problems.push(where + ": passage ma " + n + " słów, dla " + q.level + " wymagane " + range[0] + "–" + range[1]);
     } else if (q.passage !== undefined && q.passage !== null) return fail("passage tylko przy skill: reading");
     if (q.skill !== undefined && q.options.length !== 4) problems.push(where + ": nowe pytania mają 4 opcje (ma " + q.options.length + ")");
-    if (q.itemId !== undefined && q.itemId !== "" && !itemIds.has(q.itemId)) {
+    if (q.itemId !== undefined && q.itemId !== null && q.itemId !== "" && !itemIds.has(q.itemId)) { // null = bez linku (np. czytanie)
       problems.push(where + ": nieznane itemId „" + q.itemId + "” – pytanie zostaje, ale bez linku");
       q.itemId = "";
     }

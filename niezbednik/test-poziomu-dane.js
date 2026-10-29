@@ -150,7 +150,7 @@ window.ELM.LEVEL_TEST = {
    ],
    "correct": 1,
    "explanation": "W tekście: „I go to university by bike”. Samochodu nie ma (I don't have a car).",
-   "itemId": ""
+   "itemId": null
   },
   {
    "id": "a1-r-02",
@@ -167,7 +167,7 @@ window.ELM.LEVEL_TEST = {
    ],
    "correct": 3,
    "explanation": "Chora jest babcia, nie Ania: „My grandma is ill, and I'm going to visit her”.",
-   "itemId": ""
+   "itemId": null
   },
   {
    "id": "a2-01",
@@ -312,7 +312,7 @@ window.ELM.LEVEL_TEST = {
    ],
    "correct": 0,
    "explanation": "W dni robocze basen otwiera się pół godziny wcześniej. W weekendy bez zmian (as usual), a kawiarnia jest zamknięta.",
-   "itemId": ""
+   "itemId": null
   },
   {
    "id": "a2-r-02",
@@ -329,7 +329,7 @@ window.ELM.LEVEL_TEST = {
    ],
    "correct": 2,
    "explanation": "„I'll bring it to your house tomorrow” – Olek odda (return) pożyczony rower.",
-   "itemId": ""
+   "itemId": null
   },
   {
    "id": "b1-01",
@@ -474,7 +474,7 @@ window.ELM.LEVEL_TEST = {
    ],
    "correct": 1,
    "explanation": "Spotkanie nie jest odwołane, tylko przeniesione, a sala ta sama. Najważniejsza prośba: „Could you tell Ola?” – Sam ma przekazać wiadomość.",
-   "itemId": ""
+   "itemId": null
   },
   {
    "id": "b1-r-02",
@@ -491,7 +491,7 @@ window.ELM.LEVEL_TEST = {
    ],
    "correct": 1,
    "explanation": "Pizza była świetna, ale na danie główne czekali prawie godzinę – stąd „not when I'm in a hurry”.",
-   "itemId": ""
+   "itemId": null
   },
   {
    "id": "b2-01",
@@ -636,7 +636,7 @@ window.ELM.LEVEL_TEST = {
    ],
    "correct": 2,
    "explanation": "Kompromis: główna hala na targ lokalnych producentów, a sieciom tylko jedna trzecia budynku.",
-   "itemId": ""
+   "itemId": null
   },
   {
    "id": "b2-r-02",
@@ -653,7 +653,7 @@ window.ELM.LEVEL_TEST = {
    ],
    "correct": 1,
    "explanation": "Zaproszenie na drugą rozmowę (second interview) – to kolejny etap rekrutacji, a nie oferta pracy.",
-   "itemId": ""
+   "itemId": null
   },
   {
    "id": "c1-01",
@@ -798,7 +798,7 @@ window.ELM.LEVEL_TEST = {
    ],
    "correct": 1,
    "explanation": "Ustawienia oparto na metabolizmie jednej grupy (40-letni mężczyzna), więc wiele osób marznie – nie pasują do dużej części pracowników.",
-   "itemId": ""
+   "itemId": null
   },
   {
    "id": "c1-r-02",
@@ -815,7 +815,7 @@ window.ELM.LEVEL_TEST = {
    ],
    "correct": 0,
    "explanation": "Ostatnie zdanie: problemem nie jest miejsce pracy, tylko oczekiwanie, że zawsze będziemy dostępni.",
-   "itemId": ""
+   "itemId": null
   },
   {
    "id": "c2-01",
@@ -960,7 +960,7 @@ window.ELM.LEVEL_TEST = {
    ],
    "correct": 1,
    "explanation": "Autor zwraca uwagę na ironię i pyta, kto ponosi koszty (kierowcy, kurierzy) – to postawa sceptyczna.",
-   "itemId": ""
+   "itemId": null
   },
   {
    "id": "c2-r-02",
@@ -977,7 +977,7 @@ window.ELM.LEVEL_TEST = {
    ],
    "correct": 3,
    "explanation": "„In exchange for a closer encounter with another culture” – odrobina obcości w zamian za bliższy kontakt z inną kulturą.",
-   "itemId": ""
+   "itemId": null
   }
  ]
 };
