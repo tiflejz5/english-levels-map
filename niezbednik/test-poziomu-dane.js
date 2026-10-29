@@ -10,6 +10,7 @@ window.ELM.LEVEL_TEST = {
   {
    "id": "a1-01",
    "level": "A1",
+   "skill": "grammar",
    "type": "multiple-choice",
    "question": "She ___ in a bank in Kraków.",
    "options": [
@@ -25,6 +26,7 @@ window.ELM.LEVEL_TEST = {
   {
    "id": "a1-02",
    "level": "A1",
+   "skill": "grammar",
    "type": "multiple-choice",
    "question": "We ___ at home yesterday evening.",
    "options": [
@@ -36,6 +38,136 @@ window.ELM.LEVEL_TEST = {
    "correct": 2,
    "explanation": "Przeszła forma to be: I/he/she/it was, ale we/you/they were.",
    "itemId": "a1-czasy-was-were"
+  },
+  {
+   "id": "a1-g-03",
+   "level": "A1",
+   "skill": "grammar",
+   "type": "multiple-choice",
+   "question": "There ___ two apples on the table.",
+   "options": [
+    "is",
+    "be",
+    "am",
+    "are"
+   ],
+   "correct": 3,
+   "explanation": "There are + liczba mnoga (two apples); there is + liczba pojedyncza.",
+   "itemId": "a1-gramatyka-there-is-there-are"
+  },
+  {
+   "id": "a1-g-04",
+   "level": "A1",
+   "skill": "grammar",
+   "type": "multiple-choice",
+   "question": "___ your brother play the guitar? – Yes, he can.",
+   "options": [
+    "Can",
+    "Does",
+    "Is",
+    "Do"
+   ],
+   "correct": 0,
+   "explanation": "Odpowiedź „Yes, he can” pokazuje, że pytanie jest o umiejętność: Can your brother play…?",
+   "itemId": "a1-gramatyka-can-cant"
+  },
+  {
+   "id": "a1-g-05",
+   "level": "A1",
+   "skill": "grammar",
+   "type": "multiple-choice",
+   "question": "Look! The children ___ in the garden.",
+   "options": [
+    "play",
+    "plays",
+    "are playing",
+    "is playing"
+   ],
+   "correct": 2,
+   "explanation": "Look! – coś dzieje się teraz: Present Continuous. Children to liczba mnoga, więc are playing.",
+   "itemId": "a1-czasy-present-continuous"
+  },
+  {
+   "id": "a1-v-01",
+   "level": "A1",
+   "skill": "vocabulary",
+   "type": "multiple-choice",
+   "question": "I usually ___ breakfast at 7 o'clock.",
+   "options": [
+    "have",
+    "make",
+    "do",
+    "take"
+   ],
+   "correct": 0,
+   "explanation": "Posiłki: have breakfast / lunch / dinner. „Robić śniadanie” w sensie przygotować to make breakfast, ale „jeść” to have.",
+   "itemId": "a1-slownictwo"
+  },
+  {
+   "id": "a1-v-02",
+   "level": "A1",
+   "skill": "vocabulary",
+   "type": "multiple-choice",
+   "question": "My mother's brother is my ___.",
+   "options": [
+    "cousin",
+    "nephew",
+    "uncle",
+    "grandfather"
+   ],
+   "correct": 2,
+   "explanation": "Brat mamy albo taty to uncle (wujek). Cousin to kuzyn, nephew – bratanek albo siostrzeniec.",
+   "itemId": "a1-slownictwo"
+  },
+  {
+   "id": "a1-v-03",
+   "level": "A1",
+   "skill": "vocabulary",
+   "type": "multiple-choice",
+   "question": "I'm hungry. Can I have a ___ of pizza?",
+   "options": [
+    "piece",
+    "glass",
+    "bottle",
+    "cup"
+   ],
+   "correct": 0,
+   "explanation": "Kawałek pizzy albo ciasta to a piece of. Glass, bottle i cup to naczynia na napoje.",
+   "itemId": "a1-slownictwo"
+  },
+  {
+   "id": "a1-r-01",
+   "level": "A1",
+   "skill": "reading",
+   "type": "multiple-choice",
+   "passage": "Hi! My name is Marta. I'm from Gdańsk, but now I live in Kraków with my sister. I'm a student. I don't have a car, so I go to university by bike. At the weekend I visit my parents.",
+   "question": "How does Marta get to university?",
+   "options": [
+    "By car",
+    "By bike",
+    "On foot",
+    "By bus"
+   ],
+   "correct": 1,
+   "explanation": "W tekście: „I go to university by bike”. Samochodu nie ma (I don't have a car).",
+   "itemId": ""
+  },
+  {
+   "id": "a1-r-02",
+   "level": "A1",
+   "skill": "reading",
+   "type": "multiple-choice",
+   "passage": "Dear Tom, I'm sorry, but I can't come to your party on Saturday. My grandma is ill, and I'm going to visit her with my dad. She lives in Poznań, so we're leaving early in the morning. Have a great time! I'll call you on Sunday. Love, Ania",
+   "question": "Why can't Ania go to the party?",
+   "options": [
+    "She is ill.",
+    "She has to work on Saturday.",
+    "She is going to Poznań with her friends.",
+    "She is visiting her grandmother."
+   ],
+   "correct": 3,
+   "explanation": "Chora jest babcia, nie Ania: „My grandma is ill, and I'm going to visit her”.",
+   "itemId": ""
   },
   {
    "id": "a2-01",
