@@ -1,0 +1,492 @@
+{
+  "version": 1,
+  "id": "test-koncowy-a2",
+  "kind": "level-test",
+  "level": "A2",
+  "title": "Test końcowy A2",
+  "intro": "20 pytań z całego poziomu A2. Zaliczenie od 80%.",
+  "draw": 20,
+  "passPercent": 80,
+  "defaultMode": "exam",
+  "items": [
+    {
+      "id": "tk-a2-01",
+      "type": "gap-fill",
+      "topic": "a2-czasy-past-simple",
+      "text": "Yesterday I {{1}} (go) to the cinema and {{2}} (see) a good film.",
+      "gaps": [
+        {
+          "accepted": [
+            "went"
+          ]
+        },
+        {
+          "accepted": [
+            "saw"
+          ]
+        }
+      ],
+      "explanation": "Past Simple z yesterday. Czasowniki nieregularne: go – went, see – saw.",
+      "trap": "Po yesterday nie używamy Present Perfect: „I have gone … yesterday” to błąd."
+    },
+    {
+      "id": "tk-a2-02",
+      "type": "translate",
+      "topic": "a2-czasy-past-simple",
+      "source": "Wczoraj nie poszedłem do szkoły.",
+      "accepted": [
+        "I didn't go to school yesterday.",
+        "Yesterday I didn't go to school.",
+        "I did not go to school yesterday.",
+        "Yesterday I did not go to school."
+      ],
+      "hint": "didn't + go",
+      "explanation": "Przeczenie w Past Simple: didn't + forma podstawowa (go, nie „went”).",
+      "trap": "Po didn't czasownik wraca do formy podstawowej: didn't go, nie „didn't went”."
+    },
+    {
+      "id": "tk-a2-03",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "a2-czasy-past-continuous",
+      "prompt": "I ___ dinner when the phone rang.",
+      "options": [
+        "cooked",
+        "was cooking",
+        "am cooking",
+        "was cook"
+      ],
+      "correct": 1,
+      "explanation": "Dłuższa czynność w tle przerwana inną: Past Continuous (was cooking) + Past Simple (rang)."
+    },
+    {
+      "id": "tk-a2-04",
+      "type": "short-answer",
+      "topic": "a2-czasy-past-continuous",
+      "context": "Co robiłeś wczoraj o ósmej wieczorem?",
+      "prompt": "What ___ you doing at eight o'clock last night?",
+      "accepted": [
+        "were"
+      ],
+      "explanation": "Past Continuous z you: were + czasownik z -ing (were you doing)."
+    },
+    {
+      "id": "tk-a2-05",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "a2-czasy-present-perfect-doswiadczenia",
+      "prompt": "I have never ___ sushi.",
+      "options": [
+        "ate",
+        "eaten",
+        "eat",
+        "eating"
+      ],
+      "correct": 1,
+      "explanation": "Doświadczenie: have + 3. forma. Eat – ate – eaten."
+    },
+    {
+      "id": "tk-a2-06",
+      "type": "translate",
+      "topic": "a2-czasy-present-perfect-doswiadczenia",
+      "source": "Czy kiedykolwiek byłeś w Paryżu?",
+      "accepted": [
+        "Have you ever been to Paris?",
+        "Have you ever been in Paris?"
+      ],
+      "hint": "ever + been",
+      "explanation": "Doświadczenie bez podanego czasu: Present Perfect z ever. Been to = byłem gdzieś i wróciłem."
+    },
+    {
+      "id": "tk-a2-07",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "a2-czasy-future-will",
+      "prompt": "A: There's no milk.\nB: OK, I ___ buy some.",
+      "options": [
+        "buy",
+        "will",
+        "am buy",
+        "going to buy"
+      ],
+      "correct": 1,
+      "explanation": "Spontaniczna decyzja w chwili mówienia: will + bezokolicznik (I'll buy)."
+    },
+    {
+      "id": "tk-a2-08",
+      "type": "gap-fill",
+      "topic": "a2-czasy-present-continuous-plany",
+      "text": "A: What {{1}} you {{2}} (do) this evening?\nB: I {{3}} (meet) Tom at seven.",
+      "gaps": [
+        {
+          "accepted": [
+            "are"
+          ]
+        },
+        {
+          "accepted": [
+            "doing"
+          ]
+        },
+        {
+          "accepted": [
+            "'m meeting",
+            "am meeting"
+          ]
+        }
+      ],
+      "explanation": "Ustalone plany: Present Continuous (are you doing, I'm meeting). Wskazówka czasu: this evening."
+    },
+    {
+      "id": "tk-a2-09",
+      "type": "gap-fill",
+      "topic": "a2-gramatyka-stopniowanie-przymiotnikow",
+      "text": "My brother is {{1}} (tall) than me, but my dad is the {{2}} (tall) in our family.",
+      "gaps": [
+        {
+          "accepted": [
+            "taller"
+          ]
+        },
+        {
+          "accepted": [
+            "tallest"
+          ]
+        }
+      ],
+      "explanation": "Krótki przymiotnik: tall – taller than – the tallest."
+    },
+    {
+      "id": "tk-a2-10",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "a2-gramatyka-stopniowanie-przymiotnikow",
+      "prompt": "Maths is ___ than English for me.",
+      "options": [
+        "difficulter",
+        "most difficult",
+        "the more difficult",
+        "more difficult"
+      ],
+      "correct": 3,
+      "explanation": "Długi przymiotnik (difficult): more + przymiotnik + than. Nie dodajemy -er."
+    },
+    {
+      "id": "tk-a2-11",
+      "type": "reorder",
+      "topic": "a2-gramatyka-przyslowki-czestotliwosci",
+      "context": "Ona nigdy nie pije kawy wieczorem.",
+      "answers": [
+        "She never drinks coffee in the evening.",
+        "In the evening she never drinks coffee."
+      ],
+      "explanation": "Przysłówek częstotliwości stoi przed czasownikiem (never drinks); czas można dać na początku zdania."
+    },
+    {
+      "id": "tk-a2-12",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "a2-gramatyka-policzalne-niepoliczalne",
+      "prompt": "How ___ milk do you want in your tea?",
+      "options": [
+        "many",
+        "a lot",
+        "few",
+        "much"
+      ],
+      "correct": 3,
+      "explanation": "Milk jest niepoliczalne, więc How much. How many – tylko z liczbą mnogą (How many eggs)."
+    },
+    {
+      "id": "tk-a2-13",
+      "type": "gap-fill",
+      "topic": "a2-gramatyka-policzalne-niepoliczalne",
+      "text": "There aren't {{1}} chairs in the room, but there is {{2}} water on the table.",
+      "gaps": [
+        {
+          "accepted": [
+            "any"
+          ],
+          "hint": "any albo some"
+        },
+        {
+          "accepted": [
+            "some"
+          ],
+          "hint": "any albo some"
+        }
+      ],
+      "explanation": "Przeczenie: any (aren't any chairs). Twierdzenie: some (some water)."
+    },
+    {
+      "id": "tk-a2-14",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "a2-gramatyka-modalne-must-should",
+      "prompt": "You ___ stop at a red light. It's against the law not to.",
+      "options": [
+        "should",
+        "could",
+        "may",
+        "must"
+      ],
+      "correct": 3,
+      "explanation": "Obowiązek wynikający z przepisów: must. Should to tylko rada, could i may – możliwość albo pozwolenie."
+    },
+    {
+      "id": "tk-a2-15",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "a2-gramatyka-modalne-must-should",
+      "prompt": "You ___ wear a uniform at our school. It's not necessary.",
+      "options": [
+        "mustn't",
+        "don't have to",
+        "can't",
+        "shouldn't"
+      ],
+      "correct": 1,
+      "explanation": "Don't have to = nie trzeba (nie ma obowiązku). Mustn't to zakaz – całkiem inne znaczenie.",
+      "trap": "Mustn't ≠ don't have to: pierwsze to zakaz, drugie – brak obowiązku."
+    },
+    {
+      "id": "tk-a2-16",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "a2-gramatyka-pytania-o-podmiot",
+      "prompt": "Who ___ in the flat next to yours? – A student.",
+      "options": [
+        "live",
+        "does lives",
+        "is live",
+        "lives"
+      ],
+      "correct": 3,
+      "explanation": "Pytanie o podmiot nie ma did/does: Who lives…? (jak zdanie oznajmujące)."
+    },
+    {
+      "id": "tk-a2-17",
+      "type": "gap-fill",
+      "topic": "a2-gramatyka-spojniki",
+      "text": "I was hungry {{1}} I ate a sandwich. I ate it quickly {{2}} I was late.",
+      "gaps": [
+        {
+          "accepted": [
+            "so"
+          ]
+        },
+        {
+          "accepted": [
+            "because",
+            "as"
+          ]
+        }
+      ],
+      "explanation": "So wprowadza skutek (byłem głodny, więc zjadłem). Because podaje przyczynę (bo byłem spóźniony)."
+    },
+    {
+      "id": "tk-a2-18",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "a2-gramatyka-czasownik-ing-to",
+      "prompt": "I enjoy ___ to music in the evening.",
+      "options": [
+        "to listen",
+        "listen",
+        "listened",
+        "listening"
+      ],
+      "correct": 3,
+      "explanation": "Po enjoy stoi forma -ing (enjoy listening). To nie jest want/hope (te łączą się z to)."
+    },
+    {
+      "id": "tk-a2-19",
+      "type": "short-answer",
+      "topic": "a2-gramatyka-czasownik-ing-to",
+      "context": "Chcę kupić nowy telefon.",
+      "prompt": "I want ___ a new phone.",
+      "accepted": [
+        "to buy"
+      ],
+      "explanation": "Po want stoi to + bezokolicznik (want to buy), nie -ing.",
+      "trap": "Po want nie ma -ing: „I want buying” to błąd."
+    },
+    {
+      "id": "tk-a2-20",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "a2-funkcje-opowiadanie-o-weekendzie",
+      "prompt": "A: How was your weekend?\nB: ___",
+      "options": [
+        "It is great. I go to the mountains.",
+        "It was great. I am going to the mountains yesterday.",
+        "It were great. I went to mountains.",
+        "It was great. I went to the mountains."
+      ],
+      "correct": 3,
+      "explanation": "Opowiadamy o zakończonym weekendzie w Past Simple: It was great. I went to the mountains."
+    },
+    {
+      "id": "tk-a2-21",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "a2-funkcje-propozycje-zaproszenia",
+      "prompt": "A: Why don't we have lunch together?\nB: ___",
+      "options": [
+        "Yes, I don't.",
+        "Good idea! Where shall we go?",
+        "No, I'm having it.",
+        "It's together."
+      ],
+      "correct": 1,
+      "explanation": "Przyjmujemy propozycję: Good idea! (Why don't we…? = Może zjemy…)."
+    },
+    {
+      "id": "tk-a2-22",
+      "type": "match",
+      "topic": "a2-funkcje-propozycje-zaproszenia",
+      "prompt": "Dopasuj wypowiedź do reakcji.",
+      "mode": "response",
+      "pairs": [
+        [
+          "Would you like to come to my party?",
+          "Yes, I'd love to, thank you."
+        ],
+        [
+          "Shall we go for a walk?",
+          "Good idea, let's go!"
+        ],
+        [
+          "Can you come to my house tomorrow at six?",
+          "Sorry, I'm busy then."
+        ],
+        [
+          "How was your holiday?",
+          "It was fantastic!"
+        ]
+      ],
+      "extraRight": [
+        "Nice to meet you."
+      ],
+      "explanation": "Zaproszenie (Would you like to…?) – Yes, I'd love to. Propozycja (Shall we…?) – Good idea! „Nice to meet you” mówimy przy poznawaniu kogoś, więc nie pasuje."
+    },
+    {
+      "id": "tk-a2-23",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "a2-funkcje-pytanie-o-droge",
+      "prompt": "A: Excuse me, where is the post office?\nB: ___",
+      "options": [
+        "I'm going to the post office.",
+        "It's next to the bank, on the left.",
+        "Yes, it is.",
+        "It's a big building."
+      ],
+      "correct": 1,
+      "explanation": "Na pytanie o miejsce odpowiadamy lokalizacją: next to the bank, on the left."
+    },
+    {
+      "id": "tk-a2-24",
+      "type": "short-answer",
+      "topic": "a2-funkcje-pytanie-o-droge",
+      "context": "Idź prosto, a potem skręć w lewo.",
+      "prompt": "___ straight on and then turn left.",
+      "accepted": [
+        "Go",
+        "Walk",
+        "Continue"
+      ],
+      "explanation": "Wskazujemy drogę trybem rozkazującym: Go straight on (albo Walk / Continue straight on) and then turn left."
+    },
+    {
+      "id": "tk-a2-25",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "a2-funkcje-bilety-rezerwacje",
+      "prompt": "I'd like to ___ a table for two at eight o'clock, please.",
+      "options": [
+        "take",
+        "book",
+        "buy",
+        "keep"
+      ],
+      "correct": 1,
+      "explanation": "Rezerwacja stolika: book a table (albo reserve a table)."
+    },
+    {
+      "id": "tk-a2-26",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "a2-funkcje-opisywanie",
+      "prompt": "A: What does your brother look like?\nB: ___",
+      "options": [
+        "He likes football and music.",
+        "He's very well, thanks.",
+        "He is like football and music.",
+        "He's tall and has dark hair."
+      ],
+      "correct": 3,
+      "explanation": "What does he look like? pyta o wygląd, więc opisujemy wygląd (tall, dark hair)."
+    },
+    {
+      "id": "tk-a2-27",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "a2-funkcje-porownywanie-preferencje",
+      "prompt": "I prefer tea ___ coffee.",
+      "options": [
+        "than",
+        "to",
+        "from",
+        "of"
+      ],
+      "correct": 1,
+      "explanation": "Prefer A to B (nie „than”). Z than używamy would rather lub more … than.",
+      "trap": "Prefer … to, nie „prefer … than”."
+    },
+    {
+      "id": "tk-a2-28",
+      "type": "translate",
+      "topic": "a2-funkcje-porownywanie-preferencje",
+      "source": "Wolę koty od psów.",
+      "accepted": [
+        "I prefer cats to dogs.",
+        "I like cats more than dogs.",
+        "I like cats better than dogs.",
+        "I prefer cats over dogs."
+      ],
+      "hint": "prefer … to",
+      "explanation": "Wolę A od B: prefer A to B. Można też: like A more than B / like A better than B."
+    },
+    {
+      "id": "tk-a2-29",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "a2-slownictwo",
+      "prompt": "I have a headache. I'll go to the ___ to buy some tablets.",
+      "options": [
+        "butcher's",
+        "chemist's",
+        "baker's",
+        "greengrocer's"
+      ],
+      "correct": 1,
+      "explanation": "Tabletki kupujemy w aptece: chemist's (albo pharmacy). Butcher's to rzeźnik, baker's – piekarnia."
+    },
+    {
+      "id": "tk-a2-30",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "a2-slownictwo",
+      "prompt": "I'm sorry I'm late. The traffic was terrible and I ___ the bus.",
+      "options": [
+        "lost",
+        "lacked",
+        "left",
+        "missed"
+      ],
+      "correct": 3,
+      "explanation": "Spóźnić się na autobus = miss the bus. Lost to „zgubić”, lacked – „brakować”."
+    }
+  ]
+}

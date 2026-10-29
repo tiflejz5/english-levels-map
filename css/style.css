@@ -2771,6 +2771,49 @@ html.focus-mode .c1-writing-area { box-shadow: 0 0 0 4px var(--accent-soft); }
 @keyframes ex-pop { 0% { transform: scale(1); } 40% { transform: scale(1.012); } 100% { transform: scale(1); } }
 @keyframes ex-shake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-5px); } 40% { transform: translateX(5px); } 60% { transform: translateX(-3px); } 80% { transform: translateX(2px); } }
 
+/* Znaczek „poziom zaliczony” (test końcowy, paczka v6): pieczątka z ikoną nagrody na kółku poziomu.
+   Kształt i ikona niosą informację (nie sam kolor); kolory z tokenów poziomu, kontrast jak w pierścieniach. */
+.sb-ring-wrap, .trail-ring { position: relative; display: inline-grid; place-items: center; }
+.lvl-stamp {
+  position: absolute; top: -4px; right: -6px; z-index: 1; display: inline-grid; place-items: center;
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--lvl-ink); color: var(--surface); border: 2px solid var(--surface); box-sizing: content-box;
+}
+.lvl-stamp-icon { display: inline-grid; place-items: center; }
+.sb-ring-wrap .lvl-stamp { top: -3px; right: -5px; width: 16px; height: 16px; }
+.lf-passed .lvl-stamp, .lf-level-card .lvl-stamp { position: static; flex-shrink: 0; width: 24px; height: 24px; }
+.trail-passed { margin-top: 1px; font-size: var(--fs-xs); font-weight: 650; color: var(--lvl-ink); white-space: nowrap; }
+.lf-level-card { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px 20px; margin-top: 24px; padding: 20px 24px; border-left: 4px solid var(--lvl); }
+.lf-level-card-body { flex: 1 1 320px; min-width: 0; }
+.lf-level-card .section-title { display: flex; align-items: center; gap: 8px; margin: 0 0 6px; }
+.lf-level-card p { margin: 0 0 6px; }
+.lf-level-card .btn { min-height: 44px; }
+@media (max-width: 760px) { .lf-level-card { padding: 16px; } .lf-level-card .btn { width: 100%; } }
+.lvl-passed-label { display: inline-flex; align-items: center; gap: 6px; margin: 6px 0 0; padding: 3px 10px; border-radius: var(--radius-pill); background: var(--lvl-soft); color: var(--lvl-ink); font-size: var(--fs-sm); font-weight: 650; }
+
+/* Test końcowy poziomu (paczka v6): ekran startowy i wynik */
+.lf-card { padding: 22px 26px; }
+.lf-rules { margin: 12px 0 14px; padding-left: 20px; display: flex; flex-direction: column; gap: 4px; }
+.lf-msg:empty { display: none; }
+.lf-passed { display: flex; align-items: center; gap: 10px; margin: 0 0 10px; }
+.lf-verdict { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin: 0 0 10px; font-size: var(--fs-lg); }
+.lf-need { font-size: var(--fs-md); color: var(--ink-muted); }
+.lf-result.is-passed { border-color: var(--success); }
+.lf-h { margin: 18px 0 8px; font-family: var(--font); font-size: var(--fs-sm-plus); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-muted); }
+.lf-cats { list-style: none; display: flex; flex-direction: column; gap: 8px; margin: 0 0 12px; padding: 0; }
+.lf-cats li { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: baseline; gap: 2px 12px; }
+.lf-cat-name { font-weight: 600; }
+.lf-cat-pct { min-width: 3.2em; text-align: right; color: var(--ink-muted); font-size: var(--fs-sm); }
+.lf-cat-bar { grid-column: 1 / -1; height: 8px; border-radius: var(--radius-pill); background: var(--surface-3); overflow: hidden; }
+.lf-cat-fill { display: block; height: 100%; background: var(--accent); border-radius: var(--radius-pill); }
+.lf-cats li.is-full .lf-cat-fill { background: var(--success-fill); }
+.lf-weak { margin: 0 0 8px; }
+.lf-topic-list { list-style: none; display: flex; flex-direction: column; gap: 6px; margin: 0 0 12px; padding: 0; }
+.lf-topic-list a, .lf-sets a, .lf-weak a { color: var(--accent); font-weight: 600; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.lf-sets { margin: 0 0 12px; }
+.lf-sets[hidden] { display: none; }
+@media (max-width: 760px) { .lf-card { padding: 18px 16px; } }
+
 /* Wynik */
 .ex-result { padding: 26px 30px; }
 .ex-result-score { display: flex; align-items: baseline; gap: 14px; margin-bottom: 6px; }

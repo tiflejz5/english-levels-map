@@ -26,6 +26,10 @@
  *                    — egzaminy w nowym module (np. Egzamin ósmoklasisty, js/exam-core.js); Certyfikat C1 ma własny klucz elm_c1_v1
  *   elm_speaking_v1  { version: 1, profiles: { <id>: { sessions: [ { day, exam, part: 1–4, scores: { <kryterium>: 1–5 } } ] } } }
  *                    — historia sesji trenera Speaking (samoocena, js/speaking-trainer.js; najnowsze na końcu, maks. 500)
+ *   elm_leveltests_v1 { version: 1, profiles: { <id>: { levels: { "A1": { passedAt: "RRRR-MM-DD" | null, best: { score, total, date }, last: { score, total, date } } } } } }
+ *                    — testy końcowe poziomów A1–C2 i znaczki „poziom zaliczony” (js/level-final.js, paczka v6);
+ *                      passedAt = dzień pierwszego zaliczenia (znaczek zostaje po późniejszej porażce);
+ *                      to NIE jest elm_leveltest_v1 (szybki test poziomu)
  *
  * Wpis dziennika błędów:
  *   { id, createdAt: "RRRR-MM-DD", context, myAnswer, correct, rule, source,
@@ -46,7 +50,7 @@ window.ELM = window.ELM || {};
 
   const KEYS = { journal: "elm_journal_v1", activity: "elm_activity_v1", levelTest: "elm_leveltest_v1", celebrated: "elm_celebrated_v1", exercises: "elm_exercises_v1",
     attempts: "elm_attempts_v1", autojournal: "elm_autojournal_v1", prefs: "elm_learnprefs_v1", notes: "elm_notes_v1",
-    exams: "elm_exams_v1", speaking: "elm_speaking_v1" };
+    exams: "elm_exams_v1", speaking: "elm_speaking_v1", levelTests: "elm_leveltests_v1" };
   const VERSION = 1;
 
   const CATEGORIES = ["Use of English", "Reading", "Writing", "Listening", "Speaking", "Gramatyka", "Słownictwo", "Inne"];
@@ -111,6 +115,7 @@ window.ELM = window.ELM || {};
     if (kind === "notes") return { items: {} };
     if (kind === "exams") return { exams: {} };
     if (kind === "speaking") return { sessions: [] };
+    if (kind === "levelTests") return { levels: {} };
     return { last: null };
   }
 
@@ -241,6 +246,17 @@ window.ELM = window.ELM || {};
         };
       });
       return { items: items };
+    }
+    if (kind === "levelTests") {
+      const levels = {};
+      if (U.isPlainObject(raw.levels)) learn().LEVELS.forEach(function (lvl) {
+        const src = raw.levels[lvl];
+        if (!U.isPlainObject(src)) return;
+        const best = normalizeScore(src.best), last = normalizeScore(src.last);
+        if (!best && !last) return;
+        levels[lvl] = { passedAt: learn().isDay(src.passedAt) ? src.passedAt : null, best: best || last, last: last || best };
+      });
+      return { levels: levels };
     }
     if (kind === "prefs") return { autoJournal: raw.autoJournal !== false };
     if (kind === "speaking") {
@@ -516,6 +532,49 @@ window.ELM = window.ELM || {};
     rec.sets[setId] = { best: better ? clean : prev.best, last: clean, recent: recent };
     save("exercises");
     return { best: rec.sets[setId].best, last: clean, recent: recent.slice(), improved: !!prev && better };
+  }
+
+  // =====================================================================
+  // TESTY KOŃCOWE POZIOMÓW (paczka v6, spec 13 sekcja 2.4)
+  // =====================================================================
+
+  /** { passedAt, best, last } testu końcowego poziomu aktywnego profilu albo null. */
+  function finalResult(level) {
+    const pid = activeId();
+    const rec = pid ? load("levelTests").profiles[pid] : null;
+    const r = rec && rec.levels[level];
+    return r ? { passedAt: r.passedAt, best: Object.assign({}, r.best), last: Object.assign({}, r.last) } : null;
+  }
+
+  /** Zaliczone poziomy aktywnego profilu: { "A1": "RRRR-MM-DD", … }. */
+  function passedLevels() {
+    const pid = activeId();
+    const rec = pid ? load("levelTests").profiles[pid] : null;
+    const out = {};
+    if (rec) Object.keys(rec.levels).forEach(function (lvl) { if (rec.levels[lvl].passedAt) out[lvl] = rec.levels[lvl].passedAt; });
+    return out;
+  }
+
+  /**
+   * Zapisuje wynik testu końcowego: ostatni zawsze, najlepszy (wyższy procent), dzień pierwszego zaliczenia.
+   * res: { score, total, passed }. Zwraca { passed, firstPass, passedAt, best, last } albo null.
+   */
+  function saveFinalResult(level, res) {
+    const pid = activeId();
+    if (!pid || learn().LEVELS.indexOf(level) === -1 || !res) return null;
+    const clean = normalizeScore({ score: res.score, total: res.total, date: learn().today() });
+    if (!clean) return null;
+    const rec = record("levelTests", pid);
+    const prev = rec.levels[level];
+    const better = !prev || clean.score / clean.total > prev.best.score / prev.best.total;
+    const firstPass = !!res.passed && !(prev && prev.passedAt);
+    rec.levels[level] = {
+      passedAt: prev && prev.passedAt ? prev.passedAt : res.passed ? clean.date : null,
+      best: better ? clean : prev.best,
+      last: clean
+    };
+    save("levelTests");
+    return { passed: !!res.passed, firstPass: firstPass, passedAt: rec.levels[level].passedAt, best: Object.assign({}, rec.levels[level].best), last: clean };
   }
 
   /** Dzień odmowy sugestii „Umiem” dla zestawu (albo null) i zapis odmowy. */
@@ -850,6 +909,9 @@ window.ELM = window.ELM || {};
     celebrated: celebrated,
     addCelebrated: addCelebrated,
     saveTest: saveTest,
+    finalResult: finalResult,
+    passedLevels: passedLevels,
+    saveFinalResult: saveFinalResult,
     setScore: setScore,
     saveSetScore: saveSetScore,
     lastMix: lastMix,

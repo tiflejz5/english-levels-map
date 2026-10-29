@@ -1,0 +1,511 @@
+{
+  "version": 1,
+  "id": "test-koncowy-b2",
+  "kind": "level-test",
+  "level": "B2",
+  "title": "Test końcowy B2",
+  "intro": "20 pytań z całego poziomu B2. Zaliczenie od 80%.",
+  "draw": 20,
+  "passPercent": 80,
+  "defaultMode": "exam",
+  "items": [
+    {
+      "id": "tk-b2-01",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "b2-czasy-future-continuous-perfect",
+      "prompt": "This time next week I ___ on a beach in Spain.",
+      "options": [
+        "will lie",
+        "will be lying",
+        "have lain",
+        "will have lain"
+      ],
+      "correct": 1,
+      "explanation": "Czynność w toku w konkretnej chwili w przyszłości: Future Continuous – will be lying."
+    },
+    {
+      "id": "tk-b2-02",
+      "type": "gap-fill",
+      "topic": "b2-czasy-future-continuous-perfect",
+      "text": "By the time you get home, I {{1}} (cook) dinner.",
+      "gaps": [
+        {
+          "accepted": [
+            "will have cooked",
+            "'ll have cooked"
+          ]
+        }
+      ],
+      "explanation": "Czynność zakończona przed pewnym momentem w przyszłości (by the time): Future Perfect – will have cooked."
+    },
+    {
+      "id": "tk-b2-03",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "b2-czasy-past-perfect-continuous",
+      "prompt": "She was exhausted because she ___ all day.",
+      "options": [
+        "has been working",
+        "had been working",
+        "is working",
+        "was been working"
+      ],
+      "correct": 1,
+      "explanation": "Czynność długo trwająca przed innym momentem w przeszłości: Past Perfect Continuous – had been working."
+    },
+    {
+      "id": "tk-b2-04",
+      "type": "transformation",
+      "topic": "b2-czasy-past-perfect-continuous",
+      "source": "Maria was exhausted because she spent five hours cleaning the house.",
+      "keyword": "BEEN",
+      "before": "Maria was exhausted because she",
+      "after": "the house for five hours.",
+      "answers": [
+        "had been cleaning"
+      ],
+      "wordLimit": [
+        2,
+        5
+      ],
+      "explanation": "Czynność trwająca przed momentem w przeszłości i widoczna w skutku: Past Perfect Continuous (had been cleaning)."
+    },
+    {
+      "id": "tk-b2-05",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "b2-czasy-laczenie-czasow",
+      "prompt": "I was standing at the bus stop when I realised I ___ my wallet at home.",
+      "options": [
+        "left",
+        "had left",
+        "have left",
+        "was leaving"
+      ],
+      "correct": 1,
+      "explanation": "Zostawienie portfela wydarzyło się wcześniej niż moment, gdy to zauważyłem: Past Perfect – had left."
+    },
+    {
+      "id": "tk-b2-06",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "b2-gramatyka-third-mixed-conditionals",
+      "prompt": "If I had studied harder at school, I ___ a better job now.",
+      "options": [
+        "would have had",
+        "will have",
+        "had",
+        "would have"
+      ],
+      "correct": 3,
+      "explanation": "Mixed conditional: warunek z przeszłości (had studied), skutek w teraźniejszości – would + bezokolicznik (would have a better job now)."
+    },
+    {
+      "id": "tk-b2-07",
+      "type": "gap-fill",
+      "topic": "b2-gramatyka-third-mixed-conditionals",
+      "text": "If she {{1}} (leave) earlier, she {{2}} (not / miss) the train.",
+      "gaps": [
+        {
+          "accepted": [
+            "had left",
+            "'d left"
+          ]
+        },
+        {
+          "accepted": [
+            "wouldn't have missed",
+            "would not have missed"
+          ]
+        }
+      ],
+      "explanation": "Third Conditional: If + Past Perfect, would have + 3. forma.",
+      "trap": "Po if nie stawiamy would: „If she would have left” to częsty błąd."
+    },
+    {
+      "id": "tk-b2-08",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "b2-gramatyka-wish-if-only",
+      "prompt": "I wish it ___ stop raining. I want to go for a walk.",
+      "options": [
+        "will",
+        "stopped",
+        "to",
+        "would"
+      ],
+      "correct": 3,
+      "explanation": "Irytacja albo życzenie, żeby coś zmieniło się w przyszłości: wish + would (I wish it would stop)."
+    },
+    {
+      "id": "tk-b2-09",
+      "type": "transformation",
+      "topic": "b2-gramatyka-wish-if-only",
+      "source": "I regret not telling her the truth.",
+      "keyword": "WISH",
+      "before": "I",
+      "after": "her the truth.",
+      "answers": [
+        "wish I had told",
+        "wish I'd told"
+      ],
+      "parts": [
+        [
+          "wish I"
+        ],
+        [
+          "had told",
+          "'d told"
+        ]
+      ],
+      "wordLimit": [
+        2,
+        5
+      ],
+      "explanation": "Żal dotyczący przeszłości: wish + Past Perfect (wish I had told)."
+    },
+    {
+      "id": "tk-b2-10",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "b2-gramatyka-modalne-przeszlosc",
+      "prompt": "I can't find my keys. I ___ them in the car.",
+      "options": [
+        "might leave",
+        "can have left",
+        "must be left",
+        "might have left"
+      ],
+      "correct": 3,
+      "explanation": "Przypuszczenie o przeszłości: might have + 3. forma (może zostawiłem)."
+    },
+    {
+      "id": "tk-b2-11",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "b2-gramatyka-strona-bierna-have-something-done",
+      "prompt": "I'm going to ___ my hair cut tomorrow.",
+      "options": [
+        "make",
+        "have",
+        "do",
+        "take"
+      ],
+      "correct": 1,
+      "explanation": "Usługa wykonana przez kogoś: have + przedmiot + 3. forma (have my hair cut)."
+    },
+    {
+      "id": "tk-b2-12",
+      "type": "transformation",
+      "topic": "b2-gramatyka-strona-bierna-have-something-done",
+      "source": "Someone is repairing our car at the moment.",
+      "keyword": "BEING",
+      "before": "Our car",
+      "after": "at the moment.",
+      "answers": [
+        "is being repaired",
+        "is being fixed",
+        "is currently being repaired",
+        "is currently being fixed"
+      ],
+      "wordLimit": [
+        2,
+        5
+      ],
+      "explanation": "Strona bierna w Present Continuous: is/are + being + 3. forma (is being repaired)."
+    },
+    {
+      "id": "tk-b2-13",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "b2-gramatyka-mowa-zalezna-pelna",
+      "prompt": "He asked me ___ I wanted to join the team.",
+      "options": [
+        "that",
+        "whether",
+        "what",
+        "to"
+      ],
+      "correct": 1,
+      "explanation": "Pytanie ogólne (tak/nie) w mowie zależnej: whether albo if. That wprowadza zdania oznajmujące."
+    },
+    {
+      "id": "tk-b2-14",
+      "type": "gap-fill",
+      "topic": "b2-gramatyka-mowa-zalezna-pelna",
+      "text": "“Don't touch the machine,” the teacher said. → The teacher told us {{1}} the machine.",
+      "gaps": [
+        {
+          "accepted": [
+            "not to touch",
+            "to not touch"
+          ],
+          "hint": "3 słowa"
+        }
+      ],
+      "explanation": "Polecenie w mowie zależnej: told + osoba + (not) to + bezokolicznik."
+    },
+    {
+      "id": "tk-b2-15",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "b2-gramatyka-zdania-wzgledne-niedefiniujace",
+      "prompt": "My brother, ___ lives in Canada, is visiting us next month.",
+      "options": [
+        "that",
+        "who",
+        "which",
+        "whose"
+      ],
+      "correct": 1,
+      "explanation": "Zdanie niedefiniujące (w przecinkach) o osobie: who. W takich zdaniach nie używamy that.",
+      "trap": "That nie występuje w zdaniach względnych w przecinkach."
+    },
+    {
+      "id": "tk-b2-16",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "b2-gramatyka-przyczyna-przeciwienstwo",
+      "prompt": "___ the rain, we enjoyed the trip.",
+      "options": [
+        "Although",
+        "However",
+        "In spite",
+        "Despite"
+      ],
+      "correct": 3,
+      "explanation": "Despite + rzeczownik (the rain). Although wymaga zdania, a In spite musi mieć of (in spite of)."
+    },
+    {
+      "id": "tk-b2-17",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "b2-gramatyka-gerund-infinitive-zmiana-znaczenia",
+      "prompt": "Don't forget ___ the door when you leave.",
+      "options": [
+        "locking",
+        "to lock",
+        "lock",
+        "locked"
+      ],
+      "correct": 1,
+      "explanation": "Forget to do = zapomnieć coś zrobić (w przyszłości). Forget doing dotyczy czegoś, co już zrobiliśmy."
+    },
+    {
+      "id": "tk-b2-18",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "b2-funkcje-argumentowanie",
+      "prompt": "You want to introduce a counter-argument politely. You say: ___",
+      "options": [
+        "Yes, but you are wrong.",
+        "I will not listen anymore.",
+        "You have no point.",
+        "That may be true, but on the other hand, it is very expensive."
+      ],
+      "correct": 3,
+      "explanation": "Kontrargument uprzejmie: That may be true, but on the other hand… Pozostałe wypowiedzi są agresywne albo nieidiomatyczne."
+    },
+    {
+      "id": "tk-b2-19",
+      "type": "gap-fill",
+      "topic": "b2-funkcje-argumentowanie",
+      "text": "{{1}} the one hand, cars are convenient. {{2}} the other hand, they pollute the air.",
+      "gaps": [
+        {
+          "accepted": [
+            "On"
+          ]
+        },
+        {
+          "accepted": [
+            "On"
+          ]
+        }
+      ],
+      "explanation": "Struktura: On the one hand … On the other hand … (przedstawienie dwóch stron sprawy)."
+    },
+    {
+      "id": "tk-b2-20",
+      "type": "translate",
+      "topic": "b2-funkcje-argumentowanie",
+      "source": "Z jednej strony to wygodne, z drugiej – drogie.",
+      "accepted": [
+        "On the one hand it is convenient, on the other hand it is expensive.",
+        "On the one hand it is convenient, but on the other hand it is expensive.",
+        "It is convenient on the one hand, but expensive on the other.",
+        "On the one hand it is convenient, on the other it is expensive.",
+        "On the one hand it is convenient, but on the other it is expensive.",
+        "On the one hand it is convenient, and on the other hand it is expensive.",
+        "It is convenient on the one hand and expensive on the other.",
+        "It is convenient on the one hand, but expensive on the other hand."
+      ],
+      "explanation": "Przedstawiamy dwie strony: on the one hand … on the other hand …"
+    },
+    {
+      "id": "tk-b2-21",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "b2-funkcje-spekulowanie",
+      "prompt": "A: Where's Tom? He's late.\nB: He ___ stuck in traffic.",
+      "options": [
+        "must been",
+        "might be",
+        "may to be",
+        "could to be"
+      ],
+      "correct": 1,
+      "explanation": "Spekulacja o teraźniejszości: might/may/could be + dopełnienie. Po czasowniku modalnym bezokolicznik bez to."
+    },
+    {
+      "id": "tk-b2-22",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "b2-funkcje-spekulowanie",
+      "prompt": "The window is broken. Someone ___ into the house.",
+      "options": [
+        "must break",
+        "should have broken",
+        "might break",
+        "must have broken"
+      ],
+      "correct": 3,
+      "explanation": "Pewny wniosek o przeszłości: must have + 3. forma (must have broken)."
+    },
+    {
+      "id": "tk-b2-23",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "b2-funkcje-negocjowanie",
+      "prompt": "A: I can't pay more than £200.\nB: ___",
+      "options": [
+        "No, never.",
+        "Let's find a compromise: how about £250?",
+        "I give you 250, take it or nothing.",
+        "You are wrong to ask."
+      ],
+      "correct": 1,
+      "explanation": "Negocjacja: propozycja kompromisu (Let's find a compromise: how about…?) zamiast ultimatum."
+    },
+    {
+      "id": "tk-b2-24",
+      "type": "match",
+      "topic": "b2-funkcje-negocjowanie",
+      "prompt": "Dopasuj reakcję do wypowiedzi w negocjacjach.",
+      "mode": "response",
+      "pairs": [
+        [
+          "Could we move the deadline to Friday?",
+          "Let me check with my team and get back to you."
+        ],
+        [
+          "We can't offer a discount.",
+          "In that case, could you include free delivery?"
+        ],
+        [
+          "I'm not convinced it will work.",
+          "Let me explain why I think it will."
+        ],
+        [
+          "Shall we meet halfway?",
+          "Yes, that sounds like a fair compromise."
+        ]
+      ],
+      "extraRight": [
+        "It was nice to meet you."
+      ],
+      "explanation": "Negocjacja: prośba o termin → odroczenie odpowiedzi, odmowa → alternatywa, wątpliwość → argument, propozycja ustępstwa → zgoda na kompromis. „It was nice to meet you” to formuła pożegnania, nie reakcja w negocjacjach."
+    },
+    {
+      "id": "tk-b2-25",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "b2-funkcje-spotkanie-rozmowa-o-prace",
+      "prompt": "In a job interview you are asked: “Why do you want to work for our company?” Which answer is the most professional?",
+      "options": [
+        "Because I need money.",
+        "Because I'm interested in marketing and I believe my skills would be useful here.",
+        "I don't know, my mother told me to apply.",
+        "Because your office is near my house."
+      ],
+      "correct": 1,
+      "explanation": "Na rozmowie o pracę odpowiadamy rzeczowo: zainteresowanie branżą i konkretny wkład. Pozostałe odpowiedzi nie przekonują pracodawcy."
+    },
+    {
+      "id": "tk-b2-26",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "b2-funkcje-przerywanie",
+      "prompt": "You want to interrupt politely. You say: ___",
+      "options": [
+        "Shut up for a second.",
+        "Stop talking, I'm speaking.",
+        "Excuse, I will say now.",
+        "Sorry to interrupt, but could I add something?"
+      ],
+      "correct": 3,
+      "explanation": "Uprzejme przerwanie: Sorry to interrupt, but… Pozostałe zdania są niegrzeczne albo nieprawidłowe."
+    },
+    {
+      "id": "tk-b2-27",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "b2-funkcje-lagodzenie",
+      "prompt": "Your colleague's idea is not good. You want to soften your criticism. You say: ___",
+      "options": [
+        "That's wrong.",
+        "I'm not sure that's entirely right. It might be better to wait.",
+        "Your idea is bad.",
+        "That's completely stupid."
+      ],
+      "correct": 1,
+      "explanation": "Łagodzenie krytyki: I'm not sure that's entirely right + propozycja (It might be better to…)."
+    },
+    {
+      "id": "tk-b2-28",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "b2-funkcje-rozumienie-akcentow",
+      "prompt": "In informal speech, “Wanna grab a bite?” means: ___",
+      "options": [
+        "Do you want to bite me?",
+        "Do you want to buy a bit of something?",
+        "Do you want a big bag?",
+        "Do you want to get something to eat?"
+      ],
+      "correct": 3,
+      "explanation": "Wanna = want to; grab a bite = coś szybko zjeść. Rozumienie mowy potocznej i skrótów wymowy."
+    },
+    {
+      "id": "tk-b2-29",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "b2-slownictwo",
+      "prompt": "We've worked enough for today. Let's call it a ___ and go home.",
+      "options": [
+        "week",
+        "day",
+        "time",
+        "work"
+      ],
+      "correct": 1,
+      "explanation": "Idiom: call it a day = zakończyć pracę na dziś."
+    },
+    {
+      "id": "tk-b2-30",
+      "type": "gap-fill",
+      "topic": "b2-slownictwo",
+      "text": "The company's {{1}} (decide) to close the factory shocked the workers.",
+      "gaps": [
+        {
+          "accepted": [
+            "decision"
+          ]
+        }
+      ],
+      "explanation": "Słowotwórstwo: decide → decision (czasownik na rzeczownik z końcówką -sion).",
+      "trap": "Nie „decidement”: końcówka to -sion (decide → decision)."
+    }
+  ]
+}

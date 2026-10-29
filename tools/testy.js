@@ -19,6 +19,7 @@ require(path.join(__dirname, "..", "js", "exercise-logic.js"));
 require(path.join(__dirname, "..", "js", "learning-stats.js"));
 require(path.join(__dirname, "..", "js", "search-logic.js"));
 require(path.join(__dirname, "..", "js", "exam-logic.js"));
+require(path.join(__dirname, "..", "js", "final-logic.js"));
 require(path.join(__dirname, "..", "js", "fiszki-logic.js"));
 require(path.join(__dirname, "..", "js", "fiszki-harmonogram.js"));
 const L = global.ELM.learn;
@@ -601,6 +602,242 @@ test("pickMix: wyklucza zadania z ostatniej sesji, gdy starcza puli", function (
   const ids = first.items.map(function (x) { return x.id; });
   const second = X.pickMix(allItems, { count: 10, exclude: ids }, seeded(8));
   assert.ok(second.items.every(function (x) { return ids.indexOf(x.id) === -1; }));
+});
+
+console.log("\nTesty końcowe poziomów (paczka v6, spec 13 sekcja 2)");
+const F = global.ELM.finalLogic;
+/** Pula 30 zadań A1-podobna: czasy 4, gramatyka 14, funkcje 8, słownictwo 4 (po 2 tematy w kategorii, część zadań wielopunktowa). */
+function finalPool() {
+  const plan = [["czasy", 6], ["gramatyka", 14], ["funkcje", 8], ["slownictwo", 2]];
+  const out = [];
+  plan.forEach(function (p) {
+    for (let i = 0; i < p[1]; i++) {
+      const multi = i % 5 === 4;
+      out.push(multi
+        ? { id: p[0] + "-" + i, type: "gap-fill", topic: p[0] + "-t" + (i % 4), text: "{{1}} {{2}} {{3}}", gaps: [{ accepted: ["a"] }, { accepted: ["b"] }, { accepted: ["c"] }] }
+        : { id: p[0] + "-" + i, type: i % 2 ? "short-answer" : "multiple-choice", topic: p[0] + "-t" + (i % 4), prompt: "x ___", accepted: ["a"], options: ["a", "b"], correct: 0 });
+    }
+  });
+  return out;
+}
+const catOf = function (it) { return it.id.split("-")[0]; };
+test("isPassed: próg w punktach (16/20 przy 80%), granice i puste", function () {
+  assert.ok(F.isPassed(16, 20, 80) && !F.isPassed(15, 20, 80));
+  assert.ok(F.isPassed(24, 29, 80) && !F.isPassed(23, 29, 80)); // z zadaniami wielopunktowymi total ≠ 20
+  assert.ok(F.isPassed(20, 20, 100) && !F.isPassed(0, 0, 80));
+});
+test("allocate: proporcjonalnie, suma = draw, każda kategoria ≥ 1, nie więcej niż w puli", function () {
+  const main = F.allocate({ a: 6, b: 14, c: 8, d: 2 }, 20); // kwoty: 4; 9,33; 5,33; 1,33
+  assert.strictEqual(main.a + main.b + main.c + main.d, 20);
+  assert.ok(main.a === 4 && main.c === 5 && main.b >= 9 && main.b <= 10 && main.d >= 1 && main.d <= 2);
+  assert.deepStrictEqual(F.allocate({ a: 3, b: 3 }, 20), { a: 3, b: 3 }); // nie więcej niż w puli
+  const a = F.allocate({ a: 1, b: 20, c: 9 }, 20);
+  assert.strictEqual(a.a + a.b + a.c, 20);
+  assert.ok(a.a === 1 && a.b <= 20 && a.c >= 1);
+  const small = F.allocate({ a: 2, b: 2, c: 26 }, 20);
+  assert.strictEqual(small.a + small.b + small.c, 20);
+  assert.ok(small.a >= 1 && small.b >= 1 && small.a <= 2 && small.b <= 2);
+});
+test("drawItems: 20 z 30, bez duplikatów, każda kategoria reprezentowana proporcjonalnie (±1)", function () {
+  const pool = finalPool();
+  const counts = {};
+  pool.forEach(function (it) { counts[catOf(it)] = (counts[catOf(it)] || 0) + 1; });
+  for (let s = 1; s < 60; s++) {
+    const d = F.drawItems(pool, 20, catOf, seeded(s));
+    assert.strictEqual(d.length, 20);
+    assert.strictEqual(new Set(d.map(function (x) { return x.id; })).size, 20);
+    const got = {};
+    d.forEach(function (it) { got[catOf(it)] = (got[catOf(it)] || 0) + 1; });
+    Object.keys(counts).forEach(function (c) {
+      assert.ok(got[c] >= 1, "brak kategorii " + c);
+      assert.ok(Math.abs(got[c] - 20 * counts[c] / 30) <= 1, c + ": " + got[c] + " zamiast ok. " + (20 * counts[c] / 30).toFixed(1));
+    });
+    // zadanie wielopunktowe to jedno zadanie z 20, nie kilka
+    assert.ok(d.every(function (it) { return pool.indexOf(it) !== -1; }));
+  }
+});
+test("drawItems: różne losowania dają różne zestawy; typ nie powtarza się więcej niż 2 razy pod rząd; różne tematy w kategorii", function () {
+  const pool = finalPool();
+  const a = F.drawItems(pool, 20, catOf, seeded(1)).map(function (x) { return x.id; }).join();
+  const b = F.drawItems(pool, 20, catOf, seeded(2)).map(function (x) { return x.id; }).join();
+  assert.notStrictEqual(a, b);
+  for (let s = 1; s < 40; s++) {
+    const d = F.drawItems(pool, 20, catOf, seeded(s));
+    const bad = d.some(function (it, i) { return i >= 2 && d[i - 1].type === it.type && d[i - 2].type === it.type; });
+    // limitRuns działa „gdy się da”: w tej puli (3 typy) zawsze się da
+    assert.ok(!bad, "3 pod rząd (seed " + s + ")");
+    const gr = d.filter(function (it) { return catOf(it) === "gramatyka"; });
+    assert.strictEqual(new Set(gr.map(function (it) { return it.topic; })).size, 4); // 9 zadań z 4 tematów → wszystkie 4 tematy
+  }
+});
+test("drawItems: pula nie większa niż draw → wszystkie zadania", function () {
+  const pool = finalPool().slice(0, 12);
+  assert.strictEqual(F.drawItems(pool, 20, catOf, seeded(5)).length, 12);
+});
+test("breakdown: punkty według kategorii, tematy z utraconymi punktami, pominięte nie liczą się", function () {
+  const pool = finalPool();
+  const results = pool.slice(0, 8).map(function (it, i) {
+    return { item: it, res: X.evaluate(it, it.type === "gap-fill" ? { texts: i % 2 ? ["a", "x", "x"] : ["a", "b", "c"] } : it.type === "multiple-choice" ? { chosen: i % 2 ? 1 : 0 } : { text: i % 2 ? "zzz" : "a" }) };
+  });
+  results.push({ item: { id: "dictation-1", type: "dictation", topic: "t-x" }, res: { correct: false, points: 0, max: 0, skipped: true } });
+  const b = F.breakdown(results, catOf);
+  const total = b.categories.reduce(function (s, c) { return s + c.total; }, 0);
+  assert.strictEqual(total, results.slice(0, 8).reduce(function (s, r) { return s + r.res.max; }, 0));
+  assert.ok(b.categories.every(function (c) { return c.score <= c.total; }));
+  assert.ok(b.topics.every(function (t) { return t.lost > 0 && t.topic !== "t-x"; }));
+  for (let i = 1; i < b.topics.length; i++) assert.ok(b.topics[i - 1].lost >= b.topics[i].lost);
+  assert.deepStrictEqual(F.breakdown([], catOf), { categories: [], topics: [] });
+});
+
+// ---------- Prawdziwe pule testów końcowych (niezbednik/testy-poziomow) ----------
+const LV_INDEX = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "niezbednik", "index.json"), "utf8"));
+const LV_CATS = {};
+LV_INDEX.levels.forEach(function (l) { l.items.forEach(function (it) { LV_CATS[it.id] = it.category; }); });
+const POOLS = ["a1", "a2", "b1", "b2", "c1", "c2"].map(function (l) {
+  return JSON.parse(fs.readFileSync(path.join(__dirname, "..", "niezbednik", "testy-poziomow", l + ".json"), "utf8"));
+});
+test("pule testów końcowych: wzorcowa odpowiedź każdego z 180 zadań daje pełne punkty", function () {
+  let n = 0;
+  POOLS.forEach(function (set) {
+    set.items.forEach(function (it) {
+      const r = X.evaluate(it, modelAnswerOf(it));
+      assert.ok(r.correct && r.points === X.maxPoints(it) && r.points === r.max, set.id + " " + it.id + " " + JSON.stringify(r));
+      n++;
+    });
+  });
+  assert.strictEqual(n, 180);
+});
+test("pule testów końcowych: wszystkie warianty accepted / answers są przyjmowane, a pusta odpowiedź nie daje punktów", function () {
+  POOLS.forEach(function (set) {
+    set.items.forEach(function (it) {
+      if (it.type === "translate") it.accepted.forEach(function (a) { assert.ok(X.evaluate(it, { text: a }).correct, it.id + " „" + a + "”"); });
+      if (it.type === "transformation") it.answers.forEach(function (a) { assert.ok(X.evaluate(it, { text: a }).correct, it.id + " „" + a + "”"); });
+      if (it.type === "short-answer") it.accepted.forEach(function (a) { assert.ok(X.evaluate(it, { text: a }).correct, it.id + " „" + a + "”"); });
+      if (it.type === "gap-fill") it.gaps.forEach(function (g, i) { g.accepted.forEach(function (a) {
+        const texts = it.gaps.map(function (x) { return x.accepted[0]; }); texts[i] = a;
+        assert.ok(X.evaluate(it, { texts: texts }).correct, it.id + " luka " + (i + 1) + " „" + a + "”");
+      }); });
+      const empty = X.evaluate(it, it.type === "match" ? { pairs: {} } : it.type === "gap-fill" ? { texts: [] } : it.type === "multiple-choice" ? {} : it.type === "reorder" ? { words: [] } : it.type === "find-error" ? {} : { text: "" });
+      assert.strictEqual(empty.points, 0, it.id + " pusta odpowiedź");
+    });
+  });
+});
+test("pule testów końcowych: losowanie 20 z 30 – proporcje kategorii, zadania z różnych podstron, różne zestawy", function () {
+  POOLS.forEach(function (set) {
+    const cat = function (it) { return LV_CATS[it.topic]; };
+    const pool = {};
+    set.items.forEach(function (it) { pool[cat(it)] = (pool[cat(it)] || 0) + 1; });
+    const seen = new Set();
+    for (let s = 1; s <= 25; s++) {
+      const d = F.drawItems(set.items, set.draw, cat, seeded(s * 7919));
+      assert.strictEqual(d.length, 20);
+      assert.strictEqual(new Set(d.map(function (x) { return x.id; })).size, 20);
+      Object.keys(pool).forEach(function (c) {
+        const got = d.filter(function (it) { return cat(it) === c; }).length;
+        assert.ok(got >= 1 && Math.abs(got - 20 * pool[c] / 30) <= 1.01, set.id + " " + c + ": " + got + " (pula " + pool[c] + ")");
+      });
+      seen.add(d.map(function (x) { return x.id; }).sort().join());
+    }
+    assert.ok(seen.size >= 20, set.id + ": zbyt mało różnych losowań (" + seen.size + ")");
+  });
+});
+
+// ---------- Dane profilu: elm_leveltests_v1 (znaczki poziomów) ----------
+global.localStorage = { _d: {}, getItem: function (k) { return Object.prototype.hasOwnProperty.call(this._d, k) ? this._d[k] : null; }, setItem: function (k, v) { this._d[k] = String(v); }, removeItem: function (k) { delete this._d[k]; } };
+require(path.join(__dirname, "..", "js", "utils.js"));
+let activeProfile = "p1";
+global.ELM.app = { getActiveProfile: function () { return activeProfile ? { id: activeProfile } : null; }, reportSaveError: function () { throw new Error("błąd zapisu"); } };
+require(path.join(__dirname, "..", "js", "profile-data.js"));
+const PD = global.ELM.profileData;
+function freshPD() { PD.clearAll(); activeProfile = "p1"; }
+
+test("elm_leveltests_v1: klucz jest w KEYS obok istniejących, szybki test poziomu ma swój (elm_leveltest_v1)", function () {
+  assert.strictEqual(PD.KEYS.levelTests, "elm_leveltests_v1");
+  assert.strictEqual(PD.KEYS.levelTest, "elm_leveltest_v1");
+});
+test("saveFinalResult: pierwsze zaliczenie, najlepszy wynik wg procentu, znaczek zostaje po porażce", function () {
+  freshPD();
+  assert.strictEqual(PD.finalResult("A1"), null);
+  const fail = PD.saveFinalResult("A1", { score: 12, total: 20, passed: false });
+  assert.deepStrictEqual([fail.passed, fail.firstPass, fail.passedAt], [false, false, null]);
+  const pass = PD.saveFinalResult("A1", { score: 17, total: 20, passed: true });
+  assert.deepStrictEqual([pass.passed, pass.firstPass, pass.best.score], [true, true, 17]);
+  const again = PD.saveFinalResult("A1", { score: 18, total: 22, passed: true }); // 81,8% < 85%
+  assert.deepStrictEqual([again.firstPass, again.best.score, again.last.score], [false, 17, 18]);
+  const worse = PD.saveFinalResult("A1", { score: 9, total: 20, passed: false });
+  assert.strictEqual(worse.passedAt, pass.passedAt); // znaczek nie znika
+  assert.deepStrictEqual(PD.passedLevels(), { A1: pass.passedAt });
+  assert.strictEqual(PD.saveFinalResult("Z9", { score: 1, total: 2, passed: true }), null);
+  assert.strictEqual(PD.saveFinalResult("A2", { score: 5, total: 0, passed: true }), null);
+});
+test("elm_leveltests_v1: dane osobno dla profilu, bez profilu nic się nie zapisuje", function () {
+  freshPD();
+  PD.saveFinalResult("B1", { score: 20, total: 20, passed: true });
+  activeProfile = "p2";
+  assert.strictEqual(PD.finalResult("B1"), null);
+  assert.deepStrictEqual(PD.passedLevels(), {});
+  activeProfile = null;
+  assert.strictEqual(PD.saveFinalResult("B1", { score: 20, total: 20, passed: true }), null);
+  assert.strictEqual(PD.finalResult("B1"), null);
+});
+test("elm_leveltests_v1: eksport zawiera klucz, import odtwarza dane, usunięcie profilu i reset je kasują", function () {
+  freshPD();
+  PD.saveFinalResult("C1", { score: 18, total: 20, passed: true });
+  const exported = JSON.parse(JSON.stringify(PD.exportData()));
+  assert.ok(exported.levelTests && exported.levelTests.profiles.p1.levels.C1.passedAt);
+  PD.clearAll();
+  assert.strictEqual(PD.finalResult("C1"), null);
+  assert.strictEqual(global.localStorage.getItem("elm_leveltests_v1"), null);
+  PD.applyImport(PD.parseImport(exported), ["p1"]);
+  assert.strictEqual(PD.finalResult("C1").best.score, 18);
+  assert.ok(global.localStorage.getItem("elm_leveltests_v1"));
+  PD.removeProfile("p1");
+  assert.strictEqual(PD.finalResult("C1"), null);
+  assert.strictEqual(JSON.parse(global.localStorage.getItem("elm_leveltests_v1")).profiles.p1, undefined);
+});
+test("import starego pliku bez klucza elm_leveltests_v1: część pomijana, dane tej przeglądarki zostają", function () {
+  freshPD();
+  PD.saveFinalResult("A2", { score: 16, total: 20, passed: true });
+  const old = JSON.parse(JSON.stringify(PD.exportData()));
+  delete old.levelTests; // plik z wersji sprzed paczki v6
+  const parsed = PD.parseImport(old);
+  assert.strictEqual(parsed.levelTests, null);
+  assert.ok(parsed.journal && parsed.exercises);
+  PD.applyImport(parsed, ["p1"]);
+  assert.strictEqual(PD.finalResult("A2").passedAt !== null, true);
+  // profil, którego nie ma w pliku, jest usuwany także z nowego klucza
+  PD.applyImport(parsed, ["inny"]);
+  assert.strictEqual(PD.finalResult("A2"), null);
+  // całkiem stary plik bez części „learning”
+  assert.strictEqual(PD.parseImport(undefined), null);
+});
+test("import: uszkodzony albo zbyt nowy klucz elm_leveltests_v1 → błąd, śmieci w danych odfiltrowane", function () {
+  freshPD();
+  assert.throws(function () { PD.parseImport({ levelTests: { version: 99, profiles: {} } }); }, /Nieobsługiwana wersja/);
+  assert.throws(function () { PD.parseImport({ levelTests: { version: 1 } }); }, /Nieprawidłowy format/);
+  const parsed = PD.parseImport({ levelTests: { version: 1, profiles: { p1: { levels: {
+    A1: { passedAt: "kiedyś", best: { score: 30, total: 20, date: "2026-01-01" }, last: { score: 15, total: 20, date: "2026-01-02" } }, // zły dzień, zły best
+    A2: { passedAt: "2026-02-03", best: { score: 16, total: 20, date: "2026-02-03" } },                                               // brak last
+    Z9: { passedAt: "2026-02-03", best: { score: 1, total: 2, date: "2026-02-03" } },                                                 // nieznany poziom
+    B1: "tekst"
+  } } } } });
+  const lv = parsed.levelTests.profiles.p1.levels;
+  assert.deepStrictEqual(Object.keys(lv).sort(), ["A1", "A2"]);
+  assert.deepStrictEqual([lv.A1.passedAt, lv.A1.best.score, lv.A1.last.score], [null, 15, 15]);
+  assert.deepStrictEqual([lv.A2.passedAt, lv.A2.last.score], ["2026-02-03", 16]);
+});
+test("elm_leveltests_v1: uszkodzony zapis w localStorage → pusty stan i kopia _corrupt_backup", function () {
+  // Nowa instancja modułu (pamięć podręczna profileData jest wypełniona dopiero przy pierwszym odczycie)
+  const file = path.join(__dirname, "..", "js", "profile-data.js");
+  const keep = global.ELM.profileData;
+  delete require.cache[require.resolve(file)];
+  global.localStorage.setItem("elm_leveltests_v1", "{niepoprawny json");
+  require(file);
+  assert.deepStrictEqual(global.ELM.profileData.passedLevels(), {});
+  assert.strictEqual(global.localStorage.getItem("elm_leveltests_v1_corrupt_backup"), "{niepoprawny json");
+  global.localStorage.removeItem("elm_leveltests_v1");
+  global.localStorage.removeItem("elm_leveltests_v1_corrupt_backup");
+  global.ELM.profileData = keep;
 });
 
 console.log("\nDziennik podejść i statystyki");

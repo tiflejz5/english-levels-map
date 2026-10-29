@@ -1,0 +1,512 @@
+{
+  "version": 1,
+  "id": "test-koncowy-a1",
+  "kind": "level-test",
+  "level": "A1",
+  "title": "Test końcowy A1",
+  "intro": "20 pytań z całego poziomu A1. Zaliczenie od 80%.",
+  "draw": 20,
+  "passPercent": 80,
+  "defaultMode": "exam",
+  "items": [
+    {
+      "id": "tk-a1-01",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "a1-czasy-present-simple",
+      "tags": [
+        "present-simple"
+      ],
+      "prompt": "My brother ___ in a shop in Poznań.",
+      "options": [
+        "work",
+        "works",
+        "is work",
+        "working"
+      ],
+      "correct": 1,
+      "explanation": "He/she/it w Present Simple: końcówka -s (works)."
+    },
+    {
+      "id": "tk-a1-02",
+      "type": "gap-fill",
+      "topic": "a1-gramatyka-there-is-there-are",
+      "tags": [
+        "there-is"
+      ],
+      "text": "{{1}} two windows in my room, but {{2}} no desk.",
+      "gaps": [
+        {
+          "accepted": [
+            "there are"
+          ]
+        },
+        {
+          "accepted": [
+            "there is",
+            "there's"
+          ]
+        }
+      ],
+      "explanation": "Liczba mnoga: there are. Liczba pojedyncza (a desk / no desk): there is."
+    },
+    {
+      "id": "tk-a1-03",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "a1-funkcje-zamawianie",
+      "tags": [
+        "ordering"
+      ],
+      "prompt": "A: What would you like?\nB: ___",
+      "options": [
+        "I'd like a cheese sandwich, please.",
+        "I like cheese sandwiches.",
+        "Yes, I would.",
+        "I'm a cheese sandwich."
+      ],
+      "correct": 0,
+      "explanation": "Zamawiamy: I'd like … please. „I like” to ogólne upodobanie, nie zamówienie."
+    },
+    {
+      "id": "tk-a1-04",
+      "type": "short-answer",
+      "topic": "a1-gramatyka-przyimki-miejsca-czasu",
+      "tags": [
+        "prepositions"
+      ],
+      "context": "Moje urodziny są w maju.",
+      "prompt": "My birthday is ___ May.",
+      "accepted": [
+        "in"
+      ],
+      "explanation": "Miesiące: in (in May). Dni: on (on Monday). Godziny: at (at 5)."
+    },
+    {
+      "id": "tk-a1-05",
+      "type": "match",
+      "topic": "a1-slownictwo",
+      "tags": [
+        "family"
+      ],
+      "mode": "translation",
+      "prompt": "Dopasuj słowa.",
+      "pairs": [
+        [
+          "aunt",
+          "ciocia"
+        ],
+        [
+          "grandson",
+          "wnuk"
+        ],
+        [
+          "cousin",
+          "kuzyn / kuzynka"
+        ],
+        [
+          "uncle",
+          "wujek"
+        ]
+      ],
+      "explanation": "Cousin nie zmienia formy – to i kuzyn, i kuzynka."
+    },
+    {
+      "id": "tk-a1-06",
+      "type": "reorder",
+      "topic": "a1-gramatyka-pytania-wh",
+      "tags": [
+        "questions"
+      ],
+      "context": "Gdzie mieszkają twoi rodzice?",
+      "answers": [
+        "Where do your parents live?"
+      ],
+      "explanation": "Pytanie Wh- w Present Simple: Where + do/does + podmiot + czasownik."
+    },
+    {
+      "id": "tk-a1-07",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "a1-czasy-present-continuous",
+      "tags": [
+        "present-continuous"
+      ],
+      "prompt": "Be quiet, please! The baby ___.",
+      "options": [
+        "sleeps",
+        "is sleeping",
+        "sleep",
+        "sleeping"
+      ],
+      "correct": 1,
+      "explanation": "Coś dzieje się teraz (Be quiet!): Present Continuous – is sleeping."
+    },
+    {
+      "id": "tk-a1-08",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "a1-gramatyka-can-cant",
+      "tags": [
+        "can"
+      ],
+      "prompt": "___ you swim?",
+      "options": [
+        "Can",
+        "Is",
+        "Are",
+        "Does"
+      ],
+      "correct": 0,
+      "explanation": "Umiejętność: Can you swim? Po can czasownik bez to i bez -s."
+    },
+    {
+      "id": "tk-a1-09",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "a1-czasy-was-were",
+      "prompt": "Yesterday I ___ very tired after school.",
+      "options": [
+        "were",
+        "was",
+        "am",
+        "be"
+      ],
+      "correct": 1,
+      "explanation": "Przeszła forma to be: po I stoi was (I was)."
+    },
+    {
+      "id": "tk-a1-10",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "a1-czasy-going-to",
+      "prompt": "Look at the sky! It ___ rain.",
+      "options": [
+        "going to",
+        "are going to",
+        "goes to",
+        "is going to"
+      ],
+      "correct": 3,
+      "explanation": "Plan albo pewność z dowodów: be going to + bezokolicznik. Po it stoi is going to."
+    },
+    {
+      "id": "tk-a1-11",
+      "type": "gap-fill",
+      "topic": "a1-czasy-present-simple",
+      "text": "My father {{1}} (work) in a bank. He {{2}} (not / drive) to work.",
+      "gaps": [
+        {
+          "accepted": [
+            "works"
+          ]
+        },
+        {
+          "accepted": [
+            "doesn't drive",
+            "does not drive"
+          ]
+        }
+      ],
+      "explanation": "3. osoba (he): works. Przeczenie: doesn't + czasownik bez -s.",
+      "trap": "Po doesn't czasownik jest bez -s: doesn't drive, nie „doesn't drives”."
+    },
+    {
+      "id": "tk-a1-12",
+      "type": "short-answer",
+      "topic": "a1-czasy-present-continuous",
+      "context": "Teraz Anna czyta książkę w pokoju.",
+      "prompt": "Anna ___ a book in her room now.",
+      "accepted": [
+        "is reading",
+        "'s reading"
+      ],
+      "explanation": "Now – czynność trwa w tej chwili: Present Continuous, czyli is + czasownik z -ing."
+    },
+    {
+      "id": "tk-a1-13",
+      "type": "gap-fill",
+      "topic": "a1-gramatyka-to-be-have-got",
+      "text": "My sister {{1}} ten years old and she {{2}} two brothers.",
+      "gaps": [
+        {
+          "accepted": [
+            "is",
+            "'s"
+          ]
+        },
+        {
+          "accepted": [
+            "has got",
+            "has",
+            "'s got"
+          ]
+        }
+      ],
+      "explanation": "Wiek z to be: is ten. Posiadanie: has got (albo has) – w liczbie pojedynczej has."
+    },
+    {
+      "id": "tk-a1-14",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "a1-gramatyka-zaimki",
+      "prompt": "This is my sister. ___ name is Eva.",
+      "options": [
+        "She",
+        "His",
+        "Hers",
+        "Her"
+      ],
+      "correct": 3,
+      "explanation": "Zaimek dzierżawczy przed rzeczownikiem: her name (jej imię). She to zaimek osobowy."
+    },
+    {
+      "id": "tk-a1-15",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "a1-gramatyka-przedimki",
+      "prompt": "My mother is ___ engineer.",
+      "options": [
+        "a",
+        "an",
+        "the",
+        "-"
+      ],
+      "correct": 1,
+      "explanation": "Przed samogłoską (engineer) stoi an. Zawód wymaga przedimka nieokreślonego: an engineer."
+    },
+    {
+      "id": "tk-a1-16",
+      "type": "gap-fill",
+      "topic": "a1-gramatyka-liczba-mnoga",
+      "text": "There are three {{1}} (child) and two {{2}} (box) in the picture.",
+      "gaps": [
+        {
+          "accepted": [
+            "children"
+          ]
+        },
+        {
+          "accepted": [
+            "boxes"
+          ]
+        }
+      ],
+      "explanation": "Nieregularna liczba mnoga: child – children. Po -x dodajemy -es: box – boxes."
+    },
+    {
+      "id": "tk-a1-17",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "a1-gramatyka-this-that-these-those",
+      "prompt": "(You hold two shoes in your hands.) ___ are my new shoes.",
+      "options": [
+        "This",
+        "These",
+        "Those",
+        "That"
+      ],
+      "correct": 1,
+      "explanation": "Blisko i liczba mnoga: these. This/that są w liczbie pojedynczej, those – daleko."
+    },
+    {
+      "id": "tk-a1-18",
+      "type": "reorder",
+      "topic": "a1-gramatyka-szyk-zdania",
+      "context": "Mój brat gra w piłkę w soboty.",
+      "answers": [
+        "My brother plays football on Saturdays.",
+        "On Saturdays my brother plays football."
+      ],
+      "explanation": "Szyk: podmiot + orzeczenie + dopełnienie, miejsce i czas na końcu (albo czas na początku)."
+    },
+    {
+      "id": "tk-a1-19",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "a1-gramatyka-pytania-wh",
+      "prompt": "___ old is your grandfather? – He is seventy.",
+      "options": [
+        "What",
+        "How",
+        "Who",
+        "When"
+      ],
+      "correct": 1,
+      "explanation": "Pytanie o wiek: How old …? (What old … nie istnieje)."
+    },
+    {
+      "id": "tk-a1-20",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "a1-gramatyka-przyimki-miejsca-czasu",
+      "prompt": "The picture is ___ the wall above the sofa.",
+      "options": [
+        "in",
+        "at",
+        "under",
+        "on"
+      ],
+      "correct": 3,
+      "explanation": "Przedmiot na powierzchni ściany: on the wall (nie „in the wall”)."
+    },
+    {
+      "id": "tk-a1-21",
+      "type": "short-answer",
+      "topic": "a1-gramatyka-can-cant",
+      "context": "Nie umiem pływać.",
+      "prompt": "I ___ swim.",
+      "accepted": [
+        "can't",
+        "cannot",
+        "can not"
+      ],
+      "explanation": "Brak umiejętności: can't (cannot). Po can czasownik bez to."
+    },
+    {
+      "id": "tk-a1-22",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "a1-gramatyka-there-is-there-are",
+      "prompt": "___ a park near my house, and there are two shops.",
+      "options": [
+        "There are",
+        "It is",
+        "Is there",
+        "There is"
+      ],
+      "correct": 3,
+      "explanation": "Liczba pojedyncza (a park): There is. Dla liczby mnogiej: there are."
+    },
+    {
+      "id": "tk-a1-23",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "a1-funkcje-przedstawianie-sie",
+      "prompt": "It is eight o'clock in the evening. You meet your neighbour. You say: ___",
+      "options": [
+        "Good night.",
+        "Good evening.",
+        "Good morning.",
+        "Good afternoon."
+      ],
+      "correct": 1,
+      "explanation": "Wieczorem witamy się Good evening. Good night mówimy na pożegnanie przed snem."
+    },
+    {
+      "id": "tk-a1-24",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "a1-funkcje-przedstawianie-sie",
+      "prompt": "A: This is my friend Anna.\nB: ___",
+      "options": [
+        "I'm fine, thanks.",
+        "Yes, I am.",
+        "See you later, Anna.",
+        "Nice to meet you, Anna."
+      ],
+      "correct": 3,
+      "explanation": "Poznajemy kogoś: Nice to meet you. I'm fine to odpowiedź na „How are you?”."
+    },
+    {
+      "id": "tk-a1-25",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "a1-funkcje-dane-osobowe",
+      "prompt": "A: Where are you from?\nB: ___",
+      "options": [
+        "I'm twenty.",
+        "I'm from Poland.",
+        "I'm a student.",
+        "I'm fine."
+      ],
+      "correct": 1,
+      "explanation": "Pytanie o pochodzenie: I'm from + kraj. Wiek, zawód i samopoczucie to inne pytania."
+    },
+    {
+      "id": "tk-a1-26",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "a1-funkcje-liczby-godzina-data",
+      "prompt": "A: What's the date today?\nB: ___",
+      "options": [
+        "It's five o'clock.",
+        "It's Monday.",
+        "It's in May.",
+        "It's the fifth of May."
+      ],
+      "correct": 3,
+      "explanation": "Data to dzień i miesiąc: the fifth of May. Five o'clock to godzina, Monday – dzień tygodnia."
+    },
+    {
+      "id": "tk-a1-27",
+      "type": "short-answer",
+      "topic": "a1-funkcje-prosba-o-powtorzenie",
+      "context": "Nie usłyszałeś. Poproś o powtórzenie.",
+      "prompt": "Sorry, can you ___ that, please?",
+      "accepted": [
+        "repeat"
+      ],
+      "explanation": "Prośba o powtórzenie: Sorry, can you repeat that, please? (albo: Can you say that again?)."
+    },
+    {
+      "id": "tk-a1-28",
+      "type": "multiple-choice",
+      "kind": "function",
+      "topic": "a1-funkcje-lubie-nie-lubie",
+      "prompt": "A: Do you like fish?\nB: ___",
+      "options": [
+        "No, I not like.",
+        "No, I doesn't.",
+        "No, I am not.",
+        "No, I don't. I don't like it."
+      ],
+      "correct": 3,
+      "explanation": "Krótka odpowiedź do pytania z do: No, I don't. Nie mówimy „I not like” ani „I doesn't”."
+    },
+    {
+      "id": "tk-a1-29",
+      "type": "match",
+      "topic": "a1-funkcje-zamawianie",
+      "prompt": "Dopasuj wypowiedź do odpowiedzi w kawiarni.",
+      "mode": "response",
+      "pairs": [
+        [
+          "Can I help you?",
+          "Yes, a coffee, please."
+        ],
+        [
+          "How much is it?",
+          "It's three pounds."
+        ],
+        [
+          "Is that all?",
+          "No, that's all, thanks."
+        ],
+        [
+          "Here you are.",
+          "Thank you."
+        ]
+      ],
+      "extraRight": [
+        "You're welcome."
+      ],
+      "explanation": "W kawiarni: zamówienie (a coffee, please), cena (It's … pounds), „Is that all?” sprawdza, czy to całe zamówienie. „You're welcome” odpowiada na podziękowanie, więc nie pasuje."
+    },
+    {
+      "id": "tk-a1-30",
+      "type": "multiple-choice",
+      "kind": "form",
+      "topic": "a1-slownictwo",
+      "prompt": "In the kitchen you can find a ___.",
+      "options": [
+        "bed",
+        "shower",
+        "sofa",
+        "fridge"
+      ],
+      "correct": 3,
+      "explanation": "Lodówka (fridge) jest w kuchni. Łóżko jest w sypialni, prysznic w łazience, sofa w salonie."
+    }
+  ]
+}
