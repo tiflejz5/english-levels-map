@@ -123,7 +123,7 @@ window.ELM = window.ELM || {};
   function header() {
     return el("header", { class: "tool-head" }, [
       el("h1", { class: "tool-title", text: "Szybki test poziomu" }),
-      el("p", { class: "tool-lead", text: "12 pytań wyboru, około 5 minut. Pytania dopasowują się do Twoich odpowiedzi: po dobrej odpowiedzi następne jest trudniejsze, po błędnej – łatwiejsze." })
+      el("p", { class: "tool-lead", text: "12 pytań, ok. 6 minut: gramatyka, słownictwo i krótkie teksty do czytania. Pytania dopasowują się do Twoich odpowiedzi: po dobrej odpowiedzi następne jest trudniejsze, po błędnej – łatwiejsze." })
     ]);
   }
 
@@ -193,6 +193,11 @@ window.ELM = window.ELM || {};
     });
 
     const body = [
+      // Czytanie: krótki tekst w ramce nad pytaniem (spec v6 13, 1.2)
+      q.passage ? el("div", { class: "lt-passage", lang: "en" }, [
+        el("p", { class: "lt-passage-label", lang: "pl", text: "Przeczytaj tekst:" }),
+        el("p", { class: "lt-passage-text", text: q.passage })
+      ]) : null,
       el("p", { class: "lt-question", id: "lt-question", text: q.question }),
       el("ol", { class: "lt-options", "aria-labelledby": "lt-question" }, options)
     ];
@@ -238,6 +243,7 @@ window.ELM = window.ELM || {};
       el("p", { class: "lt-result-label", text: "Szacowany poziom:" }),
       el("p", { class: "lt-result-level" }, [el("strong", { class: "lt-result-code", text: level }), el("span", { class: "lt-result-note", text: "orientacyjnie" })]),
       desc ? el("p", { class: "tool-lead" }, U.formatText(desc)) : null,
+      skillBreakdown(saved.answers),
       el("p", null, el("a", { class: "wiki-link", href: ELM.app.levelHash(level) + "" }, "Podsumowanie poziomu " + level + " (pod listą umiejętności)")),
       el("div", { class: "tool-actions" }, [
         el("a", { class: "btn btn-primary", href: ELM.app.levelHash(level) }, "Zacznij od poziomu " + level),
@@ -258,6 +264,7 @@ window.ELM = window.ELM || {};
       wrong.length ? el("ol", { class: "lt-wrong" }, wrong.map(function (x) {
         const link = x.q.itemId && ELM.journal ? ELM.journal.itemLink(x.q.itemId) : null;
         return el("li", null, [
+          x.q.passage ? el("details", { class: "lt-wrong-passage" }, [el("summary", null, "Tekst do pytania"), el("p", { lang: "en", text: x.q.passage })]) : null,
           el("p", { class: "lt-wrong-q" }, [el("span", { class: "c1-chip", text: x.q.level }), " ", x.q.question]),
           el("p", { class: "journal-row is-right" }, [el("span", { class: "review-label", text: "Poprawnie: " }), el("strong", { text: x.q.options[x.q.correct] })]),
           x.a.chosen >= 0 ? el("p", { class: "journal-row is-wrong" }, [el("span", { class: "review-label", text: "Twoja odpowiedź: " }), el("span", { text: x.q.options[x.a.chosen] || "" })]) : el("p", { class: "tool-note", text: "Zaznaczono „Nie wiem”." }),
@@ -266,6 +273,34 @@ window.ELM = window.ELM || {};
       })) : el("p", { class: "tool-note", text: "Wszystkie odpowiedzi były poprawne." }),
       addBtn ? el("div", { class: "tool-actions" }, addBtn) : null
     ]));
+  }
+
+  const SKILLS = [["grammar", "Gramatyka"], ["vocabulary", "Słownictwo"], ["reading", "Czytanie"]];
+
+  /** Podział wyniku: „Gramatyka 5/7 (71%) · Słownictwo 2/3 · Czytanie 1/2” — procent dopiero od 3 pytań. */
+  function skillBreakdown(answers) {
+    const per = {};
+    answers.forEach(function (a) {
+      const q = questionById(a.id);
+      const s = q ? learn().skillOf(q) : "grammar";
+      per[s] = per[s] || { ok: 0, n: 0 };
+      per[s].n++;
+      if (a.correct) per[s].ok++;
+    });
+    const rows = SKILLS.filter(function (s) { return per[s[0]]; });
+    if (!rows.length) return null;
+    return el("div", { class: "lt-skills" }, [
+      el("p", { class: "lt-skills-label", text: "Wynik według umiejętności:" }),
+      el("ul", { class: "lt-skills-list" }, rows.map(function (s) {
+        const g = per[s[0]];
+        return el("li", null, [
+          el("span", { text: s[1] }),
+          el("strong", { class: "num", text: g.ok + "/" + g.n }),
+          g.n >= 3 ? el("span", { class: "lt-skills-pct num", text: Math.round(g.ok / g.n * 100) + "%" }) : null
+        ]);
+      })),
+      rows.some(function (s) { return per[s[0]].n < 3; }) ? el("p", { class: "tool-note", text: "Przy mniej niż 3 pytaniach bez procentów – to za mało, żeby coś ocenić." }) : null
+    ]);
   }
 
   /** Kategoria wpisu w dzienniku na podstawie punktu niezbędnika pytania. */
