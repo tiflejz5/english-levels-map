@@ -27,6 +27,9 @@
  *                    — egzaminy w nowym module (np. Egzamin ósmoklasisty, js/exam-core.js); Certyfikat C1 ma własny klucz elm_c1_v1
  *   elm_speaking_v1  { version: 1, profiles: { <id>: { sessions: [ { day, exam, part: 1–4, scores: { <kryterium>: 1–5 } } ] } } }
  *                    — historia sesji trenera Speaking (samoocena, js/speaking-trainer.js; najnowsze na końcu, maks. 500)
+ *                    Opcjonalnie (paczka v6, spec 18): sesja z polem full: true (tryb „Cały egzamin”) oraz w rekordzie profilu
+ *                    seen: { "<egzamin>:<część>": [ "<id karty>", … ] } — karty już wylosowane w bieżącym cyklu (losowanie bez powtórek).
+ *                    Stary zapis bez tych pól jest poprawny.
  *   elm_leveltests_v1 { version: 1, profiles: { <id>: { levels: { "A1": { passedAt: "RRRR-MM-DD" | null, best: { score, total, date }, last: { score, total, date } } } } } }
  *                    — testy końcowe poziomów A1–C2 i znaczki „poziom zaliczony” (js/level-final.js, paczka v6);
  *                      passedAt = dzień pierwszego zaliczenia (znaczek zostaje po późniejszej porażce);
@@ -274,7 +277,10 @@ window.ELM = window.ELM || {};
     }
     if (kind === "prefs") return { autoJournal: raw.autoJournal !== false, selectionMenu: raw.selectionMenu !== false, highlightWords: raw.highlightWords === true };
     if (kind === "speaking") {
-      return { sessions: (Array.isArray(raw.sessions) ? raw.sessions : []).slice(-SPEAKING_MAX).map(normalizeSpeakingSession).filter(Boolean) };
+      const out = { sessions: (Array.isArray(raw.sessions) ? raw.sessions : []).slice(-SPEAKING_MAX).map(normalizeSpeakingSession).filter(Boolean) };
+      const seen = normalizeSeen(raw.seen);
+      if (seen) out.seen = seen;
+      return out;
     }
     if (kind === "exams") {
       const exams = {};
@@ -330,6 +336,24 @@ window.ELM = window.ELM || {};
   function optId(v) { return typeof v === "string" && EX_ID.test(v) ? v : null; }
 
   const SPEAKING_MAX = 500;
+  const SEEN_KEY = /^[a-z0-9][a-z0-9-]{0,99}:[a-z0-9][a-z0-9-]{0,29}$/;
+  const SEEN_ID = /^[a-z0-9][a-z0-9-]{0,79}$/;
+  const SEEN_KEYS_MAX = 40;
+  const SEEN_IDS_MAX = 200;
+
+  /** Widziane karty trenera Speaking: { "<egzamin>:<część>": [id, …] } albo null, gdy nic nie ma (pole opcjonalne). */
+  function normalizeSeen(raw) {
+    if (!U.isPlainObject(raw)) return null;
+    const out = {};
+    let n = 0;
+    Object.keys(raw).forEach(function (k) {
+      if (n >= SEEN_KEYS_MAX || !SEEN_KEY.test(k) || !Array.isArray(raw[k])) return;
+      const ids = [];
+      raw[k].forEach(function (id) { if (typeof id === "string" && SEEN_ID.test(id) && ids.indexOf(id) === -1 && ids.length < SEEN_IDS_MAX) ids.push(id); });
+      if (ids.length) { out[k] = ids; n++; }
+    });
+    return n ? out : null;
+  }
   /** Sesja trenera Speaking: dzień, egzamin, część 1–4, oceny 1–5 (do 8 kryteriów) albo null. */
   function normalizeSpeakingSession(raw) {
     if (!U.isPlainObject(raw) || !learn().isDay(raw.day) || !EX_ID.test(raw.exam || "")) return null;
@@ -337,10 +361,12 @@ window.ELM = window.ELM || {};
     const scores = {};
     if (U.isPlainObject(raw.scores)) Object.keys(raw.scores).slice(0, 8).forEach(function (k) {
       const v = raw.scores[k];
-      if (/^[a-z]{1,10}$/.test(k) && Number.isInteger(v) && v >= 1 && v <= 5) scores[k] = v;
+      if (/^[a-z]{1,20}$/.test(k) && Number.isInteger(v) && v >= 1 && v <= 5) scores[k] = v;
     });
     if (!Object.keys(scores).length) return null;
-    return { day: raw.day, exam: raw.exam, part: raw.part, scores: scores };
+    const session = { day: raw.day, exam: raw.exam, part: raw.part, scores: scores };
+    if (raw.full === true) session.full = true; // tryb „Cały egzamin” (opcjonalne)
+    return session;
   }
 
   /** Podejście (dziennik podejść) albo null przy złym formacie. */
@@ -790,6 +816,30 @@ window.ELM = window.ELM || {};
     return record("speaking", activeId()).sessions.filter(function (s) { return s.exam === examId; });
   }
 
+  /** Id kart widzianych w bieżącym cyklu losowania dla klucza „<egzamin>:<część>” (kopia; brak pola = pusto). */
+  function speakingSeen(key) {
+    if (!activeId() || !SEEN_KEY.test(key || "")) return [];
+    const seen = record("speaking", activeId()).seen;
+    return seen && seen[key] ? seen[key].slice() : [];
+  }
+
+  /** Zapamiętuje kartę jako widzianą (ids = null czyści cykl). Zwraca false bez profilu albo przy złym kluczu. */
+  function markSpeakingSeen(key, id) {
+    if (!activeId() || !SEEN_KEY.test(key || "")) return false;
+    const rec = record("speaking", activeId());
+    if (id === null) {
+      if (rec.seen) { delete rec.seen[key]; if (!Object.keys(rec.seen).length) delete rec.seen; }
+    } else {
+      if (typeof id !== "string" || !SEEN_ID.test(id)) return false;
+      rec.seen = rec.seen || {};
+      const list = rec.seen[key] || (rec.seen[key] = []);
+      if (list.indexOf(id) === -1) list.push(id);
+      if (list.length > SEEN_IDS_MAX) list.splice(0, list.length - SEEN_IDS_MAX);
+    }
+    save("speaking");
+    return true;
+  }
+
   /** Zapisuje sesję { exam, part, scores }. Zwraca zapisaną sesję albo null (brak profilu / zły format). */
   function addSpeakingSession(fields) {
     if (!activeId()) return null;
@@ -978,6 +1028,8 @@ window.ELM = window.ELM || {};
     saveExams: saveExams,
     speakingSessions: speakingSessions,
     addSpeakingSession: addSpeakingSession,
+    speakingSeen: speakingSeen,
+    markSpeakingSeen: markSpeakingSeen,
     getNote: getNote,
     setNote: setNote,
     removeNote: removeNote,
