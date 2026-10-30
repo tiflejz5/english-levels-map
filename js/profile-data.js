@@ -17,7 +17,8 @@
  *   elm_autojournal_v1 { version: 1, profiles: { <id>: { items: { <idZadania>: { entryId, created, wrongCount, lastWrongAt, returned } } } } }
  *                    — wpisy dziennika błędów dodane automatycznie z zadań (format elm_journal_v1 bez zmian;
  *                      wpis łączy pole ref = "ex:<idZadania>")
- *   elm_learnprefs_v1 { version: 1, profiles: { <id>: { autoJournal: true|false } } } — ustawienia nauki
+ *   elm_learnprefs_v1 { version: 1, profiles: { <id>: { autoJournal: true|false, selectionMenu: true|false, highlightWords: true|false } } } — ustawienia nauki
+ *                    (selectionMenu i highlightWords — „Moje słowa”, paczka v6; brak pola w starych danych = domyślna wartość)
  *   elm_notes_v1     { version: 1, profiles: { <id>: { items: { <klucz strony>: { text, updatedAt, title, route } } } } }
  *                    — własne notatki (zwykły tekst, maks. 10 000 znaków)
  *   elm_exams_v1     { version: 1, profiles: { <id>: { exams: { <idEgzaminu>: { examDate, drafts: { <zadanie>: tekst }, tasks: { <strona>: { <nr>: true } },
@@ -111,7 +112,7 @@ window.ELM = window.ELM || {};
     if (kind === "exercises") return { sets: {}, lastMix: [], dismissed: {} };
     if (kind === "attempts") return { items: [], aggregates: {} };
     if (kind === "autojournal") return { items: {} };
-    if (kind === "prefs") return { autoJournal: true };
+    if (kind === "prefs") return { autoJournal: true, selectionMenu: true, highlightWords: false };
     if (kind === "notes") return { items: {} };
     if (kind === "exams") return { exams: {} };
     if (kind === "speaking") return { sessions: [] };
@@ -258,7 +259,7 @@ window.ELM = window.ELM || {};
       });
       return { levels: levels };
     }
-    if (kind === "prefs") return { autoJournal: raw.autoJournal !== false };
+    if (kind === "prefs") return { autoJournal: raw.autoJournal !== false, selectionMenu: raw.selectionMenu !== false, highlightWords: raw.highlightWords === true };
     if (kind === "speaking") {
       return { sessions: (Array.isArray(raw.sessions) ? raw.sessions : []).slice(-SPEAKING_MAX).map(normalizeSpeakingSession).filter(Boolean) };
     }
@@ -623,6 +624,8 @@ window.ELM = window.ELM || {};
     if (!pid) return;
     const rec = record("prefs", pid);
     if (key === "autoJournal") rec.autoJournal = value !== false;
+    if (key === "selectionMenu") rec.selectionMenu = value !== false;   // menu przy zaznaczeniu tekstu (Moje słowa), domyślnie włączone
+    if (key === "highlightWords") rec.highlightWords = value === true;  // podkreślanie zapisanych słów, domyślnie wyłączone
     save("prefs");
   }
 

@@ -3504,7 +3504,7 @@ a.notes-item-title { color: var(--accent); text-decoration: underline; text-unde
 
 /* ===================== FISZKI (js/fiszki.js, spec 10) ===================== */
 /* Elementy ukrywane atrybutem hidden (przycisk przy zaznaczeniu, pola formularza) nie mogą wracać przez display */
-.fiszki-view [hidden], .fc-sel-btn[hidden] { display: none; }
+.fiszki-view [hidden] { display: none; }
 .btn-large { min-height: 52px; padding: 12px 24px; font-size: var(--fs-md); }
 .fiszki-view .tool-title { display: flex; align-items: center; gap: 12px; }
 .fc-hero { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 20px 24px; margin-bottom: 24px; }
@@ -3639,7 +3639,13 @@ a.notes-item-title { color: var(--accent); text-decoration: underline; text-unde
 /* Fiszki: integracje — kafelek „Dziś”, przycisk przy zaznaczeniu, Dziennik, Statystyki */
 .bento-fiszki { grid-column: span 12; }
 @media (max-width: 1023px) { .bento-fiszki { grid-column: span 6; } }
-.fc-sel-btn { position: fixed; z-index: 60; box-shadow: var(--shadow-lg); }
+/* Menu przy zaznaczeniu tekstu (Moje słowa): „Do Moich słów” i „Utwórz fiszkę…” */
+.fc-sel-menu {
+  position: fixed; z-index: 60; display: flex; flex-wrap: wrap; gap: 6px; max-width: calc(100vw - 16px); padding: 6px;
+  border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow-lg);
+}
+.fc-sel-menu[hidden] { display: none; }
+.fc-sel-menu .btn { min-height: 44px; }
 .journal-in-fiszki { display: inline-flex; align-items: center; gap: 4px; min-height: 36px; padding: 0 6px; font-size: var(--fs-sm); font-weight: 600; color: var(--success); }
 .st-fiszki { grid-column: 1 / -1; }
 .fc-st-bars { display: flex; align-items: flex-end; gap: 3px; height: 96px; margin: 4px 0 12px; padding: 0 2px; border-bottom: 1px solid var(--line-strong); }

@@ -761,55 +761,16 @@ window.ELM = window.ELM || {};
     addFromJournal(e, { silent: true });
   }
 
-  // ---------- Zaznaczenie tekstu na stronie tematu ----------
+  // ---------- „Utwórz fiszkę…” z zaznaczenia (menu przy zaznaczeniu i skróty: js/fiszki-words.js) ----------
 
-  let selBtn = null, selTimer = null;
-
-  function selectionText() {
-    if (!ELM.state || ELM.state.view !== "page") return "";
-    const s = window.getSelection && window.getSelection();
-    if (!s || s.isCollapsed || !s.rangeCount) return "";
-    const n = s.anchorNode && (s.anchorNode.nodeType === 1 ? s.anchorNode : s.anchorNode.parentElement);
-    if (!n || !n.closest("#view article.md") || n.closest("input, textarea, [contenteditable], .notes-panel")) return "";
-    return s.toString().replace(/\s+/g, " ").trim().slice(0, 300);
-  }
-
+  /** Formularz nowej karty z zaznaczonym tekstem jako przodem (dotychczasowe zachowanie, bez zmian). */
   function openFromSelection(text) {
     if (!hasProfile()) { ELM.ui.toast({ text: "Dodaj profil, żeby zapisywać fiszki.", icon: "layers" }); return; }
     ELM.fiszkiBrowse.prefill({ type: "basic", front: text });
     const own = st().userDecks.filter(function (d) { return !d.system; });
-    hideSelButton();
+    if (ELM.fiszkiWords) ELM.fiszkiWords.hideMenu();
     location.hash = HASH + "/talia/" + (own.length ? own[0].id : "nowa") + "/nowa";
   }
-
-  function hideSelButton() { if (selBtn) selBtn.hidden = true; }
-
-  function updateSelButton() {
-    const text = selectionText();
-    if (!text) { hideSelButton(); return; }
-    if (!selBtn) {
-      selBtn = el("button", { type: "button", class: "btn btn-primary btn-small fc-sel-btn", hidden: true,
-        "aria-label": "Dodaj zaznaczony tekst do fiszek (Ctrl+Shift+F)",
-        onmousedown: function (e) { e.preventDefault(); }, // nie gubi zaznaczenia
-        onclick: function () { const t = selectionText(); if (t) openFromSelection(t); } }, ELM.ui.withIcon("layers", "Dodaj do fiszek"));
-      document.body.appendChild(selBtn);
-    }
-    const r = window.getSelection().getRangeAt(0).getBoundingClientRect();
-    selBtn.hidden = false;
-    const top = r.top > 56 ? r.top - 44 : r.bottom + 8;
-    selBtn.style.top = Math.max(8, top) + "px";
-    selBtn.style.left = Math.max(8, Math.min(window.innerWidth - 200, r.left)) + "px";
-  }
-
-  document.addEventListener("selectionchange", function () { clearTimeout(selTimer); selTimer = setTimeout(updateSelButton, 150); });
-  window.addEventListener("hashchange", hideSelButton);
-  window.addEventListener("scroll", function () { if (selBtn && !selBtn.hidden) updateSelButton(); }, { passive: true });
-  document.addEventListener("keydown", function (e) {
-    if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === "F" || e.key === "f")) {
-      const t = selectionText();
-      if (t) { e.preventDefault(); openFromSelection(t); }
-    }
-  });
 
   // ---------- Kafelek „Dziś” i sekcja w Statystykach ----------
 
