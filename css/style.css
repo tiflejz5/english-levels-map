@@ -3860,3 +3860,13 @@ a.notes-item-title { color: var(--accent); text-decoration: underline; text-unde
 /* A7: siatki zestawów/talii/wzorców na całą szerokość kontenera (3 kol. przy 1280, 2 przy 768, 1 przy 390); opisy nad siatką: --measure */
 .c1-set-grid, .ex-set-grid, .fc-deck-list, .wz-card-list { max-width: none; }
 .hub-section > .tool-note, .lab-section > .tool-note, .c1-group-title + .tool-note { max-width: var(--measure); }
+
+/* A1: hero Dziś i poziomu bez ramki karty i bez tła, żeby h1 leżał na wspólnej lewej krawędzi; od treści oddziela go linia */
+.bento-hero, .level-hero {
+  padding-inline: 0;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  box-shadow: none;
+}

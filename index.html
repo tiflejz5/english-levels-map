@@ -42,8 +42,8 @@
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="assets/favicon-180.png" type="image/png" sizes="180x180">
   <link rel="apple-touch-icon" href="assets/favicon-180.png">
-  <link rel="stylesheet" href="css/style.css?v=121">
-  <link rel="stylesheet" href="css/print.css?v=121" media="print">
+  <link rel="stylesheet" href="css/style.css?v=122">
+  <link rel="stylesheet" href="css/print.css?v=122" media="print">
 </head>
 <body>
   <noscript>
@@ -107,81 +107,81 @@
   <div class="nav-overlay" id="nav-overlay" hidden></div>
 
   <!-- Skrypty ładowane po kolei (bez modułów ES, żeby działało z file://).
-       ?v=121 to numer wersji: po zmianie plików JS/CSS zwiększ go wszędzie,
+       ?v=122 to numer wersji: po zmianie plików JS/CSS zwiększ go wszędzie,
        żeby przeglądarki nie użyły starych kopii z pamięci podręcznej. -->
-  <script defer src="js/utils.js?v=121"></script>
+  <script defer src="js/utils.js?v=122"></script>
   <!-- Ikony Lucide (generowane: npm run zasoby) i wspólne elementy wizualne -->
-  <script defer src="assets/ikony.js?v=121"></script>
-  <script defer src="js/ui.js?v=121"></script>
-  <script defer src="js/motion.js?v=121"></script>
+  <script defer src="assets/ikony.js?v=122"></script>
+  <script defer src="js/ui.js?v=122"></script>
+  <script defer src="js/motion.js?v=122"></script>
   <!-- Czysta logika nauki: powtórki, seria, test poziomu (testy: node tools/testy.js) -->
-  <script defer src="js/learning.js?v=121"></script>
-  <script defer src="js/theme.js?v=121"></script>
-  <script defer src="js/print.js?v=121"></script>
-  <script defer src="js/default-data.js?v=121"></script>
+  <script defer src="js/learning.js?v=122"></script>
+  <script defer src="js/theme.js?v=122"></script>
+  <script defer src="js/print.js?v=122"></script>
+  <script defer src="js/default-data.js?v=122"></script>
   <!-- Bazowa lista umiejętności; usuń tę linię, aby startować od pustego szkieletu -->
-  <script defer src="js/base-content.js?v=121"></script>
-  <script defer src="js/store.js?v=121"></script>
-  <script defer src="js/dialogs.js?v=121"></script>
-  <script defer src="js/render.js?v=121"></script>
-  <script defer src="js/profiles.js?v=121"></script>
-  <script defer src="js/markdown.js?v=121"></script>
+  <script defer src="js/base-content.js?v=122"></script>
+  <script defer src="js/store.js?v=122"></script>
+  <script defer src="js/dialogs.js?v=122"></script>
+  <script defer src="js/render.js?v=122"></script>
+  <script defer src="js/profiles.js?v=122"></script>
+  <script defer src="js/markdown.js?v=122"></script>
   <!-- Wyróżnione sekcje (callouty) i tabele w treściach -->
-  <script defer src="js/callouts.js?v=121"></script>
-  <script defer src="js/niezbednik.js?v=121"></script>
+  <script defer src="js/callouts.js?v=122"></script>
+  <script defer src="js/niezbednik.js?v=122"></script>
   <!-- Podstrony niezbędnika (generowane: node tools/zbuduj-niezbednik.js) -->
-  <script defer src="niezbednik/niezbednik-dane.js?v=121"></script>
+  <script defer src="niezbednik/niezbednik-dane.js?v=122"></script>
   <!-- Zakładka „Certyfikat C1” (dane generowane tym samym skryptem) -->
-  <script defer src="niezbednik/certyfikat-c1-dane.js?v=121"></script>
-  <script defer src="js/c1-core.js?v=121"></script>
-  <script defer src="js/c1-exercises.js?v=121"></script>
+  <script defer src="niezbednik/certyfikat-c1-dane.js?v=122"></script>
+  <script defer src="js/c1-core.js?v=122"></script>
+  <script defer src="js/c1-exercises.js?v=122"></script>
   <!-- Wspólny silnik trenera pisania (C1, Egzamin ósmoklasisty) -->
-  <script defer src="js/writing-trainer.js?v=121"></script>
-  <script defer src="js/c1-writing.js?v=121"></script>
+  <script defer src="js/writing-trainer.js?v=122"></script>
+  <script defer src="js/c1-writing.js?v=122"></script>
   <!-- Trener Speaking egzaminów z rejestru (B2 First): timery, samoocena, historia sesji -->
-  <script defer src="js/c1-speaking.js?v=121"></script>
+  <script defer src="js/c1-speaking.js?v=122"></script>
   <!-- Egzaminy z rejestru: rejestr (mały, przy starcie), logika i moduł; treści egzaminu ładowane na żądanie -->
-  <script defer src="dane/egzaminy-rejestr.js?v=121"></script>
-  <script defer src="js/exam-logic.js?v=121"></script>
-  <script defer src="js/exam-core.js?v=121"></script>
+  <script defer src="dane/egzaminy-rejestr.js?v=122"></script>
+  <script defer src="js/exam-logic.js?v=122"></script>
+  <script defer src="js/exam-core.js?v=122"></script>
   <!-- Dane nauki osobno dla każdego profilu i dziennik błędów -->
   <!-- Czysta logika dziennika podejść i statystyk (przed profile-data.js, które z niej korzysta) -->
-  <script defer src="js/learning-stats.js?v=121"></script>
-  <script defer src="js/profile-data.js?v=121"></script>
+  <script defer src="js/learning-stats.js?v=122"></script>
+  <script defer src="js/profile-data.js?v=122"></script>
   <!-- Fiszki: harmonogram i czysta logika (testy: node tools/testy.js), zapis elm.<profil>.fiszki -->
-  <script defer src="js/fiszki-harmonogram.js?v=121"></script>
-  <script defer src="js/fiszki-logic.js?v=121"></script>
-  <script defer src="js/fiszki-store.js?v=121"></script>
+  <script defer src="js/fiszki-harmonogram.js?v=122"></script>
+  <script defer src="js/fiszki-logic.js?v=122"></script>
+  <script defer src="js/fiszki-store.js?v=122"></script>
   <!-- Indeks talii (mały; same talie ładowane na żądanie z dane/fiszki/talie/) i zakładka /fiszki -->
-  <script defer src="dane/fiszki/fiszki-indeks.js?v=121"></script>
-  <script defer src="js/fiszki.js?v=121"></script>
-  <script defer src="js/fiszki-browse.js?v=121"></script>
-  <script defer src="js/fiszki-words.js?v=121"></script>
+  <script defer src="dane/fiszki/fiszki-indeks.js?v=122"></script>
+  <script defer src="js/fiszki.js?v=122"></script>
+  <script defer src="js/fiszki-browse.js?v=122"></script>
+  <script defer src="js/fiszki-words.js?v=122"></script>
   <!-- Pisanie: wzorcowe wypracowania z komentarzami (dane z trenerów pisania ładowane na żądanie) -->
-  <script defer src="js/pisanie.js?v=121"></script>
-  <script defer src="js/journal.js?v=121"></script>
+  <script defer src="js/pisanie.js?v=122"></script>
+  <script defer src="js/journal.js?v=122"></script>
   <!-- Silnik zadań (logika bez DOM + widok); dane ćwiczeń ładowane na żądanie z cwiczenia/ -->
-  <script defer src="js/exercise-logic.js?v=121"></script>
-  <script defer src="js/final-logic.js?v=121"></script>
-  <script defer src="js/exercise-engine.js?v=121"></script>
-  <script defer src="js/exercise-hub.js?v=121"></script>
-  <script defer src="js/level-final.js?v=121"></script>
+  <script defer src="js/exercise-logic.js?v=122"></script>
+  <script defer src="js/final-logic.js?v=122"></script>
+  <script defer src="js/exercise-engine.js?v=122"></script>
+  <script defer src="js/exercise-hub.js?v=122"></script>
+  <script defer src="js/level-final.js?v=122"></script>
   <!-- Laboratorium czasów (dane/lab-dane.js ładowane na żądanie) -->
-  <script defer src="js/tense-lab.js?v=121"></script>
+  <script defer src="js/tense-lab.js?v=122"></script>
   <!-- Statystyki (dziennik podejść, js/learning-stats.js) -->
-  <script defer src="js/stats-page.js?v=121"></script>
+  <script defer src="js/stats-page.js?v=122"></script>
   <!-- Wyszukiwarka (indeks dane/szukaj-indeks.js ładowany przy pierwszym otwarciu) -->
-  <script defer src="js/search-logic.js?v=121"></script>
-  <script defer src="js/search.js?v=121"></script>
+  <script defer src="js/search-logic.js?v=122"></script>
+  <script defer src="js/search.js?v=122"></script>
   <!-- Własne notatki (panel na stronach z treścią, #/notatki) -->
-  <script defer src="js/notes.js?v=121"></script>
-  <script defer src="js/today.js?v=121"></script>
+  <script defer src="js/notes.js?v=122"></script>
+  <script defer src="js/today.js?v=122"></script>
   <!-- Szybki test poziomu (pytania generowane: node tools/zbuduj-niezbednik.js) -->
-  <script defer src="js/level-test.js?v=121"></script>
-  <script defer src="js/data-menu.js?v=121"></script>
-  <script defer src="js/sidebar.js?v=121"></script>
+  <script defer src="js/level-test.js?v=122"></script>
+  <script defer src="js/data-menu.js?v=122"></script>
+  <script defer src="js/sidebar.js?v=122"></script>
   <!-- Celebracje kamieni milowych (GSAP na żądanie) -->
-  <script defer src="js/celebrate.js?v=121"></script>
-  <script defer src="js/app.js?v=121"></script>
+  <script defer src="js/celebrate.js?v=122"></script>
+  <script defer src="js/app.js?v=122"></script>
 </body>
 </html>
