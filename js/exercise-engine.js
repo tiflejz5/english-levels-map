@@ -534,6 +534,9 @@ window.ELM = window.ELM || {};
     return el("div", { class: "ex-listen" }, nodes);
   }
 
+  /** C4: słowo-klucz po poprawnej odpowiedzi podświetlamy markerem tylko w trybie Nauka (w Egzaminie: na ekranie wyników). */
+  function keyOn(p) { return !!(p && p.res && p.res.correct && run && run.mode === "learn"); }
+
   function bodyChoice(p) {
     const st = p.st, done = !!p.res, item = p.item;
     const chosenText = st.chosen !== null ? p.choice.options[st.chosen].text : "";
@@ -542,7 +545,7 @@ window.ELM = window.ELM || {};
       const ok = p.res.correct;
       return el("span", { class: "ex-gap is-filled " + (ok ? "is-ok" : "is-bad") }, [
         el("span", { class: "ex-gap-mark", "aria-hidden": "true" }, ELM.icon(ok ? "check" : "x", { size: 14 })),
-        el("span", { class: "ex-gap-text", text: chosenText || "—" }),
+        el("span", { class: "ex-gap-text" + (ok && keyOn(p) ? " ex-hl" : ""), text: chosenText || "—" }),
         ok ? null : el("span", { class: "visually-hidden", text: " (błędnie)" })
       ]);
     };
@@ -697,7 +700,7 @@ window.ELM = window.ELM || {};
     }
     if (r && !st.noError) {
       const input = el("input", {
-        type: "text", class: "field ex-fix", id: "ex-fix", value: st.fix, disabled: done,
+        type: "text", class: "field ex-fix" + (keyOn(p) ? " ex-hl" : ""), id: "ex-fix", value: st.fix, disabled: done,
         autocomplete: "off", autocapitalize: "off", spellcheck: "false",
         placeholder: "poprawiony fragment (puste pole = usuń)",
         oninput: function () { st.fix = input.value; }
@@ -731,7 +734,7 @@ window.ELM = window.ELM || {};
     const st = p.st, done = !!p.res, item = p.item;
     const gap = function () {
       const input = el("input", {
-        type: "text", class: "field ex-gap-input" + (done ? (p.res.correct ? " is-ok" : " is-bad") : ""),
+        type: "text", class: "field ex-gap-input" + (done ? (p.res.correct ? " is-ok" : " is-bad") : "") + (keyOn(p) ? " ex-hl" : ""),
         value: st.text, disabled: done, "data-fk": "first",
         autocomplete: "off", autocapitalize: "off", spellcheck: "false",
         "aria-label": "Uzupełnij lukę",
@@ -771,7 +774,7 @@ window.ELM = window.ELM || {};
       const r = done && p.res.gaps ? p.res.gaps[i] : null;
       if (gap.hint) hints.push(el("li", { id: "ex-gap-hint-" + i }, [el("span", { class: "review-label", text: "Luka " + (i + 1) + ": " }), gap.hint]));
       const input = textField("input", {
-        type: "text", class: "field ex-gap-input" + (r ? (r.correct ? " is-ok" : " is-bad") : ""),
+        type: "text", class: "field ex-gap-input" + (r ? (r.correct ? " is-ok" : " is-bad") : "") + (r && r.correct && run.mode === "learn" ? " ex-hl" : ""),
         value: st.texts[i] || "", disabled: done, "data-fk": i === 0 ? "first" : "gap-" + i,
         "aria-label": "Luka " + (i + 1) + " z " + n + (r ? (r.correct ? " – poprawnie" : " – błędnie") : ""),
         "aria-describedby": gap.hint ? "ex-gap-hint-" + i : null,
@@ -1103,6 +1106,17 @@ window.ELM = window.ELM || {};
     return (item.context ? item.context + " → " : "") + item.prompt;
   }
 
+  /** C4: zdanie z odpowiedzią użytkownika, w którym słowo kluczowe jest podświetlone markerem. */
+  function keywordLine(item, answer) {
+    const full = [item.before, answer, item.after].filter(function (s) { return s && String(s).trim(); }).join(" ");
+    const kw = String(item.keyword || "");
+    const esc = kw.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const parts = kw ? full.split(new RegExp("(\\b" + esc + "\\b)", "i")) : [full];
+    return el("p", { class: "ex-hl-line", lang: "en" }, parts.map(function (s, i) {
+      return i % 2 ? el("span", { class: "ex-hl", text: s }) : s;
+    }));
+  }
+
   function feedback(p) {
     const item = p.item, res = p.res;
     const lines = [];
@@ -1128,6 +1142,7 @@ window.ELM = window.ELM || {};
     }
     if (item.type === "transformation") {
       if (res.msg) lines.push(el("p", { class: "ex-spelling", text: res.msg }));
+      if (keyOn(p)) lines.push(keywordLine(item, p.st.text));
       if (item.parts && !res.msg && !res.correct) {
         lines.push(el("p", { class: "c1-parts" }, res.parts.map(function (ok, k) {
           return el("span", { class: "c1-part " + (ok ? "is-ok" : "is-bad") }, [ELM.icon(ok ? "check" : "x", { size: 14 }), " Część " + (k + 1) + ": " + (ok ? "dobrze" : "źle")]);
@@ -1248,7 +1263,10 @@ window.ELM = window.ELM || {};
         el("div", { class: "md ex-passage-text", lang: "en" }, ELM.markdown.render(ELM.markdown.parse(run.passage).blocks))
       ]));
     }
-    view.appendChild(el("section", { class: "card ex-card ex-type-" + p.item.type + (done ? (p.res.correct ? " is-correct" : " is-wrong") : ""), "aria-labelledby": "ex-type" }, [
+    view.appendChild(el("section", {
+      class: "card ex-card ex-type-" + p.item.type + (done ? (p.res.correct ? " is-correct" : " is-wrong") : ""), "aria-labelledby": "ex-type",
+      style: /^[ABC][12]$/.test(p.item.level || "") ? "--mark:var(--lvl-" + p.item.level.toLowerCase() + "-glow)" : null
+    }, [
       el("h2", { class: "ex-type", id: "ex-type", text: TYPE_LABEL[p.item.type] || "Zadanie" }),
       el("div", { class: "ex-body" }, body),
       el("div", { class: "ex-status" + (done ? " lt-feedback " + (p.res.correct ? "is-ok" : "is-bad") : ""), role: "status", "aria-live": "polite" }, done ? feedback(p) : null),

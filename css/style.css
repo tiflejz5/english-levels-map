@@ -3950,3 +3950,10 @@ a.notes-item-title { color: var(--accent); text-decoration: underline; text-unde
 
 /* ===================== C3: PIECZĄTKA ===================== */
 .stamp { display: inline-grid; place-items: center; flex-shrink: 0; border-radius: 50%; background: var(--lvl, var(--accent)); color: var(--on-accent); transform: rotate(-6deg); }
+
+/* ===================== C4: MARKER SŁOWA-KLUCZA PO POPRAWNEJ ODPOWIEDZI ===================== */
+.ex-card { --mark: color-mix(in srgb, var(--accent) 30%, transparent); }
+.ex-hl { font-weight: 700; background-image: linear-gradient(var(--mark), var(--mark)); background-repeat: no-repeat; background-position: left center; background-size: 0 100%; border-radius: 3px; animation: ex-hl-mark 300ms var(--ease-out) forwards; }
+@keyframes ex-hl-mark { to { background-size: 100% 100%; } }
+.ex-hl-line { margin: 4px 0 0; }
+.ex-gap-text.ex-hl { white-space: nowrap; }
