@@ -72,6 +72,14 @@
       "level": "A1-B1",
       "file": "temat-praca.json",
       "count": 39
+    },
+    {
+      "id": "temat-podroze",
+      "title": "Podróże i transport",
+      "description": "Słowa i wyrażenia o podróżowaniu, środkach transportu i wakacjach. Od A1 do B1.",
+      "level": "A1-B1",
+      "file": "temat-podroze.json",
+      "count": 40
     }
   ]
 }
