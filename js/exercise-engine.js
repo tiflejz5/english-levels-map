@@ -1547,6 +1547,14 @@ window.ELM = window.ELM || {};
     focusLater("[data-fk='first']");
   }
 
+  /** Czy teksty i transkrypty zadania można zaznaczać (Moje słowa): po sprawdzeniu bieżącego zadania albo na ekranie wyniku. */
+  function textSelectable() {
+    if (!run) return false;
+    if (run.phase === "done") return true;
+    const p = run.items[run.i];
+    return run.phase === "item" && !!p && !!p.res;
+  }
+
   /** Zadanie na ekranie w bieżącej sesji (albo null) — dla testów automatycznych. */
   function currentItem() { return run && run.phase === "item" && run.items[run.i] ? run.items[run.i].item : null; }
 
@@ -1701,6 +1709,7 @@ window.ELM = window.ELM || {};
     startCustom: startCustom,
     startFinal: startFinal,
     currentItem: currentItem,
+    textSelectable: textSelectable,
     topicSection: topicSection,
     setCard: setCard,
     typesText: typesText,
