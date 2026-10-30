@@ -179,9 +179,9 @@ window.ELM = window.ELM || {};
       ])
     ]));
 
-    // Sekcje zakładki — widoczne tylko w rozwiniętym panelu
+    // Sekcje zakładki — widoczne tylko w rozwiniętym panelu i tylko wewnątrz Certyfikatu C1 (jak sekcje innych egzaminów)
     const sections = el("div", { class: "sb-c1-sections" });
-    box.appendChild(sections);
+    if (route) box.appendChild(sections);
 
     manifest.sections.forEach(function (section) {
       const open = Object.prototype.hasOwnProperty.call(expanded, section.id) ? expanded[section.id] : section.id === currentSection;
