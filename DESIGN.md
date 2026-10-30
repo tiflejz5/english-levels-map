@@ -169,6 +169,8 @@ W zakładce C1 `js/app.js` ustawia `data-section="certyfikat"` na `<html>` (poza
 
 ### 3.1 Lewy panel (etap 2)
 
+- **v7 (C1):** kółka poziomów mają symbol krainy (`assets/krainy.js`, kolor `--lvl-x`) zamiast tekstu „A1”; kod poziomu jest małą etykietą pod kółkiem w zwiniętym panelu, a w rozwiniętym stoi obok („A1 · Początkujący”). Pierścień postępu bez zmian.
+
 Pliki: `index.html` (znaczniki), `js/sidebar.js` (zachowanie), `js/render.js` (narzędzia i poziomy), `js/c1-core.js` (chip i sekcje C1), sekcja „LEWY PANEL” w `css/style.css`.
 
 **Stany:**
@@ -209,6 +211,8 @@ Pliki: `index.html` (znaczniki), `js/sidebar.js` (zachowanie), `js/render.js` (n
 
 ### 3.2 Strona „Dziś” — kokpit (etap 3)
 
+**v7 (C2, C6):** Szlak jest mapą topograficzną: każda kraina to plama `--lvl-x-soft` z warstwicami `--lvl-x` (od 3 warstwic w A1 do 8 w C2), stacja to kółko z symbolem krainy, podpisem „A1 · Polana” i procentem; przebyta część szlaku ciągła, reszta kropkowana, róża wiatrów w rogu, pieczątka ✓ przy zaliczonym teście końcowym, układ pionowy poniżej 480 px. Ten sam komponent bez róży wiatrów jest na stronie głównej nad tabelą „Poziomy w skrócie” (`ELM.today.compactTrail`). Stany „Na dziś czysto” i „Pierwszy dzień serii” mają ilustracje z `ELM.ui.emptyState` (kompas z kafla zastąpiony).
+
 **v7 (A4, A5):** hero bez warstwic. Kafle „Kontynuuj”, „Dodaj błąd” i podpowiedź testu zastąpiła jedna karta „Na skróty” (`.bento-shortcuts`, wiersze `.row` z ikoną, tytułem, opisem i chevronem). Kafle Fiszki i „Gotowy na test końcowy” zostały bez zmian.
 
 Plik: `js/today.js`, sekcja „STRONA „DZIŚ” — kokpit” w `css/style.css`.
@@ -244,6 +248,8 @@ Plik: `js/today.js`, sekcja „STRONA „DZIŚ” — kokpit” w `css/style.css
 
 ### 3.3 Celebracje (etap 3)
 
+- **v7 (C5):** konfetti usunięte. Kamienie poziomu pokazują fragment Szlaku: kółko krainy z symbolem i pierścieniem animowanym od poprzedniego progu do nowego (przejście CSS ≤ 600 ms), przy zaliczonym teście końcowym pieczątka. Reduced motion: od razu stan końcowy.
+
 Plik: `js/celebrate.js`.
 - **Kamienie milowe:**
   - pierwsze „Umiem”, 10 / 25 / 50 / 100 „Umiem”;
@@ -261,6 +267,8 @@ Plik: `js/celebrate.js`.
 - **Teksty:** krótkie i konkretne, bez przesady (np. „Tydzień z rzędu – Siedem dni nauki bez przerwy.”, „A1 ukończony – … Następny przystanek: A2.”).
 
 ### 3.4 Strony poziomów (etap 3)
+
+- **v7 (C1, C3):** nad nagłówkiem „A1 · Polana” (nazwa krainy z `ELM.ui.LANDS`). Zaznaczone „Umiem” to okrągła pieczątka w kolorze krainy; „odbicie” (scale 1.25 → 1, rotate −10° → −6°, 220 ms) tylko przy zaznaczeniu przez użytkownika.
 
 - **v7 (A4–A6):** bez warstwic w nagłówkach i hero (warstwice tylko w Szlaku). Punkty to wiersze (`.ess-item`: „Umiem” 44 px po lewej, tekst, chevron po prawej; cienka linia, hover `--row-hover`). Filtr kategorii ma pierwszą opcję „Wszystkie” (`ui.categoryId = "all"`): grupy z podtytułami h3, bez chipów kategorii.
 
@@ -662,3 +670,8 @@ Ograniczenie: audyt automatyczny nie zastępuje testu z czytnikiem ekranu (NVDA 
   - „Moje egzaminy”: `myExams` + pole `my` w `elm_exams_v1`; sekcja na stronie głównej, kafle na Dziś, przypinanie, wskaźnik w panelu tylko dla moich.
   - Jedna karta daty (`ELM.examDate.card`) dla C1 i egzaminów z rejestru, polski zapis daty, „Wstaw termin główny”, „Usuń datę”.
   - Okładki egzaminów (pełna, kompaktowa, mini), pole `subtitle` w manifeście, nowe pary w `tools/kontrast.js`.
+
+- **Paczka v7, etap „mapa” (C1–C6).**
+  - Krainy A1–C2 (`assets/krainy.js`, `ELM.ui.landIcon`, `LANDS`), symbole w panelu i nagłówku poziomu.
+  - Szlak jako mapa topograficzna (generator kształtów przeniesiony do `js/today.js`: `blobPath`, `terrainGroup`), wariant kompaktowy na stronie głównej.
+  - „Umiem” jako pieczątka (`ELM.ui.stamp`), marker słowa-klucza w silniku zadań (`.ex-hl`), postęp krainy zamiast konfetti, `ELM.ui.emptyState` z 5 ilustracjami (`assets/stany-puste.js`).
