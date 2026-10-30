@@ -1,0 +1,845 @@
+{
+  "id": "trening-mowienie",
+  "version": 1,
+  "format": "matura",
+  "note": "Czasy orientacyjne. Aktualny przebieg i punktację sprawdź w informatorze CKE.",
+  "criteria": [
+    {
+      "id": "komunikacja",
+      "label": "Realizacja zadania",
+      "hint": "Odnoszę się do wszystkich elementów i rozwijam odpowiedzi."
+    },
+    {
+      "id": "zakres",
+      "label": "Zakres środków językowych",
+      "hint": "Różne struktury i słownictwo, nie tylko podstawowe."
+    },
+    {
+      "id": "poprawnosc",
+      "label": "Poprawność",
+      "hint": "Mało błędów, które przeszkadzają w zrozumieniu."
+    },
+    {
+      "id": "wymowa",
+      "label": "Wymowa i płynność",
+      "hint": "Mówię wyraźnie, bez długich przerw."
+    }
+  ],
+  "intro": {
+    "title": "Rozmowa wstępna",
+    "seconds": 120,
+    "groups": [
+      {
+        "id": "intro-czas-wolny",
+        "topic": "Życie prywatne",
+        "questions": [
+          "What do you usually do after school?",
+          "Tell me about something interesting you did last weekend.",
+          "Would you rather spend a free day at home or outdoors? Why?"
+        ]
+      },
+      {
+        "id": "intro-rodzina-przyjaciele",
+        "topic": "Człowiek",
+        "questions": [
+          "Can you tell me a little about your best friend?",
+          "What do you and your family like doing together?",
+          "Who is the person you admire most? Why?",
+          "How would your friends describe you?"
+        ]
+      },
+      {
+        "id": "intro-miasto",
+        "topic": "Miejsce zamieszkania",
+        "questions": [
+          "Where do you live? Tell me about your town or village.",
+          "What do you like most about your neighbourhood?",
+          "Would you like to live in the same place in the future? Why or why not?"
+        ]
+      },
+      {
+        "id": "intro-szkola",
+        "topic": "Edukacja",
+        "questions": [
+          "What is your favourite school subject and why?",
+          "Tell me about a teacher who has helped you a lot.",
+          "What would you change about your school if you could?",
+          "How do you usually prepare for tests?"
+        ]
+      },
+      {
+        "id": "intro-praca",
+        "topic": "Praca",
+        "questions": [
+          "Do you have a part-time job, or would you like to have one?",
+          "What job would you like to do in the future?",
+          "Do you think it is a good idea for teenagers to work during the school year?"
+        ]
+      },
+      {
+        "id": "intro-jedzenie",
+        "topic": "Żywienie",
+        "questions": [
+          "What did you have for breakfast today?",
+          "Do you ever cook at home? Tell me about it.",
+          "What is a traditional Polish dish you would recommend to a visitor?",
+          "Do you think you eat healthily? Why?"
+        ]
+      },
+      {
+        "id": "intro-zakupy",
+        "topic": "Zakupy i usługi",
+        "questions": [
+          "Do you prefer shopping in shops or online? Why?",
+          "Tell me about the last thing you bought for yourself.",
+          "How often do you go to the shopping centre in your town?"
+        ]
+      },
+      {
+        "id": "intro-wakacje",
+        "topic": "Podróżowanie i turystyka",
+        "questions": [
+          "Where did you spend your last holiday?",
+          "Do you prefer holidays by the sea or in the mountains? Why?",
+          "Which country would you most like to visit and why?",
+          "Tell me about a trip you will never forget."
+        ]
+      },
+      {
+        "id": "intro-zdrowie",
+        "topic": "Zdrowie",
+        "questions": [
+          "What do you do to stay healthy?",
+          "How much sleep do you usually get on a school night?",
+          "What do you do when you feel stressed before an exam?"
+        ]
+      },
+      {
+        "id": "intro-sport",
+        "topic": "Sport",
+        "questions": [
+          "Do you do any sport regularly? Tell me about it.",
+          "Do you like watching sport on TV or going to matches?",
+          "Which sport would you like to try one day, and why?",
+          "Is sport an important subject at your school?"
+        ]
+      }
+    ]
+  },
+  "roleplay": {
+    "title": "Zadanie 1 – rozmowa z odgrywaniem roli",
+    "prepSeconds": 30,
+    "seconds": 240,
+    "cards": [
+      {
+        "id": "rp-koncert",
+        "topic": "Kultura",
+        "situation": "Jesteś w Londynie na wymianie. Chcesz pójść ze znajomym z Anglii (egzaminator) na koncert. Rozmawiacie o planie.",
+        "elements": [
+          "rodzaj muzyki",
+          "cena biletów",
+          "dojazd na koncert",
+          "co zrobicie po koncercie"
+        ],
+        "examinerLines": [
+          "Hi! So, you said you wanted to go to a concert this weekend?",
+          "Hmm, I'm not a big fan of that kind of music. What else could we see?",
+          "Tickets in London can be really expensive. How much do you want to spend?",
+          "How are we going to get there? It finishes quite late.",
+          "And what about afterwards? Any ideas?"
+        ],
+        "usefulPhrases": [
+          "How about going to …?",
+          "I'd rather … than …",
+          "That sounds good, but …",
+          "We could always …"
+        ]
+      },
+      {
+        "id": "rp-egzamin-nauka",
+        "topic": "Edukacja",
+        "situation": "Za dwa tygodnie masz ważny egzamin. Rozmawiasz z koleżanką z klasy (egzaminator) o wspólnej nauce.",
+        "elements": [
+          "miejsce nauki",
+          "godziny spotkań",
+          "materiały do nauki",
+          "przerwy i nagrody po nauce"
+        ],
+        "examinerLines": [
+          "Hi! I heard you're also nervous about the exam. Shall we study together?",
+          "Well, my house is a bit noisy at the moment. Where else could we go?",
+          "I have football training on Tuesdays and Thursdays, so I'm not free then. When suits you?",
+          "I don't have many notes, to be honest. What could we use?",
+          "Don't you think we'll get bored? What shall we do to make it more fun?"
+        ],
+        "usefulPhrases": [
+          "Why don't we …?",
+          "It would be better if …",
+          "I'm free on …",
+          "That's a good point, but …"
+        ]
+      },
+      {
+        "id": "rp-praca-wakacyjna",
+        "topic": "Praca",
+        "situation": "Szukasz pracy wakacyjnej. Rozmawiasz z właścicielem małej kawiarni (egzaminator), który szuka pracownika na lato.",
+        "elements": [
+          "twoje doświadczenie",
+          "dni i godziny, w których możesz pracować",
+          "zakres obowiązków",
+          "wynagrodzenie"
+        ],
+        "examinerLines": [
+          "Good morning! Thanks for coming. Have you worked in a café before?",
+          "I see. And when would you be able to start?",
+          "We're very busy at weekends. Could you work on Saturdays and Sundays?",
+          "We need help both behind the counter and in the kitchen. What would you prefer to do?",
+          "I can only offer a fairly low hourly rate at the beginning. Is that all right?"
+        ],
+        "usefulPhrases": [
+          "I'd be happy to …",
+          "I have some experience of …",
+          "I'm available from … to …",
+          "Could you tell me more about …?"
+        ]
+      },
+      {
+        "id": "rp-urodziny",
+        "topic": "Życie prywatne",
+        "situation": "Twój najlepszy przyjaciel Tom ma niedługo urodziny. Razem z jego siostrą (egzaminator) organizujecie dla niego przyjęcie-niespodziankę.",
+        "elements": [
+          "miejsce przyjęcia",
+          "lista gości",
+          "prezent",
+          "sposób zachowania tajemnicy"
+        ],
+        "examinerLines": [
+          "Hi! Have you got a minute? I'd love to plan something special for Tom's birthday.",
+          "We can't have it at his house, of course. Where could we hold it?",
+          "I'm not sure we should invite too many people. What do you think?",
+          "A gift is a problem. He's got almost everything. Any ideas?",
+          "He's very curious and always asks questions. How can we keep it a secret?"
+        ],
+        "usefulPhrases": [
+          "What about …?",
+          "I suggest that we …",
+          "I'm not sure that's a good idea because …",
+          "Let's make sure that …"
+        ]
+      },
+      {
+        "id": "rp-restauracja",
+        "topic": "Żywienie",
+        "situation": "Jesteś w restauracji w Brighton z rodziną znajomego. Rozmawiasz z kelnerem (egzaminator) o zamówieniu.",
+        "elements": [
+          "danie główne",
+          "dieta lub alergia",
+          "napoje",
+          "deser i rachunek"
+        ],
+        "examinerLines": [
+          "Good evening! Are you ready to order?",
+          "I'm sorry, that dish isn't available today. Would you like something else?",
+          "Do you have any food allergies I should know about?",
+          "Would you like anything to drink with your meal?",
+          "Shall I bring you the dessert menu, or would you like the bill?"
+        ],
+        "usefulPhrases": [
+          "I'd like to have …",
+          "Could I have … instead?",
+          "I'm allergic to …",
+          "Could we have the bill, please?"
+        ]
+      },
+      {
+        "id": "rp-reklamacja",
+        "topic": "Zakupy i usługi",
+        "situation": "Kupiłeś/-aś w sklepie internetowym słuchawki, które nie działają. Dzwonisz do obsługi klienta, rozmawia z Tobą konsultant (egzaminator).",
+        "elements": [
+          "opis problemu",
+          "kiedy kupiłeś/-aś produkt i jak za niego zapłaciłeś/-aś",
+          "czego oczekujesz (zwrot pieniędzy lub wymiana)",
+          "sposób odesłania towaru"
+        ],
+        "examinerLines": [
+          "Hello, customer service. How can I help you?",
+          "I'm sorry to hear that. When did you buy them?",
+          "Have you got your order number?",
+          "Would you prefer a refund or a replacement?",
+          "You'll have to pay for the postage yourself, I'm afraid. Is that OK?"
+        ],
+        "usefulPhrases": [
+          "I'm calling because …",
+          "It stopped working after …",
+          "I'd like a refund, please.",
+          "I'm afraid that's not fair because …"
+        ]
+      },
+      {
+        "id": "rp-weekend-krakow",
+        "topic": "Podróżowanie i turystyka",
+        "situation": "Planujesz z kolegą z Irlandii (egzaminator), który odwiedza Polskę, weekendową wycieczkę po kraju. Ustalacie szczegóły.",
+        "elements": [
+          "dokąd pojedziecie",
+          "środek transportu",
+          "nocleg",
+          "atrakcje na miejscu"
+        ],
+        "examinerLines": [
+          "Hi! I've got two free days. Where would you like to take me?",
+          "I'm not keen on long journeys. How should we travel?",
+          "Hotels can be quite pricey. Where could we stay?",
+          "Is there anything interesting to do there, apart from sightseeing?",
+          "It might rain all weekend, you know. Do we have a plan B?"
+        ],
+        "usefulPhrases": [
+          "I'd recommend …",
+          "It takes about … hours by …",
+          "If the weather is bad, we could …",
+          "You really should try …"
+        ]
+      },
+      {
+        "id": "rp-klub-sportowy",
+        "topic": "Sport",
+        "situation": "Chcesz zapisać się do klubu sportowego w swoim mieście. Rozmawiasz z trenerem (egzaminator), który odpowiada za nowych członków.",
+        "elements": [
+          "dyscyplina, którą chcesz trenować",
+          "twoje dotychczasowe doświadczenie",
+          "dni treningowe",
+          "koszt członkostwa"
+        ],
+        "examinerLines": [
+          "Hello! Welcome to our club. What kind of sport are you interested in?",
+          "Have you done this sport before, or are you a complete beginner?",
+          "Our groups train three times a week. Is that too much for you?",
+          "You'd need your own equipment, which isn't cheap. Is that a problem?",
+          "The monthly fee is quite high. Would you like to try a free lesson first?"
+        ],
+        "usefulPhrases": [
+          "I've been playing … for …",
+          "I'm quite keen on …",
+          "I'm afraid I can't … because …",
+          "Could I try it first?"
+        ]
+      },
+      {
+        "id": "rp-wizyta-lekarz",
+        "topic": "Zdrowie",
+        "situation": "Źle się czujesz i jesteś na wizycie u lekarza w Londynie. Rozmawiasz z lekarzem (egzaminator).",
+        "elements": [
+          "objawy",
+          "od kiedy się źle czujesz",
+          "leki, które już brałeś/-aś",
+          "czy możesz iść jutro do szkoły"
+        ],
+        "examinerLines": [
+          "Good morning. What seems to be the problem?",
+          "How long have you been feeling like this?",
+          "Have you taken anything for it?",
+          "I think you should stay at home for a few days. How do you feel about that?",
+          "You'll need some rest. Is there anything you'd like to ask me?"
+        ],
+        "usefulPhrases": [
+          "I've got a sore throat.",
+          "It started on …",
+          "I took some … but it didn't help.",
+          "Do I have to …?"
+        ]
+      },
+      {
+        "id": "rp-telefon",
+        "topic": "Nauka i technika",
+        "situation": "Chcesz kupić nowy telefon. Prosisz o radę starszego brata, który zna się na technice (egzaminator).",
+        "elements": [
+          "do czego będziesz używać telefonu",
+          "budżet",
+          "marka i funkcje",
+          "gdzie kupić telefon"
+        ],
+        "examinerLines": [
+          "So, you're thinking of getting a new phone? What do you need it for?",
+          "Phones can cost a fortune these days. How much can you spend?",
+          "Honestly, I don't think the brand matters. Which features are the most important to you?",
+          "Should we buy it online or go to a shop? I'm not sure which is better.",
+          "Why not just keep your old one for another year?"
+        ],
+        "usefulPhrases": [
+          "I mainly use it for …",
+          "I can't spend more than …",
+          "It's essential that it has …",
+          "On the other hand, …"
+        ]
+      },
+      {
+        "id": "rp-wymiana-mieszkanie",
+        "topic": "Miejsce zamieszkania",
+        "situation": "Właśnie przyjechałeś/-aś na wymianę do Manchesteru. Rozmawiasz z panią domu w rodzinie goszczącej (egzaminator) o zasadach.",
+        "elements": [
+          "pokój i jego wyposażenie",
+          "godziny posiłków",
+          "obowiązki domowe",
+          "wracanie wieczorem do domu"
+        ],
+        "examinerLines": [
+          "Welcome to our home! Let me show you your room. Is there anything you need?",
+          "We usually have dinner at six. Is that all right for you?",
+          "Everyone here helps with the housework. Would you mind doing the washing-up?",
+          "We'd like you to be home by ten o'clock. Does that seem too early?",
+          "Is there anything else you'd like to ask about living here?"
+        ],
+        "usefulPhrases": [
+          "Would it be possible to …?",
+          "I don't mind …",
+          "That's fine with me.",
+          "I'd prefer to … if that's OK."
+        ]
+      },
+      {
+        "id": "rp-wolontariat",
+        "topic": "Życie społeczne",
+        "situation": "Chcesz zostać wolontariuszem w schronisku dla zwierząt. Rozmawiasz z koordynatorką wolontariuszy (egzaminator).",
+        "elements": [
+          "dlaczego chcesz pomagać",
+          "dni, w które możesz przychodzić",
+          "rodzaj pracy, który wolisz",
+          "co chcesz zyskać z tego doświadczenia"
+        ],
+        "examinerLines": [
+          "Hello! Thanks for your interest in volunteering with us. Why do you want to help?",
+          "We need people most on weekday afternoons. Is that possible for you?",
+          "The work isn't always pleasant. Some jobs involve cleaning cages. Does that bother you?",
+          "Lots of young people give up after a month. How can you convince me you'll stay?",
+          "What would you like to learn from this experience?"
+        ],
+        "usefulPhrases": [
+          "I'd really like to help because …",
+          "I'm happy to do any kind of work.",
+          "I can promise that …",
+          "It would be a great chance to …"
+        ]
+      }
+    ]
+  },
+  "picture": {
+    "title": "Zadanie 2 – opis ilustracji i pytania",
+    "seconds": 180,
+    "cards": [
+      {
+        "id": "pic-kuchnia",
+        "topic": "Żywienie",
+        "description": "A family of four is cooking together in a small, bright kitchen. The father is cutting vegetables, the mother is reading a recipe on a tablet, and two teenagers are setting the table and laughing. There is a large pot on the cooker and a bowl of salad on the counter. Through the window you can see that it is raining.",
+        "questions": [
+          "Why do you think the family decided to cook together?",
+          "Tell me about a time when you cooked something for other people.",
+          "Do you think young people today know how to cook? Why?"
+        ],
+        "usefulPhrases": [
+          "In the picture I can see …",
+          "In the foreground / background …",
+          "It looks like …",
+          "I think they're feeling …"
+        ]
+      },
+      {
+        "id": "pic-przyjaciele-park",
+        "topic": "Człowiek",
+        "description": "Three friends are sitting on a bench in a park on a sunny afternoon. One girl is showing something funny on her phone, and the other two are laughing. One of the boys, who has a backpack, is eating an ice cream. Behind them there are tall trees, and a man is walking a small brown dog along the path. In the distance you can see a playground.",
+        "questions": [
+          "What do you think the friends are talking about?",
+          "Tell me about your closest friends and how you spend time together.",
+          "Is it better to have a few close friends or lots of friends? Why?"
+        ],
+        "usefulPhrases": [
+          "They seem to be …",
+          "In the background there is …",
+          "What I like about my friends is …",
+          "In my opinion, …"
+        ]
+      },
+      {
+        "id": "pic-nowy-blok",
+        "topic": "Miejsce zamieszkania",
+        "description": "A young couple is carrying cardboard boxes into a block of flats. A removal van is parked in front of the building, and a man in a blue uniform is lifting a sofa. An elderly woman is looking out of a window on the second floor and smiling. There is a small playground and a few bicycles next to the entrance. The sky is grey, but nobody seems to mind.",
+        "questions": [
+          "Why do you think the couple are moving to this flat?",
+          "Tell me about the place where you live. What do you like and dislike about it?",
+          "Would you prefer to live in a flat or in a house? Why?"
+        ],
+        "usefulPhrases": [
+          "The picture shows …",
+          "On the left / on the right …",
+          "They're probably moving because …",
+          "I'd rather live in … because …"
+        ]
+      },
+      {
+        "id": "pic-lekcja-chemii",
+        "topic": "Edukacja",
+        "description": "A group of teenagers in white lab coats are doing an experiment in a school laboratory. A girl is carefully pouring a blue liquid into a test tube, while a boy next to her is writing notes. The teacher, a tall woman with glasses, is standing behind them and watching. On the wall there is a big poster of the periodic table, and some students at the back look a bit bored.",
+        "questions": [
+          "How do you think the students feel during this lesson?",
+          "Tell me about a lesson at school that you really enjoyed.",
+          "Do you think practical lessons are better than lessons with only a textbook? Why?"
+        ],
+        "usefulPhrases": [
+          "In the middle of the picture …",
+          "The students are wearing …",
+          "I remember a lesson when …",
+          "It's more interesting to … than to …"
+        ]
+      },
+      {
+        "id": "pic-biuro",
+        "topic": "Praca",
+        "description": "Four people are having a meeting in a modern office. A woman in a grey suit is standing next to a screen and pointing at a graph. Two men are sitting at a long table with laptops and coffee cups, and one of them is yawning. A young woman is taking notes. Behind them there are large windows and you can see tall buildings outside.",
+        "questions": [
+          "What do you think the meeting is about?",
+          "Would you like to work in an office in the future? Why or why not?",
+          "What is more important in a job: a high salary or a pleasant atmosphere?"
+        ],
+        "usefulPhrases": [
+          "I can see …",
+          "She looks quite …",
+          "It must be … to work in …",
+          "For me, the most important thing is …"
+        ]
+      },
+      {
+        "id": "pic-targ",
+        "topic": "Zakupy i usługi",
+        "description": "A busy outdoor market on a sunny morning. A man behind a stall is weighing tomatoes for an elderly customer. Other stalls sell fruit, flowers and cheese. A mother with two children is carrying a big paper bag, and a girl is trying a piece of apple. There are colourful umbrellas above the stalls, and in the background you can see a church.",
+        "questions": [
+          "Why do you think so many people are shopping at the market?",
+          "Tell me about the last time you went shopping with your family or friends.",
+          "Do you prefer buying food at a market or in a supermarket? Why?"
+        ],
+        "usefulPhrases": [
+          "The scene takes place …",
+          "There are lots of people …",
+          "One advantage of … is that …",
+          "I usually go shopping …"
+        ]
+      },
+      {
+        "id": "pic-dworzec",
+        "topic": "Podróżowanie i turystyka",
+        "description": "A crowded railway station in summer. A couple with large suitcases is looking at a departure board and seems a little worried. A young man with a guitar on his back is sitting on the floor and drinking water. Next to him a girl is reading a map. Some tourists are taking photos of a big clock. Behind them a train is arriving at the platform.",
+        "questions": [
+          "Why do you think the couple look worried?",
+          "Tell me about a journey by train or bus that you remember well.",
+          "Do you prefer travelling by train, by car or by plane? Why?"
+        ],
+        "usefulPhrases": [
+          "At the front of the picture …",
+          "They might be waiting for …",
+          "Once I travelled to …",
+          "What I like most about travelling by … is …"
+        ]
+      },
+      {
+        "id": "pic-uliczni-muzycy",
+        "topic": "Kultura",
+        "description": "Two street musicians are playing in a busy square in the evening. One of them plays the violin, and the other is singing and holding a hat for money. A small crowd has stopped to listen, and some people are filming them with their phones. A little boy is dancing in front of the musicians, while his father is smiling. The lights are on in the cafés behind them.",
+        "questions": [
+          "How do you think the people in the audience feel?",
+          "Tell me about a concert or another cultural event you have been to.",
+          "Do you like it when musicians play in the street? Why?"
+        ],
+        "usefulPhrases": [
+          "The atmosphere seems …",
+          "It looks as if …",
+          "I once went to …",
+          "I'm in favour of / against …"
+        ]
+      },
+      {
+        "id": "pic-mecz-szkolny",
+        "topic": "Sport",
+        "description": "A school volleyball match is taking place in a sports hall. A girl in a red shirt is jumping up to hit the ball over the net, and her team-mates are watching with excitement. On one side, a group of students are cheering and holding a banner. The teacher is standing near the net with a whistle. The scoreboard shows that the match is very close.",
+        "questions": [
+          "Why do you think the match is so exciting for the students?",
+          "Tell me about a sport event you took part in or watched.",
+          "Do you think competition at school is a good thing? Why or why not?"
+        ],
+        "usefulPhrases": [
+          "In the foreground …",
+          "The players seem to be …",
+          "I took part in …",
+          "On the one hand …, on the other hand …"
+        ]
+      },
+      {
+        "id": "pic-przychodnia",
+        "topic": "Zdrowie",
+        "description": "A small waiting room in a doctor's surgery. A mother is holding a little girl who has a red nose and is sneezing. An old man next to them is reading a newspaper, and a teenage boy is holding his arm and looking tired. A nurse is talking to the receptionist behind a desk. On the wall there is a poster about washing hands, and a plant stands in the corner.",
+        "questions": [
+          "Why do you think these people are in the surgery?",
+          "Tell me about the last time you were ill. What did you do?",
+          "What can people do to avoid getting ill in autumn and winter?"
+        ],
+        "usefulPhrases": [
+          "It seems that …",
+          "They are probably …",
+          "When I was ill, I …",
+          "It's a good idea to …"
+        ]
+      },
+      {
+        "id": "pic-robot-szkola",
+        "topic": "Nauka i technika",
+        "description": "In a school classroom, a group of students are building a small robot. A boy is connecting wires, and a girl is typing something into a laptop. Another student is holding a screwdriver and looking at the instructions. On the table there are tools, a few small motors and a cup of tea. The teacher is smiling and taking a photo of the project.",
+        "questions": [
+          "What do you think the students are learning from this project?",
+          "Tell me about a gadget or an app that you use every day.",
+          "Do you think technology makes our lives easier or more complicated? Why?"
+        ],
+        "usefulPhrases": [
+          "The students appear to be …",
+          "I can't live without …",
+          "It saves a lot of time because …",
+          "The main disadvantage is that …"
+        ]
+      },
+      {
+        "id": "pic-las",
+        "topic": "Świat przyrody",
+        "description": "A group of children and two adults are walking through a forest in autumn. The ground is covered with orange and yellow leaves. One boy is picking up a mushroom, but a woman is pointing at it and shaking her head. A girl is taking a photo of a squirrel on a tree. Another child is carrying a big rubbish bag. The light between the trees is soft and golden.",
+        "questions": [
+          "Why do you think the group have come to the forest?",
+          "Tell me about a day you spent outdoors in nature.",
+          "What can young people do to protect the environment?"
+        ],
+        "usefulPhrases": [
+          "The picture was taken in …",
+          "The weather seems to be …",
+          "I really enjoy being …",
+          "We should all try to …"
+        ]
+      }
+    ]
+  },
+  "choice": {
+    "title": "Zadanie 3 – wybór i uzasadnienie",
+    "prepSeconds": 60,
+    "seconds": 240,
+    "cards": [
+      {
+        "id": "ch-wycieczka-klasowa",
+        "topic": "Podróżowanie i turystyka",
+        "situation": "Twoja klasa wybiera miejsce jednodniowej wycieczki na koniec roku szkolnego.",
+        "options": [
+          "A group of students hiking on a mountain trail with a guide.",
+          "Students in a science centre trying interactive experiments.",
+          "Teenagers kayaking on a quiet river on a sunny day."
+        ],
+        "criteria": [
+          "Wybierz miejsce, które będzie najlepsze dla całej klasy, i uzasadnij swój wybór.",
+          "Wyjaśnij, dlaczego odrzucasz pozostałe propozycje."
+        ],
+        "questions": [
+          "Why is it important for classmates to spend time together outside school?",
+          "Tell me about the most memorable school trip you have been on."
+        ]
+      },
+      {
+        "id": "ch-nowe-mieszkanie",
+        "topic": "Miejsce zamieszkania",
+        "situation": "Twoja rodzina przeprowadza się i wybiera nowe miejsce zamieszkania. Chcesz doradzić rodzicom, które będzie najlepsze.",
+        "options": [
+          "A flat in the centre of a big city, close to shops and cinemas.",
+          "A detached house with a garden in a quiet village.",
+          "A small house in a suburb, near a school and a park."
+        ],
+        "criteria": [
+          "Wybierz miejsce, które będzie najlepsze dla całej rodziny, i uzasadnij wybór.",
+          "Wyjaśnij, dlaczego pozostałe opcje są mniej wygodne."
+        ],
+        "questions": [
+          "What are the advantages and disadvantages of living in a big city?",
+          "Would you like to live abroad one day? Why or why not?"
+        ]
+      },
+      {
+        "id": "ch-kolo-zainteresowan",
+        "topic": "Edukacja",
+        "situation": "W Twojej szkole ruszają nowe zajęcia dodatkowe. Możesz wybrać tylko jedne i musisz uzasadnić wybór.",
+        "options": [
+          "Students rehearsing a play in a drama club on a small stage.",
+          "Teenagers practising coding together in a bright school computer room.",
+          "A group of students learning to paint in an art studio."
+        ],
+        "criteria": [
+          "Wybierz zajęcia, które będą najbardziej przydatne dla Ciebie, i uzasadnij wybór.",
+          "Wyjaśnij, dlaczego nie wybierasz pozostałych zajęć."
+        ],
+        "questions": [
+          "Why is it good for students to have after-school activities?",
+          "Which skills do you think are the most useful for finding a job?"
+        ]
+      },
+      {
+        "id": "ch-praca-wakacje",
+        "topic": "Praca",
+        "situation": "Chcesz dorobić podczas wakacji. Masz trzy oferty pracy i musisz zdecydować, którą przyjąć.",
+        "options": [
+          "A young person working as a lifeguard at a swimming pool.",
+          "A teenager delivering pizzas on a scooter in the evening.",
+          "A student helping children at a summer camp."
+        ],
+        "criteria": [
+          "Wybierz ofertę, która najbardziej Ci odpowiada, i uzasadnij wybór.",
+          "Wyjaśnij, dlaczego rezygnujesz z pozostałych ofert."
+        ],
+        "questions": [
+          "Do you think teenagers should earn their own money? Why?",
+          "Tell me about a job you would never want to do."
+        ]
+      },
+      {
+        "id": "ch-prezent-babcia",
+        "topic": "Życie prywatne",
+        "situation": "Twoja babcia ma 70. urodziny. Razem z rodzeństwem wybieracie dla niej prezent.",
+        "options": [
+          "A framed photograph of the whole family sitting together.",
+          "A voucher for a weekend for two at a spa hotel.",
+          "An older woman video-calling her family on a new tablet."
+        ],
+        "criteria": [
+          "Wybierz prezent, który najbardziej ucieszy babcię, i uzasadnij wybór.",
+          "Wyjaśnij, dlaczego odrzucasz pozostałe pomysły."
+        ],
+        "questions": [
+          "Why is it important to spend time with older members of the family?",
+          "Tell me about the best present you have ever received."
+        ]
+      },
+      {
+        "id": "ch-kolacja",
+        "topic": "Żywienie",
+        "situation": "Organizujesz kolację dla klasy po zakończeniu roku szkolnego. Musisz wybrać rodzaj posiłku.",
+        "options": [
+          "Students eating pizza together in a noisy, crowded restaurant.",
+          "A barbecue in a sunny garden with sausages, salads and cold drinks.",
+          "Classmates cooking pasta together in the kitchen at someone's house."
+        ],
+        "criteria": [
+          "Wybierz opcję, która będzie najlepsza dla całej klasy, i uzasadnij wybór.",
+          "Wyjaśnij, dlaczego pozostałe opcje są gorsze."
+        ],
+        "questions": [
+          "Do you think fast food is a problem for young people? Why?",
+          "Tell me about a meal you remember very well."
+        ]
+      },
+      {
+        "id": "ch-sklep-ubrania",
+        "topic": "Zakupy i usługi",
+        "situation": "Potrzebujesz nowej kurtki na zimę i zastanawiasz się, gdzie ją kupić.",
+        "options": [
+          "A girl trying on jackets in a large shopping centre.",
+          "A boy choosing a second-hand jacket in a charity shop.",
+          "A teenager ordering a jacket on a website at home."
+        ],
+        "criteria": [
+          "Wybierz sposób zakupu, który najbardziej Ci pasuje, i uzasadnij wybór.",
+          "Wyjaśnij, co przemawia przeciwko pozostałym możliwościom."
+        ],
+        "questions": [
+          "Is it important for young people to follow fashion? Why or why not?",
+          "Tell me about something you bought that turned out to be a mistake."
+        ]
+      },
+      {
+        "id": "ch-wieczor-kultura",
+        "topic": "Kultura",
+        "situation": "Wybierasz z przyjaciółmi, jak spędzić piątkowy wieczór w mieście.",
+        "options": [
+          "Friends watching a new film in a cinema with popcorn.",
+          "People looking at paintings in a modern art gallery.",
+          "A group of teenagers listening to a band in a small club."
+        ],
+        "criteria": [
+          "Wybierz propozycję, która spodoba się całej grupie, i uzasadnij wybór.",
+          "Wyjaśnij, dlaczego odrzucasz pozostałe pomysły."
+        ],
+        "questions": [
+          "Why is culture important in our lives?",
+          "Tell me about the last film or book you really liked."
+        ]
+      },
+      {
+        "id": "ch-aktywnosc-sport",
+        "topic": "Sport",
+        "situation": "Chcesz zacząć regularnie ćwiczyć. Zastanawiasz się, jaka forma aktywności będzie dla Ciebie najlepsza.",
+        "options": [
+          "A teenager running in a park early in the morning.",
+          "Friends playing basketball together on an outdoor court after school.",
+          "A young person swimming lengths alone in a quiet indoor pool."
+        ],
+        "criteria": [
+          "Wybierz aktywność, która najbardziej Ci odpowiada, i uzasadnij wybór.",
+          "Wyjaśnij, dlaczego nie wybierasz pozostałych."
+        ],
+        "questions": [
+          "Why do some young people not do any sport?",
+          "Tell me about a time when you tried a new sport or activity."
+        ]
+      },
+      {
+        "id": "ch-odpoczynek-zdrowie",
+        "topic": "Zdrowie",
+        "situation": "Po ciężkim tygodniu egzaminów chcesz dobrze odpocząć. Wybierasz sposób relaksu na weekend.",
+        "options": [
+          "A girl sleeping late and reading a book in bed.",
+          "A boy doing yoga on a mat in a quiet room with soft music.",
+          "Friends having a picnic on the grass by a calm lake."
+        ],
+        "criteria": [
+          "Wybierz sposób odpoczynku, który najlepiej wpłynie na Twoje zdrowie, i uzasadnij wybór.",
+          "Wyjaśnij, dlaczego odrzucasz pozostałe sposoby."
+        ],
+        "questions": [
+          "Why is it important to take breaks from studying?",
+          "Do you think teenagers today have too much homework? Why?"
+        ]
+      },
+      {
+        "id": "ch-zwierze-dom",
+        "topic": "Świat przyrody",
+        "situation": "Twoja rodzina chce wziąć zwierzę do domu. Musicie zdecydować, jakie będzie najlepsze.",
+        "options": [
+          "A friendly dog that needs a long walk every day.",
+          "A cat sleeping on a sofa and playing with a toy.",
+          "A small tank with colourful fish on a shelf."
+        ],
+        "criteria": [
+          "Wybierz zwierzę, które najlepiej pasuje do Waszej rodziny, i uzasadnij wybór.",
+          "Wyjaśnij, dlaczego pozostałe zwierzęta są mniej odpowiednie."
+        ],
+        "questions": [
+          "Why do many people like having pets?",
+          "What can ordinary people do to protect wild animals?"
+        ]
+      },
+      {
+        "id": "ch-akcja-spoleczna",
+        "topic": "Życie społeczne",
+        "situation": "Twoja szkoła organizuje akcję charytatywną. Uczniowie głosują, w jaki sposób pomóc potrzebującym.",
+        "options": [
+          "Students collecting warm clothes and toys in big boxes.",
+          "A school concert where tickets are sold for charity.",
+          "Teenagers visiting elderly people in a care home."
+        ],
+        "criteria": [
+          "Wybierz akcję, która przyniesie największą korzyść, i uzasadnij wybór.",
+          "Wyjaśnij, dlaczego pozostałe pomysły są mniej skuteczne."
+        ],
+        "questions": [
+          "Why is it important for young people to help others?",
+          "Tell me about a time when you helped someone."
+        ]
+      }
+    ]
+  }
+}

@@ -46,3 +46,9 @@ Egzaminuje Cię nauczyciel w obecności drugiego członka zespołu, który nie b
 2. Odsłuchaj: czy mówisz płynnie, bez długich przerw?
 3. Powtórz nagranie, dodając jeden powód i jeden przykład.
 4. Nagrania zostają tylko na Twoim telefonie.
+
+## Trener matury ustnej
+
+W aplikacji możesz ćwiczyć wszystkie części: losujesz kartę, mówisz na czas, nagrywasz się i odsłuchujesz. Czasy w trenerze są orientacyjne, a aktualny przebieg i punktację sprawdź w informatorze CKE.
+
+[Otwórz trener matury ustnej](#/matura-podstawowa/trening-mowienie)
