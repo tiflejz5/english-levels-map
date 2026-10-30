@@ -3786,6 +3786,7 @@ a.notes-item-title { color: var(--accent); text-decoration: underline; text-unde
 .wz-why, .wz-crit { margin: 20px 0; }
 .wz-crit table { width: 100%; max-width: 36rem; }
 /* ===================== PISANIE: bank zwrotów (paczka v6, spec 17, sekcja 2) ===================== */
+.wz-phrases-link a { color: var(--accent); font-weight: 650; min-height: 44px; display: inline-flex; align-items: center; }
 .wz-phrases-link { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 10px; margin: 12px 0 0; padding: 14px 16px; }
 .zw-root { margin-top: 12px; }
 .zw-filters { flex-direction: row; flex-wrap: wrap; align-items: flex-end; }
