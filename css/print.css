@@ -82,3 +82,8 @@
   .sciaga.md .wiki-link, .sciaga.md .md-wiki, .sciaga.md a.chip { display: none !important; }
   .sciaga-view .view, .sciaga-view { padding: 0 !important; }
 }
+
+@media print {
+  /* Ściąga: słowa w tabelach nie są łamane w środku (kolumna rozszerza się do najdłuższego słowa) */
+  .sciaga.md th, .sciaga.md td { overflow-wrap: break-word !important; word-break: normal !important; hyphens: none; }
+}
