@@ -231,6 +231,9 @@ window.ELM = window.ELM || {};
     }
     // Pod podsumowaniem: karta „Test końcowy A1” (paczka v6, spec 13 sekcja 2)
     if (ELM.levelFinal) view.appendChild(ELM.levelFinal.card(level.id));
+    // Obok podsumowania: karta „Ściąga A2 – jedna strona do druku” (spec v6 16, sekcja 1.2)
+    const sciaga = ELM.niezbednik.sciagaCard(level.id);
+    if (sciaga) view.insertBefore(sciaga, view.querySelector(".lf-level-card"));
 
     U.setScroll(typeof opts.scrollTop === "number" ? opts.scrollTop : scroll);
   }

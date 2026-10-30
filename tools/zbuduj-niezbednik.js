@@ -59,6 +59,15 @@ if (fs.existsSync(summariesDir)) {
   });
 }
 
+// Ściągi poziomów (spec v6 16, sekcja 1): niezbednik/sciagi/<poziom>.md, klucz = kod poziomu
+const sciagi = {};
+const sciagiDir = path.join(ROOT, "sciagi");
+if (fs.existsSync(sciagiDir)) {
+  fs.readdirSync(sciagiDir).filter(function (f) { return /^[abc][12].md$/i.test(f); }).sort().forEach(function (f) {
+    sciagi[f.replace(/.md$/i, "").toUpperCase()] = readMd(path.join(sciagiDir, f));
+  });
+}
+
 // Strona główna
 const homeFile = path.join(ROOT, "strona-glowna.md");
 const home = fs.existsSync(homeFile) ? readMd(homeFile) : null;
@@ -71,12 +80,13 @@ const header =
   " */\n";
 
 const body = "window.ELM = window.ELM || {};\nwindow.ELM.NIEZBEDNIK = " +
-  JSON.stringify({ index: index, pages: pages, summaries: summaries, home: home }, null, 1) + ";\n";
+  JSON.stringify({ index: index, pages: pages, summaries: summaries, sciagi: sciagi, home: home }, null, 1) + ";\n";
 
 fs.writeFileSync(OUT, header + body, "utf8");
 
 console.log("Zapisano: " + path.relative(process.cwd(), OUT));
 console.log("Podstrony: " + Object.keys(pages).length + ", wpisy bez pliku: " + missing.length);
+console.log("Ściągi: " + (Object.keys(sciagi).join(", ") || "brak"));
 console.log("Podsumowania: " + (Object.keys(summaries).join(", ") || "brak") + "; strona główna: " + (home ? "tak" : "brak"));
 warnings.forEach(function (w) { console.log("UWAGA: " + w); });
 

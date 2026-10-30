@@ -25,3 +25,5 @@ english-levels-uszkodzone-*.txt
 
 # Paczki npm (fonty, ikony, GSAP kopiuje do assets/ skrypt: npm run zasoby)
 node_modules/
+
+tmp/

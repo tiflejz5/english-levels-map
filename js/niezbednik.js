@@ -51,7 +51,11 @@ window.ELM = window.ELM || {};
     if (!m) return null;
     let path;
     try { path = decodeURIComponent(m[1]); } catch (e) { path = m[1]; }
-    return { file: path.replace(/\/+$/, "") + ".md" };
+    path = path.replace(/\/+$/, "");
+    // Ściąga poziomu: #/a2/sciaga (niezbednik/sciagi/a2.md)
+    const sc = /^([abc][12])\/sciaga$/i.exec(path);
+    if (sc) return { file: "sciagi/" + sc[1].toLowerCase() + ".md", sciaga: sc[1].toUpperCase() };
+    return { file: path + ".md" };
   }
 
   /** Szuka wpisu index.json po ścieżce pliku. */
@@ -167,6 +171,7 @@ window.ELM = window.ELM || {};
   // =====================================================================
 
   function renderPage(route) {
+    if (route.sciaga) return renderSciaga(route);
     const view = document.getElementById("view");
     computeLinks();
 
@@ -228,6 +233,77 @@ window.ELM = window.ELM || {};
     document.title = (doc.meta.title || found.item.label) + " · English Levels Map";
     if (ELM.profileData) ELM.profileData.setLastPage(location.hash, found.level + " · " + (doc.meta.title || found.item.label));
     U.setScroll(keepScroll);
+  }
+
+  // =====================================================================
+  // ŚCIĄGA POZIOMU (niezbednik/sciagi/<poziom>.md), adres #/a2/sciaga (spec v6 16, sekcja 1)
+  // =====================================================================
+
+  let printPending = false;
+
+  function sciagaRoute(levelId) { return "#/" + levelId.toLowerCase() + "/sciaga"; }
+
+  function sciagaText(levelId) {
+    const d = data();
+    return (d && d.sciagi && d.sciagi[levelId]) || null;
+  }
+
+  function printSciaga() { if (ELM.print) ELM.print.now(); else window.print(); }
+
+  /** Strona ściągi: na ekranie zwykła strona treści z przyciskiem „Drukuj”, w druku jedna kartka A4 w dwóch kolumnach. */
+  function renderSciaga(route) {
+    const view = document.getElementById("view");
+    const levelId = route.sciaga;
+    const text = sciagaText(levelId);
+    const keepScroll = view.dataset.file === route.file ? U.getScroll() : 0;
+    view.className = "view page-view sciaga-view lvl-" + levelId;
+    view.dataset.file = route.file;
+    view.replaceChildren();
+    const back = el("a", { class: "btn btn-ghost back-btn", href: "#/" + levelId.toLowerCase() }, ELM.ui.withIcon("arrow-left", "Wróć do listy " + levelId));
+    if (!text) {
+      view.appendChild(el("div", { class: "page-head" }, back));
+      view.appendChild(el("div", { class: "empty-state" }, el("p", { class: "empty-state-text", text: "Nie ma jeszcze ściągi dla poziomu " + levelId + "." })));
+      document.title = "English Levels Map (A1–C2)";
+      return;
+    }
+    const doc = ELM.markdown.parse(text);
+    const title = doc.meta.title || "Ściąga " + levelId;
+    view.appendChild(el("div", { class: "page-head sciaga-tools" }, [
+      back,
+      el("button", { type: "button", class: "btn btn-primary sciaga-print", onclick: printSciaga }, ELM.ui.withIcon("download", "Drukuj"))
+    ]));
+    view.appendChild(el("header", { class: "sciaga-head" }, [
+      el("span", { class: "sciaga-code", "aria-hidden": "true", text: levelId }),
+      el("div", { class: "sciaga-head-text" }, [
+        el("p", { class: "sciaga-title", text: title }),
+        el("p", { class: "sciaga-sub", text: "Poziom " + levelId + " · English Levels Map" })
+      ])
+    ]));
+    // Nagłówek # z pliku zastępuje powyższy nagłówek strony — nie powtarzamy go w treści
+    const blocks = doc.blocks.filter(function (b, i) { return !(b.type === "heading" && b.level === 1 && i === 0); });
+    const article = el("article", { class: "md sciaga" }, ELM.markdown.render(blocks));
+    view.appendChild(article);
+    document.title = title + " · English Levels Map";
+    if (ELM.profileData) ELM.profileData.setLastPage(location.hash, title);
+    U.setScroll(keepScroll);
+    if (printPending) { printPending = false; setTimeout(printSciaga, 300); }
+  }
+
+  /** Karta „Ściąga A2 – jedna strona do druku” na stronie poziomu (Otwórz / Drukuj) albo null, gdy poziom nie ma ściągi. */
+  function sciagaCard(levelId) {
+    const text = sciagaText(levelId);
+    if (!text) return null;
+    const meta = ELM.markdown.parseFrontmatter(text).meta;
+    return el("section", { class: "card lf-level-card sciaga-card lvl-" + levelId, "aria-labelledby": "sciaga-card-title" }, [
+      el("div", { class: "lf-level-card-body" }, [
+        el("h2", { class: "section-title", id: "sciaga-card-title" }, [el("span", { class: "callout-icon", "aria-hidden": "true" }, ELM.icon("file-text", { size: 20 })), "Ściąga " + levelId + " – jedna strona do druku"]),
+        el("p", { text: meta.summary || "Najważniejsze wzory, zwroty i pułapki poziomu na jednej kartce A4." })
+      ]),
+      el("div", { class: "sciaga-card-actions" }, [
+        el("a", { class: "btn btn-primary", href: sciagaRoute(levelId) }, ELM.ui.withIcon("file-text", "Otwórz")),
+        el("button", { type: "button", class: "btn btn-secondary", onclick: function () { printPending = true; location.hash = sciagaRoute(levelId); } }, ELM.ui.withIcon("download", "Drukuj"))
+      ])
+    ]);
   }
 
   // =====================================================================
@@ -355,6 +431,8 @@ window.ELM = window.ELM || {};
     essentialForTopic: essentialForTopic,
     renderPage: renderPage,
     renderSummary: renderSummary,
+    sciagaCard: sciagaCard,
+    sciagaRoute: sciagaRoute,
     renderHome: renderHome,
     report: report
   };
