@@ -41,7 +41,7 @@ function check(text, where, level) {
   const before = function (n) { const k = names.indexOf(n); return k !== -1 && k < i; };
   if (before("Typowe błędy Polaków")) errors.push(where + ": „Życie i egzamin” musi stać przed „Typowe błędy Polaków”");
   if (before("Ćwiczenie")) errors.push(where + ": „Życie i egzamin” musi stać przed „Ćwiczenie”");
-  const ex = names.findIndex(function (n) { return /^Przykłady/i.test(n); });
+  const ex = names.indexOf("Przykłady");
   if (ex !== -1 && ex > i) errors.push(where + ": „Życie i egzamin” musi stać po „Przykłady”");
   const end = i + 1 < heads.length ? heads[i + 1].pos : text.length;
   const rows = text.slice(heads[i].pos, end).split("\n").filter(function (r) { return r.trim().charAt(0) === "|"; });

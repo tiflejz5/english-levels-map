@@ -150,6 +150,16 @@ Specyfikacja: `docs/rozbudowa-v6/spec/16-sciagi-i-zycie-i-egzamin.md` (sekcja 1)
 - **Układ ściągi w druku:** dwie kolumny (odstęp 6 mm), nagłówek na całą szerokość z kodem poziomu (Fraunces), tabele bez przewijania, tekst 9,5–10 pt. Wymóg odbioru: **1 strona A4** na każdą ściągę; gdy treść się nie mieści, skracaj ją, nie zmniejszaj kroju poniżej 9,5 pt.
 - **Kontrola jednej strony:** `node tools/sciagi-pdf.js` (narzędzie deweloperskie, **nie** część `npm run build`) drukuje każdą ściągę do PDF (domyślnie `tmp/sciagi-pdf/`, poza repozytorium), liczy strony i sprawdza najmniejszy krój. Wymaga Playwrighta (`npm i -D playwright-core` albo `npx playwright install chromium`) i przeglądarki Chromium, Edge lub Chrome; opcje: poziomy (`node tools/sciagi-pdf.js a2 b1`), `--out <folder>`, `--browser msedge|chrome`. Kod wyjścia 1, gdy któraś ściąga ma więcej niż 1 stronę.
 
+## Życie i egzamin (rozbudowa v6, etap 7)
+
+Specyfikacja: `docs/rozbudowa-v6/spec/16-sciagi-i-zycie-i-egzamin.md` (sekcja 2). Na każdej ze **110 podstron** Niezbędnika A1–C2 jest sekcja z parami: zdanie z życia i to samo zjawisko w zadaniu w stylu egzaminu.
+
+- **Format** (Markdown, bez zmian w rendererze): `## Życie i egzamin` i tabela o 3 kolumnach i **3–4 wierszach** – „Z życia” (naturalne zdanie kursywą, tłumaczenie w nawiasie), „W stylu egzaminu” (typ zadania – Uzupełnij / Wybierz / Transformacja z KEY WORD / Przetłumacz fragment / Słowotwórstwo / Popraw błąd – treść, strzałka `→` i **pogrubiona odpowiedź**, jedna poprawna), „Egzamin” (kody rozdzielone ` · `). Sekcja stoi bezpośrednio po „Przykłady” (gdy jej nie ma – po pierwszej sekcji z wyjaśnieniem), zawsze przed „Typowe błędy Polaków” i „Ćwiczenie”.
+- **Kody egzaminów zależą od poziomu podstrony:** A1–A2: E8, MP · B1: E8, MP, MR, B2 · B2: MP, MR, B2, C1 · C1: MR, B2, C1 · C2: C1. Zadania są oryginalne („w stylu”), nie z arkuszy CKE ani Cambridge; typ zadania pasuje do egzaminu z kolumny 3.
+- **Wygląd** (`js/callouts.js`, reguła `real-exam` przed regułą „przykład”; `css/style.css`): callout z ikoną strzałek, w obu motywach (kontrast sprawdzony w `tools/kontrast.js`). Kody w trzeciej kolumnie zamieniane są na chipy w kolorze egzaminu z rejestru (`dane/egzaminy-rejestr.js`), z tekstem (skrót i pełna nazwa dla czytników) i linkiem do strony egzaminu. Poniżej 640 px tabela zamienia się w karty (wiersz = karta: „Z życia” nad „W stylu egzaminu”, chipy na dole), bez przewijania w poziomie. W druku (`css/print.css`) sekcja zostaje zwykłą tabelą.
+- **Walidacja:** `node tools/waliduj-zycie.js` (część `npm run validate` i `npm run build`; te same reguły co część `zycie` w `docs/rozbudowa-v6/scripts/validate_v6.py`): dokładnie jedna sekcja na podstronę, miejsce w pliku, 3–4 wiersze po 3 kolumny, kursywa i nawias w kolumnie 1, `→ **odpowiedź**` w kolumnie 2, kody dozwolone dla poziomu. Ostrzega o tej samej odpowiedzi w jednej tabeli i o braku typu zadania na początku kolumny 2. Pełne sprawdzenie: `python3 docs/rozbudowa-v6/scripts/validate_v6.py . --only zycie`.
+- **Dodawanie lub zmiana:** edytuj sekcję w pliku `niezbednik/<poziom>/<podstrona>.md` (nie zmieniaj innych sekcji), potem `node tools/zbuduj-niezbednik.js` i zwiększ `?v=…` w `index.html`.
+
 ## Testy
 
 ```bash
