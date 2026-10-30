@@ -1398,5 +1398,46 @@ test("examBoxAnchor: ramki egzaminów przed „Życie i egzamin” na 3 podstron
   assert.strictEqual(EL.examBoxAnchorIndex(["Budowa", "Przykłady"]), -1);
 });
 
+test("myExams: data, zestaw, odpięty, przypięty, data w przeszłości, C1 z elm_c1_v1", function () {
+  const EL = global.ELM.examLogic;
+  const registry = { exams: [
+    { id: "e8", status: "active", setIds: ["e8-1", "e8-2"] },
+    { id: "mp", status: "active", setIds: ["mp-1"] },
+    { id: "mr", status: "active", setIds: [] },
+    { id: "soon", status: "soon", setIds: [] },
+    { id: "c1", status: "active", existing: true, setIds: ["c1-a", "c1-b"] }
+  ] };
+  const today = "2026-10-30";
+  function run(input) { return EL.myExams(EL.examMyState(Object.assign({ registry: registry, examsRecord: { exams: {} }, c1: {}, isSetDone: function () { return false; } }, input)), registry, today); }
+  assert.deepStrictEqual(run({}), [], "bez danych nic nie jest moje");
+  // data
+  assert.deepStrictEqual(run({ examsRecord: { exams: { mp: { examDate: "2027-05-06" } } } }), [{ id: "mp", reason: "date", days: 188 }]);
+  // zestaw
+  assert.deepStrictEqual(run({ isSetDone: function (id) { return id === "e8-2"; } }), [{ id: "e8", reason: "sets", days: null }]);
+  // odpięty ręcznie (data i zestaw nie wystarczą)
+  assert.deepStrictEqual(run({ examsRecord: { exams: { mp: { examDate: "2027-05-06" } }, my: { mp: "hidden" } } }), []);
+  // przypięty bez daty i zestawów; egzamin „soon” nigdy
+  assert.deepStrictEqual(run({ examsRecord: { exams: {}, my: { mr: "pinned", soon: "pinned" } } }), [{ id: "mr", reason: "pinned", days: null }]);
+  // data w przeszłości: nadal moje, po przyszłych, przed egzaminami bez daty
+  const mixed = run({
+    examsRecord: { exams: { e8: { examDate: "2026-10-27" }, mp: { examDate: "2027-05-06" } }, my: { mr: "pinned" } },
+    c1: { examDate: "2027-01-10" }
+  });
+  assert.deepStrictEqual(mixed.map(function (x) { return x.id; }), ["c1", "mp", "e8", "mr"]);
+  assert.strictEqual(mixed[2].days, -3);
+  // C1: data z elm_c1_v1 albo najlepszy wynik zestawu
+  assert.deepStrictEqual(run({ c1: { examDate: "2026-10-31" } }), [{ id: "c1", reason: "date", days: 1 }]);
+  assert.deepStrictEqual(run({ c1: { best: { "c1-b": 7 } } }), [{ id: "c1", reason: "sets", days: null }]);
+});
+
+test("formatDatePl i daysBetween", function () {
+  const EL = global.ELM.examLogic;
+  assert.strictEqual(EL.formatDatePl("2027-05-06"), "czwartek, 6 maja 2027");
+  assert.strictEqual(EL.formatDatePl("2027-05-12"), "środa, 12 maja 2027");
+  assert.strictEqual(EL.formatDatePl("zle"), "");
+  assert.strictEqual(EL.daysBetween("2026-11-01", "2026-10-30"), 2);
+  assert.strictEqual(EL.daysBetween("2026-10-29", "2026-10-30"), -1);
+});
+
 console.log("\nWynik: " + passed + " ok, " + failures.length + " błędów");
 if (failures.length) process.exit(1);

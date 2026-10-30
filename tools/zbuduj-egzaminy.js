@@ -85,6 +85,17 @@ exams.forEach(function (exam) {
   summary.push(exam.id + ": strony " + Object.keys(pages).length + ", zestawy C1 " + Object.keys(exercises).length + ", trenery " + Object.keys(trainers).length + ", powiązania " + (links[exam.id] || []).length);
 });
 
+// Id zestawów każdego egzaminu (także C1) — do postępu „zestawy 4/12” i do „Moich egzaminów” bez wczytywania danych egzaminu
+exams.forEach(function (exam) {
+  const file = path.join(N, exam.id, "manifest.json");
+  if (exam.status !== "active" || !fs.existsSync(file)) return;
+  const ids = [];
+  readJson(file).sections.forEach(function (sec) {
+    (sec.exerciseGroups || []).forEach(function (g) { g.sets.forEach(function (s) { ids.push(s.id); }); });
+  });
+  exam.setIds = ids;
+});
+
 fs.writeFileSync(path.join(ROOT, "dane", "egzaminy-rejestr.js"),
   "/* Rejestr egzaminów — GENEROWANY przez tools/zbuduj-egzaminy.js z dane/egzaminy-manifest.json, nie edytuj ręcznie. */\n" +
   "window.ELM = window.ELM || {};\nELM.EXAM_REGISTRY = " + JSON.stringify({ version: 1, exams: exams, links: links, boxTitles: boxTitles, sets: sets }) + ";\n", "utf8");
