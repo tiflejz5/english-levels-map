@@ -1720,25 +1720,6 @@ textarea.field { overflow: auto; }
   padding: 28px 32px;
   background: linear-gradient(135deg, var(--surface) 40%, var(--surface-2));
 }
-.bento-hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: var(--topo-color);
-  opacity: calc(var(--topo-opacity) * 1.4);
-  -webkit-mask-image: var(--topo-mask), linear-gradient(to left, var(--ink) 30%, transparent 85%);
-  mask-image: var(--topo-mask), linear-gradient(to left, var(--ink) 30%, transparent 85%);
-  -webkit-mask-size: cover, 100% 100%;
-  mask-size: cover, 100% 100%;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-position: right center, 0 0;
-  mask-position: right center, 0 0;
-  -webkit-mask-composite: source-in;
-  mask-composite: intersect;
-  pointer-events: none;
-}
 .hero-text { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
 .today-date { font-size: var(--fs-sm); font-weight: 600; color: var(--ink-muted); margin: 0; }
 .today-date::first-letter { text-transform: uppercase; }
@@ -1987,31 +1968,9 @@ textarea.field { overflow: auto; }
 ::-webkit-scrollbar-thumb { border: 3px solid transparent; border-radius: var(--radius-pill); background: var(--scrollbar); background-clip: padding-box; }
 ::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-hover); background-clip: padding-box; }
 
-/* Tło warstwicowe (mapa topograficzna): statyczny wzór SVG (assets/warstwice.svg jako maska),
-   tylko za nagłówkami / hero — nigdy za tekstem treści. Kolor i krycie z tokenów. */
-/* overflow-x: clip — wzór może wystawać poza nagłówek, ale nigdy poza widok (bez przewijania w poziomie) */
+/* Warstwice (--topo-*) są tylko w Szlaku (C2); nagłówki i hero ich nie mają. */
+/* overflow-x: clip — nic nie wystaje poza widok (bez przewijania w poziomie) */
 .view { overflow-x: clip; }
-.level-header, .tool-head, .home-view .md > h1:first-child, .c1-view .c1-title { position: relative; isolation: isolate; }
-.level-header::before, .tool-head::before, .home-view .md > h1:first-child::before, .c1-view .c1-title::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  inset: -56px -48px -24px auto;
-  width: min(720px, 100%);
-  background: var(--topo-color);
-  opacity: var(--topo-opacity);
-  pointer-events: none;
-  -webkit-mask-image: var(--topo-mask), linear-gradient(to left, var(--ink) 35%, transparent);
-  mask-image: var(--topo-mask), linear-gradient(to left, var(--ink) 35%, transparent);
-  -webkit-mask-size: cover, 100% 100%;
-  mask-size: cover, 100% 100%;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-position: right top, 0 0;
-  mask-position: right top, 0 0;
-  -webkit-mask-composite: source-in;
-  mask-composite: intersect;
-}
 
 /* ===================== LEWY PANEL (etap 2, DESIGN.md sekcja 3.1) =====================
    .sidebar         — kontener (nie zajmuje miejsca w przepływie: panel jest fixed)
@@ -2532,7 +2491,6 @@ textarea.field { overflow: auto; }
 .c1-masthead-days { font-family: var(--font-display); font-size: var(--fs-3xl); font-weight: 650; line-height: 1; letter-spacing: -0.03em; color: var(--accent); }
 .c1-masthead-unit { font-size: var(--fs-sm); font-weight: 600; color: var(--ink-muted); }
 .c1-masthead-note { margin: 0; font-size: var(--fs-sm); font-weight: 600; color: var(--accent); }
-.c1-view .c1-title::before { display: none; } /* bez warstwic: nagłówkiem sekcji jest znak napisowy */
 
 /* Ćwiczenia: wygląd arkusza egzaminacyjnego */
 .c1-ex.card {
