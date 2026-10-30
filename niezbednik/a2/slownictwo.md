@@ -17,6 +17,14 @@ Na A2 podwajasz zasób słów z A1 – do ok. 1000–1500. Dochodzą tematy, w k
 - **Zapisuj z kolokacją:** nie *headache*, tylko *have a headache*.
 - **Phrasal verbs ucz się z przykładem**, nie jako listy.
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *I need to book a flight and a hotel.* (Muszę zarezerwować lot i hotel.) | Wybierz: I'd like to ___ a room for two nights. a) make b) book c) do → **b** | E8 · MP |
+| *The weather is lovely today.* (Dziś jest śliczna pogoda.) | Uzupełnij: The ___ (pogoda) is lovely today. → **weather** | E8 |
+| *My brother works as a waiter.* (Mój brat pracuje jako kelner.) | Przetłumacz fragment: My mum is a ___ (pielęgniarka). → **nurse** | E8 · MP |
+
 ## Grupy tematyczne
 
 **Podróże:** *airport, flight, passport, luggage, delay, platform, ticket, timetable, check in, book, abroad, sightseeing*

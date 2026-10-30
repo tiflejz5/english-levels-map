@@ -53,6 +53,14 @@ W angielskim jest jedno przeczenie w zdaniu. *Never* już jest przeczeniem:
 | She never eats meat. | Ona nigdy nie je mięsa. |
 | How often do you see your parents? – Once a month. | Jak często widujesz rodziców? – Raz w miesiącu. |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *I often walk to school, but I'm never late.* (Często chodzę do szkoły pieszo, ale nigdy się nie spóźniam.) | Uzupełnij: She ___ (always / be) late. → **is always** | E8 · MP |
+| *We usually have dinner at seven.* (Zwykle jemy kolację o siódmej.) | Wybierz: a) I go often to the gym. b) I often go to the gym. c) I go to often the gym. → **b** | E8 |
+| *How often do you visit your grandma?* (Jak często odwiedzasz babcię?) | Popraw błąd: He plays never tennis. → **He never plays tennis.** | E8 |
+
 ## Typowe błędy Polaków
 
 - ❌ *I go always to work by bus.* → ✅ *I always go to work by bus.*

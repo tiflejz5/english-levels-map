@@ -21,6 +21,14 @@ Herbata czy kawa? Miasto czy wieś? Pytania o preferencje to idealny materiał d
 | I like A more than B. | rzeczownik / -ing | *I like summer more than winter.* |
 | A is better / nicer than B. | stopniowanie | *The city is more exciting than the countryside.* |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *I prefer tea to coffee.* (Wolę herbatę od kawy.) | Uzupełnij: I prefer swimming ___ running. → **to** | E8 · MP |
+| *I'd rather stay at home tonight.* (Wolałbym zostać dziś w domu.) | Wybierz: I'd rather ___ at home. a) to stay b) staying c) stay → **c** | E8 |
+| *Which do you like more, cats or dogs?* (Które lubisz bardziej, koty czy psy?) | Popraw błąd: I prefer tea than coffee. → **I prefer tea to coffee.** | E8 |
+
 ## Pytania
 
 - *Which do you prefer, tea or coffee?*

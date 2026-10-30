@@ -48,6 +48,14 @@ Typowe połączenia: *I think…will, I don't think…will, probably, maybe, I'm
 | Will you be at home tonight? | Będziesz dziś wieczorem w domu? |
 | Shall we take a taxi? | Weźmiemy taksówkę? |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *I think it will rain later.* (Chyba później będzie padać.) | Uzupełnij: I don't think she ___ (come) to the party. → **will come** | E8 · MP |
+| *The phone's ringing. – I'll get it.* (Telefon dzwoni. – Odbiorę.) | Wybierz: It's cold in here. – OK, I ___ the window. a) close b) 'll close c) am closing → **b** | E8 |
+| *Shall I open the window?* (Mam otworzyć okno?) | Popraw błąd (zacznij od Shall): Will I carry your bag? (propozycja) → **Shall I carry your bag?** | E8 |
+
 ## Typowe błędy Polaków
 
 - ❌ *I will to go.* → ✅ *I will go.*

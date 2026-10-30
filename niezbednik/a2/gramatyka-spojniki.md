@@ -51,6 +51,14 @@ To samo, w odwrotnej kolejności:
 | We had dinner and then we watched a film. | Zjedliśmy kolację, a potem obejrzeliśmy film. |
 | Do you want to stay or go? | Chcesz zostać czy iść? |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *I was tired, so I went to bed early.* (Byłem zmęczony, więc wcześnie poszedłem spać.) | Uzupełnij: I stayed at home b___ it was raining. → **because** | E8 · MP |
+| *I like pizza, but my sister prefers pasta.* (Lubię pizzę, ale moja siostra woli makaron.) | Wybierz: I was hungry, ___ I made a sandwich. a) but b) because c) so → **c** | E8 |
+| *We had pizza and then we watched a film.* (Zjedliśmy pizzę, a potem obejrzeliśmy film.) | Wybierz: First we had lunch, ___ we went for a walk. a) because b) then c) but → **b** | E8 · MP |
+
 ## Typowe błędy Polaków
 
 - ❌ *Because I was tired.* jako samodzielne zdanie w piśmie → połącz: *I went to bed because I was tired.*

@@ -46,6 +46,14 @@ W pytaniu o podmiot w czasie teraźniejszym czasownik ma *-s*: ***Who lives** he
 | Which team won? | Która drużyna wygrała? |
 | How many people came? | Ile osób przyszło? |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *Who called you?* (Kto do ciebie dzwonił?) | Wybierz: a) Who did call you? b) Who called you? c) Who you called? → **b** | E8 · MP |
+| *What happened? – Nothing.* (Co się stało? – Nic.) | Popraw błąd: Who did break the window? → **Who broke the window?** | E8 |
+| *Who lives next door?* (Kto mieszka obok?) | Uzupełnij pytaniem o podmiot: Someone lives in this flat. → ___ lives in this flat? → **Who** | E8 · MP |
+
 ## Typowe błędy Polaków
 
 - ❌ *What did happen?* → ✅ *What happened?*

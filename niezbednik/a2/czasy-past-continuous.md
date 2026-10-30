@@ -44,6 +44,14 @@ Past Continuous opisuje czynność, która **trwała** w jakimś momencie w prze
 | While I was cooking, the kids were playing. | Kiedy gotowałem, dzieci się bawiły. |
 | The sun was shining and birds were singing. | Świeciło słońce i śpiewały ptaki. |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *I was cooking when you called.* (Gotowałem, kiedy zadzwoniłeś.) | Uzupełnij: At eight o'clock yesterday I ___ (have) a shower. → **was having** | E8 · MP |
+| *They were playing football when it started to rain.* (Grali w piłkę, kiedy zaczęło padać.) | Wybierz: What ___ you doing at eight last night? a) was b) did c) were → **c** | E8 |
+| *She was sleeping when I arrived.* (Spała, kiedy przyjechałem.) | Popraw błąd: They was watching TV at nine. → **They were watching TV at nine.** | E8 |
+
 ## Typowe błędy Polaków
 
 - ❌ *When I cooked, he called.* (gdy chodzi o tło) → ✅ *When I **was cooking**, he called.*

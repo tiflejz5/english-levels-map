@@ -53,6 +53,14 @@ Gdy po jednym czasowniku stoi drugi, ten drugi ma formę **-ing** albo **to + be
 | We're planning to move. | Planujemy się przeprowadzić. |
 | Thanks for helping me. | Dzięki za pomoc. |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *I enjoy dancing and I want to learn Spanish.* (Lubię tańczyć i chcę uczyć się hiszpańskiego.) | Uzupełnij: She wants ___ (visit) London. → **to visit** | E8 · MP |
+| *I'm interested in learning languages.* (Interesuje mnie nauka języków.) | Wybierz: My dad enjoys ___ football. a) watching b) to watch c) watch → **a** | E8 |
+| *I decided to stay at home.* (Postanowiłem zostać w domu.) | Popraw błąd: I can to swim very well. → **I can swim very well.** | E8 |
+
 ## Typowe błędy Polaków
 
 - ❌ *I want going.* → ✅ *I want to go.*

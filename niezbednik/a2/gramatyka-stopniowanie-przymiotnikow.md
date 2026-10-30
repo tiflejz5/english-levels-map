@@ -50,6 +50,14 @@ Stopniowanie pozwala porównywać: tańszy, najlepszy, bardziej interesujący. W
 | He isn't as old as he looks. | Nie jest tak stary, na jakiego wygląda. |
 | That was the worst film I've ever seen. | To był najgorszy film, jaki widziałem. |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *This phone is cheaper than that one.* (Ten telefon jest tańszy od tamtego.) | Uzupełnij: A train is ___ (fast) than a bus. → **faster** | E8 · MP |
+| *It's the most expensive shop in town.* (To najdroższy sklep w mieście.) | Wybierz: She is ___ student in our class. a) good b) better c) the best → **c** | E8 |
+| *My bag is bigger than yours.* (Moja torba jest większa niż twoja.) | Popraw błąd: This film is more good than that one. → **This film is better than that one.** | E8 |
+
 ## Typowe błędy Polaków
 
 - ❌ *more cheaper* → ✅ *cheaper* – nie łącz *more* z *-er*.

@@ -22,6 +22,14 @@ W obcym mieście telefon może się rozładować. Kilka zwrotów wystarczy, żeb
 | Can I walk there? | Da się tam dojść pieszo? |
 | Could you show me on the map? | Może mi pan pokazać na mapie? |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *Excuse me, how do I get to the station?* (Przepraszam, jak dojść na dworzec?) | Wybierz: Go straight on and ___ left at the bank. a) turn on b) turn c) go to → **b** | E8 · MP |
+| *It's on your right, next to the post office.* (To po prawej, obok poczty.) | Uzupełnij: The bank is ___ the left, next to the post office. → **on** | E8 |
+| *It's five minutes' walk from here.* (To pięć minut spacerem stąd.) | Popraw błąd: Where is station, please? → **Where is the station, please?** | E8 |
+
 ## Wskazywanie drogi
 
 | Zwrot | Polski |

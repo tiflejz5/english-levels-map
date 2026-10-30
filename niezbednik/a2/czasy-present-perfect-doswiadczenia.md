@@ -52,6 +52,14 @@ Gdy podajesz kiedy → Past Simple: *I've been to London. I **went** there **in 
 | I haven't read your email yet. | Jeszcze nie przeczytałem twojego maila. |
 | Have you booked the tickets yet? | Zarezerwowałeś już bilety? |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *Have you ever tried Georgian food?* (Próbowałeś kiedyś kuchni gruzińskiej?) | Wybierz reakcję: – Have you ever been to a music festival? a) Yes, I've been to two. b) Yes, I go last year. c) No, I haven't go. → **a** | E8 · MP |
+| *I've never seen snow in May before!* (Nigdy wcześniej nie widziałem śniegu w maju!) | Uzupełnij formą czasownika: My grandma ___ (never / use) a smartphone. → **has never used** | E8 |
+| *We've already eaten, thanks.* (Już zjedliśmy, dzięki.) | Przetłumacz fragment: ___ (Czy byłeś kiedyś) to London? → **Have you ever been** | E8 · MP |
+
 ## Typowe błędy Polaków
 
 - ❌ *Have you ever been in London last year?* → ✅ *Were you in London last year?*
