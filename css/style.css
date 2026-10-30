@@ -584,6 +584,8 @@
   --tracking-display: -0.02em;   /* duże nagłówki: ciaśniej */
   --tracking-caps: 0.08em;       /* małe etykiety WERSALIKAMI */
   --measure: 70ch;               /* wygodna długość linii w treściach */
+  --w-text: 720px;               /* strony do czytania (kolumna wyrównana do lewej) */
+  --w-wide: 1000px;              /* siatki i kokpity: szerokość kontenera widoku */
 
   /* Odstępy */
   --space-1: 4px;
@@ -696,7 +698,7 @@ button, input, textarea, select { font: inherit; color: inherit; }
 :root[data-sidebar="pinned"] .main { margin-left: var(--panel-w); }
 
 .view {
-  max-width: 980px;
+  max-width: var(--w-wide);
   margin: 0 auto;
   padding: 12px 56px 96px;
 }
@@ -979,7 +981,7 @@ textarea.field { resize: vertical; min-height: 44px; overflow: hidden; }
 
 /* ===================== KOMUNIKATY (banery) ===================== */
 .banners:empty { display: none; }
-.banners { max-width: 980px; margin: 0 auto; padding: 20px 56px 0; display: flex; flex-direction: column; gap: 10px; }
+.banners { max-width: var(--w-wide); margin: 0 auto; padding: 20px 56px 0; display: flex; flex-direction: column; gap: 10px; }
 .banner {
   display: flex;
   align-items: center;
@@ -1110,7 +1112,6 @@ textarea.field { resize: vertical; min-height: 44px; overflow: hidden; }
 }
 
 /* ===================== PODSTRONA NIEZBĘDNIKA ===================== */
-.page-view { max-width: 860px; }
 .page-head {
   display: flex;
   align-items: center;
@@ -1195,7 +1196,6 @@ textarea.field { resize: vertical; min-height: 44px; overflow: hidden; }
 .level-summary p:last-child { margin-bottom: 0; }
 
 /* ===================== STRONA GŁÓWNA ===================== */
-.home-view { max-width: 860px; }
 .home-view .md { padding-top: 12px; }
 .home-view .md h1 { font-size: var(--fs-3xl); }
 .level-link {
@@ -1309,7 +1309,6 @@ textarea.field { resize: vertical; min-height: 44px; overflow: hidden; }
 .c1-nav-badge { flex-shrink: 0; padding: 1px 7px; border-radius: var(--radius-pill); background: var(--success-soft); color: var(--success); font-size: var(--fs-2xs); font-weight: 600; }
 
 /* ===================== STRONY ZAKŁADKI C1 ===================== */
-.c1-view { max-width: 900px; }
 .c1-crumb { margin-bottom: 14px; font-size: var(--fs-xs-plus); color: var(--ink-muted); }
 .c1-crumb a { color: var(--accent); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
 .c1-crumb a:hover { text-decoration-thickness: 2px; }
@@ -1615,7 +1614,6 @@ html.theme-anim *::after {
 }
 
 /* ===================== WIDOKI NAUKI (Dziś, Dziennik, Test) ===================== */
-.tool-view { max-width: 900px; }
 .tool-head { margin-bottom: 20px; }
 .tool-title { font-size: var(--fs-2xl); font-weight: 640; line-height: var(--lh-tight); margin-bottom: 8px; }
 .tool-lead { color: var(--ink-muted); max-width: var(--measure); }
@@ -1681,7 +1679,6 @@ textarea.field { overflow: auto; }
 }
 
 /* ===================== STRONA „DZIŚ” — kokpit (układ bento, DESIGN.md sekcja 3.2) ===================== */
-.today-view { max-width: 1120px; }
 .bento {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -2368,7 +2365,7 @@ textarea.field { overflow: auto; }
 .lt-dot.is-ok { background: var(--success-fill); border-color: var(--success-fill); }
 .lt-dot.is-bad { background: var(--danger-bg); border-color: var(--danger-bg); }
 .lt-dot.is-current { transform: scale(1.15); box-shadow: 0 0 0 3px var(--surface), 0 0 0 5px var(--accent); }
-.lt-card { max-width: 760px; }
+.lt-card { max-width: none; }
 .lt-question { font-family: var(--font-display); font-size: var(--fs-xl); font-weight: 600; letter-spacing: -0.01em; }
 .lt-option-text { flex: 1; min-width: 0; }
 .lt-tag { flex-shrink: 0; padding: 2px 10px; border-radius: var(--radius-pill); font-size: var(--fs-xs); font-weight: 700; }
@@ -2395,7 +2392,7 @@ textarea.field { overflow: auto; }
 .journal-entry .c1-chip, .review-card .c1-chip { background: color-mix(in srgb, var(--cat) 14%, var(--surface)); color: var(--ink); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--cat) 40%, transparent); }
 
 /* Sesja powtórek: duża karta, dwa wyraźne przyciski */
-.review-card { padding: 32px 36px; max-width: 760px; }
+.review-card { padding: 32px 36px; }
 .review-context { font-family: var(--font-display); font-size: var(--fs-xl); font-weight: 560; line-height: 1.45; }
 .review-card .tool-actions { gap: 12px; }
 .review-btn { min-height: 48px; padding: 10px 22px; font-size: var(--fs-md); }
@@ -2583,7 +2580,6 @@ html.focus-mode .c1-writing-area { box-shadow: 0 0 0 4px var(--accent-soft); }
 /* ===================== ĆWICZENIA — silnik zadań (rozbudowa v2, DESIGN.md sekcja 3.9) ===================== */
 .tool-eyebrow { margin: 0 0 6px; font-size: var(--fs-xs-plus); font-weight: 600; color: var(--ink-muted); }
 .tool-eyebrow a { color: var(--accent); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
-.ex-view .card { max-width: 780px; }
 .ex-loading { padding: 24px 0; }
 
 /* Ekran startowy */
@@ -2855,7 +2851,6 @@ html.focus-mode .c1-writing-area { box-shadow: 0 0 0 4px var(--accent-soft); }
 .lab-group-past { --tense: var(--tense-past); }
 .lab-group-present { --tense: var(--tense-present); }
 .lab-group-future { --tense: var(--tense-future); }
-.lab-view { max-width: 1080px; }
 .lab-head .tool-title { display: flex; align-items: center; gap: 12px; }
 .lab-head-icon { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); flex-shrink: 0; }
 
@@ -2987,7 +2982,6 @@ a.lab-tile:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover);
 }
 
 /* ===================== CENTRUM ĆWICZEŃ (rozbudowa v2, DESIGN.md sekcja 3.9) ===================== */
-.hub-view { max-width: 1080px; }
 .hub-view .tool-title { display: flex; align-items: center; gap: 12px; }
 .hub-section { margin-bottom: 34px; scroll-margin-top: 80px; }
 .hub-section:focus { outline: none; }
@@ -3070,7 +3064,6 @@ a.lab-tile:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover);
 .menu-switch[aria-checked="true"] .switch-thumb { transform: translateX(16px); background: var(--on-accent); }
 
 /* ===================== STATYSTYKI (rozbudowa v2, DESIGN.md sekcja 3.11) ===================== */
-.st-view { max-width: 1080px; }
 .st-view .tool-title { display: flex; align-items: center; gap: 12px; }
 .st-grid-layout { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 .st-tile { padding: 20px 22px; min-width: 0; }
@@ -3874,3 +3867,9 @@ a.notes-item-title { color: var(--accent); text-decoration: underline; text-unde
 .sp-full-steps li { padding: 4px 12px; border: 1px solid var(--line-strong, var(--line)); border-radius: var(--radius-pill); font-size: var(--fs-sm); color: var(--ink-muted); }
 .sp-full-steps li[aria-current="step"] { background: var(--accent-soft); border-color: var(--accent); color: var(--ink); font-weight: 700; }
 .sp-recordings { display: grid; gap: 12px; margin: 12px 0; }
+
+/* ===================== A1: JEDNA LEWA KRAWĘDŹ ===================== */
+/* Kontener .view ma --w-wide; strony tekstowe mają kolumnę --w-text przy lewej krawędzi. */
+.page-view > *, .home-view > *, .c1-view > *, .ex-view > *, .lt-view > * { max-width: var(--w-text); }
+.page-view > .wide, .c1-view > .wide, .c1-view > .c1-set-grid, .ex-view > .ex-set-grid,
+.c1-view > .wz-card-list, .page-view > .wz-card-list { max-width: none; }
