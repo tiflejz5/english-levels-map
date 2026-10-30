@@ -2214,9 +2214,11 @@ textarea.field { overflow: auto; }
 .celebration-title { margin: 0; font-family: var(--font-display); font-size: var(--fs-lg); font-weight: 640; letter-spacing: -0.01em; }
 .celebration-text { margin: 2px 0 0; font-size: var(--fs-sm); color: var(--ink-muted); }
 .celebration-close { width: 44px; height: 44px; border-color: transparent; background: transparent; flex-shrink: 0; }
-.confetti { position: absolute; left: 50%; top: 10px; width: 0; height: 0; pointer-events: none; }
-.confetti-piece { position: absolute; left: -4px; top: -6px; width: 8px; height: 12px; border-radius: 2px; }
-.confetti-piece.is-dot { width: 8px; height: 8px; border-radius: 50%; }
+/* C5: fragment Szlaku na karcie gratulacji (kółko krainy z pierścieniem; pieczątka przy zaliczonym teście) */
+.celebration-trail { position: relative; display: inline-grid; place-items: center; flex-shrink: 0; }
+.celebration-trail .ring-fill { transition-duration: 600ms; }
+.celebration-trail .ring { background: var(--surface); border-radius: 50%; }
+.celebration-trail .stamp { position: absolute; top: -4px; right: -8px; }
 
 /* ===================== STRONY POZIOMÓW (etap 3, DESIGN.md sekcja 3.4) ===================== */
 /* Na stronie poziomu i jego podstronach akcent przyjmuje kolor krainy (linki, aktywne elementy, chipy, fokus) */
@@ -3957,3 +3959,4 @@ a.notes-item-title { color: var(--accent); text-decoration: underline; text-unde
 @keyframes ex-hl-mark { to { background-size: 100% 100%; } }
 .ex-hl-line { margin: 4px 0 0; }
 .ex-gap-text.ex-hl { white-space: nowrap; }
+.stamp.is-fresh { animation: umiem-stamp 220ms var(--ease-out); }
