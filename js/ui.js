@@ -226,7 +226,7 @@ window.ELM = window.ELM || {};
 
   // =====================================================================
   // TOAST — nienachalny komunikat u dołu ekranu (role="status"), opcjonalnie z przyciskiem
-  //   ELM.ui.toast({ text, action: { label, onClick }, duration: 5000 })
+  //   ELM.ui.toast({ text, action: { label, onClick }, duration: 5000 })  albo  actions: [{ label, onClick }, …]
   // Jeden naraz; najechanie myszą albo fokus wstrzymują znikanie.
   // =====================================================================
 
@@ -245,10 +245,13 @@ window.ELM = window.ELM || {};
     const card = el("div", { class: "toast" }, [
       opts.icon ? el("span", { class: "toast-icon", "aria-hidden": "true" }, icon(opts.icon, { size: 18 })) : null,
       el("span", { class: "toast-text", text: opts.text }),
-      opts.action ? el("button", {
-        type: "button", class: "btn btn-ghost btn-small toast-action",
-        onclick: function () { hideToast(); opts.action.onClick(); }
-      }, opts.action.label) : null,
+      // jedna akcja (action) albo kilka (actions: [{ label, onClick }, …], np. „Dodaj znaczenie” i „Cofnij”)
+      (opts.actions || (opts.action ? [opts.action] : [])).map(function (a) {
+        return el("button", {
+          type: "button", class: "btn btn-ghost btn-small toast-action",
+          onclick: function () { hideToast(); a.onClick(); }
+        }, a.label);
+      }),
       el("button", { type: "button", class: "icon-btn toast-close", "aria-label": "Zamknij komunikat", onclick: hideToast }, icon("x", { size: 16 }))
     ]);
     toastBox.replaceChildren(card);

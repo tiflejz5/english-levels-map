@@ -3035,12 +3035,12 @@ a.lab-tile:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover);
 /* ===================== AUTOMATYCZNY DZIENNIK BŁĘDÓW, TOAST, USTAWIENIA NAUKI (rozbudowa v2, etap 2) ===================== */
 .toast-region { position: fixed; left: 50%; bottom: 20px; z-index: 60; transform: translateX(-50%); width: min(560px, calc(100vw - 32px)); pointer-events: none; }
 .toast {
-  display: flex; align-items: center; gap: 10px; padding: 8px 8px 8px 16px; pointer-events: auto;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 8px 8px 8px 16px; pointer-events: auto;
   border-radius: var(--radius); background: var(--inverse-bg); color: var(--inverse-text); box-shadow: var(--shadow-lg);
   animation: toast-in var(--dur-base) var(--ease-out);
 }
 .toast-icon { display: grid; place-items: center; flex-shrink: 0; }
-.toast-text { flex: 1; min-width: 0; font-size: var(--fs-sm-plus); font-weight: 560; }
+.toast-text { flex: 1 1 11rem; min-width: 0; font-size: var(--fs-sm-plus); font-weight: 560; }
 .toast .toast-action { min-height: 44px; color: inherit; text-decoration: underline; text-underline-offset: 3px; }
 .toast .toast-action:hover { background: color-mix(in srgb, var(--inverse-text) 12%, transparent); }
 .toast .toast-close { width: 44px; height: 44px; color: inherit; border-color: transparent; background: transparent; }
@@ -3504,7 +3504,7 @@ a.notes-item-title { color: var(--accent); text-decoration: underline; text-unde
 
 /* ===================== FISZKI (js/fiszki.js, spec 10) ===================== */
 /* Elementy ukrywane atrybutem hidden (przycisk przy zaznaczeniu, pola formularza) nie mogą wracać przez display */
-.fiszki-view [hidden], .fc-sel-btn[hidden] { display: none; }
+.fiszki-view [hidden] { display: none; }
 .btn-large { min-height: 52px; padding: 12px 24px; font-size: var(--fs-md); }
 .fiszki-view .tool-title { display: flex; align-items: center; gap: 12px; }
 .fc-hero { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 20px 24px; margin-bottom: 24px; }
@@ -3568,6 +3568,19 @@ a.notes-item-title { color: var(--accent); text-decoration: underline; text-unde
 @media (prefers-reduced-motion: reduce) { .fc-backside.is-anim { animation: none; } .fc-switch-track, .fc-switch-thumb { transition: none; } }
 .fc-answer { color: var(--accent); }
 .fc-extra { margin: 6px 0 0; }
+.fc-words-tile { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; margin-bottom: var(--space-4, 16px); }
+.fw-row .fc-row-main { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.fw-word { font-size: 1.1rem; }
+.fw-meaning { max-width: 28rem; min-height: 44px; }
+.fw-mark { background: var(--accent-soft, rgba(37, 99, 235, .15)); color: inherit; font-weight: 700; border-radius: 3px; padding: 0 2px; }
+.fw-saved { text-decoration: underline dotted; text-decoration-thickness: 2px; text-underline-offset: 4px; text-decoration-color: var(--accent); cursor: help; border-radius: 3px; }
+.fw-saved:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.fw-tip { position: fixed; z-index: 90; max-width: min(320px, calc(100vw - 16px)); padding: 6px 10px; border-radius: 8px; background: var(--surface-raised, var(--surface, #fff)); color: var(--text, inherit); border: 1px solid var(--border-strong, var(--border, #888)); box-shadow: 0 4px 14px rgba(0, 0, 0, .18); font-size: .9rem; pointer-events: none; }
+.fw-tip[hidden] { display: none; }
+.fw-source { font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+.fw-source:focus-visible, .fw-row:focus-visible { outline: 2px solid var(--focus, currentColor); outline-offset: 2px; }
+.fc-example-list { list-style: disc; margin: 2px 0 0; padding-left: 20px; display: flex; flex-direction: column; gap: 2px; }
+.fc-source a { color: var(--accent); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
 .fc-type-row { display: grid; gap: 6px; margin-top: 16px; }
 .fc-input { min-height: 48px; font-size: var(--fs-md); }
 .fc-input.is-ok { border-color: var(--success); }
@@ -3639,7 +3652,13 @@ a.notes-item-title { color: var(--accent); text-decoration: underline; text-unde
 /* Fiszki: integracje — kafelek „Dziś”, przycisk przy zaznaczeniu, Dziennik, Statystyki */
 .bento-fiszki { grid-column: span 12; }
 @media (max-width: 1023px) { .bento-fiszki { grid-column: span 6; } }
-.fc-sel-btn { position: fixed; z-index: 60; box-shadow: var(--shadow-lg); }
+/* Menu przy zaznaczeniu tekstu (Moje słowa): „Do Moich słów” i „Utwórz fiszkę…” */
+.fc-sel-menu {
+  position: fixed; z-index: 60; display: flex; flex-wrap: wrap; gap: 6px; max-width: calc(100vw - 16px); padding: 6px;
+  border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow-lg);
+}
+.fc-sel-menu[hidden] { display: none; }
+.fc-sel-menu .btn { min-height: 44px; }
 .journal-in-fiszki { display: inline-flex; align-items: center; gap: 4px; min-height: 36px; padding: 0 6px; font-size: var(--fs-sm); font-weight: 600; color: var(--success); }
 .st-fiszki { grid-column: 1 / -1; }
 .fc-st-bars { display: flex; align-items: flex-end; gap: 3px; height: 96px; margin: 4px 0 12px; padding: 0 2px; border-bottom: 1px solid var(--line-strong); }

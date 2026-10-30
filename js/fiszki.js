@@ -23,6 +23,7 @@ window.ELM = window.ELM || {};
   const el = U.el;
   const HASH = "#/fiszki";
   const MISTAKES_ID = "u-moje-bledy";
+  const WORDS_ID = "u-moje-slowa"; // talia systemowa „Moje słowa” (system: "words", paczka v6 spec 14)
   const GRADE_INFO = [
     { id: "again", label: "Znowu", key: "1" },
     { id: "hard", label: "Trudne", key: "2" },
@@ -64,7 +65,7 @@ window.ELM = window.ELM || {};
   function allDecks() {
     const out = index().map(function (d) { return { id: d.id, title: d.title, description: d.description, level: d.level, builtIn: true, count: d.count }; });
     st().userDecks.forEach(function (d) {
-      out.push({ id: d.id, title: d.title, description: d.system === "mistakes" ? "Karty dodane z Dziennika błędów." : "Twoja talia.", builtIn: false, system: d.system || null,
+      out.push({ id: d.id, title: d.title, description: d.system === "mistakes" ? "Karty dodane z Dziennika błędów." : d.system === "words" ? "Słowa i wyrażenia zaznaczone w tekstach – każde ze zdaniem, z którego pochodzi." : "Twoja talia.", builtIn: false, system: d.system || null,
         count: st().userCards.filter(function (c) { return c.deck === d.id; }).length });
     });
     return out;
@@ -181,6 +182,12 @@ window.ELM = window.ELM || {};
       nodes.push(el("p", { class: "fc-text", text: card.front }));
     }
     if (card.hint) nodes.push(el("p", { class: "fc-hint" }, [el("span", { class: "review-label", text: "Podpowiedź: " }), document.createTextNode(card.hint)]));
+    else if (card.word && card.type === "cloze") {
+      // „Moje słowa” bez znaczenia: podpowiedź to pierwsza litera (długość luki jej nie zdradza)
+      const c = clozeParts(card);
+      const first = c.ok ? c.answers[0].charAt(0) : "";
+      if (first) nodes.push(el("p", { class: "fc-hint" }, [el("span", { class: "review-label", text: "Podpowiedź: " }), document.createTextNode("zaczyna się na „" + first + "”")]));
+    }
     return nodes;
   }
 
@@ -197,6 +204,18 @@ window.ELM = window.ELM || {};
     }
     if (answers.length > 1) nodes.push(el("p", { class: "fc-extra" }, [el("span", { class: "review-label", text: "Akceptowane też: " }), document.createTextNode(answers.slice(1).join(", "))]));
     if (card.example) nodes.push(el("p", { class: "fc-extra", lang: "en" }, [el("span", { class: "review-label", text: "Przykład: " }), document.createTextNode(card.example)]));
+    // „Moje słowa”: znaczenie (gdy jest), dodatkowe przykłady i źródło
+    if (card.word && card.hint && card.type === "cloze") nodes.push(el("p", { class: "fc-extra" }, [el("span", { class: "review-label", text: "Znaczenie: " }), document.createTextNode(card.hint)]));
+    if (card.examples && card.examples.length) {
+      nodes.push(el("div", { class: "fc-extra fc-examples" }, [
+        el("span", { class: "review-label", text: card.examples.length === 1 ? "Drugi przykład:" : "Kolejne przykłady:" }),
+        el("ul", { class: "fc-example-list", lang: "en" }, card.examples.map(function (x) { return el("li", { text: x }); }))
+      ]));
+    }
+    if (card.source && (card.source.route || card.source.title)) {
+      nodes.push(el("p", { class: "fc-extra fc-source" }, [el("span", { class: "review-label", text: "Źródło: " }),
+        card.source.route ? el("a", { href: card.source.route, text: card.source.title || card.source.route }) : document.createTextNode(card.source.title)]));
+    }
     if (card.note) nodes.push(el("p", { class: "fc-extra" }, [el("span", { class: "review-label", text: "Uwaga: " }), document.createTextNode(card.note)]));
     return nodes;
   }
@@ -249,6 +268,17 @@ window.ELM = window.ELM || {};
       ]));
     }
 
+    if (ELM.fiszkiWords) {
+      const wc = ELM.fiszkiWords.counts();
+      view.appendChild(el("section", { class: "card fc-words-tile", "aria-labelledby": "fc-words-title" }, [
+        el("h2", { class: "tile-title", id: "fc-words-title", text: "Moje słowa" }),
+        wc.total
+          ? el("p", { class: "tool-note", text: wc.total + " " + plural(wc.total, "słowo", "słowa", "słów") + " (opanowane: " + wc.mastered + ")." })
+          : el("p", { class: "tool-note", text: "Zaznacz słowo w tekście i naciśnij M – zapiszesz je razem ze zdaniem." }),
+        el("a", { class: "btn btn-secondary tile-action", href: HASH + "/moje-slowa" }, ELM.ui.withIcon("layers", "Otwórz Moje słowa"))
+      ]));
+    }
+
     view.appendChild(el("h2", { class: "section-title", text: "Talie" }));
     view.appendChild(el("div", { class: "fc-actions" }, [
       el("a", { class: "btn btn-secondary", href: HASH + "/import" }, ELM.ui.withIcon("upload", "Importuj")),
@@ -285,7 +315,7 @@ window.ELM = window.ELM || {};
       "aria-label": "Włączona w nauce: " + d.title,
       onclick: function () { toggleDeck(d.id, !on); render(); const again = document.querySelector('.fc-switch[aria-label="Włączona w nauce: ' + d.title.replace(/"/g, '\\"') + '"]'); if (again) again.focus(); }
     }, [el("span", { class: "fc-switch-track", "aria-hidden": "true" }, el("span", { class: "fc-switch-thumb" })), el("span", { class: "fc-switch-text", text: on ? "Włączona" : "Wyłączona" })]);
-    const actions = [el("a", { class: "btn btn-secondary btn-small", href: HASH + "/talia/" + d.id }, "Przeglądaj")];
+    const actions = [el("a", { class: "btn btn-secondary btn-small", href: d.system === "words" ? HASH + "/moje-slowa" : HASH + "/talia/" + d.id }, "Przeglądaj")];
     if (!d.builtIn) actions.push(el("a", { class: "btn btn-secondary btn-small", href: HASH + "/talia/" + d.id + "/nowa" }, ELM.ui.withIcon("plus", "Dodaj kartę")));
     actions.push(el("button", { type: "button", class: "btn btn-secondary btn-small", onclick: function () { exportDeck(d); } }, ELM.ui.withIcon("download", "Eksportuj")));
     return el("li", { class: "card fc-deck" + (on ? " is-on" : "") }, [
@@ -675,6 +705,7 @@ window.ELM = window.ELM || {};
     if (!p.length) return { kind: "home" };
     if (p[0] === "sesja") return { kind: "session" };
     if (p[0] === "import") return { kind: "import" };
+    if (p[0] === "moje-slowa" || (p[0] === "talia" && p[1] === WORDS_ID && !p[2])) return { kind: "words" };
     if (p[0] === "talia" && p[1]) {
       if (p[2] === "nowa") return { kind: "edit", deck: p[1], card: null };
       if (p[2] === "karta" && p[3]) return { kind: "edit", deck: p[1], card: p[3] };
@@ -704,6 +735,7 @@ window.ELM = window.ELM || {};
       return;
     }
     if (route.kind === "session") renderSession(view);
+    else if (route.kind === "words" && ELM.fiszkiWords) { document.title = "Moje słowa · English Levels Map"; ELM.fiszkiWords.renderView(view); }
     else if (ELM.fiszkiBrowse && route.kind !== "home") ELM.fiszkiBrowse.render(view, route);
     else renderHome(view);
   }
@@ -760,55 +792,16 @@ window.ELM = window.ELM || {};
     addFromJournal(e, { silent: true });
   }
 
-  // ---------- Zaznaczenie tekstu na stronie tematu ----------
+  // ---------- „Utwórz fiszkę…” z zaznaczenia (menu przy zaznaczeniu i skróty: js/fiszki-words.js) ----------
 
-  let selBtn = null, selTimer = null;
-
-  function selectionText() {
-    if (!ELM.state || ELM.state.view !== "page") return "";
-    const s = window.getSelection && window.getSelection();
-    if (!s || s.isCollapsed || !s.rangeCount) return "";
-    const n = s.anchorNode && (s.anchorNode.nodeType === 1 ? s.anchorNode : s.anchorNode.parentElement);
-    if (!n || !n.closest("#view article.md") || n.closest("input, textarea, [contenteditable], .notes-panel")) return "";
-    return s.toString().replace(/\s+/g, " ").trim().slice(0, 300);
-  }
-
+  /** Formularz nowej karty z zaznaczonym tekstem jako przodem (dotychczasowe zachowanie, bez zmian). */
   function openFromSelection(text) {
     if (!hasProfile()) { ELM.ui.toast({ text: "Dodaj profil, żeby zapisywać fiszki.", icon: "layers" }); return; }
     ELM.fiszkiBrowse.prefill({ type: "basic", front: text });
     const own = st().userDecks.filter(function (d) { return !d.system; });
-    hideSelButton();
+    if (ELM.fiszkiWords) ELM.fiszkiWords.hideMenu();
     location.hash = HASH + "/talia/" + (own.length ? own[0].id : "nowa") + "/nowa";
   }
-
-  function hideSelButton() { if (selBtn) selBtn.hidden = true; }
-
-  function updateSelButton() {
-    const text = selectionText();
-    if (!text) { hideSelButton(); return; }
-    if (!selBtn) {
-      selBtn = el("button", { type: "button", class: "btn btn-primary btn-small fc-sel-btn", hidden: true,
-        "aria-label": "Dodaj zaznaczony tekst do fiszek (Ctrl+Shift+F)",
-        onmousedown: function (e) { e.preventDefault(); }, // nie gubi zaznaczenia
-        onclick: function () { const t = selectionText(); if (t) openFromSelection(t); } }, ELM.ui.withIcon("layers", "Dodaj do fiszek"));
-      document.body.appendChild(selBtn);
-    }
-    const r = window.getSelection().getRangeAt(0).getBoundingClientRect();
-    selBtn.hidden = false;
-    const top = r.top > 56 ? r.top - 44 : r.bottom + 8;
-    selBtn.style.top = Math.max(8, top) + "px";
-    selBtn.style.left = Math.max(8, Math.min(window.innerWidth - 200, r.left)) + "px";
-  }
-
-  document.addEventListener("selectionchange", function () { clearTimeout(selTimer); selTimer = setTimeout(updateSelButton, 150); });
-  window.addEventListener("hashchange", hideSelButton);
-  window.addEventListener("scroll", function () { if (selBtn && !selBtn.hidden) updateSelButton(); }, { passive: true });
-  document.addEventListener("keydown", function (e) {
-    if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === "F" || e.key === "f")) {
-      const t = selectionText();
-      if (t) { e.preventDefault(); openFromSelection(t); }
-    }
-  });
 
   // ---------- Kafelek „Dziś” i sekcja w Statystykach ----------
 
@@ -869,6 +862,9 @@ window.ELM = window.ELM || {};
       ]),
       el("p", { class: "review-label", text: "Powtórki dziennie – ostatnie 30 dni" }),
       bars,
+      ELM.fiszkiWords && ELM.fiszkiWords.counts().total
+        ? el("p", { class: "tool-note fc-st-words" }, ["Moje słowa: ", el("strong", { class: "num", text: String(ELM.fiszkiWords.counts().total) }), " (opanowane: " + ELM.fiszkiWords.counts().mastered + ") · ", el("a", { href: HASH + "/moje-slowa", text: "Otwórz" })])
+        : null,
       el("p", { class: "review-label", text: "Prognoza powtórek na 7 dni" }),
       el("ol", { class: "fc-st-forecast" }, forecast.map(function (n, i) {
         return el("li", null, [el("span", { class: "fc-st-fc-day", text: fLabels[i] }), el("strong", { class: "num", text: String(n) })]);
@@ -878,11 +874,11 @@ window.ELM = window.ELM || {};
   }
 
   ELM.fiszki = {
-    HASH: HASH, MISTAKES_ID: MISTAKES_ID, parseRoute: parseRoute, render: render, badgeCount: badgeCount, dueSummary: dueSummary,
+    HASH: HASH, MISTAKES_ID: MISTAKES_ID, WORDS_ID: WORDS_ID, parseRoute: parseRoute, render: render, badgeCount: badgeCount, dueSummary: dueSummary,
     hasJournalCard: hasJournalCard, addFromJournal: addFromJournal, autoAddFromJournal: autoAddFromJournal,
     todayTile: todayTile, statsTile: statsTile, openFromSelection: openFromSelection,
     // dla przeglądania / edycji i integracji
-    internal: { st: st, saveState: saveState, allDecks: allDecks, deckById: deckById, cardsOf: cardsOf, cardById: cardById, enabled: enabled,
+    internal: { hasProfile: hasProfile, st: st, saveState: saveState, allDecks: allDecks, deckById: deckById, cardsOf: cardsOf, cardById: cardById, enabled: enabled,
       toggleDeck: toggleDeck, renderFront: renderFront, renderBack: renderBack, head: head, plural: plural, downloadText: downloadText,
       exportDeck: exportDeck, bar: bar, loadDecks: loadDecks, fmtWhen: fmtWhen }
   };

@@ -159,6 +159,7 @@ if (fs.existsSync(regFile)) readJson(regFile).exams.forEach(function (exam) {
 // ---------- Fiszki: tylko skróty (karty nie trafiają do indeksu — za duży szum, spec 10, 5.5) ----------
 add({ id: "fiszki", group: "exercises", title: "Fiszki", summary: "Powtórki słówek, kolokacji i czasowników frazowych w rosnących odstępach.", text: "fiszki flashcards powtórki active recall talie", category: "Fiszki", route: "#/fiszki" });
 add({ id: "fiszki:bledy", group: "exercises", title: "Moje błędy (fiszki)", summary: "Talia fiszek z wpisów Dziennika błędów.", text: "fiszki moje błędy dziennik", category: "Fiszki", route: "#/fiszki/talia/u-moje-bledy" });
+add({ id: "fiszki:slowa", group: "exercises", title: "Moje słowa", summary: "Słowa i wyrażenia zaznaczone w tekstach, ze zdaniem i znaczeniem.", text: "moje słowa słowniczek osobisty zapisane słówka fiszki zaznaczenie", category: "Fiszki", route: "#/fiszki/moje-slowa" });
 
 // ---------- Ćwiczenia (zestawy tematów i mixy) ----------
 const topicTitle = {};
