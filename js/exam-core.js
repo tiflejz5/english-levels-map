@@ -116,64 +116,9 @@ window.ELM = window.ELM || {};
     return new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3])).toLocaleDateString("pl-PL", { day: "numeric", month: "long", year: "numeric" });
   }
 
-  function countdownCard(e) {
-    const c1 = ELM.c1;
-    const number = el("span", { class: "c1-countdown-number" });
-    const text = el("span", { class: "c1-countdown-text" });
-    const inputId = "exam-date-" + e.id;
-    const input = el("input", {
-      type: "date", id: inputId, class: "field c1-date", value: examDate(e),
-      "aria-describedby": e.suggestedDate ? inputId + "-hint" : null,
-      onchange: function () { save(input.value); }
-    });
-    function save(value) {
-      pd().examData(e.id).examDate = value || "";
-      pd().saveExams();
-      input.value = value || "";
-      update();
-      renderNav();
-    }
-    function update() {
-      const d = c1.daysUntil(examDate(e));
-      number.textContent = d !== null && d > 1 ? String(d) : "";
-      number.hidden = !(d !== null && d > 1);
-      text.textContent = d !== null && d > 1 ? plural(d, "dzień do egzaminu", "dni do egzaminu", "dni do egzaminu") : c1.countdownText(examDate(e));
-      const mh = document.querySelector(".exam-masthead-count");
-      if (mh) mh.replaceWith(mastheadCount(e) || el("span", { class: "exam-masthead-count" }));
-    }
-    update();
-    return el("section", { class: "card c1-countdown exam-countdown", "aria-label": "Odliczanie do egzaminu" }, [
-      el("div", { class: "c1-countdown-main", "aria-live": "polite" }, [number, text]),
-      el("div", { class: "c1-countdown-date" }, [
-        el("label", { class: "field-label", for: inputId, text: "Data egzaminu" }),
-        input,
-        e.suggestedDate ? el("p", { class: "exam-date-hint", id: inputId + "-hint" }, [
-          "Termin główny wg CKE (stan na październik 2026): " + fmtDate(e.suggestedDate) + ". ",
-          examDate(e) !== e.suggestedDate ? el("button", { type: "button", class: "btn btn-link btn-small", onclick: function () { save(e.suggestedDate); } }, "Wstaw ten termin") : null
-        ]) : null
-      ])
-    ]);
-  }
-
-  function mastheadCount(e) {
-    const d = ELM.c1.daysUntil(examDate(e));
-    if (d === null) return el("a", { class: "c1-masthead-note exam-masthead-count", href: base(e) }, "Ustaw datę egzaminu");
-    if (d <= 0) return el("p", { class: "c1-masthead-note exam-masthead-count", text: ELM.c1.countdownText(examDate(e)) });
-    return el("a", { class: "c1-masthead-count exam-masthead-count", href: base(e) }, [
-      el("span", { class: "c1-masthead-days num", text: String(d) }), " ",
-      el("span", { class: "c1-masthead-unit", text: plural(d, "dzień", "dni", "dni") + " do egzaminu" })
-    ]);
-  }
-
+  /** Strona startowa egzaminu: pełna okładka; podstrony: kompaktowa (spec 19, B3). */
   function masthead(e, withCount) {
-    return el("header", { class: "c1-masthead exam-masthead" }, [
-      el("a", { class: "c1-wordmark exam-wordmark", href: base(e) }, [
-        el("span", { class: "exam-wordmark-badge", "aria-hidden": "true", text: e.code }),
-        el("span", { class: "c1-wordmark-main", text: e.label }),
-        el("span", { class: "visually-hidden", text: " – przegląd egzaminu" })
-      ]),
-      withCount ? mastheadCount(e) : null
-    ]);
+    return ELM.examCover[withCount ? "compact" : "full"](e);
   }
 
   // =====================================================================
@@ -263,7 +208,7 @@ window.ELM = window.ELM || {};
     if (id === "przeglad") {
       // Nota o aktualności (stan na październik 2026 + link do CKE) — chyba że treść strony już ją ma
       const hasNote = /Stan na październik 2026/i.test(text);
-      ELM.c1.insertAfterIntro(article, el("div", { class: "exam-overview-top" }, [countdownCard(e), hasNote ? null : sourcesNote(e)]));
+      ELM.c1.insertAfterIntro(article, el("div", { class: "exam-overview-top" }, [ELM.examDate.cardFor(e), ELM.examCover.pinButton(e), hasNote ? null : sourcesNote(e)]));
     }
     wireTasks(e, article, id);
     if (ELM.callouts) ELM.callouts.apply(article);
@@ -590,7 +535,6 @@ window.ELM = window.ELM || {};
     exams().filter(isGeneric).forEach(function (e) {
       const here = route && route.examId === e.id;
       const soon = e.status !== "active";
-      const days = soon ? null : ELM.c1 && examDate(e) ? ELM.c1.daysUntil(examDate(e)) : null;
       const li = el("li", null, el("a", {
         class: "sb-item exam-chip" + (soon ? " is-soon" : "") + (here ? " is-active" : ""),
         href: base(e),
@@ -602,7 +546,7 @@ window.ELM = window.ELM || {};
         el("span", { class: "sb-label" }, [
           el("span", { class: "sb-label-title", text: e.label }),
           soon ? el("span", { class: "sb-label-sub" }, el("span", { class: "exam-soon-tag", text: "wkrótce" }))
-            : el("span", { class: "sb-label-sub", text: days !== null && days > 0 ? days + " " + plural(days, "dzień", "dni", "dni") + " do egzaminu" : (e.description || "").split(",")[0] })
+            : el("span", { class: "sb-label-sub", text: ELM.examMy.navSub(e) })
         ])
       ]));
       (soon && soonBox ? soonList : list).appendChild(li);

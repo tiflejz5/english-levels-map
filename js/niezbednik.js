@@ -355,8 +355,8 @@ window.ELM = window.ELM || {};
     const article = el("article", { class: "md home" }, ELM.markdown.render(doc.blocks));
     linkLevelTable(article);
     if (ELM.callouts) ELM.callouts.apply(article);
-    // Kafelek „Certyfikat C1” pod wstępem strony głównej
-    if (ELM.c1) ELM.c1.insertAfterIntro(article, ELM.c1.homeTile());
+    // Sekcja „Twoje egzaminy” (kafle-okładki moich egzaminów) pod wstępem strony głównej
+    if (ELM.c1 && ELM.examCover) ELM.c1.insertAfterIntro(article, ELM.examCover.homeSection());
     view.appendChild(article);
     U.setScroll(keepScroll);
   }

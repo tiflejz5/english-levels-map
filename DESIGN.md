@@ -443,6 +443,14 @@ Pominięte. Aplikacja nie jest w React, a brief dopuszczał ten krok tylko dla R
   - Słuchanie ma panel `--surface-2` z „Odtwórz”, licznikiem „Odsłuchy: n/2” i notą o głosie syntezowanym.
 - **„W trakcie pracy”.** Karta z ilustracją SVG (kompas na rusztowaniu, w tokenach), plakietką w `--warning-soft`, opisem z rejestru i przyciskami „Wróć do Dziś” oraz „Zobacz: Egzamin ósmoklasisty”. Bez pustych tabel i martwych linków.
 
+### 3.13a „Moje egzaminy” i okładki (paczka v7, etap 2)
+
+- **Moje egzaminy** (`ELM.examLogic.myExams`, czysta funkcja z testami): egzamin jest mój, gdy ma ustawioną datę albo ukończony zestaw i nie został odpięty ręcznie; ręczne przypięcie działa też bez daty i zestawów. Override w `elm_exams_v1 … profiles[id].my = { "<id>": "pinned" | "hidden" }` (dotyczy też C1, którego data i wyniki zostają w `elm_c1_v1`). Kolejność: najbliższa data, potem minione terminy, na końcu egzaminy bez daty.
+- **Gdzie widać:** strona główna (sekcja „Twoje egzaminy”, kafle mini albo jedna linijka podpowiedzi), Dziś (maks. 2 kafle mini), podpis w panelu (odliczanie tylko przy moich), przycisk „Przypnij do Dziś” / „Odepnij…” na stronie startowej egzaminu. Kafel C1 z głównej i Dziś usunięty.
+- **Karta daty** `ELM.examDate.card`: duża liczba dni (Fraunces) albo tekst stanu, pole daty, zapis „czwartek, 6 maja 2027”, akcje `.btn-link` „Wstaw termin główny” (E8, MP, MR) i „Usuń datę”; B2 i C1: „Termin zależy od centrum egzaminacyjnego.”. Poniżej 640 px jedna kolumna.
+- **Okładki** (`ELM.examCover`): pełna (strona startowa: pasek 10 px w `accent2`, kod Fraunces 56–88 px, nazwa, `subtitle` z `dane/egzaminy-manifest.json`), kompaktowa (podstrony: pasek 6 px, kod 28 px) i mini (kafel: pasek 8 px, kod 32 px, odliczanie, „zestawy 4/12”). Mini poza sekcją egzaminu bierze kolory z `--exam-accent` (jasny) i `--exam-accent-2` (ciemny); `tools/kontrast.js` sprawdza te pary.
+- Rejestr (`dane/egzaminy-rejestr.js`) ma dla każdego egzaminu `setIds` (postęp bez wczytywania danych egzaminu).
+
 ### 3.14 Komponenty paczki v6 (rozbudowa v6, etapy 1–11)
 
 Wszystkie na istniejących tokenach (bez nowych kolorów), z parami sprawdzanymi przez `node tools/kontrast.js`, celami ≥ 44 px i szanowaniem `prefers-reduced-motion`.
@@ -649,3 +657,8 @@ Ograniczenie: audyt automatyczny nie zastępuje testu z czytnikiem ekranu (NVDA 
   - `ELM.ui.pageHead` (etykieta `.eyebrow` zamiast ikony w kółku); warstwice usunięte z nagłówków i hero.
   - Wiersze zamiast kart (lista poziomu, „Na skróty”), filtr „Wszystkie”, siatki `minmax(260px, 1fr)`.
   - Ramki „Na egzaminie …” przed „Życie i egzamin” (`examBoxAnchorIndex` + test). Bez zmian kluczy `localStorage`.
+
+- **Paczka v7, etap „egzaminy” (B1–B3).**
+  - „Moje egzaminy”: `myExams` + pole `my` w `elm_exams_v1`; sekcja na stronie głównej, kafle na Dziś, przypinanie, wskaźnik w panelu tylko dla moich.
+  - Jedna karta daty (`ELM.examDate.card`) dla C1 i egzaminów z rejestru, polski zapis daty, „Wstaw termin główny”, „Usuń datę”.
+  - Okładki egzaminów (pełna, kompaktowa, mini), pole `subtitle` w manifeście, nowe pary w `tools/kontrast.js`.

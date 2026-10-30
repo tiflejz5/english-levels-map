@@ -288,7 +288,16 @@ window.ELM = window.ELM || {};
         if (!EX_ID.test(id)) return;
         exams[id] = normalizeExam(raw.exams[id]);
       });
-      return { exams: exams };
+      const out = { exams: exams };
+      // Opcjonalne ręczne przypięcie/odpięcie egzaminu (też C1): { "<idEgzaminu>": "pinned" | "hidden" }
+      if (U.isPlainObject(raw.my)) {
+        const my = {};
+        Object.keys(raw.my).slice(0, 20).forEach(function (id) {
+          if (EX_ID.test(id) && (raw.my[id] === "pinned" || raw.my[id] === "hidden")) my[id] = raw.my[id];
+        });
+        if (Object.keys(my).length) out.my = my;
+      }
+      return out;
     }
     if (kind === "notes") {
       const items = {};
@@ -806,6 +815,25 @@ window.ELM = window.ELM || {};
 
   function saveExams() { save("exams"); }
 
+  /** Ręczne przypięcia egzaminów aktywnego profilu: { id: "pinned" | "hidden" } (kopia; brak pola = pusto). */
+  function examMy() {
+    const pid = activeId();
+    if (!pid) return {};
+    return Object.assign({}, record("exams", pid).my || {});
+  }
+
+  /** value: "pinned" | "hidden" | null (powrót do automatu). */
+  function setExamMy(examId, value) {
+    const pid = activeId();
+    if (!pid || !EX_ID.test(examId)) return false;
+    const rec = record("exams", pid);
+    const my = Object.assign({}, rec.my || {});
+    if (value === "pinned" || value === "hidden") my[examId] = value; else delete my[examId];
+    if (Object.keys(my).length) rec.my = my; else delete rec.my;
+    save("exams");
+    return true;
+  }
+
   // =====================================================================
   // TRENER SPEAKING (spec 09, sekcja 5) — historia sesji z samooceną
   // =====================================================================
@@ -1026,6 +1054,8 @@ window.ELM = window.ELM || {};
     NOTE_MAX: NOTE_MAX,
     examData: examData,
     saveExams: saveExams,
+    examMy: examMy,
+    setExamMy: setExamMy,
     speakingSessions: speakingSessions,
     addSpeakingSession: addSpeakingSession,
     speakingSeen: speakingSeen,

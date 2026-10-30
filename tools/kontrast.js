@@ -125,7 +125,11 @@ pairs.push(
   ["accent", "surface-3", null, 3, "statystyki: dzień nauki / dzień bez nauki"],
   ["accent", "surface", null, 3, "statystyki: kolumna trendu / karta"],
   ["accent", "accent-soft", "surface", 3, "statystyki: pasek trafności / tor"],
-  ["inverse-text", "inverse-bg", null, 4.5, "toast: tekst / tło"]
+  ["inverse-text", "inverse-bg", null, 4.5, "toast: tekst / tło"],
+  // Okładki egzaminów (B3), pełna i kompaktowa: tło --accent-soft na --bg sekcji
+  ["accent", "accent-soft", "bg", 4.5, "okładka egzaminu: kod / tło"],
+  ["ink", "accent-soft", "bg", 4.5, "okładka egzaminu: nazwa i data / tło"],
+  ["ink-muted", "accent-soft", "bg", 4.5, "okładka egzaminu: poziom i instytucja / tło"]
 );
 ["a1", "a2", "b1", "b2", "c1", "c2"].forEach(function (l) {
   const L = l.toUpperCase();
@@ -154,6 +158,26 @@ let checked = 0;
     if (r < p[3]) { fails++; bad.push("  ZA MAŁO " + r.toFixed(2) + " (min " + p[3] + ")  " + p[4]); }
   });
   console.log("== " + theme[0] + ": " + (pairs.length - bad.length) + "/" + pairs.length + " ok");
+  bad.forEach(function (b) { console.log(b); });
+});
+// Okładka mini (kafel na stronie głównej i Dziś): kolory z rejestru, poza sekcją egzaminu → pasek akcentu na --surface (3:1)
+const manifest = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "dane", "egzaminy-manifest.json"), "utf8"));
+[["JASNY", light], ["CIEMNY", dark]].forEach(function (theme) {
+  const bad = [];
+  manifest.exams.forEach(function (e) {
+    const bg = parse(theme[1].surface);
+    if (e.existing) { // C1 bierze granat (jasny) i złoto (ciemny) z tokenów
+      const rc = ratio(parse(theme[1][theme[0] === "CIEMNY" ? "c1-gold" : "c1-navy"]), bg);
+      checked++;
+      if (rc < 3) { fails++; bad.push("  ZA MAŁO " + rc.toFixed(2) + " (min 3)  pasek okładki mini C1 / karta"); }
+      return;
+    }
+    if (!e.accent) return;
+    const r = ratio(parse(theme[0] === "CIEMNY" ? (e.accent2 || e.accent) : e.accent), bg); // jasny: pasek w accent, ciemny: w accent2
+    checked++;
+    if (r < 3) { fails++; bad.push("  ZA MAŁO " + r.toFixed(2) + " (min 3)  pasek okładki mini " + e.code + " / karta"); }
+  });
+  console.log("== OKŁADKI MINI " + theme[0] + ": " + (bad.length ? "błędy" : "ok"));
   bad.forEach(function (b) { console.log(b); });
 });
 console.log("Sprawdzone pary: " + checked + ", niezgodne: " + fails);

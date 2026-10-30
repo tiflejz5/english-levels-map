@@ -11,7 +11,8 @@
       "accent2": "#f5b800",
       "suggestedDate": "2027-05-12",
       "order": 1,
-      "description": "Przygotowanie do egzaminu z angielskiego po szkole podstawowej, poziom A2."
+      "description": "Przygotowanie do egzaminu z angielskiego po szkole podstawowej, poziom A2.",
+      "subtitle": "A2 · CKE"
     },
     {
       "id": "matura-podstawowa",
@@ -23,7 +24,8 @@
       "accent2": "#b4672f",
       "suggestedDate": "2027-05-06",
       "order": 2,
-      "description": "Przygotowanie do matury z angielskiego na poziomie podstawowym (B1): słuchanie, czytanie, środki językowe, pisanie i ustna."
+      "description": "Przygotowanie do matury z angielskiego na poziomie podstawowym (B1): słuchanie, czytanie, środki językowe, pisanie i ustna.",
+      "subtitle": "B1 · CKE"
     },
     {
       "id": "matura-rozszerzona",
@@ -35,7 +37,8 @@
       "accent2": "#c26a2e",
       "suggestedDate": "2027-05-07",
       "order": 3,
-      "description": "Przygotowanie do matury z angielskiego na poziomie rozszerzonym (B2): Use of English, czytanie, rozprawka, list formalny i artykuł."
+      "description": "Przygotowanie do matury z angielskiego na poziomie rozszerzonym (B2): Use of English, czytanie, rozprawka, list formalny i artykuł.",
+      "subtitle": "B2 · CKE"
     },
     {
       "id": "certyfikat-b2",
@@ -47,7 +50,8 @@
       "accent2": "#d9a21b",
       "suggestedDate": null,
       "order": 4,
-      "description": "Cambridge B2 First: Reading and Use of English, Writing, Listening i Speaking."
+      "description": "Cambridge B2 First: Reading and Use of English, Writing, Listening i Speaking.",
+      "subtitle": "B2 First · Cambridge"
     },
     {
       "id": "certyfikat-c1",
@@ -57,7 +61,8 @@
       "status": "active",
       "order": 5,
       "existing": true,
-      "description": "Cambridge C1 Advanced. Istniejący moduł, bez zmian."
+      "description": "Cambridge C1 Advanced. Istniejący moduł, bez zmian.",
+      "subtitle": "C1 Advanced · Cambridge"
     }
   ]
 }

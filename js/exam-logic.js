@@ -48,5 +48,93 @@ window.ELM = window.ELM || {};
     return -1;
   }
 
-  ELM.examLogic = { countWordsE8: countWordsE8, writingZone: writingZone, examBoxAnchorIndex: examBoxAnchorIndex };
+  // ---------- B1/B2: daty i „Moje egzaminy” ----------
+
+  const MONTHS_GEN = ["stycznia", "lutego", "marca", "kwietnia", "maja", "czerwca", "lipca", "sierpnia", "września", "października", "listopada", "grudnia"];
+  const WEEKDAYS = ["niedziela", "poniedziałek", "wtorek", "środa", "czwartek", "piątek", "sobota"];
+  const DAY = /^(\d{4})-(\d{2})-(\d{2})$/;
+
+  function dayNumber(day) {
+    const m = DAY.exec(day || "");
+    return m ? Math.round(Date.UTC(Number(m[1]), Number(m[2]) - 1, Number(m[3])) / 86400000) : null;
+  }
+
+  function localToday() {
+    const n = new Date();
+    return n.getFullYear() + "-" + String(n.getMonth() + 1).padStart(2, "0") + "-" + String(n.getDate()).padStart(2, "0");
+  }
+
+  /** Liczba dni od today do day ("RRRR-MM-DD"); ujemna = data minęła; null przy złej dacie. */
+  function daysBetween(day, today) {
+    const a = dayNumber(day), b = dayNumber(today || localToday());
+    return a === null || b === null ? null : a - b;
+  }
+
+  /** "2027-05-06" → "czwartek, 6 maja 2027" (bez zależności od ICU przeglądarki). */
+  function formatDatePl(day) {
+    const m = DAY.exec(day || "");
+    if (!m) return "";
+    const wd = new Date(Date.UTC(Number(m[1]), Number(m[2]) - 1, Number(m[3]))).getUTCDay();
+    return WEEKDAYS[wd] + ", " + Number(m[3]) + " " + MONTHS_GEN[Number(m[2]) - 1] + " " + m[1];
+  }
+
+  /**
+   * Stan potrzebny do myExams z surowych danych: input = { registry, examsRecord: { exams: {id: {examDate}}, my },
+   * c1: { examDate, best }, isSetDone(setId) }. Egzamin „existing” (C1) bierze datę i wyniki z elm_c1_v1.
+   * Zwraca { dates, doneSets, totalSets, my }.
+   */
+  function examMyState(input) {
+    const rec = input.examsRecord || {};
+    const c1 = input.c1 || {};
+    const out = { dates: {}, doneSets: {}, totalSets: {}, my: (rec.my && typeof rec.my === "object") ? rec.my : {} };
+    ((input.registry && input.registry.exams) || []).forEach(function (e) {
+      const ids = e.setIds || [];
+      out.totalSets[e.id] = ids.length;
+      if (e.existing) {
+        out.dates[e.id] = typeof c1.examDate === "string" ? c1.examDate : "";
+        out.doneSets[e.id] = ids.filter(function (id) { return c1.best && typeof c1.best[id] === "number"; }).length;
+      } else {
+        const x = rec.exams && rec.exams[e.id];
+        out.dates[e.id] = x && typeof x.examDate === "string" ? x.examDate : "";
+        out.doneSets[e.id] = ids.filter(function (id) { return input.isSetDone && input.isSetDone(id); }).length;
+      }
+    });
+    return out;
+  }
+
+  /**
+   * Egzaminy „moje”: ustawiona data albo ukończony zestaw (i nie odpięty ręcznie), albo ręcznie przypięte.
+   * state = examMyState(...). Zwraca [{ id, reason: "date"|"sets"|"pinned", days }] — najpierw najbliższe daty
+   * (dziś i przyszłe rosnąco), potem miniony termin (najświeższy pierwszy), na końcu bez daty (kolejność rejestru).
+   */
+  function myExams(state, registry, today) {
+    const out = [];
+    ((registry && registry.exams) || []).forEach(function (e, order) {
+      if (e.status !== "active") return;
+      const flag = state.my && state.my[e.id];
+      if (flag === "hidden") return;
+      const date = state.dates && state.dates[e.id];
+      const days = date ? daysBetween(date, today) : null;
+      const done = (state.doneSets && state.doneSets[e.id]) || 0;
+      let reason = null;
+      if (days !== null) reason = "date";
+      else if (done > 0) reason = "sets";
+      else if (flag === "pinned") reason = "pinned";
+      if (reason) out.push({ id: e.id, reason: reason, days: days, order: order });
+    });
+    function rank(x) { return x.days === null ? 2 : x.days >= 0 ? 0 : 1; }
+    out.sort(function (a, b) {
+      const ra = rank(a), rb = rank(b);
+      if (ra !== rb) return ra - rb;
+      if (ra === 0 && a.days !== b.days) return a.days - b.days;
+      if (ra === 1 && a.days !== b.days) return b.days - a.days;
+      return a.order - b.order;
+    });
+    return out.map(function (x) { return { id: x.id, reason: x.reason, days: x.days }; });
+  }
+
+  ELM.examLogic = {
+    countWordsE8: countWordsE8, writingZone: writingZone, examBoxAnchorIndex: examBoxAnchorIndex,
+    daysBetween: daysBetween, formatDatePl: formatDatePl, localToday: localToday, examMyState: examMyState, myExams: myExams
+  };
 })(window.ELM);
