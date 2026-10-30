@@ -387,6 +387,7 @@ window.ELM = window.ELM || {};
       crumb: function (label) { return crumb(e, label); },
       notFound: function (msg) { return notFound(e, msg); },
       href: href,
+      examId: e.id,
       drafts: function () { return pd().examData(e.id).drafts; },
       save: function () { pd().saveExams(); },
       choices: function () { return pd().examData(e.id).choices; },

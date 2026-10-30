@@ -26,6 +26,7 @@
  *   lowNote(n, T)           opcjonalnie: własna uwaga w samoocenie poniżej warnBelow (zamiast lowScope)
  *   partGroups(T)           opcjonalnie: [{ label, tasks }] — lista zadań w grupach (B2: Part 1 / Part 2)
  *   modelHref(task)         opcjonalnie: adres wzorca z komentarzami (#/pisanie/wzorce/…) — link w zadaniu z modelNotes
+ *   examId                  id egzaminu z rejestru (albo "certyfikat-c1") — poziom zwrotów w panelu „Zwroty” (spec 17, 2.4)
  *   choices()               opcjonalnie: obiekt { grupa: idZadania } — wybór jednego z dwóch zadań
  *                           (zadania z choiceGroup, opis grupy w T.choiceGroups; spec 06, 4.1)
  * Szkic zapisuje się automatycznie; pole tekstowe bez sprawdzania pisowni (jak na egzaminie).
@@ -239,9 +240,12 @@ window.ELM = window.ELM || {};
       const saved = el("span", { class: "c1-saved", "aria-live": "polite", text: drafts[task.id] ? "Szkic zapisany" : "" });
       paintCounter(area.value);
 
+      const phrasesBtn = ELM.pisanieZwroty && task.genre ? el("button", { type: "button", class: "btn btn-secondary btn-small zw-open", "aria-expanded": "false", "aria-controls": "zw-panel",
+        onclick: function () { togglePhrases(); } }, ELM.ui.withIcon("notebook-text", "Zwroty")) : null;
       view.appendChild(el("div", { class: "c1-writing-bar" }, [
         ELM.c1.timer({ key: cfg.timerKey(task), seconds: T.timeMinutes * 60, label: "Czas", exam: true }),
-        counter
+        counter,
+        phrasesBtn
       ]));
       if (cfg.timerNote) view.appendChild(el("p", { class: "tool-note wt-note" }, [ELM.icon("info", { size: 16 }), " " + cfg.timerNote]));
       // E8: podany początek (nie liczy się do limitu)
@@ -249,6 +253,66 @@ window.ELM = window.ELM || {};
         view.appendChild(el("p", { class: "wt-opening" }, [el("span", { class: "review-label", text: "Podany początek (nie liczy się do limitu): " }), el("strong", { text: task.opening })]));
       }
       view.appendChild(area);
+
+      // Panel „Zwroty”: zwroty z banku dla gatunku zadania i poziomu egzaminu; „Wstaw” w miejscu kursora
+      let panel = null;
+      function insertPhrase(raw) {
+        const text = ELM.pisanieZwroty.plain(raw);
+        const start = area.selectionStart, end = area.selectionEnd, v = area.value;
+        const before = start > 0 ? v.charAt(start - 1) : "";
+        const after = end < v.length ? v.charAt(end) : "";
+        const ins = (before && !/\s/.test(before) ? " " : "") + text + (after && /\s|[.,;:!?)]/.test(after) ? "" : " ");
+        area.focus();
+        let done = false;
+        try { done = document.execCommand("insertText", false, ins); } catch (e) { done = false; } // zachowuje historię cofania (Ctrl+Z)
+        if (!done || area.value === v) {
+          area.setRangeText(ins, start, end, "end");
+          area.dispatchEvent(new Event("input", { bubbles: true }));
+        }
+        area.focus();
+      }
+      function closePhrases() {
+        if (panel) panel.hidden = true;
+        if (phrasesBtn) phrasesBtn.setAttribute("aria-expanded", "false");
+        area.focus();
+      }
+      function fillPhrases(body) {
+        const rows = ELM.pisanieZwroty.forTrainer(task.genre, cfg.examId);
+        body.replaceChildren();
+        if (!rows.length) { body.appendChild(el("p", { class: "tool-note", text: "Brak zwrotów dla tego gatunku." })); return; }
+        rows.forEach(function (r) {
+          body.appendChild(el("h3", { class: "zw-panel-group", text: r.group.label }));
+          body.appendChild(el("ul", { class: "zw-panel-list" }, r.phrases.map(function (p) {
+            return el("li", { class: "zw-panel-item" }, [
+              el("div", null, [
+                el("p", { class: "zw-panel-en", lang: "en", text: p.en }),
+                el("p", { class: "zw-panel-pl", lang: "pl", text: p.pl + " · " + p.level })
+              ]),
+              el("button", { type: "button", class: "btn btn-secondary btn-small", "aria-label": "Wstaw: " + ELM.pisanieZwroty.plain(p.en), onclick: function () { insertPhrase(p.en); } }, "Wstaw")
+            ]);
+          })));
+        });
+      }
+      function togglePhrases() {
+        if (!panel) {
+          const body = el("div", { class: "zw-panel-body" }, el("p", { class: "tool-note", role: "status", text: "Wczytuję zwroty…" }));
+          panel = el("aside", { class: "zw-panel", id: "zw-panel", role: "complementary", "aria-label": "Zwroty do wstawienia", hidden: true,
+            onkeydown: function (ev) { if (ev.key === "Escape") { ev.stopPropagation(); closePhrases(); } } }, [
+            el("div", { class: "zw-panel-head" }, [
+              el("h2", { class: "zw-panel-title", text: "Zwroty" }),
+              el("button", { type: "button", class: "btn btn-ghost btn-small", "aria-label": "Zamknij panel zwrotów", onclick: closePhrases }, ELM.ui.withIcon("x", "Zamknij"))
+            ]),
+            body,
+            el("p", { class: "tool-note zw-panel-foot" }, el("a", { href: ELM.pisanie.HASH + "/zwroty", text: "Cały bank zwrotów" }))
+          ]);
+          view.appendChild(panel);
+          ELM.pisanieZwroty.load().then(function () { fillPhrases(body); });
+        }
+        const open = panel.hidden;
+        panel.hidden = !open;
+        phrasesBtn.setAttribute("aria-expanded", open ? "true" : "false");
+        if (open) { const b = panel.querySelector("button"); if (b) b.focus(); } else area.focus();
+      }
 
       const checklist = el("section", { class: "card c1-checklist", hidden: true, "aria-label": "Checklista" });
 

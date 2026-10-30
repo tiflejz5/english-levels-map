@@ -35,6 +35,7 @@ window.ELM = window.ELM || {};
   }
 
   const trainer = ELM.writingTrainer.create({
+    examId: "certyfikat-c1",
     trainer: function () { return ELM.C1 && ELM.C1.trainers["trening-pisanie"]; },
     section: function () { const f = c1().findTrainer("trening-pisanie"); return f ? f.section : null; },
     crumb: function (label) { return c1().crumb(label); },
