@@ -104,6 +104,14 @@
       "level": "A1-B1",
       "file": "temat-technologia.json",
       "count": 40
+    },
+    {
+      "id": "egz-e8",
+      "title": "Egzamin ósmoklasisty – wyrażenia",
+      "description": "Wyrażenia typowe dla zadań egzaminu ósmoklasisty: reakcje w rozmowie, przyimki, kolokacje, podstawowa gramatyka. Oryginalne zdania, nie z arkuszy.",
+      "level": "A2",
+      "file": "egz-e8.json",
+      "count": 40
     }
   ]
 }
