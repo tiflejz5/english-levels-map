@@ -96,6 +96,14 @@
       "level": "A1-B1",
       "file": "temat-emocje.json",
       "count": 40
+    },
+    {
+      "id": "temat-technologia",
+      "title": "Technologia i internet",
+      "description": "Słowa i wyrażenia o telefonach, komputerach, internecie i mediach społecznościowych. Od A1 do B1.",
+      "level": "A1-B1",
+      "file": "temat-technologia.json",
+      "count": 40
     }
   ]
 }
