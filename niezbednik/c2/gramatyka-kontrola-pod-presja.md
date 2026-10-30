@@ -29,6 +29,14 @@ Na C2 nie chodzi o nowe reguły, tylko o to, żeby **znane reguły działały za
 | *He works as an engineer since…* | *He has worked as an engineer since…* | czas |
 | brak przedimka: *I went to the shop and bought bread and milk. Bread was stale.* | *The bread was stale.* | *the* przy konkretnym, wspomnianym |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *I need some advice on my career.* (Potrzebuję rady w sprawie kariery.) | Wybierz zdanie bez błędu: a) The news were shocking. b) The news was shocking. c) The newses were shocking. d) A news was shocking. → **b** | C1 |
+| *I've known Anna for ten years.* (Znam Annę od dziesięciu lat.) | Uzupełnij: I ___ (know) Anna for ten years, so I can trust her. → **have known** | C1 |
+| *She's an editor at a national newspaper.* (Jest redaktorką w ogólnopolskiej gazecie.) | Wybierz: She did ___ research before writing the article. a) a lot of b) many c) a number d) a few → **a** | C1 |
+
 ## Dlaczego błędy wracają pod presją
 
 Gdy mówisz szybko, mózg sięga po **najbardziej utrwalony** wzorzec – często polski. Sama wiedza o regule nie wystarczy; potrzebny jest automatyzm.

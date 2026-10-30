@@ -24,6 +24,14 @@ Na C2 znasz ponad 10 000 słów i rozumiesz praktycznie każdy tekst. Ostatni et
 | determined | persistent | stubborn, pig-headed |
 | elderly, senior | old | ancient, past it |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *He's so childish – he sulks when he loses.* (Ale dziecinny – dąsa się, kiedy przegrywa.) | Wybierz słowo o pozytywnym wydźwięku: a) childish b) childlike c) immature d) infantile → **b** | C1 |
+| *She's very slim.* (Jest bardzo szczupła. [komplement]) | Wybierz słowo neutralne lub pozytywne o sylwetce: a) skinny b) scrawny c) slim d) gaunt → **c** | C1 |
+| *It's not my cup of tea, but it's a piece of cake for you.* (To nie moja bajka, ale dla ciebie to betka.) | Uzupełnij: Don't worry about the exam – it's a piece of ___. → **cake** | C1 |
+
 ## Przysłowia z polskimi odpowiednikami
 
 | Angielskie | Polskie |

@@ -18,6 +18,14 @@ Na C2 możesz mówić bezbłędnie, a mimo to brzmieć „obco”. Różnicę ro
 
 *CATS / CHASE / MICE.* i *The CATS have been CHASing the MICE.* trwają prawie tyle samo – bo mają po trzy akcenty.
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *I didn't say she stole it.* (Nie powiedziałem, że ona to ukradła.) | Wybierz: Zdanie „I didn't SAY she stole it” (akcent na SAY) sugeruje, że: a) ktoś inny to ukradł. b) powiedziałem to innymi słowy lub tylko to zasugerowałem. c) ona to kupiła. d) nie jestem pewien czasu. → **b** | C1 |
+| *I can swim, but I can't dive.* (Umiem pływać, ale nie umiem nurkować.) | Wybierz: W zdaniu „I can swim” czasownik „can” zwykle wymawiamy w formie słabej /kən/, bo: a) jest wyraźnie akcentowany. b) jest słowem funkcyjnym bez akcentu zdaniowego. c) kończy zdanie. d) jest pytaniem. → **b** | C1 |
+| *Yes? (rosnąca intonacja)* (Tak? [pytanie / niepewność]) | Wybierz: Spadająca intonacja na końcu zdania „You're coming tonight.” zwykle oznacza: a) pytanie. b) pewne stwierdzenie. c) prośbę. d) wątpliwość. → **b** | C1 |
+
 ## Akcent zdaniowy
 
 Akcentujemy **słowa treściowe** (rzeczowniki, czasowniki główne, przymiotniki, przysłówki), a słowa funkcyjne (*a, the, to, of, and, can, have*) wymawiamy słabo.

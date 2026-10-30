@@ -29,6 +29,14 @@ Native speakerzy cały czas „łamią” reguły podręcznikowe – w swobodnej
 
 Część z nich (przyimek na końcu, *who*, *they*) to dziś po prostu norma. Inne (*ain't*, podwójne przeczenie) są nacechowane – używa się ich dla efektu, humoru lub w dialektach.
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *I'm gonna grab a coffee.* (Skoczę po kawę.) | Wybierz, gdzie „gonna” jest na miejscu: a) w e-mailu do klienta b) w umowie c) w rozmowie ze znajomym d) w CV → **c** | C1 |
+| *Ain't no way I'm doing that!* (Nie ma mowy, żebym to zrobił! [potocznie]) | Wybierz: „Ain't” w e-mailu służbowym zabrzmi: a) naturalnie. b) uprzejmie. c) niestosownie. d) formalnie. → **c** | C1 |
+| *Wanna come with us?* (Chcesz pójść z nami?) | Wybierz formalniejszy odpowiednik „Wanna come with us?”: a) Do you want come? b) Would you like to join us? c) Wanna join? d) You come? → **b** | C1 |
+
 ## Slang – przykłady
 
 | Brytyjski | Znaczenie | Amerykański | Znaczenie |

@@ -27,6 +27,14 @@ Na C1 przełączasz się między stylem luźnym, neutralnym i formalnym. Na C2 r
 
 *The Tenant **shall** pay the rent **pursuant to** clause 4, **notwithstanding** any dispute **hereinafter** referred to.*
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *The tenant shall pay the rent monthly.* (Najemca opłaca czynsz co miesiąc.) | Wybierz: W umowie „The supplier shall deliver the goods within 30 days” oznacza: a) przyszłość. b) propozycję. c) obowiązek. d) możliwość. → **c** | C1 |
+| *I hereby inform you that your application has been accepted.* (Niniejszym informuję, że Twoja aplikacja została przyjęta.) | Wybierz mniej formalną wersję: a) I'm writing to let you know that your application has been accepted. b) Be informed herewith. c) I advise you accordingly. d) You are hereby told. → **a** | C1 |
+| *Minister slams new tax plan.* (Minister krytykuje nowy plan podatkowy. [nagłówek]) | Wybierz: W nagłówku prasowym „Opposition slams budget” słowo „slams” znaczy: a) trzaska drzwiami. b) chwali. c) ostro krytykuje. d) przyjmuje. → **c** | C1 |
+
 ## Styl akademicki
 
 - Bezosobowość: *It is argued that… / This paper examines…*

@@ -21,6 +21,14 @@ Na B2 oswajasz się ze standardowymi akcentami i podstawową mową łączoną. N
 | Flap t (AmE) | *better, party, a lot of* | „bedder”, „pardy”, „a lodda” |
 | Łączenie z /r/, /j/, /w/ | *law and order, I agree, go on* | „law-r-and order”, „I-y-agree”, „go-w-on” |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *I didn't get that reference – is it from a film?* (Nie załapałem tej aluzji – to z jakiegoś filmu?) | Wybierz najbardziej naturalną reakcję na nieznaną aluzję kulturową: a) What does this mean?! b) I don't understand your joke. c) Sorry, I didn't catch that reference. d) That's not funny. → **c** | C1 |
+| *"Time flies like an arrow; fruit flies like a banana."* („Czas leci jak strzała; muszki owocowe lubią banana.”) | Wybierz: W tym żarcie słowo „flies” ma dwa znaczenia: a) tylko rzeczownik. b) tylko czasownik. c) rzeczownik i czasownik. d) żadne z nich. → **c** | C1 |
+| *He spoke so fast that I only caught the gist.* (Mówił tak szybko, że uchwyciłem tylko sens.) | Transformacja: I couldn't understand everything he said. CATCH → I couldn't ___ he said. → **catch everything** | C1 |
+
 ## Mocne akcenty regionalne
 
 | Akcent | Gdzie | Cechy i słowa |

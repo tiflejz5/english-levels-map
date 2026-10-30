@@ -17,6 +17,14 @@ Na B1 strategie ratunkowe pomagały Ci, gdy brakowało słowa. Na C2 problem jes
 - rozmówca odpowiada nie na temat
 - *I'm not sure I follow.* / *What do you mean by…?*
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *Does that make sense?* (Czy to ma sens?) | Wybierz: Rozmówca wciąż nie rozumie twojego wyjaśnienia. Najlepsza reakcja: a) Repeat the same sentence louder. b) Do you understand me? c) Let me put it another way. d) That's what I said. → **c** | C1 |
+| *Sorry, I got sidetracked. Where was I?* (Przepraszam, zboczyłem z tematu. Na czym skończyłem?) | Uzupełnij (powrót do wątku): I got carried away. Anyway, to get b___ to the point, we need a new budget. → **back** | C1 |
+| *Think of it as a kind of map.* (Pomyśl o tym jak o rodzaju mapy. [analogia]) | Wybierz zwrot wprowadzający przykład: a) For instance, … b) Because of … c) Despite … d) Although … → **a** | C1 |
+
 ## Techniki
 
 | Technika | Zwroty | Przykład |
