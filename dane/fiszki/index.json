@@ -112,6 +112,14 @@
       "level": "A2",
       "file": "egz-e8.json",
       "count": 40
+    },
+    {
+      "id": "egz-matura",
+      "title": "Matura – wyrażenia",
+      "description": "Wyrażenia typowe dla zadań matury z angielskiego (podstawowej i rozszerzonej): reakcje w minidialogach, kolokacje, wyrażenia przyimkowe, zwroty do pisania i mówienia. Oryginalne zdania, nie z arkuszy.",
+      "level": "B1-B2",
+      "file": "egz-matura.json",
+      "count": 50
     }
   ]
 }
