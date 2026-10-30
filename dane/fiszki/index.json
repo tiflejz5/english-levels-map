@@ -80,6 +80,14 @@
       "level": "A1-B1",
       "file": "temat-podroze.json",
       "count": 40
+    },
+    {
+      "id": "temat-zdrowie",
+      "title": "Zdrowie i ciało",
+      "description": "Słowa i wyrażenia o częściach ciała, chorobach i wizytach u lekarza. Od A1 do B1.",
+      "level": "A1-B1",
+      "file": "temat-zdrowie.json",
+      "count": 40
     }
   ]
 }
