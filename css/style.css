@@ -1697,6 +1697,7 @@ textarea.field { overflow: auto; }
 .bento-streak { grid-column: span 5; }
 .bento-shortcuts { grid-column: span 12; }
 .bento-exam { grid-column: span 6; }
+.bento.has-exam .bento-streak { grid-column: span 6; }
 /* Z egzaminem: seria | egzamin | dodaj błąd, a „Kontynuuj” w osobnym, szerokim rzędzie */
 
 .tile-title { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: 620; letter-spacing: -0.01em; margin: 0; }
@@ -3912,7 +3913,7 @@ a.notes-item-title { color: var(--accent); text-decoration: underline; text-unde
 .exam-cover-chev { display: inline-flex; color: var(--ink-muted); transition: transform var(--dur-fast) var(--ease-out); }
 .exam-cover.is-mini:hover { border-color: var(--line-control); box-shadow: var(--shadow); }
 .exam-cover.is-mini:hover .exam-cover-chev { transform: translateX(3px); }
-.bento-exam.exam-cover.is-mini { padding: 16px 16px 16px 28px; }
+.bento-exam.exam-cover.is-mini { flex-direction: row; align-items: center; gap: 14px; padding: 16px 16px 16px 28px; }
 
 @media (max-width: 639px) {
   .exam-cover.is-full { padding: 18px 18px 18px 30px; gap: 12px; }
