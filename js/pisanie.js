@@ -97,10 +97,7 @@ window.ELM = window.ELM || {};
   // =====================================================================
 
   function head(title, lead) {
-    return el("header", { class: "tool-head" }, [
-      el("h1", { class: "tool-title" }, [el("span", { class: "lab-head-icon", "aria-hidden": "true" }, ELM.icon("pencil", { size: 28 })), title]),
-      lead ? el("p", { class: "tool-lead", text: lead }) : null
-    ]);
+    return ELM.ui.pageHead({ eyebrow: "Nauka · Pisanie", title: title, lead: lead });
   }
 
   function noteCount(task) { return ((task.modelNotes && task.modelNotes.annotations) || []).length; }

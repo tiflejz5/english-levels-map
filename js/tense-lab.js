@@ -277,10 +277,7 @@ window.ELM = window.ELM || {};
 
   function header(active, route) {
     return [
-      el("header", { class: "tool-head lab-head" }, [
-        el("h1", { class: "tool-title" }, [el("span", { class: "lab-head-icon", "aria-hidden": "true" }, ELM.icon("flask-conical", { size: 28 })), "Laboratorium czasów"]),
-        el("p", { class: "tool-lead", text: "Zobacz czasy na osi, porównaj je i dobierz właściwy do sytuacji." })
-      ]),
+      ELM.ui.pageHead({ eyebrow: "Nauka · Laboratorium czasów", title: "Laboratorium czasów", lead: "Zobacz czasy na osi, porównaj je i dobierz właściwy do sytuacji.", className: "lab-head" }),
       tabs(active, route)
     ];
   }

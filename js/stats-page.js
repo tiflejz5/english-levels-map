@@ -265,10 +265,7 @@ window.ELM = window.ELM || {};
     view.replaceChildren();
     document.title = "Statystyki · English Levels Map";
     const hasData = rec.items.length || Object.keys(rec.aggregates).length;
-    view.appendChild(el("header", { class: "tool-head" }, [
-      el("h1", { class: "tool-title" }, [el("span", { class: "lab-head-icon", "aria-hidden": "true" }, ELM.icon("chart-column", { size: 28 })), "Statystyki"]),
-      el("p", { class: "tool-lead", text: "Twoje odpowiedzi w zadaniach, trafność i aktywność. Liczymy tylko Twoje dane – bez porównań z innymi." })
-    ]));
+    view.appendChild(ELM.ui.pageHead({ eyebrow: "Twoje postępy · Statystyki", title: "Statystyki", lead: "Twoje odpowiedzi w zadaniach, trafność i aktywność. Liczymy tylko Twoje dane – bez porównań z innymi." }));
     if (!hasData) {
       view.appendChild(el("div", { class: "card st-hero-empty" }, [
         el("span", { class: "hub-soon-icon", "aria-hidden": "true" }, ELM.icon("chart-column", { size: 22 })),

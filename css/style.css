@@ -2856,8 +2856,6 @@ html.focus-mode .c1-writing-area { box-shadow: 0 0 0 4px var(--accent-soft); }
 .lab-group-past { --tense: var(--tense-past); }
 .lab-group-present { --tense: var(--tense-present); }
 .lab-group-future { --tense: var(--tense-future); }
-.lab-head .tool-title { display: flex; align-items: center; gap: 12px; }
-.lab-head-icon { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); flex-shrink: 0; }
 
 /* Zakładki (linki z aria-current); na wąskim ekranie przewijany pasek */
 .lab-tabs { margin: 0 0 22px; border-bottom: 1px solid var(--line-strong); overflow-x: auto; scrollbar-width: thin; }
@@ -2987,7 +2985,6 @@ a.lab-tile:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover);
 }
 
 /* ===================== CENTRUM ĆWICZEŃ (rozbudowa v2, DESIGN.md sekcja 3.9) ===================== */
-.hub-view .tool-title { display: flex; align-items: center; gap: 12px; }
 .hub-section { margin-bottom: 34px; scroll-margin-top: 80px; }
 .hub-section:focus { outline: none; }
 .hub-section > .tool-note { max-width: var(--measure); margin-bottom: 14px; }
@@ -3069,7 +3066,6 @@ a.lab-tile:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover);
 .menu-switch[aria-checked="true"] .switch-thumb { transform: translateX(16px); background: var(--on-accent); }
 
 /* ===================== STATYSTYKI (rozbudowa v2, DESIGN.md sekcja 3.11) ===================== */
-.st-view .tool-title { display: flex; align-items: center; gap: 12px; }
 .st-grid-layout { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 .st-tile { padding: 20px 22px; min-width: 0; }
 .st-tile.st-wide { grid-column: 1 / -1; }
@@ -3505,7 +3501,6 @@ a.notes-item-title { color: var(--accent); text-decoration: underline; text-unde
 /* Elementy ukrywane atrybutem hidden (przycisk przy zaznaczeniu, pola formularza) nie mogą wracać przez display */
 .fiszki-view [hidden] { display: none; }
 .btn-large { min-height: 52px; padding: 12px 24px; font-size: var(--fs-md); }
-.fiszki-view .tool-title { display: flex; align-items: center; gap: 12px; }
 .fc-hero { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 20px 24px; margin-bottom: 24px; }
 .fc-hero-label { margin: 0; font-size: var(--fs-xs-plus); font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ink-muted); }
 .fc-hero-count { margin: 2px 0 6px; font-size: var(--fs-md); color: var(--ink-muted); }
@@ -3878,3 +3873,6 @@ a.notes-item-title { color: var(--accent); text-decoration: underline; text-unde
 .page-view > *, .home-view > *, .c1-view > *, .ex-view > *, .lt-view > * { max-width: var(--w-text); }
 .page-view > .wide, .c1-view > .wide, .c1-view > .c1-set-grid, .ex-view > .ex-set-grid,
 .c1-view > .wz-card-list, .page-view > .wz-card-list { max-width: none; }
+
+/* A3: etykieta nad nagłówkiem strony narzędzia */
+.eyebrow { margin: 0 0 6px; font-size: var(--fs-xs); font-weight: 600; letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--accent); }

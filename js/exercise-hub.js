@@ -294,10 +294,7 @@ window.ELM = window.ELM || {};
     const view = document.getElementById("view");
     view.className = "view tool-view hub-view";
     view.dataset.file = ex().BASE;
-    view.replaceChildren(el("header", { class: "tool-head" }, [
-      el("h1", { class: "tool-title" }, [el("span", { class: "lab-head-icon", "aria-hidden": "true" }, ELM.icon("dumbbell", { size: 28 })), "Centrum ćwiczeń"]),
-      el("p", { class: "tool-lead", text: "Zestawy zadań do tematów, gotowe zestawy mieszane i losowanie własnego zestawu. Wybór formy, układanie zdań, szukanie błędów, luki do wpisania, dopasowanie par, transformacje, tłumaczenie i dyktando – w trybie Nauki albo Egzaminu. Wyniki liczą się w punktach." })
-    ]));
+    view.replaceChildren(ELM.ui.pageHead({ eyebrow: "Nauka · Ćwiczenia", title: "Centrum ćwiczeń", lead: "Zestawy zadań do tematów, gotowe zestawy mieszane i losowanie własnego zestawu. Wybór formy, układanie zdań, szukanie błędów, luki do wpisania, dopasowanie par, transformacje, tłumaczenie i dyktando – w trybie Nauki albo Egzaminu. Wyniki liczą się w punktach." }));
     document.title = "Centrum ćwiczeń · English Levels Map";
     ex().loadIndex().then(function (index) {
       const now = ex().parseRoute(location.hash);
