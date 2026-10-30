@@ -97,6 +97,13 @@ if (fs.existsSync(sumDir)) fs.readdirSync(sumDir).filter(function (f) { return /
   const md = splitMd(read(path.join(sumDir, f)));
   add({ id: "summary:" + lvl, group: "pages", title: "Podsumowanie poziomu " + lvl, headings: headings(md.body), text: clean(md.body), level: lvl, route: "#/" + lvl.toLowerCase() });
 });
+// Ściągi poziomów („Ściąga A2”)
+const sciDir = path.join(N, "sciagi");
+if (fs.existsSync(sciDir)) fs.readdirSync(sciDir).filter(function (f) { return /^[abc][12].md$/i.test(f); }).sort().forEach(function (f) {
+  const lvl = f.replace(/.md$/i, "").toUpperCase();
+  const md = splitMd(read(path.join(sciDir, f)));
+  add({ id: "sciaga:" + lvl, group: "pages", title: "Ściąga " + lvl, headings: headings(md.body), summary: md.meta.summary || "", text: clean(md.body), level: lvl, category: "Ściąga", route: "#/" + lvl.toLowerCase() + "/sciaga" });
+});
 
 // ---------- Certyfikat C1 ----------
 const C1 = path.join(N, "certyfikat-c1");
