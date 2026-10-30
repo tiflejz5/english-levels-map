@@ -245,10 +245,7 @@ window.ELM = window.ELM || {};
   // =====================================================================
 
   function head(title, lead) {
-    return el("header", { class: "tool-head" }, [
-      el("h1", { class: "tool-title" }, [el("span", { class: "lab-head-icon", "aria-hidden": "true" }, ELM.icon("layers", { size: 28 })), title]),
-      lead ? el("p", { class: "tool-lead", text: lead }) : null
-    ]);
+    return ELM.ui.pageHead({ eyebrow: (title === "Moje słowa" ? "Twoje postępy · Moje słowa" : "Nauka · Fiszki"), title: title, lead: lead });
   }
 
   function noProfile(view) {
@@ -315,7 +312,7 @@ window.ELM = window.ELM || {};
 
   /** Talie tematyczne (temat-*) z filtrem poziomu: poziom A1/A2/B1 pokazuje talie, które mają karty na tym poziomie. */
   function renderThemes(view, level) {
-    view.appendChild(el("p", { class: "c1-back" }, el("a", { href: HASH }, ELM.ui.withIcon("arrow-left", "Fiszki"))));
+    view.appendChild(el("p", { class: "c1-back" }, el("a", { href: HASH }, ELM.ui.withIcon("chevron-left", "Fiszki"))));
     view.appendChild(head("Fiszki tematyczne", "Słowa i wyrażenia o codziennych tematach, od A1 do B1. Każda talia włącza się osobno."));
     const levels = ["", "A1", "A2", "B1"];
     view.appendChild(el("div", { class: "chip-filter", role: "group", "aria-label": "Poziom" }, levels.map(function (l) {
@@ -555,7 +552,7 @@ window.ELM = window.ELM || {};
     const remainingLearn = session.pool.length;
     const pct = session.total ? Math.min(100, 100 * session.done / Math.max(session.total, session.done + 1)) : 0;
     root.appendChild(el("div", { class: "fc-session-top" }, [
-      el("a", { class: "c1-back fc-back", href: HASH }, ELM.ui.withIcon("arrow-left", "Fiszki")),
+      el("a", { class: "c1-back fc-back", href: HASH }, ELM.ui.withIcon("chevron-left", "Fiszki")),
       el("div", { class: "fc-progress" }, [
         el("p", { class: "fc-progress-text", text: (session.done + 1) + " z " + Math.max(session.total, session.done + 1) + (remainingLearn ? " · w nauce: " + remainingLearn : "") }),
         el("div", { class: "fc-progress-bar", role: "progressbar", "aria-label": "Postęp sesji", "aria-valuemin": "0", "aria-valuemax": String(Math.max(session.total, session.done + 1)), "aria-valuenow": String(session.done) },
@@ -615,16 +612,16 @@ window.ELM = window.ELM || {};
     } else {
       root.appendChild(el("div", { class: "fc-reveal-row" }, [
         el("button", { type: "button", class: "btn btn-primary btn-large", onclick: function () { checkTyped(card, input.value); } }, "Sprawdź"),
-        el("button", { type: "button", class: "btn btn-ghost", onclick: function () { checkTyped(card, ""); } }, "Nie wiem – pokaż")
+        el("button", { type: "button", class: "btn btn-link", onclick: function () { checkTyped(card, ""); } }, "Nie wiem – pokaż")
       ]));
     }
 
     const own = /^u-/.test(card.id);
     root.appendChild(el("div", { class: "fc-tools" }, [
-      el("button", { type: "button", class: "btn btn-ghost btn-small", disabled: !session.undo.length, onclick: undoLast }, ELM.ui.withIcon("undo-2", "Cofnij (Z)")),
-      own ? el("a", { class: "btn btn-ghost btn-small", href: HASH + "/talia/" + card.deck + "/karta/" + card.id }, ELM.ui.withIcon("pencil", "Edytuj (E)")) : null,
-      el("button", { type: "button", class: "btn btn-ghost btn-small", onclick: function () { setAside("suspend"); } }, ELM.ui.withIcon("pause", "Zawieś (S)")),
-      el("button", { type: "button", class: "btn btn-ghost btn-small", onclick: function () { setAside("bury"); } }, ELM.ui.withIcon("clock", "Odłóż do jutra (B)"))
+      el("button", { type: "button", class: "btn btn-link btn-small", disabled: !session.undo.length, onclick: undoLast }, ELM.ui.withIcon("undo-2", "Cofnij (Z)")),
+      own ? el("a", { class: "btn btn-link btn-small", href: HASH + "/talia/" + card.deck + "/karta/" + card.id }, ELM.ui.withIcon("pencil", "Edytuj (E)")) : null,
+      el("button", { type: "button", class: "btn btn-link btn-small", onclick: function () { setAside("suspend"); } }, ELM.ui.withIcon("pause", "Zawieś (S)")),
+      el("button", { type: "button", class: "btn btn-link btn-small", onclick: function () { setAside("bury"); } }, ELM.ui.withIcon("clock", "Odłóż do jutra (B)"))
     ]));
     root.appendChild(el("p", { class: "tool-note fc-keys", text: "Skróty: Spacja – pokaż / Dobrze, 1–4 – oceny, Z – cofnij, S – zawieś, B – odłóż" + (own ? ", E – edytuj" : "") + "." }));
     root.appendChild(liveNode);

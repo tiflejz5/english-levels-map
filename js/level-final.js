@@ -139,7 +139,7 @@ window.ELM = window.ELM || {};
         el("li", { text: "Test jest zawsze dostępny. Niczego nie zaznacza jako „Umiem” – to nadal robisz Ty." })
       ]),
       msg,
-      el("div", { class: "tool-actions" }, [startBtn, el("a", { class: "btn btn-ghost", href: levelHash(level) }, "Wróć do poziomu " + level)])
+      el("div", { class: "tool-actions" }, [startBtn, el("a", { class: "btn btn-link", href: levelHash(level) }, "Wróć do poziomu " + level)])
     ]));
     setTimeout(function () { startBtn.focus({ preventScroll: true }); }, 0);
   }
@@ -224,7 +224,7 @@ window.ELM = window.ELM || {};
     const actions = el("div", { class: "tool-actions" }, [
       el("button", { type: "button", class: "btn " + (passed ? "btn-secondary" : "btn-primary"), "data-fk": "again", onclick: function () { start(level, set); } }, ELM.ui.withIcon("rotate-ccw", "Zrób test jeszcze raz")),
       el("a", { class: "btn btn-secondary", href: levelHash(level) }, "Wróć do poziomu " + level),
-      passed ? el("a", { class: "btn btn-ghost", href: "#/dzis" }, ELM.ui.withIcon("arrow-right", "Zobacz Szlak")) : null
+      passed ? el("a", { class: "btn btn-link", href: "#/dzis" }, ELM.ui.withIcon("arrow-right", "Zobacz Szlak")) : null
     ]);
 
     view.appendChild(el("section", { class: "card ex-result lf-result " + (passed ? "is-passed" : "is-failed"), "aria-live": "polite" }, [

@@ -93,7 +93,7 @@ window.ELM = window.ELM || {};
   function speakButton(text) {
     if (!canSpeak()) return null;
     return el("button", {
-      type: "button", class: "btn btn-ghost lab-speak", "aria-label": "Posłuchaj: " + text, "data-tooltip": "Posłuchaj",
+      type: "button", class: "btn btn-link lab-speak", "aria-label": "Posłuchaj: " + text, "data-tooltip": "Posłuchaj",
       onclick: function () { speak(text); }
     }, ELM.icon("volume-2", { size: 18 }));
   }
@@ -277,10 +277,7 @@ window.ELM = window.ELM || {};
 
   function header(active, route) {
     return [
-      el("header", { class: "tool-head lab-head" }, [
-        el("h1", { class: "tool-title" }, [el("span", { class: "lab-head-icon", "aria-hidden": "true" }, ELM.icon("flask-conical", { size: 28 })), "Laboratorium czasów"]),
-        el("p", { class: "tool-lead", text: "Zobacz czasy na osi, porównaj je i dobierz właściwy do sytuacji." })
-      ]),
+      ELM.ui.pageHead({ eyebrow: "Nauka · Laboratorium czasów", title: "Laboratorium czasów", lead: "Zobacz czasy na osi, porównaj je i dobierz właściwy do sytuacji.", className: "lab-head" }),
       tabs(active, route)
     ];
   }
@@ -483,7 +480,7 @@ window.ELM = window.ELM || {};
     }
     body.push(el("div", { class: "tool-actions" }, [
       pathStack.length ? el("button", { type: "button", class: "btn btn-secondary", onclick: function () { pathStack.pop(); renderAgain("#lab-q"); } }, ELM.ui.withIcon("arrow-left", "Wstecz")) : null,
-      pathStack.length ? el("button", { type: "button", class: "btn btn-ghost", onclick: function () { pathStack = []; renderAgain("#lab-q"); } }, ELM.ui.withIcon("rotate-ccw", "Zacznij od nowa")) : null
+      pathStack.length ? el("button", { type: "button", class: "btn btn-link", onclick: function () { pathStack = []; renderAgain("#lab-q"); } }, ELM.ui.withIcon("rotate-ccw", "Zacznij od nowa")) : null
     ]));
     view.appendChild(el("section", { class: "card lab-pick", "aria-live": "polite" }, [crumbs].concat(body)));
     view.appendChild(el("p", { class: "tool-note", text: "To reguły zapisane w danych, nie sztuczna inteligencja – ta sama ścieżka zawsze daje ten sam wynik." }));

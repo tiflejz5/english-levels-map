@@ -40,7 +40,7 @@ window.ELM = window.ELM || {};
 
   function render(view, route) {
     document.title = "Pisanie · English Levels Map";
-    const back = el("p", { class: "c1-back" }, el("a", { href: P().HASH }, ELM.icon ? ELM.ui.withIcon("arrow-left", "Pisanie") : "Pisanie"));
+    const back = el("p", { class: "c1-back" }, el("a", { href: P().HASH }, ELM.icon ? ELM.ui.withIcon("chevron-left", "Pisanie") : "Pisanie"));
     view.appendChild(back);
     const status = el("p", { class: "tool-note", role: "status", text: "Wczytuję wzorzec…" });
     view.appendChild(status);

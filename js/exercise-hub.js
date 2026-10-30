@@ -182,9 +182,9 @@ window.ELM = window.ELM || {};
       el("fieldset", { class: "hub-gen-row" }, [
         el("legend", { class: "field-label", text: "Tematy (" + gen.topics.length + " z " + topics.length + ")" }),
         topics.length ? el("div", { class: "hub-gen-shortcuts" }, [
-          czasy.length ? el("button", { type: "button", class: "btn btn-ghost btn-small", onclick: function () { gen.topics = czasy.slice(); rerender(".hub-gen-shortcuts .btn"); } }, "Wszystkie czasy") : null,
-          el("button", { type: "button", class: "btn btn-ghost btn-small", onclick: function () { gen.topics = ids.slice(); rerender(".hub-gen-shortcuts .btn"); } }, "Zaznacz wszystkie"),
-          el("button", { type: "button", class: "btn btn-ghost btn-small", onclick: function () { gen.topics = []; rerender(".hub-gen-shortcuts .btn"); } }, "Wyczyść")
+          czasy.length ? el("button", { type: "button", class: "btn btn-link btn-small", onclick: function () { gen.topics = czasy.slice(); rerender(".hub-gen-shortcuts .btn"); } }, "Wszystkie czasy") : null,
+          el("button", { type: "button", class: "btn btn-link btn-small", onclick: function () { gen.topics = ids.slice(); rerender(".hub-gen-shortcuts .btn"); } }, "Zaznacz wszystkie"),
+          el("button", { type: "button", class: "btn btn-link btn-small", onclick: function () { gen.topics = []; rerender(".hub-gen-shortcuts .btn"); } }, "Wyczyść")
         ]) : el("p", { class: "tool-note", text: "W tym zakresie poziomów nie ma jeszcze zestawów." }),
         el("div", null, Object.keys(byCat).map(function (c) {
           return el("div", { class: "hub-gen-cat" }, [
@@ -294,10 +294,7 @@ window.ELM = window.ELM || {};
     const view = document.getElementById("view");
     view.className = "view tool-view hub-view";
     view.dataset.file = ex().BASE;
-    view.replaceChildren(el("header", { class: "tool-head" }, [
-      el("h1", { class: "tool-title" }, [el("span", { class: "lab-head-icon", "aria-hidden": "true" }, ELM.icon("dumbbell", { size: 28 })), "Centrum ćwiczeń"]),
-      el("p", { class: "tool-lead", text: "Zestawy zadań do tematów, gotowe zestawy mieszane i losowanie własnego zestawu. Wybór formy, układanie zdań, szukanie błędów, luki do wpisania, dopasowanie par, transformacje, tłumaczenie i dyktando – w trybie Nauki albo Egzaminu. Wyniki liczą się w punktach." })
-    ]));
+    view.replaceChildren(ELM.ui.pageHead({ eyebrow: "Nauka · Ćwiczenia", title: "Centrum ćwiczeń", lead: "Zestawy zadań do tematów, gotowe zestawy mieszane i losowanie własnego zestawu. Wybór formy, układanie zdań, szukanie błędów, luki do wpisania, dopasowanie par, transformacje, tłumaczenie i dyktando – w trybie Nauki albo Egzaminu. Wyniki liczą się w punktach." }));
     document.title = "Centrum ćwiczeń · English Levels Map";
     ex().loadIndex().then(function (index) {
       const now = ex().parseRoute(location.hash);

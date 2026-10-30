@@ -249,6 +249,22 @@ window.ELM = window.ELM || {};
     else article.appendChild(node);
   }
 
+  /** A8: sekcja, przed którą wstawiamy ramki egzaminów (null = na koniec artykułu). */
+  function examBoxAnchor(article) {
+    const sections = Array.prototype.filter.call(article.children, function (n) { return n.classList && n.classList.contains("md-section"); });
+    const titles = sections.map(function (s) { const h = s.querySelector("h2"); return h ? h.textContent : ""; });
+    const i = ELM.examLogic.examBoxAnchorIndex(titles);
+    return i < 0 ? null : sections[i];
+  }
+
+  /** Wstawia ramki egzaminów po wyjaśnieniu, przed „Życie i egzamin” / „Typowe błędy” / „Ćwiczenie”. */
+  function insertExamBoxes(article, node) {
+    if (!node) return;
+    const anchor = examBoxAnchor(article);
+    if (anchor) article.insertBefore(node, anchor);
+    else article.appendChild(node);
+  }
+
   function plural(n, one, few, many) {
     if (n === 1) return one;
     const d = n % 10, t = n % 100;
@@ -329,7 +345,7 @@ window.ELM = window.ELM || {};
     });
     article.appendChild(el("p", { class: "c1-tasks-reset" }, el("button", {
       type: "button",
-      class: "btn btn-ghost btn-small",
+      class: "btn btn-link btn-small",
       onclick: function () {
         boxes.forEach(function (b) { b.checked = false; });
         delete tasks[pageId];
@@ -654,6 +670,8 @@ window.ELM = window.ELM || {};
     examBoxFor: examBoxFor,
     homeTile: homeTile,
     insertAfterIntro: insertAfterIntro,
+    insertExamBoxes: insertExamBoxes,
+    examBoxAnchor: examBoxAnchor,
     timer: timer
   };
 })(window.ELM);

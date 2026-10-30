@@ -222,11 +222,11 @@ window.ELM = window.ELM || {};
     view.appendChild(renderLevelHeader(level));
     view.appendChild(renderCategoryBar(cat));
 
-    if (!cat) {
+    const all = ELM.state.ui.categoryId === app().ALL_CATEGORIES;
+    if (!cat && !all) {
       view.appendChild(emptyState("Brak kategorii na tym poziomie."));
     } else {
-      const bucket = app().getBucket(level.id, cat.id);
-      view.appendChild(renderEssentials(level, cat, bucket));
+      view.appendChild(renderEssentials(level, cat, cat ? app().getBucket(level.id, cat.id) : null));
       // Pod listą: podsumowanie poziomu (niezbednik/podsumowania/<poziom>.md)
       const summary = ELM.niezbednik.renderSummary(level.id);
       if (summary) view.appendChild(summary);
@@ -277,9 +277,11 @@ window.ELM = window.ELM || {};
     const bar = el("div", { class: "category-bar" });
     if (cats.length) {
       // Filtr kategorii jako chipy (jeden wybrany naraz, aria-pressed)
+      const allId = app().ALL_CATEGORIES;
+      const options = [{ id: allId, name: "Wszystkie" }].concat(cats);
       bar.appendChild(el("div", { class: "chip-filter", role: "group", "aria-label": "Kategoria" },
-        cats.map(function (c) {
-          const active = activeCat && c.id === activeCat.id;
+        options.map(function (c) {
+          const active = c.id === allId ? ELM.state.ui.categoryId === allId : !!(activeCat && c.id === activeCat.id);
           return el("button", {
             type: "button",
             class: "chip-btn" + (active ? " is-active" : ""),
@@ -294,9 +296,46 @@ window.ELM = window.ELM || {};
 
   // ---------- Essentials ----------
 
-  function renderEssentials(level, cat, bucket) {
-    const stats = app().getStats(level.id, cat.id);
+  /** Wiersz punktu poziomu: „Umiem” po lewej, tekst (link do podstrony) z chevronem po prawej. */
+  function essRow(item) {
     const progress = ELM.state.progress;
+    const done = progress[item.id] === true;
+    const textId = "ess-text-" + item.id;
+    const pageLink = ELM.niezbednik.linkForEssential(item.id);
+    let li = null;
+    const checkbox = el("label", { class: "umiem" }, [
+      el("input", {
+        type: "checkbox",
+        checked: done,
+        "aria-describedby": textId,
+        onchange: function (e) {
+          app().setProgress(item.id, e.target.checked);
+          li.classList.toggle("is-done", e.target.checked);
+        }
+      }),
+      el("span", { class: "visually-hidden", text: "Umiem" })
+    ]);
+    li = el("li", { class: "ess-item" + (done ? " is-done" : "") + (pageLink ? " has-page" : "") }, [
+      checkbox,
+      el("div", { class: "ess-text", id: textId }, pageLink
+        // Punkt z podstroną: tekst jest linkiem
+        ? el("a", { class: "ess-link", href: ELM.niezbednik.routeOf(pageLink.item), onclick: rememberScroll }, [
+            el("span", null, U.formatText(item.text)),
+            el("span", { class: "ess-link-arrow", "aria-hidden": "true" }, ELM.icon("chevron-right", { size: 18 }))
+          ])
+        : U.formatText(item.text))
+    ]);
+    return li;
+  }
+
+  /** Puste punkty (bez tekstu) nie są pokazywane. */
+  function visibleEssentials(bucket) {
+    return bucket.essentials.filter(function (e) { return !U.isBlank(e.text); });
+  }
+
+  /** Lista punktów; cat = null oznacza filtr „Wszystkie” (grupy z podtytułami kategorii). */
+  function renderEssentials(level, cat, bucket) {
+    const stats = cat ? app().getStats(level.id, cat.id) : app().getLevelStats(level.id);
 
     const section = el("section", { class: "essentials", "aria-labelledby": "ess-title" }, [
       el("div", { class: "section-head" }, [
@@ -304,53 +343,29 @@ window.ELM = window.ELM || {};
         el("span", { class: "section-sub", text: "Co warto umieć na poziomie " + level.id })
       ]),
       el("div", { class: "essentials-progress", id: "ess-progress" }, [
-        progressBar(stats.percent, false, "Postęp w tej kategorii"),
-        el("span", { class: "progress-text", text: progressLabel(stats) })
+        progressBar(stats.percent, false, cat ? "Postęp w tej kategorii" : "Postęp na tym poziomie"),
+        el("span", { class: "progress-text", text: progressLabel(stats, !cat) })
       ])
     ]);
 
-    // Puste punkty (bez tekstu) nie są pokazywane
-    const visible = bucket.essentials.filter(function (e) { return !U.isBlank(e.text); });
-    if (!visible.length) {
+    const groups = cat
+      ? [{ cat: cat, items: visibleEssentials(bucket) }]
+      : ELM.state.content.categories.map(function (c) { return { cat: c, items: visibleEssentials(app().getBucket(level.id, c.id)) }; });
+    let any = false;
+    groups.forEach(function (g) {
+      if (!g.items.length) return;
+      any = true;
+      if (!cat) section.appendChild(el("h3", { class: "ess-group-title", text: g.cat.name || "Bez nazwy" }));
+      const ul = el("ul", { class: "ess-list" });
+      g.items.forEach(function (item) { ul.appendChild(essRow(item)); });
+      section.appendChild(ul);
+    });
+    if (!any) {
       section.appendChild(emptyState("Brak punktów w tej kategorii."));
       return section;
     }
-
-    const ul = el("ul", { class: "ess-list" });
-    visible.forEach(function (item) {
-      const done = progress[item.id] === true;
-      const textId = "ess-text-" + item.id;
-      const pageLink = ELM.niezbednik.linkForEssential(item.id);
-      let li = null;
-      const checkbox = el("label", { class: "umiem" }, [
-        el("input", {
-          type: "checkbox",
-          checked: done,
-          "aria-describedby": textId,
-          onchange: function (e) {
-            app().setProgress(item.id, e.target.checked);
-            li.classList.toggle("is-done", e.target.checked);
-          }
-        }),
-        el("span", { text: "Umiem" })
-      ]);
-
-      li = el("li", { class: "ess-item" + (done ? " is-done" : "") + (pageLink ? " has-page" : "") }, [
-        el("span", { class: "chip is-level ess-chip", text: cat.name || "Kategoria" }),
-        el("div", { class: "ess-text", id: textId }, pageLink
-          // Punkt z podstroną: tekst jest linkiem
-          ? el("a", { class: "ess-link", href: ELM.niezbednik.routeOf(pageLink.item), onclick: rememberScroll }, [
-              U.formatText(item.text),
-              el("span", { class: "ess-link-arrow", "aria-hidden": "true" }, ELM.icon("chevron-right", { size: 16 }))
-            ])
-          : U.formatText(item.text)),
-        checkbox
-      ]);
-      ul.appendChild(li);
-    });
-    section.appendChild(ul);
     // Pod słownictwem A1–B1: link do talii tematycznych fiszek (lista przefiltrowana po poziomie)
-    if (cat.id === "cat_vocabulary" && /^(A1|A2|B1)$/.test(level.id) && ELM.fiszki) {
+    if ((!cat || cat.id === "cat_vocabulary") && /^(A1|A2|B1)$/.test(level.id) && ELM.fiszki) {
       section.appendChild(el("p", { class: "fc-themes-link" }, el("a", { class: "btn btn-secondary", href: "#/fiszki/tematy/" + level.id.toLowerCase() },
         ELM.ui.withIcon("layers", "Fiszki tematyczne: Dom, Jedzenie, Praca, Podróże, Zdrowie, Emocje, Technologia"))));
     }
@@ -362,17 +377,18 @@ window.ELM = window.ELM || {};
     ELM.state.listScroll = U.getScroll();
   }
 
-  function progressLabel(stats) {
+  function progressLabel(stats, wholeLevel) {
     // „w tej kategorii”: lewy panel i strona „Dziś” liczą cały poziom (wszystkie kategorie)
-    return stats.done + " z " + stats.total + " umiem w tej kategorii · " + stats.percent + "%";
+    return stats.done + " z " + stats.total + (wholeLevel ? " umiem na tym poziomie · " : " umiem w tej kategorii · ") + stats.percent + "%";
   }
 
   /** Aktualizuje pasek postępu essentials bez przerysowania całej strony. */
   function updateEssentialsProgress() {
     const box = document.getElementById("ess-progress");
     const cat = app().getActiveCategory();
-    if (!box || !cat) return;
-    const stats = app().getStats(ELM.state.ui.levelId, cat.id);
+    const all = ELM.state.ui.categoryId === app().ALL_CATEGORIES;
+    if (!box || (!cat && !all)) return;
+    const stats = cat ? app().getStats(ELM.state.ui.levelId, cat.id) : app().getLevelStats(ELM.state.ui.levelId);
     const bar = box.querySelector(".progress");
     bar.setAttribute("aria-valuenow", String(stats.percent));
     bar.querySelector(".progress-fill").style.transform = fillStyle(stats.percent).slice("transform:".length);
@@ -384,7 +400,7 @@ window.ELM = window.ELM || {};
       const lbl = document.getElementById("level-ring-label");
       if (lbl) lbl.textContent = ls.done + " z " + ls.total + " umiem";
     }
-    box.querySelector(".progress-text").textContent = progressLabel(stats);
+    box.querySelector(".progress-text").textContent = progressLabel(stats, !cat);
   }
 
   ELM.render = {

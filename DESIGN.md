@@ -107,6 +107,8 @@ Każdy poziom ma cztery tokeny, osobno dla obu motywów:
 
 - **Odstępy:** `--space-1` … `--space-8` (4, 8, 12, 16, 24, 32, 48, 64 px).
 - **Promienie (miękkie):** `--radius-xs` 6, `--radius-sm` 10, `--radius` 14, `--radius-lg` 20, `--radius-xl` 28, `--radius-pill`.
+- **Szerokości (v7 A1):** `--w-text` 720 px (kolumna stron do czytania, wyrównana do lewej) i `--w-wide` 1000 px (kontener każdego widoku, `.view`). Lewa krawędź nagłówka h1 jest taka sama na każdym ekranie; `--measure` dla akapitów zostaje.
+- **Przyciski (v7 A2):** `.btn` ma `--radius-sm`; pigułka tylko dla chipów, filtrów i przełączników. Poziomy: `.btn-primary` (jeden na widok), `.btn-secondary` (obrys), `.btn-link` (alias `.btn-ghost`). Okruszki i linki powrotu to `.crumb` (ikona `chevron-left`).
 - **Cienie wielowarstwowe** (`--shadow-sm`, `--shadow`, `--shadow-hover`, `--shadow-lg`):
   - jasny: ciepłe, brązowawe, bardzo delikatne;
   - ciemny: głęboki cień plus subtelna krawędź i poświata akcentu przy hover.
@@ -207,6 +209,8 @@ Pliki: `index.html` (znaczniki), `js/sidebar.js` (zachowanie), `js/render.js` (n
 
 ### 3.2 Strona „Dziś” — kokpit (etap 3)
 
+**v7 (A4, A5):** hero bez warstwic. Kafle „Kontynuuj”, „Dodaj błąd” i podpowiedź testu zastąpiła jedna karta „Na skróty” (`.bento-shortcuts`, wiersze `.row` z ikoną, tytułem, opisem i chevronem). Kafle Fiszki i „Gotowy na test końcowy” zostały bez zmian.
+
 Plik: `js/today.js`, sekcja „STRONA „DZIŚ” — kokpit” w `css/style.css`.
 
 **Układ bento:** 12 kolumn na komputerze, 6 na tablecie (do 1023 px), 1 na telefonie (do 640 px).
@@ -257,6 +261,8 @@ Plik: `js/celebrate.js`.
 - **Teksty:** krótkie i konkretne, bez przesady (np. „Tydzień z rzędu – Siedem dni nauki bez przerwy.”, „A1 ukończony – … Następny przystanek: A2.”).
 
 ### 3.4 Strony poziomów (etap 3)
+
+- **v7 (A4–A6):** bez warstwic w nagłówkach i hero (warstwice tylko w Szlaku). Punkty to wiersze (`.ess-item`: „Umiem” 44 px po lewej, tekst, chevron po prawej; cienka linia, hover `--row-hover`). Filtr kategorii ma pierwszą opcję „Wszystkie” (`ui.categoryId = "all"`): grupy z podtytułami h3, bez chipów kategorii.
 
 - **Nagłówek:**
   - słowo „Poziom” wersalikami;
@@ -637,3 +643,9 @@ Ograniczenie: audyt automatyczny nie zastępuje testu z czytnikiem ekranu (NVDA 
 - **Paczka v6 (etapy 1–11).**
   - Nowe komponenty opisane w 3.14: callout „Życie i egzamin”, chipy egzaminów (także C1 w panelu), komentarze na marginesie, znaczek poziomu, menu zaznaczenia, bank zwrotów, trener mówienia z nagrywaniem.
   - Kontrola końcowa: pełny walidator v6 w `npm run validate` i `build`, przegląd 360 / 768 / 1280 px w obu motywach.
+
+- **Paczka v7, etap „układ” (A1–A8).**
+  - Tokeny `--w-text` / `--w-wide`, jedna lewa krawędź; przyciski o jednym kształcie, `.btn-link`, `.crumb`.
+  - `ELM.ui.pageHead` (etykieta `.eyebrow` zamiast ikony w kółku); warstwice usunięte z nagłówków i hero.
+  - Wiersze zamiast kart (lista poziomu, „Na skróty”), filtr „Wszystkie”, siatki `minmax(260px, 1fr)`.
+  - Ramki „Na egzaminie …” przed „Życie i egzamin” (`examBoxAnchorIndex` + test). Bez zmian kluczy `localStorage`.

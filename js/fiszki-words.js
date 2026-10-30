@@ -321,7 +321,7 @@ window.ELM = window.ELM || {};
 
   function renderView(root) {
     const all = cards();
-    root.appendChild(el("p", { class: "c1-back" }, el("a", { href: "#/fiszki" }, ELM.ui.withIcon("arrow-left", "Fiszki"))));
+    root.appendChild(el("p", { class: "c1-back" }, el("a", { href: "#/fiszki" }, ELM.ui.withIcon("chevron-left", "Fiszki"))));
     root.appendChild(F().head("Moje słowa", "Słowa i wyrażenia zaznaczone w tekstach – każde ze zdaniem, z którego pochodzi."));
     if (!all.length) {
       root.appendChild(el("section", { class: "empty-state fw-empty" }, [
@@ -401,7 +401,7 @@ window.ELM = window.ELM || {};
           el("span", { class: "tool-note", text: x && x.state !== "new" ? "Termin: " + F().fmtWhen(Math.max(x.due, x.buriedUntil || 0)) : "Termin: —" })
         ]),
         el("div", { class: "fc-row-actions" }, [
-          el("button", { type: "button", class: "btn btn-ghost btn-small", "aria-label": (x && x.suspended ? "Przywróć słowo: " : "Zawieś słowo: ") + w,
+          el("button", { type: "button", class: "btn btn-link btn-small", "aria-label": (x && x.suspended ? "Przywróć słowo: " : "Zawieś słowo: ") + w,
             onclick: function () { toggleSuspend(c.id); paint(); } }, x && x.suspended ? "Przywróć" : "Zawieś"),
           el("button", { type: "button", class: "btn btn-danger btn-small", "aria-label": "Usuń słowo: " + w, onclick: function () { removeWord(c, function () { ELM.fiszki.render(); }); } }, "Usuń")
         ])

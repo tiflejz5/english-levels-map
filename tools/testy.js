@@ -1380,5 +1380,23 @@ test("exportWordsCsv: słowo; znaczenie; zdanie; źródło, cudzysłowy i średn
   assert.strictEqual(csv[2], 'ephemeral;;"He said ""hi"".";');
 });
 
+test("examBoxAnchor: ramki egzaminów przed „Życie i egzamin” na 3 podstronach (A1, B2, C2) i warianty skrajne", function () {
+  const fs = require("fs");
+  const EL = global.ELM.examLogic;
+  function titles(file) {
+    return fs.readFileSync(path.join(__dirname, "..", "niezbednik", file), "utf8").split(/\r?\n/)
+      .filter(function (l) { return /^## /.test(l); }).map(function (l) { return l.slice(3).trim(); });
+  }
+  ["a1/czasy-present-simple.md", "b2/czasy-future-continuous-perfect.md", "c2/funkcje-humor-ironia-understatement.md"].forEach(function (f) {
+    const t = titles(f);
+    const i = EL.examBoxAnchorIndex(t);
+    assert.strictEqual(t[i], "Życie i egzamin", f);
+    assert.ok(i > 0, f + ": ramki po wyjaśnieniu, nie na początku");
+  });
+  assert.strictEqual(EL.examBoxAnchorIndex(["Budowa", "Typowe błędy Polaków", "Ćwiczenie"]), 1);
+  assert.strictEqual(EL.examBoxAnchorIndex(["Budowa", "Przykłady", "Odpowiedzi"]), 2);
+  assert.strictEqual(EL.examBoxAnchorIndex(["Budowa", "Przykłady"]), -1);
+});
+
 console.log("\nWynik: " + passed + " ok, " + failures.length + " błędów");
 if (failures.length) process.exit(1);

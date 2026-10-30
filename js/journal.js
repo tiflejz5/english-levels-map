@@ -327,10 +327,7 @@ window.ELM = window.ELM || {};
     const all = pd().entries();
     const due = pd().dueCount();
 
-    view.appendChild(el("header", { class: "tool-head" }, [
-      el("h1", { class: "tool-title", text: "Dziennik błędów" }),
-      el("p", { class: "tool-lead", text: "Zapisuj błędy z ćwiczeń i arkuszy, a potem powtarzaj je po 1, 3 i 7 dniach. Po ostatniej udanej powtórce wpis jest opanowany." })
-    ]));
+    view.appendChild(ELM.ui.pageHead({ eyebrow: "Twoje postępy · Dziennik błędów", title: "Dziennik błędów", lead: "Zapisuj błędy z ćwiczeń i arkuszy, a potem powtarzaj je po 1, 3 i 7 dniach. Po ostatniej udanej powtórce wpis jest opanowany." }));
 
     view.appendChild(el("div", { class: "tool-actions" }, [
       due

@@ -28,7 +28,7 @@ window.ELM = window.ELM || {};
   let importTarget = null;  // talia wybrana przed wejściem w import
 
   function crumb(label, extra) {
-    return el("p", { class: "c1-back" }, [el("a", { href: HASH }, ELM.ui.withIcon("arrow-left", "Fiszki")), extra ? el("span", { class: "tool-note", text: " · " + extra }) : null]);
+    return el("p", { class: "c1-back" }, [el("a", { href: HASH }, ELM.ui.withIcon("chevron-left", "Fiszki")), extra ? el("span", { class: "tool-note", text: " · " + extra }) : null]);
   }
 
   function statusOf(x) {
@@ -128,9 +128,9 @@ window.ELM = window.ELM || {};
             el("span", { class: "tool-note", text: x && x.state !== "new" ? "Termin: " + F().fmtWhen(Math.max(x.due, x.buriedUntil || 0)) : "Termin: —" })
           ]),
           el("div", { class: "fc-row-actions" }, [
-            el("button", { type: "button", class: "btn btn-ghost btn-small", "aria-label": (x && x.suspended ? "Przywróć kartę: " : "Zawieś kartę: ") + L().frontText(c),
+            el("button", { type: "button", class: "btn btn-link btn-small", "aria-label": (x && x.suspended ? "Przywróć kartę: " : "Zawieś kartę: ") + L().frontText(c),
               onclick: function () { toggleSuspend(c.id); paint(); } }, x && x.suspended ? "Przywróć" : "Zawieś"),
-            own ? el("a", { class: "btn btn-ghost btn-small", href: HASH + "/talia/" + deckId + "/karta/" + c.id, "aria-label": "Edytuj kartę: " + L().frontText(c) }, "Edytuj") : null,
+            own ? el("a", { class: "btn btn-link btn-small", href: HASH + "/talia/" + deckId + "/karta/" + c.id, "aria-label": "Edytuj kartę: " + L().frontText(c) }, "Edytuj") : null,
             own ? el("button", { type: "button", class: "btn btn-danger btn-small", "aria-label": "Usuń kartę: " + L().frontText(c), onclick: function () { deleteCard(c, paint); } }, "Usuń") : null
           ])
         ]));

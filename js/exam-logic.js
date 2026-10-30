@@ -35,5 +35,18 @@ window.ELM = window.ELM || {};
     return "ok";
   }
 
-  ELM.examLogic = { countWordsE8: countWordsE8, writingZone: writingZone };
+  /**
+   * A8: przed którą sekcją artykułu wstawić ramki „Na egzaminie …”. titles = nagłówki ## po kolei.
+   * Pierwsza z: Życie i egzamin, Typowe błędy Polaków, Ćwiczenie; gdy żadnej nie ma — przed sekcją
+   * z odpowiedziami; gdy i jej nie ma — -1 (na koniec artykułu).
+   */
+  function examBoxAnchorIndex(titles) {
+    const norm = titles.map(function (s) { return String(s || "").trim().toLowerCase(); });
+    const before = ["życie i egzamin", "typowe błędy polaków", "ćwiczenie"];
+    for (let i = 0; i < norm.length; i++) if (before.indexOf(norm[i]) !== -1) return i;
+    for (let i = 0; i < norm.length; i++) if (norm[i] === "odpowiedzi" || norm[i] === "przykładowe odpowiedzi") return i;
+    return -1;
+  }
+
+  ELM.examLogic = { countWordsE8: countWordsE8, writingZone: writingZone, examBoxAnchorIndex: examBoxAnchorIndex };
 })(window.ELM);

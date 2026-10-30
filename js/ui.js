@@ -57,6 +57,29 @@ window.ELM = window.ELM || {};
     return [icon(name, Object.assign({ size: 18 }, opts || {})), document.createTextNode(text)];
   }
 
+  /** Nagłówek strony narzędzia: etykieta (NAUKA · ĆWICZENIA), h1 i opcjonalny lead. */
+  function pageHead(o) {
+    const h = document.createElement("header");
+    h.className = "tool-head" + (o.className ? " " + o.className : "");
+    if (o.eyebrow) {
+      const p = document.createElement("p");
+      p.className = "eyebrow";
+      p.textContent = o.eyebrow;
+      h.appendChild(p);
+    }
+    const t = document.createElement("h1");
+    t.className = "tool-title";
+    t.textContent = o.title;
+    h.appendChild(t);
+    if (o.lead) {
+      const l = document.createElement("p");
+      l.className = "tool-lead";
+      l.textContent = o.lead;
+      h.appendChild(l);
+    }
+    return h;
+  }
+
   // =====================================================================
   // LOGO: kompas w okręgu ze szlakiem w gradiencie marki (krainy A1 → C2)
   // =====================================================================
@@ -255,7 +278,7 @@ window.ELM = window.ELM || {};
       // jedna akcja (action) albo kilka (actions: [{ label, onClick }, …], np. „Dodaj znaczenie” i „Cofnij”)
       (opts.actions || (opts.action ? [opts.action] : [])).map(function (a) {
         return el("button", {
-          type: "button", class: "btn btn-ghost btn-small toast-action",
+          type: "button", class: "btn btn-link btn-small toast-action",
           onclick: function () { hideToast(); a.onClick(); }
         }, a.label);
       }),
@@ -282,5 +305,5 @@ window.ELM = window.ELM || {};
   ELM.loadModule = loadModule;
   ELM.loadScript = loadScript; // dane ładowane na żądanie (np. ćwiczenia, Laboratorium czasów)
   ELM.reducedMotion = reducedMotion;
-  ELM.ui = { icon: icon, withIcon: withIcon, logo: logo, logoMark: logoMark, progressRing: progressRing, setRing: setRing, toast: toast, hideToast: hideToast };
+  ELM.ui = { icon: icon, withIcon: withIcon, pageHead: pageHead, logo: logo, logoMark: logoMark, progressRing: progressRing, setRing: setRing, toast: toast, hideToast: hideToast };
 })(window.ELM);

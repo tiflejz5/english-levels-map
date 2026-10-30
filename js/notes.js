@@ -155,10 +155,7 @@ window.ELM = window.ELM || {};
     view.dataset.file = HASH;
     view.replaceChildren();
     document.title = "Moje notatki · English Levels Map";
-    view.appendChild(el("header", { class: "tool-head" }, [
-      el("h1", { class: "tool-title" }, [el("span", { class: "lab-head-icon", "aria-hidden": "true" }, ELM.icon("notebook", { size: 28 })), "Moje notatki"]),
-      el("p", { class: "tool-lead", text: "Notatki z podstron, egzaminów, Laboratorium czasów i zestawów ćwiczeń. Widzisz je tylko Ty, w tym profilu." })
-    ]));
+    view.appendChild(ELM.ui.pageHead({ eyebrow: "Twoje postępy · Moje notatki", title: "Moje notatki", lead: "Notatki z podstron, egzaminów, Laboratorium czasów i zestawów ćwiczeń. Widzisz je tylko Ty, w tym profilu." }));
     const all = pd().noteList();
     if (!all.length) {
       view.appendChild(el("div", { class: "empty-state" }, [
