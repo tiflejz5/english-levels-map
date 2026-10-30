@@ -628,7 +628,7 @@ window.ELM = window.ELM || {};
       poolList,
       done ? null : el("div", { class: "ex-tools" }, [
         el("button", {
-          type: "button", class: "btn btn-ghost btn-small", disabled: !st.line.length,
+          type: "button", class: "btn btn-link btn-small", disabled: !st.line.length,
           onclick: function () { st.line = []; repaint("first"); }
         }, ELM.ui.withIcon("rotate-ccw", "Wyczyść")),
         el("span", { class: "tool-note", text: "Backspace cofa ostatni wyraz." })
@@ -948,7 +948,7 @@ window.ELM = window.ELM || {};
       el("label", { class: "field-label", for: "ex-answer", text: "Twoje tłumaczenie" }),
       area,
       done ? null : el("div", { class: "ex-tools" }, [
-        item.hint ? el("button", { type: "button", class: "btn btn-ghost btn-small", "aria-expanded": st.hint ? "true" : "false", "aria-controls": "ex-hint",
+        item.hint ? el("button", { type: "button", class: "btn btn-link btn-small", "aria-expanded": st.hint ? "true" : "false", "aria-controls": "ex-hint",
           onclick: function () { st.hint = !st.hint; repaint("hint"); }, "data-fk": "hint" }, ELM.ui.withIcon("circle-question-mark", st.hint ? "Ukryj podpowiedź" : "Podpowiedź")) : null,
         el("span", { class: "tool-note", text: "Enter sprawdza, Shift+Enter – nowa linia." })
       ]),
@@ -1159,7 +1159,7 @@ window.ELM = window.ELM || {};
 
   function head(title, lead) {
     return el("header", { class: "tool-head" }, [
-      el("p", { class: "tool-eyebrow" }, el("a", { href: BASE }, "Centrum ćwiczeń")),
+      el("p", { class: "tool-eyebrow" }, el("a", { class: "crumb", href: BASE }, ELM.ui.withIcon("chevron-left", "Centrum ćwiczeń"))),
       el("h1", { class: "tool-title", text: title }),
       lead ? el("p", { class: "tool-lead", text: lead }) : null
     ]);
@@ -1194,8 +1194,8 @@ window.ELM = window.ELM || {};
       ]),
       el("div", { class: "tool-actions" }, [
         el("button", { type: "button", class: "btn btn-primary", onclick: begin, "data-fk": "start" }, ELM.ui.withIcon("play", "Zacznij")),
-        t ? el("a", { class: "btn btn-ghost", href: t.href }, "Wróć do tematu") : null,
-        !t && run.exam ? el("a", { class: "btn btn-ghost", href: backLink().href }, backLink().label) : null,
+        t ? el("a", { class: "btn btn-link", href: t.href }, "Wróć do tematu") : null,
+        !t && run.exam ? el("a", { class: "btn btn-link", href: backLink().href }, backLink().label) : null,
         ELM.notes && run.saveId ? ELM.notes.button("set:" + run.saveId, { title: "Ćwiczenia · " + run.title, route: location.hash }) : null
       ])
     ]));
@@ -1255,7 +1255,7 @@ window.ELM = window.ELM || {};
       el("div", { class: "tool-actions ex-actions" }, [
         primary,
         // Przerwanie: wynik zestawu się nie zapisuje (odpowiedzi zostają w dzienniku podejść), następne wejście = ekran startowy
-        el("a", { class: "btn btn-ghost", href: backLink().href, onclick: function () { run = null; } }, "Przerwij")
+        el("a", { class: "btn btn-link", href: backLink().href, onclick: function () { run = null; } }, "Przerwij")
       ])
     ]));
   }
@@ -1282,7 +1282,7 @@ window.ELM = window.ELM || {};
       wrong.length ? el("button", { type: "button", class: "btn btn-primary", onclick: retryWrong }, ELM.ui.withIcon("rotate-ccw", "Powtórz tylko błędne (" + wrong.length + ")")) : null,
       el("button", { type: "button", class: "btn " + (wrong.length ? "btn-secondary" : "btn-primary"), onclick: redo }, run.isMix ? "Wylosuj nowy zestaw" : "Zrób jeszcze raz (inna kolejność)"),
       t ? el("a", { class: "btn btn-secondary", href: t.href }, "Wróć do tematu") : null,
-      !run.isMix ? el("a", { class: "btn btn-ghost", href: mix ? BASE + "/mix/" + mix.id : BASE + "/mieszane" }, ELM.ui.withIcon("arrow-right", "Dalej: zestaw mieszany")) : el("a", { class: "btn btn-ghost", href: BASE }, "Centrum ćwiczeń")
+      !run.isMix ? el("a", { class: "btn btn-link", href: mix ? BASE + "/mix/" + mix.id : BASE + "/mieszane" }, ELM.ui.withIcon("arrow-right", "Dalej: zestaw mieszany")) : el("a", { class: "btn btn-link", href: BASE }, "Centrum ćwiczeń")
     ];
 
     const saved = run.saved;
@@ -1348,7 +1348,7 @@ window.ELM = window.ELM || {};
             s.state = "done";
             repaint(null);
           } }, ELM.ui.withIcon("check", "Zaznacz „Umiem”")),
-          el("button", { type: "button", class: "btn btn-ghost btn-small", onclick: function () {
+          el("button", { type: "button", class: "btn btn-link btn-small", onclick: function () {
             pd().dismissUmiem(run.saveId);
             s.state = "later";
             repaint(null);
@@ -1377,7 +1377,7 @@ window.ELM = window.ELM || {};
         off ? el("p", { class: "tool-note", text: "Automatyczne dodawanie błędów do dziennika jest wyłączone (menu profilu → Ustawienia nauki)." }) : null,
         j.added.length ? el("p", { class: "ex-journal-actions" }, [
           el("a", { class: "btn btn-secondary btn-small", href: "#/bledy" }, "Zobacz"),
-          el("button", { type: "button", class: "btn btn-ghost btn-small", onclick: function () {
+          el("button", { type: "button", class: "btn btn-link btn-small", onclick: function () {
             j.added.slice().reverse().forEach(function (x) { pd().undoAuto(x.undo); });
             j.added = [];
             run.items.forEach(function (p) { p.journal = null; });

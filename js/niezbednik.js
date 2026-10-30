@@ -185,9 +185,9 @@ window.ELM = window.ELM || {};
 
     const back = el("button", {
       type: "button",
-      class: "btn btn-ghost back-btn",
+      class: "crumb back-btn",
       onclick: function () { goBack(found); }
-    }, ELM.ui.withIcon("arrow-left", "Wróć do listy " + levelId));
+    }, ELM.ui.withIcon("chevron-left", "Wróć do listy " + levelId));
 
     if (!found || !hasPage(found.item)) {
       U.setScroll(0);
@@ -228,7 +228,7 @@ window.ELM = window.ELM || {};
       type: "button",
       class: "btn btn-secondary",
       onclick: function () { goBack(found); }
-    }, ELM.ui.withIcon("arrow-left", "Wróć do listy " + found.level))));
+    }, ELM.ui.withIcon("chevron-left", "Wróć do listy " + found.level))));
 
     document.title = (doc.meta.title || found.item.label) + " · English Levels Map";
     if (ELM.profileData) ELM.profileData.setLastPage(location.hash, found.level + " · " + (doc.meta.title || found.item.label));
@@ -259,7 +259,7 @@ window.ELM = window.ELM || {};
     view.className = "view page-view sciaga-view lvl-" + levelId;
     view.dataset.file = route.file;
     view.replaceChildren();
-    const back = el("a", { class: "btn btn-ghost back-btn", href: "#/" + levelId.toLowerCase() }, ELM.ui.withIcon("arrow-left", "Wróć do listy " + levelId));
+    const back = el("a", { class: "crumb back-btn", href: "#/" + levelId.toLowerCase() }, ELM.ui.withIcon("chevron-left", "Wróć do listy " + levelId));
     if (!text) {
       view.appendChild(el("div", { class: "page-head" }, back));
       view.appendChild(el("div", { class: "empty-state" }, el("p", { class: "empty-state-text", text: "Nie ma jeszcze ściągi dla poziomu " + levelId + "." })));

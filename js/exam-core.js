@@ -149,7 +149,7 @@ window.ELM = window.ELM || {};
         input,
         e.suggestedDate ? el("p", { class: "exam-date-hint", id: inputId + "-hint" }, [
           "Termin główny wg CKE (stan na październik 2026): " + fmtDate(e.suggestedDate) + ". ",
-          examDate(e) !== e.suggestedDate ? el("button", { type: "button", class: "btn btn-ghost btn-small", onclick: function () { save(e.suggestedDate); } }, "Wstaw ten termin") : null
+          examDate(e) !== e.suggestedDate ? el("button", { type: "button", class: "btn btn-link btn-small", onclick: function () { save(e.suggestedDate); } }, "Wstaw ten termin") : null
         ]) : null
       ])
     ]);
@@ -205,7 +205,7 @@ window.ELM = window.ELM || {};
       });
     });
     article.appendChild(el("p", { class: "c1-tasks-reset" }, el("button", {
-      type: "button", class: "btn btn-ghost btn-small",
+      type: "button", class: "btn btn-link btn-small",
       onclick: function () { boxes.forEach(function (b) { b.checked = false; }); delete tasks[pageId]; pd().saveExams(); }
     }, "Odznacz wszystko na tej stronie")));
   }

@@ -180,7 +180,7 @@ window.ELM = window.ELM || {};
       let saveTimer = null;
 
       view.appendChild(cfg.crumb(sectionLabel));
-      view.appendChild(el("p", { class: "c1-back" }, el("a", { href: cfg.href() }, ELM.ui.withIcon("arrow-left", "Wszystkie zadania"))));
+      view.appendChild(el("p", { class: "c1-back" }, el("a", { href: cfg.href() }, ELM.ui.withIcon("chevron-left", "Wszystkie zadania"))));
       view.appendChild(el("h1", { class: "c1-title", text: task.title }));
       view.appendChild(el("p", { class: "c1-chips" }, cfg.chips(task, T, false).map(function (c) { return el("span", { class: "c1-chip", text: c }); })));
 
@@ -300,7 +300,7 @@ window.ELM = window.ELM || {};
             onkeydown: function (ev) { if (ev.key === "Escape") { ev.stopPropagation(); closePhrases(); } } }, [
             el("div", { class: "zw-panel-head" }, [
               el("h2", { class: "zw-panel-title", text: "Zwroty" }),
-              el("button", { type: "button", class: "btn btn-ghost btn-small", "aria-label": "Zamknij panel zwrotów", onclick: closePhrases }, ELM.ui.withIcon("x", "Zamknij"))
+              el("button", { type: "button", class: "btn btn-link btn-small", "aria-label": "Zamknij panel zwrotów", onclick: closePhrases }, ELM.ui.withIcon("x", "Zamknij"))
             ]),
             body,
             el("p", { class: "tool-note zw-panel-foot" }, el("a", { href: ELM.pisanie.HASH + "/zwroty", text: "Cały bank zwrotów" }))

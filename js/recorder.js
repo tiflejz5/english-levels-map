@@ -70,7 +70,7 @@ window.ELM = window.ELM || {};
           el("audio", { controls: true, src: a.url, "aria-label": "Próba " + (i + 1) }),
           el("span", { class: "rec-item-actions" }, [
             el("a", { class: "btn btn-secondary btn-small", href: a.url, download: name }, ELM.ui.withIcon("download", "Pobierz")),
-            el("button", { type: "button", class: "btn btn-ghost btn-small", "aria-label": "Usuń próbę " + (i + 1), onclick: function () { remove(i); } }, ELM.ui.withIcon("trash", "Usuń"))
+            el("button", { type: "button", class: "btn btn-link btn-small", "aria-label": "Usuń próbę " + (i + 1), onclick: function () { remove(i); } }, ELM.ui.withIcon("trash", "Usuń"))
           ])
         ]);
       }));

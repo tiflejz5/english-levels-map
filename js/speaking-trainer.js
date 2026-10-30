@@ -357,7 +357,7 @@ window.ELM = window.ELM || {};
       let n = 0;
       const box = el("div", { class: "sp-question", "aria-live": "polite" });
       const nextBtn = el("button", { type: "button", class: "btn btn-secondary" });
-      const playBtn = el("button", { type: "button", class: "btn btn-ghost", hidden: !voiceOk(), onclick: function () { speak(questions[n]); } }, ELM.ui.withIcon("play", "Odtwórz pytanie"));
+      const playBtn = el("button", { type: "button", class: "btn btn-link", hidden: !voiceOk(), onclick: function () { speak(questions[n]); } }, ELM.ui.withIcon("play", "Odtwórz pytanie"));
       function paint(auto) {
         box.replaceChildren(
           el("p", { class: "sp-q-count", text: (label || "Pytanie") + " " + (n + 1) + " z " + questions.length }),
@@ -411,7 +411,7 @@ window.ELM = window.ELM || {};
       panel.appendChild(el("ul", { class: "sp-elements" }, c.elements.map(function (e) { return el("li", { text: e }); })));
       panel.appendChild(prepTimer(P.prepSeconds));
       panel.appendChild(list);
-      panel.appendChild(el("div", { class: "sp-actions" }, [more, el("button", { type: "button", class: "btn btn-ghost", hidden: !voiceOk(), onclick: function () { speak(lines[Math.max(0, shown - 1)]); } }, ELM.ui.withIcon("play", "Odtwórz kwestię"))]));
+      panel.appendChild(el("div", { class: "sp-actions" }, [more, el("button", { type: "button", class: "btn btn-link", hidden: !voiceOk(), onclick: function () { speak(lines[Math.max(0, shown - 1)]); } }, ELM.ui.withIcon("play", "Odtwórz kwestię"))]));
       panel.appendChild(mainTimer(ctx, P.seconds, "Rozmowa (orientacyjnie)").node);
       panel.appendChild(phrasesBox(c.usefulPhrases));
     }
@@ -458,7 +458,7 @@ window.ELM = window.ELM || {};
         el("p", { lang: "en", text: "Both pictures show… · In the first one…, whereas in the second… · They might be… because… · It looks as if…" })
       ]));
       panel.appendChild(timer.node);
-      panel.appendChild(el("div", { class: "sp-actions" }, [partnerBtn, el("button", { type: "button", class: "btn btn-ghost", hidden: !voiceOk(), onclick: function () { speak(c.question); } }, ELM.ui.withIcon("play", "Odtwórz pytanie"))]));
+      panel.appendChild(el("div", { class: "sp-actions" }, [partnerBtn, el("button", { type: "button", class: "btn btn-link", hidden: !voiceOk(), onclick: function () { speak(c.question); } }, ELM.ui.withIcon("play", "Odtwórz pytanie"))]));
       panel.appendChild(partner);
     }
 
@@ -498,7 +498,7 @@ window.ELM = window.ELM || {};
         el("ul", { class: "sp-options", "aria-label": "Opcje do omówienia" }, t.options.map(function (o) { return el("li", { class: "sp-option", lang: "en", text: o }); }))
       ]));
       panel.appendChild(discussion.node);
-      panel.appendChild(el("div", { class: "sp-actions" }, [toDecision, el("button", { type: "button", class: "btn btn-ghost", hidden: !voiceOk(), onclick: function () { speak(t.central); } }, ELM.ui.withIcon("play", "Odtwórz polecenie"))]));
+      panel.appendChild(el("div", { class: "sp-actions" }, [toDecision, el("button", { type: "button", class: "btn btn-link", hidden: !voiceOk(), onclick: function () { speak(t.central); } }, ELM.ui.withIcon("play", "Odtwórz polecenie"))]));
       panel.appendChild(decision);
     }
 
@@ -529,7 +529,7 @@ window.ELM = window.ELM || {};
           panel.replaceChildren();
           stepRepaint();
         } }, ELM.ui.withIcon(last ? "check" : "arrow-right", last ? "Zakończ egzamin" : "Dalej – " + f.steps[f.i + 1].unit.tab)),
-        el("button", { type: "button", class: "btn btn-ghost", onclick: function () { stopAll(); ELM.recorder && ELM.recorder.destroyAll(); ui.full = null; repaint(); } }, "Przerwij egzamin")
+        el("button", { type: "button", class: "btn btn-link", onclick: function () { stopAll(); ELM.recorder && ELM.recorder.destroyAll(); ui.full = null; repaint(); } }, "Przerwij egzamin")
       ]));
       function stepRepaint() { panel.replaceChildren(); fullExam(panel, D, units, onSaved, repaint); panel.scrollIntoView({ block: "start" }); }
     }

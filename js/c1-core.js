@@ -329,7 +329,7 @@ window.ELM = window.ELM || {};
     });
     article.appendChild(el("p", { class: "c1-tasks-reset" }, el("button", {
       type: "button",
-      class: "btn btn-ghost btn-small",
+      class: "btn btn-link btn-small",
       onclick: function () {
         boxes.forEach(function (b) { b.checked = false; });
         delete tasks[pageId];

@@ -106,7 +106,7 @@ window.ELM = window.ELM || {};
 
   function render(view, route) {
     document.title = "Bank zwrotów · Pisanie · English Levels Map";
-    view.appendChild(el("p", { class: "c1-back" }, el("a", { href: ELM.pisanie.HASH }, ELM.ui.withIcon("arrow-left", "Pisanie"))));
+    view.appendChild(el("p", { class: "c1-back" }, el("a", { href: ELM.pisanie.HASH }, ELM.ui.withIcon("chevron-left", "Pisanie"))));
     view.appendChild(ELM.pisanie.head("Bank zwrotów do pisania", "Zwroty według funkcji: od prostych do formalnych. Wybierz poziom, rejestr i gatunek, skopiuj frazę albo zapisz ją do powtórek."));
     const body = el("div", { class: "zw-root" }, el("p", { class: "tool-note", role: "status", text: "Wczytuję zwroty…" }));
     view.appendChild(body);
@@ -152,7 +152,7 @@ window.ELM = window.ELM || {};
     function phraseItem(g, p) {
       const isStar = starred().indexOf(p.id) !== -1;
       const label = plain(p.en);
-      const starBtn = el("button", { type: "button", class: "btn btn-ghost btn-small zw-star" + (isStar ? " is-on" : ""), "aria-pressed": isStar ? "true" : "false",
+      const starBtn = el("button", { type: "button", class: "btn btn-link btn-small zw-star" + (isStar ? " is-on" : ""), "aria-pressed": isStar ? "true" : "false",
         "aria-label": (isStar ? "Usuń z ulubionych: " : "Dodaj do ulubionych: ") + label,
         onclick: function () {
           if (!hasProfile()) { say("Dodaj profil, żeby zapisywać ulubione zwroty."); return; }
