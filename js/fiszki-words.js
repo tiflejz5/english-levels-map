@@ -246,6 +246,156 @@ window.ELM = window.ELM || {};
   });
 
   // =====================================================================
+  // WIDOK #/fiszki/moje-slowa (spec 14, sekcja 5)
+  // =====================================================================
+
+  const view = { query: "", sort: "newest", noMeaning: false };
+  let focusedWord = null;
+
+  /** Status jako tekst (nie sam kolor): Nowa / W nauce / Opanowana / Zawieszona. */
+  function statusOf(x) {
+    if (x && x.suspended) return { id: "suspended", label: "Zawieszone", icon: "pause" };
+    if (!x || x.state === "new") return { id: "new", label: "Nowe", icon: "sparkles" };
+    if (x.state === "review" && x.interval >= 21) return { id: "mastered", label: "Opanowane", icon: "check" };
+    return { id: "learning", label: "W nauce", icon: "rotate-ccw" };
+  }
+
+  function focusWord(word) { focusedWord = word; view.query = word || ""; }
+
+  function fmtDay(c) {
+    const s = String(c.addedAt || c.createdAt || "").slice(0, 10);
+    return /^\d{4}-\d{2}-\d{2}$/.test(s) ? s.slice(8, 10) + "." + s.slice(5, 7) + "." + s.slice(0, 4) : "";
+  }
+
+  /** Zdanie ze słowem wyróżnionym znacznikiem <mark> (węzły tekstowe, bez innerHTML). */
+  function sentenceNode(c) {
+    const s = sentenceOf(c), w = wordOf(c), i = w ? s.toLowerCase().indexOf(w.toLowerCase()) : -1;
+    if (i === -1) return el("span", { text: s });
+    return el("span", null, [s.slice(0, i), el("mark", { class: "fw-mark", text: s.slice(i, i + w.length) }), s.slice(i + w.length)]);
+  }
+
+  function toggleSuspend(id) {
+    const cur = st().cards[id];
+    if (cur && cur.suspended) {
+      delete cur.suspended;
+      if (cur.state === "new" && !cur.reps) delete st().cards[id];
+    } else {
+      st().cards[id] = Object.assign(ELM.fiszkiHarmonogram.newCard(), cur || {}, { suspended: true });
+    }
+    F().saveState();
+  }
+
+  function removeWord(c, after) {
+    ELM.dialogs.confirm({ title: "Usunąć słowo?", message: "„" + wordOf(c) + "” zostanie usunięte z Moich słów razem z historią powtórek.", confirmLabel: "Usuń słowo" }).then(function (ok) {
+      if (!ok) return;
+      ELM.fiszkiBrowse.removeCard(c.id);
+      refreshHighlights();
+      if (after) after();
+    });
+  }
+
+  function weakness(c) { const x = st().cards[c.id] || {}; return (x.lapses || 0) * 1000 - (x.interval || 0); }
+
+  function renderView(root) {
+    const all = cards();
+    root.appendChild(el("p", { class: "c1-back" }, el("a", { href: "#/fiszki" }, ELM.ui.withIcon("arrow-left", "Fiszki"))));
+    root.appendChild(F().head("Moje słowa", "Słowa i wyrażenia zaznaczone w tekstach – każde ze zdaniem, z którego pochodzi."));
+    if (!all.length) {
+      root.appendChild(el("section", { class: "empty-state fw-empty" }, [
+        el("p", { class: "empty-state-text", text: "Nie zapisałeś jeszcze żadnego słowa." }),
+        el("p", { class: "empty-state-hint", text: "Zaznacz słowo albo wyrażenie w dowolnym tekście (strona niezbędnika, podsumowanie, egzamin, Laboratorium), a potem wybierz „Do Moich słów” albo naciśnij klawisz M. Karta z luką trafi tutaj i do codziennych powtórek." })
+      ]));
+      return;
+    }
+    root.appendChild(F().bar(L().deckStats(all, st().cards, Date.now())));
+
+    const actions = [
+      el("a", { class: "btn btn-primary", href: "#/fiszki/sesja" }, ELM.ui.withIcon("play", "Ucz się teraz")),
+      el("button", { type: "button", class: "btn btn-secondary", onclick: function () {
+        F().downloadText("moje-slowa.csv", "﻿" + L().exportWordsCsv(cards()), "text/csv;charset=utf-8");
+      } }, ELM.ui.withIcon("download", "Eksportuj CSV"))
+    ];
+    root.appendChild(el("div", { class: "fc-actions" }, actions));
+
+    const search = el("input", { id: "fw-search", class: "field", type: "search", value: view.query, placeholder: "Szukaj słowa, znaczenia lub zdania…", autocomplete: "off", oninput: function () { view.query = search.value; paint(); } });
+    const sort = el("select", { id: "fw-sort", class: "field", onchange: function () { view.sort = sort.value; paint(); } },
+      [["newest", "Od najnowszych"], ["az", "A–Z"], ["weakest", "Najsłabiej znane"]].map(function (x) { return el("option", { value: x[0], selected: view.sort === x[0], text: x[1] }); }));
+    const nm = el("input", { type: "checkbox", id: "fw-nomeaning", checked: view.noMeaning, onchange: function () { view.noMeaning = nm.checked; paint(); } });
+    root.appendChild(el("div", { class: "journal-filters fc-filters", role: "search" }, [
+      el("div", { class: "form-field is-grow" }, [el("label", { class: "field-label", for: "fw-search", text: "Szukaj" }), search]),
+      el("div", { class: "form-field" }, [el("label", { class: "field-label", for: "fw-sort", text: "Kolejność" }), sort])
+    ]));
+    root.appendChild(el("div", { class: "fc-check" }, [nm, el("label", { for: "fw-nomeaning", text: "Pokaż tylko słowa bez znaczenia" })]));
+    const count = el("p", { class: "journal-count", "aria-live": "polite" });
+    const list = el("ul", { class: "fc-card-list fw-list" });
+    root.appendChild(count);
+    root.appendChild(list);
+
+    function paint() {
+      const fold = ELM.searchLogic ? ELM.searchLogic.fold : function (x) { return String(x).toLowerCase(); };
+      const q = fold(view.query.trim());
+      const shown = cards().filter(function (c) {
+        if (view.noMeaning && c.hint) return false;
+        return !q || fold(wordOf(c) + " " + (c.hint || "") + " " + sentenceOf(c)).indexOf(q) !== -1;
+      });
+      const day = function (c) { return String(c.addedAt || c.createdAt || ""); };
+      shown.sort(function (a, b) {
+        if (view.sort === "az") return wordOf(a).localeCompare(wordOf(b), "en", { sensitivity: "base" });
+        if (view.sort === "weakest") return weakness(b) - weakness(a) || day(b).localeCompare(day(a));
+        return day(b).localeCompare(day(a));
+      });
+      count.textContent = "Słowa: " + shown.length + " z " + all.length;
+      list.replaceChildren();
+      if (!shown.length) { list.appendChild(el("li", { class: "empty-state-text", text: "Brak słów pasujących do filtrów." })); return; }
+      shown.forEach(function (c) { list.appendChild(row(c)); });
+      if (focusedWord) {
+        const first = list.querySelector(".fw-row"); focusedWord = null;
+        if (first) { first.setAttribute("tabindex", "-1"); first.focus({ preventScroll: false }); }
+      }
+    }
+
+    function row(c) {
+      const x = st().cards[c.id], sts = statusOf(x), w = wordOf(c);
+      const meaning = el("input", { class: "field fw-meaning", type: "text", maxlength: "120", value: c.hint || "", placeholder: "Dodaj znaczenie po polsku", "aria-label": "Znaczenie słowa " + w, autocomplete: "off",
+        onchange: function () {
+          const card = st().userCards.find(function (k) { return k.id === c.id; });
+          if (!card) return;
+          const v = meaning.value.trim().slice(0, 120);
+          if (v) card.hint = v; else delete card.hint;
+          F().saveState();
+        } });
+      const src = c.source && c.source.route ? el("a", { class: "fw-source", href: c.source.route }, ELM.ui.withIcon("external-link", c.source.title || "Źródło")) : null;
+      return el("li", { class: "card fc-row fw-row" }, [
+        el("div", { class: "fc-row-main" }, [
+          el("p", { class: "fc-row-front fw-word", text: w }),
+          meaning,
+          el("p", { class: "fc-row-back fw-sentence" }, sentenceNode(c)),
+          (c.examples || []).length ? el("ul", { class: "fc-example-list" }, c.examples.map(function (s) { return el("li", { text: s }); })) : null,
+          el("p", { class: "tool-note" }, [src, src ? " · " : null, fmtDay(c) ? "dodano " + fmtDay(c) : null])
+        ]),
+        el("div", { class: "fc-row-meta" }, [
+          el("span", { class: "fc-status is-" + sts.id }, [ELM.icon(sts.icon, { size: 14 }), " " + sts.label]),
+          el("span", { class: "tool-note", text: x && x.state !== "new" ? "Termin: " + F().fmtWhen(Math.max(x.due, x.buriedUntil || 0)) : "Termin: —" })
+        ]),
+        el("div", { class: "fc-row-actions" }, [
+          el("button", { type: "button", class: "btn btn-ghost btn-small", "aria-label": (x && x.suspended ? "Przywróć słowo: " : "Zawieś słowo: ") + w,
+            onclick: function () { toggleSuspend(c.id); paint(); } }, x && x.suspended ? "Przywróć" : "Zawieś"),
+          el("button", { type: "button", class: "btn btn-danger btn-small", "aria-label": "Usuń słowo: " + w, onclick: function () { removeWord(c, function () { ELM.fiszki.render(); }); } }, "Usuń")
+        ])
+      ]);
+    }
+    paint();
+  }
+
+  /** Liczby do kafelka na stronie Fiszki i do Statystyk. */
+  function counts() {
+    const all = cards();
+    let mastered = 0;
+    all.forEach(function (c) { if (statusOf(st().cards[c.id]).id === "mastered") mastered++; });
+    return { total: all.length, mastered: mastered };
+  }
+
+  // =====================================================================
   // PODKREŚLANIE ZAPISANYCH SŁÓW (krok 7) — odświeżane po dodaniu słowa i zmianie ustawienia
   // =====================================================================
 
@@ -259,6 +409,6 @@ window.ELM = window.ELM || {};
   ELM.fiszkiWords = {
     WORDS_ID: WORDS_ID, WORDS_HASH: WORDS_HASH, info: info, addWord: addWord, addMeaning: addMeaning, addExample: addExample,
     cards: cards, wordOf: wordOf, sentenceOf: sentenceOf, findByWord: findByWord, hideMenu: hideMenu, prefsChanged: prefsChanged,
-    refreshHighlights: refreshHighlights
+    refreshHighlights: refreshHighlights, renderView: renderView, focusWord: focusWord, counts: counts
   };
 })(window.ELM);

@@ -3568,6 +3568,13 @@ a.notes-item-title { color: var(--accent); text-decoration: underline; text-unde
 @media (prefers-reduced-motion: reduce) { .fc-backside.is-anim { animation: none; } .fc-switch-track, .fc-switch-thumb { transition: none; } }
 .fc-answer { color: var(--accent); }
 .fc-extra { margin: 6px 0 0; }
+.fc-words-tile { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; margin-bottom: var(--space-4, 16px); }
+.fw-row .fc-row-main { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.fw-word { font-size: 1.1rem; }
+.fw-meaning { max-width: 28rem; min-height: 44px; }
+.fw-mark { background: var(--accent-soft, rgba(37, 99, 235, .15)); color: inherit; font-weight: 700; border-radius: 3px; padding: 0 2px; }
+.fw-source { font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+.fw-source:focus-visible, .fw-row:focus-visible { outline: 2px solid var(--focus, currentColor); outline-offset: 2px; }
 .fc-example-list { list-style: disc; margin: 2px 0 0; padding-left: 20px; display: flex; flex-direction: column; gap: 2px; }
 .fc-source a { color: var(--accent); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
 .fc-type-row { display: grid; gap: 6px; margin-top: 16px; }

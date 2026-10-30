@@ -268,6 +268,17 @@ window.ELM = window.ELM || {};
       ]));
     }
 
+    if (ELM.fiszkiWords) {
+      const wc = ELM.fiszkiWords.counts();
+      view.appendChild(el("section", { class: "card fc-words-tile", "aria-labelledby": "fc-words-title" }, [
+        el("h2", { class: "tile-title", id: "fc-words-title", text: "Moje słowa" }),
+        wc.total
+          ? el("p", { class: "tool-note", text: wc.total + " " + plural(wc.total, "słowo", "słowa", "słów") + " (opanowane: " + wc.mastered + ")." })
+          : el("p", { class: "tool-note", text: "Zaznacz słowo w tekście i naciśnij M – zapiszesz je razem ze zdaniem." }),
+        el("a", { class: "btn btn-secondary tile-action", href: HASH + "/moje-slowa" }, ELM.ui.withIcon("layers", "Otwórz Moje słowa"))
+      ]));
+    }
+
     view.appendChild(el("h2", { class: "section-title", text: "Talie" }));
     view.appendChild(el("div", { class: "fc-actions" }, [
       el("a", { class: "btn btn-secondary", href: HASH + "/import" }, ELM.ui.withIcon("upload", "Importuj")),
@@ -304,7 +315,7 @@ window.ELM = window.ELM || {};
       "aria-label": "Włączona w nauce: " + d.title,
       onclick: function () { toggleDeck(d.id, !on); render(); const again = document.querySelector('.fc-switch[aria-label="Włączona w nauce: ' + d.title.replace(/"/g, '\\"') + '"]'); if (again) again.focus(); }
     }, [el("span", { class: "fc-switch-track", "aria-hidden": "true" }, el("span", { class: "fc-switch-thumb" })), el("span", { class: "fc-switch-text", text: on ? "Włączona" : "Wyłączona" })]);
-    const actions = [el("a", { class: "btn btn-secondary btn-small", href: HASH + "/talia/" + d.id }, "Przeglądaj")];
+    const actions = [el("a", { class: "btn btn-secondary btn-small", href: d.system === "words" ? HASH + "/moje-slowa" : HASH + "/talia/" + d.id }, "Przeglądaj")];
     if (!d.builtIn) actions.push(el("a", { class: "btn btn-secondary btn-small", href: HASH + "/talia/" + d.id + "/nowa" }, ELM.ui.withIcon("plus", "Dodaj kartę")));
     actions.push(el("button", { type: "button", class: "btn btn-secondary btn-small", onclick: function () { exportDeck(d); } }, ELM.ui.withIcon("download", "Eksportuj")));
     return el("li", { class: "card fc-deck" + (on ? " is-on" : "") }, [
@@ -694,6 +705,7 @@ window.ELM = window.ELM || {};
     if (!p.length) return { kind: "home" };
     if (p[0] === "sesja") return { kind: "session" };
     if (p[0] === "import") return { kind: "import" };
+    if (p[0] === "moje-slowa" || (p[0] === "talia" && p[1] === WORDS_ID && !p[2])) return { kind: "words" };
     if (p[0] === "talia" && p[1]) {
       if (p[2] === "nowa") return { kind: "edit", deck: p[1], card: null };
       if (p[2] === "karta" && p[3]) return { kind: "edit", deck: p[1], card: p[3] };
@@ -723,6 +735,7 @@ window.ELM = window.ELM || {};
       return;
     }
     if (route.kind === "session") renderSession(view);
+    else if (route.kind === "words" && ELM.fiszkiWords) { document.title = "Moje słowa · English Levels Map"; ELM.fiszkiWords.renderView(view); }
     else if (ELM.fiszkiBrowse && route.kind !== "home") ELM.fiszkiBrowse.render(view, route);
     else renderHome(view);
   }
@@ -849,6 +862,9 @@ window.ELM = window.ELM || {};
       ]),
       el("p", { class: "review-label", text: "Powtórki dziennie – ostatnie 30 dni" }),
       bars,
+      ELM.fiszkiWords && ELM.fiszkiWords.counts().total
+        ? el("p", { class: "tool-note fc-st-words" }, ["Moje słowa: ", el("strong", { class: "num", text: String(ELM.fiszkiWords.counts().total) }), " (opanowane: " + ELM.fiszkiWords.counts().mastered + ") · ", el("a", { href: HASH + "/moje-slowa", text: "Otwórz" })])
+        : null,
       el("p", { class: "review-label", text: "Prognoza powtórek na 7 dni" }),
       el("ol", { class: "fc-st-forecast" }, forecast.map(function (n, i) {
         return el("li", null, [el("span", { class: "fc-st-fc-day", text: fLabels[i] }), el("strong", { class: "num", text: String(n) })]);
