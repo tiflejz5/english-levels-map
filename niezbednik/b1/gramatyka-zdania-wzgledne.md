@@ -46,6 +46,14 @@ W mowie przyimek zwykle trafia na koniec zdania:
 | That's the colleague whose wife is a singer. | To ten kolega, którego żona jest piosenkarką. |
 | The restaurant we went to was excellent. | Restauracja, do której poszliśmy, była świetna. |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *I've got a friend who works at Google.* (Mam znajomego, który pracuje w Google.) | Wybierz: The woman ___ lives next door is a doctor. a) which b) who c) where → **b** | E8 · MP |
+| *Kraków is the city where I was born.* (Kraków to miasto, w którym się urodziłem.) | Wybierz: This is the town ___ my grandparents live. a) who b) which c) where → **c** | E8 · MP |
+| *Do you know anyone who speaks Japanese?* (Znasz kogoś, kto mówi po japońsku?) | Popraw błąd: The book that I read it was good. → **The book that I read was good.** | E8 |
+
 ## Typowe błędy Polaków
 
 - ❌ *The man which…* → ✅ *The man who/that…*

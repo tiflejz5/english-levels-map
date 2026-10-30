@@ -44,6 +44,14 @@ Czasowniki modalne służą nie tylko do obowiązku i umiejętności. Za ich pom
 | He's not answering. He must be driving. | Nie odbiera. Pewnie prowadzi. |
 | I might not go to the party. | Może nie pójdę na imprezę. |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *You must be hungry after that trip.* (Na pewno jesteś głodny po tej podróży.) | Wybierz: That ___ be Tom – he's in Spain. a) mustn't b) can't c) doesn't → **b** | MP · MR |
+| *She may be in a meeting.* (Może jest na spotkaniu.) | Uzupełnij: He isn't answering. He ___ (might / sleep) now. → **might be sleeping** | MP · MR |
+| *It might rain later.* (Później może padać.) | Transformacja: I'm sure she is at home. MUST → She ___ at home. → **must be** | MR · B2 |
+
 ## Typowe błędy Polaków
 
 - ❌ *He mustn't be at home.* (= na pewno nie ma go w domu) → ✅ *He can't be at home.*

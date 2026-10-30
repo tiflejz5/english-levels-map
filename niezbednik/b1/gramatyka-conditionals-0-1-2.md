@@ -51,6 +51,14 @@ To zależy od tego, jak realne wydaje Ci się to zdarzenie:
 | If I were you, I wouldn't do that. | Na twoim miejscu nie robiłbym tego. |
 | What would you do if you lost your phone? | Co byś zrobił, gdybyś zgubił telefon? |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *If I finish early, I'll call you.* (Jeśli skończę wcześniej, zadzwonię do ciebie.) | Uzupełnij: If it ___ (rain) tomorrow, we'll stay at home. → **rains** | E8 · MP |
+| *If I won the lottery, I would quit my job.* (Gdybym wygrał na loterii, rzuciłbym pracę.) | Uzupełnij: If I ___ (be) you, I would apologise. → **were** | MP · MR |
+| *Don't be late, or we'll miss the train.* (Nie spóźnij się, bo nie zdążymy na pociąg.) | Transformacja: If you don't hurry, you will miss the bus. UNLESS → You will miss the bus ___ hurry. → **unless you** | MR · B2 |
+
 ## Typowe błędy Polaków
 
 - ❌ *If it will rain, we'll stay.* → ✅ *If it rains, we'll stay.* – nigdy *will* po *if*.

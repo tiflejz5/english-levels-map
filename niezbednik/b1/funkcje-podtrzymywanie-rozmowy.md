@@ -22,6 +22,14 @@ Rozmowa to nie przesłuchanie ani monolog – to ping-pong. Na B1 potrafisz poka
 | I see. / Right. / Uh-huh. | „słucham, mów dalej” |
 | I know what you mean. | zrozumienie |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *Really? And what did you do then?* (Naprawdę? I co wtedy zrobiłeś?) | Wybierz reakcję: – I've just moved to a new city. a) Yes. b) Oh, really? How do you like it? c) Fine. → **b** | E8 · MP |
+| *Oh, I see. That sounds interesting!* (Aha, rozumiem. Brzmi ciekawie!) | Wybierz: – I went to Spain last summer. a) Did you? Where exactly? b) Do you? c) Have you? → **a** | E8 · MP |
+| *Have you? Where was that?* (Naprawdę? Gdzie to było?) | Wybierz: – I've never been to London. a) Haven't you? b) Don't you? c) Aren't you? → **a** | MP · MR |
+
 ## 2. Pytania zwrotne (echo)
 
 Krótkie pytanie z czasownikiem posiłkowym – bardzo naturalne:

@@ -19,6 +19,14 @@ Rada w angielskim zwykle jest „opakowana” – zamiast „Zrób to” mówi s
 - *Can I ask your advice about something?*
 - *Do you think I should…?*
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *If I were you, I'd talk to her.* (Na twoim miejscu porozmawiałbym z nią.) | Wybierz: You ___ see a doctor about that cough. a) had better b) have better c) would better → **a** | E8 · MP |
+| *Why don't you take a day off?* (Dlaczego nie weźmiesz wolnego dnia?) | Uzupełnij (some): Can you give me ___ advice about my CV? → **some** | MP · MR |
+| *You should try the soup – it's delicious.* (Powinieneś spróbować zupy – jest pyszna.) | Transformacja: I advise you to see a dentist. SHOULD → You ___ a dentist. → **should see** | MR · B2 |
+
 ## Udzielanie rady (od najmocniejszej)
 
 | Zwrot | Gramatyka | Przykład |

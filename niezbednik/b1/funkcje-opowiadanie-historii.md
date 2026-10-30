@@ -19,6 +19,14 @@ Na B1 potrafisz opowiedzieć anegdotę: co się stało w pracy, w podróży, na 
 4. **Co było wcześniej (Past Perfect):** *We realised we had left our passports in the taxi!*
 5. **Zakończenie i reakcja:** *In the end, the driver came back. What a relief!*
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *First we got lost. Then it started to rain.* (Najpierw zgubiliśmy się. Potem zaczęło padać.) | Uzupełnij: ___ the end, we found the hotel and slept well. → **In** | E8 · MP |
+| *Suddenly, I realised I had left my bag on the bus.* (Nagle zdałem sobie sprawę, że zostawiłem torbę w autobusie.) | Wybierz: I was walking home when I ___ a strange noise. a) heard b) was hearing c) have heard → **a** | E8 · MP |
+| *It was a terrible day – but it was funny in the end.* (To był okropny dzień – ale w końcu było śmiesznie.) | Popraw błąd: At the end I understood everything. (= ostatecznie) → **In the end I understood everything.** | MP |
+
 ## Łączniki w opowieści
 
 | Funkcja | Zwroty |

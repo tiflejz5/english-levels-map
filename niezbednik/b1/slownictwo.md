@@ -17,6 +17,14 @@ Na B1 masz ok. 2000–2500 słów. Teraz ważniejsze od liczby słów jest to, *
 - **Czytaj i słuchaj** na tematy, które znasz – podcasty, artykuły, seriale z napisami angielskimi.
 - **Notuj całe zdania**, w których usłyszałeś nowe słowo.
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *I made a mistake in the report.* (Popełniłem błąd w raporcie.) | Wybierz: I'm sorry, I ___ a mistake. a) did b) made c) had → **b** | E8 · MP |
+| *Please pay attention to the instructions.* (Proszę zwracać uwagę na instrukcje.) | Uzupełnij (make / do): She ___ her best yesterday and won. → **did** | E8 · MP |
+| *Let's keep in touch!* (Zostańmy w kontakcie!) | Słowotwórstwo: Her ___ (decide) to leave surprised us. → **decision** | MP · MR · B2 |
+
 ## Grupy tematyczne
 
 **Praca i edukacja:** *apply for, interview, CV, qualifications, promotion, deadline, colleague, degree, graduate, course, exam, pass / fail*

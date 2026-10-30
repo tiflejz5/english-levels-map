@@ -47,6 +47,14 @@ Gdy zdarzenia idą po kolei, wystarczy Past Simple: *I got up, had a shower and 
 | I was hungry because I hadn't had breakfast. | Byłem głodny, bo nie zjadłem śniadania. |
 | Had you been there before? | Byłeś tam wcześniej? |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *By the time we got to the cinema, the film had already started.* (Zanim dotarliśmy do kina, film już się zaczął.) | Uzupełnij: When I arrived at the party, my friends ___ (already / leave). → **had already left** | E8 · MP |
+| *I didn't recognise him – he had changed a lot.* (Nie poznałem go – bardzo się zmienił.) | Wybierz: She was upset because she ___ her wallet. a) loses b) had lost c) has lost → **b** | MP · MR |
+| *It was her first flight. She'd never flown before.* (To był jej pierwszy lot. Nigdy wcześniej nie leciała.) | Transformacja: This was my first time in a plane. NEVER → I ___ in a plane before. → **had never been** | MR · B2 |
+
 ## Typowe błędy Polaków
 
 - ❌ *When I arrived, the film already started.* → ✅ *…the film had already started.*

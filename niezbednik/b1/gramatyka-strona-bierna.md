@@ -45,6 +45,14 @@ Strony biernej używamy, gdy ważniejsze jest **co się stało** niż **kto to z
 | I was born in 1990. | Urodziłem się w 1990 roku. |
 | The kitchen is being renovated. | Kuchnia jest w trakcie remontu. |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *The castle was built in the 14th century.* (Zamek zbudowano w XIV wieku.) | Uzupełnij: English ___ (speak) all over the world. → **is spoken** | E8 · MP |
+| *My flight has been delayed.* (Mój lot został opóźniony.) | Transformacja: Someone stole my bike last night. WAS → My bike ___ last night. → **was stolen** | MP · MR |
+| *The meeting will be held on Monday.* (Spotkanie odbędzie się w poniedziałek.) | Wybierz: The new bridge ___ next year. a) will be opened b) will open c) is opening by → **a** | MP · MR |
+
 ## Typowe błędy Polaków
 
 - ❌ *The house built in 1920.* → ✅ *The house **was** built in 1920.*

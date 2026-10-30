@@ -18,6 +18,14 @@ Na A2 umiesz zgłosić prosty problem. Na B1 potrafisz **wytłumaczyć sytuację
 3. **Skutek:** *As a result, I… / This is the third time…*
 4. **Oczekiwanie:** *I'd like a refund / a replacement. / Could you…?*
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *I'd like to make a complaint about the noise.* (Chciałbym złożyć skargę na hałas.) | Wybierz reakcję: Zupa jest zimna. a) I want my money! b) Excuse me, my soup is cold. Could you change it? c) It's your fault. → **b** | E8 · MP |
+| *I think there's been a misunderstanding.* (Chyba doszło do nieporozumienia.) | Uzupełnij: I'd like a ___, please. The shirt is too small. (zwrot pieniędzy) → **refund** | MP · MR |
+| *The shower doesn't work, and nobody has come to fix it.* (Prysznic nie działa i nikt nie przyszedł go naprawić.) | Uzupełnij: I'd like to ___ a complaint about the room. → **make** | E8 · MP |
+
 ## Kluczowe zwroty
 
 | Zwrot | Polski |
