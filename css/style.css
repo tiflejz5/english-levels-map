@@ -777,11 +777,12 @@ a.btn { text-decoration: none; }
   background: var(--surface);
   font-size: var(--fs-sm-plus);
   line-height: 1.5;
+  min-height: 44px; /* cel dotyku (kontrola końcowa v6) */
   transition: border-color var(--transition), box-shadow var(--transition);
 }
 .field::placeholder { color: var(--ink-faint); }
 .field:focus { outline: none; border-color: var(--accent); box-shadow: var(--focus-ring); }
-textarea.field { resize: vertical; min-height: 42px; overflow: hidden; }
+textarea.field { resize: vertical; min-height: 44px; overflow: hidden; }
 .field-label { display: block; font-size: var(--fs-xs); font-weight: 600; color: var(--ink-muted); margin-bottom: 4px; }
 
 /* ===================== NAGŁÓWEK POZIOMU ===================== */
@@ -3541,7 +3542,7 @@ a.notes-item-title { color: var(--accent); text-decoration: underline; text-unde
 .fc-switch[aria-checked="true"] .fc-switch-track { background: var(--accent-bg); border-color: var(--accent-bg); }
 .fc-switch[aria-checked="true"] .fc-switch-thumb { transform: translateX(16px); background: var(--on-accent); }
 .fc-settings { margin: 8px 0 24px; padding: 16px 20px; }
-.fc-settings-title { cursor: pointer; font-weight: 700; min-height: 32px; }
+.fc-settings-title { cursor: pointer; font-weight: 700; min-height: 44px; display: flex; align-items: center; }
 .fc-settings-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin: 12px 0; }
 .fc-num { max-width: 140px; min-height: 44px; }
 .fc-check { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 2px 10px; margin: 10px 0; }
@@ -3785,6 +3786,7 @@ a.notes-item-title { color: var(--accent); text-decoration: underline; text-unde
 .wz-why, .wz-crit { margin: 20px 0; }
 .wz-crit table { width: 100%; max-width: 36rem; }
 /* ===================== PISANIE: bank zwrotów (paczka v6, spec 17, sekcja 2) ===================== */
+.wz-phrases-link a { color: var(--accent); font-weight: 650; min-height: 44px; display: inline-flex; align-items: center; }
 .wz-phrases-link { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 10px; margin: 12px 0 0; padding: 14px 16px; }
 .zw-root { margin-top: 12px; }
 .zw-filters { flex-direction: row; flex-wrap: wrap; align-items: flex-end; }

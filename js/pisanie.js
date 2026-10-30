@@ -181,8 +181,17 @@ window.ELM = window.ELM || {};
     view.className = "view tool-view pisanie-view";
     view.dataset.file = HASH;
     view.replaceChildren();
-    if (route.kind === "model" && ELM.pisanieWzorzec) { ELM.pisanieWzorzec.render(view, route); return; }
-    if (route.kind === "phrases" && ELM.pisanieZwroty) { ELM.pisanieZwroty.render(view, route); return; }
+    const lazy = route.kind === "model" ? ["pisanieWzorzec", "js/pisanie-wzorzec.js"] : route.kind === "phrases" ? ["pisanieZwroty", "js/pisanie-zwroty.js"] : null;
+    if (lazy) {
+      // Moduły widoków wczytują się dopiero po wejściu (mniej skryptów na starcie)
+      const draw = function () { ELM[lazy[0]].render(view, route); };
+      if (ELM[lazy[0]]) { draw(); return; }
+      view.appendChild(el("p", { class: "tool-note", role: "status", text: "Wczytuję…" }));
+      ELM.loadModule(lazy[1]).then(function () {
+        if (view.isConnected && ELM.state.view === "pisanie" && !view.querySelector(".tool-head")) { view.replaceChildren(); draw(); }
+      }, function (err) { console.warn(err.message); view.replaceChildren(el("p", { class: "tool-note", text: "Nie udało się wczytać widoku. Odśwież stronę." })); });
+      return;
+    }
     document.title = "Pisanie · English Levels Map";
     renderList(view);
   }

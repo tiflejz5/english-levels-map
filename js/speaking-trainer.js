@@ -221,7 +221,7 @@ window.ELM = window.ELM || {};
       view.appendChild(cfg.crumb(found.label));
       view.appendChild(el("h1", { class: "c1-title", text: title }));
       if (fmt === "matura") {
-        view.appendChild(el("p", { class: "c1-lead", text: "Rozmowa wstępna i trzy zadania jak na maturze ustnej: losujesz kartę, mówisz na czas, odsłuchujesz się i oceniasz. Czasy są orientacyjne – punktację i aktualny przebieg sprawdź w informatorze CKE. Ta sama matura ustna obowiązuje na poziomie podstawowym i rozszerzonym." }));
+        view.appendChild(el("p", { class: "c1-lead", text: "Rozmowa wstępna i trzy zadania jak na maturze ustnej: losujesz kartę, mówisz na czas, odsłuchujesz się i oceniasz. Ta sama matura ustna obowiązuje na poziomie podstawowym i rozszerzonym." }));
       } else if (fmt === "simple") {
         view.appendChild(el("p", { class: "sp-note-banner", role: "note", text: D.note }));
         view.appendChild(el("p", { class: "c1-lead", text: "Losujesz kartę, mówisz przez minutę–półtorej, odsłuchujesz się i oceniasz. Pełne zdania i powód „because…” to najlepszy trening także do pisania." }));

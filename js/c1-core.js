@@ -167,12 +167,13 @@ window.ELM = window.ELM || {};
     box.appendChild(el("div", { class: "sb-sep", role: "separator" }));
     // Chip „Certyfikat C1” (granat i złoto): ikona w wąskim pasku, nazwa po rozwinięciu
     box.appendChild(el("a", {
-      class: "sb-item c1-chip" + (route ? " is-active" : ""),
+      class: "sb-item exam-chip" + (route ? " is-active" : ""),
+      style: "--exam-accent:var(--c1-navy);--exam-accent-2:var(--c1-gold)", // ten sam wygląd co chipy pozostałych egzaminów (js/exam-core.js)
       href: BASE,
       "aria-label": manifest.label + ": przygotowanie do egzaminu C1 Advanced",
       "aria-current": isActive(route, "page", "przeglad") ? "page" : (route ? "true" : null)
     }, [
-      el("span", { class: "sb-icon", "aria-hidden": "true" }, el("span", { class: "c1-chip-badge", text: "C1" })),
+      el("span", { class: "sb-icon", "aria-hidden": "true" }, el("span", { class: "exam-chip-badge", text: "C1" })),
       el("span", { class: "sb-label" }, [
         el("span", { class: "sb-label-title", text: manifest.label }),
         el("span", { class: "sb-label-sub", text: "C1 Advanced · przygotowanie" })

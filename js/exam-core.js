@@ -545,7 +545,17 @@ window.ELM = window.ELM || {};
     else if (route.kind === "exercises") title = renderExercises(view, e);
     else if (route.kind === "set") title = renderC1Set(view, e, route.id);
     else if (route.kind === "writing") title = writingTrainer(e).render(view, route.task);
-    else if (route.kind === "speaking") title = speakingTrainer(e).render(view);
+    else if (route.kind === "speaking") {
+      if (ELM.speakingTrainer) title = speakingTrainer(e).render(view);
+      else {
+        view.appendChild(el("p", { class: "tool-note", role: "status", text: "Wczytuję trener…" }));
+        ELM.loadModule("js/recorder.js").then(function () { return ELM.loadModule("js/speaking-trainer.js"); }).then(function () {
+          const now = parseRoute(location.hash);
+          if (now && now.examId === e.id && now.kind === "speaking") render(now);
+        }, function (err) { console.warn(err.message); view.replaceChildren(notFound(e, "Nie udało się wczytać trenera. Odśwież stronę.")); });
+        title = "Trener mówienia";
+      }
+    }
     document.title = (title ? title + " · " : "") + e.label + " · English Levels Map";
     if (title && pd()) pd().setLastPage(location.hash, e.label + " · " + title);
   }
