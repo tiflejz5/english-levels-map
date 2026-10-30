@@ -953,10 +953,12 @@ textarea.field { resize: vertical; min-height: 44px; overflow: hidden; }
 /* Zaznaczone: kolor krainy (poza poziomem — kolor sukcesu) */
 .umiem input:checked { background: var(--lvl, var(--success-fill)); border-color: var(--lvl, var(--success-fill)); }
 .umiem input:checked::after { opacity: 1; transform: rotate(-45deg) translate(1px, -1px) scale(1); }
-.umiem input:checked { animation: umiem-pop var(--dur-slow) var(--ease-spring); }
-@keyframes umiem-pop {
-  0% { transform: scale(0.7); }
-  100% { transform: scale(1); }
+/* C3: zaznaczone „Umiem” = okrągła pieczątka w kolorze krainy; „odbicie” tylko przy zaznaczeniu przez użytkownika (.is-fresh) */
+.umiem input:checked { transform: rotate(-6deg); }
+.umiem.is-fresh input:checked { animation: umiem-stamp 220ms var(--ease-out); }
+@keyframes umiem-stamp {
+  from { transform: scale(1.25) rotate(-10deg); }
+  to { transform: scale(1) rotate(-6deg); }
 }
 .umiem:hover { border-color: var(--line-control); }
 .umiem input:focus-visible { box-shadow: var(--focus-ring); }
@@ -1781,9 +1783,9 @@ textarea.field { overflow: auto; }
 /* Pinezka „tu jesteś”: osobna warstwa nad stacjami, nie łapie kliknięć */
 .trail-overlay { z-index: 2; pointer-events: none; }
 .trail-stage.is-vertical .trail-svg { width: 220px; }
-.trail-base { fill: none; stroke: var(--line-strong); stroke-width: 6; stroke-linecap: round; stroke-dasharray: 1 12; }
-.trail-done { fill: none; stroke-width: 6; stroke-linecap: round; }
-.trail-marker-pin { fill: var(--accent); stroke: var(--surface); stroke-width: 2; }
+.trail-base { fill: none; stroke: var(--ink); stroke-opacity: 0.35; stroke-width: 2; stroke-linecap: round; stroke-dasharray: 1 7; }
+.trail-done { fill: none; stroke: var(--ink); stroke-width: 2.5; stroke-linecap: round; }
+.trail-marker-pin { fill: var(--ink); }
 .trail-marker-dot { fill: var(--surface); }
 .trail-stations { list-style: none; margin: 0; padding: 0; }
 .trail-station { position: absolute; transform: translate(-50%, -32px); } /* środek pierścienia (56 px + 4 px odstępu) na punkcie ścieżki */
@@ -2212,9 +2214,11 @@ textarea.field { overflow: auto; }
 .celebration-title { margin: 0; font-family: var(--font-display); font-size: var(--fs-lg); font-weight: 640; letter-spacing: -0.01em; }
 .celebration-text { margin: 2px 0 0; font-size: var(--fs-sm); color: var(--ink-muted); }
 .celebration-close { width: 44px; height: 44px; border-color: transparent; background: transparent; flex-shrink: 0; }
-.confetti { position: absolute; left: 50%; top: 10px; width: 0; height: 0; pointer-events: none; }
-.confetti-piece { position: absolute; left: -4px; top: -6px; width: 8px; height: 12px; border-radius: 2px; }
-.confetti-piece.is-dot { width: 8px; height: 8px; border-radius: 50%; }
+/* C5: fragment Szlaku na karcie gratulacji (kółko krainy z pierścieniem; pieczątka przy zaliczonym teście) */
+.celebration-trail { position: relative; display: inline-grid; place-items: center; flex-shrink: 0; }
+.celebration-trail .ring-fill { transition-duration: 600ms; }
+.celebration-trail .ring { background: var(--surface); border-radius: 50%; }
+.celebration-trail .stamp { position: absolute; top: -4px; right: -8px; }
 
 /* ===================== STRONY POZIOMÓW (etap 3, DESIGN.md sekcja 3.4) ===================== */
 /* Na stronie poziomu i jego podstronach akcent przyjmuje kolor krainy (linki, aktywne elementy, chipy, fokus) */
@@ -3924,3 +3928,45 @@ a.notes-item-title { color: var(--accent); text-decoration: underline; text-unde
 .home-exams { margin: 8px 0 32px; }
 .home-exams-title { margin: 0 0 12px; font-size: var(--fs-lg); }
 .home-exams-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+
+/* ===================== C1: KRAINY — symbole w panelu i nagłówku poziomu ===================== */
+.ring-land { display: inline-flex; color: var(--lvl); }
+.sb-item.is-level .ring-land { color: var(--lvl-ink); }
+.sb-item.is-level { min-height: 58px; padding-block: 3px; }
+.sb-ring-wrap { row-gap: 2px; }
+.sb-ring-code { font-size: 0.625rem; font-weight: 700; line-height: 1; letter-spacing: .04em; color: var(--ink-muted); }
+.sidebar.is-expanded .sb-ring-code, :root[data-sidebar="pinned"] .sb-ring-code { display: none; }
+.level-kicker { display: inline-flex; align-items: center; gap: 6px; color: var(--lvl-ink); }
+
+/* ===================== C2: SZLAK JAKO MAPA TOPOGRAFICZNA ===================== */
+.trail-land-fill { fill: var(--land-soft); }
+.trail-contour { fill: none; stroke: var(--land); stroke-width: 1; }
+:root[data-theme="dark"] .trail-contour { stroke-width: 1.1; }
+.trail-rose { stroke: var(--ink); stroke-opacity: 0.5; fill: none; }
+.trail-rose-needle { fill: var(--ink); fill-opacity: 0.5; }
+.trail-rose text { fill: var(--ink); stroke: none; font-size: 10px; font-weight: 600; }
+.trail-ring .stamp { position: absolute; top: -4px; right: -8px; }
+.trail-compact { margin: 8px 0 24px; padding: 4px 0 28px; max-width: none; }
+.md .trail-compact .trail-link, .md .trail-compact .trail-link:hover { color: var(--ink); text-decoration: none; }
+.trail-compact .trail-stage { margin-top: 0; }
+
+/* ===================== C3: PIECZĄTKA ===================== */
+.stamp { display: inline-grid; place-items: center; flex-shrink: 0; border-radius: 50%; background: var(--lvl, var(--accent)); color: var(--on-accent); transform: rotate(-6deg); }
+
+/* ===================== C4: MARKER SŁOWA-KLUCZA PO POPRAWNEJ ODPOWIEDZI ===================== */
+.ex-card { --mark: color-mix(in srgb, var(--accent) 30%, transparent); }
+.ex-hl { font-weight: 700; background-image: linear-gradient(var(--mark), var(--mark)); background-repeat: no-repeat; background-position: left center; background-size: 0 100%; border-radius: 3px; animation: ex-hl-mark 300ms var(--ease-out) forwards; }
+@keyframes ex-hl-mark { to { background-size: 100% 100%; } }
+.ex-hl-line { margin: 4px 0 0; }
+.ex-gap-text.ex-hl { white-space: nowrap; }
+.stamp.is-fresh { animation: umiem-stamp 220ms var(--ease-out); }
+
+/* ===================== C6: STANY PUSTE Z ILUSTRACJĄ ===================== */
+.empty-state.has-art .es-art { width: 96px; height: 96px; color: var(--ink-muted); flex-shrink: 0; }
+.empty-state.has-art .es-accent { stroke: var(--lvl, var(--accent)); }
+.empty-state.has-art .es-fill { fill: var(--lvl, var(--accent)); fill-opacity: 0.15; }
+.empty-state-hint { margin: 0; font-size: var(--fs-sm-plus); color: var(--ink-muted); max-width: var(--measure); }
+.empty-state.es-tile { padding: 8px 0 0; border: 0; background: none; gap: 8px; }
+.empty-state.es-inline { padding: 8px 0; border: 0; background: none; }
+li.empty-state { list-style: none; }
+@media (max-width: 639px) { .empty-state.has-art .es-art { width: 72px; height: 72px; } }

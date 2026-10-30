@@ -139,7 +139,10 @@ pairs.push(
     ["lvl-" + l, "lvl-" + l + "-soft", null, 3, "pasek " + L + " / tor"],
     ["lvl-" + l, "surface", null, 3, "znacznik " + L + " / karta"],
     ["lvl-" + l, "bg", null, 3, "znacznik " + L + " / tło"],
-    ["on-accent", "lvl-" + l, null, 3, "ptaszek „Umiem” / wypełnienie " + L]
+    ["on-accent", "lvl-" + l, null, 3, "ptaszek „Umiem” / wypełnienie " + L],
+    ["lvl-" + l + "-ink", "bg", null, 4.5, "etykieta krainy " + L + " nad nagłówkiem / tło"],
+    ["ink", "lvl-" + l + "-glow", "surface", 4.5, "marker słowa-klucza " + L + " / karta zadania"],
+    ["lvl-" + l, "lvl-" + l + "-soft", null, 3, "symbol krainy " + L + " / plama na Szlaku"]
   );
 });
 

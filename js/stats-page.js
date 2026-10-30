@@ -267,14 +267,10 @@ window.ELM = window.ELM || {};
     const hasData = rec.items.length || Object.keys(rec.aggregates).length;
     view.appendChild(ELM.ui.pageHead({ eyebrow: "Twoje postępy · Statystyki", title: "Statystyki", lead: "Twoje odpowiedzi w zadaniach, trafność i aktywność. Liczymy tylko Twoje dane – bez porównań z innymi." }));
     if (!hasData) {
-      view.appendChild(el("div", { class: "card st-hero-empty" }, [
-        el("span", { class: "hub-soon-icon", "aria-hidden": "true" }, ELM.icon("chart-column", { size: 22 })),
-        el("div", null, [
-          el("p", { class: "st-hero-title", text: "Tu pojawią się Twoje statystyki" }),
-          el("p", { class: "tool-note", text: "Rozwiąż pierwszy zestaw zadań – każda odpowiedź się liczy. Po kilku zestawach zobaczysz, które tematy idą Ci najlepiej, a które warto powtórzyć." }),
-          el("p", null, el("a", { class: "btn btn-primary", href: "#/cwiczenia" }, ELM.ui.withIcon("dumbbell", "Przejdź do ćwiczeń")))
-        ])
-      ]));
+      view.appendChild(ELM.ui.emptyState({
+        art: "pusty-dziennik", title: "Tu pojawią się Twoje statystyki", hint: "Rozwiąż pierwszy zestaw zadań – każda odpowiedź się liczy. Po kilku zestawach zobaczysz, które tematy idą Ci najlepiej, a które warto powtórzyć.",
+        action: el("a", { class: "btn btn-primary", href: "#/cwiczenia" }, ELM.ui.withIcon("dumbbell", "Przejdź do ćwiczeń"))
+      }));
     }
     const grid = el("div", { class: "st-grid-layout" });
     if (hasData) {

@@ -313,14 +313,14 @@ window.ELM = window.ELM || {};
   }
 
   function emptyBox(text, withButton) {
-    return el("div", { class: "empty-state" }, [
-      el("p", { class: "empty-state-text", text: text }),
-      withButton ? el("button", {
+    return ELM.ui.emptyState({
+      art: "pusty-dziennik", title: text,
+      action: withButton ? el("button", {
         type: "button",
         class: "btn btn-primary",
         onclick: function () { openForm().then(function (r) { if (r) render({ kind: "list" }); }); }
       }, "Dodaj pierwszy błąd") : null
-    ]);
+    });
   }
 
   function renderList(view) {
@@ -461,10 +461,10 @@ window.ELM = window.ELM || {};
     if (!session || session.profileId !== (profile ? profile.id : null)) startSession();
     if (!session.ids.length && !session.done) {
       view.appendChild(el("header", { class: "tool-head" }, [el("h1", { class: "tool-title", text: "Powtórki" })]));
-      view.appendChild(el("div", { class: "empty-state" }, [
-        el("p", { class: "empty-state-text", text: "Na dziś czysto – nie masz żadnych powtórek." }),
-        el("a", { class: "btn btn-secondary", href: BASE }, "Wróć do dziennika")
-      ]));
+      view.appendChild(ELM.ui.emptyState({
+        art: "brak-powtorek", title: "Na dziś czysto – nie masz żadnych powtórek.",
+        action: el("a", { class: "btn btn-secondary", href: BASE }, "Wróć do dziennika")
+      }));
       session = null;
       return;
     }

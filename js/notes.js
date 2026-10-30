@@ -158,10 +158,10 @@ window.ELM = window.ELM || {};
     view.appendChild(ELM.ui.pageHead({ eyebrow: "Twoje postępy · Moje notatki", title: "Moje notatki", lead: "Notatki z podstron, egzaminów, Laboratorium czasów i zestawów ćwiczeń. Widzisz je tylko Ty, w tym profilu." }));
     const all = pd().noteList();
     if (!all.length) {
-      view.appendChild(el("div", { class: "empty-state" }, [
-        el("p", { class: "empty-state-text", text: "Nie masz jeszcze notatek." }),
-        el("p", { class: "empty-state-hint", text: "Na każdej stronie z treścią jest przycisk „Notatki”. Kliknij go, wpisz swoje uwagi – zapiszą się same i pojawią tutaj." })
-      ]));
+      view.appendChild(ELM.ui.emptyState({
+        art: "pusty-notes", title: "Nie masz jeszcze notatek.",
+        hint: "Na każdej stronie z treścią jest przycisk „Notatki”. Kliknij go, wpisz swoje uwagi – zapiszą się same i pojawią tutaj."
+      }));
       return;
     }
     const listBox = el("ul", { class: "notes-list", "aria-live": "polite" });
@@ -172,7 +172,7 @@ window.ELM = window.ELM || {};
       const shown = all.filter(function (n) { return !q || fold(n.title + " " + n.text).indexOf(fold(q)) !== -1; });
       count.textContent = "Notatki: " + shown.length + " z " + all.length;
       listBox.replaceChildren();
-      if (!shown.length) { listBox.appendChild(el("li", { class: "empty-state-text", text: "Brak notatek pasujących do wyszukiwania." })); return; }
+      if (!shown.length) { listBox.appendChild(ELM.ui.emptyState({ tag: "li", art: "brak-wynikow", title: "Brak notatek pasujących do wyszukiwania." })); return; }
       shown.forEach(function (n) {
         listBox.appendChild(el("li", { class: "card notes-item" }, [
           el("div", { class: "notes-item-head" }, [

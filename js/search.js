@@ -226,6 +226,7 @@ window.ELM = window.ELM || {};
     if (!res.total) {
       status.textContent = "";
       list.appendChild(el("div", { class: "search-empty", role: "presentation" }, [
+        ELM.ui.emptyState({ art: "brak-wynikow", title: "Brak wyników", class: "es-inline" }),
         el("p", { class: "search-empty-title", text: "Nic nie znalazłem dla „" + q + "”." }),
         el("p", { class: "tool-note", text: "Spróbuj krótszego hasła albo bez polskich znaków. Ćwiczenia do wszystkich tematów są w Centrum ćwiczeń." }),
         el("p", null, el("a", { class: "btn btn-secondary btn-small", href: "#/cwiczenia", onclick: function () { close(false); } }, ELM.ui.withIcon("dumbbell", "Centrum ćwiczeń")))

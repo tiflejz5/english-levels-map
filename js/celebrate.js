@@ -13,8 +13,10 @@
  * zapisujemy bez pokazywania (żeby nie wyskoczyła seria starych gratulacji).
  *
  * Forma: karta „toast” na dole ekranu (2,8 s, zamykana kliknięciem lub Esc,
- * nie blokuje interfejsu, jedna naraz — kolejka) + drobne konfetti z kilkunastu
- * elementów DOM animowanych GSAP. Przy prefers-reduced-motion sama karta.
+ * nie blokuje interfejsu, jedna naraz — kolejka). Kamienie poziomu pokazują fragment Szlaku:
+ * kółko krainy z symbolem i pierścieniem postępu animowanym od poprzedniej do nowej wartości
+ * (przejście CSS ≤ 600 ms), a przy zaliczonym teście końcowym — pieczątkę. Przy
+ * prefers-reduced-motion od razu stan końcowy (paczka v7, C5; konfetti usunięte).
  */
 window.ELM = window.ELM || {};
 
@@ -135,7 +137,7 @@ window.ELM = window.ELM || {};
     }).map(function (k) { return byKind[k]; }).slice(0, 2);
   }
 
-  // ---------- Karta i konfetti ----------
+  // ---------- Karta ----------
 
   function container() {
     let box = document.getElementById("celebrations");
@@ -163,11 +165,35 @@ window.ELM = window.ELM || {};
 
   function onKey(e) { if (e.key === "Escape") hide(); }
 
+  /** Fragment Szlaku na karcie: kółko krainy z pierścieniem (od poprzedniego progu do nowego) i pieczątką po teście końcowym. */
+  function trailLead(item, level) {
+    const passed = /^lvl-..-passed$/.test(item.id);
+    const m = /^lvl-..-(\d+)$/.exec(item.id);
+    if (!passed && !m) return null;
+    const now = ELM.app.getLevelStats(level).percent;
+    let from = now, to = now;
+    if (m) {
+      const step = Number(m[1]), at = LEVEL_STEPS.indexOf(step);
+      from = at > 0 ? LEVEL_STEPS[at - 1] : 0;
+      to = step;
+    }
+    const reduce = ELM.reducedMotion();
+    const ring = ELM.ui.progressRing(reduce ? to : from, {
+      size: 56, stroke: 5, node: ELM.ui.landIcon(level, { size: 26 }), label: "Postęp poziomu " + level + ": " + to + "%"
+    });
+    ring.removeAttribute("role");
+    ring.setAttribute("aria-hidden", "true");
+    // Przejście od poprzedniej do nowej wartości (CSS na stroke-dashoffset, ≤ 600 ms)
+    if (!reduce && to !== from) setTimeout(function () { ELM.ui.setRing(ring, to); }, 250);
+    return el("span", { class: "celebration-trail" }, [ring, passed ? ELM.ui.stamp(level, { size: 22, fresh: !reduce }) : null]);
+  }
+
   function show(item) {
     const c = item.c;
     const lvlClass = c.level ? " lvl-" + c.level : "";
+    const lead = c.level ? trailLead(item, c.level) : null;
     const card = el("div", { class: "celebration" + lvlClass + (c.level ? " has-level" : "") }, [
-      el("span", { class: "celebration-icon", "aria-hidden": "true" }, ELM.icon(c.icon, { size: 22 })),
+      lead || el("span", { class: "celebration-icon", "aria-hidden": "true" }, ELM.icon(c.icon, { size: 22 })),
       el("div", { class: "celebration-body" }, [
         el("p", { class: "celebration-title", text: c.title }),
         el("p", { class: "celebration-text", text: c.text })
@@ -182,35 +208,6 @@ window.ELM = window.ELM || {};
     showing = card;
     document.addEventListener("keydown", onKey);
     hideTimer = setTimeout(hide, SHOW_MS);
-    if (!ELM.reducedMotion()) confetti(card, c.level);
-  }
-
-  /** Drobny wybuch konfetti nad kartą (kilkanaście elementów DOM, GSAP; potem usuwane). */
-  function confetti(card, level) {
-    ELM.loadGsap().then(function (gsap) {
-      if (!card.isConnected) return;
-      const colors = level
-        ? ["var(--lvl)", "var(--lvl)", "var(--lvl-ink)", "var(--c1-gold)"]
-        : ["var(--lvl-a1)", "var(--lvl-a2)", "var(--lvl-b1)", "var(--lvl-b2)", "var(--lvl-c1)", "var(--lvl-c2)"];
-      const burst = el("div", { class: "confetti", "aria-hidden": "true" });
-      card.appendChild(burst);
-      const pieces = [];
-      for (let i = 0; i < 22; i++) {
-        const p = el("span", { class: "confetti-piece" + (i % 3 === 0 ? " is-dot" : "") });
-        p.style.background = colors[i % colors.length];
-        burst.appendChild(p);
-        pieces.push(p);
-      }
-      const tl = gsap.timeline({ onComplete: function () { burst.remove(); } });
-      pieces.forEach(function (p) {
-        const angle = gsap.utils.random(-160, -20) * Math.PI / 180;
-        const dist = gsap.utils.random(50, 130);
-        tl.fromTo(p, { x: 0, y: 0, rotation: 0, scale: gsap.utils.random(0.6, 1.1), autoAlpha: 1 }, {
-          x: Math.cos(angle) * dist, y: Math.sin(angle) * dist, rotation: gsap.utils.random(-220, 220),
-          duration: gsap.utils.random(0.55, 0.8), ease: "power3.out"
-        }, 0).to(p, { y: "+=" + gsap.utils.random(30, 60), autoAlpha: 0, duration: 0.5, ease: "power1.in" }, ">-0.1");
-      });
-    }).catch(function () { /* bez konfetti — sama karta */ });
   }
 
   /**

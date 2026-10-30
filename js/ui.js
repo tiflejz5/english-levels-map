@@ -33,7 +33,7 @@ window.ELM = window.ELM || {};
    */
   function icon(name, opts) {
     opts = opts || {};
-    const nodes = (ELM.ICON_NODES || {})[name];
+    const nodes = ((opts.set === "land" ? ELM.LAND_NODES : ELM.ICON_NODES) || {})[name];
     const size = opts.size || 20;
     const svg = svgEl("svg", {
       class: "icon icon-" + name + (opts.class ? " " + opts.class : ""),
@@ -50,6 +50,69 @@ window.ELM = window.ELM || {};
     }
     nodes.forEach(function (n) { svg.appendChild(svgEl(n[0], n[1])); });
     return svg;
+  }
+
+  /** Krainy poziomów (paczka v7, C1): nazwa i klucz symbolu w assets/krainy.js. */
+  const LANDS = {
+    A1: { name: "Polana", key: "kraina-a1" }, A2: { name: "Las", key: "kraina-a2" }, B1: { name: "Wzgórza", key: "kraina-b1" },
+    B2: { name: "Jezioro", key: "kraina-b2" }, C1: { name: "Góry", key: "kraina-c1" }, C2: { name: "Szczyt", key: "kraina-c2" }
+  };
+
+  /** Symbol krainy dla poziomu ("A1"…"C2"), kreska currentColor — kolor ustawia rodzic (np. --lvl). */
+  function landIcon(levelId, opts) {
+    const land = LANDS[levelId];
+    return icon(land ? land.key : "", Object.assign({ set: "land", size: 22 }, opts || {}));
+  }
+
+  /** "A1 · Polana" (sam kod, gdy poziom nie ma krainy). */
+  function landLabel(levelId) {
+    return LANDS[levelId] ? levelId + " · " + LANDS[levelId].name : levelId;
+  }
+
+  /**
+   * Pieczątka w kolorze krainy (--lvl z klasy lvl-X rodzica albo własnej): okrągła, z ptaszkiem.
+   * opts: size (px, domyślnie 20), fresh — animacja „odbicia” (C3; bez ruchu przy reduced motion, CSS).
+   */
+  function stamp(levelId, opts) {
+    opts = opts || {};
+    const size = opts.size || 20;
+    const s = document.createElement("span");
+    s.className = "stamp lvl-" + levelId + (opts.fresh ? " is-fresh" : "");
+    s.setAttribute("aria-hidden", "true");
+    s.style.width = size + "px";
+    s.style.height = size + "px";
+    s.appendChild(icon("check", { size: Math.round(size * 0.62), "stroke-width": 3 }));
+    return s;
+  }
+
+  /**
+   * Stan pusty z ilustracją (paczka v7, C6): ELM.ui.emptyState({ art, title, hint, action, level, tag }).
+   *   art    — klucz z ELM.EMPTY_ART (assets/stany-puste.js), 96×96, kreska currentColor
+   *   action — element (przycisk, link) albo null; level — poziom koloru akcentu (domyślnie bieżący poziom profilu)
+   *   tag    — "li", gdy stan pusty jest elementem listy (domyślnie div)
+   */
+  function emptyState(o) {
+    const level = o.level || (ELM.state && ELM.state.ui && ELM.state.ui.levelId) || "A1";
+    const box = document.createElement(o.tag || "div");
+    box.className = "empty-state has-art lvl-" + level + (o.class ? " " + o.class : "");
+    const nodes = (ELM.EMPTY_ART || {})[o.art];
+    if (nodes) {
+      const svg = svgEl("svg", { class: "es-art", viewBox: "0 0 96 96", fill: "none", stroke: "currentColor", "stroke-width": 1.5, "stroke-linecap": "round", "stroke-linejoin": "round", "aria-hidden": "true", focusable: "false" });
+      nodes.forEach(function (n) { svg.appendChild(svgEl(n[0], n[1])); });
+      box.appendChild(svg);
+    }
+    const title = document.createElement("p");
+    title.className = "empty-state-text";
+    title.textContent = o.title;
+    box.appendChild(title);
+    if (o.hint) {
+      const hint = document.createElement("p");
+      hint.className = "empty-state-hint";
+      hint.textContent = o.hint;
+      box.appendChild(hint);
+    }
+    if (o.action) box.appendChild(o.action);
+    return box;
   }
 
   /** [ikona, tekst] — np. el("button", …, ELM.ui.withIcon("plus", "Dodaj błąd")). */
@@ -140,7 +203,7 @@ window.ELM = window.ELM || {};
    * percent: 0–100. opts:
    *   size (px, domyślnie 64), stroke (px, domyślnie 6),
    *   brand: true → gradient marki zamiast koloru poziomu (--lvl),
-   *   label — opis dla czytników ekranu, text — tekst w środku (domyślnie „N%”)
+   *   label — opis dla czytników ekranu, text — tekst w środku (domyślnie „N%”), node — element zamiast tekstu
    * Wypełnienie animuje się przez stroke-dashoffset (CSS, --dur-slow).
    */
   function progressRing(percent, opts) {
@@ -176,7 +239,8 @@ window.ELM = window.ELM || {};
     wrap.appendChild(svg);
     const txt = document.createElement("span");
     txt.className = "ring-text num";
-    txt.textContent = opts.text !== undefined ? opts.text : p + "%";
+    if (opts.node) { txt.className = "ring-text ring-land"; txt.appendChild(opts.node); } // np. symbol krainy zamiast tekstu
+    else txt.textContent = opts.text !== undefined ? opts.text : p + "%";
     wrap.appendChild(txt);
     // Animacja od zera (przejście CSS; przy prefers-reduced-motion natychmiast)
     requestAnimationFrame(function () {
@@ -305,5 +369,5 @@ window.ELM = window.ELM || {};
   ELM.loadModule = loadModule;
   ELM.loadScript = loadScript; // dane ładowane na żądanie (np. ćwiczenia, Laboratorium czasów)
   ELM.reducedMotion = reducedMotion;
-  ELM.ui = { icon: icon, withIcon: withIcon, pageHead: pageHead, logo: logo, logoMark: logoMark, progressRing: progressRing, setRing: setRing, toast: toast, hideToast: hideToast };
+  ELM.ui = { icon: icon, withIcon: withIcon, emptyState: emptyState, landIcon: landIcon, stamp: stamp, landLabel: landLabel, LANDS: LANDS, pageHead: pageHead, logo: logo, logoMark: logoMark, progressRing: progressRing, setRing: setRing, toast: toast, hideToast: hideToast };
 })(window.ELM);

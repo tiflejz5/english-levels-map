@@ -145,12 +145,12 @@ window.ELM = window.ELM || {};
       const name = levelName(level);
       let n = levelNodes[level.id];
       if (!n || !ul.contains(n.a)) {
-        const ring = ELM.ui.progressRing(s.percent, { size: 42, stroke: 4, text: level.id, label: "Postęp poziomu " + level.id });
+        const ring = ELM.ui.progressRing(s.percent, { size: 38, stroke: 4, node: ELM.ui.landIcon(level.id, { size: 20 }), label: "Postęp poziomu " + level.id });
         const fill = el("div", { class: "progress-fill", style: "transform:scaleX(" + s.percent / 100 + ")" });
         const count = el("span", { class: "sb-label-sub num" });
         const title = el("span", { class: "sb-label-title" });
         // Kółko poziomu w opakowaniu: na nim ląduje znaczek zaliczonego testu końcowego (paczka v6)
-        const ringWrap = el("span", { class: "sb-ring-wrap" }, ring);
+        const ringWrap = el("span", { class: "sb-ring-wrap" }, [ring, el("span", { class: "sb-ring-code", "aria-hidden": "true", text: level.id })]);
         const a = sbItem({
           href: app().levelHash(level.id),
           cls: "is-level lvl-" + level.id,
@@ -254,7 +254,7 @@ window.ELM = window.ELM || {};
     ring.id = "level-ring";
     return el("header", { class: "card level-hero" }, [
       el("div", { class: "level-hero-text" }, [
-        el("p", { class: "level-kicker", text: "Poziom" }),
+        el("p", { class: "level-kicker" }, [ELM.ui.landIcon(level.id, { size: 16 }), ELM.ui.landLabel(level.id)]),
         el("h1", { class: "level-title" }, [
           el("span", { class: "level-code-big", text: level.id }),
           name ? el("span", { class: "level-name", text: name }) : null
@@ -311,6 +311,7 @@ window.ELM = window.ELM || {};
         onchange: function (e) {
           app().setProgress(item.id, e.target.checked);
           li.classList.toggle("is-done", e.target.checked);
+          checkbox.classList.toggle("is-fresh", e.target.checked); // pieczątka „odbija się” tylko przy zaznaczeniu
         }
       }),
       el("span", { class: "visually-hidden", text: "Umiem" })

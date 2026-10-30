@@ -480,7 +480,7 @@ english-levels-map/
 ├─ dane/                 mapa zestawów, mixy, Laboratorium czasów (lab-dane.js generowany)
 ├─ scripts/              skrypty z paczki rozbudowy (walidator i generatory w Pythonie)
 ├─ tools/zbuduj-zasoby.js   kopiuje fonty, ikony i GSAP z node_modules do assets/
-├─ assets/               fonty, ikony, GSAP, favicony, wzór warstwic (kopie, bez CDN)
+├─ assets/               fonty, ikony, GSAP, favicony, wzór warstwic (kopie, bez CDN); krainy.js (symbole krain A1–C2) i stany-puste.js (ilustracje stanów pustych) z paczki v7, bez zmian
 ├─ DESIGN.md             zasady wyglądu, tokeny, komponenty, wyniki przeglądów
 ├─ docs/INSTRUKCJA.md    obsługa dla nauczyciela
 ├─ README.md
