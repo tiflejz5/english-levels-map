@@ -20,6 +20,14 @@ W rozmowie często mówimy o tym, czego nie wiemy na pewno: dlaczego ktoś się 
 | prawie niemożliwe | can't / couldn't have | *They **can't have finished** already.* |
 | przypuszczenie | I bet… / I reckon… / I'd say… | ***I bet** he overslept.* |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *He must have missed the bus.* (Musiał spóźnić się na autobus.) | Uzupełnij: She isn't here. She ___ (must / forget) about the meeting. → **must have forgotten** | MP · MR |
+| *It's bound to happen sooner or later.* (To się na pewno prędzej czy później zdarzy.) | Transformacja: I'm sure that she will win. BOUND → She ___ win. → **is bound to** | MR · B2 |
+| *I doubt that he'll come.* (Wątpię, żeby przyszedł.) | Wybierz: I doubt that she ___ the exam. a) won't pass b) will pass c) doesn't pass → **b** | MP · MR |
+
 ## Spekulowanie o przyszłości
 
 | Pewność | Zwrot | Przykład |

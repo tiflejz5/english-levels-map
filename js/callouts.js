@@ -17,6 +17,7 @@ window.ELM = window.ELM || {};
   const CALLOUT_RULES = [
     { match: /^(najczęstsza pułapka|typowe błędy|pułapka)/i, type: "trap", icon: "triangle-alert", label: "Uwaga" },
     { match: /^na egzaminie c1/i, type: "exam", icon: "award", label: "Egzamin C1" },
+    { match: /^życie i egzamin/i, type: "real-exam", icon: "arrow-left-right", label: "Życie i egzamin" },
     { match: /^(kluczowe myśli|co umiesz)/i, type: "key", icon: "sparkles", label: "Najważniejsze" },
     { match: /^(jesteś gotow|co dalej)/i, type: "next", icon: "map-pin", label: "Dalej" },
     { match: /^(przykład|kluczowe zwroty|typowe połączenia)/i, type: "examples", icon: "list-checks", label: "Przykłady" }
@@ -60,6 +61,51 @@ window.ELM = window.ELM || {};
       decorate(box, sub, rule);
     });
     enhanceTables(root);
+    root.querySelectorAll(".callout-real-exam").forEach(enhanceRealExam);
+  }
+
+  // Egzaminy z kolumny „Egzamin”: kod → { nazwa, adres strony egzaminu }
+  const EXAM_LINKS = {
+    E8: { name: "egzamin ósmoklasisty", id: "egzamin-osmoklasisty", route: "#/egzamin-osmoklasisty" },
+    MP: { name: "matura podstawowa", id: "matura-podstawowa", route: "#/matura-podstawowa" },
+    MR: { name: "matura rozszerzona", id: "matura-rozszerzona", route: "#/matura-rozszerzona" },
+    B2: { name: "egzamin B2 First", id: "certyfikat-b2", route: "#/certyfikat-b2" },
+    C1: { name: "egzamin C1 Advanced", id: "certyfikat-c1", route: "#/certyfikat-c1" }
+  };
+
+  /** Kolor egzaminu z rejestru (dane/egzaminy-rejestr.js); C1 i brak rejestru → złoto Certyfikatu. */
+  function examAccent(info) {
+    const reg = ELM.EXAM_REGISTRY && ELM.EXAM_REGISTRY.exams && ELM.EXAM_REGISTRY.exams.find(function (e) { return e.id === info.id; });
+    return reg && reg.accent ? reg.accent : "var(--c1-gold)";
+  }
+
+  /**
+   * „Życie i egzamin” (spec v6 16, sekcja 2.3): kody w trzeciej kolumnie → chipy z kolorem egzaminu, tekstem
+   * (skrót + pełna nazwa dla czytników) i linkiem do strony egzaminu; komórki dostają etykiety do widoku kart na telefonie.
+   */
+  function enhanceRealExam(box) {
+    const table = box.querySelector("table");
+    if (!table) return;
+    const labels = Array.prototype.map.call(table.querySelectorAll("thead th"), function (th) { return th.textContent.trim(); });
+    table.querySelectorAll("tbody tr").forEach(function (tr) {
+      const cells = tr.querySelectorAll("td");
+      Array.prototype.forEach.call(cells, function (td, i) { if (labels[i]) td.setAttribute("data-label", labels[i]); });
+      const last = cells[2];
+      if (!last || last.querySelector(".exam-chip")) return;
+      const codes = last.textContent.split("·").map(function (c) { return c.trim(); }).filter(Boolean);
+      if (!codes.length || !codes.every(function (c) { return EXAM_LINKS[c]; })) return;
+      last.classList.add("exam-chips");
+      last.replaceChildren.apply(last, codes.map(function (code) {
+        const info = EXAM_LINKS[code];
+        const chip = ELM.utils.el("a", { class: "exam-chip", href: info.route, style: "--exam: " + examAccent(info), title: "Przydatne na: " + info.name }, [
+          ELM.utils.el("span", { "aria-hidden": "true", text: code }),
+          ELM.utils.el("span", { class: "visually-hidden", text: info.name })
+        ]);
+        return chip;
+      }));
+    });
+    const wrap = table.closest(".md-table-wrap");
+    if (wrap) wrap.setAttribute("aria-label", "Życie i egzamin: zdania z życia i zadania w stylu egzaminu");
   }
 
   /**

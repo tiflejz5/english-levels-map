@@ -49,6 +49,14 @@ Na C1 czasy przestają być tylko kwestią „kiedy”. Native speakerzy używaj
 | I hope you can come. | I was hoping you might be able to come. |
 | I think we should wait. | I was thinking we could perhaps wait. |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *I was wondering if you could help me with this form.* (Zastanawiałem się, czy mógłbyś mi pomóc z tym formularzem.) | Transformacja: Can you send me the file? WONDERING → I ___ you could send me the file. → **was wondering if** | MR · B2 · C1 |
+| *I wanted to have a word about the schedule.* (Chciałem zamienić słowo w sprawie grafiku.) | Transformacja: I would like to talk to you about my salary. WANTED → I ___ about my salary. → **wanted to talk to you** | B2 · C1 |
+| *I was hoping you might be able to come.* (Miałem nadzieję, że uda ci się przyjść.) | Wybierz najbardziej dyplomatyczną wersję prośby do szefa: a) Give me Friday off. b) I want Friday off. c) I was wondering whether I might take Friday off. d) Can I Friday off? → **c** | MR |
+
 ## Typowe błędy Polaków
 
 - ❌ *I wonder if you can help me.* (poprawne, ale mniej miękkie) → ✅ *I was wondering if you could help me.*

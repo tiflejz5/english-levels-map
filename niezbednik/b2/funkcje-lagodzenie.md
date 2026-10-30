@@ -39,6 +39,14 @@ Polacy mówiący po angielsku często brzmią zbyt bezpośrednio – nie dlatego
 | Do it now. | Could you possibly do it now? |
 | That's a stupid question. | That's an interesting question. |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *It's not really my cup of tea.* (To nie bardzo w moim guście.) | Wybierz najbardziej uprzejmą wersję krytyki: a) Your idea is bad. b) I'm not sure that idea would work in practice. c) That won't work. → **b** | MP · MR |
+| *I noticed you were a bit late again this morning.* (Zauważyłem, że dziś rano znów trochę się spóźniłeś.) | Wybierz najbardziej uprzejmą wersję uwagi: a) You're always late. b) You're late again. c) I've noticed a few late arrivals recently. → **c** | MP · MR |
+| *I'm afraid I can't make it on Friday.* (Obawiam się, że w piątek nie dam rady.) | Wybierz najbardziej uprzejmą odmowę: a) No, Friday is bad. b) I won't come. c) I'm afraid I can't come on Friday, sorry. → **c** | MP · MR |
+
 ## Uwaga: nie przesadzaj
 
 Zbyt dużo łagodzenia sprawia, że komunikat ginie. Przy ważnych sprawach (bezpieczeństwo, terminy) bądź jasny: *I'm afraid this is a serious problem and we need to fix it today.*

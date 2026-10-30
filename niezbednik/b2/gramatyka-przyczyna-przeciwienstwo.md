@@ -50,6 +50,14 @@ Na B2 łączysz zdania precyzyjniej niż za pomocą *but* i *because*. Kluczowa 
 | The match was postponed due to heavy snow. | Mecz przełożono z powodu obfitych opadów śniegu. |
 | Since you're here, can you help me? | Skoro już tu jesteś, możesz mi pomóc? |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *Despite his age, he runs marathons.* (Mimo swojego wieku biega w maratonach.) | Transformacja: He is very old. He still plays tennis. DESPITE → ___ very old, he still plays tennis. → **Despite being** | MR · B2 |
+| *Although I'd never met her, I recognised her immediately.* (Chociaż nigdy jej nie spotkałem, od razu ją poznałem.) | Wybierz: ___ it was cold, we went swimming. a) Despite b) Because c) Although → **c** | MP · MR |
+| *My sister is outgoing, whereas I'm quite shy.* (Moja siostra jest otwarta, a ja raczej nieśmiały.) | Uzupełnij: We were late ___ of the traffic. → **because** | MP · MR |
+
 ## Typowe błędy Polaków
 
 - ❌ *Despite of the rain…* → ✅ *Despite the rain…* / *In spite of the rain…*

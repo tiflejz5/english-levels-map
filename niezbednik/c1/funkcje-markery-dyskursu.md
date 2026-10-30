@@ -25,6 +25,14 @@ Markery dyskursu to słowa i zwroty, które **porządkują wypowiedź**: sygnali
 | Podkreślenie | *In fact, As a matter of fact, Indeed, Above all* |
 | Podsumowanie | *All in all, To sum up, At the end of the day, In short, Ultimately* |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *Having said that, I understand your concerns.* (Mimo to rozumiem twoje obawy.) | Wybierz: The flat is cheap. ___, it isn't very close to the centre. a) What's more b) Having said that c) Moreover d) In addition → **b** | MR · B2 · C1 |
+| *What's more, it saves time.* (Co więcej, to oszczędza czas.) | Uzupełnij: The plan is not perfect, but ___ the end of the day, it works. → **at** | MR · B2 |
+| *On a related note, have you seen the report?* (W nawiązaniu do tego, widziałeś raport?) | Wybierz marker dodawania kolejnego argumentu: a) On the other hand, b) What's more, c) However, d) On the contrary, → **b** | MR · B2 · C1 |
+
 ## Mowa vs pismo
 
 | Mowa (luźniej) | Pismo (formalniej) |

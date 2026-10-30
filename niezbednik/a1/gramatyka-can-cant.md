@@ -48,6 +48,14 @@ W twierdzeniu *can* jest słabe: /kən/ – *I c'n swim*. *Can't* jest mocne i d
 | Could you speak more slowly, please? | Czy mógłbyś mówić wolniej? |
 | You can't smoke here. | Nie wolno tu palić. |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *I can swim, but I can't dive.* (Umiem pływać, ale nie umiem nurkować.) | Uzupełnij: ___ you play the guitar? – Yes, I can. → **Can** | E8 · MP |
+| *Can I open the window?* (Mogę otworzyć okno?) | Popraw błąd: She cans speak three languages. → **She can speak three languages.** | E8 |
+| *You can park here.* (Możesz tu zaparkować.) | Wybierz: I ___ come to the party. I'm ill. a) can b) can't c) cans → **b** | E8 · MP |
+
 ## Typowe błędy Polaków
 
 - ❌ *She cans swim.* → ✅ *She can swim.*

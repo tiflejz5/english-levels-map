@@ -24,6 +24,14 @@ Mówienie mniej, niż się myśli – często z kamienną twarzą.
 | *It's just a flesh wound.* (Monty Python) | Poważna rana | Żartobliwe bagatelizowanie. |
 | *That could have gone better.* | Totalna klapa | Poszło fatalnie. |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *We've had a slight hiccup with the server.* (Mieliśmy drobną czkawkę z serwerem. [o poważnej awarii]) | Wybierz: Szef po awarii całego systemu mówi: „We've had a slight hiccup.” Co to znaczy? a) Problem jest drobny. b) Awarii nie było. c) Problem jest poważny, ale mówi się o nim oględnie. d) Szef żartuje z klienta. → **c** | C1 |
+| *Well, that went well.* (No, nieźle poszło. [ironicznie, po porażce]) | Wybierz: Po nieudanym występie ktoś mówi sucho: „Well, that went well.” Jest to: a) szczera pochwała. b) pytanie. c) podziękowanie. d) ironia. → **d** | C1 |
+| *It's not the worst idea I've heard.* (To nie najgorszy pomysł, jaki słyszałem. [= całkiem dobry]) | Wybierz: – What did you think of my plan? – “It's not the worst idea I've heard.” Rozmówca: a) bardzo krytykuje. b) ostrożnie chwali. c) odmawia odpowiedzi. d) zmienia temat. → **b** | C1 |
+
 ## Inne rodzaje humoru
 
 | Rodzaj | Opis | Przykład |

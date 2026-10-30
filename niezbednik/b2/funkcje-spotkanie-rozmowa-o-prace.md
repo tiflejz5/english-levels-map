@@ -24,6 +24,14 @@ To dwie sytuacje, w których B2 jest zwykle minimum. Obie mają przewidywalną s
 | Zadania | *Who's going to take care of…? / Can you send it by Friday?* |
 | Zamknięcie | *Thanks, everyone. Let's meet again next week.* |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *I've been working in sales for three years.* (Pracuję w sprzedaży od trzech lat.) | Uzupełnij: I've been working in this company ___ 2020. → **since** | MP · MR |
+| *Let's move on to the next item on the agenda.* (Przejdźmy do następnego punktu porządku obrad.) | Wybierz: We usually ___ a meeting on Monday mornings. a) make b) do c) have → **c** | MP · MR |
+| *I have some experience in customer service.* (Mam trochę doświadczenia w obsłudze klienta.) | Transformacja: I worked in marketing for five years. EXPERIENCE → I have five years' ___ in marketing. → **experience** | MR · B2 |
+
 ## Rozmowa o pracę – typowe pytania
 
 | Pytanie | Jak odpowiedzieć |

@@ -52,6 +52,14 @@ Wymowa: /ˈjuːstə/ – „juste”, *s* bezdźwięczne.
 | There used to be a lot of trees here. | Kiedyś było tu dużo drzew. |
 | I'm not used to driving on the left. | Nie jestem przyzwyczajony do jazdy po lewej. |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *I used to play football every day.* (Kiedyś codziennie grałem w piłkę.) | Uzupełnij: She ___ (use / live) in Paris, but now she lives in Rome. → **used to live** | E8 · MP |
+| *There used to be a cinema here.* (Kiedyś było tu kino.) | Wybierz: Did you ___ to summer camps as a child? a) used to go b) use to go c) used go → **b** | MP · MR |
+| *I'm used to getting up early now.* (Teraz jestem przyzwyczajony do wczesnego wstawania.) | Popraw błąd: I'm used to work late. → **I'm used to working late.** | E8 |
+
 ## Typowe błędy Polaków
 
 - ❌ *I use to play tennis.* (teraźniejsze nawyki) → ✅ *I usually play tennis.*

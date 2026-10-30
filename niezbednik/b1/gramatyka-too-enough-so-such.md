@@ -50,6 +50,14 @@ Także: *so much / so many* – *I've got **so much** work!*
 | It's such a beautiful city. | To takie piękne miasto. |
 | He spoke so quickly that I didn't understand. | Mówił tak szybko, że nie zrozumiałem. |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *I'm too tired to go out tonight.* (Jestem zbyt zmęczony, żeby wyjść dziś wieczorem.) | Uzupełnij: The water isn't warm ___ to swim. → **enough** | E8 · MP |
+| *It was such a nice day!* (To był taki piękny dzień!) | Uzupełnij (so / such): The film was ___ good that we watched it twice. → **so** | E8 · MP |
+| *There weren't enough chairs for everyone.* (Nie było dość krzeseł dla wszystkich.) | Transformacja: The bag is so heavy that I can't carry it. TOO → The bag is ___ for me to carry. → **too heavy** | MP · MR |
+
 ## Typowe błędy Polaków
 
 - ❌ *It's too much expensive.* → ✅ *It's too expensive.*

@@ -23,6 +23,14 @@ Hedging to celowe osłabianie pewności wypowiedzi. Nie chodzi o niezdecydowanie
 | Zwroty wstępne | *It would seem that…, There is some evidence that…, One could argue that…* |
 | Perspektywa | *In my experience…, As far as I know…, From what I've seen…* |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *It would seem that prices are rising.* (Wydaje się, że ceny rosną.) | Wybierz najostrożniejsze sformułowanie tezy: a) Wages are falling. b) It is 100% sure that wages are falling. c) It appears that wages may be falling. d) Wages will fall. → **c** | MR · B2 · C1 |
+| *To some extent, this is true.* (W pewnym stopniu to prawda.) | Transformacja: It is possible that he made a mistake. MAY → He ___ a mistake. → **may have made** | MR · B2 · C1 |
+| *Many Poles seem to enjoy winter sports.* (Wielu Polaków chyba lubi sporty zimowe.) | Wybierz: Her second album is ___ the best she has recorded. (można by twierdzić) a) arguably b) probably not c) definitely d) obviously → **a** | B2 · C1 |
+
 ## Od pewności do ostrożności
 
 | Kategorycznie | Z hedgingiem |

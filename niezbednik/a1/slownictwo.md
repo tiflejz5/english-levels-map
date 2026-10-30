@@ -17,6 +17,14 @@ Na poziomie A1 potrzebujesz ok. 500–700 słów. To niewiele, jeśli są to te 
 - **Codziennie po 10–15 słów**, powtarzając poprzednie (aplikacje typu Anki pomagają).
 - **Mów o sobie:** każde nowe słowo wstaw do zdania o Twoim życiu.
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *My family is big: I've got two sisters and a brother.* (Moja rodzina jest duża: mam dwie siostry i brata.) | Wybierz: I always have ___ at seven. a) breakfast b) make breakfast c) do breakfast → **a** | E8 · MP |
+| *See you on Monday!* (Do zobaczenia w poniedziałek!) | Przetłumacz fragment: We eat lunch in the school ___ (stołówka). → **canteen** | E8 |
+| *The kitchen is next to the living room.* (Kuchnia jest obok salonu.) | Przetłumacz fragment: My brother is a ___ (kierowca). He drives a bus. → **driver** | E8 · MP |
+
 ## Grupy tematyczne
 
 **Liczby:** *one – ten, eleven, twelve, thirteen… twenty, thirty… a hundred, a thousand*

@@ -24,6 +24,14 @@ Na B1 rozmowa przestaje być tylko wymianą informacji – zaczynasz mówić, co
 | I'm (absolutely) sure / convinced that… | mocno |
 | I'm not sure, but I'd say… | ostrożnie |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *In my opinion, remote lessons are less effective.* (Moim zdaniem lekcje zdalne są mniej skuteczne.) | Wybierz: ___ my opinion, homework is useful. a) On b) At c) In → **c** | E8 · MP |
+| *I don't think the exam will be difficult.* (Nie sądzę, żeby egzamin był trudny.) | Uzupełnij: I ___ (think) that he will win. (wyrażasz brak przekonania) → **don't think** | E8 · MP |
+| *I think we should leave early.* (Uważam, że powinniśmy wyjść wcześniej.) | Popraw błąd: According to me, the film is boring. → **In my opinion, the film is boring.** | MP |
+
 ## Uzasadnienie
 
 - *…because… / …since…*

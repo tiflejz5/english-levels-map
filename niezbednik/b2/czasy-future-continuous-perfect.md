@@ -58,6 +58,14 @@ Na B2 znasz już prawie wszystkie czasy. Brakuje zwykle trzech form przyszłych:
 | By Friday she'll have been travelling for a month. | W piątek minie miesiąc, odkąd podróżuje. |
 | Will you have finished by Monday? | Skończysz do poniedziałku? |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *Don't call at eight – I'll be having dinner then.* (Nie dzwoń o ósmej – będę wtedy jadł kolację.) | Uzupełnij: This time next week, we ___ (lie) on a beach in Greece. → **will be lying** | MP · MR |
+| *By next year, I'll have saved enough for a car.* (Do przyszłego roku uzbieram na samochód.) | Wybierz: I'll have finished the report ___ Friday. a) until b) by c) since → **b** | MP · MR |
+| *Hurry up! The film will have started by the time we arrive.* (Pospiesz się! Film już się zacznie, zanim dojedziemy.) | Transformacja: I'm sure the lesson will start before we get there. BY THE TIME → The lesson ___ we get there. → **will have started by the time** | MR · B2 |
+
 ## Typowe błędy Polaków
 
 - ❌ *I'll finish it until Friday.* → ✅ *I'll have finished it **by** Friday.* – *until* = aż do (ciągłość), *by* = najpóźniej do.

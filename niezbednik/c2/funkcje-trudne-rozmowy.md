@@ -24,6 +24,14 @@ Na C2 radzisz sobie w sytuacjach, w których liczy się każde słowo: przekazuj
 
 **Zasada:** nie ukrywaj decyzji pod warstwą łagodzenia. Jeśli po rozmowie osoba nie wie, czy została zwolniona – rozmowa się nie udała.
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *I'm afraid we have to let you go.* (Obawiam się, że musimy się z tobą rozstać.) | Wybierz bardziej taktowną wersję zwolnienia: a) You are fired. b) You're out of the team. c) We've decided to end your contract. d) You failed. → **c** | C1 |
+| *I see where you're coming from.* (Rozumiem, skąd to wynika.) | Wybierz najlepszą reakcję na złość klienta: a) Calm down. b) I understand you. c) It's not my problem. d) I see where you're coming from, and I'm sorry for the delay. → **d** | C1 |
+| *I've noticed that on a few occasions the report was late.* (Zauważyłem, że kilka razy raport był spóźniony.) | Wybierz uwagę do pracownika, która unika oskarżenia: a) You never finish reports on time. b) You always send them late. c) I've noticed that deadlines have been missed on a few occasions. d) You're lazy. → **c** | C1 |
+
 ## Mediacja w konflikcie
 
 | Cel | Zwroty |

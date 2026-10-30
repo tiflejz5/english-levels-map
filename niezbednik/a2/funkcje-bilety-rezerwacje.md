@@ -22,6 +22,14 @@ W podróży większość rozmów to krótkie transakcje: bilet, stolik, pokój. 
 | Do I need to change? | Czy muszę się przesiadać? |
 | How long does it take? | Ile trwa podróż? |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *A return ticket to Kraków, please.* (Poproszę bilet w obie strony do Krakowa.) | Wybierz reakcję: Chcesz zarezerwować stolik. a) I want a table. b) I'd like to book a table for two. c) Give me table. → **b** | E8 · MP |
+| *The shower doesn't work in my room.* (W moim pokoju nie działa prysznic.) | Wybierz: The shower ___ in my room. a) not work b) doesn't work c) don't works → **b** | E8 |
+| *I have a reservation for tonight.* (Mam rezerwację na dziś wieczorem.) | Uzupełnij: I'd like to book a table ___ two people. → **for** | E8 · MP |
+
 ## Rezerwacje
 
 | Zwrot | Polski |

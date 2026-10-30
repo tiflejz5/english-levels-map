@@ -48,6 +48,14 @@ Pytanie ***What are you doing tonight?*** to najnaturalniejszy sposób, żeby za
 | Are you coming to the meeting? | Przyjdziesz na spotkanie? |
 | Sorry, I can't. I'm working late tonight. | Przepraszam, nie mogę. Dziś pracuję do późna. |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *I'm meeting Ola on Friday.* (W piątek spotykam się z Olą.) | Uzupełnij: What ___ you ___ (do) tonight? → **are / doing** | E8 · MP |
+| *We're flying to Rome next week.* (W przyszłym tygodniu lecimy do Rzymu.) | Wybierz: I ___ the dentist tomorrow at ten. a) see b) am seeing c) saw → **b** | E8 |
+| *She's having a party on Saturday.* (W sobotę urządza imprezę.) | Popraw błąd: I meet Tom tomorrow at six. → **I am meeting Tom tomorrow at six.** | E8 |
+
 ## Typowe błędy Polaków
 
 - ❌ *What do you do tonight?* → ✅ *What are you doing tonight?*

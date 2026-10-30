@@ -44,6 +44,14 @@ Polskie „swój” nie ma odpowiednika – mówimy po prostu *my / his / her…
 | The dog is eating its food. | Pies je swoje jedzenie. |
 | Call them tomorrow. | Zadzwoń do nich jutro. |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *This is my brother. His name is Tom.* (To mój brat. Ma na imię Tom.) | Uzupełnij zaimkiem: Can you help ___? (my brother and me) → **us** | E8 · MP |
+| *I know her.* (Znam ją.) | Wybierz: That is Ola, and ___ flat is small. a) his b) her c) their → **b** | E8 |
+| *Our flat is small.* (Nasze mieszkanie jest małe.) | Popraw błąd: This is mine car. → **This is my car.** | E8 |
+
 ## Typowe błędy Polaków
 
 - ❌ *Me and my friend went…* (w potocznej mowie się zdarza, ale formalnie) → ✅ *My friend and I went…*

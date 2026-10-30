@@ -50,6 +50,14 @@ Z *live, work, study* obie formy są poprawne i znaczą prawie to samo: *I've li
 | They've been arguing again. | Znowu się kłócili. |
 | What have you been doing lately? | Co ostatnio porabiasz? |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *I've been waiting here for an hour!* (Czekam tu od godziny!) | Uzupełnij: How long ___ she ___ (wait) for the bus? → **has / been waiting** | E8 · MP |
+| *You look tired. – I've been running.* (Wyglądasz na zmęczonego. – Biegałem.) | Wybierz: It ___ since morning, so everything is wet. a) rains b) is raining c) has been raining → **c** | MP · MR |
+| *He's been learning Spanish for six months.* (Uczy się hiszpańskiego od pół roku.) | Transformacja: She started working at eight and she is still working. SINCE → She ___ eight. → **has been working since** | MR · B2 |
+
 ## Typowe błędy Polaków
 
 - ❌ *I'm waiting for an hour.* → ✅ *I've been waiting for an hour.*

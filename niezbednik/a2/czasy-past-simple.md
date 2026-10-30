@@ -72,6 +72,14 @@ Forma jest taka sama dla wszystkich osób – bez *-s* w 3. osobie.
 | They moved to Gdańsk three years ago. | Przeprowadzili się do Gdańska trzy lata temu. |
 | What did you do at the weekend? | Co robiłeś w weekend? |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *We went to Zakopane last weekend.* (W zeszły weekend pojechaliśmy do Zakopanego.) | Uzupełnij: I ___ (not / see) him yesterday. → **didn't see** | E8 · MP |
+| *Did you see the match last night?* (Widziałeś wczoraj mecz?) | Wybierz: She ___ a new laptop last week. a) buyed b) bought c) buy → **b** | E8 |
+| *I bought it two years ago.* (Kupiłem to dwa lata temu.) | Popraw błąd: Did you saw her at school? → **Did you see her at school?** | E8 |
+
 ## Typowe błędy Polaków
 
 - ❌ *I didn't went.* → ✅ *I didn't go.* – po *didn't* forma podstawowa.

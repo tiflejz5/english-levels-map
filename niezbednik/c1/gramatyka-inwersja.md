@@ -47,6 +47,14 @@ Uwaga: przy *Not until / Only when* inwersja jest w **drugiej** części zdania:
 | Little did they know they were being watched. | Nie mieli pojęcia, że są obserwowani. |
 | Under no circumstances are you to leave the building. | W żadnym wypadku nie wolno ci opuszczać budynku. |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *Never before had I felt so alone.* (Nigdy wcześniej nie czułem się tak samotny.) | Transformacja: I have never heard such a loud noise. NEVER → ___ such a loud noise. → **Never have I heard** | MR · B2 · C1 |
+| *Not only is it cheap, but it's also reliable.* (Jest nie tylko tani, ale i niezawodny.) | Uzupełnij: Not only ___ she sing, she also plays the guitar. → **does** | MR · B2 · C1 |
+| *No sooner had she left than he called.* (Ledwie wyszła, a on zadzwonił.) | Uzupełnij: No sooner had we arrived ___ it started to rain. → **than** | MR · B2 · C1 |
+
 ## Typowe błędy Polaków
 
 - ❌ *Never I have seen…* → ✅ *Never **have I** seen…*

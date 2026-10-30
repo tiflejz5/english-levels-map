@@ -41,6 +41,14 @@ Pierwsze zdania rozmowy są przewidywalne. Jeśli opanujesz te zwroty, zaczniesz
 | Nice talking to you. | miło się rozmawiało |
 | Good night. | tylko na dobranoc, nie na powitanie |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *Hi, I'm Kasia. Nice to meet you.* (Cześć, jestem Kasia. Miło mi cię poznać.) | Wybierz reakcję: – Nice to meet you. a) Nice to meet you, too. b) Thank you very much. c) I'm fine. → **a** | E8 · MP |
+| *Good morning! Nice day today.* (Dzień dobry! Ładny dziś dzień.) | Uzupełnij: ___ evening, Mr Brown. (powitanie o 20.00) → **Good** | E8 |
+| *This is my friend Tom.* (To jest mój kolega Tom.) | Wybierz (przedstawiasz siostrę koledze): – ___ my sister, Ola. a) It's b) This is c) Those are → **b** | E8 |
+
 ## Przykładowy dialog
 
 > **A:** Hi! I'm Kasia.

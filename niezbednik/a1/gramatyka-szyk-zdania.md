@@ -49,6 +49,14 @@ Przed zwykłym czasownikiem, po *to be*: *I **always** drink coffee. She **is** 
 | We meet our friends at a café on Fridays. | W piątki spotykamy się ze znajomymi w kawiarni. |
 | He has a new red car. | On ma nowy, czerwony samochód. |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *My sister speaks French.* (Moja siostra mówi po francusku.) | Ułóż zdanie zaczynające się od I: on Sundays / I / tennis / play → **I play tennis on Sundays.** | E8 · MP |
+| *It's very hot today.* (Dziś jest bardzo gorąco.) | Popraw błąd: Is cold today. → **It is cold today.** | E8 |
+| *We meet our friends at a café on Fridays.* (W piątki spotykamy się ze znajomymi w kawiarni.) | Wybierz: a) I like very coffee. b) I like coffee very much. c) I very like coffee. → **b** | E8 |
+
 ## Typowe błędy Polaków
 
 - ❌ *Is cold.* → ✅ ***It's** cold.*

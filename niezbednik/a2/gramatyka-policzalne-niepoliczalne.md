@@ -42,6 +42,14 @@ Angielski dzieli rzeczowniki na **policzalne** (da się je liczyć: *one apple, 
 | How much money do you need? | Ile pieniędzy potrzebujesz? |
 | Can I give you a piece of advice? | Mogę ci coś doradzić? |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *How much money have you got?* (Ile masz pieniędzy?) | Uzupełnij: How ___ people came to the party? → **many** | E8 · MP |
+| *Would you like some tea?* (Napijesz się herbaty?) | Wybierz: There isn't ___ milk in the fridge. a) some b) any c) many → **b** | E8 |
+| *I need some advice.* (Potrzebuję rady.) | Popraw błąd: She gave me some good advices. → **She gave me some good advice.** | E8 |
+
 ## Typowe błędy Polaków
 
 - ❌ *informations, advices, furnitures* → ✅ *information, advice, furniture*

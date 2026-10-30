@@ -24,6 +24,14 @@ Zamiast ogólnego słowa wybierz takie, które mówi więcej.
 | change | adjust / alter / modify / transform / shift | dostosować / zmienić / zmodyfikować / przeobrazić / przesunąć |
 | problem | issue / setback / obstacle / dilemma / drawback | kwestia / niepowodzenie / przeszkoda / dylemat / wada |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *The study draws an important conclusion.* (Badanie wyciąga ważny wniosek.) | Wybierz: Researchers ___ a survey among 500 students. a) made b) conducted c) took d) did → **b** | MR · B2 |
+| *This could shed light on the problem.* (To może rzucić światło na problem.) | Wybierz: The campaign aims to ___ awareness of the dangers of smoking. a) raise b) lift c) rise d) grow → **a** | MR · B2 · C1 |
+| *Bear in mind that the deadline is Friday.* (Pamiętaj, że termin mija w piątek.) | Wybierz: Climate change ___ a serious threat to coastal cities. a) puts b) poses c) makes d) holds → **b** | B2 · C1 |
+
 ## Idiomy i wyrażenia przenośne
 
 | Idiom | Znaczenie |

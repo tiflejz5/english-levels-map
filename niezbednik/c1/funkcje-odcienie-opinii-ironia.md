@@ -22,6 +22,14 @@ Na B1–B2 opinia jest zwykle czarno-biała: *I agree / I disagree, I like it / 
 | Raczej przeciw | *I'm not a big fan of… / I'm not too keen on… / I'm wary of…* |
 | Zdecydowanie przeciw | *I'm dead against it. / I strongly object to… / I can't see it working.* |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *I'm in two minds about the offer.* (Mam mieszane uczucia co do tej oferty.) | Uzupełnij: I'm ___ two minds about moving abroad. → **in** | MR · B2 |
+| *Honestly, jazz is not really my cup of tea.* (Szczerze mówiąc, jazz nie bardzo w moim guście.) | Uzupełnij: Modern art isn't really my cup ___ tea. → **of** | MR · B2 |
+| *That went well – said nobody ever.* (Poszło świetnie – powiedział nikt nigdy. [ironia]) | Wybierz: Po katastrofalnej prezentacji ktoś mówi: „Well, that went well.” Jest to: a) szczera pochwała. b) ironia. c) pytanie. d) podziękowanie. → **b** | MR · C1 |
+
 ## Dystans wobec cudzych słów
 
 Gdy przekazujesz informację, za którą nie ręczysz:

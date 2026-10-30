@@ -65,6 +65,14 @@ Forma podstawowa = bezokolicznik bez *to*, **taki sam dla wszystkich osób** (be
 | Be that as it may, we still need a decision. | Niemniej jednak nadal potrzebujemy decyzji. |
 | Suffice it to say, the meeting didn't go well. | Wystarczy powiedzieć, że spotkanie nie poszło dobrze. |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *The doctor recommended that she rest for a week.* (Lekarz zalecił, żeby odpoczywała przez tydzień.) | Uzupełnij (bez should): It's vital that she ___ (be) present at the meeting. → **be** | C1 |
+| *It's vital that the client be kept informed.* (Kluczowe jest, żeby klient był na bieżąco informowany.) | Transformacja: The manager insisted that he should not be disturbed. NOT → The manager insisted that he ___ disturbed. (bez should) → **not be** | C1 |
+| *We'll work through the night if need be.* (W razie potrzeby będziemy pracować całą noc.) | Uzupełnij: Be that as it ___, we still need a decision. → **may** | C1 |
+
 ## Typowe błędy Polaków
 
 - ❌ *I suggest him to go.* → ✅ *I suggest that he go.* / *I suggest that he should go.*

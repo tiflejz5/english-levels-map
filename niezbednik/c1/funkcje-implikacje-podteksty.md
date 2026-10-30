@@ -28,6 +28,14 @@ Native speakerzy – zwłaszcza Brytyjczycy – często nie mówią wprost tego,
 | *Perhaps you could think about…* | Zrób to. |
 | *No worries if not!* | Naprawdę by mi zależało. |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *That's an interesting idea.* (To ciekawy pomysł. [zwykle: mam wątpliwości]) | Wybierz: Szef mówi chłodnym tonem: „That's an interesting idea.” Co to najpewniej znaczy? a) Bardzo mi się podoba. b) Mam wątpliwości. c) Zrobimy to jutro. d) Nie słyszałem. → **b** | MR · B2 |
+| *We should get together sometime!* (Powinniśmy się kiedyś spotkać!) | Wybierz: Gdy ktoś mówi „We should get together sometime!” bez dnia i godziny, zwykle znaczy to: a) konkretne zaproszenie na jutro. b) uprzejmość bez realnego planu. c) groźbę. d) prośbę o pieniądze. → **b** | MR · B2 |
+| *Not bad at all!* (Wcale nieźle!) | Wybierz: Brytyjczyk mówi o twoim projekcie „Not bad.” Najczęściej znaczy to: a) słabo. b) całkiem dobrze. c) źle. d) nie wiem. → **b** | MR · B2 · C1 |
+
 ## Humor – typowe rodzaje
 
 | Rodzaj | Przykład |

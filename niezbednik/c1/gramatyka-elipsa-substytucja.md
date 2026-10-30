@@ -22,6 +22,14 @@ Native speakerzy unikają powtórzeń. Zamiast powtarzać całe zdanie, **pomija
 
 Działa z: *think, hope, expect, suppose, guess, believe, imagine, be afraid* oraz w *if so / if not*.
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *"Will it rain?" – "I hope not."* („Będzie padać?” – „Mam nadzieję, że nie.”) | Wybierz: – Do you think they'll win? – I think ___. a) yes b) so c) it d) them → **b** | MR · B2 |
+| *"I'm tired." – "So am I."* („Jestem zmęczony.” – „Ja też.”) | Wybierz: – I've never been to Japan. – ___ have I. a) So b) Neither c) Either d) Also → **b** | MR · B2 · C1 |
+| *"Can you come?" – "I'd love to."* („Możesz przyjść?” – „Chętnie.”) | Wybierz: – Would you like to join us? – I'd love ___. a) to b) it c) so d) that → **a** | MR · B2 |
+
 ## Substytucja – one / ones, do so
 
 - ***one / ones*** zamiast rzeczownika policzalnego: *I don't like this shirt. Can I see the blue **one**?*

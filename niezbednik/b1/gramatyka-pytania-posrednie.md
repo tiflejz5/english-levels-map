@@ -48,6 +48,14 @@ Pytania pośrednie brzmią grzeczniej i bardziej profesjonalnie niż bezpośredn
 | Can you remember where you parked? | Pamiętasz, gdzie zaparkowałeś? |
 | Would you mind telling me why you're late? | Czy mógłbyś mi powiedzieć, dlaczego się spóźniłeś? |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *Could you tell me where the toilets are?* (Czy może mi pan powiedzieć, gdzie są toalety?) | Uzupełnij: Do you know what time the film ___? It begins at 7 pm. (start) → **starts** | E8 · MP |
+| *Do you know if he's at home?* (Wiesz, czy jest w domu?) | Popraw błąd: Could you tell me where is the station? → **Could you tell me where the station is?** | E8 |
+| *I was wondering if you could help me.* (Zastanawiałem się, czy mógłbyś mi pomóc.) | Transformacja: "Where does she live?" DO YOU KNOW → Do you know ___? → **where she lives** | MP · MR |
+
 ## Typowe błędy Polaków
 
 - ❌ *Could you tell me where is the station?* → ✅ *…where the station is?*

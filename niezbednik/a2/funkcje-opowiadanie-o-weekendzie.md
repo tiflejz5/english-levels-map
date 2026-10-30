@@ -18,6 +18,14 @@ summary: Krótka relacja z przeszłości – najczęstszy temat poniedziałkowej
 3. **Szczegół lub opinia:** *The weather was amazing. The food was delicious.*
 4. **Pytanie zwrotne:** *What about you? How was yours?*
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *At the weekend I went to the mountains.* (W weekend pojechałem w góry.) | Uzupełnij: Last summer we ___ (spend) two weeks at the seaside. → **spent** | E8 · MP |
+| *We had a great time. What about you?* (Świetnie się bawiliśmy. A ty?) | Wybierz reakcję: – How was your weekend? a) Yes, it was. b) It was great! We went to the lake. And you? c) Yes. → **b** | E8 |
+| *We swam every day.* (Pływaliśmy codziennie.) | Popraw błąd: I was in mountains with my parents. → **I was in the mountains with my parents.** | E8 |
+
 ## Kluczowe zwroty
 
 | Zwrot | Polski |

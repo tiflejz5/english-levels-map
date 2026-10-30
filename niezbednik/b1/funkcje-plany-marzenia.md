@@ -22,6 +22,14 @@ summary: I'm hoping to…, I'd love to…, My dream is to… – mówienie o prz
 | I'm hoping to… | *I'm hoping to get a promotion.* |
 | I intend to… | *I intend to finish my degree.* (formalniej) |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *I'm thinking of studying abroad.* (Myślę o studiowaniu za granicą.) | Wybierz: She's thinking ___ a new job. a) to find b) of finding c) finding → **b** | E8 · MP |
+| *I'd love to see the Northern Lights one day.* (Chciałbym kiedyś zobaczyć zorzę polarną.) | Uzupełnij: I'd like ___ (become) a doctor. → **to become** | E8 · MP |
+| *I'm hoping to get a place at university.* (Mam nadzieję dostać się na studia.) | Popraw błąd: My plan is go to Japan after school. → **My plan is to go to Japan after school.** | E8 |
+
 ## Marzenia (mniej pewne)
 
 | Zwrot | Przykład |

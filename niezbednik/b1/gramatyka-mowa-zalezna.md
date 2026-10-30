@@ -60,6 +60,14 @@ Gdy informacja jest wciąż aktualna, można nie cofać czasu: *He said he **liv
 | My boss told me to send the report. | Szef kazał mi wysłać raport. |
 | He asked me not to tell anyone. | Poprosił mnie, żebym nikomu nie mówił. |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *He said he was busy.* (Powiedział, że jest zajęty.) | Uzupełnij: "I'm tired," she said. She said that she ___ tired. → **was** | E8 · MP |
+| *She told me she had lost her job.* (Powiedziała mi, że straciła pracę.) | Wybierz: He ___ me that he would call later. a) said b) told c) spoke → **b** | E8 · MP |
+| *My boss told me to send the report.* (Szef kazał mi wysłać raport.) | Uzupełnij: The teacher told us ___ (open) our books. → **to open** | MP · MR |
+
 ## Typowe błędy Polaków
 
 - ❌ *He said me that…* → ✅ *He told me that…*

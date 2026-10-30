@@ -25,6 +25,14 @@ Po powitaniu prawie zawsze padają te same pytania: skąd jesteś, czym się zaj
 | Have you got any children? | Yes, I've got a son. / No, I haven't. |
 | What are your hobbies? | I like cycling and cooking. |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *I'm from Poland. I'm a student.* (Jestem z Polski. Jestem uczniem.) | Wybierz pytanie: – ___ – I'm fourteen. a) How old are you? b) How are you old? c) What age are you? → **a** | E8 · MP |
+| *What do you do? – I'm a nurse.* (Czym się zajmujesz? – Jestem pielęgniarką.) | Uzupełnij: – Where ___ you from? – I'm from Kraków. → **are** | E8 |
+| *I'm 28.* (Mam 28 lat.) | Popraw błąd: I have thirteen years. → **I am thirteen.** | E8 |
+
 ## Przydatne wzory
 
 - **Kraj → narodowość:** *Poland → Polish, Germany → German, England → English, Spain → Spanish, France → French, Ukraine → Ukrainian*

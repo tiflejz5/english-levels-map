@@ -22,6 +22,14 @@ Anglojęzyczni rozmówcy rzadko mówią wprost „Nie masz racji”. Niezgodę s
 | I suppose so. / I guess you're right. | słaba, niechętna |
 | Me too. / Me neither. / So do I. / Neither do I. | krótka zgoda |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *I see your point, but I don't agree.* (Rozumiem, ale się nie zgadzam.) | Wybierz: – I love spicy food. – ___ a) I do too. b) Me neither. c) So I do. → **a** | E8 · MP |
+| *I don't like horror films. – Me neither.* (Nie lubię horrorów. – Ja też nie.) | Wybierz: – I can't stand getting up early. a) So can I. b) Neither can I. c) Neither I can. → **b** | MP · MR |
+| *I'm not sure that's right.* (Nie jestem pewien, czy to prawda.) | Popraw błąd: I am agree with you. → **I agree with you.** | E8 |
+
 ## Częściowa zgoda
 
 - *I agree up to a point, but…*

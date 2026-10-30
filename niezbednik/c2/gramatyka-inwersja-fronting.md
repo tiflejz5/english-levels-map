@@ -23,6 +23,14 @@ Znaczenie: „choć…”, „mimo że…”.
 | *Hard as he tried, …* | Mimo że bardzo się starał | ***Hard as he tried**, he failed.* |
 | *Tired though she was, …* | Choć była zmęczona | ***Tired though she was**, she kept going.* |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *Strange as it may seem, he agreed.* (Choć to dziwne, zgodził się.) | Uzupełnij: ___ as I'd like to, I can't come to the party. (choć bardzo bym chciał) → **Much** | C1 |
+| *Such was his anger that he left the room.* (Taki był jego gniew, że wyszedł z pokoju.) | Transformacja: The noise was so great that nobody could sleep. SO → ___ that nobody could sleep. → **So great was the noise** | C1 |
+| *Here comes the bus!* (Oto autobus!) | Wybierz: a) Seldom I have seen such a beautiful view. b) Seldom have I seen such a beautiful view. c) Seldom I seen such a beautiful view. d) Seldom did I seen such a beautiful view. → **b** | C1 |
+
 ## So / Such + inwersja – skutek
 
 - ***So great was** the demand **that** tickets sold out in minutes.*

@@ -29,6 +29,14 @@ Opisy pojawiają się w rozmowie cały czas: jaki jest twój szef, gdzie mieszka
 
 Uwaga: ***What is he like?*** pyta o charakter, ***What does he look like?*** o wygląd, ***What does he like?*** o upodobania.
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *She's tall and she's got long dark hair.* (Jest wysoka i ma długie ciemne włosy.) | Wybierz: – ___ does your brother look like? – He's tall. a) How b) What c) Who → **b** | E8 · MP |
+| *It's a small flat in the city centre.* (To małe mieszkanie w centrum miasta.) | Popraw błąd: She has long hairs. → **She has long hair.** | E8 |
+| *My friend is really friendly.* (Moja koleżanka jest naprawdę przyjazna.) | Uzupełnij: He's very kind and ___ (przyjazny). → **friendly** | E8 · MP |
+
 ## Opis miejsca
 
 - *It's a small town in the north of Poland.*

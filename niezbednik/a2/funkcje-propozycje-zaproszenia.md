@@ -22,6 +22,14 @@ Umawianie się to jedna z najczęstszych sytuacji w rozmowie. Warto znać kilka 
 | Why don't we…? | + bezokolicznik bez to | *Why don't we order pizza?* |
 | Shall we…? | + bezokolicznik bez to | *Shall we meet at 7?* |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *How about going to the cinema?* (Może pójdziemy do kina?) | Wybierz reakcję: – How about going to the cinema? a) I don't want. b) Good idea! c) Do you like cinema? → **b** | E8 · MP |
+| *I'd love to, but I can't.* (Chętnie, ale nie mogę.) | Uzupełnij: Would you like ___ (come) to my party? → **to come** | E8 |
+| *Let's meet at six.* (Spotkajmy się o szóstej.) | Popraw błąd: Let's to go to the park. → **Let's go to the park.** | E8 |
+
 ## Przyjmowanie
 
 - *Yes, I'd love to!*

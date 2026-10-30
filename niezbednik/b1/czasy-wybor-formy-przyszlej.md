@@ -49,6 +49,14 @@ W praktyce *going to* i Present Continuous często są wymienne przy planach.
 | Look at the sky. It's going to rain. | Spójrz na niebo. Będzie padać. |
 | I'll let you know as soon as I hear anything. | Dam ci znać, gdy tylko się czegoś dowiem. |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *I can't come on Friday – I'm seeing the dentist at ten.* (W piątek nie mogę – o dziesiątej mam wizytę u dentysty.) | Wybierz: Sorry, I can't meet you tomorrow. I ___ my grandparents. a) visit b) will visit c) am visiting → **c** | MP · MR |
+| *Wait, I'll help you with that bag.* (Poczekaj, pomogę ci z tą torbą.) | Uzupełnij: When I ___ (get) home, I'll call you. → **get** | E8 · MP |
+| *Look at those clouds – it's going to rain.* (Patrz na te chmury – będzie padać.) | Wybierz: Look out! That car ___ hit us! a) will b) is going to c) is hitting → **b** | E8 · MP |
+
 ## Typowe błędy Polaków
 
 - ❌ *I will meet my friend tonight, we arranged it last week.* → ✅ *I'm meeting my friend tonight.*

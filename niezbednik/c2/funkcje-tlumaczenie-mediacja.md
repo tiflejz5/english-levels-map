@@ -19,6 +19,14 @@ Na C2 często jesteś „pomostem”: tłumaczysz szefowi treść polskiej umowy
 4. **Zmieniaj strukturę** – polskie długie zdania z wieloma przecinkami dziel na krótsze.
 5. **Sprawdź kalki** – zwroty, które po polsku brzmią naturalnie, a po angielsku dziwnie.
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *Quick update on the project: we're on schedule.* (Krótka aktualizacja o projekcie: jesteśmy zgodnie z harmonogramem.) | Wybierz najlepsze tłumaczenie polskiego „Uprzejmie informuję, że spotkanie zostało odwołane.”: a) I kindly inform you that the meeting is cancelled. b) I politely say the meeting cancel. c) The meeting has been cancelled. d) Just to let you know, the meeting has been cancelled. → **d** | C1 |
+| *Best wishes, Kasia* (Pozdrawiam, Kasia) | Wybierz najnaturalniejsze zakończenie e-maila do znajomego z pracy: a) Best wishes b) I greet you warmly c) With respect d) Respectfully yours → **a** | C1 |
+| *In short, sales are down.* (Krótko mówiąc, sprzedaż spada.) | Wybierz lepsze streszczenie zdania „W marcu sprzedaż spadła o dziesięć procent głównie z powodu pogody”: a) There was a decrease in sales that can be described as a ten percent fall in March, mainly because of the weather. b) Sales fell by 10% in March, mainly due to the weather. c) The sales did a falling of 10% in March. d) March sales weather fall. → **b** | C1 |
+
 ## Najczęstsze kalki z polskiego
 
 | Po polsku | Kalka ❌ | Naturalnie ✅ |

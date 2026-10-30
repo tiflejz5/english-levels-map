@@ -43,6 +43,14 @@ To pierwszy krok do mówienia o przeszłości. Z *was / were* powiesz, gdzie by�
 | There were five people in the room. | W pokoju było pięć osób. |
 | How was your trip? | Jak minęła podróż? |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *I was at home yesterday.* (Wczoraj byłem w domu.) | Uzupełnij: Where ___ you last night? → **were** | E8 · MP |
+| *The film was great, but we weren't tired.* (Film był świetny, ale nie byliśmy zmęczeni.) | Wybierz: My parents ___ at work at nine o'clock. a) was b) is c) were → **c** | E8 |
+| *I was born in Gdańsk.* (Urodziłem się w Gdańsku.) | Popraw błąd: I born in Gdańsk in 2012. → **I was born in Gdańsk in 2012.** | E8 |
+
 ## Typowe błędy Polaków
 
 - ❌ *I born in Gdańsk.* → ✅ *I was born in Gdańsk.*

@@ -49,6 +49,14 @@ Na B1 używasz *who, which, that*. Na B2 rozróżniasz dwa typy zdań względnyc
 | We interviewed ten candidates, two of whom were excellent. | Przesłuchaliśmy dziesięciu kandydatów, z których dwóch było świetnych. |
 | The book (that) you lent me is brilliant. | Książka, którą mi pożyczyłeś, jest świetna. |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *My boss, who is usually calm, shouted at everyone.* (Mój szef, który zwykle jest spokojny, nakrzyczał na wszystkich.) | Uzupełnij: Warsaw, ___ is the capital of Poland, has 1.8 million people. → **which** | MP · MR |
+| *She passed all her exams, which surprised everybody.* (Zdała wszystkie egzaminy, co wszystkich zaskoczyło.) | Wybierz: He failed the test, ___ was a surprise. a) what b) that c) which → **c** | MP · MR |
+| *My brother, who lives in Gdańsk, is a nurse.* (Mój brat, który mieszka w Gdańsku, jest pielęgniarzem.) | Wybierz: My sister, ___ lives in Gdańsk, is a nurse. a) that b) who c) what → **b** | MP · MR |
+
 ## Typowe błędy Polaków
 
 - ❌ *My mother, that is a teacher, …* → ✅ *My mother, **who** is a teacher, …* – w niedefiniujących nie ma *that*.

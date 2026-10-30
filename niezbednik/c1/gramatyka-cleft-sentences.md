@@ -55,6 +55,14 @@ W polskim akcent przesuwasz szykiem: „To **Jan** to zrobił”, „Potrzebuję
 | It was only when I got home that I noticed. | Dopiero w domu zauważyłem. |
 | The reason I left was the salary. | Odszedłem z powodu pensji. |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *What I really need is a holiday.* (Naprawdę potrzebuję wakacji.) | Transformacja: I need some sleep. WHAT → ___ some sleep. → **What I need is** | MR · B2 · C1 |
+| *It wasn't me who told her.* (To nie ja jej powiedziałem.) | Wybierz: It was Anna ___ broke the window. a) which b) who c) what d) whose → **b** | MR · B2 · C1 |
+| *All I want is some peace and quiet.* (Chcę tylko trochę spokoju.) | Uzupełnij: All she wanted ___ to go home. → **was** | MR · B2 |
+
 ## Typowe błędy Polaków
 
 - ❌ *What I need it is time.* → ✅ *What I need is time.* – bez dodatkowego *it*.

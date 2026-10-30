@@ -55,6 +55,14 @@ Pytanie ogólne w Present Perfect → szczegóły w Past Simple:
 | We've been married for 12 years. | Jesteśmy małżeństwem od 12 lat. |
 | She's lost her phone. (nadal go nie ma) | Zgubiła telefon. |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *I've worked here since 2021.* (Pracuję tu od 2021 roku.) | Wybierz: I ___ in Gdańsk in 2015. a) have lived b) lived c) have been living → **b** | E8 · MP |
+| *Have you seen my keys? I can't find them.* (Widziałeś moje klucze? Nie mogę ich znaleźć.) | Uzupełnij: I ___ (just / lose) my wallet. Have you seen it? → **have just lost** | E8 · MP |
+| *I've known him since school.* (Znam go od szkoły.) | Popraw błąd: I know Tom since 2015. → **I have known Tom since 2015.** | E8 |
+
 ## Typowe błędy Polaków
 
 - ❌ *I live here for 3 years.* → ✅ *I've lived here for 3 years.*

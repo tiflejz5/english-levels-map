@@ -27,6 +27,14 @@ Na C1 potrafisz poprowadzić prezentację po angielsku z pewnością siebie – 
 | Wezwanie do działania | *What I'd like you to take away from this is… / The next step would be…* |
 | Zamknięcie | *Thank you for your attention. I'm happy to take any questions.* |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *Today I'd like to walk you through our results.* (Dziś chciałbym omówić nasze wyniki.) | Wybierz najlepsze rozpoczęcie prezentacji o planie sprzedaży: a) I will tell you about plan. b) Listen to me. c) This morning I'd like to take you through our sales plan. d) My topic is sales. → **c** | MR |
+| *I don't know off the top of my head, but I'll find out.* (Nie wiem z głowy, ale sprawdzę.) | Wybierz odpowiedź na pytanie, na które nie znasz odpowiedzi: a) No idea. b) I'm not sure off the top of my head, but I'll check and get back to you. c) Don't ask me. d) I don't. → **b** | MR |
+| *I'm happy to take any questions.* (Chętnie odpowiem na pytania.) | Wybierz: I'm happy to ___ any questions at the end. a) take b) make c) hold d) put → **a** | MR |
+
 ## Odpowiadanie na pytania
 
 | Sytuacja | Zwroty |

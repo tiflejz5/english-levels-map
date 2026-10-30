@@ -46,6 +46,14 @@ To zwykły czasownik – odmienia się i potrzebuje *do/does/did*:
 | Could you open the door, please? | Mógłbyś otworzyć drzwi? |
 | I had to work late yesterday. | Wczoraj musiałem pracować do późna. |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *You should see a doctor.* (Powinieneś pójść do lekarza.) | Uzupełnij: I ___ (have to) wait an hour yesterday. → **had to** | E8 · MP |
+| *We must wear a uniform at school.* (W szkole musimy nosić mundurek.) | Wybierz: You ___ come. It's optional. a) mustn't b) don't have to c) can't → **b** | E8 |
+| *I must go now.* (Muszę już iść.) | Popraw błąd: I must to go home now. → **I must go home now.** | E8 |
+
 ## Typowe błędy Polaków
 
 - ❌ *I must to go.* → ✅ *I must go.*

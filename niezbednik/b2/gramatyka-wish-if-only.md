@@ -47,6 +47,14 @@ summary: Żal, życzenia i irytacja – „szkoda, że…”, „gdybym tylko…
 | I wish I could come, but I'm working. | Chciałbym przyjść, ale pracuję. |
 | Don't you wish you were on holiday now? | Nie chciałbyś być teraz na urlopie? |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *I wish I lived closer to the sea.* (Szkoda, że nie mieszkam bliżej morza.) | Uzupełnij: I wish I ___ (have) more free time. → **had** | MP · MR |
+| *If only I'd known earlier!* (Gdybym tylko wiedział wcześniej!) | Transformacja: I'm sorry I said that. WISH → I ___ that. → **wish I hadn't said** | MR · B2 |
+| *I wish my neighbours would turn the music down.* (Chciałbym, żeby sąsiedzi ściszyli muzykę.) | Wybierz: It's so noisy! I wish they ___ the music down. a) will turn b) would turn c) turn → **b** | MP · MR |
+
 ## Typowe błędy Polaków
 
 - ❌ *I wish I have more money.* → ✅ *I wish I **had** more money.*

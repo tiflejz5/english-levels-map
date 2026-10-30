@@ -22,6 +22,14 @@ Rozmowa o upodobaniach to najłatwiejszy sposób na podtrzymanie small talku. Wy
 | I don't like… | Nie lubię… |
 | I hate… | Nienawidzę… |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *I like swimming, but I don't like running.* (Lubię pływać, ale nie lubię biegać.) | Uzupełnij formą -ing: I like ___ (play) computer games. → **playing** | E8 · MP |
+| *I don't like tea. – Me neither.* (Nie lubię herbaty. – Ja też nie.) | Wybierz: – I love pizza. – ___ a) Me too. b) Me neither. c) I don't. → **a** | E8 |
+| *Would you like a coffee?* (Masz ochotę na kawę?) | Wybierz (częstujesz koleżankę): ___ you like a sandwich? a) Do b) Would c) Are → **b** | E8 |
+
 ## Zasada: like + -ing albo rzeczownik
 
 - rzeczownik: *I like **pizza**. I love **music**.*

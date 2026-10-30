@@ -22,6 +22,14 @@ Nawet na C2 czasem brakuje słowa. Różnica między poziomami polega na tym, ż
 | It's a person who… | *It's a person who fixes pipes.* (hydraulik) |
 | It's a place where… | *It's a place where you can leave your car.* |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *What do you call it? It's a kind of bag.* (Jak to się nazywa? To coś w rodzaju torby.) | Wybierz: I can't remember the word. What's it ___? a) called b) call c) calling → **a** | E8 · MP |
+| *It's the thing you use for opening bottles.* (To rzecz, której używa się do otwierania butelek.) | Uzupełnij: It's a thing you always ___ (use) for cutting paper. → **use** | E8 |
+| *How do you say "pudełko" in English?* (Jak powiedzieć „pudełko” po angielsku?) | Wybierz: I don't know the word. a) How it's called? b) What's it called? c) How is called? → **b** | E8 · MP |
+
 ## 2. Użyj słowa ogólnego lub synonimu
 
 *thing, stuff, person, place, machine, animal* + opis

@@ -59,6 +59,14 @@ Gdy informacja jest wciąż aktualna, czasu nie trzeba cofać: *He said the offi
 | "Don't forget to lock the door." | She **reminded me to lock** the door. |
 | "Have you ever been to Japan?" | He asked me **if I had ever been** to Japan. |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *He denied breaking the window.* (Zaprzeczył, że stłukł okno.) | Transformacja: "I didn't take your pen," said Tom. DENIED → Tom ___ my pen. (2 słowa) → **denied taking** | MR · B2 |
+| *She offered to help me with my luggage.* (Zaoferowała, że pomoże mi z bagażem.) | Wybierz: "Why don't we take a taxi?" – He ___ a taxi. a) suggested to take b) suggested taking c) suggested me take → **b** | MP · MR |
+| *She admitted that she had been wrong.* (Przyznała, że się myliła.) | Uzupełnij: "Where do you work?" – He asked me where I ___ (work). (mowa zależna, czas przeszły prosty) → **worked** | MP · MR |
+
 ## Typowe błędy Polaków
 
 - ❌ *He suggested me to go.* → ✅ *He suggested (that) I (should) go.* / *He suggested going.*
