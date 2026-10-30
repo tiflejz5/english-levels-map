@@ -23,6 +23,7 @@ window.ELM = window.ELM || {};
   const el = U.el;
   const HASH = "#/fiszki";
   const MISTAKES_ID = "u-moje-bledy";
+  const WORDS_ID = "u-moje-slowa"; // talia systemowa „Moje słowa” (system: "words", paczka v6 spec 14)
   const GRADE_INFO = [
     { id: "again", label: "Znowu", key: "1" },
     { id: "hard", label: "Trudne", key: "2" },
@@ -64,7 +65,7 @@ window.ELM = window.ELM || {};
   function allDecks() {
     const out = index().map(function (d) { return { id: d.id, title: d.title, description: d.description, level: d.level, builtIn: true, count: d.count }; });
     st().userDecks.forEach(function (d) {
-      out.push({ id: d.id, title: d.title, description: d.system === "mistakes" ? "Karty dodane z Dziennika błędów." : "Twoja talia.", builtIn: false, system: d.system || null,
+      out.push({ id: d.id, title: d.title, description: d.system === "mistakes" ? "Karty dodane z Dziennika błędów." : d.system === "words" ? "Słowa i wyrażenia zaznaczone w tekstach – każde ze zdaniem, z którego pochodzi." : "Twoja talia.", builtIn: false, system: d.system || null,
         count: st().userCards.filter(function (c) { return c.deck === d.id; }).length });
     });
     return out;
@@ -878,11 +879,11 @@ window.ELM = window.ELM || {};
   }
 
   ELM.fiszki = {
-    HASH: HASH, MISTAKES_ID: MISTAKES_ID, parseRoute: parseRoute, render: render, badgeCount: badgeCount, dueSummary: dueSummary,
+    HASH: HASH, MISTAKES_ID: MISTAKES_ID, WORDS_ID: WORDS_ID, parseRoute: parseRoute, render: render, badgeCount: badgeCount, dueSummary: dueSummary,
     hasJournalCard: hasJournalCard, addFromJournal: addFromJournal, autoAddFromJournal: autoAddFromJournal,
     todayTile: todayTile, statsTile: statsTile, openFromSelection: openFromSelection,
     // dla przeglądania / edycji i integracji
-    internal: { st: st, saveState: saveState, allDecks: allDecks, deckById: deckById, cardsOf: cardsOf, cardById: cardById, enabled: enabled,
+    internal: { hasProfile: hasProfile, st: st, saveState: saveState, allDecks: allDecks, deckById: deckById, cardsOf: cardsOf, cardById: cardById, enabled: enabled,
       toggleDeck: toggleDeck, renderFront: renderFront, renderBack: renderBack, head: head, plural: plural, downloadText: downloadText,
       exportDeck: exportDeck, bar: bar, loadDecks: loadDecks, fmtWhen: fmtWhen }
   };
