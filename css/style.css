@@ -3035,12 +3035,12 @@ a.lab-tile:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover);
 /* ===================== AUTOMATYCZNY DZIENNIK BŁĘDÓW, TOAST, USTAWIENIA NAUKI (rozbudowa v2, etap 2) ===================== */
 .toast-region { position: fixed; left: 50%; bottom: 20px; z-index: 60; transform: translateX(-50%); width: min(560px, calc(100vw - 32px)); pointer-events: none; }
 .toast {
-  display: flex; align-items: center; gap: 10px; padding: 8px 8px 8px 16px; pointer-events: auto;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 8px 8px 8px 16px; pointer-events: auto;
   border-radius: var(--radius); background: var(--inverse-bg); color: var(--inverse-text); box-shadow: var(--shadow-lg);
   animation: toast-in var(--dur-base) var(--ease-out);
 }
 .toast-icon { display: grid; place-items: center; flex-shrink: 0; }
-.toast-text { flex: 1; min-width: 0; font-size: var(--fs-sm-plus); font-weight: 560; }
+.toast-text { flex: 1 1 11rem; min-width: 0; font-size: var(--fs-sm-plus); font-weight: 560; }
 .toast .toast-action { min-height: 44px; color: inherit; text-decoration: underline; text-underline-offset: 3px; }
 .toast .toast-action:hover { background: color-mix(in srgb, var(--inverse-text) 12%, transparent); }
 .toast .toast-close { width: 44px; height: 44px; color: inherit; border-color: transparent; background: transparent; }
