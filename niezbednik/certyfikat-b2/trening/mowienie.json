@@ -28,6 +28,7 @@
     "seconds": 120,
     "groups": [
       {
+        "id": "p1-dom-i-okolica",
         "topic": "Dom i okolica",
         "questions": [
           "Where do you live? What do you like about it?",
@@ -36,6 +37,7 @@
         ]
       },
       {
+        "id": "p1-czas-wolny",
         "topic": "Czas wolny",
         "questions": [
           "What do you usually do at the weekend?",
@@ -44,6 +46,7 @@
         ]
       },
       {
+        "id": "p1-nauka-i-praca",
         "topic": "Nauka i praca",
         "questions": [
           "What are you studying? Why did you choose it?",
@@ -52,11 +55,66 @@
         ]
       },
       {
+        "id": "p1-podroze",
         "topic": "Podróże",
         "questions": [
           "Where did you go on your last holiday?",
           "What kind of holiday do you prefer? Why?",
           "Which country would you like to visit in the future?"
+        ]
+      },
+      {
+        "id": "p1-technologia",
+        "topic": "Technologia",
+        "questions": [
+          "How often do you use your phone during the day? What for?",
+          "Which piece of technology could you not live without?",
+          "Tell me about a time when technology did not work as you expected."
+        ]
+      },
+      {
+        "id": "p1-zdrowie-i-sport",
+        "topic": "Zdrowie i sport",
+        "questions": [
+          "What do you do to stay healthy?",
+          "Do you enjoy playing or watching sport? Why?",
+          "How much sleep do you usually get, and does it affect your day?"
+        ]
+      },
+      {
+        "id": "p1-jedzenie",
+        "topic": "Jedzenie",
+        "questions": [
+          "What is your favourite meal, and who usually cooks it?",
+          "Do you prefer eating at home or in restaurants? Why?",
+          "Is there any food you tried recently that surprised you?"
+        ]
+      },
+      {
+        "id": "p1-media-i-rozrywka",
+        "topic": "Media i rozrywka",
+        "questions": [
+          "What kind of films or series do you enjoy watching?",
+          "How do you usually find out about the news?",
+          "Have you read a book or watched a programme recently that you would recommend?"
+        ]
+      },
+      {
+        "id": "p1-zakupy",
+        "topic": "Zakupy",
+        "questions": [
+          "Do you enjoy shopping? Why or why not?",
+          "How has the way you shop changed in the last few years?",
+          "What was the last thing you bought that you were really pleased with?"
+        ]
+      },
+      {
+        "id": "p1-relacje-i-rodzina",
+        "topic": "Relacje i rodzina",
+        "questions": [
+          "Who do you spend most of your free time with?",
+          "How often do you see your relatives, and what do you do together?",
+          "What qualities do you value most in a good friend?"
         ]
       }
     ]
@@ -66,34 +124,88 @@
     "seconds": 60,
     "cards": [
       {
+        "id": "p2-piknik-restauracja",
         "a": "A family having a picnic in a park",
         "b": "A group of friends eating in a restaurant",
         "question": "Why might the people have chosen to eat in these places?"
       },
       {
+        "id": "p2-biblioteka-klasa",
         "a": "A student studying alone in a library",
         "b": "Students working together on a project in a classroom",
         "question": "How might the students be feeling?"
       },
       {
+        "id": "p2-bieg-silownia",
         "a": "A person running along a beach at sunrise",
         "b": "A group of people playing basketball in a gym",
         "question": "What are the advantages of exercising in these ways?"
       },
       {
+        "id": "p2-turysta-zabytek-basen",
         "a": "A tourist taking photos in front of a famous monument",
         "b": "A tourist relaxing in a hotel pool",
         "question": "Why might people choose these kinds of holiday?"
       },
       {
+        "id": "p2-kuchnia-szefa-dom",
         "a": "A chef cooking in a busy restaurant kitchen",
         "b": "A person cooking dinner at home for their family",
         "question": "What might be difficult about these situations?"
       },
       {
+        "id": "p2-kawiarnia-biuro",
         "a": "A person working at a laptop in a café",
         "b": "A person working in a crowded open-plan office",
         "question": "Which might be better for concentrating, and why?"
+      },
+      {
+        "id": "p2-autobus-rower",
+        "a": "A man waiting for a crowded bus in the rain",
+        "b": "A woman cycling to work along a quiet road",
+        "question": "What are the advantages and disadvantages of travelling in these ways?"
+      },
+      {
+        "id": "p2-targ-internet",
+        "a": "A customer buying fresh vegetables at an outdoor market",
+        "b": "A person ordering clothes on a laptop at home",
+        "question": "Why might people prefer to shop in these ways?"
+      },
+      {
+        "id": "p2-kino-streaming",
+        "a": "A couple watching a film in a busy cinema",
+        "b": "A person watching a series on a tablet in bed",
+        "question": "Why might the people have chosen to watch something in these ways?"
+      },
+      {
+        "id": "p2-miasto-wies",
+        "a": "A family in a small flat in the middle of a big city",
+        "b": "A family in a house with a garden in a village",
+        "question": "What might be the advantages and disadvantages of living in these places?"
+      },
+      {
+        "id": "p2-sprzatanie-sadzenie",
+        "a": "Volunteers cleaning rubbish from a beach",
+        "b": "Children planting trees in a town park",
+        "question": "Why do you think these people decided to take part in these activities?"
+      },
+      {
+        "id": "p2-gry-wideo-planszowe",
+        "a": "A teenager playing a video game alone in his room",
+        "b": "A group of friends playing a board game around a table",
+        "question": "What might the people enjoy about these activities?"
+      },
+      {
+        "id": "p2-koncert-stadion-pub",
+        "a": "A crowd watching a famous singer in a huge stadium",
+        "b": "A small band playing for a few people in a local pub",
+        "question": "Which experience might be more memorable, and why?"
+      },
+      {
+        "id": "p2-rozmowa-wideo-spotkanie",
+        "a": "A grandmother talking to her grandchildren on a video call",
+        "b": "A large family celebrating a birthday around a table",
+        "question": "What might the people be enjoying about these ways of keeping in touch?"
       }
     ]
   },
@@ -103,6 +215,7 @@
     "decisionSeconds": 60,
     "tasks": [
       {
+        "id": "p3-charytatywna-impreza",
         "central": "A school is planning to organise an event to raise money for charity. Talk about how good each of these ideas would be, then decide which would raise the most money.",
         "options": [
           "a bake sale",
@@ -114,6 +227,7 @@
         "decision": "Which would raise the most money?"
       },
       {
+        "id": "p3-mlodziez-na-swiezym-powietrzu",
         "central": "A town wants to encourage young people to spend more time outdoors. Talk about the advantages of each idea and decide which is the best.",
         "options": [
           "a new skate park",
@@ -125,6 +239,7 @@
         "decision": "Which is the best idea for the town?"
       },
       {
+        "id": "p3-angielski-latem",
         "central": "Some students want to improve their English over the summer. Talk about how useful each way would be, then decide which is the most effective.",
         "options": [
           "watching films in English",
@@ -134,6 +249,90 @@
           "online lessons"
         ],
         "decision": "Which is the most effective way?"
+      },
+      {
+        "id": "p3-ruch-w-miescie",
+        "central": "A city council wants to reduce the amount of traffic in the town centre. Talk about how effective each of these ideas would be, then decide which one the council should choose first.",
+        "options": [
+          "cheaper public transport",
+          "a congestion charge for cars",
+          "more cycle lanes",
+          "free car parks outside the centre",
+          "a pedestrian-only shopping area"
+        ],
+        "decision": "Which idea should the council choose first?"
+      },
+      {
+        "id": "p3-zdrowy-tryb-zycia",
+        "central": "A school wants to encourage students to lead a healthier lifestyle. Talk about how useful each of these ideas would be, then decide which would have the biggest effect.",
+        "options": [
+          "healthier food in the canteen",
+          "a later start to the school day",
+          "a lunchtime sports club",
+          "a talk by a doctor",
+          "a weekly walking day"
+        ],
+        "decision": "Which idea would have the biggest effect?"
+      },
+      {
+        "id": "p3-klub-mlodziezowy",
+        "central": "A youth club is losing members and wants to attract more teenagers. Talk about how attractive each of these activities would be for young people, then decide which would attract the most teenagers.",
+        "options": [
+          "a film night",
+          "a cooking class",
+          "a music workshop",
+          "a gaming tournament",
+          "a trip to a theme park"
+        ],
+        "decision": "Which activity would attract the most teenagers?"
+      },
+      {
+        "id": "p3-plastik-w-szkole",
+        "central": "A school wants to reduce the amount of plastic waste it produces. Talk about how helpful each of these ideas would be, then decide which should be introduced first.",
+        "options": [
+          "water refill stations",
+          "selling snacks without plastic packaging",
+          "a recycling competition between classes",
+          "reusable lunch boxes",
+          "a ban on plastic bottles in the café"
+        ],
+        "decision": "Which idea should be introduced first?"
+      },
+      {
+        "id": "p3-dzien-dla-turystow",
+        "central": "A town wants to make a visit more enjoyable for foreign tourists. Talk about how good each of these ideas would be, then decide which would help visitors most.",
+        "options": [
+          "guided walking tours",
+          "a free tourist app",
+          "more signs in English",
+          "a local food festival",
+          "a cheap day pass for museums"
+        ],
+        "decision": "Which idea would help visitors the most?"
+      },
+      {
+        "id": "p3-nowi-uczniowie",
+        "central": "A school wants to help new students feel welcome in their first month. Talk about how useful each of these ideas would be, then decide which is the most important.",
+        "options": [
+          "a buddy system with older students",
+          "an orientation day",
+          "a welcome party",
+          "a school guide with a map",
+          "a meeting with a class tutor"
+        ],
+        "decision": "Which idea is the most important for new students?"
+      },
+      {
+        "id": "p3-dobre-samopoczucie-w-pracy",
+        "central": "A company wants its employees to feel happier and less stressed at work. Talk about how effective each of these ideas would be, then decide which would make the biggest difference to employees.",
+        "options": [
+          "flexible working hours",
+          "a quiet relaxation room",
+          "free fitness classes",
+          "team trips at weekends",
+          "free healthy lunches"
+        ],
+        "decision": "Which would make the biggest difference to employees?"
       }
     ]
   },
@@ -142,6 +341,7 @@
     "seconds": 240,
     "groups": [
       {
+        "id": "p4-charytatywne-zbiorki",
         "topic": "Charytatywne zbiórki",
         "questions": [
           "Do you think young people should be encouraged to do charity work? Why?",
@@ -151,6 +351,7 @@
         ]
       },
       {
+        "id": "p4-czas-w-naturze",
         "topic": "Czas w naturze",
         "questions": [
           "Do you think people spend enough time outdoors these days?",
@@ -160,12 +361,83 @@
         ]
       },
       {
+        "id": "p4-nauka-jezykow",
         "topic": "Nauka języków",
         "questions": [
           "Why is it important to learn foreign languages?",
           "Is it better to learn a language at school or abroad?",
           "Do you think everyone will speak English in the future?",
           "What helps you to learn languages effectively?"
+        ]
+      },
+      {
+        "id": "p4-technologia-w-zyciu",
+        "topic": "Technologia w życiu codziennym",
+        "questions": [
+          "Do you think people depend too much on technology these days?",
+          "How important is it for children to learn to use computers early?",
+          "Is it better to talk to people face to face or online?",
+          "What could be the dangers of spending too much time on screens?"
+        ]
+      },
+      {
+        "id": "p4-zdrowy-styl-zycia",
+        "topic": "Zdrowy styl życia",
+        "questions": [
+          "Do you think people today lead a healthy lifestyle?",
+          "How important is it to eat healthy food, in your opinion?",
+          "Should governments do more to encourage people to do sport?",
+          "Why do some people find it hard to exercise regularly?"
+        ]
+      },
+      {
+        "id": "p4-media-spolecznosciowe",
+        "topic": "Media społecznościowe",
+        "questions": [
+          "Do you think social media has improved the way people communicate?",
+          "How much should parents control what their children do online?",
+          "Is it a good idea to share personal information on social networks?",
+          "How can people tell whether news online is true?"
+        ]
+      },
+      {
+        "id": "p4-miasto-czy-wies",
+        "topic": "Miasto czy wieś",
+        "questions": [
+          "Do you think life is better in a big city or in the countryside?",
+          "Why do so many young people move from villages to cities?",
+          "How important is it for a town to have good public transport?",
+          "What can be done to make cities more pleasant places to live?"
+        ]
+      },
+      {
+        "id": "p4-praca-i-kariera",
+        "topic": "Praca i kariera",
+        "questions": [
+          "How important is it to enjoy your job, in your opinion?",
+          "Do you think it is better to work for a big company or to start your own business?",
+          "Should people stay in the same job for many years?",
+          "What skills do you think employers value most today?"
+        ]
+      },
+      {
+        "id": "p4-podroze-i-turystyka",
+        "topic": "Podróże i turystyka",
+        "questions": [
+          "Do you think travelling makes people more open-minded?",
+          "What effect can tourism have on a popular place?",
+          "Is it better to plan a holiday carefully or to decide things as you go?",
+          "Why do some people prefer to holiday in their own country?"
+        ]
+      },
+      {
+        "id": "p4-srodowisko",
+        "topic": "Ochrona środowiska",
+        "questions": [
+          "Do you think individual people can really help protect the environment?",
+          "How important is it for governments to limit pollution?",
+          "Why do many people find it difficult to change their everyday habits to help the environment?",
+          "Should companies be punished if they damage the environment?"
         ]
       }
     ]
