@@ -182,6 +182,12 @@ window.ELM = window.ELM || {};
       nodes.push(el("p", { class: "fc-text", text: card.front }));
     }
     if (card.hint) nodes.push(el("p", { class: "fc-hint" }, [el("span", { class: "review-label", text: "Podpowiedź: " }), document.createTextNode(card.hint)]));
+    else if (card.word && card.type === "cloze") {
+      // „Moje słowa” bez znaczenia: podpowiedź to pierwsza litera (długość luki jej nie zdradza)
+      const c = clozeParts(card);
+      const first = c.ok ? c.answers[0].charAt(0) : "";
+      if (first) nodes.push(el("p", { class: "fc-hint" }, [el("span", { class: "review-label", text: "Podpowiedź: " }), document.createTextNode("zaczyna się na „" + first + "”")]));
+    }
     return nodes;
   }
 
@@ -198,6 +204,18 @@ window.ELM = window.ELM || {};
     }
     if (answers.length > 1) nodes.push(el("p", { class: "fc-extra" }, [el("span", { class: "review-label", text: "Akceptowane też: " }), document.createTextNode(answers.slice(1).join(", "))]));
     if (card.example) nodes.push(el("p", { class: "fc-extra", lang: "en" }, [el("span", { class: "review-label", text: "Przykład: " }), document.createTextNode(card.example)]));
+    // „Moje słowa”: znaczenie (gdy jest), dodatkowe przykłady i źródło
+    if (card.word && card.hint && card.type === "cloze") nodes.push(el("p", { class: "fc-extra" }, [el("span", { class: "review-label", text: "Znaczenie: " }), document.createTextNode(card.hint)]));
+    if (card.examples && card.examples.length) {
+      nodes.push(el("div", { class: "fc-extra fc-examples" }, [
+        el("span", { class: "review-label", text: card.examples.length === 1 ? "Drugi przykład:" : "Kolejne przykłady:" }),
+        el("ul", { class: "fc-example-list", lang: "en" }, card.examples.map(function (x) { return el("li", { text: x }); }))
+      ]));
+    }
+    if (card.source && (card.source.route || card.source.title)) {
+      nodes.push(el("p", { class: "fc-extra fc-source" }, [el("span", { class: "review-label", text: "Źródło: " }),
+        card.source.route ? el("a", { href: card.source.route, text: card.source.title || card.source.route }) : document.createTextNode(card.source.title)]));
+    }
     if (card.note) nodes.push(el("p", { class: "fc-extra" }, [el("span", { class: "review-label", text: "Uwaga: " }), document.createTextNode(card.note)]));
     return nodes;
   }
