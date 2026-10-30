@@ -16,6 +16,10 @@
  *   parseDelimited(text)               wiersze TSV/CSV (separator tab albo „;”, cudzysłowy RFC 4180)
  *   importCards(text, opts)            { cards, rejected: [{ line, reason }], total } — podgląd importu
  *   exportTsv(cards)                   TSV zgodny z importem Anki (przód, tył, tagi; cloze jako {{c1::…}})
+ *   extractSentence(blok, zaznaczenie) zdanie kontekstu (≤ 220 znaków); makeCloze(zdanie, słowo) → zdanie z {{słowo}} albo null
+ *   wordFromSelection(tekst), isPolish(tekst), wordKey(słowo), makeWordCard({ selection, sentence, hint, source, day })
+ *   sanitizeWordFields(karta)          word, source, addedAt, examples przy zapisie i imporcie (spec v6 14)
+ *   exportWordsCsv(karty)              „Moje słowa” do CSV: słowo; znaczenie; zdanie; źródło
  *   sanitizeState(raw)                 stan z localStorage / importu → poprawny stan albo wyjątek
  *   emptyState(), pruneDaily(daily, keep?)
  *   daily: { <dzień>: { new, reviews (powtórki kart w stanie review), again, good (Dobrze+Łatwe), answers (wszystkie oceny), minutes } }
@@ -349,6 +353,169 @@ window.ELM = window.ELM || {};
   }
 
   // =====================================================================
+  // MOJE SŁOWA (paczka v6, spec 14): zaznaczenie → zdanie kontekstu → karta z luką
+  // =====================================================================
+
+  const WORD_MAX = 60;       // znaków w zapisanym słowie / wyrażeniu
+  const WORD_WORDS = 6;      // słów w zaznaczeniu
+  const SENTENCE_MAX = 220;  // znaków w zdaniu kontekstu i w przykładzie
+  const EXAMPLES_MAX = 3;    // dopisanych przykładów
+  const ABBREVIATIONS = ["e.g", "i.e", "etc", "mr", "mrs", "ms", "dr", "prof", "vs", "st", "fig", "approx", "inc", "ltd", "jr", "sr", "cf", "viz", "al"];
+
+  /** Apostrofy typograficzne → ' (ta sama długość, więc indeksy w tekście się zgadzają). */
+  function foldApostrophes(s) { return String(s).replace(/[’‘ʼ`´]/g, "'"); }
+
+  /** Czy tekst ma polskie znaki (ą, ć, ę, ł, ń, ó, ś, ź, ż) — wtedy „Do Moich słów” jest niedostępne (spec 14, 3.4). */
+  function isPolish(text) { return /[ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]/.test(String(text == null ? "" : text)); }
+
+  /**
+   * Zaznaczenie → słowo / wyrażenie do zapisania albo "" (za długie: > 60 znaków albo > 6 słów, bez liter).
+   * Znaki przestankowe na brzegach i {}| są usuwane.
+   */
+  function wordFromSelection(text) {
+    let t = String(text == null ? "" : text).replace(/\s+/g, " ").trim();
+    t = t.replace(/^[\s.,;:!?¡¿"“”„«»'‘’()[\]{}…–—-]+|[\s.,;:!?¡¿"“”„«»'‘’()[\]{}…–—-]+$/g, "");
+    t = t.replace(/[{}|]/g, " ").replace(/\s+/g, " ").trim();
+    if (!t || t.length > WORD_MAX || !/\p{L}/u.test(t)) return "";
+    return t.split(" ").length > WORD_WORDS ? "" : t;
+  }
+
+  /** Indeks pierwszego wystąpienia wyrażenia w tekście (bez względu na wielkość liter, z granicami słów) albo -1. */
+  function findWord(text, word) {
+    const w = String(word == null ? "" : word).trim();
+    if (!w) return -1;
+    const pattern = foldApostrophes(w).replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/\s+/g, "\\s+");
+    const m = new RegExp("(?<![\\p{L}\\p{N}])" + pattern + "(?![\\p{L}\\p{N}])", "iu").exec(foldApostrophes(text));
+    return m ? m.index : -1;
+  }
+
+  /** Zakresy zdań: koniec po . ! ? i spacji przed wielką literą; bez dzielenia na skrótach (e.g., Mr.), inicjałach i liczbach (3.5). */
+  function splitSentences(text) {
+    const out = [];
+    let start = 0;
+    const re = /[.!?]+["”’')\]]*\s+(?=["“‘'(\[]?\p{Lu})/gu;
+    let m;
+    while ((m = re.exec(text))) {
+      const before = text.slice(start, m.index);
+      const tok = (/(\S+)$/.exec(before) || [])[1] || "";
+      const bare = tok.replace(/^[("'“‘\[]+/, "");
+      const abbreviation = m[0].charAt(0) === "." && (ABBREVIATIONS.indexOf(bare.toLowerCase()) !== -1 || /^\p{Lu}$/u.test(bare) || /^(?:\p{L}\.)+\p{L}$/u.test(bare));
+      if (abbreviation) continue;
+      out.push({ start: start, end: m.index + m[0].replace(/\s+$/, "").length });
+      start = m.index + m[0].length;
+    }
+    if (start < text.length) out.push({ start: start, end: text.length });
+    return out;
+  }
+
+  /** Zdanie dłuższe niż SENTENCE_MAX → okno wokół słowa z „…” po obu stronach (łącznie ≤ SENTENCE_MAX znaków). */
+  function windowAround(s, word) {
+    const w = String(word).trim();
+    const j = findWord(s, w);
+    if (j === -1) {
+      const cut = s.slice(0, SENTENCE_MAX - 1);
+      return cut.slice(0, Math.max(cut.lastIndexOf(" "), 40)).trim() + "…";
+    }
+    const budget = SENTENCE_MAX - 2; // miejsce na dwa „…”
+    let from = Math.max(0, j - Math.floor((budget - w.length) / 2));
+    let to = Math.min(s.length, from + budget);
+    from = Math.max(0, to - budget); // krótsza prawa strona → okno przesuwa się w lewo
+    // granice słów: nie tniemy wewnątrz słowa
+    if (from > 0) { const sp = s.indexOf(" ", from); if (sp !== -1 && sp < j) from = sp + 1; }
+    if (to < s.length) { const sp = s.lastIndexOf(" ", to); if (sp > j + w.length) to = sp; }
+    return (from > 0 ? "…" : "") + s.slice(from, to).trim() + (to < s.length ? "…" : "");
+  }
+
+  /**
+   * Zdanie kontekstu: tekst bloku (p, li, td, blockquote, dd) → zdanie zawierające zaznaczenie, najwyżej 220 znaków
+   * (dłuższe z „…” wokół słowa). Gdy zaznaczenia nie ma w tekście — pierwsze zdanie bloku.
+   */
+  function extractSentence(blockText, selection) {
+    const text = String(blockText == null ? "" : blockText).replace(/\s+/g, " ").trim();
+    if (!text) return "";
+    const sel = String(selection == null ? "" : selection).replace(/\s+/g, " ").trim();
+    const i = findWord(text, sel);
+    const ranges = splitSentences(text);
+    let range = ranges[0] || { start: 0, end: text.length };
+    if (i !== -1) range = ranges.find(function (r) { return i >= r.start && i < r.end; }) || ranges.find(function (r) { return i >= r.start && i <= r.end; }) || range;
+    const s = text.slice(range.start, range.end).trim();
+    return s.length <= SENTENCE_MAX ? s : windowAround(s, sel);
+  }
+
+  /** Zdanie z luką {{słowo}} (pierwsze wystąpienie, zapis z tekstu zachowany) albo null, gdy zaznaczenia w zdaniu nie ma. */
+  function makeCloze(sentence, selection) {
+    const s = String(sentence == null ? "" : sentence).replace(/[{}]/g, "");
+    const w = String(selection == null ? "" : selection).trim();
+    const i = findWord(s, w);
+    if (i === -1) return null;
+    const m = new RegExp("^(?:" + foldApostrophes(w).replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/\s+/g, "\\s+") + ")", "iu").exec(foldApostrophes(s.slice(i)));
+    const len = m ? m[0].length : w.length;
+    return s.slice(0, i) + "{{" + s.slice(i, i + len) + "}}" + s.slice(i + len);
+  }
+
+  /** Klucz deduplikacji słowa: to samo słowo z innego zdania to ten sam klucz (normalize: wielkość liter, spacje, apostrofy). */
+  function wordKey(word) { return normalize(word); }
+
+  function isDay(s) {
+    const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(s || ""));
+    return !!m && Number(m[2]) >= 1 && Number(m[2]) <= 12 && Number(m[3]) >= 1 && Number(m[3]) <= 31;
+  }
+
+  /**
+   * Nowe pola karty z „Moich słów”, bezpieczne przy zapisie i imporcie: word ≤ 60, source { route (#/…, ≤ 200), title ≤ 120 },
+   * addedAt RRRR-MM-DD, examples ≤ 3 × 220 znaków. Brakujące albo złe pola są pomijane (stary plik działa).
+   */
+  function sanitizeWordFields(x) {
+    const out = {};
+    if (!x || typeof x !== "object") return out;
+    if (typeof x.word === "string" && x.word.trim()) out.word = x.word.trim().slice(0, WORD_MAX);
+    if (x.source && typeof x.source === "object") {
+      const src = {};
+      if (typeof x.source.route === "string" && x.source.route.length <= 200 && /^#\/[^\s<>"]*$/.test(x.source.route)) src.route = x.source.route;
+      if (typeof x.source.title === "string" && x.source.title.trim()) src.title = x.source.title.trim().slice(0, 120);
+      if (src.route || src.title) out.source = src;
+    }
+    if (isDay(x.addedAt)) out.addedAt = x.addedAt;
+    if (Array.isArray(x.examples)) {
+      const ex = x.examples.filter(function (e) { return typeof e === "string" && e.trim(); }).map(function (e) { return e.replace(/\s+/g, " ").trim().slice(0, SENTENCE_MAX); }).slice(0, EXAMPLES_MAX);
+      if (ex.length) out.examples = ex;
+    }
+    return out;
+  }
+
+  /**
+   * Karta „Moje słowa” z zaznaczenia: { selection, sentence, hint?, source?, day? } → { card } albo { error }.
+   * Luka {{słowo}} w zdaniu (cloze); bez zdania albo bez wystąpienia słowa — zwykła karta (przód = słowo, tył = zdanie).
+   */
+  function makeWordCard(o) {
+    const word = wordFromSelection(o && o.selection);
+    if (!word) return { error: "Zaznacz od 1 do 6 słów (najwyżej " + WORD_MAX + " znaków)." };
+    const sentence = String((o && o.sentence) || "").replace(/\s+/g, " ").trim().slice(0, SENTENCE_MAX);
+    const hint = String((o && o.hint) || "").trim().slice(0, MAX_FIELD);
+    const cloze = sentence ? makeCloze(sentence, word) : null;
+    const res = cloze
+      ? makeCard({ type: "cloze", front: cloze, hint: hint })
+      : makeCard({ type: "basic", front: word, back: sentence || hint || "—", hint: sentence ? hint : "" });
+    if (res.error) return res;
+    const extra = sanitizeWordFields({ word: word, source: o && o.source, addedAt: o && o.day });
+    return { card: Object.assign(res.card, extra) };
+  }
+
+  /** Eksport „Moich słów” do CSV (separator „;”, cudzysłowy RFC 4180): słowo; znaczenie; zdanie; źródło. */
+  function exportWordsCsv(cards) {
+    const cell = function (s) { const v = String(s == null ? "" : s); return /[;"\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };
+    const lines = [["słowo", "znaczenie", "zdanie", "źródło"].join(";")];
+    (cards || []).forEach(function (c) {
+      let sentence = "";
+      if (c.type === "cloze") { const p = parseCloze(c.text); sentence = p.ok ? p.before + p.answers[0] + p.after : String(c.text || ""); }
+      else sentence = String(c.back || "");
+      const word = c.word || (c.type === "cloze" ? ((parseCloze(c.text).answers || [])[0] || "") : c.front);
+      lines.push([word, c.hint || "", sentence, c.source ? (c.source.title || "") + (c.source.route ? " (" + c.source.route + ")" : "") : ""].map(cell).join(";"));
+    });
+    return lines.join("\n") + "\n";
+  }
+
+  // =====================================================================
   // STAN (localStorage, eksport / import)
   // =====================================================================
 
@@ -391,7 +558,7 @@ window.ELM = window.ELM || {};
     if (x.type === "cloze" && x.note) card.note = cut(x.note);
     if (typeof x.sourceItemId === "string" && x.sourceItemId) card.sourceItemId = x.sourceItemId.slice(0, 200);
     if (typeof x.createdAt === "string") card.createdAt = x.createdAt.slice(0, 30);
-    return card;
+    return Object.assign(card, sanitizeWordFields(x)); // „Moje słowa”: word, source, addedAt, examples (opcjonalne)
   }
 
   function pruneDaily(daily, keep) {
@@ -415,7 +582,7 @@ window.ELM = window.ELM || {};
     (Array.isArray(raw.userDecks) ? raw.userDecks : []).slice(0, 200).forEach(function (d) {
       if (!d || !/^u-[a-z0-9-]{1,60}$/.test(d.id || "") || typeof d.title !== "string" || !d.title.trim()) return;
       if (out.userDecks.some(function (x) { return x.id === d.id; })) return;
-      out.userDecks.push({ id: d.id, title: d.title.trim().slice(0, 80), createdAt: typeof d.createdAt === "string" ? d.createdAt.slice(0, 30) : "", system: d.system === "mistakes" ? "mistakes" : undefined });
+      out.userDecks.push({ id: d.id, title: d.title.trim().slice(0, 80), createdAt: typeof d.createdAt === "string" ? d.createdAt.slice(0, 30) : "", system: d.system === "mistakes" || d.system === "words" ? d.system : undefined });
       if (!out.userDecks[out.userDecks.length - 1].system) delete out.userDecks[out.userDecks.length - 1].system;
     });
     const deckIds = out.userDecks.map(function (d) { return d.id; });
@@ -450,6 +617,10 @@ window.ELM = window.ELM || {};
     studyDay: studyDay, dayStart: dayStart, dayEnd: dayEnd, isHidden: isHidden,
     buildQueue: buildQueue, pickNext: pickNext, deckStats: deckStats,
     parseDelimited: parseDelimited, makeCard: makeCard, importCards: importCards, exportTsv: exportTsv,
+    WORD_MAX: WORD_MAX, SENTENCE_MAX: SENTENCE_MAX, EXAMPLES_MAX: EXAMPLES_MAX,
+    isPolish: isPolish, wordFromSelection: wordFromSelection, findWord: findWord, splitSentences: splitSentences,
+    extractSentence: extractSentence, makeCloze: makeCloze, wordKey: wordKey, sanitizeWordFields: sanitizeWordFields,
+    makeWordCard: makeWordCard, exportWordsCsv: exportWordsCsv,
     emptyState: emptyState, sanitizeState: sanitizeState, pruneDaily: pruneDaily
   };
 })(window.ELM);

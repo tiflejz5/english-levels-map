@@ -1193,5 +1193,110 @@ test("sanitizeState: uszkodzone dane, nieznana wersja, zbyt długie pola, przyci
   assert.strictEqual(Object.keys(s.daily)[0], "2025-01-11");
 });
 
+console.log("\nMoje słowa (paczka v6, spec 14)");
+test("wordFromSelection: 1–6 słów i do 60 znaków, przestankowe brzegi i {}| usuwane, bez liter → pusto", function () {
+  assert.strictEqual(FL.wordFromSelection("  commute, "), "commute");
+  assert.strictEqual(FL.wordFromSelection("“come up with”."), "come up with");
+  assert.strictEqual(FL.wordFromSelection("a b c d e f"), "a b c d e f");
+  assert.strictEqual(FL.wordFromSelection("a b c d e f g"), "");
+  assert.strictEqual(FL.wordFromSelection("x".repeat(61)), "");
+  assert.strictEqual(FL.wordFromSelection("x".repeat(60)), "x".repeat(60));
+  assert.strictEqual(FL.wordFromSelection("{{up}}|down"), "up down");
+  assert.strictEqual(FL.wordFromSelection("123 ... 45"), "");
+  assert.strictEqual(FL.wordFromSelection("don’t"), "don’t");
+  assert.strictEqual(FL.wordFromSelection(""), "");
+});
+test("isPolish: polskie znaki wyłączają „Do Moich słów” (3.4)", function () {
+  ["zażółć", "Łódź", "więc", "ŻÓŁW", "sąd", "kość", "źle", "ń"].forEach(function (w) { assert.ok(FL.isPolish(w), w); });
+  ["commute", "naïve café", "über", "résumé", "", null].forEach(function (w) { assert.ok(!FL.isPolish(w), String(w)); });
+});
+test("splitSentences / extractSentence: skróty (e.g., Mr., etc.), liczby 3.5, cudzysłowy, inicjały", function () {
+  const t = "Mr. Brown works hard, e.g. on Sundays. He earns 3.5 thousand pounds. “Really?” she asked. J. K. Rowling wrote it. We use tea, coffee, etc. They never complain.";
+  assert.strictEqual(FL.extractSentence(t, "Sundays"), "Mr. Brown works hard, e.g. on Sundays.");
+  assert.strictEqual(FL.extractSentence(t, "thousand"), "He earns 3.5 thousand pounds.");
+  assert.strictEqual(FL.extractSentence(t, "asked"), "“Really?” she asked.");
+  assert.strictEqual(FL.extractSentence(t, "Rowling"), "J. K. Rowling wrote it.");
+  assert.strictEqual(FL.extractSentence(t, "tea"), "We use tea, coffee, etc. They never complain."); // etc. nie dzieli
+  assert.strictEqual(FL.extractSentence("Dr. Smith said so. Prof. Lee agreed.", "agreed"), "Prof. Lee agreed.");
+});
+test("extractSentence: komórka tabeli i pojedyncze zdanie, wielkość liter i spacje, brak zaznaczenia w tekście", function () {
+  assert.strictEqual(FL.extractSentence("  Commute   to work.  ", "COMMUTE"), "Commute to work.");
+  assert.strictEqual(FL.extractSentence("I'm waiting for a bus", "bus"), "I'm waiting for a bus");
+  assert.strictEqual(FL.extractSentence("First one. Second one.", "nic"), "First one.");
+  assert.strictEqual(FL.extractSentence("", "x"), "");
+  assert.strictEqual(FL.extractSentence("She said it’s fine. It is not.", "it's fine"), "She said it’s fine."); // apostrofy typograficzne
+});
+test("extractSentence: zdanie dłuższe niż 220 znaków → okno wokół słowa z „…” po obu stronach (≤ 220)", function () {
+  const mid = ("Many people think that this long sentence goes on and on " .repeat(6)) + "but the commute to work takes ages " + ("and it never seems to end for anybody " .repeat(6)) + "really.";
+  const s = FL.extractSentence(mid, "commute");
+  assert.ok(s.length <= 220, "długość " + s.length);
+  assert.ok(/^…/.test(s) && /…$/.test(s), s);
+  assert.ok(s.indexOf("commute") !== -1);
+  assert.ok(!/…\S/.test(s.slice(1)) && !/\S…/.test(s.slice(0, -1)), "nie tnie słów: " + s);
+  // słowo na początku i na końcu długiego zdania — „…” tylko z jednej strony
+  const head = "Commute " + "word ".repeat(60) + "end.";
+  const hs = FL.extractSentence(head, "Commute");
+  assert.ok(hs.length <= 220 && !/^…/.test(hs) && /…$/.test(hs), hs);
+  const tail = "word ".repeat(60) + "commute end.";
+  const ts = FL.extractSentence(tail, "commute");
+  assert.ok(ts.length <= 220 && /^…/.test(ts) && !/…$/.test(ts), ts);
+});
+test("makeCloze: pierwsze wystąpienie, wielkość liter z tekstu, granice słów, brak wystąpienia → null", function () {
+  assert.strictEqual(FL.makeCloze("Most people commute to work. Some commute far.", "commute"), "Most people {{commute}} to work. Some commute far.");
+  assert.strictEqual(FL.makeCloze("Commuting is tiring, but Commute is a word.", "commute"), "Commuting is tiring, but {{Commute}} is a word."); // „Commuting” nie jest „commute”
+  assert.strictEqual(FL.makeCloze("She came up with a plan.", "come up with"), null);
+  assert.strictEqual(FL.makeCloze("She came up   with a plan.", "came up with"), "She {{came up   with}} a plan.");
+  assert.strictEqual(FL.makeCloze("It’s a deal.", "it's"), "{{It’s}} a deal.");
+  assert.strictEqual(FL.makeCloze("The cat sat.", "dog"), null);
+  assert.strictEqual(FL.makeCloze("Use {{braces}} here.", "braces"), "Use {{braces}} here."); // nawiasy ze zdania usunięte i luka nałożona
+  assert.strictEqual(FL.parseCloze(FL.makeCloze("Most people commute to work.", "commute")).ok, true);
+  assert.strictEqual(FL.makeCloze("Cost: 5% (really)", "(really)"), "Cost: 5% {{(really)}}"); // znaki specjalne regexu są cytowane
+});
+test("wordKey: deduplikacja po normalize (wielkość liter, spacje, apostrofy)", function () {
+  assert.strictEqual(FL.wordKey(" Commute. "), FL.wordKey("commute"));
+  assert.strictEqual(FL.wordKey("Don’t"), FL.wordKey("don't"));
+  assert.notStrictEqual(FL.wordKey("commute"), FL.wordKey("commuter"));
+});
+test("makeWordCard: cloze ze zdania; bez wystąpienia basic; bez zdania; za dużo słów → błąd; pola word/source/addedAt", function () {
+  const a = FL.makeWordCard({ selection: "commute", sentence: "Most people commute to work by train.", source: { route: "#/b1/slownictwo", title: "Słownictwo B1" }, day: "2026-11-03" });
+  assert.deepStrictEqual([a.card.type, a.card.text, a.card.word, a.card.addedAt, a.card.source.route], ["cloze", "Most people {{commute}} to work by train.", "commute", "2026-11-03", "#/b1/slownictwo"]);
+  const withHint = FL.makeWordCard({ selection: "commute", sentence: "Most people commute to work.", hint: "dojeżdżać do pracy" });
+  assert.strictEqual(withHint.card.hint, "dojeżdżać do pracy");
+  const basic = FL.makeWordCard({ selection: "came up with", sentence: "She thought of a plan." });
+  assert.deepStrictEqual([basic.card.type, basic.card.front, basic.card.back], ["basic", "came up with", "She thought of a plan."]);
+  const none = FL.makeWordCard({ selection: "ephemeral", sentence: "" });
+  assert.deepStrictEqual([none.card.type, none.card.front, none.card.back], ["basic", "ephemeral", "—"]);
+  assert.ok(FL.makeWordCard({ selection: "a b c d e f g", sentence: "x" }).error);
+  assert.ok(FL.makeWordCard({ selection: "", sentence: "x" }).error);
+  const bad = FL.makeWordCard({ selection: "x", sentence: "x y", source: { route: "javascript:alert(1)", title: "T" }, day: "jutro" });
+  assert.deepStrictEqual([bad.card.source, bad.card.addedAt], [{ title: "T" }, undefined]);
+});
+test("sanitizeState: nowe pola karty (word, source, addedAt, examples) przy zapisie i imporcie, talia systemowa „words”, stary plik bez pól", function () {
+  const s = FL.sanitizeState({ version: 1, cards: {}, userDecks: [{ id: "u-moje-slowa", title: "Moje słowa", system: "words" }, { id: "u-moje-bledy", title: "Moje błędy", system: "mistakes" }, { id: "u-x", title: "X", system: "inne" }], userCards: [
+    { id: "u-w1", deck: "u-moje-slowa", type: "cloze", text: "Most people {{commute}} to work.", hint: "dojeżdżać", word: "commute".padEnd(80, "x"), source: { route: "#/b1/slownictwo", title: "T".repeat(200) }, addedAt: "2026-11-03", examples: ["a", "  b  ", "", 7, "c", "d", "e".repeat(300)] },
+    { id: "u-w2", deck: "u-moje-slowa", type: "basic", front: "x", back: "y", word: 5, source: { route: "http://zła.pl", title: "" }, addedAt: "2026-13-40", examples: "nie tablica" },
+    { id: "u-w3", deck: "u-x", type: "basic", front: "stara", back: "karta" }
+  ], settings: {}, daily: {} });
+  assert.deepStrictEqual(s.userDecks.map(function (d) { return d.system || null; }), ["words", "mistakes", null]);
+  const [w1, w2, w3] = s.userCards;
+  assert.strictEqual(w1.word.length, 60);
+  assert.deepStrictEqual([w1.source.route, w1.source.title.length, w1.addedAt], ["#/b1/slownictwo", 120, "2026-11-03"]);
+  assert.deepStrictEqual(w1.examples, ["a", "b", "c"]); // maks. 3, puste i nietekstowe odrzucone
+  assert.deepStrictEqual([w2.word, w2.source, w2.addedAt, w2.examples], [undefined, undefined, undefined, undefined]);
+  assert.deepStrictEqual(Object.keys(w3).sort(), ["back", "deck", "front", "id", "tags", "type"]); // stara karta bez nowych pól
+  assert.strictEqual(FL.sanitizeWordFields({ examples: ["e".repeat(300)] }).examples[0].length, 220);
+  // zapis → odczyt → te same pola (round-trip przez JSON)
+  assert.deepStrictEqual(FL.sanitizeState(JSON.parse(JSON.stringify(s))).userCards[0], w1);
+});
+test("exportWordsCsv: słowo; znaczenie; zdanie; źródło, cudzysłowy i średniki w polach", function () {
+  const csv = FL.exportWordsCsv([
+    { type: "cloze", text: "Most people {{commute}} to work; by train.", hint: "dojeżdżać", word: "commute", source: { route: "#/b1/slownictwo", title: "Słownictwo B1" } },
+    { type: "basic", front: "ephemeral", back: "He said \"hi\"." }
+  ]).split("\n");
+  assert.strictEqual(csv[0], "słowo;znaczenie;zdanie;źródło");
+  assert.strictEqual(csv[1], 'commute;dojeżdżać;"Most people commute to work; by train.";Słownictwo B1 (#/b1/slownictwo)');
+  assert.strictEqual(csv[2], 'ephemeral;;"He said ""hi"".";');
+});
+
 console.log("\nWynik: " + passed + " ok, " + failures.length + " błędów");
 if (failures.length) process.exit(1);
