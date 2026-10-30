@@ -3889,7 +3889,7 @@ a.notes-item-title { color: var(--accent); text-decoration: underline; text-unde
 .exam-cover-date-left { font-size: var(--fs-sm); color: var(--ink-muted); }
 .exam-cover-setdate { min-height: 44px; }
 
-.c1-view > .exam-cover { max-width: none; }
+.c1-view > .exam-cover.is-full { max-width: none; }
 .exam-cover.is-compact { gap: 16px; margin-bottom: 20px; padding: 8px 12px 8px 22px; flex-wrap: wrap; }
 .exam-cover.is-compact .exam-cover-bar { width: 6px; }
 .exam-cover.is-compact .exam-cover-code { font-size: 28px; }
