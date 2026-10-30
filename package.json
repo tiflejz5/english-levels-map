@@ -6,8 +6,8 @@
   "scripts": {
     "zasoby": "node tools/zbuduj-zasoby.js",
     "dane": "node tools/zbuduj-niezbednik.js && node tools/zbuduj-cwiczenia.js && node tools/zbuduj-testy-koncowe.js",
-    "validate": "node tools/waliduj-cwiczenia.js && node tools/waliduj-fiszki.js && node tools/waliduj-c1-uoe.js && node tools/waliduj-zycie.js && node tools/waliduj-wzorce.js && node tools/waliduj-zwroty.js && node tools/waliduj-mowienie.js",
-    "build": "node tools/zbuduj-zasoby.js && node tools/zbuduj-niezbednik.js && node tools/waliduj-cwiczenia.js && node tools/waliduj-fiszki.js && node tools/waliduj-c1-uoe.js && node tools/waliduj-zycie.js && node tools/waliduj-wzorce.js && node tools/waliduj-zwroty.js && node tools/waliduj-mowienie.js && node tools/zbuduj-fiszki.js && node tools/zbuduj-egzaminy.js && node tools/zbuduj-cwiczenia.js && node tools/zbuduj-testy-koncowe.js && node tools/zbuduj-zwroty.js && node tools/zbuduj-szukaj.js",
+    "validate": "node tools/waliduj-cwiczenia.js && node tools/waliduj-fiszki.js && node tools/waliduj-c1-uoe.js && node tools/waliduj-zycie.js && node tools/waliduj-wzorce.js && node tools/waliduj-zwroty.js && node tools/waliduj-mowienie.js && node tools/waliduj-v6.js",
+    "build": "node tools/zbuduj-zasoby.js && node tools/zbuduj-niezbednik.js && node tools/waliduj-cwiczenia.js && node tools/waliduj-fiszki.js && node tools/waliduj-c1-uoe.js && node tools/waliduj-zycie.js && node tools/waliduj-wzorce.js && node tools/waliduj-zwroty.js && node tools/waliduj-mowienie.js && node tools/waliduj-v6.js && node tools/zbuduj-fiszki.js && node tools/zbuduj-egzaminy.js && node tools/zbuduj-cwiczenia.js && node tools/zbuduj-testy-koncowe.js && node tools/zbuduj-zwroty.js && node tools/zbuduj-szukaj.js",
     "egzaminy": "node tools/zbuduj-egzaminy.js",
     "szukaj": "node tools/zbuduj-zwroty.js && node tools/zbuduj-szukaj.js",
     "test": "node tools/testy.js"
