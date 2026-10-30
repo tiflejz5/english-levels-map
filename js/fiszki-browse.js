@@ -112,7 +112,7 @@ window.ELM = window.ELM || {};
       });
       count.textContent = "Karty: " + shown.length + " z " + cards.length;
       list.replaceChildren();
-      if (!shown.length) { list.appendChild(el("li", { class: "empty-state-text", text: cards.length ? "Brak kart pasujących do filtrów." : "Ta talia nie ma jeszcze kart." })); return; }
+      if (!shown.length) { list.appendChild(ELM.ui.emptyState({ tag: "li", art: "brak-wynikow", title: cards.length ? "Brak kart pasujących do filtrów." : "Ta talia nie ma jeszcze kart." })); return; }
       shown.forEach(function (c) {
         const x = st().cards[c.id];
         const sts = statusOf(x);

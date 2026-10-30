@@ -652,7 +652,7 @@ window.ELM = window.ELM || {};
     if (!total) {
       const next = nextDue(now());
       box.appendChild(el("h2", { class: "section-title", id: "fc-sum-title", text: "Na dziś koniec" }));
-      box.appendChild(el("p", { text: next ? "Najbliższa powtórka: " + fmtWhen(next) + "." : "Nie masz kart do powtórki. Włącz talię albo dodaj własne karty." }));
+      box.appendChild(ELM.ui.emptyState({ art: "brak-powtorek", title: next ? "Najbliższa powtórka: " + fmtWhen(next) + "." : "Nie masz kart do powtórki. Włącz talię albo dodaj własne karty." }));
       box.appendChild(summaryActions());
       return box;
     }

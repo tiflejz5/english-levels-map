@@ -147,22 +147,6 @@ window.ELM = window.ELM || {};
     ]);
   }
 
-  /** Mała ilustracja kompasu (stan „Na dziś czysto”). */
-  function compassArt() {
-    const svg = svgEl("svg", { class: "compass-art", viewBox: "0 0 64 64", width: 64, height: 64, "aria-hidden": "true", focusable: "false" });
-    svg.appendChild(svgEl("circle", { cx: 32, cy: 32, r: 26, class: "compass-ring" }));
-    svg.appendChild(svgEl("circle", { cx: 32, cy: 32, r: 20, class: "compass-inner" }));
-    [0, 90, 180, 270].forEach(function (a) {
-      svg.appendChild(svgEl("line", { x1: 32, y1: 8, x2: 32, y2: 12, class: "compass-tick", transform: "rotate(" + a + " 32 32)" }));
-    });
-    const needle = svgEl("g", { class: "compass-needle", transform: "rotate(35 32 32)" });
-    needle.appendChild(svgEl("path", { d: "M32 14 36 32h-8z", class: "compass-n" }));
-    needle.appendChild(svgEl("path", { d: "M32 50 28 32h8z", class: "compass-s" }));
-    svg.appendChild(needle);
-    svg.appendChild(svgEl("circle", { cx: 32, cy: 32, r: 2.5, class: "compass-pin" }));
-    return svg;
-  }
-
   function reviewsTile(due) {
     return tile("bento-reviews", "Powtórki na dziś", due
       ? [
@@ -172,13 +156,7 @@ window.ELM = window.ELM || {};
       ]
       : [
         el("h2", { class: "tile-title" }, ["Powtórki na dziś"]),
-        el("div", { class: "tile-empty" }, [
-          compassArt(),
-          el("div", null, [
-            el("p", { class: "tile-empty-title", text: "Na dziś czysto" }),
-            el("p", { class: "tool-note", text: "Nowe błędy zapisuj w dzienniku – wrócą jutro." })
-          ])
-        ])
+        ELM.ui.emptyState({ art: "brak-powtorek", title: "Na dziś czysto", hint: "Nowe błędy zapisuj w dzienniku – wrócą jutro.", class: "es-tile" })
       ]);
   }
 
@@ -203,11 +181,12 @@ window.ELM = window.ELM || {};
     const week = learn().lastDays(days, today, 7);
     return tile("bento-streak", "Seria nauki", [
       el("h2", { class: "tile-title" }, ["Seria nauki"]),
-      el("div", { class: "streak-row" }, [
+      !days.length ? ELM.ui.emptyState({ art: "pierwszy-dzien", title: "Pierwszy dzień serii", hint: streakMessage(s), class: "es-tile" }) : null,
+      !days.length ? null : el("div", { class: "streak-row" }, [
         flameArt(s.current > 0),
         el("p", { class: "tile-big" }, [bigNumber(s.current), el("span", { class: "tile-unit", text: plural(s.current, "dzień z rzędu", "dni z rzędu", "dni z rzędu") })])
       ]),
-      el("p", { class: "tool-note", text: streakMessage(s) + " Najdłuższa seria: " + s.longest + " " + plural(s.longest, "dzień", "dni", "dni") + "." }),
+      !days.length ? null : el("p", { class: "tool-note", text: streakMessage(s) + " Najdłuższa seria: " + s.longest + " " + plural(s.longest, "dzień", "dni", "dni") + "." }),
       el("ol", { class: "week-dots", "aria-label": "Ostatnie 7 dni" }, week.map(function (d) {
         const js = dateOf(d.day);
         const isToday = d.day === today;

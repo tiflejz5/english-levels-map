@@ -324,10 +324,9 @@ window.ELM = window.ELM || {};
     root.appendChild(el("p", { class: "c1-back" }, el("a", { href: "#/fiszki" }, ELM.ui.withIcon("chevron-left", "Fiszki"))));
     root.appendChild(F().head("Moje słowa", "Słowa i wyrażenia zaznaczone w tekstach – każde ze zdaniem, z którego pochodzi."));
     if (!all.length) {
-      root.appendChild(el("section", { class: "empty-state fw-empty" }, [
-        el("p", { class: "empty-state-text", text: "Nie zapisałeś jeszcze żadnego słowa." }),
-        el("p", { class: "empty-state-hint", text: "Zaznacz słowo albo wyrażenie w dowolnym tekście (strona niezbędnika, podsumowanie, egzamin, Laboratorium), a potem wybierz „Do Moich słów” albo naciśnij klawisz M. Karta z luką trafi tutaj i do codziennych powtórek." })
-      ]));
+      root.appendChild(ELM.ui.emptyState({
+        class: "fw-empty", art: "pusty-notes", title: "Nie zapisałeś jeszcze żadnego słowa.", hint: "Zaznacz słowo albo wyrażenie w dowolnym tekście (strona niezbędnika, podsumowanie, egzamin, Laboratorium), a potem wybierz „Do Moich słów” albo naciśnij klawisz M. Karta z luką trafi tutaj i do codziennych powtórek."
+      }));
       return;
     }
     root.appendChild(F().bar(L().deckStats(all, st().cards, Date.now())));
@@ -369,7 +368,7 @@ window.ELM = window.ELM || {};
       });
       count.textContent = "Słowa: " + shown.length + " z " + all.length;
       list.replaceChildren();
-      if (!shown.length) { list.appendChild(el("li", { class: "empty-state-text", text: "Brak słów pasujących do filtrów." })); return; }
+      if (!shown.length) { list.appendChild(ELM.ui.emptyState({ tag: "li", art: "brak-wynikow", title: "Brak słów pasujących do filtrów." })); return; }
       shown.forEach(function (c) { list.appendChild(row(c)); });
       if (focusedWord) {
         const first = list.querySelector(".fw-row"); focusedWord = null;

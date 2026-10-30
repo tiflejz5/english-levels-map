@@ -85,6 +85,36 @@ window.ELM = window.ELM || {};
     return s;
   }
 
+  /**
+   * Stan pusty z ilustracją (paczka v7, C6): ELM.ui.emptyState({ art, title, hint, action, level, tag }).
+   *   art    — klucz z ELM.EMPTY_ART (assets/stany-puste.js), 96×96, kreska currentColor
+   *   action — element (przycisk, link) albo null; level — poziom koloru akcentu (domyślnie bieżący poziom profilu)
+   *   tag    — "li", gdy stan pusty jest elementem listy (domyślnie div)
+   */
+  function emptyState(o) {
+    const level = o.level || (ELM.state && ELM.state.ui && ELM.state.ui.levelId) || "A1";
+    const box = document.createElement(o.tag || "div");
+    box.className = "empty-state has-art lvl-" + level + (o.class ? " " + o.class : "");
+    const nodes = (ELM.EMPTY_ART || {})[o.art];
+    if (nodes) {
+      const svg = svgEl("svg", { class: "es-art", viewBox: "0 0 96 96", fill: "none", stroke: "currentColor", "stroke-width": 1.5, "stroke-linecap": "round", "stroke-linejoin": "round", "aria-hidden": "true", focusable: "false" });
+      nodes.forEach(function (n) { svg.appendChild(svgEl(n[0], n[1])); });
+      box.appendChild(svg);
+    }
+    const title = document.createElement("p");
+    title.className = "empty-state-text";
+    title.textContent = o.title;
+    box.appendChild(title);
+    if (o.hint) {
+      const hint = document.createElement("p");
+      hint.className = "empty-state-hint";
+      hint.textContent = o.hint;
+      box.appendChild(hint);
+    }
+    if (o.action) box.appendChild(o.action);
+    return box;
+  }
+
   /** [ikona, tekst] — np. el("button", …, ELM.ui.withIcon("plus", "Dodaj błąd")). */
   function withIcon(name, text, opts) {
     return [icon(name, Object.assign({ size: 18 }, opts || {})), document.createTextNode(text)];
@@ -339,5 +369,5 @@ window.ELM = window.ELM || {};
   ELM.loadModule = loadModule;
   ELM.loadScript = loadScript; // dane ładowane na żądanie (np. ćwiczenia, Laboratorium czasów)
   ELM.reducedMotion = reducedMotion;
-  ELM.ui = { icon: icon, withIcon: withIcon, landIcon: landIcon, stamp: stamp, landLabel: landLabel, LANDS: LANDS, pageHead: pageHead, logo: logo, logoMark: logoMark, progressRing: progressRing, setRing: setRing, toast: toast, hideToast: hideToast };
+  ELM.ui = { icon: icon, withIcon: withIcon, emptyState: emptyState, landIcon: landIcon, stamp: stamp, landLabel: landLabel, LANDS: LANDS, pageHead: pageHead, logo: logo, logoMark: logoMark, progressRing: progressRing, setRing: setRing, toast: toast, hideToast: hideToast };
 })(window.ELM);

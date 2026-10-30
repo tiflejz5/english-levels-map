@@ -3960,3 +3960,13 @@ a.notes-item-title { color: var(--accent); text-decoration: underline; text-unde
 .ex-hl-line { margin: 4px 0 0; }
 .ex-gap-text.ex-hl { white-space: nowrap; }
 .stamp.is-fresh { animation: umiem-stamp 220ms var(--ease-out); }
+
+/* ===================== C6: STANY PUSTE Z ILUSTRACJĄ ===================== */
+.empty-state.has-art .es-art { width: 96px; height: 96px; color: var(--ink-muted); flex-shrink: 0; }
+.empty-state.has-art .es-accent { stroke: var(--lvl, var(--accent)); }
+.empty-state.has-art .es-fill { fill: var(--lvl, var(--accent)); fill-opacity: 0.15; }
+.empty-state-hint { margin: 0; font-size: var(--fs-sm-plus); color: var(--ink-muted); max-width: var(--measure); }
+.empty-state.es-tile { padding: 8px 0 0; border: 0; background: none; gap: 8px; }
+.empty-state.es-inline { padding: 8px 0; border: 0; background: none; }
+li.empty-state { list-style: none; }
+@media (max-width: 639px) { .empty-state.has-art .es-art { width: 72px; height: 72px; } }
