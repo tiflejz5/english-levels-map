@@ -24,7 +24,7 @@ const ROOT = path.join(__dirname, "..", "niezbednik");
 const TYPES = ["punkty", "lacznik", "rejestr", "struktura", "zakres", "uwaga"];
 const RANGE = { "egzamin-osmoklasisty": [6, 9], "matura-podstawowa": [6, 9], "matura-rozszerzona": [8, 12], "certyfikat-b2": [8, 12], "certyfikat-c1": [10, 14] };
 const CAMBRIDGE = ["content", "communicative", "organisation", "language"];
-const REQUIRE_ALL = false; // true: każde zadanie z modelem musi mieć modelNotes (włączane po dodaniu wszystkich)
+const REQUIRE_ALL = true; // każde zadanie z modelem musi mieć modelNotes, C1 ma min. 5 wzorców
 
 const errors = [];
 const warnings = [];
