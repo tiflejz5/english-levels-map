@@ -47,6 +47,14 @@ W formalnym angielskim *if* często znika, a jego miejsce zajmuje **inwersja**. 
 | Had it not been for the doctor, he would have died. | Gdyby nie lekarz, zmarłby. |
 | I'll lend you the car, provided you drive carefully. | Pożyczę ci samochód, pod warunkiem że będziesz jechał ostrożnie. |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *Should you have any questions, don't hesitate to contact us.* (W razie pytań prosimy o kontakt.) | Transformacja: If you need more time, let me know. SHOULD → ___ more time, let me know. → **Should you need** | MR · B2 · C1 |
+| *Had we left earlier, we wouldn't have missed the flight.* (Gdybyśmy wyszli wcześniej, zdążylibyśmy na samolot.) | Wybierz: ___ I known about the meeting, I would have come. a) If b) Had c) Would d) Have → **b** | MR · B2 |
+| *Were it not for the cost, I'd buy it tomorrow.* (Gdyby nie cena, kupiłbym to jutro.) | Uzupełnij: Were it not ___ the weather, we would go for a walk. → **for** | B2 · C1 |
+
 ## Typowe błędy Polaków
 
 - ❌ *Hadn't I known…* → ✅ *Had I not known…*

@@ -23,6 +23,14 @@ Parafrazowanie to wyrażenie tej samej myśli innymi słowami. Na C1 używasz go
 
 Dobra parafraza zmienia **i słowa, i strukturę** – ale nie zmienia znaczenia.
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *So what you're saying is that we should wait.* (Czyli mówisz, że powinniśmy poczekać.) | Wybierz najlepszą parafrazę zdania „Prices have risen dramatically.”: a) Prices have risen dramatically. b) Prices have gone up sharply. c) Dramatically prices have risen. d) Prices rise are dramatic. → **b** | MR · B2 · C1 |
+| *In other words, the project is delayed.* (Innymi słowy, projekt jest opóźniony.) | Uzupełnij: We need more time. ___ other words, we aren't ready. → **In** | MR · B2 |
+| *She pointed out that the deadline was close.* (Zwróciła uwagę, że termin jest blisko.) | Transformacja: "The shop is closed," he said. POINTED → He ___ the shop was closed. → **pointed out that** | B2 · C1 |
+
 ## Parafrazowanie w rozmowie
 
 | Zwrot | Polski |

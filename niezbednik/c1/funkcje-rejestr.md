@@ -22,6 +22,14 @@ Na C1 nie wystarczy mówić poprawnie – trzeba mówić **odpowiednio**. Ten sa
 | Zwracanie się | *Hey, guys!* | *Hi everyone,* | *Dear colleagues,* |
 | Prośba | *Can you…?* | *Could you…?* | *I would be grateful if you could…* |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *Hello everyone, thanks for joining.* (Dzień dobry wszystkim, dziękuję za dołączenie.) | Wybierz najwłaściwszy początek formalnego e-maila do nieznanego klienta: a) Hey guys, b) Dear Sir or Madam, c) Dear Mr John, d) Yo, → **b** | MR · B2 |
+| *Fancy a cup of tea?* (Masz ochotę na herbatę?) | Wybierz wersję formalną zaproszenia na herbatę: a) Fancy tea? b) Want tea? c) Would you care for some tea? d) Tea, yes? → **c** | MR · B2 |
+| *I'm writing to let you know that the meeting is cancelled.* (Piszę, żeby poinformować, że spotkanie jest odwołane.) | Wybierz najnaturalniejsze zakończenie e-maila do znajomego z pracy: a) I greet you warmly b) Kind regards c) With deepest respect d) Yours faithfully → **b** | MR · B2 |
+
 ## Ta sama wiadomość w trzech rejestrach
 
 **Spóźnienie raportu**

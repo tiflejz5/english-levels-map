@@ -42,6 +42,14 @@ Poza *will* i *going to* angielski ma kilka konstrukcji z *be*, które precyzyjn
 | Scientists are on the verge of a major discovery. | Naukowcy są o krok od wielkiego odkrycia. |
 | The conference is due to start at nine. | Konferencja ma się rozpocząć o dziewiątej. |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *The new law is to come into force in January.* (Nowe przepisy wejdą w życie w styczniu.) | Wybierz: Pupils ___ not to leave the building during lessons. a) are b) do c) have d) will → **a** | MR · B2 · C1 |
+| *I'm just about to leave – can I call you back?* (Właśnie wychodzę – mogę oddzwonić?) | Transformacja: The film will start in a moment. ABOUT → The film ___ start. → **is about to** | MR · B2 · C1 |
+| *She was on the verge of tears when she heard the news.* (Była bliska łez, kiedy usłyszała wiadomość.) | Uzupełnij: He was on the verge ___ (give up) when the offer arrived. → **of giving up** | B2 · C1 |
+
 ## Typowe błędy Polaków
 
 - ❌ *I'm about to leaving.* → ✅ *I'm about to leave.*

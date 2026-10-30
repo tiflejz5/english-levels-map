@@ -22,6 +22,14 @@ Native speakerzy często opowiadają o przeszłości w czasie teraźniejszym. Dz
 | Nagłówki prasowe | *PM **resigns** after scandal.* (wydarzyło się wczoraj) |
 | Instrukcje, przepisy | *You **take** two eggs and **beat** them.* |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *So he walks into the room and everyone goes quiet.* (Więc wchodzi do pokoju i wszyscy cichną.) | Uzupełnij (streszczenie filmu): In the opening scene, a young woman ___ (arrive) in Paris. → **arrives** | MR · B2 · C1 |
+| *Minister resigns after scandal.* (Minister podaje się do dymisji po skandalu. [nagłówek]) | Wybierz nagłówek prasowy zgodny ze stylem (czas teraźniejszy dla wydarzeń z dziś): a) Mayor resigned after protests b) Mayor resigns after protests c) Mayor is resigned after protests d) Mayor had resigned after protests → **b** | MR · B2 |
+| *The film is about a man who finds a map.* (Film jest o mężczyźnie, który znajduje mapę.) | Wybierz: W streszczeniu fabuły: "At the end of the novel, the heroine ___ the truth." a) discovered b) has discovered c) discovers d) was discovering → **c** | MR · B2 · C1 |
+
 ## Podział ról – jak w czasach przeszłych
 
 | Czas przeszły | Czas teraźniejszy w narracji | Funkcja |

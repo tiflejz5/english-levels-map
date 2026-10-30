@@ -54,6 +54,14 @@ Forma bezokolicznika zależy od tego, **kiedy** dzieje się to, o czym mówimy:
 | She is known to be very demanding. | Wiadomo, że jest bardzo wymagająca. |
 | The company is reported to be planning job cuts. | Firma podobno planuje zwolnienia. |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *The painting is believed to be worth millions.* (Uważa się, że obraz jest wart miliony.) | Transformacja: People believe that he left the country. BELIEVED → He ___ the country. → **is believed to have left** | MR · B2 · C1 |
+| *It is estimated that two million people visited the city.* (Szacuje się, że miasto odwiedziły dwa miliony osób.) | Wybierz: The suspect is ___ to have fled abroad. a) thought b) said that c) thinking d) known that → **a** | MR · B2 |
+| *She is known to be very demanding.* (Wiadomo, że jest bardzo wymagająca.) | Uzupełnij: Nowadays it ___ (say) that sport is good for health. → **is said** | MR · B2 |
+
 ## Typowe błędy Polaków
 
 - ❌ *He is said that he is rich.* → ✅ *He is said **to be** rich.* / *It is said that he is rich.*

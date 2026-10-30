@@ -53,6 +53,14 @@ Podmiot imiesłowu musi być taki sam jak podmiot zdania głównego. W przeciwny
 | Not wanting to be late, we took a taxi. | Nie chcąc się spóźnić, wzięliśmy taksówkę. |
 | The storm hit the coast, destroying hundreds of homes. | Burza uderzyła w wybrzeże, niszcząc setki domów. |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *Having lived in Spain, she speaks fluent Spanish.* (Mieszkała w Hiszpanii, więc mówi płynnie po hiszpańsku.) | Transformacja: Because he had studied law, he understood the contract. HAVING → ___ law, he understood the contract. → **Having studied** | MR · B2 · C1 |
+| *Feeling tired, I went to bed early.* (Czując zmęczenie, wcześnie poszedłem spać.) | Wybierz: ___ the report, she left the office. a) Finished b) Having finished c) Finishing d) To finish → **b** | MR · B2 |
+| *Not wanting to be late, we took a taxi.* (Nie chcąc się spóźnić, wzięliśmy taksówkę.) | Uzupełnij: ___ (not / know) the way, we asked a passer-by. → **Not knowing** | MR · B2 |
+
 ## Typowe błędy Polaków
 
 - ❌ *Being late, the boss was angry.* (spóźniony był szef?) → ✅ *As I was late, the boss was angry.*

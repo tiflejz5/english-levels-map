@@ -53,6 +53,14 @@ Zbyt dużo rzeczowników daje tekst ciężki i mętny: *The facilitation of the 
 | There has been a significant decline in sales. | Nastąpił znaczny spadek sprzedaży. |
 | The availability of data is limited. | Dostępność danych jest ograniczona. |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *There has been a sharp rise in unemployment.* (Nastąpił gwałtowny wzrost bezrobocia.) | Słowotwórstwo: The ___ (introduce) of the new rules caused confusion. → **introduction** | MR · B2 · C1 |
+| *Our recommendation is a gradual expansion into Germany.* (Rekomendujemy stopniowe wejście na rynek niemiecki.) | Transformacja: Sales have fallen significantly. DECLINE → There has been a significant ___ sales. → **decline in** | MR · B2 · C1 |
+| *Water is essential for survival, and its scarcity worries scientists.* (Woda jest niezbędna do przetrwania, a jej niedobór martwi naukowców.) | Słowotwórstwo: The ___ (available) of tickets is limited. → **availability** | B2 · C1 |
+
 ## Typowe błędy Polaków
 
 - ❌ *The decision of the board was making…* → ✅ *The board's decision was…* / *The board made a decision…*
