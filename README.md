@@ -285,7 +285,7 @@ Nazwa profilu: spacje na początku i końcu są obcinane, najwyżej 30 znaków, 
 | `elm_autojournal_v1` | błędy dodane automatycznie do Dziennika błędów **per profil**: `{ items: { <id zadania>: { entryId, created, wrongCount, lastWrongAt, returned } } }`; sam wpis jest w `elm_journal_v1` (bez zmiany formatu, łączy go `ref = "ex:<id zadania>"`) |
 | `elm_learnprefs_v1` | ustawienia nauki **per profil**: `{ autoJournal: true / false }` (menu profilu → Ustawienia nauki) |
 | `elm_notes_v1`    | notatki **per profil**: `{ items: { <klucz strony>: { text, updatedAt, title, route } } }`, zwykły tekst ≤ 10 000 znaków |
-| `elm_exams_v1`    | egzaminy z rejestru (nie C1) **per profil**: `{ exams: { <id egzaminu>: { examDate, drafts: { <zadanie>: tekst }, tasks: { <strona>: { <nr>: true } } } } }` (w eksporcie, imporcie i resecie) |
+| `elm_exams_v1`    | egzaminy z rejestru (nie C1) **per profil**: `{ exams: { <id egzaminu>: { examDate, drafts: { <zadanie>: tekst }, tasks: { <strona>: { <nr>: true } } } }, my?: { <id egzaminu, także C1>: "pinned" \| "hidden" } }` (w eksporcie, imporcie i resecie). Pole `my` jest opcjonalne: ręczne przypięcie albo odpięcie egzaminu na stronie głównej i Dziś; jego brak = automat („Moje egzaminy”: ustawiona data albo ukończony zestaw), stary plik bez pola wczytuje się bez zmian |
 | `elm_search_recent_v1` | ostatnie wyszukiwania `{ version: 1, items: [...] }` (globalnie dla urządzenia, poza eksportem, czyszczone przez „Resetuj dane”) |
 
 Wpis dziennika: `{ id, createdAt: "RRRR-MM-DD", context, myAnswer, correct, rule, source, category, itemId, ref, review: { stage, due, mastered } }`. Przy zapisie i imporcie pola są sprawdzane i przycinane (np. kontekst do 2000 znaków, odpowiedzi do 1000, źródło do 200). Wpisy bez kontekstu albo poprawnej odpowiedzi są odrzucane. Usunięcie profilu usuwa też jego dziennik, serię i wynik testu.
@@ -459,7 +459,8 @@ english-levels-map/
 │  ├─ search.js          wyszukiwarka: pasek, skróty, combobox
 │  ├─ notes.js           własne notatki (panel i strona „Moje notatki”)
 │  ├─ exam-core.js       egzaminy z rejestru: nawigacja, strony, „W trakcie pracy”, ramki, odliczanie
-│  ├─ exam-logic.js      liczenie wyrazów (reguły egzaminu ósmoklasisty) i strefy licznika
+│  ├─ exam-logic.js      liczenie wyrazów (reguły egzaminu ósmoklasisty), strefy licznika, „Moje egzaminy” (myExams), daty po polsku
+│  ├─ exam-ui.js         karta daty egzaminu, okładki (pełna, kompaktowa, mini), przypinanie, sekcja „Twoje egzaminy”
 │  ├─ writing-trainer.js wspólny silnik trenera pisania (C1, E8)
 │  ├─ niezbednik.js      podstrony niezbędnika: routing #/a1/…, dopasowanie, widok
 │  ├─ render.js          rysowanie lewego panelu i strony poziomu

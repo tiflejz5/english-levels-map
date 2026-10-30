@@ -176,7 +176,7 @@ window.ELM = window.ELM || {};
       el("span", { class: "sb-icon", "aria-hidden": "true" }, el("span", { class: "exam-chip-badge", text: "C1" })),
       el("span", { class: "sb-label" }, [
         el("span", { class: "sb-label-title", text: manifest.label }),
-        el("span", { class: "sb-label-sub", text: "C1 Advanced · przygotowanie" })
+        el("span", { class: "sb-label-sub", text: ELM.examMy.navSub(examEntry()) })
       ])
     ]));
 
@@ -294,36 +294,8 @@ window.ELM = window.ELM || {};
     return "Egzamin był " + (-d) + " " + plural(-d, "dzień", "dni", "dni") + " temu.";
   }
 
-  function countdownCard() {
-    const s = storeData();
-    const number = el("span", { class: "c1-countdown-number" });
-    const text = el("span", { class: "c1-countdown-text" });
-    const input = el("input", {
-      type: "date",
-      id: "c1-exam-date",
-      class: "field c1-date",
-      value: s.examDate,
-      onchange: function () {
-        s.examDate = input.value;
-        saveStore();
-        update();
-      }
-    });
-    function update() {
-      const d = daysUntil(s.examDate);
-      number.textContent = d !== null && d > 1 ? String(d) : "";
-      number.hidden = !(d !== null && d > 1);
-      text.textContent = d !== null && d > 1 ? plural(d, "dzień do egzaminu", "dni do egzaminu", "dni do egzaminu") : countdownText(s.examDate);
-    }
-    update();
-    return el("section", { class: "card c1-countdown", "aria-label": "Odliczanie do egzaminu" }, [
-      el("div", { class: "c1-countdown-main", "aria-live": "polite" }, [number, text]),
-      el("div", { class: "c1-countdown-date" }, [
-        el("label", { class: "field-label", for: "c1-exam-date", text: "Data egzaminu" }),
-        input
-      ])
-    ]);
-  }
+  /** Wpis C1 w rejestrze egzaminów (kolory, podtytuł, id zestawów). */
+  function examEntry() { return ELM.examMy.byId("certyfikat-c1"); }
 
   // =====================================================================
   // STRONY .md ZAKŁADKI
@@ -377,7 +349,7 @@ window.ELM = window.ELM || {};
       ELM.notes ? ELM.notes.button("c1:" + id, { title: "C1 · " + (doc.meta.title || found.page.label), route: location.hash }) : null
     ]));
     const article = el("article", { class: "md c1-page" }, ELM.markdown.render(doc.blocks, { hiddenSections: HIDDEN_SECTIONS }));
-    if (id === "przeglad") insertAfterIntro(article, countdownCard());
+    if (id === "przeglad") insertAfterIntro(article, el("div", { class: "exam-overview-top" }, [ELM.examDate.cardFor(examEntry()), ELM.examCover.pinButton(examEntry())]));
     wireTasks(article, id);
     if (ELM.callouts) ELM.callouts.apply(article);
     view.appendChild(article);
@@ -423,7 +395,7 @@ window.ELM = window.ELM || {};
     view.className = "view c1-view";
     view.dataset.file = routeKey(route);
     view.replaceChildren();
-    // Na stronie przeglądu liczbę dni pokazuje karta z datą egzaminu — w nagłówku bez powtórzenia
+    // Strona przeglądu: pełna okładka (data jest w karcie pod wstępem); podstrony: okładka kompaktowa
     if (data()) view.appendChild(masthead(!(route.kind === "page" && route.id === "przeglad")));
 
     let title = null;
@@ -450,28 +422,7 @@ window.ELM = window.ELM || {};
    * (bez logo i grafik Cambridge) i duża liczba dni do egzaminu.
    */
   function masthead(withCount) {
-    const s = storeData();
-    const days = daysUntil(s.examDate);
-    let count;
-    if (days !== null && days > 0) {
-      count = el("a", { class: "c1-masthead-count", href: BASE }, [
-        el("span", { class: "c1-masthead-days num", text: String(days) }), " ",
-        el("span", { class: "c1-masthead-unit", text: plural(days, "dzień", "dni", "dni") + " do egzaminu" })
-      ]);
-    } else if (days !== null) {
-      count = el("p", { class: "c1-masthead-note", text: countdownText(s.examDate) });
-    } else {
-      count = el("a", { class: "c1-masthead-note", href: BASE }, "Ustaw datę egzaminu");
-    }
-    if (!withCount) count = null;
-    return el("header", { class: "c1-masthead" }, [
-      el("a", { class: "c1-wordmark", href: BASE }, [
-        el("span", { class: "c1-wordmark-main", text: "C1 Advanced" }), " ",
-        el("span", { class: "c1-wordmark-sub", text: "przygotowanie" }),
-        el("span", { class: "visually-hidden", text: " – przegląd egzaminu" })
-      ]),
-      count
-    ]);
+    return ELM.examCover[withCount ? "compact" : "full"](examEntry());
   }
 
   // =====================================================================
@@ -503,28 +454,6 @@ window.ELM = window.ELM || {};
       })) : null,
       link.note ? el("p", { class: "c1-exam-box-note" }, ELM.markdown.inline(link.note)) : null,
       exercises.length ? el("ul", { class: "c1-exam-box-links" }, exercises) : null
-    ]);
-  }
-
-  // =====================================================================
-  // KAFELEK NA STRONIE GŁÓWNEJ
-  // =====================================================================
-
-  function homeTile() {
-    const d = data();
-    if (!d) return null;
-    const s = storeData();
-    const sets = Object.keys(d.exercises).length;
-    const days = daysUntil(s.examDate);
-    return el("a", { class: "card c1-home-tile", href: BASE }, [
-      el("span", { class: "c1-badge c1-badge-lg", "aria-hidden": "true", text: "C1" }),
-      el("span", { class: "c1-home-tile-body" }, [
-        el("span", { class: "c1-home-tile-title", text: d.manifest.label }),
-        el("span", { class: "c1-home-tile-text", text: d.manifest.title + ": strony o każdej części egzaminu, " + sets +
-          " zestawów Use of English oraz trening Writing i Speaking." }),
-        days !== null ? el("span", { class: "c1-home-tile-count", text: countdownText(s.examDate) }) : null
-      ]),
-      el("span", { class: "c1-home-tile-arrow", "aria-hidden": "true" }, ELM.icon("chevron-right", { size: 22 }))
     ]);
   }
 
@@ -668,7 +597,6 @@ window.ELM = window.ELM || {};
     daysUntil: daysUntil,
     countdownText: countdownText,
     examBoxFor: examBoxFor,
-    homeTile: homeTile,
     insertAfterIntro: insertAfterIntro,
     insertExamBoxes: insertExamBoxes,
     examBoxAnchor: examBoxAnchor,

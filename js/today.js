@@ -220,21 +220,6 @@ window.ELM = window.ELM || {};
     ]);
   }
 
-  function examTile() {
-    if (!ELM.c1) return null;
-    const date = ELM.c1.store.data().examDate;
-    const days = ELM.c1.daysUntil(date);
-    if (days === null) return null;
-    const d = dateOf(date);
-    return el("a", { class: "card bento-tile bento-exam", href: ELM.c1.BASE, "aria-label": "Egzamin C1 Advanced: " + ELM.c1.countdownText(date) + ". Przejdź do zakładki Certyfikat C1." }, [
-      el("p", { class: "tile-title exam-title" }, [el("span", { class: "c1-chip-badge exam-badge", "aria-hidden": "true", text: "C1" }), "Egzamin"]),
-      days > 1
-        ? el("p", { class: "tile-big" }, [bigNumber(days, "exam-number"), el("span", { class: "tile-unit", text: plural(days, "dzień", "dni", "dni") + " do egzaminu" })])
-        : el("p", { class: "exam-text", text: ELM.c1.countdownText(date) }),
-      el("p", { class: "exam-date", text: d.getDate() + " " + MONTHS[d.getMonth()] + " " + d.getFullYear() })
-    ]);
-  }
-
   /** Wiersz listy „Na skróty”: ikona, tytuł, opis, chevron. Element to <a> albo <button>. */
   function shortcutRow(tag, attrs, icon, title, desc) {
     return el("li", null, el(tag, Object.assign({ class: "row" }, attrs), [
@@ -414,18 +399,18 @@ window.ELM = window.ELM || {};
     const today = learn().today();
     const streak = learn().streak(pd().activityDays(), today);
     const due = pd().dueCount();
-    const exam = examTile();
+    const exams = ELM.examCover ? ELM.examCover.todayTiles() : []; // moje egzaminy (maks. 2), najbliższa data pierwsza
     const trail = trailTile(stats);
 
     view.className = "view tool-view today-view";
     view.dataset.file = HASH;
-    view.replaceChildren(el("div", { class: "bento" + (exam ? " has-exam" : "") }, [
+    view.replaceChildren(el("div", { class: "bento" + (exams.length ? " has-exam" : "") }, [
       heroTile(stats, streak, due),
       reviewsTile(due),
       ELM.levelFinal ? ELM.levelFinal.todayTip(stats) : null, // „Gotowy na test końcowy A1?” przy ≥ 70% „Umiem”
       trail,
       streakTile(),
-      exam,
+      exams,
       shortcutsTile(),
       ELM.fiszki ? ELM.fiszki.todayTile() : null // kafelek „Fiszki do powtórki” (spec 10, 5.5)
     ]));
