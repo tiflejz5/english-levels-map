@@ -1,0 +1,436 @@
+{
+  "id": "trening-mowienie",
+  "version": 1,
+  "format": "simple",
+  "note": "Na egzaminie ósmoklasisty nie ma części ustnej. To trening, który pomaga w pisaniu i w szkole.",
+  "criteria": [
+    {
+      "id": "zdania",
+      "label": "Odpowiadam pełnym zdaniem",
+      "hint": "Nie jednym słowem: „I like pizza because…”."
+    },
+    {
+      "id": "rozwiniecie",
+      "label": "Dodaję powód lub przykład",
+      "hint": "because, for example, so"
+    },
+    {
+      "id": "plynnosc",
+      "label": "Mówię bez długich przerw",
+      "hint": "Gdy brakuje słowa, opisz je innymi."
+    }
+  ],
+  "cards": [
+    {
+      "id": "e8m-pokoj",
+      "topic": "Dom",
+      "kind": "opis",
+      "task": "Opisz swój pokój i powiedz, co chciałbyś w nim zmienić.",
+      "questions": [
+        "What is there in your room?",
+        "What do you like doing in your room?",
+        "What would you like to change in it? Why?"
+      ],
+      "usefulPhrases": [
+        "There is / There are …",
+        "next to / opposite / under",
+        "I'd like to have …"
+      ],
+      "seconds": 60
+    },
+    {
+      "id": "e8m-sklep",
+      "topic": "Zakupy",
+      "kind": "sytuacja",
+      "task": "Kupiłeś bluzę, ale jest za mała. Wracasz do sklepu. Co mówisz sprzedawcy?",
+      "questions": [
+        "What's the problem with the hoodie?",
+        "Would you like a different size or your money back?"
+      ],
+      "usefulPhrases": [
+        "I bought this … yesterday, but …",
+        "Could I change it for …?",
+        "Here's the receipt."
+      ],
+      "seconds": 60
+    },
+    {
+      "id": "e8m-wakacje",
+      "topic": "Podróże",
+      "kind": "opinia",
+      "task": "Wolisz wakacje nad morzem czy w górach? Powiedz dlaczego.",
+      "questions": [
+        "Where do you prefer to spend your holidays?",
+        "What can you do there?",
+        "Where would you like to go next summer?"
+      ],
+      "usefulPhrases": [
+        "I prefer … because …",
+        "It's more … than …",
+        "Next summer I'm going to …"
+      ],
+      "seconds": 90
+    },
+    {
+      "id": "e8m-szkola-dzien",
+      "topic": "Szkoła",
+      "kind": "opis",
+      "task": "Opowiedz, jak wygląda twój zwykły dzień w szkole.",
+      "questions": [
+        "What time do your lessons start?",
+        "What subjects do you have on Monday?",
+        "What do you do at break?"
+      ],
+      "usefulPhrases": [
+        "First, … then …",
+        "My favourite lesson is …",
+        "At break I usually …"
+      ],
+      "seconds": 60
+    },
+    {
+      "id": "e8m-weekend",
+      "topic": "Czas wolny",
+      "kind": "opis",
+      "task": "Opowiedz, co robiłeś w zeszły weekend.",
+      "questions": [
+        "What did you do on Saturday?",
+        "Who did you spend time with?",
+        "Did you enjoy your weekend? Why?"
+      ],
+      "usefulPhrases": [
+        "Last weekend I …",
+        "We went to …",
+        "It was great / boring."
+      ],
+      "seconds": 90
+    },
+    {
+      "id": "e8m-ulubiony-posilek",
+      "topic": "Jedzenie",
+      "kind": "opis",
+      "task": "Opisz swój ulubiony posiłek i powiedz, kto go zwykle przygotowuje.",
+      "questions": [
+        "What is your favourite meal?",
+        "What is in it?",
+        "Who usually cooks it?"
+      ],
+      "usefulPhrases": [
+        "There is / are … in it.",
+        "It tastes …",
+        "My mum / dad usually cooks it."
+      ],
+      "seconds": 60
+    },
+    {
+      "id": "e8m-najlepszy-przyjaciel",
+      "topic": "Rodzina i przyjaciele",
+      "kind": "opis",
+      "task": "Opisz swojego najlepszego przyjaciela lub przyjaciółkę.",
+      "questions": [
+        "What does your friend look like?",
+        "What is he or she like?",
+        "What do you do together?"
+      ],
+      "usefulPhrases": [
+        "He / She has got …",
+        "He / She is very …",
+        "We often play / go / watch …"
+      ],
+      "seconds": 90
+    },
+    {
+      "id": "e8m-moje-miasto",
+      "topic": "Miasto",
+      "kind": "opis",
+      "task": "Opisz miejscowość, w której mieszkasz, i powiedz, co w niej lubisz.",
+      "questions": [
+        "Is your town big or small?",
+        "What places are there in your town?",
+        "What do you like about it?"
+      ],
+      "usefulPhrases": [
+        "I live in …",
+        "There is a … near my house.",
+        "I like it because …"
+      ],
+      "seconds": 60
+    },
+    {
+      "id": "e8m-swieta",
+      "topic": "Święta",
+      "kind": "opis",
+      "task": "Opowiedz, jak spędzasz Boże Narodzenie lub inne święto w twojej rodzinie.",
+      "questions": [
+        "Which celebration do you like best, for example Christmas or Easter?",
+        "What do you do with your family?",
+        "What special food do you eat?"
+      ],
+      "usefulPhrases": [
+        "We usually …",
+        "On Christmas Eve we …",
+        "At Easter we …",
+        "My grandma makes …"
+      ],
+      "seconds": 90
+    },
+    {
+      "id": "e8m-pogoda-wczoraj",
+      "topic": "Pogoda",
+      "kind": "opis",
+      "task": "Opisz, jaka była wczoraj pogoda, i powiedz, co robiłeś.",
+      "questions": [
+        "What was the weather like yesterday?",
+        "What did you wear?",
+        "Did you stay at home or go out? What did you do?"
+      ],
+      "usefulPhrases": [
+        "It was sunny / rainy / windy.",
+        "It was quite cold.",
+        "Because of the weather I …"
+      ],
+      "seconds": 60
+    },
+    {
+      "id": "e8m-lekarz",
+      "topic": "Zdrowie",
+      "kind": "sytuacja",
+      "task": "Źle się czujesz i jesteś u lekarza. Powiedz, co ci jest, i zapytaj, co robić.",
+      "questions": [
+        "What's the matter?",
+        "How long have you felt like this?",
+        "Do you have a temperature?"
+      ],
+      "usefulPhrases": [
+        "I've got a headache / a sore throat.",
+        "It started two days ago.",
+        "What should I do?"
+      ],
+      "seconds": 60
+    },
+    {
+      "id": "e8m-dworzec",
+      "topic": "Podróże",
+      "kind": "sytuacja",
+      "task": "Jesteś na dworcu. Chcesz kupić bilet do Krakowa. Porozmawiaj z kasjerem.",
+      "questions": [
+        "Where would you like to go?",
+        "Single or return ticket?",
+        "When would you like to travel?"
+      ],
+      "usefulPhrases": [
+        "A single / return ticket to Kraków, please.",
+        "How much is it?",
+        "Which platform does it leave from?"
+      ],
+      "seconds": 60
+    },
+    {
+      "id": "e8m-restauracja",
+      "topic": "Jedzenie",
+      "kind": "sytuacja",
+      "task": "Jesteś w restauracji. Zamów obiad i napój, a potem poproś o rachunek.",
+      "questions": [
+        "What would you like to eat?",
+        "What would you like to drink?",
+        "Is that everything?"
+      ],
+      "usefulPhrases": [
+        "I'd like … , please.",
+        "Could I have the bill, please?",
+        "It was delicious."
+      ],
+      "seconds": 60
+    },
+    {
+      "id": "e8m-droga",
+      "topic": "Miasto",
+      "kind": "sytuacja",
+      "task": "Jesteś w obcym mieście. Zapytaj przechodnia, jak dojść do poczty.",
+      "questions": [
+        "Where do you want to go?",
+        "Do you know the name of the street?",
+        "Are you walking or going by bus?"
+      ],
+      "usefulPhrases": [
+        "Excuse me, how do I get to the post office?",
+        "Is it far from here?",
+        "Could you say that again, please?",
+        "Thanks for your help."
+      ],
+      "seconds": 60
+    },
+    {
+      "id": "e8m-zaproszenie",
+      "topic": "Rodzina i przyjaciele",
+      "kind": "sytuacja",
+      "task": "Zapraszasz kolegę na urodziny. Powiedz, kiedy i gdzie będzie impreza, i co on może przynieść.",
+      "questions": [
+        "When is your party?",
+        "Where is it going to be?",
+        "What can I bring?"
+      ],
+      "usefulPhrases": [
+        "Would you like to come to …?",
+        "It's going to be at …",
+        "Can you bring …?"
+      ],
+      "seconds": 60
+    },
+    {
+      "id": "e8m-telefon",
+      "topic": "Technologia",
+      "kind": "sytuacja",
+      "task": "Twój telefon przestał działać. Wyjaśnij problem pracownikowi serwisu.",
+      "questions": [
+        "What is wrong with your phone?",
+        "When did the problem start?",
+        "Did you drop it or get it wet?"
+      ],
+      "usefulPhrases": [
+        "My phone doesn't work.",
+        "The screen is broken.",
+        "How long will it take?"
+      ],
+      "seconds": 60
+    },
+    {
+      "id": "e8m-spoznienie",
+      "topic": "Szkoła",
+      "kind": "sytuacja",
+      "task": "Spóźniłeś się na lekcję. Przeproś nauczyciela i wyjaśnij, dlaczego.",
+      "questions": [
+        "Why are you late?",
+        "How do you usually get to school?",
+        "Will it happen again?"
+      ],
+      "usefulPhrases": [
+        "I'm sorry I'm late.",
+        "My bus was late.",
+        "It won't happen again."
+      ],
+      "seconds": 60
+    },
+    {
+      "id": "e8m-sport-opinia",
+      "topic": "Sport",
+      "kind": "opinia",
+      "task": "Wolisz uprawiać sport sam czy w drużynie? Uzasadnij odpowiedź.",
+      "questions": [
+        "Do you prefer team sports or individual sports?",
+        "Why do you think so?",
+        "What sport do you do now?"
+      ],
+      "usefulPhrases": [
+        "I think … is better because …",
+        "In a team you can …",
+        "I play … twice a week."
+      ],
+      "seconds": 90
+    },
+    {
+      "id": "e8m-technologia-opinia",
+      "topic": "Technologia",
+      "kind": "opinia",
+      "task": "Czy młodzi ludzie spędzają za dużo czasu przed telefonem? Powiedz, co o tym myślisz.",
+      "questions": [
+        "How much time do you spend on your phone?",
+        "What do you use it for?",
+        "Is it a problem? Why?"
+      ],
+      "usefulPhrases": [
+        "I spend about … hours a day.",
+        "I think it's a problem because …",
+        "We should use it less."
+      ],
+      "seconds": 90
+    },
+    {
+      "id": "e8m-szkola-opinia",
+      "topic": "Szkoła",
+      "kind": "opinia",
+      "task": "Jaki przedmiot szkolny lubisz najbardziej, a jaki najmniej? Wyjaśnij dlaczego.",
+      "questions": [
+        "What is your favourite subject? Why?",
+        "Which subject do you like least? Why?",
+        "How do you study for tests?"
+      ],
+      "usefulPhrases": [
+        "I like … best because …",
+        "… is harder than …",
+        "It's useful for my future."
+      ],
+      "seconds": 90
+    },
+    {
+      "id": "e8m-jedzenie-opinia",
+      "topic": "Jedzenie",
+      "kind": "opinia",
+      "task": "Wolisz jeść w domu czy w restauracji? Powiedz dlaczego.",
+      "questions": [
+        "Where do you prefer to eat?",
+        "Why is it better?",
+        "What is your favourite restaurant?"
+      ],
+      "usefulPhrases": [
+        "I prefer eating at home / in a restaurant.",
+        "It's cheaper / healthier.",
+        "I enjoy trying new food."
+      ],
+      "seconds": 90
+    },
+    {
+      "id": "e8m-pogoda-opinia",
+      "topic": "Pogoda",
+      "kind": "opinia",
+      "task": "Jaka jest twoja ulubiona pora roku? Powiedz, dlaczego ją lubisz.",
+      "questions": [
+        "What is your favourite season?",
+        "What is the weather like then?",
+        "What do you like doing in that season?"
+      ],
+      "usefulPhrases": [
+        "My favourite season is …",
+        "In summer it's hot and …",
+        "I love … when it's …"
+      ],
+      "seconds": 90
+    },
+    {
+      "id": "e8m-czas-wolny-opinia",
+      "topic": "Czas wolny",
+      "kind": "opinia",
+      "task": "Wolisz spędzać wolny czas w domu czy na dworze? Wyjaśnij swój wybór.",
+      "questions": [
+        "Do you prefer spending free time at home or outdoors?",
+        "Why do you like it?",
+        "What are you going to do this Saturday?"
+      ],
+      "usefulPhrases": [
+        "I'd rather stay at home because …",
+        "I prefer being outdoors because …",
+        "Outside you can …",
+        "This Saturday I'm going to …"
+      ],
+      "seconds": 90
+    },
+    {
+      "id": "e8m-swieta-opinia",
+      "topic": "Święta",
+      "kind": "opinia",
+      "task": "Czy lepiej dawać prezenty, czy dostawać je? Powiedz, co sądzisz.",
+      "questions": [
+        "Do you prefer giving or getting presents? Why?",
+        "What was the best present you got?",
+        "What are you going to buy for your family?"
+      ],
+      "usefulPhrases": [
+        "I enjoy giving presents because …",
+        "Getting presents is nice, but …",
+        "The best present was …",
+        "I'm going to buy … for …"
+      ],
+      "seconds": 90
+    }
+  ]
+}

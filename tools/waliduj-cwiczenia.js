@@ -431,7 +431,7 @@ if (reg) {
         if (ex.existing) return;
         const T = readJson(dir + "/" + tr.file);
         if (!T) { err(at + ": brak trenera " + tr.file); return; }
-        if (tr.type === "speaking") { checkSpeaking(T, at + " trener Speaking"); return; }
+        if (tr.type === "speaking") return; // dane trenerów mówienia: tools/waliduj-mowienie.js (paczka v6, spec 18)
         if (!Array.isArray(T.wordRange) || T.wordRange.length !== 2) err(at + ": trener bez wordRange");
         if (T.rubric != null && !(Array.isArray(T.rubric) && T.rubric.length && T.rubric.every(function (r) { return nonEmpty(r.id) && nonEmpty(r.label) && Number.isInteger(r.max) && r.max > 0; }))) err(at + ": rubric — lista { id, label, max > 0 }");
         (T.tasks || []).forEach(function (t) {

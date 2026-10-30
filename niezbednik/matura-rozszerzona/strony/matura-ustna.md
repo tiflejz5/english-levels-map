@@ -26,3 +26,9 @@ summary: Jak wygląda egzamin ustny z angielskiego i jak go ćwiczyć.
 ## Ćwiczenie w domu
 
 Nagraj 1–2 minuty telefonem, odsłuchaj, poprawiając płynność i różnorodność słów. Nagranie zostaje na Twoim telefonie.
+
+## Trener matury ustnej
+
+Matura ustna jest jedna dla poziomu podstawowego i rozszerzonego, więc trener (rozmowa wstępna i trzy zadania, losowanie kart, nagrywanie, tryb „Cały egzamin”) jest w module matury podstawowej. Czasy są orientacyjne, a aktualny przebieg i punktację sprawdź w informatorze CKE.
+
+[Otwórz trener matury ustnej](#/matura-podstawowa/trening-mowienie)

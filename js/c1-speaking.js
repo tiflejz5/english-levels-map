@@ -5,7 +5,7 @@
  *         timer 60 s, potem pytanie do partnera z timerem 30 s.
  * Part 3: pytanie w środku i 5 haseł wokół (jak w arkuszu), timer 120 s,
  *         decyzja z timerem 60 s, pod spodem pytania Part 4 (timer 5 min).
- * „Nagraj się”: MediaRecorder, odtwarzanie tylko lokalnie — nic nie jest wysyłane.
+ * „Nagraj się”: wspólny moduł js/recorder.js (do 3 prób, odtwarzanie i pobieranie tylko lokalnie — nic nie jest wysyłane).
  */
 window.ELM = window.ELM || {};
 
@@ -18,65 +18,6 @@ window.ELM = window.ELM || {};
   const ui = { part: "2", index: { "2": 0, "3": 0 } }; // wybór zapamiętany do końca wizyty
 
   function c1() { return ELM.c1; }
-
-  // =====================================================================
-  // NAGRYWANIE (lokalnie, bez wysyłania)
-  // =====================================================================
-
-  let recording = null; // { recorder, stream, chunks }
-  let lastUrl = null;
-
-  function recorderBox() {
-    const status = el("p", { class: "c1-rec-status", "aria-live": "polite" });
-    const player = el("div", { class: "c1-rec-player" });
-    const button = el("button", { type: "button", class: "btn btn-secondary" }, ELM.ui.withIcon("mic", "Nagraj się"));
-
-    function setIdle(message) {
-      button.replaceChildren.apply(button, ELM.ui.withIcon("mic", "Nagraj się"));
-      button.classList.remove("is-recording");
-      if (message !== undefined) status.textContent = message;
-    }
-
-    button.addEventListener("click", function () {
-      if (recording) { recording.recorder.stop(); return; }
-      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || typeof window.MediaRecorder === "undefined") {
-        status.textContent = "Ta przeglądarka nie obsługuje nagrywania (albo strona nie ma do niego dostępu w tym trybie).";
-        return;
-      }
-      navigator.mediaDevices.getUserMedia({ audio: true }).then(function (stream) {
-        const recorder = new MediaRecorder(stream);
-        const chunks = [];
-        recording = { recorder: recorder, stream: stream };
-        recorder.addEventListener("dataavailable", function (e) { if (e.data && e.data.size) chunks.push(e.data); });
-        recorder.addEventListener("stop", function () {
-          stream.getTracks().forEach(function (t) { t.stop(); });
-          recording = null;
-          if (lastUrl) URL.revokeObjectURL(lastUrl);
-          lastUrl = URL.createObjectURL(new Blob(chunks, { type: recorder.mimeType || "audio/webm" }));
-          player.replaceChildren(el("audio", { controls: true, src: lastUrl }));
-          setIdle("Nagranie jest tylko w tej karcie przeglądarki – nic nie zostało wysłane.");
-        });
-        recorder.start();
-        button.replaceChildren.apply(button, ELM.ui.withIcon("square", "Zatrzymaj nagrywanie"));
-        button.classList.add("is-recording");
-        status.textContent = "Nagrywanie…";
-      }).catch(function (err) {
-        const denied = err && (err.name === "NotAllowedError" || err.name === "SecurityError");
-        setIdle(denied
-          ? "Brak zgody na mikrofon. Zezwól na dostęp w ustawieniach przeglądarki, żeby się nagrać."
-          : "Nie udało się włączyć mikrofonu (" + (err && err.name ? err.name : "błąd") + ").");
-      });
-    });
-
-    return el("section", { class: "card c1-rec", "aria-label": "Nagrywanie" }, [
-      el("div", { class: "c1-rec-row" }, [
-        button,
-        el("span", { class: "c1-rec-hint", text: "Opcjonalnie: nagraj swoją odpowiedź i odsłuchaj. Nagranie nie opuszcza tej przeglądarki." })
-      ]),
-      status,
-      player
-    ]);
-  }
 
   // =====================================================================
   // PART 2
@@ -170,7 +111,8 @@ window.ELM = window.ELM || {};
     ]));
 
     view.appendChild(ui.part === "2" ? renderPart2(task, S.timers) : renderPart3(task, S.timers));
-    view.appendChild(recorderBox());
+    ELM.recorder.destroyAll();
+    view.appendChild(ELM.recorder.create({ exam: "certyfikat-c1", card: task.id + "-part" + ui.part }).node);
     const page = c1().findPage("speaking");
     if (page) view.appendChild(el("p", { class: "c1-back" }, el("a", { href: c1().hrefPage("speaking") }, ["Zwroty i kryteria oceny: " + page.page.label, ELM.icon("chevron-right", { size: 16 })])));
     return "Trening Speaking";

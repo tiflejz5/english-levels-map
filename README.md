@@ -9,7 +9,7 @@ Czysty HTML + CSS + JavaScript. Bez frameworków i bez kroku budowania; npm słu
 - **Poziomy A1–C2** w lewym panelu z paskiem postępu. Każdy poziom ma trzy kategorie (Gramatyka i czasy, Funkcje komunikacyjne, Słownictwo), listę **Essentials** z polem „Umiem” i **podsumowanie poziomu**.
 - **Podstrony niezbędnika** (110 punktów): zasada, tabele, przykłady, typowe błędy, ćwiczenie z ukrytymi odpowiedziami.
 - **Strona główna** z opisem i tabelą poziomów.
-- **Certyfikat C1:** strategie do każdej części egzaminu, 19 zestawów Use of English, które sprawdzają się same, trener Writing (timer, licznik słów) i trener Speaking (timery, nagrywanie).
+- **Certyfikat C1:** strategie do każdej części egzaminu, 19 zestawów Use of English, które sprawdzają się same, trener Writing (timer, licznik słów) i trener Speaking (timery, nagrywanie). Trener mówienia jest też dla matury ustnej i B2 First, a dla E8 jako trening dodatkowy.
 - **Dziś** (`#/dzis`, na górze lewego panelu): powtórki na dziś, seria nauki („Dni z rzędu”, „Najdłuższa seria”), ostatnie 7 dni, postęp na poziomach A1–C2, „Kontynuuj” (ostatnio otwarta podstrona), odliczanie do egzaminu C1 i skrót „Dodaj błąd”.
 - **Szybki test poziomu** (`#/test-poziomu`): 12 pytań adaptacyjnych z puli 60 (gramatyka, słownictwo, czytanie), szacowany poziom (orientacyjnie), lista błędnych pytań z linkami do niezbędnika.
 - **Dziennik błędów** (`#/bledy`) z powtórkami po 1, 3 i 7 dniach (`#/bledy/powtorki`) i plakietką liczby powtórek na dziś. Błędy z ćwiczeń Certyfikatu C1 i z testu poziomu można dodać jednym przyciskiem.
@@ -184,6 +184,20 @@ Specyfikacja: `docs/rozbudowa-v6/spec/17-pisanie-wzorce-i-zwroty.md` (sekcja 2).
 - **Walidacja:** `node tools/waliduj-zwroty.js` (część `npm run validate` i `npm run build`; te same reguły co część `zwroty` w `docs/rozbudowa-v6/scripts/validate_v6.py`): min. 14 grup, 8–14 zwrotów w grupie, 140–180 razem, unikalne id i `en`, poprawne listy gatunków, poziomów i rejestrów.
 - **Dodawanie zwrotów:** dopisz je w `zwroty.json` (kolejny numer `<grupa>-NN`; nie zmieniaj istniejących id – to klucze ulubionych), uruchom `npm run build` i zwiększ `?v=…` w `index.html`.
 
+## Trener mówienia: matura ustna, B2 i trening E8 (rozbudowa v6, etap 10)
+
+Specyfikacja: `docs/rozbudowa-v6/spec/18-trener-mowienia.md`. Jeden silnik (`js/speaking-trainer.js`) obsługuje trzy formaty danych `trening/mowienie.json` (pole `format`).
+
+- **Adresy:** `#/matura-podstawowa/trening-mowienie` (trener matury ustnej; matura ustna jest jedna dla poziomu podstawowego i rozszerzonego, więc dane są w module MP, a matura rozszerzona ma link na stronie „Matura ustna”), `#/certyfikat-b2/trening-mowienie` (B2 First Speaking), `#/egzamin-osmoklasisty/trening-mowienie` („Mówienie A2 – trening dodatkowy”; **na egzaminie ósmoklasisty nie ma części ustnej**, co trener i strona przeglądu mówią wprost). C1 ma osobny trener (`js/c1-speaking.js`).
+- **Formaty:** `"matura"` (`intro`: 10 grup × 3–4 pytania; `roleplay`, `picture`, `choice`: po 12 kart; karta roleplay: `situation`, 4 × `elements`, 4–6 × `examinerLines`, `usefulPhrases`; picture: opis ilustracji 40–80 słów i 3 pytania; choice: 3 opcje, 2 kryteria, 2 pytania), `"simple"` (`cards`: 24 karty `opis` / `sytuacja` / `opinia` po 8, 2–4 pytania, `seconds` 60–90) oraz B2 bez pola `format` (`part1`–`part4`: 10 / 14 / 10 / 10; **każda karta ma `id`**). Czasy matury są orientacyjne i edytowalne w pliku; trener nie podaje punktów CKE.
+- **Losowanie bez powtórek:** „Losuj” wybiera kartę, której profil nie widział w tym cyklu; po wyczerpaniu puli komunikat i nowy cykl. Widziane karty: opcjonalne pole `seen` w `elm_speaking_v1` (poniżej). Bez profilu licznik działa tylko do zamknięcia karty.
+- **Egzaminator czyta:** przełącznik czyta pytania i kwestie egzaminatora syntezatorem (`en-GB`, tempo 0,9, ten sam sposób co zadania słuchania); w rozmowie z odgrywaniem roli kolejne kwestie pojawiają się przyciskiem „Dalej”. Bez głosu angielskiego przełącznik jest nieaktywny.
+- **Nagrywanie:** wspólny `js/recorder.js` (C1, B2, matura, E8): Nagraj / Zatrzymaj, do 3 prób na kartę z odtwarzaczem, Usuń, Pobierz (`mowienie-<egzamin>-<karta>-<data>.webm`/`.m4a`), „Nagrywaj razem z timerem” (start timera = start nagrania, koniec czasu = stop), wskaźnik „Nagrywanie 0:23”. **Nagrania nie trafiają do localStorage ani do sieci**; znikają po zmianie karty lub widoku. Brak mikrofonu, odmowa albo brak MediaRecorder dają komunikat, a trener działa dalej.
+- **Cały egzamin (matura i B2):** losuje po jednej karcie z każdej części, prowadzi przez nie po kolei z timerami i nagrywaniem, na końcu pokazuje odsłuch nagrań i samoocenę (zapis sesji z `full: true`).
+- **Samoocena:** kryteria z pliku (matura: realizacja zadania, zakres, poprawność, wymowa i płynność; E8: pełne zdania, powód lub przykład, płynność; B2 bez zmian), 1–5, historia sesji per profil.
+- **Walidacja:** `node tools/waliduj-mowienie.js` (część `npm run validate` i `npm run build`; te same reguły co część `mowienie` w `docs/rozbudowa-v6/scripts/validate_v6.py`): unikalne id, liczby elementów, długości opisów, minimalne pule, id w B2.
+- **Dodawanie kart:** dopisz karty w `mowienie.json` (unikalne `id`, nie zmieniaj istniejących – są kluczami w `seen`), uruchom `npm run build`, zwiększ `?v=…` w `index.html`.
+
 ## Testy
 
 ```bash
@@ -226,6 +240,7 @@ Nazwa profilu: spacje na początku i końcu są obcinane, najwyżej 30 znaków, 
 | `elm_journal_v1`  | dziennik błędów **per profil**: `{ version: 1, profiles: { <id profilu>: { entries: [wpis…] } } }` |
 | `elm_activity_v1` | dni nauki **per profil**: `{ version: 1, profiles: { <id>: { days: ["RRRR-MM-DD"…], lastPage: { hash, title } } } }` |
 | `elm_leveltest_v1`| ostatni wynik testu poziomu **per profil**: `{ version: 1, profiles: { <id>: { last: { date, level, answers } } } }` |
+| `elm_speaking_v1` | historia sesji trenerów mówienia **per profil**: `{ version: 1, profiles: { <id>: { sessions: [ { day, exam, part: 1–4, scores: { <kryterium>: 1–5 }, full?: true } ], seen?: { "<egzamin>:<część>": [ "<id karty>", … ] } } } }`; `seen` (opcjonalne, maks. 40 kluczy × 200 id) to karty widziane w bieżącym cyklu losowania, `full` oznacza tryb „Cały egzamin”; stary zapis bez tych pól działa; w eksporcie, imporcie, resecie i przy usunięciu profilu |
 | `elm_phrases_v1` | ulubione zwroty z banku zwrotów **per profil** (paczka v6): `{ version: 1, profiles: { <id>: { starred: [ "opinia-05", … ] } } }`; id z `dane/pisanie/zwroty.json`, maks. 500; w eksporcie, imporcie, resecie, usunięcie profilu usuwa jego dane |
 | `elm_leveltests_v1` | testy końcowe poziomów i znaczki **per profil** (paczka v6): `{ version: 1, profiles: { <id>: { levels: { "A1": { passedAt: "RRRR-MM-DD" \| null, best: { score, total, date }, last: { score, total, date } } } } } }`; `passedAt` = dzień pierwszego zaliczenia (w eksporcie, imporcie, resecie, usunięcie profilu usuwa jego dane) |
 | `elm_exercises_v1`| wyniki zestawów ćwiczeń **per profil**: `{ version: 1, profiles: { <id>: { sets: { <id zestawu lub mixu>: { best, last, recent } }, lastMix: [id zadań…], dismissed: { <id zestawu>: dzień } } } }`, gdzie `best` / `last` = `{ score, total, date }`, `recent` — ostatnie 5 wyników (sugestia „Umiem”), `dismissed` — „Nie teraz” przy sugestii (w eksporcie, imporcie i resecie) |

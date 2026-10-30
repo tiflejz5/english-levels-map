@@ -1232,6 +1232,38 @@ test("elm_phrases_v1: eksport, import (z filtrowaniem śmieci i duplikatów), us
   assert.strictEqual(global.localStorage.getItem("elm_phrases_v1"), null);
 });
 
+console.log("\nTrener mówienia: seen w elm_speaking_v1 (paczka v6, spec 18)");
+test("elm_speaking_v1: stary zapis bez seen działa, seen jest opcjonalne, tolerancyjne i w eksporcie/imporcie/resecie", function () {
+  freshPD();
+  // stary zapis (tylko sessions) normalizuje się jak dawniej, bez pola seen
+  const old = PD.parseImport({ speaking: { version: 1, profiles: { p1: { sessions: [{ day: "2026-01-02", exam: "certyfikat-b2", part: 1, scores: { gv: 4 } }] } } } });
+  assert.deepStrictEqual(old.speaking.profiles.p1, { sessions: [{ day: "2026-01-02", exam: "certyfikat-b2", part: 1, scores: { gv: 4 } }] });
+  PD.applyImport(old, ["p1"]);
+  assert.deepStrictEqual(PD.speakingSeen("certyfikat-b2:1"), []);
+  assert.strictEqual(PD.markSpeakingSeen("certyfikat-b2:1", "p1-dom"), true);
+  assert.strictEqual(PD.markSpeakingSeen("certyfikat-b2:1", "p1-dom"), true); // bez duplikatów
+  assert.strictEqual(PD.markSpeakingSeen("certyfikat-b2:1", "p1-praca"), true);
+  assert.strictEqual(PD.markSpeakingSeen("zły klucz", "x"), false);
+  assert.strictEqual(PD.markSpeakingSeen("certyfikat-b2:1", "Zły ID"), false);
+  assert.deepStrictEqual(PD.speakingSeen("certyfikat-b2:1"), ["p1-dom", "p1-praca"]);
+  assert.strictEqual(PD.speakingSessions("certyfikat-b2").length, 1); // sesje nietknięte
+  const exp = JSON.parse(JSON.stringify(PD.exportData()));
+  assert.deepStrictEqual(exp.speaking.profiles.p1.seen, { "certyfikat-b2:1": ["p1-dom", "p1-praca"] });
+  // import odfiltrowuje śmieci
+  const parsed = PD.parseImport({ speaking: { version: 1, profiles: { p1: { sessions: [], seen: { "a:1": ["x-1", "x-1", "ŹLE", 5], "zły": ["x"], "b:2": "nie lista" } } } } });
+  assert.deepStrictEqual(parsed.speaking.profiles.p1.seen, { "a:1": ["x-1"] });
+  // sesja trybu „Cały egzamin” zachowuje full
+  const full = PD.addSpeakingSession({ exam: "matura-podstawowa", part: 1, scores: { komunikacja: 4 }, full: true });
+  assert.strictEqual(full.full, true);
+  assert.strictEqual(PD.addSpeakingSession({ exam: "matura-podstawowa", part: 2, scores: { zakres: 3 } }).full, undefined);
+  // czyszczenie cyklu
+  assert.strictEqual(PD.markSpeakingSeen("certyfikat-b2:1", null), true);
+  assert.deepStrictEqual(PD.speakingSeen("certyfikat-b2:1"), []);
+  PD.markSpeakingSeen("certyfikat-b2:2", "p2-x");
+  PD.clearAll();
+  assert.strictEqual(global.localStorage.getItem("elm_speaking_v1"), null);
+});
+
 console.log("\nEgzaminy z tagów karty (paczka v6, spec 15)");
 test("examsOf: e8, mp, mr, b2, c1; matura = MP + MR; bez powtórzeń, stała kolejność, wielkość liter bez znaczenia", function () {
   const codes = function (tags) { return FL.examsOf({ tags: tags }).map(function (e) { return e.code; }); };
