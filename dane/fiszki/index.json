@@ -48,6 +48,14 @@
       "level": "A2-B1",
       "file": "slownictwo-podstawowe.json",
       "count": 30
+    },
+    {
+      "id": "temat-dom",
+      "title": "Dom i mieszkanie",
+      "description": "Słowa i wyrażenia o domu, pokojach i obowiązkach domowych. Od A1 do B1.",
+      "level": "A1-B1",
+      "file": "temat-dom.json",
+      "count": 40
     }
   ]
 }
