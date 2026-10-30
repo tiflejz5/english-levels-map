@@ -524,34 +524,70 @@ window.ELM = window.ELM || {};
     ]));
   }
 
+  /** Odliczanie do kafelka: „15 d”, „dziś”, albo null (brak daty / po terminie). */
+  function tileDays(e) {
+    const i = ELM.examMy.info(e.id);
+    if (i.days === null || i.days < 0) return null;
+    return i.days === 0 ? "dziś" : i.days + " d";
+  }
+
+  /** Kafelek egzaminu w pasku: 44×44, kod i odliczanie w kolorach egzaminu (C1: granat i złoto). */
+  function examTile(e, here, soon) {
+    const days = soon ? null : tileDays(e);
+    const c1 = !!e.existing;
+    const style = c1 ? "--exam-accent:var(--c1-navy);--exam-accent-2:var(--c1-gold)"
+      : e.accent ? "--exam-accent:" + e.accent + ";--exam-accent-2:" + (e.accent2 || e.accent) : null;
+    const info = ELM.examMy.info(e.id);
+    const countdown = !soon && info.days !== null && info.days >= 0 ? ELM.examDate.stateText(info.days) : "";
+    return el("a", {
+      class: "sb-item exam-chip" + (c1 ? " is-c1" : "") + (soon ? " is-soon" : "") + (here ? " is-active" : ""),
+      href: base(e),
+      style: style,
+      "aria-current": here ? "page" : null,
+      "aria-label": e.label + (soon ? ", wkrótce – w trakcie pracy" : countdown ? ", " + countdown : "")
+    }, [
+      el("span", { class: "sb-icon", "aria-hidden": "true" }, el("span", { class: "exam-chip-badge is-tile" }, [
+        el("span", { class: "exam-tile-code", text: e.code }),
+        days ? el("span", { class: "exam-tile-days num", text: days }) : null
+      ])),
+      el("span", { class: "sb-label" }, [
+        el("span", { class: "sb-label-title", text: e.label }),
+        soon ? el("span", { class: "sb-label-sub" }, el("span", { class: "exam-soon-tag", text: "wkrótce" }))
+          : el("span", { class: "sb-label-sub", text: ELM.examMy.navSub(e) })
+      ])
+    ]);
+  }
+
+  /** Egzamin otwarty na ekranie (generyczny lub C1) – zostaje w pasku, nawet jeśli nie jest „mój”. */
+  function currentExamId() {
+    const st = ELM.state;
+    if (st && st.view === "exam" && st.toolRoute) return st.toolRoute.examId;
+    if (st && st.view === "c1") return "certyfikat-c1";
+    return null;
+  }
+
+  function split() {
+    return ELM.examLogic.navSplit(reg(), ELM.examMy.list().map(function (m) { return m.id; }), currentExamId());
+  }
+
   function renderNav() {
     const box = document.getElementById("exams-nav");
     if (!box) return;
     box.replaceChildren();
-    const soonBox = document.getElementById("exams-soon-nav");
+    const moreBox = document.getElementById("exams-soon-nav"); // za sekcjami C1: przycisk „+N”
+    if (moreBox) moreBox.replaceChildren();
     const route = ELM.state && ELM.state.view === "exam" ? ELM.state.toolRoute : null;
+    const sp = split();
     const list = el("ul", { class: "sb-list exam-list" });
-    const soonList = el("ul", { class: "sb-list exam-list" });
-    exams().filter(isGeneric).forEach(function (e) {
-      const here = route && route.examId === e.id;
+    sp.shown.forEach(function (id) {
+      const e = byId(id);
+      if (!e) return;
       const soon = e.status !== "active";
-      const li = el("li", null, el("a", {
-        class: "sb-item exam-chip" + (soon ? " is-soon" : "") + (here ? " is-active" : ""),
-        href: base(e),
-        style: e.accent ? "--exam-accent:" + e.accent + ";--exam-accent-2:" + (e.accent2 || e.accent) : null,
-        "aria-current": here ? "page" : null,
-        "aria-label": e.label + (soon ? ", wkrótce – w trakcie pracy" : "")
-      }, [
-        el("span", { class: "sb-icon", "aria-hidden": "true" }, el("span", { class: "exam-chip-badge", text: e.code })),
-        el("span", { class: "sb-label" }, [
-          el("span", { class: "sb-label-title", text: e.label }),
-          soon ? el("span", { class: "sb-label-sub" }, el("span", { class: "exam-soon-tag", text: "wkrótce" }))
-            : el("span", { class: "sb-label-sub", text: ELM.examMy.navSub(e) })
-        ])
-      ]));
-      (soon && soonBox ? soonList : list).appendChild(li);
-      // Sekcje aktywnego egzaminu, gdy w nim jesteśmy (tylko w rozwiniętym panelu)
-      if (here && data(e) && !soon) {
+      const here = e.existing ? ELM.state.view === "c1" : !!(route && route.examId === e.id);
+      const li = el("li", null, examTile(e, here, soon));
+      list.appendChild(li);
+      // Sekcje aktywnego egzaminu, gdy w nim jesteśmy (tylko w rozwiniętym panelu); sekcje C1 rysuje js/c1-core.js w #c1-nav
+      if (here && !e.existing && data(e) && !soon) {
         const current = sectionIdOf(e, route);
         const secs = el("div", { class: "sb-c1-sections exam-sections" });
         sections(e).forEach(function (s) {
@@ -579,11 +615,129 @@ window.ELM = window.ELM || {};
         li.appendChild(secs);
       }
     });
-    box.appendChild(el("p", { class: "sb-caption", id: "sb-exams-caption", text: "Egzaminy" }));
+    box.appendChild(el("p", { class: "sb-caption", id: "sb-exams-caption", text: sp.hidden.length ? "Moje egzaminy" : "Egzaminy" }));
     box.appendChild(list);
-    if (soonBox) {
-      soonBox.replaceChildren();
-      if (soonList.children.length) soonBox.appendChild(soonList);
+    if (moreBox && sp.hidden.length) moreBox.appendChild(moreButton(sp.hidden));
+    if (popover) refreshPopover();
+  }
+
+  // =====================================================================
+  // „+N”: popover z pozostałymi egzaminami (link + przełącznik „Przypnij”)
+  // =====================================================================
+
+  let popover = null;   // { node, ids }
+
+  function moreButton(hidden) {
+    const n = hidden.length;
+    return el("button", {
+      type: "button", class: "sb-item exam-more", id: "exam-more",
+      "aria-haspopup": "dialog", "aria-expanded": popover ? "true" : "false", "aria-controls": "exam-pop",
+      "aria-label": "Pokaż pozostałe egzaminy (" + n + ")",
+      onclick: function () { if (popover) closePopover(true); else openPopover(); }
+    }, [
+      el("span", { class: "sb-icon", "aria-hidden": "true" }, el("span", { class: "exam-more-badge num", text: "+" + n })),
+      el("span", { class: "sb-label" }, el("span", { class: "sb-label-title", text: "Pozostałe egzaminy" }))
+    ]);
+  }
+
+  function popoverRows() {
+    return popover.ids.map(function (id) {
+      const e = byId(id);
+      if (!e) return null;
+      const soon = e.status !== "active";
+      const mine = ELM.examMy.isMine(id);
+      const style = e.existing ? "--exam-accent:var(--c1-navy);--exam-accent-2:var(--c1-gold)"
+        : e.accent ? "--exam-accent:" + e.accent + ";--exam-accent-2:" + (e.accent2 || e.accent) : null;
+      const inner = [
+        el("span", { class: "exam-chip-badge", "aria-hidden": "true", text: e.code }),
+        el("span", { class: "exam-pop-label" }, [
+          el("span", { class: "exam-pop-title", text: e.label }),
+          el("span", { class: "exam-pop-sub", text: soon ? "wkrótce – w trakcie pracy" : (e.subtitle || "") })
+        ])
+      ];
+      return el("li", { class: "exam-pop-row" + (soon ? " is-soon" : ""), style: style }, [
+        soon ? el("span", { class: "exam-pop-link is-disabled" }, inner)
+          : el("a", { class: "exam-pop-link", href: base(e), onclick: function () { closePopover(false); } }, inner),
+        soon ? null : el("button", {
+          type: "button", class: "exam-pop-pin", role: "switch", "aria-checked": mine ? "true" : "false", "data-pin": id,
+          "aria-label": "Przypnij: " + e.label,
+          onclick: function () { if (mine) ELM.examMy.unpin(id); else ELM.examMy.pin(id); }
+        }, [el("span", { text: "Przypnij" }), el("span", { class: "switch-track", "aria-hidden": "true" }, el("span", { class: "switch-thumb" }))])
+      ]);
+    }).filter(Boolean);
+  }
+
+  /** Po przypięciu lub odpięciu: lista zostaje (ten sam zestaw egzaminów), fokus zostaje na przełączniku. */
+  function refreshPopover() {
+    if (!popover) return;
+    const active = document.activeElement;
+    const focused = active && active.getAttribute ? active.getAttribute("data-pin") : null;
+    const ul = popover.node.querySelector(".exam-pop-list");
+    ul.replaceChildren.apply(ul, popoverRows());
+    const btn = document.getElementById("exam-more");
+    if (btn) btn.setAttribute("aria-expanded", "true");
+    if (focused) { const again = popover.node.querySelector('[data-pin="' + focused + '"]'); if (again) again.focus(); }
+  }
+
+  function placePopover() {
+    const btn = document.getElementById("exam-more");
+    if (!popover || !btn) return;
+    const node = popover.node;
+    if (window.matchMedia("(max-width: 767px)").matches) { node.style.left = ""; node.style.top = ""; return; }
+    const r = btn.getBoundingClientRect();
+    // Przy rozwiniętym panelu (hover, fokus, pinezka) popover wychodzi zza jego prawej krawędzi, nie zza paska
+    const sb = document.getElementById("sidebar");
+    const panelRight = sb && sb.classList.contains("is-expanded") ? document.getElementById("sb-panel").getBoundingClientRect().right : r.right;
+    const expandedW = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--panel-w")) || 288;
+    const edge = sb && sb.classList.contains("is-expanded") ? Math.max(panelRight, expandedW) : r.right;
+    node.style.left = Math.round(edge + 8) + "px";
+    node.style.top = Math.max(8, Math.min(Math.round(r.top), window.innerHeight - node.offsetHeight - 8)) + "px";
+  }
+
+  function onPopoverKey(e) {
+    if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); closePopover(true); }
+  }
+
+  function closeOnRoute() { closePopover(false); }
+
+  function onPopoverOutside(e) {
+    if (!popover) return;
+    if (popover.node.contains(e.target) || (e.target.closest && e.target.closest("#exam-more"))) return;
+    closePopover(false);
+  }
+
+  function openPopover() {
+    const node = el("div", { class: "exam-pop", id: "exam-pop", role: "dialog", "aria-label": "Pozostałe egzaminy" }, [
+      el("p", { class: "exam-pop-head", text: "Pozostałe egzaminy" }),
+      el("ul", { class: "exam-pop-list" })
+    ]);
+    popover = { node: node, ids: split().hidden.slice() };
+    document.body.appendChild(node);
+    refreshPopover();
+    placePopover();
+    node.addEventListener("keydown", onPopoverKey);
+    document.addEventListener("pointerdown", onPopoverOutside, true);
+    window.addEventListener("resize", placePopover);
+    window.addEventListener("hashchange", closeOnRoute);
+    if (ELM.sidebar && ELM.sidebar.hold) ELM.sidebar.hold(true);
+    const first = node.querySelector("a, button");
+    if (first) first.focus();
+  }
+
+  /** Zamyka popover; focus=true oddaje fokus przyciskowi „+N” (albo pierwszemu kafelkowi, gdy przycisku już nie ma). */
+  function closePopover(focus) {
+    if (!popover) return;
+    popover.node.remove();
+    popover = null;
+    document.removeEventListener("pointerdown", onPopoverOutside, true);
+    window.removeEventListener("resize", placePopover);
+    window.removeEventListener("hashchange", closeOnRoute);
+    if (ELM.sidebar && ELM.sidebar.hold) ELM.sidebar.hold(false);
+    const btn = document.getElementById("exam-more");
+    if (btn) btn.setAttribute("aria-expanded", "false");
+    if (focus) {
+      const target = btn || document.querySelector("#exams-nav .exam-chip");
+      if (target) target.focus();
     }
   }
 
@@ -637,6 +791,7 @@ window.ELM = window.ELM || {};
     parseRoute: parseRoute,
     render: render,
     renderNav: renderNav,
+    closePopover: closePopover,
     examBoxesFor: examBoxesFor,
     setBack: setBack,
     byId: byId,
