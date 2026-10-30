@@ -716,7 +716,7 @@ button, input, textarea, select { font: inherit; color: inherit; }
   align-items: center;
   justify-content: center;
   gap: 8px;
-  min-height: 40px;
+  min-height: 44px;
   padding: 8px 18px;
   border: 1px solid transparent;
   border-radius: var(--radius-sm);
@@ -748,14 +748,14 @@ a.btn { text-decoration: none; }
 .btn-danger-solid { background: var(--danger-bg); color: var(--on-accent); }
 .btn-danger-solid:hover:not(:disabled) { background: var(--danger-hover); }
 
-.btn-small { min-height: 32px; padding: 5px 13px; font-size: 0.8125rem; }
+.btn-small { min-height: 44px; padding: 7px 14px; font-size: 0.8125rem; }
 
 /* Okrągłe przyciski z ikoną (motyw, edycja i usuwanie w menu profilu) */
 .icon-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 30px; height: 30px;
+  width: 44px; height: 44px;
   padding: 0;
   border: 1px solid var(--line);
   border-radius: 50%;
@@ -3970,3 +3970,12 @@ a.notes-item-title { color: var(--accent); text-decoration: underline; text-unde
 .empty-state.es-inline { padding: 8px 0; border: 0; background: none; }
 li.empty-state { list-style: none; }
 @media (max-width: 639px) { .empty-state.has-art .es-art { width: 72px; height: 72px; } }
+
+/* ===================== KONTROLA v7: cele dotyku ≥ 44 px, linki bez podkreślenia, skróty jako wiersze ===================== */
+.menu-btn { min-height: 44px; }
+.hero-cta { min-height: 44px; }
+.level-link, .c1-exam-box-title, .exam-box .exam-box-title { min-height: 44px; display: inline-flex; align-items: center; }
+a.chip-btn { text-decoration: none; }
+.exam-box .exam-box-title { text-decoration: none; }
+.exam-box .exam-box-title:hover { text-decoration: underline; }
+.bento-shortcuts { padding: 0; border: 0; background: none; box-shadow: none; }
