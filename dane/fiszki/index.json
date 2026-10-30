@@ -120,6 +120,14 @@
       "level": "B1-B2",
       "file": "egz-matura.json",
       "count": 50
+    },
+    {
+      "id": "egz-b2-first",
+      "title": "B2 First – wyrażenia",
+      "description": "Wyrażenia typowe dla zadań egzaminu B2 First (Reading and Use of English, Part 1–3): kolokacje, wyrażenia przyimkowe, czasowniki frazowe i rodziny wyrazów. Oryginalne zdania, nie z arkuszy.",
+      "level": "B2",
+      "file": "egz-b2-first.json",
+      "count": 50
     }
   ]
 }
