@@ -88,6 +88,7 @@ window.ELM = window.ELM || {};
     if (!m) return null;
     const p = (m[1] || "").replace(/\/+$/, "").split("/").filter(Boolean).map(function (x) { try { return decodeURIComponent(x); } catch (e) { return x; } });
     if (p[0] === "wzorce" && p[1] && p[2]) return { kind: "model", exam: p[1], task: p[2] };
+    if (p[0] === "zwroty") return { kind: "phrases", group: p[1] || "" };
     return { kind: "list" };
   }
 
@@ -120,6 +121,10 @@ window.ELM = window.ELM || {};
 
   function renderList(view) {
     view.appendChild(head("Pisanie – wzorcowe wypracowania", "Teksty modelowe z komentarzami na marginesie: co realizuje polecenie, jak działają łączniki i rejestr, co podnosi zakres językowy i co można zrobić lepiej."));
+    view.appendChild(el("p", { class: "card wz-phrases-link" }, [
+      el("a", { href: HASH + "/zwroty", class: "wz-card-title", text: "Bank zwrotów do pisania" }),
+      el("span", { class: "tool-note", text: " – zwroty według funkcji (opinia, kontrargument, prośby…), z filtrem poziomu, rejestru i gatunku." })
+    ]));
     const body = el("div", { class: "wz-list", "aria-live": "polite" }, el("p", { class: "tool-note", role: "status", text: "Wczytuję wzorce…" }));
     view.appendChild(body);
     examList().then(function (rows) {
@@ -177,6 +182,7 @@ window.ELM = window.ELM || {};
     view.dataset.file = HASH;
     view.replaceChildren();
     if (route.kind === "model" && ELM.pisanieWzorzec) { ELM.pisanieWzorzec.render(view, route); return; }
+    if (route.kind === "phrases" && ELM.pisanieZwroty) { ELM.pisanieZwroty.render(view, route); return; }
     document.title = "Pisanie · English Levels Map";
     renderList(view);
   }

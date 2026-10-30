@@ -31,6 +31,8 @@
  *                    — testy końcowe poziomów A1–C2 i znaczki „poziom zaliczony” (js/level-final.js, paczka v6);
  *                      passedAt = dzień pierwszego zaliczenia (znaczek zostaje po późniejszej porażce);
  *                      to NIE jest elm_leveltest_v1 (szybki test poziomu)
+ *   elm_phrases_v1   { version: 1, profiles: { <id>: { starred: [ "opinia-05", … ] } } }
+ *                    — ulubione zwroty z banku zwrotów do pisania (js/pisanie-zwroty.js, paczka v6); id zwrotu z dane/pisanie/zwroty.json
  *
  * Wpis dziennika błędów:
  *   { id, createdAt: "RRRR-MM-DD", context, myAnswer, correct, rule, source,
@@ -51,7 +53,7 @@ window.ELM = window.ELM || {};
 
   const KEYS = { journal: "elm_journal_v1", activity: "elm_activity_v1", levelTest: "elm_leveltest_v1", celebrated: "elm_celebrated_v1", exercises: "elm_exercises_v1",
     attempts: "elm_attempts_v1", autojournal: "elm_autojournal_v1", prefs: "elm_learnprefs_v1", notes: "elm_notes_v1",
-    exams: "elm_exams_v1", speaking: "elm_speaking_v1", levelTests: "elm_leveltests_v1" };
+    exams: "elm_exams_v1", speaking: "elm_speaking_v1", levelTests: "elm_leveltests_v1", phrases: "elm_phrases_v1" };
   const VERSION = 1;
 
   const CATEGORIES = ["Use of English", "Reading", "Writing", "Listening", "Speaking", "Gramatyka", "Słownictwo", "Inne"];
@@ -117,6 +119,7 @@ window.ELM = window.ELM || {};
     if (kind === "exams") return { exams: {} };
     if (kind === "speaking") return { sessions: [] };
     if (kind === "levelTests") return { levels: {} };
+    if (kind === "phrases") return { starred: [] };
     return { last: null };
   }
 
@@ -259,6 +262,16 @@ window.ELM = window.ELM || {};
       });
       return { levels: levels };
     }
+    if (kind === "phrases") {
+      const seen = {};
+      const starred = [];
+      (Array.isArray(raw.starred) ? raw.starred : []).forEach(function (id) {
+        if (typeof id !== "string" || !PHRASE_ID.test(id) || seen[id] || starred.length >= PHRASE_MAX) return;
+        seen[id] = true;
+        starred.push(id);
+      });
+      return { starred: starred };
+    }
     if (kind === "prefs") return { autoJournal: raw.autoJournal !== false, selectionMenu: raw.selectionMenu !== false, highlightWords: raw.highlightWords === true };
     if (kind === "speaking") {
       return { sessions: (Array.isArray(raw.sessions) ? raw.sessions : []).slice(-SPEAKING_MAX).map(normalizeSpeakingSession).filter(Boolean) };
@@ -287,6 +300,8 @@ window.ELM = window.ELM || {};
   }
 
   const EX_ID = /^[a-z0-9][a-z0-9-]{0,99}$/;
+  const PHRASE_ID = /^[a-z0-9][a-z0-9-]{0,59}$/;
+  const PHRASE_MAX = 500;
   const NOTE_KEY = /^[a-z0-9][a-z0-9:_-]{0,119}$/;
   const NOTE_MAX = 10000;
   const ATTEMPT_TYPES = ["multiple-choice", "reorder", "find-error", "short-answer", "gap-fill", "match", "transformation", "translate", "dictation"];
@@ -576,6 +591,28 @@ window.ELM = window.ELM || {};
     };
     save("levelTests");
     return { passed: !!res.passed, firstPass: firstPass, passedAt: rec.levels[level].passedAt, best: Object.assign({}, rec.levels[level].best), last: clean };
+  }
+
+  // ---------- Ulubione zwroty (bank zwrotów do pisania, elm_phrases_v1) ----------
+
+  /** Id ulubionych zwrotów aktywnego profilu (kopia). */
+  function starredPhrases() {
+    const pid = activeId();
+    const rec = pid ? load("phrases").profiles[pid] : null;
+    return rec ? rec.starred.slice() : [];
+  }
+
+  /** Przełącza gwiazdkę zwrotu; zwraca true, gdy zwrot jest teraz ulubiony (false także bez profilu albo przy braku miejsca). */
+  function togglePhraseStar(id) {
+    const pid = activeId();
+    if (!pid || typeof id !== "string" || !PHRASE_ID.test(id)) return false;
+    const rec = record("phrases", pid);
+    const i = rec.starred.indexOf(id);
+    if (i !== -1) { rec.starred.splice(i, 1); save("phrases"); return false; }
+    if (rec.starred.length >= PHRASE_MAX) return false;
+    rec.starred.push(id);
+    save("phrases");
+    return true;
   }
 
   /** Dzień odmowy sugestii „Umiem” dla zestawu (albo null) i zapis odmowy. */
@@ -913,6 +950,8 @@ window.ELM = window.ELM || {};
     addCelebrated: addCelebrated,
     saveTest: saveTest,
     finalResult: finalResult,
+    starredPhrases: starredPhrases,
+    togglePhraseStar: togglePhraseStar,
     passedLevels: passedLevels,
     saveFinalResult: saveFinalResult,
     setScore: setScore,

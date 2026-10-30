@@ -1193,6 +1193,45 @@ test("sanitizeState: uszkodzone dane, nieznana wersja, zbyt długie pola, przyci
   assert.strictEqual(Object.keys(s.daily)[0], "2025-01-11");
 });
 
+console.log("\nUlubione zwroty: elm_phrases_v1 (paczka v6, spec 17)");
+test("elm_phrases_v1: klucz w KEYS, gwiazdka przełącza się per profil i zapisuje w localStorage", function () {
+  assert.strictEqual(PD.KEYS.phrases, "elm_phrases_v1");
+  freshPD();
+  assert.deepStrictEqual(PD.starredPhrases(), []);
+  assert.strictEqual(PD.togglePhraseStar("opinia-05"), true);
+  assert.strictEqual(PD.togglePhraseStar("kontrargument-01"), true);
+  assert.deepStrictEqual(PD.starredPhrases(), ["opinia-05", "kontrargument-01"]);
+  assert.strictEqual(PD.togglePhraseStar("opinia-05"), false);
+  assert.deepStrictEqual(PD.starredPhrases(), ["kontrargument-01"]);
+  assert.strictEqual(PD.togglePhraseStar("Zły ID!"), false); // niepoprawne id jest odrzucane
+  assert.deepStrictEqual(JSON.parse(global.localStorage.getItem("elm_phrases_v1")).profiles.p1.starred, ["kontrargument-01"]);
+  activeProfile = "p2";
+  assert.deepStrictEqual(PD.starredPhrases(), []); // inny profil ma własne ulubione
+  activeProfile = "p1";
+});
+test("elm_phrases_v1: eksport, import (z filtrowaniem śmieci i duplikatów), usunięcie profilu i reset", function () {
+  freshPD();
+  PD.togglePhraseStar("opinia-01");
+  const exp = JSON.parse(JSON.stringify(PD.exportData()));
+  assert.deepStrictEqual(exp.phrases.profiles.p1.starred, ["opinia-01"]);
+  const parsed = PD.parseImport({ phrases: { version: 1, profiles: { p1: { starred: ["a-01", "a-01", "ŹLE", 5, "b-02"] } } } });
+  assert.deepStrictEqual(parsed.phrases.profiles.p1.starred, ["a-01", "b-02"]);
+  assert.throws(function () { PD.parseImport({ phrases: { version: 99, profiles: {} } }); }, /Nieobsługiwana wersja/);
+  PD.applyImport(parsed, ["p1"]);
+  assert.deepStrictEqual(PD.starredPhrases(), ["a-01", "b-02"]);
+  // stary plik bez klucza: dane tej przeglądarki zostają
+  const old = JSON.parse(JSON.stringify(PD.exportData()));
+  delete old.phrases;
+  PD.applyImport(PD.parseImport(old), ["p1"]);
+  assert.deepStrictEqual(PD.starredPhrases(), ["a-01", "b-02"]);
+  PD.applyImport(PD.parseImport(old), ["inny"]);
+  assert.deepStrictEqual(PD.starredPhrases(), []);
+  PD.togglePhraseStar("c-03");
+  PD.clearAll();
+  assert.deepStrictEqual(PD.starredPhrases(), []);
+  assert.strictEqual(global.localStorage.getItem("elm_phrases_v1"), null);
+});
+
 console.log("\nEgzaminy z tagów karty (paczka v6, spec 15)");
 test("examsOf: e8, mp, mr, b2, c1; matura = MP + MR; bez powtórzeń, stała kolejność, wielkość liter bez znaczenia", function () {
   const codes = function (tags) { return FL.examsOf({ tags: tags }).map(function (e) { return e.code; }); };

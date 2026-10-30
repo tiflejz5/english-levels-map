@@ -185,6 +185,29 @@ window.ELM = window.ELM || {};
     return added;
   }
 
+  /** „Do Moich słów” z banku zwrotów: zwykła karta PL → EN ({ en, pl, example?, route, title }); duplikat (ta sama fraza) → „Pokaż”. */
+  function addPhrase(p) {
+    if (!hasProfile()) { say("Dodaj profil, żeby zapisywać słowa."); return null; }
+    const phrase = String(p.en || "").replace(/\s*…\s*$/, "").replace(/\s+/g, " ").trim();
+    if (!phrase || !p.pl) return null;
+    const dup = findByWord(phrase);
+    if (dup) {
+      say("Masz już „" + phrase + "” w Moich słowach.", { actions: [{ label: "Pokaż", onClick: function () { showWord(wordOf(dup)); } }] });
+      return dup;
+    }
+    const res = L().makeCard({ type: "basic", front: p.pl, back: phrase, hint: "", example: p.example || "" });
+    if (res.error) { say(res.error); return null; }
+    Object.assign(res.card, L().sanitizeWordFields({ word: phrase, source: { route: p.route, title: p.title }, addedAt: ELM.learn.today() }));
+    ELM.fiszkiBrowse.ensureDeck(WORDS_ID, WORDS_TITLE, "words");
+    const added = ELM.fiszkiBrowse.addCard(WORDS_ID, res.card);
+    say("Dodano „" + phrase + "” do Moich słów", { actions: [
+      { label: "Cofnij", onClick: function () { ELM.fiszkiBrowse.removeCard(added.id); refreshOpenView(); } }
+    ] });
+    refreshOpenView();
+    refreshHighlights();
+    return added;
+  }
+
   // =====================================================================
   // MENU PRZY ZAZNACZENIU
   // =====================================================================
@@ -515,7 +538,7 @@ window.ELM = window.ELM || {};
   }
 
   ELM.fiszkiWords = {
-    WORDS_ID: WORDS_ID, WORDS_HASH: WORDS_HASH, info: info, addWord: addWord, addMeaning: addMeaning, addExample: addExample,
+    WORDS_ID: WORDS_ID, WORDS_HASH: WORDS_HASH, info: info, addWord: addWord, addPhrase: addPhrase, addMeaning: addMeaning, addExample: addExample,
     cards: cards, wordOf: wordOf, sentenceOf: sentenceOf, findByWord: findByWord, hideMenu: hideMenu, prefsChanged: prefsChanged,
     refreshHighlights: refreshHighlights, renderView: renderView, focusWord: focusWord, counts: counts
   };

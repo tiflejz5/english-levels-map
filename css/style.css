@@ -3784,3 +3784,58 @@ a.notes-item-title { color: var(--accent); text-decoration: underline; text-unde
 .wz-footnotes { display: none; }
 .wz-why, .wz-crit { margin: 20px 0; }
 .wz-crit table { width: 100%; max-width: 36rem; }
+/* ===================== PISANIE: bank zwrotów (paczka v6, spec 17, sekcja 2) ===================== */
+.wz-phrases-link { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 10px; margin: 12px 0 0; padding: 14px 16px; }
+.zw-root { margin-top: 12px; }
+.zw-filters { flex-direction: row; flex-wrap: wrap; align-items: flex-end; }
+.zw-filters .form-field { min-width: 9rem; }
+.zw-filters .form-field.is-grow { min-width: 14rem; }
+.zw-checks { display: flex; flex-wrap: wrap; gap: 4px 24px; margin-bottom: 8px; }
+.zw-layout { display: block; margin-top: 8px; }
+.zw-nav { margin: 0 0 16px; }
+.zw-nav-list { display: flex; gap: 8px; margin: 0; padding: 0 0 6px; list-style: none; overflow-x: auto; scroll-snap-type: x proximity; }
+.zw-nav-list a { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 6px 14px; border: 1px solid var(--line-strong, var(--line)); border-radius: var(--radius-pill); background: var(--surface); color: var(--ink); font-size: var(--fs-sm-plus); text-decoration: none; white-space: nowrap; scroll-snap-align: start; }
+.zw-nav-list a:hover { background: var(--surface-3); }
+.zw-nav-list a:focus-visible, .zw-group:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.zw-n { color: var(--ink-muted); font-size: var(--fs-xs); }
+.zw-group { margin: 0 0 28px; scroll-margin-top: 72px; }
+.zw-list { display: grid; gap: 10px; margin: 8px 0 0; padding: 0; list-style: none; }
+.zw-phrase { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; padding: 14px 16px; }
+.zw-en { margin: 0; font-size: var(--fs-md); font-weight: 700; overflow-wrap: anywhere; }
+.zw-pl { margin: 2px 0 0; color: var(--ink-muted); }
+.zw-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 0; }
+.zw-more { margin-top: 6px; }
+.zw-more summary { cursor: pointer; display: flex; align-items: center; min-height: 44px; font-weight: 600; font-size: var(--fs-sm-plus); }
+.zw-example, .zw-note { margin: 4px 0; }
+.zw-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.zw-actions .btn { min-height: 44px; }
+.zw-star.is-on { background: var(--accent-soft); border-color: var(--accent); font-weight: 650; }
+@media (min-width: 900px) {
+  .zw-layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); column-gap: 32px; align-items: start; }
+  .zw-nav { position: sticky; top: 16px; max-height: calc(100vh - 32px); margin: 0; overflow-y: auto; }
+  .zw-nav-list { flex-direction: column; gap: 2px; overflow: visible; padding: 0; }
+  .zw-nav-list a { display: flex; justify-content: space-between; border-radius: var(--radius); border-color: transparent; background: none; white-space: normal; }
+  .zw-phrase { grid-template-columns: minmax(0, 1fr) auto; align-items: start; }
+  .zw-actions { justify-content: flex-end; max-width: 260px; }
+}
+
+/* panel „Zwroty” w trenerze pisania: z boku (komputer) albo arkusz od dołu (telefon) */
+.zw-panel { position: fixed; z-index: 60; inset: auto 0 0 0; display: flex; flex-direction: column; max-height: 78vh; background: var(--surface); border: 1px solid var(--line-strong, var(--line)); border-radius: var(--radius) var(--radius) 0 0; box-shadow: 0 -8px 28px rgba(0, 0, 0, .22); }
+.zw-panel[hidden] { display: none; }
+.zw-panel-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 14px; border-bottom: 1px solid var(--line); }
+.zw-panel-title { margin: 0; font-size: var(--fs-md); }
+.zw-panel-body { padding: 10px 14px 18px; overflow-y: auto; overscroll-behavior: contain; }
+.zw-panel-group { margin: 14px 0 6px; font-size: var(--fs-sm-plus); color: var(--ink-muted); text-transform: uppercase; letter-spacing: .04em; }
+.zw-panel-list { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.zw-panel-item { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 8px; padding: 8px 10px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface-2, var(--surface)); }
+.zw-panel-en { margin: 0; font-weight: 650; overflow-wrap: anywhere; }
+.zw-panel-pl { margin: 0; color: var(--ink-muted); font-size: var(--fs-sm); }
+.zw-panel-item .btn { min-height: 44px; }
+@media (min-width: 900px) {
+  .zw-panel { inset: 72px 16px 16px auto; width: 380px; max-height: none; border-radius: var(--radius); box-shadow: 0 8px 32px rgba(0, 0, 0, .25); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .zw-panel:not([hidden]) { animation: zw-in .18s ease-out; }
+  @keyframes zw-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+}
+@media print { .zw-panel { display: none; } }
