@@ -249,6 +249,8 @@ W aplikacji nie ma żadnych wbudowanych profili. Przy pierwszym otwarciu pojawia
 
 Menu profilu otwiera się kliknięciem lub tapnięciem (na komputerze z myszą także po najechaniu; zamyka się z krótkim opóźnieniem po zjechaniu kursorem). Zamyka je klik poza menu, klawisz Esc albo wybór akcji, a fokus wraca na przycisk. Po menu można chodzić strzałkami, Home i End. Wszystkie cele dotykowe mają co najmniej 44 × 44 px, a menu nie wychodzi poza ekran.
 
+Menu ma sekcje: Profile, Ustawienia nauki (przełączniki), **Moje** (Statystyki `#/statystyki`, Moje notatki `#/notatki`, Test poziomu `#/test-poziomu`; wyszły z lewego paska, adresy bez zmian) i Dane. W lewym pasku jest jedna pozycja „Fiszki i błędy” z plakietką (dzisiejsze fiszki + powtórki z dziennika), a pod poziomami tylko „Moje egzaminy” (z datą, ukończonym zestawem albo przypięte) i przycisk „+N” z listą pozostałych, w której można je przypiąć. Nowych kluczy localStorage nie ma.
+
 Nazwa profilu: spacje na początku i końcu są obcinane, najwyżej 30 znaków, bez duplikatów (wielkość liter nie ma znaczenia). Enter zatwierdza, Esc anuluje. Nowy profil od razu staje się aktywny.
 
 ## Motywy
@@ -399,6 +401,7 @@ Specyfikacje: [docs/rozbudowa-v2/](docs/rozbudowa-v2/00-CZYTAJ-TO.md).
 | `#/statystyki` | Statystyki: podsumowanie, trafność wg tematu / typu / poziomu, najsłabsze miejsca, trend 12 tygodni, aktywność, dziennik | `js/stats-page.js` |
 | `#/cwiczenia/slabe[/<temat>]` | trening słabych punktów (tematy z ≥ 5 próbami i trafnością < 70%) | `js/exercise-engine.js` |
 | `#/notatki` | Moje notatki | `js/notes.js` |
+| `#/powtorki[/…]` | „Fiszki i błędy”: na razie przekierowanie do `#/fiszki[/…]` (widok połączony w etapie 2 paczki v8) | `js/app.js` |
 
 - **Dziennik podejść:** każda odpowiedź w zadaniach trafia do `elm_attempts_v1`, także przy przerwanej sesji. Liczenie (agregaty, trend, słabe tematy, wagi losowania, sugestia „Umiem”) jest w `js/learning-stats.js` (bez DOM, testy w `tools/testy.js`).
 - **Automatyczne błędy w Dzienniku błędów:**

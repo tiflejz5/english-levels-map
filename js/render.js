@@ -84,7 +84,7 @@ window.ELM = window.ELM || {};
     return m ? m[1].toUpperCase() : null;
   }
 
-  /** Górna część lewego panelu: narzędzia nauki (Ćwiczenia, Lab czasów, Dziennik błędów z liczbą powtórek). */
+  /** Górna część lewego panelu: Dziś, Fiszki i błędy (jedna plakietka), Ćwiczenia, Lab czasów, Pisanie. */
   function renderToolsNav() {
     const box = document.getElementById("tools-nav");
     if (!box) return;
@@ -92,17 +92,15 @@ window.ELM = window.ELM || {};
     const hasProfile = app().hasProfiles();
     const due = hasProfile && ELM.profileData ? ELM.profileData.dueCount() : 0;
     const cardsDue = hasProfile && ELM.fiszki ? ELM.fiszki.badgeCount() : 0; // fiszki do powtórki dziś (w tym nowe)
+    // Jedna plakietka: dzisiejsze fiszki + powtórki z dziennika (docelowo ELM.reviews.count(), etap 2)
+    const reviews = cardsDue + due;
     const items = [
       { href: "#/dzis", label: "Dziś", icon: "sunrise", active: st.view === "today" },
-      { href: "#/test-poziomu", label: "Test poziomu", icon: "target", active: st.view === "leveltest" },
+      { href: "#/powtorki", label: "Fiszki i błędy", icon: "layers", active: st.view === "fiszki" || st.view === "journal",
+        badge: reviews ? String(reviews) : null, badgeLabel: reviews ? reviews + " do powtórki" : null },
       { href: "#/cwiczenia", label: "Ćwiczenia", icon: "dumbbell", active: st.view === "exercises" && !finalTestLevel() },
       { href: "#/laboratorium-czasow", label: "Lab czasów", icon: "flask-conical", active: st.view === "lab" },
-      { href: "#/fiszki", label: "Fiszki", icon: "layers", active: st.view === "fiszki",
-        badge: cardsDue ? String(cardsDue) : null, badgeLabel: cardsDue ? cardsDue + " " + (cardsDue === 1 ? "karta" : cardsDue % 10 >= 2 && cardsDue % 10 <= 4 && (cardsDue % 100 < 12 || cardsDue % 100 > 14) ? "karty" : "kart") + " do powtórki" : null },
-      { href: "#/pisanie", label: "Pisanie", icon: "pencil", active: st.view === "pisanie" },
-      { href: "#/statystyki", label: "Statystyki", icon: "chart-column", active: st.view === "stats" },
-      { href: "#/bledy", label: "Dziennik błędów", icon: "notebook-pen", active: st.view === "journal",
-        badge: due ? String(due) : null, badgeLabel: due ? "powtórki na dziś: " + due : null }
+      { href: "#/pisanie", label: "Pisanie", icon: "pencil", active: st.view === "pisanie" }
     ];
     box.replaceChildren(el("ul", { class: "sb-list" }, items.map(function (it) {
       return el("li", null, sbItem({
@@ -131,6 +129,7 @@ window.ELM = window.ELM || {};
     renderToolsNav();
     const st = ELM.state;
     const list = document.getElementById("level-list");
+    const currentId = ELM.today && ELM.today.currentLevelId ? ELM.today.currentLevelId() : null;
 
     // Napis pod logo (stały; postęp w panelu dotyczy całych poziomów)
     document.getElementById("sidebar-category-name").textContent = "Mapa angielskiego A1–C2";
@@ -145,7 +144,7 @@ window.ELM = window.ELM || {};
       const name = levelName(level);
       let n = levelNodes[level.id];
       if (!n || !ul.contains(n.a)) {
-        const ring = ELM.ui.progressRing(s.percent, { size: 38, stroke: 4, node: ELM.ui.landIcon(level.id, { size: 20 }), label: "Postęp poziomu " + level.id });
+        const ring = ELM.ui.progressRing(s.percent, { size: 36, stroke: 4, node: ELM.ui.landIcon(level.id, { size: 20 }), label: "Postęp poziomu " + level.id });
         const fill = el("div", { class: "progress-fill", style: "transform:scaleX(" + s.percent / 100 + ")" });
         const count = el("span", { class: "sb-label-sub num" });
         const title = el("span", { class: "sb-label-title" });
@@ -174,12 +173,13 @@ window.ELM = window.ELM || {};
       if (active) n.a.setAttribute("aria-current", "page"); else n.a.removeAttribute("aria-current");
       // Znaczek zaliczonego testu końcowego: ikona nagrody na kółku + tekst „A1 zaliczony 12.11.2026” w etykiecie linku
       const passedText = ELM.levelFinal ? ELM.levelFinal.passedText(level.id) : null;
-      const oldStamp = n.ringWrap.querySelector(".lvl-stamp");
+      const oldStamp = n.ringWrap.querySelector(".stamp");
       if (oldStamp) oldStamp.remove();
-      if (passedText) n.ringWrap.appendChild(ELM.levelFinal.stamp(level.id, { hideText: true, size: 12 }));
+      if (passedText) n.ringWrap.appendChild(ELM.ui.stamp(level.id, { size: 16 })); // pieczątka ✓ w rogu kółka
       n.a.classList.toggle("is-passed", !!passedText);
+      n.a.classList.toggle("is-current", level.id === currentId);
       n.a.setAttribute("aria-label", "Poziom " + level.id + (name ? ", " + name : "") + ": umiem " + s.done + " z " + s.total +
-        " we wszystkich kategoriach (" + s.percent + "%)" + (passedText ? ". " + passedText : ""));
+        " we wszystkich kategoriach (" + s.percent + "%)" + (passedText ? ". " + passedText : "") + (level.id === currentId ? ". Bieżąca kraina" : ""));
     });
 
     // Pod poziomami: grupa „Egzaminy” z rejestru (E8, matury, B2…), na końcu Certyfikat C1 (własny moduł)

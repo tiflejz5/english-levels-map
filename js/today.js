@@ -505,5 +505,5 @@ window.ELM = window.ELM || {};
     });
   }
 
-  ELM.today = { HASH: HASH, parseRoute: parseRoute, render: render, compactTrail: compactTrail };
+  ELM.today = { currentLevelId: function () { const st = levelStats(); return st[currentIndex(st)].id; }, HASH: HASH, parseRoute: parseRoute, render: render, compactTrail: compactTrail };
 })(window.ELM);

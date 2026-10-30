@@ -204,6 +204,7 @@ window.ELM = window.ELM || {};
   //   "#/laboratorium-czasow[/…]" → Laboratorium czasów (js/tense-lab.js)
   //   "#/statystyki"      → Statystyki (js/stats-page.js)
   //   "#/notatki"         → Moje notatki (js/notes.js)
+  //   "#/powtorki[/…]"    → przekierowanie do "#/fiszki[/…]" (Fiszki i błędy; widok połączony w etapie 2)
   //   "#/fiszki[/…]"      → Fiszki (js/fiszki.js)
   //   "#/pisanie[/…]"     → Pisanie: wzorce z komentarzami (js/pisanie.js)
   //   "#/<egzamin>[/…]"   → egzamin z rejestru dane/egzaminy-manifest.json (js/exam-core.js)
@@ -211,7 +212,12 @@ window.ELM = window.ELM || {};
 
   /** Odczytuje adres i ustawia state.view, state.route i wybrany poziom. */
   function applyRoute() {
-    const hash = location.hash || "";
+    let hash = location.hash || "";
+    // „Fiszki i błędy”: #/powtorki (widok połączony dojdzie w etapie 2) na razie prowadzi do Fiszek
+    if (/^#\/powtorki(\/|$)/.test(hash)) {
+      hash = "#/fiszki" + hash.slice("#/powtorki".length);
+      history.replaceState(null, "", hash);
+    }
     const level = /^#\/([abcABC][12])\/?$/.exec(hash);
     const c1 = ELM.c1 ? ELM.c1.parseRoute(hash) : null;
     const exam = ELM.exams ? ELM.exams.parseRoute(hash) : null;

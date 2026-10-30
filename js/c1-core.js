@@ -164,22 +164,7 @@ window.ELM = window.ELM || {};
     const currentSection = sectionIdOf(route);
     const manifest = data().manifest;
 
-    box.appendChild(el("div", { class: "sb-sep", role: "separator" }));
-    // Chip „Certyfikat C1” (granat i złoto): ikona w wąskim pasku, nazwa po rozwinięciu
-    box.appendChild(el("a", {
-      class: "sb-item exam-chip" + (route ? " is-active" : ""),
-      style: "--exam-accent:var(--c1-navy);--exam-accent-2:var(--c1-gold)", // ten sam wygląd co chipy pozostałych egzaminów (js/exam-core.js)
-      href: BASE,
-      "aria-label": manifest.label + ": przygotowanie do egzaminu C1 Advanced",
-      "aria-current": isActive(route, "page", "przeglad") ? "page" : (route ? "true" : null)
-    }, [
-      el("span", { class: "sb-icon", "aria-hidden": "true" }, el("span", { class: "exam-chip-badge", text: "C1" })),
-      el("span", { class: "sb-label" }, [
-        el("span", { class: "sb-label-title", text: manifest.label }),
-        el("span", { class: "sb-label-sub", text: ELM.examMy.navSub(examEntry()) })
-      ])
-    ]));
-
+    // Chip „Certyfikat C1” rysuje js/exam-core.js razem z pozostałymi kafelkami egzaminów; tu tylko sekcje.
     // Sekcje zakładki — widoczne tylko w rozwiniętym panelu i tylko wewnątrz Certyfikatu C1 (jak sekcje innych egzaminów)
     const sections = el("div", { class: "sb-c1-sections" });
     if (route) box.appendChild(sections);

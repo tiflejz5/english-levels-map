@@ -1439,5 +1439,15 @@ test("formatDatePl i daysBetween", function () {
   assert.strictEqual(EL.daysBetween("2026-10-29", "2026-10-30"), -1);
 });
 
+test("navSplit: tylko moje + reszta w „+N”, bieżący egzamin zostaje, brak moich = wszystkie", function () {
+  const EL = global.ELM.examLogic;
+  const reg = { exams: [{ id: "e8" }, { id: "mp" }, { id: "mr" }, { id: "b2" }, { id: "c1" }] };
+  assert.deepStrictEqual(EL.navSplit(reg, ["c1", "mp"]), { shown: ["c1", "mp"], hidden: ["e8", "mr", "b2"] });
+  assert.deepStrictEqual(EL.navSplit(reg, ["c1"], "b2"), { shown: ["c1", "b2"], hidden: ["e8", "mp", "mr"] });
+  assert.deepStrictEqual(EL.navSplit(reg, ["c1"], "c1").shown, ["c1"]);
+  assert.deepStrictEqual(EL.navSplit(reg, []), { shown: ["e8", "mp", "mr", "b2", "c1"], hidden: [] });
+  assert.strictEqual(EL.navSplit(reg, ["x"]).hidden.length, 5);
+});
+
 console.log("\nWynik: " + passed + " ok, " + failures.length + " błędów");
 if (failures.length) process.exit(1);

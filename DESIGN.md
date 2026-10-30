@@ -169,6 +169,12 @@ W zakładce C1 `js/app.js` ustawia `data-section="certyfikat"` na `<html>` (poza
 
 ### 3.1 Lewy panel (etap 2)
 
+- **v8 (pasek wg szkicu A):**
+  - Kolejność: Dziś, **Fiszki i błędy** (`#/powtorki`, ikona `layers`, jedna plakietka = dzisiejsze fiszki + powtórki z dziennika; docelowo `ELM.reviews.count()`), Ćwiczenia, Lab czasów, Pisanie, linia, poziomy, linia, **Moje egzaminy**, „+N”, pinezka. Test poziomu, Statystyki i Moje notatki przeniesione do menu profilu, sekcja „Moje” nad „Dane”.
+  - Kółka krain 36 px bez kodu pod spodem (nazwę niesie `aria-label`). Zaliczony poziom (`is-passed`): pełne tło `--lvl-soft` i pieczątka ✓ (`ELM.ui.stamp`). Bieżąca kraina (`is-current`, `ELM.today.currentLevelId()`): obwódka 2 px w kolorze krainy, krycie 0.35, odstęp 4 px, w `aria-label` „Bieżąca kraina”. Uwaga: przy kryciu 0.35 obwódka ma kontrast ok. 1.4–1.8:1 (poniżej 3:1 dla elementów graficznych); stan niosą też `aria-label` i „Tu jesteś” na Dziś.
+  - Moje egzaminy: kafelek 44×44 z kodem i odliczaniem („15 d”, „dziś”), C1 granat i złoto; podział i kolejność w czystej `ELM.examLogic.navSplit` (brak moich = wszystkie jak dawniej, bez „+N”; otwarty egzamin zostaje w pasku). Chip C1 rysuje teraz `js/exam-core.js`, `js/c1-core.js` tylko sekcje.
+  - „+N” (`#exam-more`, `aria-haspopup="dialog"`, `aria-label="Pokaż pozostałe egzaminy (N)"`): popover `.exam-pop` w `body` (`position: fixed`, na telefonie arkusz od dołu) z listą egzaminów, linkiem i przełącznikiem „Przypnij” (`ELM.examMy.pin/unpin`). Fokus wchodzi do listy, Esc i klik poza zamykają, Esc oddaje fokus przyciskowi; otwarty popover trzyma panel rozwinięty (`ELM.sidebar.hold`).
+  - Gęstszy pasek (`gap` 2 px, wiersze 44 px, pasek postępu poziomu pod podpisem): przy oknie 860 px zwinięty pasek z 2 moimi egzaminami i „+N” mieści się bez przewijania (zmierzone: 685 / 685 px), rozwinięty też (podpis pod logo znika poniżej 900 px wysokości).
 - **v7 (C1):** kółka poziomów mają symbol krainy (`assets/krainy.js`, kolor `--lvl-x`) zamiast tekstu „A1”; kod poziomu jest małą etykietą pod kółkiem w zwiniętym panelu, a w rozwiniętym stoi obok („A1 · Początkujący”). Pierścień postępu bez zmian.
 
 Pliki: `index.html` (znaczniki), `js/sidebar.js` (zachowanie), `js/render.js` (narzędzia i poziomy), `js/c1-core.js` (chip i sekcje C1), sekcja „LEWY PANEL” w `css/style.css`.
@@ -177,7 +183,7 @@ Pliki: `index.html` (znaczniki), `js/sidebar.js` (zachowanie), `js/render.js` (n
 
 | Stan | Kiedy | Wygląd |
 |---|---|---|
-| Wąski pasek | domyślnie od 768 px | `--rail-w` 72 px. Znak logo, przycisk rozwijania, ikony Dziś / Test poziomu / Dziennik błędów (plakietka powtórek na dziś), sześć chipów poziomów z pierścieniem postępu w kolorze krainy i kodem w środku, chip „Certyfikat C1”, pinezka. |
+| Wąski pasek | domyślnie od 768 px | `--rail-w` 72 px. Znak logo, przycisk rozwijania, ikony Dziś / Fiszki i błędy (plakietka) / Ćwiczenia / Lab czasów / Pisanie, sześć chipów poziomów z pierścieniem postępu w kolorze krainy i kodem w środku, chip „Certyfikat C1”, pinezka. |
 | Rozwinięty | najechanie myszą, fokus z klawiatury, przycisk rozwijania (tablet) | `--panel-w` 288 px, warstwa `position: fixed` **nad treścią** z `--shadow-lg`. Treść się nie przesuwa. Widać etykiety, nazwy poziomów, „X / Y umiem” z paskiem, napis pod logo i sekcje zakładki C1. |
 | Przypięty | pinezka | Pełny panel na stałe, bez cienia. Treść odsuwa się (`html[data-sidebar="pinned"] .main { margin-left: --panel-w }`, animowany margines). |
 | Szuflada | poniżej 768 px | Przycisk „Menu” w górnym pasku. Panel wysuwa się z lewej nad przyciemnionym tłem, tapnięcie tła zamyka. Pinezki i rozwijania tu nie ma. |
@@ -675,3 +681,7 @@ Ograniczenie: audyt automatyczny nie zastępuje testu z czytnikiem ekranu (NVDA 
   - Krainy A1–C2 (`assets/krainy.js`, `ELM.ui.landIcon`, `LANDS`), symbole w panelu i nagłówku poziomu.
   - Szlak jako mapa topograficzna (generator kształtów przeniesiony do `js/today.js`: `blobPath`, `terrainGroup`), wariant kompaktowy na stronie głównej.
   - „Umiem” jako pieczątka (`ELM.ui.stamp`), marker słowa-klucza w silniku zadań (`.ex-hl`), postęp krainy zamiast konfetti, `ELM.ui.emptyState` z 5 ilustracjami (`assets/stany-puste.js`).
+
+- **Paczka v8, etap „pasek” (szkic A).**
+  - Nowa kolejność paska i jedna pozycja „Fiszki i błędy” (`#/powtorki` przekierowuje do `#/fiszki`, widok połączony w etapie 2), pieczątka ✓ i obwódka bieżącej krainy, tylko moje egzaminy z „+N” i popoverem, sekcja „Moje” w menu profilu, ta sama zawartość w szufladzie na telefonie.
+  - `ELM.examLogic.navSplit` (test w `tools/testy.js`), nowe pary w `tools/kontrast.js` (+N, popover, kafelki egzaminów), `?v=126`.

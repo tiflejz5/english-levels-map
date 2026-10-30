@@ -216,10 +216,6 @@ window.ELM = window.ELM || {};
       const prefs = ELM.profileData.prefs();
       parts.push(el("div", { class: "menu-sep", role: "separator" }));
       parts.push(el("p", { class: "menu-title", text: "Ustawienia nauki" }));
-      parts.push(el("a", {
-        class: "menu-action", href: "#/notatki", "data-menu-item": "",
-        onclick: function () { close(false); }
-      }, ELM.ui.withIcon("notebook", "Moje notatki")));
       [
         ["autoJournal", "Dodawaj błędy z zadań do dziennika automatycznie"],
         ["selectionMenu", "Pokazuj menu przy zaznaczeniu tekstu (Moje słowa, fiszki)"],
@@ -243,6 +239,23 @@ window.ELM = window.ELM || {};
           el("span", { class: "menu-switch-text" }, sw[1]),
           el("span", { class: "switch-track", "aria-hidden": "true" }, el("span", { class: "switch-thumb" }))
         ]));
+      });
+    }
+
+    // Sekcja „Moje”: strony wyjęte z lewego paska (adresy bez zmian)
+    if (activeId) {
+      parts.push(el("div", { class: "menu-sep", role: "separator" }));
+      parts.push(el("p", { class: "menu-title", text: "Moje" }));
+      [
+        ["#/statystyki", "chart-column", "Statystyki"],
+        ["#/notatki", "notebook", "Moje notatki"],
+        ["#/test-poziomu", "target", "Test poziomu"]
+      ].forEach(function (it) {
+        parts.push(el("a", {
+          class: "menu-action", href: it[0], "data-menu-item": "",
+          "aria-current": location.hash === it[0] ? "page" : null,
+          onclick: function () { close(false); }
+        }, ELM.ui.withIcon(it[1], it[2])));
       });
     }
 

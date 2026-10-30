@@ -30,6 +30,7 @@ window.ELM = window.ELM || {};
   let pinned = document.documentElement.getAttribute("data-sidebar") === "pinned";
   let expanded = false;
   let hovering = false;
+  let held = false;            // otwarty popover „+N” (js/exam-core.js) trzyma panel rozwinięty
   let focusSuppressed = false; // po Esc / zwinięciu przyciskiem: fokus w panelu nie rozwija go ponownie
   let openTimer = null;
   let closeTimer = null;
@@ -89,7 +90,7 @@ window.ELM = window.ELM || {};
   function onLeave() {
     hovering = false;
     clearTimeout(openTimer);
-    if (pinned || narrow.matches || !finePointer.matches || !expanded) return;
+    if (held || pinned || narrow.matches || !finePointer.matches || !expanded) return;
     closeTimer = setTimeout(function () {
       // Fokus z klawiatury w panelu trzyma go rozwiniętym
       const active = document.activeElement;
@@ -107,7 +108,7 @@ window.ELM = window.ELM || {};
   function onFocusOut(e) {
     if (panel.contains(e.relatedTarget)) return;
     focusSuppressed = false;
-    if (!pinned && !hovering && expanded) setExpanded(false);
+    if (!pinned && !hovering && !held && expanded) setExpanded(false);
   }
 
   function onKeyDown(e) {
@@ -120,7 +121,7 @@ window.ELM = window.ELM || {};
 
   /** Dotknięcie / kliknięcie poza rozwiniętym panelem zamyka go (tablet). */
   function onPointerDownOutside(e) {
-    if (!expanded || pinned || narrow.matches) return;
+    if (!expanded || pinned || narrow.matches || held) return;
     if (!panel.contains(e.target)) setExpanded(false);
   }
 
@@ -156,7 +157,13 @@ window.ELM = window.ELM || {};
     setExpanded(false);
   }
 
-  ELM.sidebar = { init: init, afterNavigate: afterNavigate, isPinned: function () { return pinned; } };
+  /** Popover „+N” otwarty: panel nie zwija się pod nim; po zamknięciu wraca do zwykłych reguł. */
+  function hold(on) {
+    held = !!on;
+    if (!held && sidebar && !pinned && expanded && !hovering && !panel.contains(document.activeElement)) setExpanded(false);
+  }
+
+  ELM.sidebar = { hold: hold, init: init, afterNavigate: afterNavigate, isPinned: function () { return pinned; } };
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
   else init();

@@ -129,7 +129,12 @@ pairs.push(
   // Okładki egzaminów (B3), pełna i kompaktowa: tło --accent-soft na --bg sekcji
   ["accent", "accent-soft", "bg", 4.5, "okładka egzaminu: kod / tło"],
   ["ink", "accent-soft", "bg", 4.5, "okładka egzaminu: nazwa i data / tło"],
-  ["ink-muted", "accent-soft", "bg", 4.5, "okładka egzaminu: poziom i instytucja / tło"]
+  ["ink-muted", "accent-soft", "bg", 4.5, "okładka egzaminu: poziom i instytucja / tło"],
+  // Pasek v8: przycisk „+N” i popover
+  ["ink-muted", "surface-2", null, 4.5, "pasek: tekst „+N” i podpisy / tło panelu"],
+  ["line-control", "surface-2", null, 3, "pasek: przerywany obrys „+N” / tło panelu"],
+  ["ink", "surface", null, 4.5, "popover „+N”: nazwa egzaminu / tło"],
+  ["ink-muted", "surface", null, 4.5, "popover „+N”: poziom i instytucja / tło"]
 );
 ["a1", "a2", "b1", "b2", "c1", "c2"].forEach(function (l) {
   const L = l.toUpperCase();
@@ -179,6 +184,18 @@ const manifest = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "dane", "
     const r = ratio(parse(theme[0] === "CIEMNY" ? (e.accent2 || e.accent) : e.accent), bg); // jasny: pasek w accent, ciemny: w accent2
     checked++;
     if (r < 3) { fails++; bad.push("  ZA MAŁO " + r.toFixed(2) + " (min 3)  pasek okładki mini " + e.code + " / karta"); }
+  });
+  // Kafelek egzaminu w pasku (kod i odliczanie, 44×44): biały tekst na kolorze egzaminu, C1: złoto i biel na granacie (4.5:1)
+  manifest.exams.forEach(function (e) {
+    const fg = e.existing ? theme[1]["c1-gold"] : "#ffffff";
+    const bgc = e.existing ? theme[1]["c1-navy"] : e.accent;
+    if (!bgc) return;
+    const pairsT = e.existing ? [[theme[1]["c1-gold"], "kod C1"], ["#ffffff", "odliczanie C1"]] : [[fg, "kod i odliczanie " + e.code]];
+    pairsT.forEach(function (pt) {
+      const rt = ratio(parse(pt[0]), parse(bgc));
+      checked++;
+      if (rt < 4.5) { fails++; bad.push("  ZA MAŁO " + rt.toFixed(2) + " (min 4.5)  kafelek paska: " + pt[1] + " / tło kafelka"); }
+    });
   });
   console.log("== OKŁADKI MINI " + theme[0] + ": " + (bad.length ? "błędy" : "ok"));
   bad.forEach(function (b) { console.log(b); });

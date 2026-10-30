@@ -133,7 +133,21 @@ window.ELM = window.ELM || {};
     return out.map(function (x) { return { id: x.id, reason: x.reason, days: x.days }; });
   }
 
+  /**
+   * Podział egzaminów w pasku: { shown, hidden } (id w kolejności rejestru dla hidden, w kolejności „moich” dla shown).
+   * mineIds = id z myExams; currentId = egzamin otwarty na ekranie (zostaje w pasku, choćby nie był „mój”).
+   * Brak moich → wszystkie jak dawniej, bez „+N”.
+   */
+  function navSplit(registry, mineIds, currentId) {
+    const all = ((registry && registry.exams) || []).map(function (e) { return e.id; });
+    if (!mineIds || !mineIds.length) return { shown: all, hidden: [] };
+    const shown = mineIds.filter(function (id) { return all.indexOf(id) !== -1; });
+    if (currentId && all.indexOf(currentId) !== -1 && shown.indexOf(currentId) === -1) shown.push(currentId);
+    return { shown: shown, hidden: all.filter(function (id) { return shown.indexOf(id) === -1; }) };
+  }
+
   ELM.examLogic = {
+    navSplit: navSplit,
     countWordsE8: countWordsE8, writingZone: writingZone, examBoxAnchorIndex: examBoxAnchorIndex,
     daysBetween: daysBetween, formatDatePl: formatDatePl, localToday: localToday, examMyState: examMyState, myExams: myExams
   };
