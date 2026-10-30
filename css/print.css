@@ -87,3 +87,11 @@
   /* Ściąga: słowa w tabelach nie są łamane w środku (kolumna rozszerza się do najdłuższego słowa) */
   .sciaga.md th, .sciaga.md td { overflow-wrap: break-word !important; word-break: normal !important; hyphens: none; }
 }
+
+@media print {
+  /* „Życie i egzamin”: chipy jako zwykły tekst, tabela bez kart */
+  .exam-chip { border: 0.5pt solid #000 !important; background: none !important; }
+  .callout-real-exam table, .callout-real-exam tbody, .callout-real-exam tr, .callout-real-exam td { display: revert !important; }
+  .callout-real-exam thead { position: static !important; width: auto !important; height: auto !important; clip: auto !important; }
+  .callout-real-exam td::before { content: none !important; }
+}

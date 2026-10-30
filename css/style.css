@@ -3689,3 +3689,28 @@ a.notes-item-title { color: var(--accent); text-decoration: underline; text-unde
 .sciaga-title { margin: 0; font-family: var(--font-display, "Fraunces Variable", serif); font-size: var(--fs-lg, 1.4rem); font-weight: 650; }
 .sciaga-sub { margin: 2px 0 0; color: var(--ink-muted); font-size: var(--fs-sm-plus); }
 .sciaga .md-table-wrap { overflow-x: auto; }
+
+/* „Życie i egzamin” (paczka v6, spec 16, sekcja 2.3): zdanie z życia + zadanie w stylu egzaminu + chipy egzaminów */
+.callout-real-exam { background: var(--info-bg); border-color: var(--info-border); box-shadow: inset 4px 0 0 var(--accent); border-radius: 0 var(--radius-lg) var(--radius-lg) 0; padding-left: 26px; }
+.callout-real-exam .callout-icon { background: var(--surface); color: var(--accent); box-shadow: inset 0 0 0 1.5px var(--info-border); }
+.callout-real-exam .md-table { margin: 0 0 14px; }
+.callout-real-exam table { min-width: 0; }
+.callout-real-exam td:first-child em { color: var(--ink); font-weight: 560; }
+.callout-real-exam td strong { color: var(--ink); }
+.exam-chips { white-space: nowrap; }
+.exam-chip { position: relative; display: inline-flex; align-items: center; margin: 2px 6px 2px 0; padding: 3px 10px 3px 8px; border: 1px solid var(--line-strong, var(--line)); border-left: 4px solid var(--exam, var(--accent)); border-radius: var(--radius-pill); background: var(--surface); color: var(--ink); font-size: var(--fs-xs); font-weight: 700; letter-spacing: .02em; text-decoration: none; }
+.exam-chip::before { content: ""; position: absolute; inset: -8px -4px; }
+.exam-chip:hover { background: var(--surface-3); text-decoration: underline; }
+.exam-chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+@media (max-width: 640px) {
+  /* telefon: wiersz = karta („Z życia” nad „W stylu egzaminu”, chipy na dole), bez przewijania w poziomie */
+  .callout-real-exam { padding-left: 18px; padding-right: 14px; }
+  .callout-real-exam .md-table-wrap { overflow: visible; }
+  .callout-real-exam .md-table::before, .callout-real-exam .md-table::after { display: none; }
+  .callout-real-exam table, .callout-real-exam tbody, .callout-real-exam tr, .callout-real-exam td { display: block; width: 100%; min-width: 0; }
+  .callout-real-exam thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .callout-real-exam tr { margin: 0 0 12px; padding: 10px 12px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+  .callout-real-exam td { padding: 4px 0; border: 0; background: none; }
+  .callout-real-exam td::before { content: attr(data-label); display: block; margin-bottom: 2px; font-size: var(--fs-xs); font-weight: 650; letter-spacing: .04em; text-transform: uppercase; color: var(--ink-muted); }
+  .exam-chips { white-space: normal; }
+}
