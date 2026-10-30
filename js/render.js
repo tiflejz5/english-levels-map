@@ -311,6 +311,7 @@ window.ELM = window.ELM || {};
         onchange: function (e) {
           app().setProgress(item.id, e.target.checked);
           li.classList.toggle("is-done", e.target.checked);
+          checkbox.classList.toggle("is-fresh", e.target.checked); // pieczątka „odbija się” tylko przy zaznaczeniu
         }
       }),
       el("span", { class: "visually-hidden", text: "Umiem" })

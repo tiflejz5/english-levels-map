@@ -953,10 +953,12 @@ textarea.field { resize: vertical; min-height: 44px; overflow: hidden; }
 /* Zaznaczone: kolor krainy (poza poziomem — kolor sukcesu) */
 .umiem input:checked { background: var(--lvl, var(--success-fill)); border-color: var(--lvl, var(--success-fill)); }
 .umiem input:checked::after { opacity: 1; transform: rotate(-45deg) translate(1px, -1px) scale(1); }
-.umiem input:checked { animation: umiem-pop var(--dur-slow) var(--ease-spring); }
-@keyframes umiem-pop {
-  0% { transform: scale(0.7); }
-  100% { transform: scale(1); }
+/* C3: zaznaczone „Umiem” = okrągła pieczątka w kolorze krainy; „odbicie” tylko przy zaznaczeniu przez użytkownika (.is-fresh) */
+.umiem input:checked { transform: rotate(-6deg); }
+.umiem.is-fresh input:checked { animation: umiem-stamp 220ms var(--ease-out); }
+@keyframes umiem-stamp {
+  from { transform: scale(1.25) rotate(-10deg); }
+  to { transform: scale(1) rotate(-6deg); }
 }
 .umiem:hover { border-color: var(--line-control); }
 .umiem input:focus-visible { box-shadow: var(--focus-ring); }

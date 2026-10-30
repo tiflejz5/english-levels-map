@@ -391,15 +391,19 @@ window.ELM = window.ELM || {};
   /** Przełącznik „Umiem” — ten sam stan co checkbox na liście (aktywny profil). */
   function umiemToggle(essential) {
     const done = ELM.state.progress[essential.id] === true;
-    return el("label", { class: "umiem umiem-lg" + (done ? " is-done" : "") }, [
+    const label = el("label", { class: "umiem umiem-lg" + (done ? " is-done" : "") }, [
       el("input", {
         type: "checkbox",
         checked: done,
         "aria-label": "Umiem: " + essential.text,
-        onchange: function (e) { ELM.app.setProgress(essential.id, e.target.checked); }
+        onchange: function (e) {
+          ELM.app.setProgress(essential.id, e.target.checked);
+          label.classList.toggle("is-fresh", e.target.checked); // pieczątka „odbija się” tylko przy zaznaczeniu
+        }
       }),
       el("span", { text: "Umiem" })
     ]);
+    return label;
   }
 
   /** Punkt listy („Umiem”) powiązany z tematem niezbędnika: { id, text, done } albo null. */
