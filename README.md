@@ -116,6 +116,18 @@ Specyfikacja: `docs/rozbudowa-v6/spec/13-test-poziomu-i-testy-koncowe.md` (sekcj
   - co najmniej połowa zadań to `multiple-choice` (funkcje komunikacyjne z `kind: "function"`), dalej `gap-fill`, `short-answer`, `match`, `reorder`, `transformation` (od B1), `translate` (od A2); **bez `dictation`** (test nie może zależeć od głosu).
 - **Build:** `node tools/zbuduj-testy-koncowe.js` (część `npm run build` i `npm run dane`) zamienia pule na `niezbednik/testy-poziomow/<poziom>.js` (`ELM.LEVEL_TESTS["A1"]`, ładowane dopiero po wejściu na `#/a1/test`) i dopisuje do zadań kategorię podstrony (`category`). Pliki `.js` są generowane – nie edytuj ich ręcznie. Wzór: `docs/rozbudowa-v6/przyklady/testy-poziomow/a1-przyklad.json`. Pełne sprawdzenie: `python3 docs/rozbudowa-v6/scripts/validate_v6.py . --only zadania,testy-koncowe`.
 
+## Moje słowa (rozbudowa v6, etap 4)
+
+Specyfikacja: `docs/rozbudowa-v6/spec/14-slowniczek-osobisty.md`. Osobisty słowniczek: zaznaczasz słowo albo wyrażenie w tekście, a aplikacja zapisuje je razem ze zdaniem, z którego pochodzi, jako kartę fiszek z luką.
+
+- **Dodawanie:** zaznacz angielskie słowo lub wyrażenie (1–6 słów) i wybierz **„Do Moich słów”** w menu przy zaznaczeniu albo naciśnij **M** (bez modyfikatorów, poza polem tekstowym). Menu ma też „Utwórz fiszkę…” (dotychczasowy skrót Ctrl/Cmd+Shift+F). Na telefonie menu pojawia się pod zaznaczeniem. Toast po dodaniu ma przyciski „Dodaj znaczenie” (okno z jednym polem) i „Cofnij”. To samo słowo nie powstaje drugi raz: toast proponuje „Pokaż”, a przy innym zdaniu „Dodaj drugi przykład” (do 3 przykładów).
+- **Zasięg zaznaczania:** podstrony Niezbędnika, podsumowania poziomów, strony egzaminów i Certyfikatu C1, Laboratorium czasów oraz teksty i transkrypty zadań (te dopiero po sprawdzeniu odpowiedzi). Polski tekst (także kolumna „Polski” w tabelach) nie jest proponowany do zapisu.
+- **Zdanie:** `extractSentence` w `js/fiszki-logic.js` (czysta funkcja z testami w `tools/testy.js`) wycina zdanie z bloku tekstu, pomija skróty i inicjały, a długie zdanie skraca do ok. 220 znaków wokół słowa. `makeCloze` zamienia słowo na lukę.
+- **Talia:** systemowa talia `u-moje-slowa` (`system: "words"`), domyślnie włączona w nauce. Karta bez znaczenia pokazuje podpowiedź pierwszej litery; tył ma znaczenie, dalsze przykłady i link do źródła.
+- **Widok:** `#/fiszki/moje-slowa` – lista z wyszukiwaniem, sortowaniem (najnowsze, A–Z, najsłabiej znane), filtrem „bez znaczenia”, edycją znaczenia w miejscu, zawieszaniem, usuwaniem (z potwierdzeniem) i eksportem CSV (`słowo;znaczenie;zdanie;źródło`). Status słowa jest podany tekstem. Kafelek „Moje słowa” jest na stronie Fiszki, skrót „Moje słowa” w wyszukiwarce, a liczba słów (i opanowanych) w Statystykach.
+- **Ustawienia nauki (menu profilu):** „Pokazuj menu przy zaznaczeniu tekstu” (domyślnie włączone) i „Podkreślaj moje słowa w tekstach” (domyślnie wyłączone; podkreśla do 300 najnowszych słów w tekstach, nie w nagłówkach, linkach, kodzie ani zadaniach, a znaczenie pokazuje po najechaniu lub fokusie).
+- **Dane:** bez nowych kluczy localStorage. Karty są w `elm.<profil>.fiszki` (`userCards`), z opcjonalnymi polami `word`, `source` (`route`, `title`), `addedAt` i `examples`; starsze zapisy działają bez zmian. Preferencje `selectionMenu` i `highlightWords` są w `elm_learnprefs_v1`. Dodanie słowa nie jest dniem nauki (nie liczy się do serii).
+
 ## Testy
 
 ```bash
