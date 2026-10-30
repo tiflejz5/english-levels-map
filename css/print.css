@@ -95,3 +95,20 @@
   .callout-real-exam thead { position: static !important; width: auto !important; height: auto !important; clip: auto !important; }
   .callout-real-exam td::before { content: none !important; }
 }
+
+/* Wzorzec z komentarzami: tekst z numerami, komentarze jako przypisy pod tekstem */
+@media print {
+  .wz-toolbar, .wz-legend, .wz-margin, .wz-lines, .wz-note, .wz-prompt summary { display: none !important; }
+  .wz-prompt { margin: 0 0 6pt; }
+  .wz-prompt:not([open]) .wz-prompt-text { display: block; }
+  .wz-layout, .wz-layout.is-wide { display: block !important; }
+  .wz-text { max-width: none; font-size: 10.5pt; line-height: 1.5; }
+  .wz-anchor, .wz-anchor.is-off { background: none !important; border-bottom: 0.75pt solid #000 !important; }
+  .wz-num { display: inline !important; background: none !important; color: #000 !important; font-size: 7pt; padding: 0; margin-left: 1pt; vertical-align: super; font-weight: 700; }
+  .wz-anchor.is-off .wz-num { display: inline !important; }
+  .wz-footnotes { display: block !important; margin-top: 10pt; font-size: 9pt; border-top: 0.75pt solid #000; padding-top: 4pt; }
+  .wz-footnotes h2 { font-size: 11pt; margin: 0 0 3pt; }
+  .wz-footnotes ol { margin: 0; padding-left: 16pt; }
+  .wz-footnotes li { margin: 0 0 2pt; break-inside: avoid; }
+  .wz-why, .wz-crit { break-inside: avoid; }
+}

@@ -53,7 +53,93 @@
         "Czy ton jest neutralny lub półformalny i spójny?",
         "Czy mam 140–190 słów?"
       ],
-      "model": "Homework is a part of school life in almost every country, but is it really a good idea?\n\nOn the one hand, homework helps students to learn. Repeating new vocabulary or solving maths problems at home makes it easier to remember what was taught in class. Moreover, pupils who do homework regularly learn to organise their time and take responsibility for their own progress.\n\nOn the other hand, homework takes up free time. After a long day at school, teenagers need to relax, meet friends or practise a sport. If they spend three hours every evening on assignments, they may feel tired and stressed, which can have a negative effect on their health and results.\n\nAnother point worth mentioning is the quality of homework. In my opinion, short and interesting tasks are far more useful than long, repetitive ones. Teachers could, for example, ask students to prepare a presentation about a subject that they enjoy.\n\nTo sum up, I believe that homework is useful as long as it is reasonable in amount and varied in type. Schools should find a balance between learning and rest."
+      "model": "Homework is a part of school life in almost every country, but is it really a good idea?\n\nOn the one hand, homework helps students to learn. Repeating new vocabulary or solving maths problems at home makes it easier to remember what was taught in class. Moreover, pupils who do homework regularly learn to organise their time and take responsibility for their own progress.\n\nOn the other hand, homework takes up free time. After a long day at school, teenagers need to relax, meet friends or practise a sport. If they spend three hours every evening on assignments, they may feel tired and stressed, which can have a negative effect on their health and results.\n\nAnother point worth mentioning is the quality of homework. In my opinion, short and interesting tasks are far more useful than long, repetitive ones. Teachers could, for example, ask students to prepare a presentation about a subject that they enjoy.\n\nTo sum up, I believe that homework is useful as long as it is reasonable in amount and varied in type. Schools should find a balance between learning and rest.",
+      "modelNotes": {
+        "summary": [
+          "Wszystkie trzy notatki z polecenia (nauka, wolny czas, własny pomysł) mają osobny akapit i wyraźne zdanie tematyczne.",
+          "Wstęp stawia pytanie, a zakończenie na nie odpowiada – tekst ma pełną ramę.",
+          "Łączniki (On the one hand, On the other hand, Another point worth mentioning, To sum up) prowadzą czytelnika przez wywód.",
+          "Język jest zróżnicowany: zdania względne, kolokacje (take responsibility, have an effect on) i ostrożne sugestie z could.",
+          "Zakończenie jest poprawne, ale ogólne – to miejsce, w którym warto dodać konkretną propozycję."
+        ],
+        "annotations": [
+          {
+            "anchor": "but is it really a good idea",
+            "type": "struktura",
+            "criterion": "organisation",
+            "note": "Wstęp kończy się pytaniem z polecenia – czytelnik wie, że esej na nie odpowie."
+          },
+          {
+            "anchor": "On the one hand",
+            "type": "lacznik",
+            "criterion": "organisation",
+            "note": "Otwiera akapit o korzyściach; pary On the one hand / On the other hand dzielą środek eseju na dwie strony."
+          },
+          {
+            "anchor": "homework helps students to learn",
+            "type": "punkty",
+            "criterion": "content",
+            "element": 1,
+            "note": "Notatka 1 (nauka): zdanie tematyczne, po którym stoi przykład (słownictwo, zadania z matematyki)."
+          },
+          {
+            "anchor": "take responsibility for their own progress",
+            "type": "zakres",
+            "criterion": "language",
+            "note": "Kolokacja take responsibility for… zamiast prostego be responsible – przykład naturalnego, bogatszego słownictwa."
+          },
+          {
+            "anchor": "Moreover, pupils who do homework regularly",
+            "type": "lacznik",
+            "criterion": "organisation",
+            "note": "Moreover dodaje drugi argument w tym samym akapicie; zdanie względne (who do…) zagęszcza treść."
+          },
+          {
+            "anchor": "homework takes up free time",
+            "type": "punkty",
+            "criterion": "content",
+            "element": 2,
+            "note": "Notatka 2 (wolny czas): akapit zaczyna się od jasnej tezy i rozwija ją przykładami (relaks, sport)."
+          },
+          {
+            "anchor": "On the other hand",
+            "type": "lacznik",
+            "criterion": "organisation",
+            "note": "Zaczyna się druga strona sporu – akapit jest symetryczny do poprzedniego."
+          },
+          {
+            "anchor": "which can have a negative effect on their health and results",
+            "type": "zakres",
+            "criterion": "language",
+            "note": "Which odnosi się do całej myśli; have a negative effect on to naturalna kolokacja skutku."
+          },
+          {
+            "anchor": "Another point worth mentioning is the quality of homework",
+            "type": "struktura",
+            "criterion": "organisation",
+            "note": "Zdanie wprowadza trzecią notatkę (własny pomysł) i wyraźnie ją zapowiada."
+          },
+          {
+            "anchor": "short and interesting tasks are far more useful than long, repetitive ones",
+            "type": "punkty",
+            "criterion": "content",
+            "element": 3,
+            "note": "Notatka 3 (własny pomysł): jakość zamiast ilości – oryginalny argument, a nie powtórzenie dwóch pierwszych."
+          },
+          {
+            "anchor": "Teachers could, for example, ask students to prepare a presentation",
+            "type": "rejestr",
+            "criterion": "communicative",
+            "note": "Could + for example to ostrożny sposób proponowania rozwiązań – typowy dla neutralnego eseju."
+          },
+          {
+            "anchor": "Schools should find a balance between learning and rest",
+            "type": "uwaga",
+            "criterion": "communicative",
+            "note": "Do poprawy: wniosek jest ogólny i nie mówi, jak ten balans osiągnąć (np. limit czasu). Konkretna propozycja wzmocniłaby Communicative Achievement."
+          }
+        ]
+      }
     },
     {
       "id": "essay-transport",
@@ -68,7 +154,86 @@
         "Czy ton jest neutralny lub półformalny i spójny?",
         "Czy mam 140–190 słów?"
       ],
-      "model": "Many big cities struggle with heavy traffic, and some have started to ban cars from their centres. Is this a good solution? I think that, in most cases, it is.\n\nFirst of all, closing the centre to cars would reduce pollution. Exhaust fumes are a serious health problem in cities, and they cause breathing difficulties, especially for children and older people. In cities where cars are not allowed, the air is noticeably cleaner, and the streets are much quieter.\n\nHowever, convenience is an important issue. Some people, for example the elderly or the disabled, depend on cars to travel around. Shop owners are also afraid that they will lose customers if people can no longer park outside their doors. These worries should be taken seriously.\n\nAnother idea is to offer cheap and frequent public transport. If buses and trams are fast and reliable, many people will leave their cars at home without being forced to.\n\nAll things considered, I believe that limiting traffic in city centres brings more benefits than problems, provided that there are good alternatives for those who need them."
+      "model": "Many big cities struggle with heavy traffic, and some have started to ban cars from their centres. Is this a good solution? I think that, in most cases, it is.\n\nFirst of all, closing the centre to cars would reduce pollution. Exhaust fumes are a serious health problem in cities, and they cause breathing difficulties, especially for children and older people. In cities where cars are not allowed, the air is noticeably cleaner, and the streets are much quieter.\n\nHowever, convenience is an important issue. Some people, for example the elderly or the disabled, depend on cars to travel around. Shop owners are also afraid that they will lose customers if people can no longer park outside their doors. These worries should be taken seriously.\n\nAnother idea is to offer cheap and frequent public transport. If buses and trams are fast and reliable, many people will leave their cars at home without being forced to.\n\nAll things considered, I believe that limiting traffic in city centres brings more benefits than problems, provided that there are good alternatives for those who need them.",
+      "modelNotes": {
+        "summary": [
+          "Esej realizuje wszystkie notatki: zanieczyszczenie, wygodę i własny pomysł (tani, częsty transport publiczny).",
+          "Stanowisko pojawia się we wstępie i wraca w zakończeniu z zastrzeżeniem (provided that), więc tekst jest wyważony.",
+          "Ton jest neutralnie formalny, a zdania są zróżnicowane (strona bierna, okolicznik, konstrukcje z -ing).",
+          "Jedna teza opiera się na ogólnym stwierdzeniu bez przykładu – to najsłabszy punkt argumentacji."
+        ],
+        "annotations": [
+          {
+            "anchor": "I think that, in most cases, it is",
+            "type": "struktura",
+            "criterion": "organisation",
+            "note": "Stanowisko we wstępie, z zastrzeżeniem in most cases – autor od początku zapowiada wyważony wywód."
+          },
+          {
+            "anchor": "First of all",
+            "type": "lacznik",
+            "criterion": "organisation",
+            "note": "Otwiera pierwszy argument; kolejne akapity mają własne łączniki (However, Another idea, All things considered)."
+          },
+          {
+            "anchor": "closing the centre to cars would reduce pollution",
+            "type": "punkty",
+            "criterion": "content",
+            "element": 1,
+            "note": "Notatka 1 (zanieczyszczenie): jasna teza w pierwszym zdaniu akapitu."
+          },
+          {
+            "anchor": "Exhaust fumes are a serious health problem in cities",
+            "type": "zakres",
+            "criterion": "language",
+            "note": "Exhaust fumes to konkretne słownictwo tematyczne; health problem jest podstawowe."
+          },
+          {
+            "anchor": "the air is noticeably cleaner",
+            "type": "uwaga",
+            "criterion": "content",
+            "note": "Do poprawy: teza bez przykładu miasta ani danych. Konkret (np. strefa bez aut w konkretnym mieście) zwiększyłby wiarygodność i ocenę Content."
+          },
+          {
+            "anchor": "Some people, for example the elderly or the disabled, depend on cars to travel around",
+            "type": "punkty",
+            "criterion": "content",
+            "element": 2,
+            "note": "Notatka 2 (wygoda): kontrargument z konkretnymi grupami, którym zakaz utrudni życie."
+          },
+          {
+            "anchor": "These worries should be taken seriously",
+            "type": "rejestr",
+            "criterion": "communicative",
+            "note": "Strona bierna i should – rzeczowy, formalny ton oceny, bez emocji i bez I want."
+          },
+          {
+            "anchor": "Another idea is to offer cheap and frequent public transport",
+            "type": "punkty",
+            "criterion": "content",
+            "element": 3,
+            "note": "Notatka 3 (własny pomysł): propozycja wspierająca główny wniosek, a nie osobny temat."
+          },
+          {
+            "anchor": "many people will leave their cars at home without being forced to",
+            "type": "zakres",
+            "criterion": "language",
+            "note": "Without being forced to – gerundium w stronie biernej; zwięzła struktura o dużej wartości stylistycznej."
+          },
+          {
+            "anchor": "All things considered",
+            "type": "struktura",
+            "criterion": "organisation",
+            "note": "Formalne otwarcie zakończenia – tekst ma wyraźny początek i koniec."
+          },
+          {
+            "anchor": "provided that there are good alternatives for those who need them",
+            "type": "lacznik",
+            "criterion": "organisation",
+            "note": "Provided that wprowadza warunek do wniosku – esej kończy się wyważonym stanowiskiem."
+          }
+        ]
+      }
     },
     {
       "id": "article-friend",
@@ -83,7 +248,73 @@
         "Czy zwracam się do czytelnika?",
         "Czy mam 140–190 słów?"
       ],
-      "model": "What makes a good friend?\n\nHave you ever wondered why some friendships last for decades, while others end after a few months? In my opinion, there are three main qualities of a real friend.\n\nFirstly, a good friend is honest. He or she tells you the truth, even if it is not always pleasant. Secondly, you can rely on a true friend. When you have a problem, he or she is there to listen and help. Finally, good friends share your happiness. They are not jealous of your successes, but celebrate them with you.\n\nHas technology changed friendship? Yes, but not completely. Thanks to messaging apps, we can stay in touch with people who live far away, and that is a great advantage. On the other hand, some people spend more time chatting online than meeting in person, and a message can never replace a hug or a long walk together.\n\nTo sum up, friendship still depends on trust and kindness, no matter how we communicate. So, put your phone down, call a friend, and meet for a coffee!"
+      "model": "What makes a good friend?\n\nHave you ever wondered why some friendships last for decades, while others end after a few months? In my opinion, there are three main qualities of a real friend.\n\nFirstly, a good friend is honest. He or she tells you the truth, even if it is not always pleasant. Secondly, you can rely on a true friend. When you have a problem, he or she is there to listen and help. Finally, good friends share your happiness. They are not jealous of your successes, but celebrate them with you.\n\nHas technology changed friendship? Yes, but not completely. Thanks to messaging apps, we can stay in touch with people who live far away, and that is a great advantage. On the other hand, some people spend more time chatting online than meeting in person, and a message can never replace a hug or a long walk together.\n\nTo sum up, friendship still depends on trust and kindness, no matter how we communicate. So, put your phone down, call a friend, and meet for a coffee!",
+      "modelNotes": {
+        "summary": [
+          "Artykuł odpowiada na oba pytania z polecenia: cechy dobrego przyjaciela i wpływ technologii na przyjaźń.",
+          "Hak otwierający (pytanie do czytelnika) i apel na końcu nadają tekstowi styl magazynu dla młodzieży.",
+          "Łączniki Firstly, Secondly, Finally porządkują listę cech, a On the other hand przeciwstawia zalety i wady technologii.",
+          "Odpowiedź na pytanie o technologię jest ostrożna, lecz ogólna – brakuje przykładu z życia, który pokazałby zmianę."
+        ],
+        "annotations": [
+          {
+            "anchor": "Have you ever wondered why some friendships last for decades",
+            "type": "struktura",
+            "criterion": "organisation",
+            "note": "Pytanie otwierające angażuje czytelnika już w pierwszym zdaniu – typowy wstęp artykułu."
+          },
+          {
+            "anchor": "Firstly, a good friend is honest",
+            "type": "lacznik",
+            "criterion": "organisation",
+            "note": "Firstly rozpoczyna trójczłonową listę cech; kolejne to Secondly i Finally."
+          },
+          {
+            "anchor": "you can rely on a true friend",
+            "type": "punkty",
+            "criterion": "content",
+            "element": 1,
+            "note": "Element 1 (cechy przyjaciela): druga z trzech cech – zaufanie – z przykładem sytuacji. Rely on to czasownik przyimkowy, naturalny i konkretny."
+          },
+          {
+            "anchor": "They are not jealous of your successes, but celebrate them with you",
+            "type": "zakres",
+            "criterion": "language",
+            "note": "Przeciwstawienie not…but jest zgrabne, a słownictwo (be jealous of, celebrate) poprawne, ale podstawowe."
+          },
+          {
+            "anchor": "we can stay in touch with people who live far away",
+            "type": "punkty",
+            "criterion": "content",
+            "element": 2,
+            "note": "Druga część polecenia (technologia): konkretna zaleta komunikatorów, połączona z przeciwwagą w następnym zdaniu."
+          },
+          {
+            "anchor": "On the other hand",
+            "type": "lacznik",
+            "criterion": "organisation",
+            "note": "Kontrast w obrębie jednego akapitu: po zalecie komunikatorów pojawia się wada technologii."
+          },
+          {
+            "anchor": "some people spend more time chatting online than meeting in person",
+            "type": "uwaga",
+            "criterion": "content",
+            "note": "Do poprawy: ogólnik bez przykładu (np. rozmowy w grupie klasowej zamiast spotkań). Zdanie o hug też jest tezą bez uzasadnienia."
+          },
+          {
+            "anchor": "To sum up, friendship still depends on trust and kindness",
+            "type": "uwaga",
+            "criterion": "organisation",
+            "note": "Do poprawy: zakończenie mówi o trust and kindness, a tekst wymieniał honesty, reliability i dzielenie radości. Spójniej byłoby wrócić do tych samych cech."
+          },
+          {
+            "anchor": "So, put your phone down, call a friend, and meet for a coffee",
+            "type": "rejestr",
+            "criterion": "communicative",
+            "note": "Polecenia skierowane do czytelnika – swobodny, bezpośredni ton, właściwy dla artykułu w magazynie młodzieżowym."
+          }
+        ]
+      }
     },
     {
       "id": "email-organiser",
@@ -98,7 +329,80 @@
         "Czy mam początek i zakończenie?",
         "Czy mam 140–190 słów?"
       ],
-      "model": "Hi Chris,\n\nThanks for your email. I'm really looking forward to your visit, too!\n\nThe weather here in October is usually cool and sometimes rainy, so I'd suggest bringing a warm jacket, an umbrella and comfortable shoes. It can also be sunny during the day, so a light sweater would be useful as well.\n\nAs for a present, don't worry about it. But if you could bring a few English magazines about music, that would be great, because I'd like to read something authentic. My mum would love some English tea, too, if it's not too much trouble.\n\nOn your first day, I thought we could have lunch at my favourite restaurant, which serves traditional Polish dishes. After that, we could walk around the old town and visit the castle. In the evening, I'm planning to invite a few friends so that you can meet them. I hope you'll like the plan.\n\nLet me know if you want to change anything. Safe journey and see you soon!\n\nBest wishes,\nXYZ"
+      "model": "Hi Chris,\n\nThanks for your email. I'm really looking forward to your visit, too!\n\nThe weather here in October is usually cool and sometimes rainy, so I'd suggest bringing a warm jacket, an umbrella and comfortable shoes. It can also be sunny during the day, so a light sweater would be useful as well.\n\nAs for a present, don't worry about it. But if you could bring a few English magazines about music, that would be great, because I'd like to read something authentic. My mum would love some English tea, too, if it's not too much trouble.\n\nOn your first day, I thought we could have lunch at my favourite restaurant, which serves traditional Polish dishes. After that, we could walk around the old town and visit the castle. In the evening, I'm planning to invite a few friends so that you can meet them. I hope you'll like the plan.\n\nLet me know if you want to change anything. Safe journey and see you soon!\n\nBest wishes,\nXYZ",
+      "modelNotes": {
+        "summary": [
+          "E-mail odpowiada na wszystkie pytania Chrisa: pogoda i ubrania, prezent i plan pierwszego dnia.",
+          "Ton jest ciepły i swobodny (I'm really looking forward…), ale zdania są pełne i dobrze zbudowane.",
+          "Struktury zróżnicowane: I'd suggest bringing, I thought we could, I'm planning to, zdania względne.",
+          "Plan wieczoru jest podany jako decyzja; łagodzą to dopiero I hope you'll like the plan i zdanie na końcu."
+        ],
+        "annotations": [
+          {
+            "anchor": "Thanks for your email",
+            "type": "struktura",
+            "criterion": "organisation",
+            "note": "Nawiązanie do wiadomości na początku – odpowiedź jest od razu osadzona w korespondencji."
+          },
+          {
+            "anchor": "I'm really looking forward to your visit, too",
+            "type": "rejestr",
+            "criterion": "communicative",
+            "note": "Skrót I'm, really i too – ciepły, nieformalny ton właściwy dla kolegi z zagranicy."
+          },
+          {
+            "anchor": "The weather here in October is usually cool and sometimes rainy",
+            "type": "punkty",
+            "criterion": "content",
+            "element": 1,
+            "note": "Pytanie 1 Chrisa (pogoda): odpowiedź z konkretem (cool, rainy) i radą dotyczącą ubrań."
+          },
+          {
+            "anchor": "so I'd suggest bringing a warm jacket",
+            "type": "zakres",
+            "criterion": "language",
+            "note": "I'd suggest + -ing – ostrożna rada zamiast poleceń; naturalne dla uprzejmego e-maila."
+          },
+          {
+            "anchor": "As for a present",
+            "type": "lacznik",
+            "criterion": "organisation",
+            "note": "As for… zmienia temat na kolejne pytanie – to prosty sposób na porządkowanie odpowiedzi punkt po punkcie."
+          },
+          {
+            "anchor": "if you could bring a few English magazines about music",
+            "type": "punkty",
+            "criterion": "content",
+            "element": 2,
+            "note": "Pytanie 2 (prezent): konkretna prośba z uzasadnieniem w następnym zdaniu."
+          },
+          {
+            "anchor": "that would be great, because I'd like to read something authentic",
+            "type": "zakres",
+            "criterion": "language",
+            "note": "Authentic to ciekawsze słowo niż real; reszta to poprawna, grzeczna prośba z powodem."
+          },
+          {
+            "anchor": "I thought we could have lunch at my favourite restaurant",
+            "type": "punkty",
+            "criterion": "content",
+            "element": 3,
+            "note": "Pytanie 3 (pierwszy dzień): konkretny plan z miejscem, a nie ogólne „zobaczymy”."
+          },
+          {
+            "anchor": "I'm planning to invite a few friends",
+            "type": "uwaga",
+            "criterion": "communicative",
+            "note": "Do poprawy: wieczór to gotowa decyzja. Pytanie (Would you like to meet a few of my friends?) byłoby uprzejmiejsze; zakończenie tylko częściowo to łagodzi."
+          },
+          {
+            "anchor": "Let me know if you want to change anything",
+            "type": "struktura",
+            "criterion": "organisation",
+            "note": "Zakończenie zostawia gościowi wpływ na plan i zamyka mail uprzejmą formułą."
+          }
+        ]
+      }
     },
     {
       "id": "review-film",
@@ -113,7 +417,88 @@
         "Czy jest rekomendacja?",
         "Czy mam 140–190 słów?"
       ],
-      "model": "A film worth watching: The Lighthouse Keeper\n\nIf you enjoy quiet stories with beautiful scenery, I'd highly recommend the film The Lighthouse Keeper, which I watched last weekend.\n\nThe film tells the story of an old man who lives alone on a rocky island and looks after a lighthouse. One stormy night, he rescues a young girl from a broken boat, and their friendship slowly changes both their lives.\n\nWhat I liked most was the photography. The sea, the sky and the old lighthouse look stunning on the screen. In addition, the main actor is brilliant: you can see his feelings in his eyes, even when he says nothing. The music is another highlight, as it matches the mood perfectly.\n\nOn the other hand, some scenes are too slow, and a few viewers may find them boring. The ending is also a little predictable.\n\nDespite these small weaknesses, I'd recommend the film to anyone who wants to relax and think. It's not an action movie, but it stays in your mind for a long time."
+      "model": "A film worth watching: The Lighthouse Keeper\n\nIf you enjoy quiet stories with beautiful scenery, I'd highly recommend the film The Lighthouse Keeper, which I watched last weekend.\n\nThe film tells the story of an old man who lives alone on a rocky island and looks after a lighthouse. One stormy night, he rescues a young girl from a broken boat, and their friendship slowly changes both their lives.\n\nWhat I liked most was the photography. The sea, the sky and the old lighthouse look stunning on the screen. In addition, the main actor is brilliant: you can see his feelings in his eyes, even when he says nothing. The music is another highlight, as it matches the mood perfectly.\n\nOn the other hand, some scenes are too slow, and a few viewers may find them boring. The ending is also a little predictable.\n\nDespite these small weaknesses, I'd recommend the film to anyone who wants to relax and think. It's not an action movie, but it stays in your mind for a long time.",
+      "modelNotes": {
+        "summary": [
+          "Recenzja zawiera streszczenie fabuły, mocne i słabe strony oraz rekomendację – wszystkie trzy elementy polecenia.",
+          "Tytuł i pierwsze zdanie (If you enjoy…) zwracają się wprost do czytelnika, co jest typowe dla gatunku.",
+          "Słownictwo oceniające jest zróżnicowane (stunning, brilliant, highlight, predictable) i konkretne.",
+          "Zakończenie łączy zastrzeżenia z rekomendacją (Despite…), więc ocena jest wyważona.",
+          "Jeden zarzut jest wyrażony ogólnie, bez przykładu – to najsłabsze miejsce recenzji."
+        ],
+        "annotations": [
+          {
+            "anchor": "A film worth watching",
+            "type": "struktura",
+            "criterion": "organisation",
+            "note": "Tytuł recenzji zachęca do przeczytania i podaje temat – gatunek wymaga tytułu, którego nie ma w e-mailu."
+          },
+          {
+            "anchor": "If you enjoy quiet stories with beautiful scenery",
+            "type": "rejestr",
+            "criterion": "communicative",
+            "note": "Zwrot do czytelnika i pierwsza osoba (I'd recommend) – półformalny, osobisty ton recenzji."
+          },
+          {
+            "anchor": "tells the story of an old man who lives alone",
+            "type": "punkty",
+            "criterion": "content",
+            "element": 1,
+            "note": "Element 1 (opis fabuły): krótkie streszczenie bez zdradzania zakończenia."
+          },
+          {
+            "anchor": "One stormy night",
+            "type": "lacznik",
+            "criterion": "organisation",
+            "note": "Wyrażenie czasowe porządkuje fabułę i wprowadza zwrot akcji."
+          },
+          {
+            "anchor": "What I liked most was the photography",
+            "type": "punkty",
+            "criterion": "content",
+            "element": 2,
+            "note": "Element 2 (co się podobało): konstrukcja What I liked most was… wskazuje najmocniejszy punkt."
+          },
+          {
+            "anchor": "The sea, the sky and the old lighthouse look stunning on the screen",
+            "type": "zakres",
+            "criterion": "language",
+            "note": "Stunning to mocne słowo oceniające obraz; konstrukcja look + przymiotnik jest podstawowa."
+          },
+          {
+            "anchor": "On the other hand",
+            "type": "lacznik",
+            "criterion": "organisation",
+            "note": "Przejście od zalet do wad filmu – nowy akapit zaczyna się od kontrastu."
+          },
+          {
+            "anchor": "some scenes are too slow, and a few viewers may find them boring",
+            "type": "punkty",
+            "criterion": "content",
+            "element": 2,
+            "note": "Element 2 (co się nie podobało): wada nazwana wprost i złagodzona (a few viewers may find)."
+          },
+          {
+            "anchor": "The ending is also a little predictable",
+            "type": "uwaga",
+            "criterion": "content",
+            "note": "Do poprawy: zarzut bez przykładu – nie wiadomo, co jest przewidywalne. Jedno zdanie (bez spoilerów) uczyniłoby go wiarygodnym."
+          },
+          {
+            "anchor": "Despite these small weaknesses",
+            "type": "struktura",
+            "criterion": "organisation",
+            "note": "Zdanie ustępstwa przed rekomendacją – zakończenie wynika z oceny, a nie jest jej powtórzeniem."
+          },
+          {
+            "anchor": "I'd recommend the film to anyone who wants to relax and think",
+            "type": "punkty",
+            "criterion": "content",
+            "element": 3,
+            "note": "Element 3 (rekomendacja): wskazuje odbiorcę – osoby, które chcą się zrelaksować i zastanowić."
+          }
+        ]
+      }
     },
     {
       "id": "report-school",
@@ -128,7 +513,86 @@
         "Czy podałem/am rekomendację?",
         "Czy mam 140–190 słów?"
       ],
-      "model": "Report on possible school trips\n\nIntroduction\nThe aim of this report is to compare two destinations for the end-of-year trip and to recommend the better one.\n\nThe science museum\nThe museum offers interactive exhibitions, which would suit students of all ages. It is also close to the city, so the journey would be short and cheap. However, it can be very crowded at weekends, and the tickets are fairly expensive.\n\nThe national park\nThe park offers a chance to spend a whole day in nature, take part in outdoor activities and learn about the environment. The main disadvantage is the distance: the journey takes about two hours each way, and the weather could be a problem.\n\nConclusion and recommendation\nBoth places have advantages, but I would recommend the national park. Although it is further away, the experience would be more memorable, and students could develop teamwork skills. To avoid problems with the weather, the school could choose a date in early June and prepare an alternative programme."
+      "model": "Report on possible school trips\n\nIntroduction\nThe aim of this report is to compare two destinations for the end-of-year trip and to recommend the better one.\n\nThe science museum\nThe museum offers interactive exhibitions, which would suit students of all ages. It is also close to the city, so the journey would be short and cheap. However, it can be very crowded at weekends, and the tickets are fairly expensive.\n\nThe national park\nThe park offers a chance to spend a whole day in nature, take part in outdoor activities and learn about the environment. The main disadvantage is the distance: the journey takes about two hours each way, and the weather could be a problem.\n\nConclusion and recommendation\nBoth places have advantages, but I would recommend the national park. Although it is further away, the experience would be more memorable, and students could develop teamwork skills. To avoid problems with the weather, the school could choose a date in early June and prepare an alternative programme.",
+      "modelNotes": {
+        "summary": [
+          "Raport ma nagłówki i osobne części dla każdego miejsca, a kończy się rekomendacją – gatunek jest dobrze rozpoznany.",
+          "Zalety i wady są podane dla obu miejsc, dzięki czemu rekomendacja wynika z porównania.",
+          "Ton jest rzeczowy, bez emocji i bezpośrednich zwrotów do dyrektora, z formułami typu could, would recommend.",
+          "Jedna wada (cena biletów) jest opisana bez konkretu, a w raporcie liczby wzmacniają użyteczność."
+        ],
+        "annotations": [
+          {
+            "anchor": "The aim of this report is to compare two destinations",
+            "type": "struktura",
+            "criterion": "organisation",
+            "note": "Cel raportu w pierwszym zdaniu sekcji Introduction – dyrektor od razu wie, co dostanie."
+          },
+          {
+            "anchor": "The museum offers interactive exhibitions",
+            "type": "punkty",
+            "criterion": "content",
+            "element": 1,
+            "note": "Zaleta muzeum podana wprost; dalej stoi uzasadnienie (dla uczniów w każdym wieku)."
+          },
+          {
+            "anchor": "However, it can be very crowded at weekends",
+            "type": "lacznik",
+            "criterion": "organisation",
+            "note": "However wprowadza wadę po zalecie – spójny schemat dla każdego miejsca."
+          },
+          {
+            "anchor": "the tickets are fairly expensive",
+            "type": "uwaga",
+            "criterion": "content",
+            "note": "Do poprawy: brak konkretu. W raporcie dla dyrektora liczby lub porównanie cen (z parkiem) zwiększyłyby użyteczność."
+          },
+          {
+            "anchor": "The main disadvantage is the distance",
+            "type": "punkty",
+            "criterion": "content",
+            "element": 2,
+            "note": "Wada parku nazwana wprost i poparta czasem dojazdu (about two hours each way)."
+          },
+          {
+            "anchor": "take part in outdoor activities and learn about the environment",
+            "type": "zakres",
+            "criterion": "language",
+            "note": "Poprawne, naturalne kolokacje opisu wycieczki (take part in, learn about)."
+          },
+          {
+            "anchor": "Conclusion and recommendation",
+            "type": "struktura",
+            "criterion": "organisation",
+            "note": "Osobna sekcja z rekomendacją pod nagłówkiem – typowa konstrukcja raportu."
+          },
+          {
+            "anchor": "I would recommend the national park",
+            "type": "punkty",
+            "criterion": "content",
+            "element": 3,
+            "note": "Rekomendacja podana wyraźnie i od razu uzasadniona w następnych zdaniach."
+          },
+          {
+            "anchor": "Although it is further away",
+            "type": "lacznik",
+            "criterion": "organisation",
+            "note": "Although łączy wadę (odległość) z zaletą (doświadczenie) – rekomendacja jest wyważona."
+          },
+          {
+            "anchor": "students could develop teamwork skills",
+            "type": "zakres",
+            "criterion": "language",
+            "note": "Develop … skills i could – poprawna, ostrożna forma korzyści; w raporcie neutralna."
+          },
+          {
+            "anchor": "the school could choose a date in early June",
+            "type": "rejestr",
+            "criterion": "communicative",
+            "note": "Could zamiast must i bezosobowe sformułowania – doradczy ton raportu dla dyrektora."
+          }
+        ]
+      }
     },
     {
       "id": "story-secret",
@@ -143,7 +607,77 @@
         "Czy używam czasów przeszłych?",
         "Czy mam 140–190 słów?"
       ],
-      "model": "When Maria opened the door, she could not believe what she saw. In the middle of the living room stood a huge cardboard box with a big red ribbon, and next to it was her grandfather, smiling broadly.\n\n'Happy birthday, Maria!' he said. 'I know you've wanted this for years.'\n\nMaria slowly lifted the lid. Inside, there was a small brown puppy, looking at her with big, curious eyes. She had asked for a dog every year since she was seven, but her parents had always said no because of the small flat.\n\n'But how...?' she asked, with tears in her eyes.\n\n'Your parents and I talked about it,' said her grandfather. 'We agreed that you're old enough to take care of a pet. And I'll help you with the walks.'\n\nMaria hugged the puppy and then her grandfather. She had never felt so happy. That evening, she decided to call the dog Lucky, because he had been waiting for a family as long as she had been waiting for him. It was the best birthday of her life."
+      "model": "When Maria opened the door, she could not believe what she saw. In the middle of the living room stood a huge cardboard box with a big red ribbon, and next to it was her grandfather, smiling broadly.\n\n'Happy birthday, Maria!' he said. 'I know you've wanted this for years.'\n\nMaria slowly lifted the lid. Inside, there was a small brown puppy, looking at her with big, curious eyes. She had asked for a dog every year since she was seven, but her parents had always said no because of the small flat.\n\n'But how...?' she asked, with tears in her eyes.\n\n'Your parents and I talked about it,' said her grandfather. 'We agreed that you're old enough to take care of a pet. And I'll help you with the walks.'\n\nMaria hugged the puppy and then her grandfather. She had never felt so happy. That evening, she decided to call the dog Lucky, because he had been waiting for a family as long as she had been waiting for him. It was the best birthday of her life.",
+      "modelNotes": {
+        "summary": [
+          "Opowiadanie zaczyna się od wymaganego zdania, ma wyraźny początek, rozwinięcie i zakończenie.",
+          "Dialogi nadają tempo i pokazują emocje bohaterki, a narracja jest w czasach przeszłych zgodnie z gatunkiem.",
+          "Zakres obejmuje Past Perfect i Past Perfect Continuous, które porządkują wydarzenia z przeszłości bohaterki.",
+          "Zakończenie jest sentymentalne i oparte na kliszy, a fabule brakuje komplikacji – to dobre miejsca na pokazanie, jak je poprawić."
+        ],
+        "annotations": [
+          {
+            "anchor": "When Maria opened the door, she could not believe what she saw",
+            "type": "punkty",
+            "criterion": "content",
+            "note": "Wymagane zdanie otwierające jest wpisane dosłownie – bez tego praca traci punkty za Content."
+          },
+          {
+            "anchor": "stood a huge cardboard box with a big red ribbon",
+            "type": "zakres",
+            "criterion": "language",
+            "note": "Inwersja po okoliczności miejsca (stood a huge box) – stylistycznie bogatsza niż there was a box."
+          },
+          {
+            "anchor": "'Happy birthday, Maria!' he said",
+            "type": "struktura",
+            "criterion": "organisation",
+            "note": "Dialog wyjaśnia okazję (urodziny) i przyspiesza akcję; sama niespodzianka wychodzi dopiero po otwarciu pudła."
+          },
+          {
+            "anchor": "I know you've wanted this for years",
+            "type": "rejestr",
+            "criterion": "communicative",
+            "note": "Dialog brzmi naturalnie (skrót you've, I know…) i kontrastuje z neutralną narracją; Present Perfect z for pokazuje długie pragnienie."
+          },
+          {
+            "anchor": "She had asked for a dog every year since she was seven",
+            "type": "zakres",
+            "criterion": "language",
+            "note": "Past Perfect porządkuje wydarzenia: prośby były wcześniej niż obecna scena."
+          },
+          {
+            "anchor": "but her parents had always said no because of the small flat",
+            "type": "lacznik",
+            "criterion": "organisation",
+            "note": "But + because of w jednym zdaniu: kontrast i przyczyna wyjaśniają, dlaczego niespodzianka jest ważna."
+          },
+          {
+            "anchor": "Maria hugged the puppy and then her grandfather",
+            "type": "struktura",
+            "criterion": "organisation",
+            "note": "Rozwiązanie sceny po wyjaśnieniach dziadka: emocjonalne domknięcie, a nie zwrot akcji – w fabule brakuje komplikacji."
+          },
+          {
+            "anchor": "That evening, she decided to call the dog Lucky",
+            "type": "lacznik",
+            "criterion": "organisation",
+            "note": "Wyrażenie czasowe przenosi akcję do wieczora i domyka sceny z dnia."
+          },
+          {
+            "anchor": "as long as she had been waiting for him",
+            "type": "uwaga",
+            "criterion": "language",
+            "note": "Do poprawy: konstrukcja jest poprawna, ale porównanie z wieloletnim czekaniem Marii jest nielogiczne dla szczeniaka – efektowne, lecz nieprzemyślane."
+          },
+          {
+            "anchor": "It was the best birthday of her life",
+            "type": "uwaga",
+            "criterion": "communicative",
+            "note": "Do poprawy: zakończenie to klisza, która mówi o emocjach zamiast je pokazać. Mocniejszy byłby konkretny gest szczeniaka."
+          }
+        ]
+      }
     }
   ]
 }

@@ -56,7 +56,94 @@
         "Czy użyłem/am formalnych łączników?",
         "Czy mam 200–250 wyrazów?"
       ],
-      "model": "Nowadays, almost every teenager owns a smartphone, and the question of whether schools should ban them causes heated debate. In my opinion, a complete ban is not the best solution, although there are good reasons to limit phone use.\n\nOn the one hand, a ban would help students to concentrate. When phones stay in lockers, pupils are less likely to check messages during a lesson, and they talk to each other during breaks instead of looking at screens. Furthermore, a ban reduces the risk of cyberbullying at school, as it is harder to film or photograph classmates.\n\nOn the other hand, phones are useful tools. Students can use them to look up information, translate a word or take a photo of the board. A total ban would also make it difficult for parents to contact their children in an emergency. For instance, in case of a sudden change of timetable, a short message can save a lot of worry.\n\nAll things considered, I believe that schools should introduce clear rules rather than an absolute ban. Phones could be switched off during lessons and used only when the teacher allows it. In this way, students would learn to use technology responsibly, which is a skill they will need for the rest of their lives."
+      "model": "Nowadays, almost every teenager owns a smartphone, and the question of whether schools should ban them causes heated debate. In my opinion, a complete ban is not the best solution, although there are good reasons to limit phone use.\n\nOn the one hand, a ban would help students to concentrate. When phones stay in lockers, pupils are less likely to check messages during a lesson, and they talk to each other during breaks instead of looking at screens. Furthermore, a ban reduces the risk of cyberbullying at school, as it is harder to film or photograph classmates.\n\nOn the other hand, phones are useful tools. Students can use them to look up information, translate a word or take a photo of the board. A total ban would also make it difficult for parents to contact their children in an emergency. For instance, in case of a sudden change of timetable, a short message can save a lot of worry.\n\nAll things considered, I believe that schools should introduce clear rules rather than an absolute ban. Phones could be switched off during lessons and used only when the teacher allows it. In this way, students would learn to use technology responsibly, which is a skill they will need for the rest of their lives.",
+      "modelNotes": {
+        "summary": [
+          "Każdy z trzech elementów polecenia ma osobny akapit, a stanowisko pojawia się już we wstępie i wraca w zakończeniu.",
+          "Akapity zaczynają się od jasnych łączników (On the one hand / On the other hand / All things considered), więc tekst łatwo śledzić.",
+          "Większość argumentów ma rozwinięcie (powód lub skutek); wyjątkiem jest akapit o użyteczności telefonów, który wymienia czynności jak listę.",
+          "Rejestr jest neutralno-formalny: bez skrótów typu don't, bez zwrotów do czytelnika w stylu „you know”.",
+          "Zakres językowy podnoszą m.in. struktury less likely to, rather than i zdanie względne which is a skill."
+        ],
+        "annotations": [
+          {
+            "anchor": "the question of whether schools should ban them causes heated debate",
+            "type": "struktura",
+            "criterion": "spojnosc",
+            "note": "Wstęp wprowadza temat jako spór – to naturalne przejście do omówienia obu stron."
+          },
+          {
+            "anchor": "In my opinion, a complete ban is not the best solution",
+            "type": "punkty",
+            "criterion": "realizacja",
+            "element": 3,
+            "note": "Stanowisko już we wstępie: element 3 polecenia jest zrealizowany od początku, a zakończenie go potwierdza."
+          },
+          {
+            "anchor": "although there are good reasons to limit phone use",
+            "type": "zakres",
+            "criterion": "zakres",
+            "note": "Ustępstwo z although pokazuje, że autor widzi drugą stronę – poprawne, choć standardowe."
+          },
+          {
+            "anchor": "On the one hand, a ban would help students to concentrate",
+            "type": "punkty",
+            "criterion": "realizacja",
+            "element": 1,
+            "note": "Element 1 (korzyści zakazu) w zdaniu tematycznym akapitu. Egzaminator od razu widzi, co realizuje ten akapit."
+          },
+          {
+            "anchor": "pupils are less likely to check messages",
+            "type": "zakres",
+            "criterion": "zakres",
+            "note": "Be less likely to + bezokolicznik – precyzyjniej niż „won't check”, typowe dla tekstów formalnych."
+          },
+          {
+            "anchor": "Furthermore, a ban reduces the risk of cyberbullying",
+            "type": "lacznik",
+            "criterion": "spojnosc",
+            "note": "Furthermore dodaje drugi argument w tym samym akapicie. Zamiennie: Moreover, What is more."
+          },
+          {
+            "anchor": "On the other hand, phones are useful tools",
+            "type": "punkty",
+            "criterion": "realizacja",
+            "element": 2,
+            "note": "Element 2 (wady zakazu) – para z On the one hand porządkuje cały środek tekstu."
+          },
+          {
+            "anchor": "For instance, in case of a sudden change of timetable",
+            "type": "uwaga",
+            "criterion": "realizacja",
+            "element": 2,
+            "note": "Do poprawy: zmiana planu lekcji to słaby przykład nagłej sytuacji. Lepiej: dziecko źle się poczuło albo odwołano autobus."
+          },
+          {
+            "anchor": "All things considered, I believe that",
+            "type": "struktura",
+            "criterion": "spojnosc",
+            "note": "Formalne otwarcie zakończenia. Zakończenie powtarza stanowisko innymi słowami, nie kopiuje wstępu."
+          },
+          {
+            "anchor": "schools should introduce clear rules rather than an absolute ban",
+            "type": "rejestr",
+            "criterion": "zakres",
+            "note": "Should + bezokolicznik i rather than – rzeczowy ton rekomendacji, bez emocjonalnych słów typu „terrible”."
+          },
+          {
+            "anchor": "which is a skill they will need for the rest of their lives",
+            "type": "zakres",
+            "criterion": "zakres",
+            "note": "Zdanie względne odnoszące się do całej myśli (which = co) – zgrabne zamknięcie tekstu."
+          },
+          {
+            "anchor": "Students can use them to look up information",
+            "type": "uwaga",
+            "criterion": "zakres",
+            "note": "Do poprawy: trzy krótkie przykłady w jednym zdaniu brzmią jak lista. Mocniej: jeden przykład rozwinięty o skutek."
+          }
+        ]
+      }
     },
     {
       "id": "letter-cycle",
@@ -71,7 +158,88 @@
         "Czy ton jest formalny?",
         "Czy mam 200–250 wyrazów?"
       ],
-      "model": "Dear Sir or Madam,\n\nI am writing to express my concern about the lack of safe cycle paths in our town. I have been cycling to school for three years, and I have noticed that the situation is getting worse every year.\n\nAt the moment, cyclists have to ride on busy roads, because the nearest cycle path ends two kilometres before the town centre. Last month a classmate was nearly hit by a lorry when she was cycling along Mickiewicza Street. Unfortunately, this is not an isolated incident, as many people in my neighbourhood have had similar experiences.\n\nThis problem is important for several reasons. First of all, safe paths would encourage more residents to leave their cars at home, which would reduce traffic and pollution. In addition, they would make our town more attractive for tourists, who often travel by bike.\n\nI would therefore like to suggest that the council builds a continuous path along the main road, from the housing estate to the town centre. Even a simple path separated from the road by a painted line would be a great improvement for everyone who cycles every day.\n\nI would be grateful if you could consider my proposal. I look forward to hearing from you.\n\nYours faithfully,\nXYZ"
+      "model": "Dear Sir or Madam,\n\nI am writing to express my concern about the lack of safe cycle paths in our town. I have been cycling to school for three years, and I have noticed that the situation is getting worse every year.\n\nAt the moment, cyclists have to ride on busy roads, because the nearest cycle path ends two kilometres before the town centre. Last month a classmate was nearly hit by a lorry when she was cycling along Mickiewicza Street. Unfortunately, this is not an isolated incident, as many people in my neighbourhood have had similar experiences.\n\nThis problem is important for several reasons. First of all, safe paths would encourage more residents to leave their cars at home, which would reduce traffic and pollution. In addition, they would make our town more attractive for tourists, who often travel by bike.\n\nI would therefore like to suggest that the council builds a continuous path along the main road, from the housing estate to the town centre. Even a simple path separated from the road by a painted line would be a great improvement for everyone who cycles every day.\n\nI would be grateful if you could consider my proposal. I look forward to hearing from you.\n\nYours faithfully,\nXYZ",
+      "modelNotes": {
+        "summary": [
+          "Trzy elementy polecenia mają osobne akapity: opis problemu, uzasadnienie wagi i konkretna propozycja – realizacja jest pełna.",
+          "List ma formalną ramę (Dear Sir or Madam, I am writing to…, Yours faithfully) i jednolity, rzeczowy ton bez skrótów.",
+          "Argumenty są poparte przykładem z życia (uczennica prawie potrącona) i skutkami dla miasta, co wzmacnia przekonywanie.",
+          "Zakres podnoszą zdania względne i okolicznikowe oraz kolokacje typu express concern, isolated incident.",
+          "Dwie rzeczy do poprawy: formalna konstrukcja po suggest oraz propozycja ścieżki z malowaną linią, która nie zapewnia bezpieczeństwa."
+        ],
+        "annotations": [
+          {
+            "anchor": "Dear Sir or Madam",
+            "type": "rejestr",
+            "criterion": "zakres",
+            "note": "Formalne zwroty na początku i na końcu (Yours faithfully) wskazują adresata urzędowego – listy do instytucji pisze się inaczej niż do kolegi."
+          },
+          {
+            "anchor": "to express my concern about the lack of safe cycle paths",
+            "type": "struktura",
+            "criterion": "spojnosc",
+            "note": "Cel listu w pierwszym zdaniu: odbiorca od razu wie, jakiej sprawy dotyczy pismo."
+          },
+          {
+            "anchor": "because the nearest cycle path ends two kilometres before the town centre",
+            "type": "punkty",
+            "criterion": "realizacja",
+            "element": 1,
+            "note": "Element 1 (opis problemu): konkretna informacja zamiast ogólnego „jest niebezpiecznie” – urząd ma co sprawdzić."
+          },
+          {
+            "anchor": "Last month a classmate was nearly hit by a lorry",
+            "type": "zakres",
+            "criterion": "zakres",
+            "note": "Konkretny przykład w stronie biernej i bryt. lorry. Przykład z życia wzmacnia argument bardziej niż statystyka."
+          },
+          {
+            "anchor": "First of all",
+            "type": "lacznik",
+            "criterion": "spojnosc",
+            "note": "Pierwszy z kolejnych argumentów; razem z In addition i therefore porządkuje cały list."
+          },
+          {
+            "anchor": "This problem is important for several reasons",
+            "type": "punkty",
+            "criterion": "realizacja",
+            "element": 2,
+            "note": "Element 2: zdanie tematyczne akapitu zapowiada kilka powodów i od razu realizuje polecenie."
+          },
+          {
+            "anchor": "which would reduce traffic and pollution",
+            "type": "zakres",
+            "criterion": "zakres",
+            "note": "Zdanie względne (which = co) z would – skutek podany precyzyjnie, bez powtarzania podmiotu."
+          },
+          {
+            "anchor": "I would therefore like to suggest",
+            "type": "lacznik",
+            "criterion": "spojnosc",
+            "note": "Therefore wiąże uzasadnienie z propozycją – logiczne przejście do elementu 3."
+          },
+          {
+            "anchor": "a continuous path along the main road, from the housing estate to the town centre",
+            "type": "punkty",
+            "criterion": "realizacja",
+            "element": 3,
+            "note": "Element 3: konkretna propozycja z trasą. Egzaminator widzi rozwiązanie, nie tylko żądanie."
+          },
+          {
+            "anchor": "that the council builds",
+            "type": "uwaga",
+            "criterion": "zakres",
+            "note": "Do poprawy: po suggest w formalnym liście bezpieczniej the council build (tryb łączący) lub should build. Builds też występuje, ale jest mniej formalne."
+          },
+          {
+            "anchor": "Even a simple path separated from the road by a painted line",
+            "type": "uwaga",
+            "criterion": "realizacja",
+            "element": 3,
+            "note": "Do poprawy: malowana linia nie chroni rowerzysty i osłabia propozycję bezpiecznych ścieżek. Lepiej: oddzielenie krawężnikiem lub pasem zieleni."
+          }
+        ]
+      }
     },
     {
       "id": "article-volunteering",
@@ -86,7 +254,87 @@
         "Czy ton jest półformalny i zaangażowany?",
         "Czy mam 200–250 wyrazów?"
       ],
-      "model": "Is volunteering worth your time?\n\nImagine spending your Saturday morning helping at an animal shelter or teaching children to read. Many young people choose this kind of activity, and I think they are right.\n\nFirst of all, volunteering brings real benefits. It gives you the chance to learn useful skills such as teamwork, communication and organisation. What is more, it can make a big difference on your CV, because employers value people who take responsibility. Above all, helping others makes you feel needed, which improves your mood and confidence.\n\nNevertheless, there are some difficulties. Teenagers have a lot of homework, and finding time every week is not always easy. Some volunteers also say that they feel tired or sad after working with people in difficult situations. For this reason, it is important to choose an activity which you really care about and to talk to someone when the job becomes stressful.\n\nIf you ask me, the advantages are much greater than the problems. Start small, for example with two hours a month, and see how it feels. You may be surprised to discover how much you gain by giving a little of your time, and how many people will be grateful for your help."
+      "model": "Is volunteering worth your time?\n\nImagine spending your Saturday morning helping at an animal shelter or teaching children to read. Many young people choose this kind of activity, and I think they are right.\n\nFirst of all, volunteering brings real benefits. It gives you the chance to learn useful skills such as teamwork, communication and organisation. What is more, it can make a big difference on your CV, because employers value people who take responsibility. Above all, helping others makes you feel needed, which improves your mood and confidence.\n\nNevertheless, there are some difficulties. Teenagers have a lot of homework, and finding time every week is not always easy. Some volunteers also say that they feel tired or sad after working with people in difficult situations. For this reason, it is important to choose an activity which you really care about and to talk to someone when the job becomes stressful.\n\nIf you ask me, the advantages are much greater than the problems. Start small, for example with two hours a month, and see how it feels. You may be surprised to discover how much you gain by giving a little of your time, and how many people will be grateful for your help.",
+      "modelNotes": {
+        "summary": [
+          "Artykuł omawia korzyści, trudności i własne zdanie – każdy element polecenia ma osobny akapit i wyraźne zdanie tematyczne.",
+          "Tytuł w formie pytania i obrazowy początek (Imagine…) przyciągają uwagę czytelnika gazetki, a ton jest półformalny i bezpośredni.",
+          "Argumenty są uporządkowane łącznikami (First of all, What is more, Nevertheless) i rozwijane przykładami.",
+          "Zakres językowy jest poprawny i zróżnicowany (zdania względne, konstrukcje zachęcające: Start small, you may be surprised).",
+          "Jedna trudność jest opisana ogólnie, a opinia końcowa nie ma uzasadnienia – to miejsca na poprawę."
+        ],
+        "annotations": [
+          {
+            "anchor": "Is volunteering worth your time",
+            "type": "struktura",
+            "criterion": "realizacja",
+            "note": "Tytuł-pytanie zachęca do czytania; artykuł do gazetki powinien mieć tytuł, którego nie ma w rozprawce."
+          },
+          {
+            "anchor": "Imagine spending your Saturday morning helping at an animal shelter",
+            "type": "rejestr",
+            "criterion": "zakres",
+            "note": "Obrazowy początek i zwrot do czytelnika – ton artykułu jest bardziej osobisty niż w rozprawce."
+          },
+          {
+            "anchor": "volunteering brings real benefits",
+            "type": "punkty",
+            "criterion": "realizacja",
+            "element": 1,
+            "note": "Element 1 (korzyści) w zdaniu tematycznym akapitu – egzaminator od razu widzi, co realizuje akapit."
+          },
+          {
+            "anchor": "such as teamwork, communication and organisation",
+            "type": "zakres",
+            "criterion": "zakres",
+            "note": "Wyliczenie z such as konkretyzuje, ale to typowy zestaw. Mocniejszy byłby jeden przykład umiejętności z życia wolontariusza."
+          },
+          {
+            "anchor": "What is more, it can make a big difference on your CV",
+            "type": "lacznik",
+            "criterion": "spojnosc",
+            "note": "What is more dodaje kolejny argument z powodem (because…). Uwaga: naturalniej make a difference to your CV (nie on) – drobna nieścisłość kolokacji."
+          },
+          {
+            "anchor": "Nevertheless, there are some difficulties",
+            "type": "lacznik",
+            "criterion": "spojnosc",
+            "note": "Nevertheless zmienia kierunek wywodu na element 2 polecenia; po korzyściach równie dobrze pasowałoby However."
+          },
+          {
+            "anchor": "finding time every week is not always easy",
+            "type": "punkty",
+            "criterion": "realizacja",
+            "element": 2,
+            "note": "Element 2 (trudności): konkretna trudność dla nastolatka – brak czasu przy nauce."
+          },
+          {
+            "anchor": "Some volunteers also say that they feel tired or sad",
+            "type": "uwaga",
+            "criterion": "zakres",
+            "note": "Do poprawy: Some volunteers say to nieokreślone źródło. Konkretny przykład (np. praca w hospicjum) uwiarygodniłby trudność."
+          },
+          {
+            "anchor": "For this reason, it is important to choose an activity which you really care about",
+            "type": "struktura",
+            "criterion": "spojnosc",
+            "note": "Zdanie kończy akapit radą wynikającą z trudności – akapit ma początek, rozwinięcie i wniosek."
+          },
+          {
+            "anchor": "If you ask me, the advantages are much greater than the problems",
+            "type": "uwaga",
+            "criterion": "realizacja",
+            "element": 3,
+            "note": "Do poprawy: opinia wyrażona wprost, ale bez powodu. Dodaj jedno uzasadnienie, np. że umiejętności i satysfakcja zostają dłużej niż zmęczenie."
+          },
+          {
+            "anchor": "Start small, for example with two hours a month",
+            "type": "rejestr",
+            "criterion": "zakres",
+            "note": "Tryb rozkazujący i konkretna rada – bezpośredni ton artykułu skierowanego do rówieśników."
+          }
+        ]
+      }
     },
     {
       "id": "essay-social-media",
@@ -101,7 +349,86 @@
         "Czy użyłem/am formalnych łączników?",
         "Czy mam 200–250 wyrazów?"
       ],
-      "model": "Social media has become part of everyday life for millions of people. Some say that it brings us closer together, while others claim that it makes us lonelier. In this essay I will consider both points of view.\n\nTo begin with, social media makes it easy to stay in touch. People who live in different countries can talk to each other every day, share photos and celebrate important moments together. Moreover, it helps people with similar interests to find each other, for instance in online groups about music or sport. Without these platforms, many friendships would never exist.\n\nHowever, there are also serious disadvantages. Many users spend hours looking at other people's lives instead of talking to the people next to them. As a result, they may feel left out or unhappy about their own lives. In addition, online conversations are often short and superficial, which means that real closeness is difficult to build.\n\nAll things considered, I believe that social media is neither good nor bad in itself. It can bring people closer if it is used as an addition to real meetings, not as a replacement for them. Everyone should therefore decide for themselves how much time they spend online."
+      "model": "Social media has become part of everyday life for millions of people. Some say that it brings us closer together, while others claim that it makes us lonelier. In this essay I will consider both points of view.\n\nTo begin with, social media makes it easy to stay in touch. People who live in different countries can talk to each other every day, share photos and celebrate important moments together. Moreover, it helps people with similar interests to find each other, for instance in online groups about music or sport. Without these platforms, many friendships would never exist.\n\nHowever, there are also serious disadvantages. Many users spend hours looking at other people's lives instead of talking to the people next to them. As a result, they may feel left out or unhappy about their own lives. In addition, online conversations are often short and superficial, which means that real closeness is difficult to build.\n\nAll things considered, I believe that social media is neither good nor bad in itself. It can bring people closer if it is used as an addition to real meetings, not as a replacement for them. Everyone should therefore decide for themselves how much time they spend online.",
+      "modelNotes": {
+        "summary": [
+          "Rozprawka omawia argumenty za, przeciw i własne zdanie w osobnych akapitach, a wstęp zapowiada plan tekstu.",
+          "Łączniki (To begin with, Moreover, However, As a result, All things considered) prowadzą czytelnika od początku do końca.",
+          "Rejestr jest neutralnie formalny, bez skrótów i słów potocznych; zakres obejmuje podstawowe konstrukcje z -ing.",
+          "Wstęp jest dość schematyczny, więc to miejsce, w którym warto szukać bardziej własnego sformułowania."
+        ],
+        "annotations": [
+          {
+            "anchor": "has become part of everyday life for millions of people",
+            "type": "uwaga",
+            "criterion": "zakres",
+            "note": "Do poprawy: schematyczny wstęp, który egzaminator zna z wielu prac. Lepiej zacząć od konkretnego faktu lub pytania do czytelnika."
+          },
+          {
+            "anchor": "In this essay I will consider both points of view",
+            "type": "struktura",
+            "criterion": "spojnosc",
+            "note": "Zapowiedź dwóch stron sporu porządkuje tekst, ale jest schematyczna; własna opinia nie została zapowiedziana."
+          },
+          {
+            "anchor": "To begin with",
+            "type": "lacznik",
+            "criterion": "spojnosc",
+            "note": "Otwiera pierwszy akapit argumentów; kolejne akapity mają własne wskaźniki (However, All things considered)."
+          },
+          {
+            "anchor": "social media makes it easy to stay in touch",
+            "type": "punkty",
+            "criterion": "realizacja",
+            "element": 1,
+            "note": "Element 1 (argumenty za): zdanie tematyczne akapitu, rozwinięte przykładami (różne kraje, wspólne zainteresowania)."
+          },
+          {
+            "anchor": "Without these platforms, many friendships would never exist",
+            "type": "uwaga",
+            "criterion": "realizacja",
+            "note": "Do poprawy: mocna, nieudowodniona teza. Złagodź ją (many friendships might never have started) albo dodaj konkretny przykład."
+          },
+          {
+            "anchor": "there are also serious disadvantages",
+            "type": "punkty",
+            "criterion": "realizacja",
+            "element": 2,
+            "note": "Element 2 (argumenty przeciw): zdanie tematyczne drugiego akapitu. Rzeczowy ton, bez emocji."
+          },
+          {
+            "anchor": "instead of talking to the people next to them",
+            "type": "zakres",
+            "criterion": "zakres",
+            "note": "Instead of + -ing: poprawna, ale podstawowa struktura. Punktuje spójnie, lecz sama nie podnosi zakresu."
+          },
+          {
+            "anchor": "As a result",
+            "type": "lacznik",
+            "criterion": "spojnosc",
+            "note": "As a result łączy zachowanie ze skutkiem (poczucie osamotnienia) – wyraźna relacja przyczynowa."
+          },
+          {
+            "anchor": "online conversations are often short and superficial",
+            "type": "rejestr",
+            "criterion": "zakres",
+            "note": "Słownictwo neutralnie formalne (superficial) i brak potocznych skrótów utrzymują styl rozprawki."
+          },
+          {
+            "anchor": "I believe that social media is neither good nor bad in itself",
+            "type": "punkty",
+            "criterion": "realizacja",
+            "element": 3,
+            "note": "Element 3 (własne zdanie): stanowisko kompromisowe; konkretną odpowiedź na pytanie z polecenia daje dopiero kolejne zdanie zakończenia."
+          },
+          {
+            "anchor": "All things considered",
+            "type": "struktura",
+            "criterion": "spojnosc",
+            "note": "Zakończenie ma stanowisko i praktyczną rekomendację (decyzja zależy od użytkownika) – nie powtarza tylko wstępu."
+          }
+        ]
+      }
     }
   ]
 }

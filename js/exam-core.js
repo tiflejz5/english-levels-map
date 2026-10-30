@@ -268,6 +268,7 @@ window.ELM = window.ELM || {};
     wireTasks(e, article, id);
     if (ELM.callouts) ELM.callouts.apply(article);
     view.appendChild(article);
+    if (/^(wypowiedz-pisemna|writing)(-|$)/.test(id) && ELM.pisanie) view.appendChild(ELM.pisanie.pageSection(e.id));
     if (id === "przeglad" && ELM.fiszki && ELM.fiszki.examTile) { const ft = ELM.fiszki.examTile(e.id); if (ft) view.appendChild(ft); }
     const nav = pageNav(e, id);
     if (nav) view.appendChild(nav);
@@ -445,6 +446,7 @@ window.ELM = window.ELM || {};
         });
       } : null,
       lowNote: cam ? function (n, T) { return "Masz mniej niż " + T.warnBelow + " słów – " + cam.low + "."; } : null,
+      modelHref: function (task) { return "#/pisanie/wzorce/" + e.id + "/" + task.id; },
       timerKey: function (task) { return e.id + ":writing:" + task.id; },
       timerNote: cam
         ? "Zostaw kilka minut na sprawdzenie pisowni – edytor jej nie podkreśla. Licznik słów jest orientacyjny."

@@ -3263,6 +3263,28 @@ window.ELM.C1 = {
     230,
     250
    ],
+   "rubric": [
+    {
+     "id": "content",
+     "label": "Content",
+     "max": 5
+    },
+    {
+     "id": "communicative",
+     "label": "Communicative Achievement",
+     "max": 5
+    },
+    {
+     "id": "organisation",
+     "label": "Organisation",
+     "max": 5
+    },
+    {
+     "id": "language",
+     "label": "Language",
+     "max": 5
+    }
+   ],
    "genericChecklist": [
     "Czy omówiłem wszystkie punkty polecenia?",
     "Czy wszystko jest na temat?",
@@ -3288,7 +3310,102 @@ window.ELM.C1 = {
       "Formalny, obiektywny ton",
       "Wstęp i zakończenie",
       "Tylko dwa z trzech punktów"
-     ]
+     ],
+     "model": "Few city dwellers would deny that congestion has become one of the defining frustrations of modern urban life. Among the measures proposed to tackle it, congestion charges and improved public transport attract the most attention, yet they differ considerably in both fairness and effectiveness.\n\nCharging drivers to enter the centre has undoubtedly reduced traffic in cities such as London, and the revenue can be reinvested in the transport network. Critics, however, argue that such a policy penalises those on low incomes, who may have no alternative to driving and can least afford the charge. Were the charge to be set too high, it could also drive shoppers and businesses away from the centre altogether.\n\nBetter public transport, by contrast, offers an incentive rather than a penalty. Not only does a punctual, frequent and affordable service give commuters a genuine reason to leave their cars at home, but it also benefits those who cannot drive at all. Even a generous incentive will fail to move drivers if services run unreliably, which is why reliability matters more than novelty.\n\nOn balance, I would argue that investment in public transport is the more effective strategy, since it solves the underlying problem rather than merely discouraging its symptoms. Charges may play a useful supporting role, but only once a credible alternative exists. Until then, asking people to pay for the privilege of having no choice is unlikely to win public support.",
+     "modelNotes": {
+      "summary": [
+       "Esej omawia dwa z trzech sposobów z notatek (opłaty i transport publiczny), a czytelnik od razu widzi kryteria porównania: sprawiedliwość i skuteczność.",
+       "Cytowane w poleceniu opinie są sparafrazowane, a nie przepisane, i wplecione w argumentację.",
+       "Wybór jest jasny i uzasadniony: transport publiczny rozwiązuje przyczynę, a opłaty mają co najwyżej rolę wspierającą.",
+       "Język C1: inwersja warunkowa, Not only does…, przysłówki oceniające i formalne łączniki bez nadmiaru ozdobników.",
+       "Najsłabszym miejscem jest niedopracowany argument za opłatami – autor wspomina o wpływach, ale ich nie rozwija."
+      ],
+      "annotations": [
+       {
+        "anchor": "Few city dwellers would deny that congestion has become",
+        "type": "zakres",
+        "criterion": "language",
+        "note": "Few … would deny to stonowane, ale pewne otwarcie – zamiast banalnego Nowadays traffic is a problem."
+       },
+       {
+        "anchor": "yet they differ considerably in both fairness and effectiveness",
+        "type": "struktura",
+        "criterion": "organisation",
+        "note": "Wstęp zapowiada dwa kryteria porównania (sprawiedliwość, skuteczność), do których esej wróci w zakończeniu."
+       },
+       {
+        "anchor": "Charging drivers to enter the centre has undoubtedly reduced traffic",
+        "type": "punkty",
+        "criterion": "content",
+        "element": 1,
+        "note": "Punkt 1 (opłaty): od razu wyraźna teza o skuteczności tego środka, zanim pojawią się zastrzeżenia."
+       },
+       {
+        "anchor": "the revenue can be reinvested in the transport network",
+        "type": "uwaga",
+        "criterion": "content",
+        "note": "Do poprawy: najmocniejszy argument za opłatami jest tylko wspomniany. Jedno zdanie o tym, co finansują wpływy, wzmocniłoby uczciwość porównania."
+       },
+       {
+        "anchor": "such a policy penalises those on low incomes",
+        "type": "punkty",
+        "criterion": "content",
+        "element": 4,
+        "note": "Opinię z polecenia („hits people on low incomes”) autor wyraża własnymi słowami – dokładnie tego wymaga punkt 4."
+       },
+       {
+        "anchor": "asking people to pay for the privilege of having no choice",
+        "type": "rejestr",
+        "criterion": "communicative",
+        "note": "Sarkastyczna puenta jest w eseju dopuszczalna, ale ostrożnie: tu zamyka tekst i wzmacnia stanowisko, więc użyto jej tylko raz."
+       },
+       {
+        "anchor": "Were the charge to be set too high",
+        "type": "zakres",
+        "criterion": "language",
+        "note": "Inwersja zamiast If the charge were set too high – bardziej formalna i rzadsza; pasuje do eseju."
+       },
+       {
+        "anchor": "Better public transport, by contrast",
+        "type": "lacznik",
+        "criterion": "organisation",
+        "note": "By contrast przeciwstawia drugi sposób pierwszemu – akapity są ze sobą wyraźnie powiązane."
+       },
+       {
+        "anchor": "offers an incentive rather than a penalty",
+        "type": "punkty",
+        "criterion": "content",
+        "element": 2,
+        "note": "Punkt 2 (transport publiczny): zdanie porównuje oba środki i zapowiada argument o zachęcie."
+       },
+       {
+        "anchor": "Not only does a punctual, frequent and affordable service give commuters a genuine reason",
+        "type": "zakres",
+        "criterion": "language",
+        "note": "Inwersja po Not only i trzy przymiotniki w serii: zwięzłe wyliczenie zalet usługi."
+       },
+       {
+        "anchor": "Even a generous incentive will fail to move drivers if services run unreliably",
+        "type": "punkty",
+        "criterion": "content",
+        "element": 4,
+        "note": "Opinię z polecenia o spóźnionych autobusach przeformułowano na ogólną zasadę (unreliably zamiast late) z wnioskiem dla argumentu."
+       },
+       {
+        "anchor": "On balance, I would argue that",
+        "type": "struktura",
+        "criterion": "organisation",
+        "note": "Formalne otwarcie zakończenia z wyraźnym stanowiskiem – esej ma jasny wniosek."
+       },
+       {
+        "anchor": "investment in public transport is the more effective strategy",
+        "type": "punkty",
+        "criterion": "content",
+        "element": 3,
+        "note": "Punkt 3: wybór jednego ze sposobów z uzasadnieniem (rozwiązuje przyczynę, a nie objawy)."
+       }
+      ]
+     }
     },
     {
      "id": "essay-working-life",
@@ -3306,7 +3423,108 @@ window.ELM.C1 = {
       "Formalny, obiektywny ton",
       "Wstęp i zakończenie",
       "Tylko dwa z trzech punktów"
-     ]
+     ],
+     "model": "It is often claimed that schools concentrate so heavily on examinations that pupils leave without the faintest idea of how the working world operates. Of the various remedies suggested, work experience placements and the teaching of practical skills are arguably the most promising, though their merits are not identical.\n\nPlacements give teenagers a first-hand glimpse of professional life. Spending a fortnight in an office or a workshop can reveal what a particular career actually involves, and it often builds confidence that no textbook can provide. Nevertheless, the quality of such placements varies enormously: a student who spends two weeks making tea and photocopying documents will learn very little, and the experience is, in any case, short-lived.\n\nPractical skills, on the other hand, stay with a person for decades. Learning to budget, to fill in a tax form or to read a payslip is not glamorous, yet it equips young people for the realities of adult life, whatever profession they eventually choose. It is worrying that so many school leavers are unable to manage their own money, and it is hardly surprising that debt problems follow.\n\nTaking everything into account, I would contend that schools should give priority to practical skills. Not only are they useful in every career, but they can also be taught to an entire class at minimal cost, whereas placements depend on the goodwill of local employers. Ideally, the two should complement one another, with placements allowing pupils to apply what they have learnt.",
+     "modelNotes": {
+      "summary": [
+       "Esej omawia dwa z trzech sposobów (praktyki i umiejętności praktyczne), a trzeci pomija, zgodnie z poleceniem.",
+       "Wybór jest jasny i uzasadniony: umiejętności praktyczne są użyteczne w każdej karierze i tańsze do nauczenia.",
+       "Opinie z polecenia zostały sparafrazowane, a nie przepisane (np. unable to manage their own money).",
+       "Zakres językowy C1 widać w idiomie the faintest idea, w konstrukcji Not only … but oraz w wyrażeniach it is hardly surprising i I would contend that.",
+       "Jedna teza przyczynowa (brak umiejętności prowadzi do długów) jest przedstawiona jako oczywista, bez poparcia."
+      ],
+      "annotations": [
+       {
+        "anchor": "pupils leave without the faintest idea of how the working world operates",
+        "type": "zakres",
+        "criterion": "language",
+        "note": "Idiom the faintest idea i wyrazisty wstęp pokazują zakres poza codziennym słownictwem szkolnym."
+       },
+       {
+        "anchor": "though their merits are not identical",
+        "type": "struktura",
+        "criterion": "organisation",
+        "note": "Zdanie zapowiada porównanie – czytelnik wie, że dwa sposoby zostaną zestawione, a nie opisane osobno."
+       },
+       {
+        "anchor": "Placements give teenagers a first-hand glimpse of professional life",
+        "type": "punkty",
+        "criterion": "content",
+        "element": 1,
+        "note": "Punkt 1 (praktyki): zdanie tematyczne akapitu z konkretnym pożytkiem (first-hand glimpse)."
+       },
+       {
+        "anchor": "it often builds confidence that no textbook can provide",
+        "type": "punkty",
+        "criterion": "content",
+        "element": 4,
+        "note": "Opinię z polecenia o praktykach autor ujął własnymi słowami i zmienił jej sens w argument o pewności siebie."
+       },
+       {
+        "anchor": "Nevertheless, the quality of such placements varies enormously",
+        "type": "lacznik",
+        "criterion": "organisation",
+        "note": "Nevertheless przechodzi od zalet do ograniczeń praktyk – wyraźny, formalny łącznik kontrastu."
+       },
+       {
+        "anchor": "a student who spends two weeks making tea and photocopying documents will learn very little",
+        "type": "zakres",
+        "criterion": "language",
+        "note": "Obrazowy przykład zamiast ogólnika; spends … making i photocopying pokazują naturalne użycie -ing."
+       },
+       {
+        "anchor": "on the other hand",
+        "type": "lacznik",
+        "criterion": "organisation",
+        "note": "Wyraźny sygnał, że zaczyna się drugi punkt (umiejętności praktyczne) – akapity mają symetryczną budowę."
+       },
+       {
+        "anchor": "stay with a person for decades",
+        "type": "punkty",
+        "criterion": "content",
+        "element": 2,
+        "note": "Punkt 2 (umiejętności praktyczne): teza akapitu – trwałość pożytku w porównaniu z krótkimi praktykami."
+       },
+       {
+        "anchor": "Learning to budget, to fill in a tax form or to read a payslip",
+        "type": "zakres",
+        "criterion": "language",
+        "note": "Trzy równoległe bezokoliczniki tworzą wyliczenie o rytmie typowym dla argumentacji; konkretne przykłady zamiast ogólnika „life skills”."
+       },
+       {
+        "anchor": "so many school leavers are unable to manage their own money",
+        "type": "punkty",
+        "criterion": "content",
+        "element": 4,
+        "note": "Opinia z polecenia („can't manage their own money”) sparafrazowana (unable to) i użyta jako argument."
+       },
+       {
+        "anchor": "It is worrying that",
+        "type": "rejestr",
+        "criterion": "communicative",
+        "note": "Konstrukcja oceniająca z it jest formalnym sposobem na wyrażenie opinii bez I think."
+       },
+       {
+        "anchor": "Taking everything into account, I would contend that",
+        "type": "struktura",
+        "criterion": "organisation",
+        "note": "Formalne otwarcie zakończenia z I would contend – autor jasno przechodzi do własnego stanowiska."
+       },
+       {
+        "anchor": "schools should give priority to practical skills",
+        "type": "punkty",
+        "criterion": "content",
+        "element": 3,
+        "note": "Punkt 3: wybór ważniejszego sposobu z uzasadnieniem w dalszej części akapitu (koszt, użyteczność w każdej karierze)."
+       },
+       {
+        "anchor": "it is hardly surprising that debt problems follow",
+        "type": "uwaga",
+        "criterion": "content",
+        "note": "Do poprawy: związek braku umiejętności z długami przedstawiony jako oczywisty, bez przykładu lub danych. To teza, która wymaga poparcia."
+       }
+      ]
+     }
     },
     {
      "id": "letter-library",
@@ -3358,7 +3576,102 @@ window.ELM.C1 = {
       "Tytuł i nagłówki",
       "Język propozycji (would, could, I suggest)",
       "Formalny, przekonujący ton"
-     ]
+     ],
+     "model": "Proposal: Improving Staff Wellbeing\n\nIntroduction\nThis proposal outlines the main factors currently affecting the wellbeing of our staff and suggests three changes which would benefit both employees and the company.\n\nCurrent problems\nFollowing informal conversations with colleagues, it became clear that two issues cause the greatest concern. Firstly, many people work long hours at their desks without a proper break, and complain of headaches and tiredness by the afternoon. Secondly, those who live far from the office spend up to two hours commuting, which leaves very little time for family or leisure.\n\nSuggested changes\nI would suggest introducing a lunchtime break of at least forty-five minutes, away from the desk, in a quiet room equipped with comfortable seating. In addition, the company could offer flexible working hours, allowing employees to start and finish earlier or later to avoid the rush hour. A third option would be to allow staff to work from home one day a week, provided that their duties permit it.\n\nExpected benefits\nStaff would undoubtedly feel more relaxed and motivated, and they would be able to spend more time with their families. The company, for its part, would benefit from fewer sick days, higher productivity and an improved reputation, which would help to attract talented candidates. The cost of these changes would be minimal, whereas the potential gains are considerable.",
+     "modelNotes": {
+      "summary": [
+       "Propozycja ma tytuł, nagłówki i cztery wymagane elementy: problemy, zmiany, korzyści dla pracowników i dla firmy.",
+       "Ton jest przekonujący i grzeczny (I would suggest, the company could), a kolejność porządkują proste wskaźniki (Firstly, Secondly, In addition).",
+       "Każda rekomendacja jest konkretna: czas przerwy, elastyczne godziny, jeden dzień pracy zdalnej.",
+       "Zakres językowy podnoszą konstrukcje warunkowe (provided that) i zdania względne z which.",
+       "Argument finansowy jest jednak zbyt ogólny – autor twierdzi, że koszt jest minimalny, ale tego nie wyjaśnia."
+      ],
+      "annotations": [
+       {
+        "anchor": "Proposal: Improving Staff Wellbeing",
+        "type": "struktura",
+        "criterion": "organisation",
+        "note": "Tytuł i nagłówki sekcji (Introduction, Current problems…) to wymóg gatunku i ułatwiają czytelnikowi odnalezienie informacji."
+       },
+       {
+        "anchor": "This proposal outlines the main factors",
+        "type": "struktura",
+        "criterion": "organisation",
+        "note": "Cel dokumentu w pierwszym zdaniu – odbiorca od razu widzi, co zawiera propozycja."
+       },
+       {
+        "anchor": "Following informal conversations with colleagues, it became clear that",
+        "type": "rejestr",
+        "criterion": "communicative",
+        "note": "Bezosobowa, formalna forma zamiast „I asked my friends” – autor jest wiarygodny i rzeczowy."
+       },
+       {
+        "anchor": "many people work long hours at their desks without a proper break",
+        "type": "punkty",
+        "criterion": "content",
+        "element": 1,
+        "note": "Element 1 (problemy): konkretna dolegliwość, z jej skutkami opisanymi w tym samym zdaniu."
+       },
+       {
+        "anchor": "spend up to two hours commuting",
+        "type": "punkty",
+        "criterion": "content",
+        "element": 1,
+        "note": "Drugi problem z liczbą godzin – konkret zamiast „dojazd jest trudny”."
+       },
+       {
+        "anchor": "introducing a lunchtime break of at least forty-five minutes",
+        "type": "punkty",
+        "criterion": "content",
+        "element": 2,
+        "note": "Element 2 (zmiany): pierwsza propozycja z dokładnym czasem trwania i warunkami."
+       },
+       {
+        "anchor": "In addition, the company could offer flexible working hours",
+        "type": "lacznik",
+        "criterion": "organisation",
+        "note": "In addition wprowadza drugą propozycję; could i would nadają tonowi grzeczną miękkość."
+       },
+       {
+        "anchor": "provided that their duties permit it",
+        "type": "zakres",
+        "criterion": "language",
+        "note": "Provided that wprowadza warunek – naturalna forma ostrożnej propozycji w formalnym tekście."
+       },
+       {
+        "anchor": "Staff would undoubtedly feel more relaxed and motivated",
+        "type": "punkty",
+        "criterion": "content",
+        "element": 3,
+        "note": "Element 3 (korzyści dla pracowników): nazwane wprost, z would pokazującym hipotetyczny skutek."
+       },
+       {
+        "anchor": "The company, for its part, would benefit from fewer sick days, higher productivity",
+        "type": "punkty",
+        "criterion": "content",
+        "element": 4,
+        "note": "Element 4 (korzyści dla firmy): wyliczenie konkretnych zysków, w osobnym zdaniu od korzyści dla pracowników."
+       },
+       {
+        "anchor": "which would help to attract talented candidates",
+        "type": "zakres",
+        "criterion": "language",
+        "note": "Zdanie względne rozwija wizerunek firmy w jednym ciągu myśli, bez osobnego zdania."
+       },
+       {
+        "anchor": "The cost of these changes would be minimal",
+        "type": "uwaga",
+        "criterion": "content",
+        "note": "Do poprawy: koszt „minimalny” jest tylko deklaracją. Przykład lub rząd wielkości (np. koszt wyposażenia pokoju) uwiarygodniłby argument."
+       },
+       {
+        "anchor": "whereas the potential gains are considerable",
+        "type": "lacznik",
+        "criterion": "organisation",
+        "note": "Whereas zestawia niski koszt z dużym zyskiem – ostatnia myśl przekonuje przeciwstawieniem."
+       }
+      ]
+     }
     },
     {
      "id": "report-festival",
@@ -3375,7 +3688,94 @@ window.ELM.C1 = {
       "Tytuł, nagłówki i wstęp z celem raportu",
       "Bezosobowy styl (passive, It is recommended that)",
       "Rekomendacje w osobnej sekcji"
-     ]
+     ],
+     "model": "Report on the International Festival\n\nIntroduction\nThe purpose of this report is to evaluate last month's International Festival, to outline the difficulties that arose and to make recommendations for next year's event. The findings are based on my own experience as a member of the organising committee and on feedback from participants.\n\nOverall success\nOn the whole, the festival was a considerable success. Attendance exceeded expectations, with more than 800 visitors over the two days, and the food stalls and dance performances were particularly well received. Students from fourteen countries took part, which gave the event a truly international character. It is also worth noting that the profits donated to a local charity were higher than anticipated.\n\nProblems encountered\nTwo main problems should be mentioned. Firstly, the sound system failed during the opening ceremony, causing a delay of almost forty minutes. Secondly, the main hall became overcrowded in the afternoon, and several visitors left because they could not find a seat. Volunteers were not clearly identifiable, which made it difficult for newcomers to obtain help.\n\nRecommendations\nNext year, it is recommended that the sound equipment be tested the day before the event. Furthermore, the programme could be spread across two venues in order to relieve the pressure on the main hall. Finally, volunteers should be provided with brightly coloured T-shirts so that visitors can recognise them easily. If these measures are adopted, next year's festival should run more smoothly and attract an even wider audience.",
+     "modelNotes": {
+      "summary": [
+       "Raport ma tytuł, wstęp z celem i osobne sekcje: ocena, problemy, rekomendacje – dokładnie trzy elementy polecenia.",
+       "Styl jest bezosobowy i rzeczowy (passive, it is recommended that), a rekomendacje są w osobnej, jasno opisanej sekcji.",
+       "Autor podaje konkrety: liczbę gości, liczbę krajów, opóźnienie o prawie czterdzieści minut.",
+       "Język C1 widać w strukturach z trybem łączącym (be tested) i w zdaniach względnych odnoszących się do całej myśli.",
+       "Źródło „feedbacku uczestników” jest wspomniane, ale nigdzie nie ma jego wyniku."
+      ],
+      "annotations": [
+       {
+        "anchor": "Report on the International Festival",
+        "type": "struktura",
+        "criterion": "organisation",
+        "note": "Tytuł i nagłówki sekcji to wymóg gatunku: dyrektor szuka informacji w kolejności ocena, problemy, rekomendacje."
+       },
+       {
+        "anchor": "The purpose of this report is to evaluate",
+        "type": "struktura",
+        "criterion": "organisation",
+        "note": "Cel raportu w pierwszym zdaniu – odbiorca wie, czego się spodziewać."
+       },
+       {
+        "anchor": "The findings are based on my own experience",
+        "type": "rejestr",
+        "criterion": "communicative",
+        "note": "Bezosobowa konstrukcja i spokojny ton – typowe dla raportu, który ma być wiarygodny, a nie osobisty."
+       },
+       {
+        "anchor": "on feedback from participants",
+        "type": "uwaga",
+        "criterion": "content",
+        "note": "Do poprawy: źródło opinii jest wspomniane, ale w raporcie nie ma żadnego wyniku ani cytatu. Jedno zdanie z danymi uwiarygodniłoby ocenę."
+       },
+       {
+        "anchor": "On the whole, the festival was a considerable success",
+        "type": "punkty",
+        "criterion": "content",
+        "element": 1,
+        "note": "Element 1 (ocena): wyraźna, ogólna ocena na początku sekcji, potem poparta faktami."
+       },
+       {
+        "anchor": "Attendance exceeded expectations, with more than 800 visitors over the two days",
+        "type": "zakres",
+        "criterion": "language",
+        "note": "Kolokacje attendance exceeded expectations i liczba gości nadają ocenie profesjonalny, raportowy ton zamiast ogólnego „many people came”."
+       },
+       {
+        "anchor": "Two main problems should be mentioned",
+        "type": "struktura",
+        "criterion": "organisation",
+        "note": "Zdanie zapowiada liczbę problemów – sekcja jest przez to czytelna i wyliczona."
+       },
+       {
+        "anchor": "Secondly, the main hall became overcrowded in the afternoon",
+        "type": "lacznik",
+        "criterion": "organisation",
+        "note": "Secondly razem z Firstly porządkuje wyliczenie problemów w sposób naturalny dla raportu."
+       },
+       {
+        "anchor": "causing a delay of almost forty minutes",
+        "type": "punkty",
+        "criterion": "content",
+        "element": 2,
+        "note": "Element 2 (problemy): konkretny skutek awarii dźwięku – liczba minut pozwala ocenić wagę problemu."
+       },
+       {
+        "anchor": "it is recommended that the sound equipment be tested",
+        "type": "zakres",
+        "criterion": "language",
+        "note": "Tryb łączący (be tested) po it is recommended that – formalna struktura rekomendacji, typowa dla C1."
+       },
+       {
+        "anchor": "the programme could be spread across two venues",
+        "type": "punkty",
+        "criterion": "content",
+        "element": 3,
+        "note": "Element 3 (rekomendacje): konkretne rozwiązanie problemu przepełnienia, a nie ogólne „należy poprawić organizację”."
+       },
+       {
+        "anchor": "If these measures are adopted",
+        "type": "lacznik",
+        "criterion": "organisation",
+        "note": "Warunkowe zamknięcie raportu wiąże rekomendacje z oczekiwanym skutkiem."
+       }
+      ]
+     }
     },
     {
      "id": "review-app",
@@ -3392,7 +3792,109 @@ window.ELM.C1 = {
       "Chwytliwy tytuł i wstęp",
       "Ocena, a nie sam opis",
       "Wyraźna rekomendacja"
-     ]
+     ],
+     "model": "Learning a language in ten minutes a day? Lingua Loop reviewed\n\nWhen I downloaded Lingua Loop, a language-learning app, eighteen months ago, I was sceptical. Having failed to stick to every evening class I had ever joined, I doubted that a smartphone app could succeed where teachers had not. Yet it has changed the way I study Spanish more than I could have imagined.\n\nWhat sets the app apart is its short, game-like lessons, each of which takes roughly ten minutes. Not only do they fit easily into a busy day, but the daily streak counter also creates a gentle pressure that keeps users coming back. The spaced-repetition system, which reminds you of words just before you are likely to forget them, is another genuine strength, and my vocabulary has grown steadily as a result.\n\nThat said, the app is far from perfect. Grammar explanations are minimal, so learners who want to understand why a sentence is built in a particular way are left to search elsewhere. Moreover, the speaking exercises rely on voice recognition, which sometimes misinterprets perfectly good pronunciation and can be maddening.\n\nAll in all, I would recommend Lingua Loop to beginners and busy people who need a regular, low-effort habit. Those aiming at fluency, however, would do well to combine it with conversation practice and a good grammar book. For me, it has been the missing first step.",
+     "modelNotes": {
+      "summary": [
+       "Recenzja podaje, czym jest aplikacja, ocenia mocne i słabe strony oraz mówi, dla kogo jest najlepsza – wszystkie trzy elementy polecenia.",
+       "Tytuł z pytaniem i osobisty początek (I was sceptical) angażują czytelnika, a ocena jest zrównoważona (strengths i weaknesses).",
+       "Struktury C1: inwersja po Not only, perfect participle (Having failed…), zdania względne z which i przejścia typu That said.",
+       "Rekomendacja jest wyraźna i zawiera zastrzeżenie dla zaawansowanych, dzięki czemu brzmi uczciwie.",
+       "Jedno stwierdzenie o efektach nauki jest podane bez miary – wiarygodność wzrosłaby po dodaniu konkretu."
+      ],
+      "annotations": [
+       {
+        "anchor": "Learning a language in ten minutes a day",
+        "type": "struktura",
+        "criterion": "organisation",
+        "note": "Tytuł w formie pytania i nazwa aplikacji zachęcają do czytania – gatunek wymaga tytułu."
+       },
+       {
+        "anchor": "When I downloaded Lingua Loop, a language-learning app, eighteen months ago, I was sceptical",
+        "type": "rejestr",
+        "criterion": "communicative",
+        "note": "Osobisty początek w pierwszej osobie – półformalny, rozmowny ton właściwy dla recenzji."
+       },
+       {
+        "anchor": "Having failed to stick to every evening class I had ever joined",
+        "type": "zakres",
+        "criterion": "language",
+        "note": "Perfect participle i Past Perfect w jednym zdaniu – złożona struktura użyta naturalnie."
+       },
+       {
+        "anchor": "it has changed the way I study Spanish",
+        "type": "punkty",
+        "criterion": "content",
+        "element": 1,
+        "note": "Element 1 (czym jest aplikacja i co zmienia): nazwa, rodzaj (aplikacja do nauki języka) i wpływ na autora są podane w pierwszym akapicie."
+       },
+       {
+        "anchor": "What sets the app apart is its short, game-like lessons",
+        "type": "punkty",
+        "criterion": "content",
+        "element": 2,
+        "note": "Element 2 (mocne strony): konstrukcja What sets … apart wskazuje najważniejszą zaletę, a nie ich listę."
+       },
+       {
+        "anchor": "Not only do they fit easily into a busy day",
+        "type": "zakres",
+        "criterion": "language",
+        "note": "Inwersja po Not only wzmacnia kontrast; w C1 warto jej użyć raz w tekście."
+       },
+       {
+        "anchor": "is another genuine strength",
+        "type": "punkty",
+        "criterion": "content",
+        "element": 2,
+        "note": "Kolejna zaleta wprowadzona wyraźnym określeniem – czytelnik widzi, że to nadal część oceny pozytywnej."
+       },
+       {
+        "anchor": "That said, the app is far from perfect",
+        "type": "lacznik",
+        "criterion": "organisation",
+        "note": "That said łagodnie przechodzi od zalet do wad – odpowiednik However w mniej formalnym tonie."
+       },
+       {
+        "anchor": "Grammar explanations are minimal",
+        "type": "punkty",
+        "criterion": "content",
+        "element": 2,
+        "note": "Element 2 (słabe strony): konkretny brak, a nie ogólnik „czegoś brakuje”."
+       },
+       {
+        "anchor": "the speaking exercises rely on voice recognition",
+        "type": "punkty",
+        "criterion": "content",
+        "element": 2,
+        "note": "Druga słabość z wyjaśnieniem przyczyny problemu (rozpoznawanie głosu)."
+       },
+       {
+        "anchor": "can be maddening",
+        "type": "rejestr",
+        "criterion": "communicative",
+        "note": "Potoczne słowo maddening nadaje recenzji osobisty, emocjonalny ton – dopuszczalny w tym gatunku, ale warto użyć go raz."
+       },
+       {
+        "anchor": "All in all",
+        "type": "struktura",
+        "criterion": "organisation",
+        "note": "Wyraźny początek zakończenia – recenzja kończy się rekomendacją, a nie nowym argumentem."
+       },
+       {
+        "anchor": "I would recommend Lingua Loop to beginners and busy people",
+        "type": "punkty",
+        "criterion": "content",
+        "element": 3,
+        "note": "Element 3 (dla kogo): konkretni odbiorcy, a dalej zastrzeżenie dla osób, które chcą osiągnąć płynność."
+       },
+       {
+        "anchor": "my vocabulary has grown steadily as a result",
+        "type": "uwaga",
+        "criterion": "content",
+        "note": "Do poprawy: efekt podany bez miary. Jedna liczba (np. ile słów) lub przykład uwiarygodniłyby ocenę."
+       }
+      ]
+     }
     },
     {
      "id": "review-cafe",

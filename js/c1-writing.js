@@ -68,6 +68,7 @@ window.ELM = window.ELM || {};
       const page = c1().findPage(id);
       return page ? { href: c1().hrefPage(id), label: page.page.label } : null;
     },
+    modelHref: function (task) { return "#/pisanie/wzorce/certyfikat-c1/" + task.id; },
     timerKey: function (task) { return "writing:" + task.id; }
   });
 

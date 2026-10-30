@@ -57,7 +57,68 @@
         "Czy odniosłem/am się do wszystkich 3 punktów?",
         "Czy zakończyłem/am tekst pożegnaniem?"
       ],
-      "model": "Hi Tom,\nThanks for your email. Last summer I went to the seaside with my family. We stayed in a small hotel near the beach. Every day I swam in the sea and played volleyball with my cousins. In the evening we ate ice cream and walked along the pier. It was fantastic! Next year I want to go there again. Would you like to come with me? We can swim, play games and visit the old town. Write back soon.\nBest wishes,\nXYZ"
+      "model": "Hi Tom,\nThanks for your email. Last summer I went to the seaside with my family. We stayed in a small hotel near the beach. Every day I swam in the sea and played volleyball with my cousins. In the evening we ate ice cream and walked along the pier. It was fantastic! Next year I want to go there again. Would you like to come with me? We can swim, play games and visit the old town. Write back soon.\nBest wishes,\nXYZ",
+      "modelNotes": {
+        "summary": [
+          "Wszystkie trzy podpunkty polecenia mają własne zdania, więc egzaminator łatwo odhacza treść.",
+          "Zdania są krótkie i poprawne, a czas przeszły (went, stayed, swam) jest użyty konsekwentnie.",
+          "Ton jest swobodny, jak w mailu do kolegi: od razu nawiązanie do jego wiadomości i prosta formuła na koniec.",
+          "Tekst jest poprawny, ale ogólny: brakuje szczegółów i powodów."
+        ],
+        "annotations": [
+          {
+            "anchor": "Thanks for your email",
+            "type": "struktura",
+            "criterion": "spojnosc",
+            "note": "Nawiązanie do wiadomości Toma na początku to naturalny początek odpowiedzi – tekst jest od razu osadzony w rozmowie."
+          },
+          {
+            "anchor": "Last summer I went to the seaside with my family",
+            "type": "punkty",
+            "criterion": "tresc",
+            "element": 1,
+            "note": "Podpunkt 1: gdzie spędziłem wakacje (nad morzem, z rodziną). Jedno zdanie wystarcza, ale jest konkretne."
+          },
+          {
+            "anchor": "We stayed in a small hotel near the beach",
+            "type": "zakres",
+            "criterion": "zakres",
+            "note": "Proste, ale poprawne słownictwo (stayed in, near) – wystarczające dla A2, bez ryzyka błędu."
+          },
+          {
+            "anchor": "Every day I swam in the sea and played volleyball with my cousins",
+            "type": "punkty",
+            "criterion": "tresc",
+            "element": 2,
+            "note": "Podpunkt 2: co robiłem. Every day + Past Simple pokazuje rutynę wakacji, a dwie czynności dają pełną odpowiedź."
+          },
+          {
+            "anchor": "In the evening we ate ice cream and walked along the pier",
+            "type": "lacznik",
+            "criterion": "spojnosc",
+            "note": "In the evening porządkuje opowieść w czasie: najpierw dzień, potem wieczór."
+          },
+          {
+            "anchor": "Would you like to come with me?",
+            "type": "punkty",
+            "criterion": "tresc",
+            "element": 3,
+            "note": "Podpunkt 3: zaproszenie Toma. Would you like to… to uprzejma, naturalna forma zaproszenia."
+          },
+          {
+            "anchor": "It was fantastic",
+            "type": "uwaga",
+            "criterion": "zakres",
+            "note": "Do poprawy: It was fantastic! to ogólnik, a swim i swam powtarzają się w tekście. Konkretny szczegół lub synonim podniósłby zakres."
+          },
+          {
+            "anchor": "Write back soon",
+            "type": "rejestr",
+            "criterion": "zakres",
+            "note": "Krótka prośba o odpowiedź, bez formuł z listu formalnego – ton pasuje do kolegi."
+          }
+        ]
+      }
     },
     {
       "id": "email-birthday",
@@ -77,7 +138,75 @@
         "Czy odniosłem/am się do wszystkich 3 punktów?",
         "Czy zakończyłem/am tekst pożegnaniem?"
       ],
-      "model": "Hi Ola,\nI'm writing to invite you to my birthday party. It will be on Saturday, 12 May, at 5 p.m. at my house. We are going to eat pizza, play board games and watch a film. My friends from school will come, too. Can you come? Please tell me if you like pizza with cheese or with ham. You don't have to bring a present, just come with a good mood! Let me know soon.\nSee you,\nXYZ"
+      "model": "Hi Ola,\nI'm writing to invite you to my birthday party. It will be on Saturday, 12 May, at 5 p.m. at my house. We are going to eat pizza, play board games and watch a film. My friends from school will come, too. Can you come? Please tell me if you like pizza with cheese or with ham. You don't have to bring a present, just come with a good mood! Let me know soon.\nSee you,\nXYZ",
+      "modelNotes": {
+        "summary": [
+          "Wszystkie podpunkty są omówione: termin i miejsce, plan imprezy oraz prośba o odpowiedź z pytaniem o jedzenie.",
+          "Pierwsze zdanie od razu podaje cel maila, a każde kolejne zdanie niesie jedną informację – łatwo to ocenić.",
+          "Struktury gramatyczne (going to, will, Can you…?) są proste i poprawne; błąd dotyczy tylko jednego zwrotu.",
+          "Ton jest nieformalny: skróty (You don't) i zachęta do zabawy, ale jeden zwrot jest kalką z polskiego."
+        ],
+        "annotations": [
+          {
+            "anchor": "I'm writing to invite you to my birthday party",
+            "type": "struktura",
+            "criterion": "spojnosc",
+            "note": "Cel maila w pierwszym zdaniu: odbiorca od razu wie, po co czyta."
+          },
+          {
+            "anchor": "It will be on Saturday, 12 May, at 5 p.m. at my house",
+            "type": "punkty",
+            "criterion": "tresc",
+            "element": 1,
+            "note": "Podpunkt 1: kiedy i gdzie – data, godzina i miejsce w jednym zdaniu."
+          },
+          {
+            "anchor": "We are going to eat pizza",
+            "type": "punkty",
+            "criterion": "tresc",
+            "element": 2,
+            "note": "Podpunkt 2: co będziecie robić. Going to + konkretna czynność – plan jest jasny."
+          },
+          {
+            "anchor": "play board games and watch a film",
+            "type": "zakres",
+            "criterion": "zakres",
+            "note": "Równoległa lista czasowników (eat, play, watch) – zakres poprawny, choć podstawowy."
+          },
+          {
+            "anchor": "My friends from school will come, too",
+            "type": "lacznik",
+            "criterion": "spojnosc",
+            "note": "Too dodaje kolejną informację do poprzedniej – prosty łącznik addytywny."
+          },
+          {
+            "anchor": "Can you come?",
+            "type": "punkty",
+            "criterion": "tresc",
+            "element": 3,
+            "note": "Podpunkt 3 (część 1): prośba o odpowiedź – Can you come? i na końcu Let me know soon."
+          },
+          {
+            "anchor": "Please tell me if you like",
+            "type": "punkty",
+            "criterion": "tresc",
+            "element": 3,
+            "note": "Podpunkt 3 (część 2): pytanie o jedzenie. Please tell me if you like… to uprzejma konstrukcja."
+          },
+          {
+            "anchor": "You don't have to bring a present",
+            "type": "rejestr",
+            "criterion": "zakres",
+            "note": "Skrót don't i bezpośredni zwrot do koleżanki – to ton nieformalny, właściwy dla zaproszenia na urodziny."
+          },
+          {
+            "anchor": "just come with a good mood",
+            "type": "uwaga",
+            "criterion": "poprawnosc",
+            "note": "Do poprawy: kalka z polskiego („z dobrym humorem”). Po angielsku: in a good mood. Drobny błąd, ale łatwo go przeoczyć."
+          }
+        ]
+      }
     },
     {
       "id": "blog-weekend",
@@ -97,7 +226,68 @@
         "Czy odniosłem/am się do wszystkich 3 punktów?",
         "Czy zakończyłem/am tekst pożegnaniem?"
       ],
-      "model": "Hello everyone!\nLast weekend was great. On Saturday I met my friends in the park, and we played football for two hours. On Sunday I helped my dad in the garden, and then we cooked dinner together. My favourite moment was the football match because we won! I think a weekend outside is the best idea. You should try it. Go to a park, take a ball and invite your friends. It is simple, fun and free. See you next time!\nXYZ"
+      "model": "Hello everyone!\nLast weekend was great. On Saturday I met my friends in the park, and we played football for two hours. On Sunday I helped my dad in the garden, and then we cooked dinner together. My favourite moment was the football match because we won! I think a weekend outside is the best idea. You should try it. Go to a park, take a ball and invite your friends. It is simple, fun and free. See you next time!\nXYZ",
+      "modelNotes": {
+        "summary": [
+          "Wpis opowiada o weekendzie, wskazuje ulubiony moment i kończy się radą dla czytelników – wszystkie trzy podpunkty są obecne.",
+          "Czas przeszły (met, played, helped, cooked) jest konsekwentny, a rada ma formę poleceń, typową dla bloga.",
+          "Całość brzmi jak wpis do czytelników: powitanie, zwroty do „you” i pożegnanie.",
+          "Wpis jest poprawny, ale argument za radą jest ogólnikowy – brakuje konkretu, który zachęciłby do działania."
+        ],
+        "annotations": [
+          {
+            "anchor": "Last weekend was great",
+            "type": "struktura",
+            "criterion": "spojnosc",
+            "note": "Krótki wstęp z oceną weekendu – czytelnik od razu wie, o czym będzie wpis."
+          },
+          {
+            "anchor": "On Saturday I met my friends in the park",
+            "type": "punkty",
+            "criterion": "tresc",
+            "element": 1,
+            "note": "Podpunkt 1: co robiłem w weekend. Dni tygodnia porządkują relację."
+          },
+          {
+            "anchor": "and then we cooked dinner together",
+            "type": "lacznik",
+            "criterion": "spojnosc",
+            "note": "And then wskazuje kolejność wydarzeń – prosty, ale skuteczny łącznik czasowy."
+          },
+          {
+            "anchor": "My favourite moment was the football match because we won",
+            "type": "punkty",
+            "criterion": "tresc",
+            "element": 2,
+            "note": "Podpunkt 2: co podobało się najbardziej – ulubiony moment z uzasadnieniem (because we won)."
+          },
+          {
+            "anchor": "I think a weekend outside is the best idea",
+            "type": "zakres",
+            "criterion": "zakres",
+            "note": "I think + the best to proste, ale poprawne wyrażenie opinii. Zwrot a weekend outside jest nieco sztuczny – naturalniej: spending the weekend outdoors."
+          },
+          {
+            "anchor": "You should try it",
+            "type": "rejestr",
+            "criterion": "zakres",
+            "note": "Bezpośredni zwrot do czytelnika i rada z should – ton bloga, nie formalnego tekstu."
+          },
+          {
+            "anchor": "Go to a park, take a ball and invite your friends",
+            "type": "punkty",
+            "criterion": "tresc",
+            "element": 3,
+            "note": "Podpunkt 3: propozycja dla czytelników w trzech poleceniach – konkretna i łatwa do zastosowania."
+          },
+          {
+            "anchor": "played football for two hours",
+            "type": "uwaga",
+            "criterion": "zakres",
+            "note": "Do poprawy: friends i football powtarzają się w całym wpisie. Synonimy lub konkret (np. teammates, a match in the park) pokazałyby szerszy zakres."
+          }
+        ]
+      }
     },
     {
       "id": "email-school-trip",
@@ -117,7 +307,68 @@
         "Czy odniosłem/am się do wszystkich 3 punktów?",
         "Czy zakończyłem/am tekst pożegnaniem?"
       ],
-      "model": "Dear Mr Brown,\nOur class is going to visit the science museum next Friday. We want to see an interesting exhibition about space and take a lot of photos. We need tickets for 25 students and two teachers, and we would like lunch in the museum café. Could you tell me what time the bus leaves? I think it is at eight, but I am not sure. Thank you for your help.\nBest wishes,\nXYZ"
+      "model": "Dear Mr Brown,\nOur class is going to visit the science museum next Friday. We want to see an interesting exhibition about space and take a lot of photos. We need tickets for 25 students and two teachers, and we would like lunch in the museum café. Could you tell me what time the bus leaves? I think it is at eight, but I am not sure. Thank you for your help.\nBest wishes,\nXYZ",
+      "modelNotes": {
+        "summary": [
+          "Wiadomość do nauczyciela realizuje trzy podpunkty: cel wycieczki, potrzebne bilety i lunch oraz pytanie o godzinę wyjazdu.",
+          "Ton jest grzeczny, ale prosty: Dear Mr Brown, Could you tell me… i Thank you for your help.",
+          "Zdania są krótkie i poprawne, więc egzaminator nie musi się domyślać znaczenia.",
+          "Jedno zdanie osłabia tekst – uczeń zgaduje godzinę, o którą właśnie pyta."
+        ],
+        "annotations": [
+          {
+            "anchor": "Our class is going to visit",
+            "type": "struktura",
+            "criterion": "spojnosc",
+            "note": "Pierwsze zdanie ogłasza plan – nauczyciel od razu wie, w jakiej sprawie pisze uczeń."
+          },
+          {
+            "anchor": "the science museum next Friday",
+            "type": "punkty",
+            "criterion": "tresc",
+            "element": 1,
+            "note": "Podpunkt 1: dokąd i kiedy. Konkretne miejsce i termin w jednym wyrażeniu."
+          },
+          {
+            "anchor": "We want to see an interesting exhibition about space",
+            "type": "zakres",
+            "criterion": "zakres",
+            "note": "See an exhibition about… – naturalne kolokacje, które podnoszą zakres ponad „we want to go there”."
+          },
+          {
+            "anchor": "We need tickets for 25 students and two teachers",
+            "type": "punkty",
+            "criterion": "tresc",
+            "element": 2,
+            "note": "Podpunkt 2: czego potrzebujecie – liczba biletów jest podana, więc prośba jest jasna."
+          },
+          {
+            "anchor": "Could you tell me what time the bus leaves",
+            "type": "punkty",
+            "criterion": "tresc",
+            "element": 3,
+            "note": "Podpunkt 3: pytanie o godzinę wyjazdu. Could you tell me… jest uprzejme, a szyk pytania pośredniego poprawny."
+          },
+          {
+            "anchor": "I think it is at eight",
+            "type": "uwaga",
+            "criterion": "tresc",
+            "note": "Do poprawy: uczeń pyta o godzinę, a zaraz potem sam ją zgaduje – brzmi niekonsekwentnie. Lepiej: I think the bus leaves at eight. Could you confirm, please?"
+          },
+          {
+            "anchor": "but I am not sure",
+            "type": "lacznik",
+            "criterion": "spojnosc",
+            "note": "But poprawnie wprowadza zastrzeżenie, ale podkreśla właśnie tę niepewność, którą krytykuje uwaga wyżej."
+          },
+          {
+            "anchor": "Thank you for your help",
+            "type": "rejestr",
+            "criterion": "zakres",
+            "note": "Podziękowanie na końcu domyka mail i jest grzeczne wobec nauczyciela – formuła pasuje do rejestru wiadomości."
+          }
+        ]
+      }
     },
     {
       "id": "blog-hobby",
@@ -137,7 +388,68 @@
         "Czy odniosłem/am się do wszystkich 3 punktów?",
         "Czy zakończyłem/am tekst pożegnaniem?"
       ],
-      "model": "Hi, readers!\nMy hobby is drawing. I have been drawing since I was seven, because my grandmother gave me a box of pencils. I like it because I can relax after school and show my ideas on paper. Last month I made a picture of my cat and my friends said it was very good. I recommend drawing to everybody. You don't need much, only paper and a pencil. Try it and send me your pictures!\nXYZ"
+      "model": "Hi, readers!\nMy hobby is drawing. I have been drawing since I was seven, because my grandmother gave me a box of pencils. I like it because I can relax after school and show my ideas on paper. Last month I made a picture of my cat and my friends said it was very good. I recommend drawing to everybody. You don't need much, only paper and a pencil. Try it and send me your pictures!\nXYZ",
+      "modelNotes": {
+        "summary": [
+          "Wpis omawia hobby, powód i czas jego trwania oraz kończy się rekomendacją – wszystkie podpunkty są zrealizowane.",
+          "Present Perfect Continuous (have been drawing since) pokazuje strukturę ponad podstawowy poziom, a reszta jest prosta i poprawna.",
+          "Ton jest osobisty i rozmowny, a koniec zachęca czytelników do reakcji.",
+          "Przykład z rysunkiem kota ma kalkę (made a picture) i ogólnik very good – więcej konkretu uczyniłoby wpis bardziej przekonującym."
+        ],
+        "annotations": [
+          {
+            "anchor": "My hobby is drawing",
+            "type": "punkty",
+            "criterion": "tresc",
+            "element": 1,
+            "note": "Podpunkt 1: jakie jest hobby. Pierwsze zdanie wprost odpowiada na polecenie."
+          },
+          {
+            "anchor": "I have been drawing since I was seven",
+            "type": "zakres",
+            "criterion": "zakres",
+            "note": "Present Perfect Continuous z since – struktura godna uwagi na tym poziomie i zgodna z poleceniem (od kiedy)."
+          },
+          {
+            "anchor": "because my grandmother gave me a box of pencils",
+            "type": "lacznik",
+            "criterion": "spojnosc",
+            "note": "Because łączy datę rozpoczęcia z powodem – prosta relacja przyczyna–skutek."
+          },
+          {
+            "anchor": "I like it because I can relax after school",
+            "type": "punkty",
+            "criterion": "tresc",
+            "element": 2,
+            "note": "Podpunkt 2: dlaczego lubię hobby. Powód jest konkretny i osobisty."
+          },
+          {
+            "anchor": "Last month I made a picture of my cat",
+            "type": "uwaga",
+            "criterion": "poprawnosc",
+            "note": "Do poprawy: made a picture to kalka – o rysunku mówimy drew a picture. Dodatkowo very good w następnym zdaniu to ogólnik."
+          },
+          {
+            "anchor": "You don't need much, only paper and a pencil",
+            "type": "rejestr",
+            "criterion": "zakres",
+            "note": "Krótkie, rozmowne zdanie ze skrótem don't i zwrotem do czytelnika – ton bloga."
+          },
+          {
+            "anchor": "I recommend drawing to everybody",
+            "type": "punkty",
+            "criterion": "tresc",
+            "element": 3,
+            "note": "Podpunkt 3: polecenie hobby innym. Recommend + -ing to poprawna konstrukcja."
+          },
+          {
+            "anchor": "Try it and send me your pictures",
+            "type": "struktura",
+            "criterion": "spojnosc",
+            "note": "Zakończenie z apelem do czytelników – wpis nie urywa się, tylko zaprasza do reakcji."
+          }
+        ]
+      }
     },
     {
       "id": "email-help",
@@ -157,7 +469,68 @@
         "Czy odniosłem/am się do wszystkich 3 punktów?",
         "Czy zakończyłem/am tekst pożegnaniem?"
       ],
-      "model": "Hi Kasia,\nI need your help with my homework. It is for English, and we have to write a short story about a trip. I don't know how to start, and I am not sure about the past tense. You are very good at English, so maybe you can explain it to me? Can we meet tomorrow at 4 p.m. in the school library? We can work for an hour. If you can't come, please tell me. Thanks a lot!\nXYZ"
+      "model": "Hi Kasia,\nI need your help with my homework. It is for English, and we have to write a short story about a trip. I don't know how to start, and I am not sure about the past tense. You are very good at English, so maybe you can explain it to me? Can we meet tomorrow at 4 p.m. in the school library? We can work for an hour. If you can't come, please tell me. Thanks a lot!\nXYZ",
+      "modelNotes": {
+        "summary": [
+          "Wiadomość mówi, z czego potrzebna jest pomoc, na czym polega problem i kiedy się spotkać – podpunkty są zrealizowane.",
+          "Prośba jest uzasadniona (nie umiem zacząć), co wzmacnia komunikat, a propozycja spotkania ma godzinę i miejsce.",
+          "Ton jest swobodny, ale uprzejmy: komplement, prośba i podziękowanie.",
+          "Zdania są poprawne, choć plan spotkania ogranicza się do godziny i miejsca."
+        ],
+        "annotations": [
+          {
+            "anchor": "I need your help with my homework",
+            "type": "punkty",
+            "criterion": "tresc",
+            "element": 1,
+            "note": "Podpunkt 1: potrzebuję pomocy w zadaniu. Pierwsze zdanie od razu mówi, o co chodzi."
+          },
+          {
+            "anchor": "It is for English, and we have to write a short story about a trip",
+            "type": "punkty",
+            "criterion": "tresc",
+            "element": 2,
+            "note": "Podpunkt 2: przedmiot i treść zadania – tyle informacji wystarczy, żeby koleżanka wiedziała, w czym pomóc."
+          },
+          {
+            "anchor": "I am not sure about the past tense",
+            "type": "zakres",
+            "criterion": "zakres",
+            "note": "Koleżanka od razu wie, z czym jest kłopot (the past tense). Tu konkret jest ważniejszy niż bogactwo języka."
+          },
+          {
+            "anchor": "so maybe you can explain it to me",
+            "type": "lacznik",
+            "criterion": "spojnosc",
+            "note": "So wiąże komplement z prośbą (jesteś dobra, więc może mi wytłumaczysz) – prosty skutek."
+          },
+          {
+            "anchor": "Can we meet tomorrow at 4 p.m. in the school library?",
+            "type": "punkty",
+            "criterion": "tresc",
+            "element": 3,
+            "note": "Podpunkt 3: propozycja spotkania z dniem, godziną i miejscem – pełna odpowiedź."
+          },
+          {
+            "anchor": "We can work for an hour",
+            "type": "uwaga",
+            "criterion": "zakres",
+            "note": "Do poprawy: zdanie podaje tylko czas, bez planu spotkania. Dopisanie, co zrobicie (np. first the story plan, then the past tense), pokazałoby szerszy zakres."
+          },
+          {
+            "anchor": "If you can't come, please tell me",
+            "type": "struktura",
+            "criterion": "spojnosc",
+            "note": "Zakończenie zostawia furtkę – koleżanka wie, co zrobić, jeśli termin jej nie pasuje."
+          },
+          {
+            "anchor": "Thanks a lot",
+            "type": "rejestr",
+            "criterion": "zakres",
+            "note": "Krótkie, nieformalne podziękowanie pasuje do maila do koleżanki."
+          }
+        ]
+      }
     }
   ]
 }
