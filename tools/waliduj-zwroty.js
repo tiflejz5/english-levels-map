@@ -20,7 +20,7 @@ const FILE = path.join(__dirname, "..", "dane", "pisanie", "zwroty.json");
 const GENRES = ["email", "letter", "blog", "forum", "essay", "article", "review", "report", "proposal", "story"];
 const REGISTERS = ["formal", "neutral", "informal"];
 const LEVELS = ["B1", "B2", "C1"];
-const REQUIRE_FULL = false; // true: 14 grup, 8–14 zwrotów w grupie, 140–180 razem (włączane po dodaniu treści)
+const REQUIRE_FULL = true;  // true: 14 grup, 8–14 zwrotów w grupie, 140–180 razem (włączane po dodaniu treści)
 
 const errors = [];
 const warnings = [];

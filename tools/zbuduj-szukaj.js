@@ -183,6 +183,17 @@ add({ id: "pisanie", group: "exercises", title: "Wzorcowe wypracowania", summary
   });
 })();
 
+// Pisanie: bank zwrotów (dane/pisanie/zwroty.json): strona banku i każda grupa (tekst: zwroty po angielsku i polsku)
+(function () {
+  const file = path.join(ROOT, "dane", "pisanie", "zwroty.json");
+  if (!fs.existsSync(file)) return;
+  const groups = readJson(file).groups || [];
+  add({ id: "zwroty", group: "exercises", title: "Bank zwrotów do pisania", summary: "Zwroty według funkcji z filtrem poziomu, rejestru i gatunku: opinia, kontrargument, prośby, podsumowanie.", text: "zwroty pisanie phrases writing łączniki frazy bank " + groups.map(function (g) { return g.label; }).join(" "), category: "Pisanie", route: "#/pisanie/zwroty" });
+  groups.forEach(function (g) {
+    add({ id: "zwroty:" + g.id, group: "exercises", title: "Zwroty: " + g.label, summary: g.description || "", text: g.phrases.map(function (p) { return p.en + " " + p.pl; }).join(" "), category: "Pisanie", route: "#/pisanie/zwroty/" + g.id });
+  });
+})();
+
 // Skróty do talii wbudowanych po tytule (bez kart): tematyczne A1–B1, egzaminacyjne, czasowniki frazowe itd.
 readJson(path.join(ROOT, "dane", "fiszki", "index.json")).decks.forEach(function (d) {
   add({ id: "fiszki:talia:" + d.id, group: "exercises", title: d.title + " (fiszki)", summary: d.description, text: "fiszki talia " + d.title + " " + d.level, category: "Fiszki", route: "#/fiszki/talia/" + d.id });

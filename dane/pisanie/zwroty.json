@@ -2,35 +2,1781 @@
   "version": 1,
   "groups": [
     {
+      "id": "start-nieformalny",
+      "label": "Rozpoczęcie nieformalne",
+      "description": "Jak zacząć e-mail albo list do znajomego: swobodnie, ale poprawnie.",
+      "genres": [
+        "email",
+        "letter",
+        "blog",
+        "forum"
+      ],
+      "phrases": [
+        {
+          "id": "start-nieformalny-01",
+          "en": "Hi there,",
+          "pl": "Cześć,",
+          "level": "B1",
+          "register": "informal",
+          "genres": [
+            "email",
+            "letter",
+            "blog",
+            "forum"
+          ]
+        },
+        {
+          "id": "start-nieformalny-02",
+          "en": "Thanks for your last email.",
+          "pl": "Dzięki za twój ostatni e-mail.",
+          "level": "B1",
+          "register": "informal",
+          "genres": [
+            "email",
+            "letter"
+          ]
+        },
+        {
+          "id": "start-nieformalny-03",
+          "en": "It was great to hear from you.",
+          "pl": "Miło było dostać od ciebie wiadomość.",
+          "level": "B1",
+          "register": "informal",
+          "genres": [
+            "email",
+            "letter"
+          ]
+        },
+        {
+          "id": "start-nieformalny-04",
+          "en": "I hope you're doing well.",
+          "pl": "Mam nadzieję, że u ciebie wszystko w porządku.",
+          "level": "B1",
+          "register": "neutral",
+          "genres": [
+            "email",
+            "letter"
+          ]
+        },
+        {
+          "id": "start-nieformalny-05",
+          "en": "How are things?",
+          "pl": "Co słychać?",
+          "level": "B1",
+          "register": "informal",
+          "genres": [
+            "email",
+            "letter",
+            "blog",
+            "forum"
+          ]
+        },
+        {
+          "id": "start-nieformalny-06",
+          "en": "Sorry for not writing earlier.",
+          "pl": "Przepraszam, że nie napisałem wcześniej.",
+          "level": "B1",
+          "register": "informal",
+          "genres": [
+            "email",
+            "letter"
+          ]
+        },
+        {
+          "id": "start-nieformalny-07",
+          "en": "You won't believe what happened!",
+          "pl": "Nie uwierzysz, co się stało!",
+          "level": "B1",
+          "register": "informal",
+          "genres": [
+            "email",
+            "letter",
+            "blog"
+          ]
+        },
+        {
+          "id": "start-nieformalny-08",
+          "en": "I hope you had a great weekend.",
+          "pl": "Mam nadzieję, że miałeś świetny weekend.",
+          "level": "B1",
+          "register": "informal",
+          "genres": [
+            "email",
+            "letter"
+          ]
+        },
+        {
+          "id": "start-nieformalny-09",
+          "en": "Sorry it's taken me so long to reply.",
+          "pl": "Przepraszam, że tak długo zwlekałem z odpowiedzią.",
+          "level": "B2",
+          "register": "informal",
+          "genres": [
+            "email",
+            "letter"
+          ]
+        },
+        {
+          "id": "start-nieformalny-10",
+          "en": "I've been meaning to write to you for ages.",
+          "pl": "Od dawna zbierałem się, żeby do ciebie napisać.",
+          "level": "B2",
+          "register": "informal",
+          "genres": [
+            "email",
+            "letter"
+          ]
+        },
+        {
+          "id": "start-nieformalny-11",
+          "en": "I'm just dropping you a line to say …",
+          "pl": "Piszę krótko, żeby ci powiedzieć…",
+          "level": "B2",
+          "register": "informal",
+          "example": "I'm just dropping you a line to say thank you for the lovely weekend.",
+          "genres": [
+            "email",
+            "letter"
+          ]
+        },
+        {
+          "id": "start-nieformalny-12",
+          "en": "Long time no speak!",
+          "pl": "Dawno się nie słyszeliśmy!",
+          "level": "B2",
+          "register": "informal",
+          "genres": [
+            "email",
+            "letter"
+          ]
+        },
+        {
+          "id": "start-nieformalny-13",
+          "en": "Apologies for the radio silence – things have been hectic.",
+          "pl": "Przepraszam za milczenie – ostatnio mam urwanie głowy.",
+          "level": "C1",
+          "register": "informal",
+          "note": "Dobre, gdy tłumaczysz długie milczenie – brzmi naturalnie i ciepło.",
+          "genres": [
+            "email",
+            "letter"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "start-formalny",
+      "label": "Rozpoczęcie formalne",
+      "description": "Zwroty otwierające list lub e-mail do urzędu, firmy albo osoby, której nie znasz.",
+      "genres": [
+        "email",
+        "letter"
+      ],
+      "phrases": [
+        {
+          "id": "start-formalny-01",
+          "en": "Dear Sir or Madam,",
+          "pl": "Szanowni Państwo,",
+          "level": "B1",
+          "register": "formal",
+          "note": "Gdy nie znasz nazwiska adresata. Zakończ: Yours faithfully."
+        },
+        {
+          "id": "start-formalny-02",
+          "en": "Dear Mr Smith,",
+          "pl": "Szanowny Panie,",
+          "level": "B1",
+          "register": "formal",
+          "note": "Gdy znasz nazwisko: Dear Mr/Ms + nazwisko. Zakończ: Yours sincerely."
+        },
+        {
+          "id": "start-formalny-03",
+          "en": "Thank you for your email of 12 June.",
+          "pl": "Dziękuję za wiadomość z 12 czerwca.",
+          "level": "B1",
+          "register": "formal"
+        },
+        {
+          "id": "start-formalny-04",
+          "en": "With reference to your letter of 5 May, …",
+          "pl": "W nawiązaniu do Pana/Pani listu z 5 maja…",
+          "level": "B2",
+          "register": "formal"
+        },
+        {
+          "id": "start-formalny-05",
+          "en": "Further to our telephone conversation, …",
+          "pl": "W nawiązaniu do naszej rozmowy telefonicznej…",
+          "level": "B2",
+          "register": "formal"
+        },
+        {
+          "id": "start-formalny-06",
+          "en": "I hope this email finds you well.",
+          "pl": "Mam nadzieję, że u Pana/Pani wszystko w porządku.",
+          "level": "B2",
+          "register": "neutral"
+        },
+        {
+          "id": "start-formalny-07",
+          "en": "Thank you for getting back to me so promptly.",
+          "pl": "Dziękuję za tak szybką odpowiedź.",
+          "level": "B2",
+          "register": "neutral"
+        },
+        {
+          "id": "start-formalny-08",
+          "en": "Thank you for taking the time to reply.",
+          "pl": "Dziękuję, że znalazł Pan/znalazła Pani czas na odpowiedź.",
+          "level": "B2",
+          "register": "formal"
+        },
+        {
+          "id": "start-formalny-09",
+          "en": "Dear Editor,",
+          "pl": "Szanowny Panie Redaktorze,",
+          "level": "B2",
+          "register": "formal",
+          "note": "Typowy początek listu do redakcji – często na maturze rozszerzonej."
+        },
+        {
+          "id": "start-formalny-10",
+          "en": "Please accept my apologies for the delay in responding.",
+          "pl": "Proszę przyjąć moje przeprosiny za zwłokę w odpowiedzi.",
+          "level": "B2",
+          "register": "formal"
+        },
+        {
+          "id": "start-formalny-11",
+          "en": "I trust this message finds you well.",
+          "pl": "Ufam, że ta wiadomość zastanie Pana/Panią w dobrym zdrowiu.",
+          "level": "C1",
+          "register": "formal",
+          "note": "Bardzo formalne, trochę staroświeckie. W zwykłym e-mailu wystarczy I hope this email finds you well."
+        }
+      ]
+    },
+    {
+      "id": "cel",
+      "label": "Cel pisania",
+      "description": "Pierwsze zdanie, które mówi, po co piszesz. W zadaniach egzaminacyjnych od razu pokazuje, że realizujesz polecenie.",
+      "genres": [
+        "email",
+        "letter",
+        "report",
+        "proposal",
+        "essay",
+        "article",
+        "review"
+      ],
+      "phrases": [
+        {
+          "id": "cel-01",
+          "en": "I'm writing to ask about …",
+          "pl": "Piszę, żeby zapytać o…",
+          "level": "B1",
+          "register": "neutral",
+          "example": "I'm writing to ask about the opening hours of the museum.",
+          "genres": [
+            "email",
+            "letter"
+          ]
+        },
+        {
+          "id": "cel-02",
+          "en": "I'm writing to tell you about …",
+          "pl": "Piszę, żeby opowiedzieć ci o…",
+          "level": "B1",
+          "register": "informal",
+          "genres": [
+            "email",
+            "letter"
+          ]
+        },
+        {
+          "id": "cel-03",
+          "en": "I'm writing to thank you for …",
+          "pl": "Piszę, żeby podziękować za…",
+          "level": "B1",
+          "register": "neutral",
+          "genres": [
+            "email",
+            "letter"
+          ]
+        },
+        {
+          "id": "cel-04",
+          "en": "I am writing to complain about …",
+          "pl": "Piszę, aby złożyć skargę na…",
+          "level": "B2",
+          "register": "formal",
+          "example": "I am writing to complain about the quality of the service I received on 3 March.",
+          "genres": [
+            "email",
+            "letter"
+          ]
+        },
+        {
+          "id": "cel-05",
+          "en": "I am writing to apply for the position of …",
+          "pl": "Piszę, aby ubiegać się o stanowisko…",
+          "level": "B2",
+          "register": "formal",
+          "genres": [
+            "email",
+            "letter"
+          ]
+        },
+        {
+          "id": "cel-06",
+          "en": "I am writing in response to your advertisement in …",
+          "pl": "Piszę w odpowiedzi na Państwa ogłoszenie w…",
+          "level": "B2",
+          "register": "formal",
+          "genres": [
+            "email",
+            "letter"
+          ]
+        },
+        {
+          "id": "cel-07",
+          "en": "I am writing to express my concern about …",
+          "pl": "Piszę, aby wyrazić zaniepokojenie w związku z…",
+          "level": "B2",
+          "register": "formal",
+          "genres": [
+            "email",
+            "letter"
+          ]
+        },
+        {
+          "id": "cel-08",
+          "en": "The aim of this report is to …",
+          "pl": "Celem tego raportu jest…",
+          "level": "B2",
+          "register": "formal",
+          "example": "The aim of this report is to evaluate the facilities of the school library.",
+          "genres": [
+            "report"
+          ]
+        },
+        {
+          "id": "cel-09",
+          "en": "The purpose of this proposal is to …",
+          "pl": "Celem tej propozycji jest…",
+          "level": "B2",
+          "register": "formal",
+          "genres": [
+            "proposal"
+          ]
+        },
+        {
+          "id": "cel-10",
+          "en": "This essay will discuss …",
+          "pl": "W tym eseju omówię…",
+          "level": "B2",
+          "register": "formal",
+          "genres": [
+            "essay"
+          ]
+        },
+        {
+          "id": "cel-11",
+          "en": "In this article, I would like to look at …",
+          "pl": "W tym artykule chciałbym przyjrzeć się…",
+          "level": "B2",
+          "register": "neutral",
+          "genres": [
+            "article"
+          ]
+        },
+        {
+          "id": "cel-12",
+          "en": "If you're looking for …, read on.",
+          "pl": "Jeśli szukasz…, czytaj dalej.",
+          "level": "B2",
+          "register": "neutral",
+          "genres": [
+            "review",
+            "article"
+          ]
+        },
+        {
+          "id": "cel-13",
+          "en": "I would like to bring to your attention …",
+          "pl": "Chciałbym zwrócić Państwa uwagę na…",
+          "level": "C1",
+          "register": "formal",
+          "genres": [
+            "email",
+            "letter",
+            "report"
+          ]
+        },
+        {
+          "id": "cel-14",
+          "en": "The question I wish to address is whether …",
+          "pl": "Kwestia, którą chcę poruszyć, to to, czy…",
+          "level": "C1",
+          "register": "formal",
+          "genres": [
+            "essay",
+            "article",
+            "letter"
+          ]
+        }
+      ]
+    },
+    {
       "id": "opinia",
       "label": "Wyrażanie opinii",
       "description": "Jak powiedzieć, co myślisz – od prostego do formalnego.",
-      "genres": ["essay", "article", "forum", "blog", "letter", "email", "review", "report"],
+      "genres": [
+        "essay",
+        "article",
+        "forum",
+        "blog",
+        "letter",
+        "email",
+        "review",
+        "report"
+      ],
       "phrases": [
-        { "id": "opinia-01", "en": "In my opinion, …", "pl": "Moim zdaniem…", "level": "B1", "register": "neutral" },
-        { "id": "opinia-02", "en": "I think/believe that …", "pl": "Myślę/uważam, że…", "level": "B1", "register": "neutral" },
-        { "id": "opinia-03", "en": "To be honest, …", "pl": "Szczerze mówiąc…", "level": "B1", "register": "informal", "genres": ["email", "blog", "forum"] },
-        { "id": "opinia-04", "en": "As far as I'm concerned, …", "pl": "Jeśli o mnie chodzi…", "level": "B2", "register": "neutral" },
-        { "id": "opinia-05", "en": "I am firmly convinced that …", "pl": "Jestem głęboko przekonany, że…", "level": "B2", "register": "formal", "example": "I am firmly convinced that schools should teach first aid.", "note": "Mocniejsze niż I think – dobre w rozprawce, przesadne w e-mailu do kolegi." },
-        { "id": "opinia-06", "en": "It seems to me that …", "pl": "Wydaje mi się, że…", "level": "B2", "register": "neutral", "note": "Łagodniejsze niż I think – przydaje się, gdy temat jest sporny." },
-        { "id": "opinia-07", "en": "There is no denying that …", "pl": "Nie da się zaprzeczyć, że…", "level": "C1", "register": "formal", "example": "There is no denying that social media has changed the way we communicate.", "genres": ["essay", "article", "report"] },
-        { "id": "opinia-08", "en": "I would argue that …", "pl": "Twierdziłbym, że…", "level": "C1", "register": "formal", "note": "Ostrożne, akademickie – typowe w eseju C1." }
+        {
+          "id": "opinia-01",
+          "en": "In my opinion, …",
+          "pl": "Moim zdaniem…",
+          "level": "B1",
+          "register": "neutral"
+        },
+        {
+          "id": "opinia-02",
+          "en": "I believe that …",
+          "pl": "Uważam, że…",
+          "level": "B1",
+          "register": "neutral",
+          "note": "Zamiennie: I think that …"
+        },
+        {
+          "id": "opinia-03",
+          "en": "To be honest, …",
+          "pl": "Szczerze mówiąc…",
+          "level": "B1",
+          "register": "informal",
+          "genres": [
+            "email",
+            "blog",
+            "forum"
+          ]
+        },
+        {
+          "id": "opinia-04",
+          "en": "As far as I'm concerned, …",
+          "pl": "Jeśli o mnie chodzi…",
+          "level": "B2",
+          "register": "neutral"
+        },
+        {
+          "id": "opinia-05",
+          "en": "I am firmly convinced that …",
+          "pl": "Jestem głęboko przekonany, że…",
+          "level": "B2",
+          "register": "formal",
+          "example": "I am firmly convinced that schools should teach first aid.",
+          "note": "Mocniejsze niż I think – dobre w rozprawce, przesadne w e-mailu do kolegi."
+        },
+        {
+          "id": "opinia-06",
+          "en": "It seems to me that …",
+          "pl": "Wydaje mi się, że…",
+          "level": "B2",
+          "register": "neutral",
+          "note": "Łagodniejsze niż I think – przydaje się, gdy temat jest sporny."
+        },
+        {
+          "id": "opinia-07",
+          "en": "There is no denying that …",
+          "pl": "Nie da się zaprzeczyć, że…",
+          "level": "C1",
+          "register": "formal",
+          "example": "There is no denying that social media has changed the way we communicate.",
+          "genres": [
+            "essay",
+            "article",
+            "report"
+          ]
+        },
+        {
+          "id": "opinia-08",
+          "en": "I would argue that …",
+          "pl": "Moim zdaniem można dowodzić, że…",
+          "level": "C1",
+          "register": "formal",
+          "note": "Ostrożne, akademickie – typowe w eseju C1."
+        },
+        {
+          "id": "opinia-09",
+          "en": "I strongly believe that …",
+          "pl": "Jestem przekonany, że…",
+          "level": "B1",
+          "register": "neutral"
+        },
+        {
+          "id": "opinia-10",
+          "en": "From my point of view, …",
+          "pl": "Z mojego punktu widzenia…",
+          "level": "B1",
+          "register": "neutral"
+        },
+        {
+          "id": "opinia-11",
+          "en": "Personally, I feel that …",
+          "pl": "Osobiście uważam, że…",
+          "level": "B1",
+          "register": "neutral"
+        },
+        {
+          "id": "opinia-12",
+          "en": "I am of the opinion that …",
+          "pl": "Jestem zdania, że…",
+          "level": "B2",
+          "register": "formal"
+        },
+        {
+          "id": "opinia-13",
+          "en": "To my mind, …",
+          "pl": "Według mnie…",
+          "level": "B2",
+          "register": "neutral",
+          "note": "Brytyjskie, lekko potoczne – nie nadużywaj."
+        }
+      ]
+    },
+    {
+      "id": "zgoda",
+      "label": "Zgoda i niezgoda",
+      "description": "Reagowanie na cudzą opinię – w e-mailu, na forum i w rozprawce.",
+      "genres": [
+        "essay",
+        "forum",
+        "letter",
+        "email",
+        "article"
+      ],
+      "phrases": [
+        {
+          "id": "zgoda-01",
+          "en": "I completely agree with you.",
+          "pl": "Całkowicie się z tobą zgadzam.",
+          "level": "B1",
+          "register": "neutral",
+          "genres": [
+            "forum",
+            "email",
+            "letter"
+          ]
+        },
+        {
+          "id": "zgoda-02",
+          "en": "You're right about that.",
+          "pl": "Masz w tym rację.",
+          "level": "B1",
+          "register": "informal",
+          "genres": [
+            "forum",
+            "email",
+            "letter"
+          ]
+        },
+        {
+          "id": "zgoda-03",
+          "en": "I see what you mean, but …",
+          "pl": "Rozumiem, o co ci chodzi, ale…",
+          "level": "B1",
+          "register": "informal",
+          "genres": [
+            "forum",
+            "email",
+            "letter"
+          ]
+        },
+        {
+          "id": "zgoda-04",
+          "en": "I'm afraid I don't agree.",
+          "pl": "Obawiam się, że się nie zgadzam.",
+          "level": "B1",
+          "register": "neutral",
+          "genres": [
+            "forum",
+            "email",
+            "letter"
+          ]
+        },
+        {
+          "id": "zgoda-05",
+          "en": "I couldn't agree more.",
+          "pl": "Zgadzam się w stu procentach.",
+          "level": "B2",
+          "register": "neutral",
+          "genres": [
+            "forum",
+            "email",
+            "letter"
+          ]
+        },
+        {
+          "id": "zgoda-06",
+          "en": "I see your point, but …",
+          "pl": "Rozumiem twój punkt widzenia, ale…",
+          "level": "B2",
+          "register": "neutral",
+          "genres": [
+            "forum",
+            "email",
+            "letter",
+            "article"
+          ]
+        },
+        {
+          "id": "zgoda-07",
+          "en": "I'm not convinced that …",
+          "pl": "Nie jestem przekonany, że…",
+          "level": "B2",
+          "register": "neutral"
+        },
+        {
+          "id": "zgoda-08",
+          "en": "There is some truth in this, but …",
+          "pl": "Jest w tym trochę prawdy, ale…",
+          "level": "B2",
+          "register": "neutral"
+        },
+        {
+          "id": "zgoda-09",
+          "en": "I beg to differ.",
+          "pl": "Pozwolę sobie się nie zgodzić.",
+          "level": "B2",
+          "register": "formal",
+          "note": "Często brzmi ironicznie – w eseju unikaj.",
+          "genres": [
+            "forum",
+            "email",
+            "letter"
+          ]
+        },
+        {
+          "id": "zgoda-10",
+          "en": "I fully endorse the view that …",
+          "pl": "W pełni popieram pogląd, że…",
+          "level": "C1",
+          "register": "formal",
+          "genres": [
+            "essay",
+            "article",
+            "letter"
+          ]
+        },
+        {
+          "id": "zgoda-11",
+          "en": "I take issue with the claim that …",
+          "pl": "Nie zgadzam się z twierdzeniem, że…",
+          "level": "C1",
+          "register": "formal",
+          "example": "I take issue with the claim that homework always improves results."
+        },
+        {
+          "id": "zgoda-12",
+          "en": "I am inclined to disagree with …",
+          "pl": "Raczej nie zgadzam się z…",
+          "level": "C1",
+          "register": "formal"
+        }
+      ]
+    },
+    {
+      "id": "argumenty",
+      "label": "Dodawanie argumentów",
+      "description": "Łączniki, które porządkują wywód i dokładają kolejne argumenty.",
+      "genres": [
+        "essay",
+        "article",
+        "report",
+        "proposal",
+        "forum",
+        "letter"
+      ],
+      "phrases": [
+        {
+          "id": "argumenty-01",
+          "en": "Firstly, …",
+          "pl": "Po pierwsze…",
+          "level": "B1",
+          "register": "neutral"
+        },
+        {
+          "id": "argumenty-02",
+          "en": "In addition, …",
+          "pl": "Dodatkowo…",
+          "level": "B1",
+          "register": "neutral"
+        },
+        {
+          "id": "argumenty-03",
+          "en": "What's more, …",
+          "pl": "Co więcej…",
+          "level": "B1",
+          "register": "neutral",
+          "note": "W formalnym eseju pisz pełną formę: What is more, …",
+          "genres": [
+            "essay",
+            "article",
+            "forum",
+            "letter"
+          ]
+        },
+        {
+          "id": "argumenty-04",
+          "en": "Another important point is that …",
+          "pl": "Innym ważnym argumentem jest to, że…",
+          "level": "B1",
+          "register": "neutral"
+        },
+        {
+          "id": "argumenty-05",
+          "en": "Moreover, …",
+          "pl": "Ponadto…",
+          "level": "B2",
+          "register": "formal"
+        },
+        {
+          "id": "argumenty-06",
+          "en": "Furthermore, …",
+          "pl": "Co więcej…",
+          "level": "B2",
+          "register": "formal"
+        },
+        {
+          "id": "argumenty-07",
+          "en": "Not only …, but also …",
+          "pl": "Nie tylko…, ale także…",
+          "level": "B2",
+          "register": "neutral",
+          "example": "Not only does exercise improve health, but it also boosts mood.",
+          "note": "Po Not only na początku zdania szyk jak w pytaniu: Not only does exercise improve…"
+        },
+        {
+          "id": "argumenty-08",
+          "en": "Another factor to consider is …",
+          "pl": "Kolejnym czynnikiem, który należy wziąć pod uwagę, jest…",
+          "level": "B2",
+          "register": "formal"
+        },
+        {
+          "id": "argumenty-09",
+          "en": "On top of that, …",
+          "pl": "Na dodatek…",
+          "level": "B2",
+          "register": "informal",
+          "genres": [
+            "forum",
+            "letter"
+          ]
+        },
+        {
+          "id": "argumenty-10",
+          "en": "Last but not least, …",
+          "pl": "Wreszcie, co nie mniej ważne…",
+          "level": "B1",
+          "register": "neutral",
+          "note": "Często nadużywane – w eseju lepiej Finally lub Lastly."
+        },
+        {
+          "id": "argumenty-11",
+          "en": "It should also be noted that …",
+          "pl": "Należy również zauważyć, że…",
+          "level": "B2",
+          "register": "formal"
+        },
+        {
+          "id": "argumenty-12",
+          "en": "It is also worth bearing in mind that …",
+          "pl": "Warto również pamiętać, że…",
+          "level": "C1",
+          "register": "formal"
+        },
+        {
+          "id": "argumenty-13",
+          "en": "Equally important is the fact that …",
+          "pl": "Równie ważny jest fakt, że…",
+          "level": "C1",
+          "register": "formal",
+          "note": "Szyk z odwróceniem (Equally important is…) – dobry sposób, by uniknąć kolejnego Moreover."
+        }
       ]
     },
     {
       "id": "kontrargument",
       "label": "Kontrargument i ustępstwo",
       "description": "Przyznaj rację drugiej stronie, zanim przedstawisz swój argument.",
-      "genres": ["essay", "article", "letter", "forum", "report", "proposal"],
+      "genres": [
+        "essay",
+        "article",
+        "letter",
+        "forum",
+        "report",
+        "proposal"
+      ],
       "phrases": [
-        { "id": "kontrargument-01", "en": "However, …", "pl": "Jednak…", "level": "B1", "register": "neutral", "note": "Na początku zdania z przecinkiem. Nie łącz nim dwóch zdań przecinkiem w środku." },
-        { "id": "kontrargument-02", "en": "Although …, …", "pl": "Chociaż…, …", "level": "B1", "register": "neutral", "example": "Although the tickets are expensive, the concert is worth it." },
-        { "id": "kontrargument-03", "en": "On the other hand, …", "pl": "Z drugiej strony…", "level": "B1", "register": "neutral" },
-        { "id": "kontrargument-04", "en": "Some people claim that …. However, …", "pl": "Niektórzy twierdzą, że…. Jednak…", "level": "B2", "register": "neutral", "genres": ["essay", "article", "forum"] },
-        { "id": "kontrargument-05", "en": "While it is true that …, …", "pl": "Choć prawdą jest, że…, …", "level": "B2", "register": "formal", "example": "While it is true that online courses are cheaper, they require a lot of self-discipline." },
-        { "id": "kontrargument-06", "en": "Admittedly, …", "pl": "Trzeba przyznać, że…", "level": "C1", "register": "formal" },
-        { "id": "kontrargument-07", "en": "This is not to say that …", "pl": "Nie znaczy to, że…", "level": "C1", "register": "formal", "example": "This is not to say that technology has no place in the classroom." },
-        { "id": "kontrargument-08", "en": "Be that as it may, …", "pl": "Tak czy inaczej… / Niemniej jednak…", "level": "C1", "register": "formal", "note": "Bardzo formalne – używaj raz w tekście, nie częściej." }
+        {
+          "id": "kontrargument-01",
+          "en": "However, …",
+          "pl": "Jednak…",
+          "level": "B1",
+          "register": "neutral",
+          "note": "Między dwoma zdaniami użyj kropki lub średnika: …; however, …. Może też stać w środku zdania: The plan, however, is costly."
+        },
+        {
+          "id": "kontrargument-02",
+          "en": "Although …, …",
+          "pl": "Chociaż…, …",
+          "level": "B1",
+          "register": "neutral",
+          "example": "Although the tickets are expensive, the concert is worth it."
+        },
+        {
+          "id": "kontrargument-03",
+          "en": "On the other hand, …",
+          "pl": "Z drugiej strony…",
+          "level": "B1",
+          "register": "neutral"
+        },
+        {
+          "id": "kontrargument-04",
+          "en": "Some people claim that … However, …",
+          "pl": "Niektórzy twierdzą, że… Jednak…",
+          "level": "B2",
+          "register": "neutral",
+          "genres": [
+            "essay",
+            "article",
+            "forum"
+          ]
+        },
+        {
+          "id": "kontrargument-05",
+          "en": "While it is true that …, …",
+          "pl": "Choć prawdą jest, że…, …",
+          "level": "B2",
+          "register": "formal",
+          "example": "While it is true that online courses are cheaper, they require a lot of self-discipline."
+        },
+        {
+          "id": "kontrargument-06",
+          "en": "Admittedly, …",
+          "pl": "Trzeba przyznać, że…",
+          "level": "B2",
+          "register": "formal"
+        },
+        {
+          "id": "kontrargument-07",
+          "en": "This is not to say that …",
+          "pl": "Nie znaczy to, że…",
+          "level": "C1",
+          "register": "formal",
+          "example": "This is not to say that technology has no place in the classroom."
+        },
+        {
+          "id": "kontrargument-08",
+          "en": "Be that as it may, …",
+          "pl": "Tak czy inaczej… / Niemniej jednak…",
+          "level": "C1",
+          "register": "formal",
+          "note": "Bardzo formalne – używaj raz w tekście, nie częściej."
+        },
+        {
+          "id": "kontrargument-09",
+          "en": "Nevertheless, …",
+          "pl": "Mimo to…",
+          "level": "B2",
+          "register": "formal"
+        },
+        {
+          "id": "kontrargument-10",
+          "en": "Even so, …",
+          "pl": "Mimo wszystko…",
+          "level": "B2",
+          "register": "neutral"
+        },
+        {
+          "id": "kontrargument-11",
+          "en": "Despite the fact that …, …",
+          "pl": "Mimo że…, …",
+          "level": "B2",
+          "register": "neutral",
+          "example": "Despite the fact that he was tired, he finished the report."
+        },
+        {
+          "id": "kontrargument-12",
+          "en": "Having said that, …",
+          "pl": "Mimo to… / Co nie zmienia faktu, że…",
+          "level": "B2",
+          "register": "neutral",
+          "note": "Bardziej mówione – w raporcie unikaj.",
+          "genres": [
+            "article",
+            "letter",
+            "forum",
+            "essay"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "przyklady",
+      "label": "Przykłady i uzasadnienie",
+      "description": "Jak poprzeć argument przykładem i wyjaśnić, dlaczego tak uważasz.",
+      "genres": [
+        "essay",
+        "article",
+        "report",
+        "review",
+        "proposal",
+        "blog",
+        "forum"
+      ],
+      "phrases": [
+        {
+          "id": "przyklady-01",
+          "en": "For example, …",
+          "pl": "Na przykład…",
+          "level": "B1",
+          "register": "neutral"
+        },
+        {
+          "id": "przyklady-02",
+          "en": "For instance, …",
+          "pl": "Na przykład…",
+          "level": "B1",
+          "register": "neutral"
+        },
+        {
+          "id": "przyklady-03",
+          "en": "such as …",
+          "pl": "takie jak…",
+          "level": "B1",
+          "register": "neutral",
+          "example": "I enjoy outdoor activities such as hiking and cycling."
+        },
+        {
+          "id": "przyklady-04",
+          "en": "This is because …",
+          "pl": "To dlatego, że…",
+          "level": "B1",
+          "register": "neutral"
+        },
+        {
+          "id": "przyklady-05",
+          "en": "A good example of this is …",
+          "pl": "Dobrym przykładem tego jest…",
+          "level": "B2",
+          "register": "neutral"
+        },
+        {
+          "id": "przyklady-06",
+          "en": "To illustrate this point, …",
+          "pl": "Aby to zilustrować…",
+          "level": "B2",
+          "register": "formal"
+        },
+        {
+          "id": "przyklady-07",
+          "en": "This is illustrated by …",
+          "pl": "Ilustruje to…",
+          "level": "B2",
+          "register": "formal"
+        },
+        {
+          "id": "przyklady-08",
+          "en": "The reason for this is that …",
+          "pl": "Powodem tego jest to, że…",
+          "level": "B2",
+          "register": "neutral"
+        },
+        {
+          "id": "przyklady-09",
+          "en": "In other words, …",
+          "pl": "Innymi słowy…",
+          "level": "B2",
+          "register": "neutral"
+        },
+        {
+          "id": "przyklady-10",
+          "en": "More specifically, …",
+          "pl": "Dokładniej mówiąc…",
+          "level": "B2",
+          "register": "formal"
+        },
+        {
+          "id": "przyklady-11",
+          "en": "Consider the case of …",
+          "pl": "Weźmy przypadek…",
+          "level": "C1",
+          "register": "formal",
+          "genres": [
+            "essay",
+            "article",
+            "report"
+          ]
+        },
+        {
+          "id": "przyklady-12",
+          "en": "A case in point is …",
+          "pl": "Potwierdza to przykład…",
+          "level": "C1",
+          "register": "formal",
+          "note": "Idiom: wskazuje przykład, który potwierdza ogólną tezę."
+        },
+        {
+          "id": "przyklady-13",
+          "en": "This is evidenced by the fact that …",
+          "pl": "Dowodzi tego fakt, że…",
+          "level": "C1",
+          "register": "formal",
+          "genres": [
+            "essay",
+            "article",
+            "report"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "przyczyna",
+      "label": "Przyczyna i skutek",
+      "description": "Mówienie o tym, co z czego wynika.",
+      "genres": [
+        "essay",
+        "article",
+        "report",
+        "proposal",
+        "forum",
+        "blog"
+      ],
+      "phrases": [
+        {
+          "id": "przyczyna-01",
+          "en": "because of …",
+          "pl": "z powodu…",
+          "level": "B1",
+          "register": "neutral",
+          "example": "We stayed at home because of the rain."
+        },
+        {
+          "id": "przyczyna-02",
+          "en": "That's why …",
+          "pl": "Dlatego…",
+          "level": "B1",
+          "register": "informal",
+          "genres": [
+            "forum",
+            "blog"
+          ]
+        },
+        {
+          "id": "przyczyna-03",
+          "en": "As a result, …",
+          "pl": "W rezultacie…",
+          "level": "B1",
+          "register": "neutral"
+        },
+        {
+          "id": "przyczyna-04",
+          "en": "This means that …",
+          "pl": "To oznacza, że…",
+          "level": "B1",
+          "register": "neutral"
+        },
+        {
+          "id": "przyczyna-05",
+          "en": "Therefore, …",
+          "pl": "W związku z tym…",
+          "level": "B2",
+          "register": "formal"
+        },
+        {
+          "id": "przyczyna-06",
+          "en": "Consequently, …",
+          "pl": "W konsekwencji…",
+          "level": "B2",
+          "register": "formal"
+        },
+        {
+          "id": "przyczyna-07",
+          "en": "Due to the fact that …",
+          "pl": "Ze względu na to, że…",
+          "level": "B2",
+          "register": "formal",
+          "note": "Dłuższe niż because – używaj oszczędnie."
+        },
+        {
+          "id": "przyczyna-08",
+          "en": "This leads to …",
+          "pl": "To prowadzi do…",
+          "level": "B2",
+          "register": "neutral"
+        },
+        {
+          "id": "przyczyna-09",
+          "en": "This is why …",
+          "pl": "Dlatego właśnie…",
+          "level": "B2",
+          "register": "neutral"
+        },
+        {
+          "id": "przyczyna-10",
+          "en": "Thanks to …, …",
+          "pl": "Dzięki…, …",
+          "level": "B2",
+          "register": "neutral",
+          "note": "Thanks to dla pozytywnych przyczyn; dla negatywnych użyj because of albo owing to."
+        },
+        {
+          "id": "przyczyna-11",
+          "en": "Owing to …, …",
+          "pl": "Z powodu…, …",
+          "level": "C1",
+          "register": "formal"
+        },
+        {
+          "id": "przyczyna-12",
+          "en": "It follows that …",
+          "pl": "Z tego wynika, że…",
+          "level": "C1",
+          "register": "formal"
+        },
+        {
+          "id": "przyczyna-13",
+          "en": "This, in turn, …",
+          "pl": "To z kolei…",
+          "level": "C1",
+          "register": "formal",
+          "example": "Rising prices reduce spending. This, in turn, slows down the economy."
+        }
+      ]
+    },
+    {
+      "id": "porownanie",
+      "label": "Porównanie i kontrast",
+      "description": "Zestawianie dwóch rzeczy: co je łączy, a co dzieli.",
+      "genres": [
+        "essay",
+        "article",
+        "review",
+        "report",
+        "blog"
+      ],
+      "phrases": [
+        {
+          "id": "porownanie-01",
+          "en": "Compared to …, …",
+          "pl": "W porównaniu z…, …",
+          "level": "B1",
+          "register": "neutral"
+        },
+        {
+          "id": "porownanie-02",
+          "en": "On the one hand, … On the other hand, …",
+          "pl": "Z jednej strony… Z drugiej strony…",
+          "level": "B1",
+          "register": "neutral"
+        },
+        {
+          "id": "porownanie-03",
+          "en": "Both … and …",
+          "pl": "Zarówno…, jak i…",
+          "level": "B1",
+          "register": "neutral",
+          "example": "Both the hotel and the beach were excellent."
+        },
+        {
+          "id": "porownanie-04",
+          "en": "Similarly, …",
+          "pl": "Podobnie…",
+          "level": "B2",
+          "register": "neutral"
+        },
+        {
+          "id": "porownanie-05",
+          "en": "In contrast, …",
+          "pl": "Natomiast…",
+          "level": "B2",
+          "register": "neutral"
+        },
+        {
+          "id": "porownanie-06",
+          "en": "Unlike …, …",
+          "pl": "W przeciwieństwie do…, …",
+          "level": "B2",
+          "register": "neutral"
+        },
+        {
+          "id": "porownanie-07",
+          "en": "whereas …",
+          "pl": "podczas gdy…",
+          "level": "B2",
+          "register": "neutral",
+          "example": "My brother loves team sports, whereas I prefer swimming."
+        },
+        {
+          "id": "porownanie-08",
+          "en": "While some prefer …, others …",
+          "pl": "Podczas gdy jedni wolą…, inni…",
+          "level": "B2",
+          "register": "neutral"
+        },
+        {
+          "id": "porownanie-09",
+          "en": "By comparison, …",
+          "pl": "Dla porównania…",
+          "level": "B2",
+          "register": "neutral"
+        },
+        {
+          "id": "porownanie-10",
+          "en": "In the same way, …",
+          "pl": "W ten sam sposób…",
+          "level": "B2",
+          "register": "neutral"
+        },
+        {
+          "id": "porownanie-11",
+          "en": "There is a marked contrast between … and …",
+          "pl": "Istnieje wyraźny kontrast między… a…",
+          "level": "C1",
+          "register": "formal"
+        },
+        {
+          "id": "porownanie-12",
+          "en": "Conversely, …",
+          "pl": "Odwrotnie…",
+          "level": "C1",
+          "register": "formal"
+        },
+        {
+          "id": "porownanie-13",
+          "en": "Much the same can be said of …",
+          "pl": "To samo można powiedzieć o…",
+          "level": "C1",
+          "register": "formal"
+        }
+      ]
+    },
+    {
+      "id": "propozycje",
+      "label": "Propozycje i rekomendacje",
+      "description": "Doradzanie, proponowanie i polecanie – od rady dla kolegi po rekomendację w raporcie.",
+      "genres": [
+        "proposal",
+        "report",
+        "letter",
+        "email",
+        "essay",
+        "article",
+        "forum"
+      ],
+      "phrases": [
+        {
+          "id": "propozycje-01",
+          "en": "Why don't we …?",
+          "pl": "Może byśmy…?",
+          "level": "B1",
+          "register": "informal",
+          "genres": [
+            "email",
+            "letter",
+            "forum"
+          ]
+        },
+        {
+          "id": "propozycje-02",
+          "en": "How about …?",
+          "pl": "Co powiesz na…?",
+          "level": "B1",
+          "register": "informal",
+          "genres": [
+            "email",
+            "forum"
+          ]
+        },
+        {
+          "id": "propozycje-03",
+          "en": "I suggest that we …",
+          "pl": "Proponuję, żebyśmy…",
+          "level": "B1",
+          "register": "neutral",
+          "genres": [
+            "email",
+            "letter",
+            "proposal",
+            "report",
+            "forum"
+          ]
+        },
+        {
+          "id": "propozycje-04",
+          "en": "You should …",
+          "pl": "Powinieneś…",
+          "level": "B1",
+          "register": "neutral",
+          "genres": [
+            "email",
+            "letter",
+            "forum"
+          ]
+        },
+        {
+          "id": "propozycje-05",
+          "en": "I would recommend …",
+          "pl": "Polecałbym…",
+          "level": "B2",
+          "register": "neutral",
+          "example": "I would recommend visiting the old town in the morning."
+        },
+        {
+          "id": "propozycje-06",
+          "en": "It would be a good idea to …",
+          "pl": "Dobrym pomysłem byłoby…",
+          "level": "B2",
+          "register": "neutral"
+        },
+        {
+          "id": "propozycje-07",
+          "en": "I would strongly advise you to …",
+          "pl": "Zdecydowanie radziłbym Panu/Pani…",
+          "level": "B2",
+          "register": "neutral",
+          "genres": [
+            "email",
+            "letter"
+          ]
+        },
+        {
+          "id": "propozycje-08",
+          "en": "One possible solution would be to …",
+          "pl": "Jednym z możliwych rozwiązań byłoby…",
+          "level": "B2",
+          "register": "formal",
+          "genres": [
+            "essay",
+            "article",
+            "report",
+            "proposal"
+          ]
+        },
+        {
+          "id": "propozycje-09",
+          "en": "It is recommended that …",
+          "pl": "Zaleca się, aby…",
+          "level": "B2",
+          "register": "formal",
+          "genres": [
+            "report",
+            "proposal"
+          ]
+        },
+        {
+          "id": "propozycje-10",
+          "en": "I would like to propose that …",
+          "pl": "Chciałbym zaproponować, aby…",
+          "level": "B2",
+          "register": "formal",
+          "genres": [
+            "proposal",
+            "report",
+            "letter"
+          ]
+        },
+        {
+          "id": "propozycje-11",
+          "en": "Steps should be taken to …",
+          "pl": "Należy podjąć kroki, aby…",
+          "level": "C1",
+          "register": "formal",
+          "genres": [
+            "essay",
+            "article",
+            "report",
+            "proposal"
+          ]
+        },
+        {
+          "id": "propozycje-12",
+          "en": "I would urge the authorities to …",
+          "pl": "Apeluję do władz, aby…",
+          "level": "C1",
+          "register": "formal",
+          "genres": [
+            "letter",
+            "essay",
+            "article"
+          ]
+        },
+        {
+          "id": "propozycje-13",
+          "en": "The most effective way forward would be to …",
+          "pl": "Najskuteczniejszym rozwiązaniem byłoby…",
+          "level": "C1",
+          "register": "formal",
+          "genres": [
+            "essay",
+            "article",
+            "report",
+            "proposal"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "prosby",
+      "label": "Prośby, pytania i skargi",
+      "description": "Uprzejme prośby o informacje i stanowcze, ale grzeczne skargi.",
+      "genres": [
+        "email",
+        "letter"
+      ],
+      "phrases": [
+        {
+          "id": "prosby-01",
+          "en": "Could you tell me …?",
+          "pl": "Czy mógłbyś mi powiedzieć…?",
+          "level": "B1",
+          "register": "neutral"
+        },
+        {
+          "id": "prosby-02",
+          "en": "Can you send me …?",
+          "pl": "Czy możesz mi wysłać…?",
+          "level": "B1",
+          "register": "informal"
+        },
+        {
+          "id": "prosby-03",
+          "en": "I'd like to know if …",
+          "pl": "Chciałbym wiedzieć, czy…",
+          "level": "B1",
+          "register": "neutral"
+        },
+        {
+          "id": "prosby-04",
+          "en": "Please let me know.",
+          "pl": "Proszę, daj mi znać.",
+          "level": "B1",
+          "register": "neutral"
+        },
+        {
+          "id": "prosby-05",
+          "en": "I was wondering if you could …",
+          "pl": "Zastanawiałem się, czy mógłbyś…",
+          "level": "B2",
+          "register": "neutral",
+          "example": "I was wondering if you could recommend a good restaurant near the station."
+        },
+        {
+          "id": "prosby-06",
+          "en": "I would be grateful if you could …",
+          "pl": "Byłbym wdzięczny, gdyby mógł Pan/mogła Pani…",
+          "level": "B2",
+          "register": "formal"
+        },
+        {
+          "id": "prosby-07",
+          "en": "Would you mind sending me …?",
+          "pl": "Czy mógłbyś mi przesłać…?",
+          "level": "B2",
+          "register": "neutral"
+        },
+        {
+          "id": "prosby-08",
+          "en": "I would appreciate it if you could …",
+          "pl": "Byłbym wdzięczny, gdyby mógł Pan/mogła Pani…",
+          "level": "B2",
+          "register": "formal"
+        },
+        {
+          "id": "prosby-09",
+          "en": "Could you please confirm whether …?",
+          "pl": "Czy mógłby Pan/mogłaby Pani potwierdzić, czy…?",
+          "level": "B2",
+          "register": "formal"
+        },
+        {
+          "id": "prosby-10",
+          "en": "I am very dissatisfied with …",
+          "pl": "Jestem bardzo niezadowolony z…",
+          "level": "B2",
+          "register": "formal"
+        },
+        {
+          "id": "prosby-11",
+          "en": "I would like to request a full refund.",
+          "pl": "Proszę o pełny zwrot pieniędzy.",
+          "level": "B2",
+          "register": "formal"
+        },
+        {
+          "id": "prosby-12",
+          "en": "I would be most grateful if you could look into this matter.",
+          "pl": "Byłbym niezwykle wdzięczny, gdyby zechciał Pan/zechciała Pani zająć się tą sprawą.",
+          "level": "C1",
+          "register": "formal"
+        },
+        {
+          "id": "prosby-13",
+          "en": "I must insist that the matter be resolved without delay.",
+          "pl": "Muszę nalegać, aby sprawa została rozwiązana bez zwłoki.",
+          "level": "C1",
+          "register": "formal",
+          "note": "Po insist that często forma podstawowa czasownika (be resolved) – tzw. subjunctive."
+        }
+      ]
+    },
+    {
+      "id": "podsumowanie",
+      "label": "Podsumowanie i zakończenie",
+      "description": "Ostatni akapit: zebranie argumentów i końcowy wniosek.",
+      "genres": [
+        "essay",
+        "article",
+        "report",
+        "proposal",
+        "review",
+        "blog",
+        "letter"
+      ],
+      "phrases": [
+        {
+          "id": "podsumowanie-01",
+          "en": "In conclusion, …",
+          "pl": "Podsumowując…",
+          "level": "B1",
+          "register": "neutral"
+        },
+        {
+          "id": "podsumowanie-02",
+          "en": "To sum up, …",
+          "pl": "Podsumowując…",
+          "level": "B1",
+          "register": "neutral"
+        },
+        {
+          "id": "podsumowanie-03",
+          "en": "All in all, …",
+          "pl": "Ogólnie rzecz biorąc…",
+          "level": "B1",
+          "register": "neutral"
+        },
+        {
+          "id": "podsumowanie-04",
+          "en": "Finally, …",
+          "pl": "Na koniec…",
+          "level": "B1",
+          "register": "neutral",
+          "note": "Wprowadza ostatni argument, nie wniosek – zamiast In conclusion go nie używaj."
+        },
+        {
+          "id": "podsumowanie-05",
+          "en": "Overall, …",
+          "pl": "Ogólnie…",
+          "level": "B2",
+          "register": "neutral"
+        },
+        {
+          "id": "podsumowanie-06",
+          "en": "To conclude, …",
+          "pl": "Na zakończenie…",
+          "level": "B2",
+          "register": "formal"
+        },
+        {
+          "id": "podsumowanie-07",
+          "en": "Taking everything into account, …",
+          "pl": "Biorąc wszystko pod uwagę…",
+          "level": "B2",
+          "register": "neutral"
+        },
+        {
+          "id": "podsumowanie-08",
+          "en": "Having weighed up the pros and cons, …",
+          "pl": "Rozważywszy za i przeciw…",
+          "level": "B2",
+          "register": "neutral",
+          "note": "Po przecinku podmiot musi być ten sam: …, I believe that …",
+          "genres": [
+            "essay",
+            "article"
+          ]
+        },
+        {
+          "id": "podsumowanie-09",
+          "en": "For these reasons, I believe that …",
+          "pl": "Z tych powodów uważam, że…",
+          "level": "B2",
+          "register": "neutral",
+          "genres": [
+            "essay",
+            "article",
+            "letter"
+          ]
+        },
+        {
+          "id": "podsumowanie-10",
+          "en": "I would highly recommend it to anyone who …",
+          "pl": "Gorąco polecam to każdemu, kto…",
+          "level": "B2",
+          "register": "neutral",
+          "genres": [
+            "review",
+            "blog"
+          ]
+        },
+        {
+          "id": "podsumowanie-11",
+          "en": "Overall, I'd give it four stars out of five.",
+          "pl": "Ogólnie dałbym cztery gwiazdki na pięć.",
+          "level": "B2",
+          "register": "neutral",
+          "genres": [
+            "review",
+            "blog"
+          ]
+        },
+        {
+          "id": "podsumowanie-12",
+          "en": "On balance, …",
+          "pl": "Po rozważeniu wszystkich racji…",
+          "level": "C1",
+          "register": "formal",
+          "genres": [
+            "essay",
+            "article",
+            "report"
+          ]
+        },
+        {
+          "id": "podsumowanie-13",
+          "en": "In the final analysis, …",
+          "pl": "Ostatecznie…",
+          "level": "C1",
+          "register": "formal",
+          "genres": [
+            "essay",
+            "article"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pozegnanie",
+      "label": "Pożegnanie i formuły końcowe",
+      "description": "Zakończenie listu lub e-maila – dobór formuły zależy od tego, jak zaczęłaś/zacząłeś.",
+      "genres": [
+        "email",
+        "letter"
+      ],
+      "phrases": [
+        {
+          "id": "pozegnanie-01",
+          "en": "Bye for now!",
+          "pl": "Na razie!",
+          "level": "B1",
+          "register": "informal"
+        },
+        {
+          "id": "pozegnanie-02",
+          "en": "Write soon!",
+          "pl": "Napisz niedługo!",
+          "level": "B1",
+          "register": "informal"
+        },
+        {
+          "id": "pozegnanie-03",
+          "en": "See you soon.",
+          "pl": "Do zobaczenia wkrótce.",
+          "level": "B1",
+          "register": "informal"
+        },
+        {
+          "id": "pozegnanie-04",
+          "en": "Take care,",
+          "pl": "Trzymaj się,",
+          "level": "B1",
+          "register": "informal"
+        },
+        {
+          "id": "pozegnanie-05",
+          "en": "Best wishes,",
+          "pl": "Pozdrawiam serdecznie,",
+          "level": "B1",
+          "register": "neutral"
+        },
+        {
+          "id": "pozegnanie-06",
+          "en": "Kind regards,",
+          "pl": "Z pozdrowieniami,",
+          "level": "B1",
+          "register": "neutral"
+        },
+        {
+          "id": "pozegnanie-07",
+          "en": "Looking forward to hearing from you.",
+          "pl": "Czekam na twoją odpowiedź.",
+          "level": "B1",
+          "register": "neutral"
+        },
+        {
+          "id": "pozegnanie-08",
+          "en": "I look forward to hearing from you.",
+          "pl": "Oczekuję na Pana/Pani odpowiedź.",
+          "level": "B2",
+          "register": "formal"
+        },
+        {
+          "id": "pozegnanie-09",
+          "en": "Yours sincerely,",
+          "pl": "Z poważaniem,",
+          "level": "B2",
+          "register": "formal",
+          "note": "Po Dear Mr Smith (znasz nazwisko)."
+        },
+        {
+          "id": "pozegnanie-10",
+          "en": "Yours faithfully,",
+          "pl": "Z poważaniem,",
+          "level": "B2",
+          "register": "formal",
+          "note": "Po Dear Sir or Madam (nie znasz nazwiska)."
+        },
+        {
+          "id": "pozegnanie-11",
+          "en": "Thank you in advance for your help.",
+          "pl": "Z góry dziękuję za pomoc.",
+          "level": "B2",
+          "register": "neutral"
+        },
+        {
+          "id": "pozegnanie-12",
+          "en": "Please do not hesitate to contact me if you need any further information.",
+          "pl": "W razie potrzeby dodatkowych informacji proszę się ze mną skontaktować.",
+          "level": "B2",
+          "register": "formal"
+        },
+        {
+          "id": "pozegnanie-13",
+          "en": "I would welcome the opportunity to discuss this matter further.",
+          "pl": "Chętnie omówię tę sprawę dokładniej.",
+          "level": "C1",
+          "register": "formal"
+        }
       ]
     }
   ]
