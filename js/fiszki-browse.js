@@ -23,7 +23,7 @@ window.ELM = window.ELM || {};
   function st() { return F().st(); }
   function now() { return Date.now(); }
 
-  const filter = { deck: null, query: "", status: "all" };
+  const filter = { deck: null, query: "", status: "all", exam: "all" };
   let pending = null;       // wypełnienie formularza (prefill)
   let importTarget = null;  // talia wybrana przed wejściem w import
 
@@ -53,7 +53,7 @@ window.ELM = window.ELM || {};
   function renderDeck(view, deckId) {
     const d = F().deckById(deckId);
     if (!d) { view.appendChild(crumb()); view.appendChild(el("p", { class: "empty-state-text", text: "Nie ma takiej talii." })); return; }
-    if (filter.deck !== deckId) { filter.deck = deckId; filter.query = ""; filter.status = "all"; }
+    if (filter.deck !== deckId) { filter.deck = deckId; filter.query = ""; filter.status = "all"; filter.exam = "all"; }
     const cards = F().cardsOf(deckId);
     view.appendChild(crumb(null, d.builtIn ? "talia wbudowana (tylko do odczytu, karty można zawiesić)" : "Twoja talia"));
     view.appendChild(F().head(d.title, d.description));
@@ -88,9 +88,14 @@ window.ELM = window.ELM || {};
     const statuses = [["all", "Wszystkie"], ["new", "Nowe"], ["learning", "W nauce"], ["mastered", "Opanowane"], ["suspended", "Zawieszone"]];
     const sel = el("select", { id: "fc-status", class: "field", onchange: function () { filter.status = sel.value; paint(); } },
       statuses.map(function (x) { return el("option", { value: x[0], selected: filter.status === x[0], text: x[1] }); }));
+    // filtr „Egzamin” — tylko gdy talia ma karty z tagami egzaminów (też starsze karty z tagami e8 / matura)
+    const present = L().EXAMS.filter(function (e) { return cards.some(function (c) { return L().examsOf(c).some(function (x) { return x.code === e.code; }); }); });
+    const examSel = present.length ? el("select", { id: "fc-exam", class: "field", onchange: function () { filter.exam = examSel.value; paint(); } },
+      [el("option", { value: "all", selected: filter.exam === "all", text: "Wszystkie" })].concat(present.map(function (e) { return el("option", { value: e.code, selected: filter.exam === e.code, text: e.short + " – " + e.name }); }))) : null;
     view.appendChild(el("div", { class: "journal-filters fc-filters", role: "search" }, [
       el("div", { class: "form-field is-grow" }, [el("label", { class: "field-label", for: "fc-search", text: "Szukaj" }), search]),
-      el("div", { class: "form-field" }, [el("label", { class: "field-label", for: "fc-status", text: "Status" }), sel])
+      el("div", { class: "form-field" }, [el("label", { class: "field-label", for: "fc-status", text: "Status" }), sel]),
+      examSel ? el("div", { class: "form-field" }, [el("label", { class: "field-label", for: "fc-exam", text: "Egzamin" }), examSel]) : null
     ]));
     const count = el("p", { class: "journal-count", "aria-live": "polite" });
     const list = el("ul", { class: "fc-card-list" });
@@ -102,6 +107,7 @@ window.ELM = window.ELM || {};
       const q = fold(filter.query.trim());
       const shown = cards.filter(function (c) {
         if (filter.status !== "all" && statusOf(st().cards[c.id]).id !== filter.status) return false;
+        if (filter.exam !== "all" && !L().examsOf(c).some(function (e) { return e.code === filter.exam; })) return false;
         return !q || fold(L().frontText(c) + " " + backText(c) + " " + (c.hint || "") + " " + (c.note || "")).indexOf(q) !== -1;
       });
       count.textContent = "Karty: " + shown.length + " z " + cards.length;
@@ -114,7 +120,8 @@ window.ELM = window.ELM || {};
         list.appendChild(el("li", { class: "card fc-row" }, [
           el("div", { class: "fc-row-main" }, [
             el("p", { class: "fc-row-front", text: L().frontText(c) }),
-            el("p", { class: "fc-row-back", text: backText(c) })
+            el("p", { class: "fc-row-back", text: backText(c) }),
+            F().examChips(c)
           ]),
           el("div", { class: "fc-row-meta" }, [
             el("span", { class: "fc-status is-" + sts.id }, [ELM.icon(sts.icon, { size: 14 }), " " + sts.label]),

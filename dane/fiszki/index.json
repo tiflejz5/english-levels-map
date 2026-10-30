@@ -48,6 +48,86 @@
       "level": "A2-B1",
       "file": "slownictwo-podstawowe.json",
       "count": 30
+    },
+    {
+      "id": "temat-dom",
+      "title": "Dom i mieszkanie",
+      "description": "Słowa i wyrażenia o domu, pokojach i obowiązkach domowych. Od A1 do B1.",
+      "level": "A1-B1",
+      "file": "temat-dom.json",
+      "count": 40
+    },
+    {
+      "id": "temat-jedzenie",
+      "title": "Jedzenie i gotowanie",
+      "description": "Słowa i wyrażenia o jedzeniu, posiłkach i gotowaniu. Od A1 do B1.",
+      "level": "A1-B1",
+      "file": "temat-jedzenie.json",
+      "count": 39
+    },
+    {
+      "id": "temat-praca",
+      "title": "Praca i szkoła",
+      "description": "Słowa i wyrażenia o pracy, szkole i nauce. Od A1 do B1.",
+      "level": "A1-B1",
+      "file": "temat-praca.json",
+      "count": 39
+    },
+    {
+      "id": "temat-podroze",
+      "title": "Podróże i transport",
+      "description": "Słowa i wyrażenia o podróżowaniu, środkach transportu i wakacjach. Od A1 do B1.",
+      "level": "A1-B1",
+      "file": "temat-podroze.json",
+      "count": 40
+    },
+    {
+      "id": "temat-zdrowie",
+      "title": "Zdrowie i ciało",
+      "description": "Słowa i wyrażenia o częściach ciała, chorobach i wizytach u lekarza. Od A1 do B1.",
+      "level": "A1-B1",
+      "file": "temat-zdrowie.json",
+      "count": 40
+    },
+    {
+      "id": "temat-emocje",
+      "title": "Emocje i charakter",
+      "description": "Słowa i wyrażenia o uczuciach, nastroju i cechach charakteru. Od A1 do B1.",
+      "level": "A1-B1",
+      "file": "temat-emocje.json",
+      "count": 40
+    },
+    {
+      "id": "temat-technologia",
+      "title": "Technologia i internet",
+      "description": "Słowa i wyrażenia o telefonach, komputerach, internecie i mediach społecznościowych. Od A1 do B1.",
+      "level": "A1-B1",
+      "file": "temat-technologia.json",
+      "count": 40
+    },
+    {
+      "id": "egz-e8",
+      "title": "Egzamin ósmoklasisty – wyrażenia",
+      "description": "Wyrażenia typowe dla zadań egzaminu ósmoklasisty: reakcje w rozmowie, przyimki, kolokacje, podstawowa gramatyka. Oryginalne zdania, nie z arkuszy.",
+      "level": "A2",
+      "file": "egz-e8.json",
+      "count": 40
+    },
+    {
+      "id": "egz-matura",
+      "title": "Matura – wyrażenia",
+      "description": "Wyrażenia typowe dla zadań matury z angielskiego (podstawowej i rozszerzonej): reakcje w minidialogach, kolokacje, wyrażenia przyimkowe, zwroty do pisania i mówienia. Oryginalne zdania, nie z arkuszy.",
+      "level": "B1-B2",
+      "file": "egz-matura.json",
+      "count": 50
+    },
+    {
+      "id": "egz-b2-first",
+      "title": "B2 First – wyrażenia",
+      "description": "Wyrażenia typowe dla zadań egzaminu B2 First (Reading and Use of English, Part 1–3): kolokacje, wyrażenia przyimkowe, czasowniki frazowe i rodziny wyrazów. Oryginalne zdania, nie z arkuszy.",
+      "level": "B2",
+      "file": "egz-b2-first.json",
+      "count": 50
     }
   ]
 }

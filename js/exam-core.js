@@ -268,6 +268,7 @@ window.ELM = window.ELM || {};
     wireTasks(e, article, id);
     if (ELM.callouts) ELM.callouts.apply(article);
     view.appendChild(article);
+    if (id === "przeglad" && ELM.fiszki && ELM.fiszki.examTile) { const ft = ELM.fiszki.examTile(e.id); if (ft) view.appendChild(ft); }
     const nav = pageNav(e, id);
     if (nav) view.appendChild(nav);
     return doc.meta.title || found.page.label;

@@ -171,6 +171,22 @@ window.ELM = window.ELM || {};
 
   function clozeParts(card) { return L().parseCloze(card.text); }
 
+  /** Chipy egzaminów z tagów karty: skrót widoczny, pełny opis dla czytników i w podpowiedzi (spec 15, sekcja 3). */
+  function examChips(card) {
+    const ex = L().examsOf(card);
+    if (!ex.length) return null;
+    const hint = "Wyrażenia typowe dla zadań tego egzaminu. Oryginalne zdania, nie z arkuszy.";
+    return el("p", { class: "fc-exams" }, [
+      el("span", { class: "review-label", text: "Przydatne na: " }),
+      ex.map(function (e) {
+        return el("span", { class: "chip fc-exam is-" + e.code, title: hint }, [
+          el("span", { "aria-hidden": "true", text: e.short }),
+          el("span", { class: "visually-hidden", text: e.name })
+        ]);
+      })
+    ]);
+  }
+
   function renderFront(card) {
     const nodes = [];
     if (card.type === "cloze") {
@@ -188,6 +204,8 @@ window.ELM = window.ELM || {};
       const first = c.ok ? c.answers[0].charAt(0) : "";
       if (first) nodes.push(el("p", { class: "fc-hint" }, [el("span", { class: "review-label", text: "Podpowiedź: " }), document.createTextNode("zaczyna się na „" + first + "”")]));
     }
+    const chips = examChips(card);
+    if (chips) nodes.push(chips);
     return nodes;
   }
 
@@ -217,6 +235,8 @@ window.ELM = window.ELM || {};
         card.source.route ? el("a", { href: card.source.route, text: card.source.title || card.source.route }) : document.createTextNode(card.source.title)]));
     }
     if (card.note) nodes.push(el("p", { class: "fc-extra" }, [el("span", { class: "review-label", text: "Uwaga: " }), document.createTextNode(card.note)]));
+    const chips = examChips(card);
+    if (chips) nodes.push(chips);
     return nodes;
   }
 
@@ -291,6 +311,22 @@ window.ELM = window.ELM || {};
     else view.appendChild(el("ul", { class: "fc-deck-list" }, own.map(deckCard)));
 
     view.appendChild(settingsSection());
+  }
+
+  /** Talie tematyczne (temat-*) z filtrem poziomu: poziom A1/A2/B1 pokazuje talie, które mają karty na tym poziomie. */
+  function renderThemes(view, level) {
+    view.appendChild(el("p", { class: "c1-back" }, el("a", { href: HASH }, ELM.ui.withIcon("arrow-left", "Fiszki"))));
+    view.appendChild(head("Fiszki tematyczne", "Słowa i wyrażenia o codziennych tematach, od A1 do B1. Każda talia włącza się osobno."));
+    const levels = ["", "A1", "A2", "B1"];
+    view.appendChild(el("div", { class: "chip-filter", role: "group", "aria-label": "Poziom" }, levels.map(function (l) {
+      const active = l === level;
+      return el("a", { class: "chip-btn" + (active ? " is-active" : ""), href: HASH + "/tematy" + (l ? "/" + l.toLowerCase() : ""), "aria-current": active ? "true" : null }, [active ? ELM.icon("check", { size: 16 }) : null, l || "Wszystkie"]);
+    })));
+    const themes = allDecks().filter(function (d) { return /^temat-/.test(d.id); }).filter(function (d) {
+      return !level || cardsOf(d.id).some(function (c) { return c.level === level; });
+    });
+    if (!themes.length) { view.appendChild(el("p", { class: "tool-note", text: "Brak talii tematycznych na tym poziomie." })); return; }
+    view.appendChild(el("ul", { class: "fc-deck-list" }, themes.map(deckCard)));
   }
 
   function bar(stats) {
@@ -705,6 +741,7 @@ window.ELM = window.ELM || {};
     if (!p.length) return { kind: "home" };
     if (p[0] === "sesja") return { kind: "session" };
     if (p[0] === "import") return { kind: "import" };
+    if (p[0] === "tematy") return { kind: "themes", level: /^(a1|a2|b1)$/.test(p[1] || "") ? p[1].toUpperCase() : "" };
     if (p[0] === "moje-slowa" || (p[0] === "talia" && p[1] === WORDS_ID && !p[2])) return { kind: "words" };
     if (p[0] === "talia" && p[1]) {
       if (p[2] === "nowa") return { kind: "edit", deck: p[1], card: null };
@@ -735,6 +772,7 @@ window.ELM = window.ELM || {};
       return;
     }
     if (route.kind === "session") renderSession(view);
+    else if (route.kind === "themes") renderThemes(view, route.level);
     else if (route.kind === "words" && ELM.fiszkiWords) { document.title = "Moje słowa · English Levels Map"; ELM.fiszkiWords.renderView(view); }
     else if (ELM.fiszkiBrowse && route.kind !== "home") ELM.fiszkiBrowse.render(view, route);
     else renderHome(view);
@@ -801,6 +839,53 @@ window.ELM = window.ELM || {};
     const own = st().userDecks.filter(function (d) { return !d.system; });
     if (ELM.fiszkiWords) ELM.fiszkiWords.hideMenu();
     location.hash = HASH + "/talia/" + (own.length ? own[0].id : "nowa") + "/nowa";
+  }
+
+  // ---------- Kafelek „Fiszki do egzaminu” na stronach egzaminów (paczka v6, spec 15, sekcja 4) ----------
+
+  const EXAM_DECKS = {
+    "egzamin-osmoklasisty": ["egz-e8"],
+    "matura-podstawowa": ["egz-matura"],
+    "matura-rozszerzona": ["egz-matura"],
+    "certyfikat-b2": ["egz-b2-first"],
+    "certyfikat-c1": ["czasowniki-frazowe", "kolokacje"]
+  };
+
+  /** Kafelek talii pod dany egzamin (id z rejestru egzaminów): nazwa, liczba kart, stan i „Włącz i ucz się” / „Ucz się”. */
+  function examTile(examId) {
+    const ids = (EXAM_DECKS[examId] || []).filter(function (id) { return index().some(function (d) { return d.id === id; }); });
+    if (!ids.length) return null;
+    const decks = ids.map(function (id) { return index().find(function (d) { return d.id === id; }); });
+    const box = el("section", { class: "card fc-exam-tile", "aria-labelledby": "fc-exam-title-" + examId });
+    function paint() {
+      const profile = hasProfile();
+      const on = profile ? enabled() : [];
+      const allOn = profile && ids.every(function (id) { return on.indexOf(id) !== -1; });
+      const parts = [
+        el("h2", { class: "tile-title", id: "fc-exam-title-" + examId, text: "Fiszki do egzaminu" }),
+        el("p", { class: "tool-note", text: "Wyrażenia typowe dla zadań tego egzaminu. Oryginalne zdania, nie z arkuszy." })
+      ];
+      decks.forEach(function (d) {
+        const ready = profile && loaded(d.id);
+        const stats = ready ? L().deckStats(cardsOf(d.id), st().cards, now()) : null;
+        parts.push(el("div", { class: "fc-exam-deck" }, [
+          el("p", { class: "fc-exam-deck-title" }, [el("strong", { text: d.title }), " ", el("span", { class: "c1-chip", text: d.count + " " + plural(d.count, "karta", "karty", "kart") })]),
+          stats ? el("p", { class: "tool-note", text: "Nowe: " + stats.new + " · W nauce: " + (stats.learning + stats.review) + " · Opanowane: " + stats.mastered }) : null
+        ]));
+      });
+      if (!profile) parts.push(el("p", { class: "tool-note", text: "Dodaj profil, żeby uczyć się z fiszek." }));
+      parts.push(el("div", { class: "fc-actions" }, [
+        profile
+          ? el("button", { type: "button", class: "btn btn-primary", onclick: function () { ids.forEach(function (id) { if (enabled().indexOf(id) === -1) toggleDeck(id, true); }); location.hash = HASH + "/sesja"; } },
+            ELM.ui.withIcon("play", allOn ? "Ucz się" : "Włącz i ucz się"))
+          : null,
+        el("a", { class: "btn btn-secondary", href: HASH + "/talia/" + ids[0] }, ELM.ui.withIcon("layers", "Przeglądaj karty"))
+      ]));
+      box.replaceChildren.apply(box, parts.filter(Boolean));
+    }
+    paint();
+    if (hasProfile()) loadDecks().then(paint);
+    return box;
   }
 
   // ---------- Kafelek „Dziś” i sekcja w Statystykach ----------
@@ -876,10 +961,10 @@ window.ELM = window.ELM || {};
   ELM.fiszki = {
     HASH: HASH, MISTAKES_ID: MISTAKES_ID, WORDS_ID: WORDS_ID, parseRoute: parseRoute, render: render, badgeCount: badgeCount, dueSummary: dueSummary,
     hasJournalCard: hasJournalCard, addFromJournal: addFromJournal, autoAddFromJournal: autoAddFromJournal,
-    todayTile: todayTile, statsTile: statsTile, openFromSelection: openFromSelection,
+    todayTile: todayTile, statsTile: statsTile, examTile: examTile, openFromSelection: openFromSelection,
     // dla przeglądania / edycji i integracji
     internal: { hasProfile: hasProfile, st: st, saveState: saveState, allDecks: allDecks, deckById: deckById, cardsOf: cardsOf, cardById: cardById, enabled: enabled,
-      toggleDeck: toggleDeck, renderFront: renderFront, renderBack: renderBack, head: head, plural: plural, downloadText: downloadText,
+      toggleDeck: toggleDeck, examChips: examChips, renderFront: renderFront, renderBack: renderBack, head: head, plural: plural, downloadText: downloadText,
       exportDeck: exportDeck, bar: bar, loadDecks: loadDecks, fmtWhen: fmtWhen }
   };
 })(window.ELM);

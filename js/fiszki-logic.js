@@ -610,7 +610,27 @@ window.ELM = window.ELM || {};
     return out;
   }
 
+  // =====================================================================
+  // EGZAMINY Z TAGÓW KARTY (paczka v6, spec 15, sekcja 3) — bez nowego pola
+  // =====================================================================
+
+  const EXAMS = [
+    { code: "e8", short: "E8", name: "egzamin ósmoklasisty" },
+    { code: "mp", short: "MP", name: "matura podstawowa" },
+    { code: "mr", short: "MR", name: "matura rozszerzona" },
+    { code: "b2", short: "B2", name: "egzamin B2 First" },
+    { code: "c1", short: "C1", name: "egzamin C1 Advanced" }
+  ];
+
+  /** Kody egzaminów z tagów karty: e8, mp, mr, b2, c1; „matura” = mp + mr. Kolejność stała, bez powtórzeń. */
+  function examsOf(card) {
+    const tags = ((card && card.tags) || []).map(function (t) { return String(t).toLowerCase(); });
+    const has = function (c) { return tags.indexOf(c) !== -1 || (/^m[pr]$/.test(c) && tags.indexOf("matura") !== -1); };
+    return EXAMS.filter(function (e) { return has(e.code); });
+  }
+
   ELM.fiszkiLogic = {
+    EXAMS: EXAMS, examsOf: examsOf,
     VERSION: VERSION, MAX_FIELD: MAX_FIELD, MAX_IMPORT: MAX_IMPORT, DAY_HOUR: DAY_HOUR, TYPES: TYPES, DEFAULT_SETTINGS: DEFAULT_SETTINGS,
     normalize: normalize, levenshtein: levenshtein, checkAnswer: checkAnswer,
     parseCloze: parseCloze, fromAnki: fromAnki, toAnki: toAnki, answersOf: answersOf, frontText: frontText,

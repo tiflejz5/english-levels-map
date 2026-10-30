@@ -3669,3 +3669,13 @@ a.notes-item-title { color: var(--accent); text-decoration: underline; text-unde
 .fc-st-fc-day { font-size: var(--fs-xs-plus); color: var(--ink-muted); }
 .fc-st-forecast strong { font-size: var(--fs-md); }
 .st-stat-note { margin: 2px 0 0; }
+
+/* Chipy egzaminów na kartach fiszek (paczka v6, spec 15) */
+.fc-exams { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 8px 0 0; }
+.fc-exam { border: 1px solid var(--border-strong, var(--border)); background: var(--surface-3); color: var(--ink); letter-spacing: .02em; }
+.fc-row-main .fc-exams { margin-top: 4px; }
+.fc-exam-tile { display: flex; flex-direction: column; gap: 8px; margin: var(--space-4, 16px) 0; }
+.fc-exam-deck { display: flex; flex-direction: column; gap: 2px; }
+.fc-exam-deck-title { margin: 0; }
+.fc-themes-link { margin: 16px 0 0; }
+.fiszki-view .chip-filter + .fc-deck-list { margin-top: 16px; }
