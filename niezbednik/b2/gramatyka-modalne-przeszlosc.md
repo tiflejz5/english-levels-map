@@ -54,9 +54,9 @@ W mowie: *should've, could've, must've, might've* – wymawiane /ʃʊdəv/, /kʊ
 
 | Z życia | W stylu egzaminu | Egzamin |
 | --- | --- | --- |
-| *It must have rained during the night.* (W nocy musiało padać.) | Uzupełnij: We missed the train. We ___ (should / leave) earlier. → **should have left** | MP · MR |
-| *She can't have forgotten – I reminded her twice.* (Niemożliwe, żeby zapomniała – przypominałem jej dwa razy.) | Wybierz: He ___ seen it – he was abroad. a) mustn't have b) can't have c) shouldn't have → **b** | MR · B2 |
-| *I may have left my keys at work.* (Może zostawiłem klucze w pracy.) | Transformacja: Perhaps she took the wrong bus. MIGHT → She ___ the wrong bus. → **might have taken** | MR · B2 · C1 |
+| *It must have rained during the night.* (W nocy musiało padać.) | Wybierz: The streets are wet. It ___ in the night. a) must rain b) must have rained c) should have rained → **b** | MP · MR |
+| *We missed the train. We should have left earlier.* (Spóźniliśmy się na pociąg. Powinniśmy byli wyjść wcześniej.) | Uzupełnij: I didn't study and failed. I ___ (should / study) harder. → **should have studied** | MP · MR |
+| *I may have left my keys at work.* (Może zostawiłem klucze w pracy.) | Transformacja: Perhaps she took the wrong bus. MIGHT → She ___ the wrong bus. → **might have taken** | MR · B2 |
 
 ## Typowe błędy Polaków
 

@@ -27,9 +27,9 @@ Na B2 nie chodzi już o pojedyncze czasy, tylko o to, żeby **łączyć je w jed
 
 | Z życia | W stylu egzaminu | Egzamin |
 | --- | --- | --- |
-| *I was walking home when I realised I had left my phone at work.* (Szedłem do domu, kiedy zdałem sobie sprawę, że zostawiłem telefon w pracy.) | Uzupełnij: When I got to the station, the train ___ (already / leave). → **had already left** | MP · MR |
-| *I didn't know that it would change my life.* (Nie wiedziałem, że to zmieni moje życie.) | Wybierz: She told me she ___ the exam if she studied harder. a) will pass b) would pass c) passes → **b** | MR · B2 |
-| *We had been driving for hours when the car broke down.* (Jechaliśmy od kilku godzin, kiedy samochód się zepsuł.) | Przetłumacz fragment: We ___ (jechaliśmy od godziny) when it started to snow. (czas ciągły w przeszłości) → **had been driving for an hour** | MR · B2 |
+| *I was walking home when I realised I had left my phone at work.* (Szedłem do domu, kiedy zdałem sobie sprawę, że zostawiłem telefon w pracy.) | Uzupełnij: When we got to the station, the train ___ (already / leave). → **had already left** | MP · MR |
+| *I didn't know then that it would change my life.* (Nie wiedziałem wtedy, że to zmieni moje życie.) | Wybierz: At that time, she didn't know she ___ a famous writer one day. a) will become b) would become c) becomes → **b** | MP · MR |
+| *We had been driving for hours when the car broke down.* (Jechaliśmy od kilku godzin, kiedy samochód się zepsuł.) | Uzupełnij: By midnight we ___ (drive) for six hours without a break. → **had been driving** | MR |
 
 ## Przykładowa opowieść
 

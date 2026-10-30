@@ -53,7 +53,7 @@ summary: Żal, życzenia i irytacja – „szkoda, że…”, „gdybym tylko…
 | --- | --- | --- |
 | *I wish I lived closer to the sea.* (Szkoda, że nie mieszkam bliżej morza.) | Uzupełnij: I wish I ___ (have) more free time. → **had** | MP · MR |
 | *If only I'd known earlier!* (Gdybym tylko wiedział wcześniej!) | Transformacja: I'm sorry I said that. WISH → I ___ that. → **wish I hadn't said** | MR · B2 |
-| *I wish my neighbours would turn the music down.* (Chciałbym, żeby sąsiedzi ściszyli muzykę.) | Wybierz: I wish it ___ raining. a) stops b) would stop c) stopped → **b** | MR · B2 |
+| *I wish my neighbours would turn the music down.* (Chciałbym, żeby sąsiedzi ściszyli muzykę.) | Wybierz: It's so noisy! I wish they ___ the music down. a) will turn b) would turn c) turn → **b** | MP · MR |
 
 ## Typowe błędy Polaków
 

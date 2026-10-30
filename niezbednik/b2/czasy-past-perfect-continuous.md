@@ -56,9 +56,9 @@ Past Perfect Continuous to „Present Perfect Continuous przesunięty w przeszł
 
 | Z życia | W stylu egzaminu | Egzamin |
 | --- | --- | --- |
-| *She had been working there for ten years before she got promoted.* (Pracowała tam dziesięć lat, zanim dostała awans.) | Uzupełnij: His eyes were red. He ___ (cry). → **had been crying** | MP · MR |
-| *How long had you been living there before you moved?* (Jak długo tam mieszkałeś, zanim się przeprowadziłeś?) | Wybierz: They ___ for hours when the police arrived. a) argued b) had been arguing c) have argued → **b** | MR · B2 |
-| *I hadn't been feeling well, so I went to the doctor.* (Źle się czułem, więc poszedłem do lekarza.) | Transformacja: I started feeling ill a week before I went to the doctor. FOR → I ___ for a week when I went to the doctor. → **had been feeling ill** | MR · B2 · C1 |
+| *She had been working there for ten years before she was promoted.* (Pracowała tam dziesięć lat, zanim awansowała.) | Uzupełnij: His eyes were red. He ___ (cry). → **had been crying** | MP · MR |
+| *How long had you been living there before you moved?* (Jak długo tam mieszkałeś, zanim się przeprowadziłeś?) | Wybierz: They ___ for hours when the police arrived. a) argued b) had been arguing c) have argued → **b** | MP · MR |
+| *The ground was wet. It had been raining all night.* (Ziemia była mokra. Padało całą noc.) | Transformacja: I started feeling ill a week before I went to the doctor. BEEN → I ___ ill for a week when I went to the doctor. → **had been feeling** | MR · B2 |
 
 ## Typowe błędy Polaków
 

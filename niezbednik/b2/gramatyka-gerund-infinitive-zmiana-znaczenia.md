@@ -47,7 +47,7 @@ Na A2 uczyłeś się, że po *enjoy* jest -ing, a po *want* – *to*. Na B2 doch
 | Z życia | W stylu egzaminu | Egzamin |
 | --- | --- | --- |
 | *Please stop interrupting me.* (Proszę, przestań mi przerywać.) | Wybierz: We stopped ___ lunch on the way. (zatrzymaliśmy się, żeby zjeść) a) having b) to have c) have → **b** | MP · MR |
-| *I don't remember saying that.* (Nie pamiętam, żebym to powiedział.) | Uzupełnij: Remember ___ (lock) the door when you leave! → **to lock** | MR · B2 |
+| *I don't remember saying that.* (Nie pamiętam, żebym to powiedział.) | Uzupełnij: Remember ___ (lock) the door when you leave! → **to lock** | MP · MR |
 | *I forgot to buy milk.* (Zapomniałem kupić mleko.) | Transformacja: I didn't remember that I had to post the letter. FORGOT → I ___ the letter. → **forgot to post** | MR · B2 |
 
 ## Typowe błędy Polaków

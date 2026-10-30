@@ -52,8 +52,8 @@ Negocjacje to nie tylko biznes: ustalasz cenę z wykonawcą, termin z szefem, pl
 
 | Z życia | W stylu egzaminu | Egzamin |
 | --- | --- | --- |
-| *Would you be able to offer a discount?* (Czy mogliby państwo zaproponować rabat?) | Wybierz: a) You must give us a discount. b) Would you be able to offer a discount? c) Give discount now. → **b** | MP · MR |
-| *I'm afraid that's our final offer.* (Obawiam się, że to nasza ostateczna oferta.) | Uzupełnij: We could lower the price ___ you order twenty or more. (pod warunkiem, że) → **if** | MR · B2 |
+| *Would you be able to offer a discount?* (Czy mogliby państwo zaproponować rabat?) | Wybierz najbardziej uprzejmą prośbę o zmianę terminu: a) Change the date. b) You must deliver on Monday. c) Would it be possible to deliver on Monday? → **c** | MP · MR |
+| *I'm afraid that's our final offer.* (Obawiam się, że to nasza ostateczna oferta.) | Transformacja: We can lower the price if you order twenty or more. PROVIDED → We can lower the price ___ twenty or more. → **provided you order** | MR · B2 |
 | *That would be very difficult for us.* (To byłoby dla nas bardzo trudne.) | Transformacja: Could you possibly deliver on Monday? ABLE → Would you ___ deliver on Monday? → **be able to** | MR · B2 |
 
 ## Przekonywanie

@@ -23,9 +23,9 @@ Na B1 wyrażasz opinię i ją uzasadniasz. Na B2 prowadzisz **dyskusję**: przed
 
 | Z życia | W stylu egzaminu | Egzamin |
 | --- | --- | --- |
-| *On the one hand, it's cheaper; on the other hand, it takes longer.* (Z jednej strony jest taniej, z drugiej trwa dłużej.) | Wybierz: – Cars are bad for the city. – ___ They make life easier for many people. a) On the one hand. b) On the other hand, c) On the contrary, → **c** | MR · B2 |
-| *I'm not sure that's entirely accurate.* (Nie jestem pewien, czy to całkiem dokładne.) | Uzupełnij: ___ my opinion, school uniforms should be optional. → **In** | MP · MR |
-| *Although it's expensive, it's worth the money.* (Chociaż jest drogo, warto zapłacić.) | Wybierz zdanie bez błędu: a) Although it's expensive, but it's worth it. b) Although it's expensive, it's worth it. c) Despite it's expensive, it's worth it. → **b** | MR · B2 |
+| *On the one hand, it's cheaper; on the other hand, it takes longer.* (Z jednej strony jest taniej, z drugiej trwa dłużej.) | Uzupełnij: – Everyone says the book is boring. – ___ the contrary, I found it fascinating. → **On** | MP · MR |
+| *From my point of view, school uniforms are a good idea.* (Z mojego punktu widzenia mundurki to dobry pomysł.) | Uzupełnij: ___ my opinion, school uniforms should be optional. → **In** | MP · MR |
+| *Although it's expensive, it's worth the money.* (Chociaż jest drogo, warto zapłacić.) | Wybierz zdanie bez błędu: a) Although the hotel is old, but it's clean. b) Although the hotel is old, it's clean. c) Despite the hotel is old, it's clean. → **b** | MP · MR |
 
 ## Kluczowe zwroty
 

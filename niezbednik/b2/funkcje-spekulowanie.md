@@ -25,8 +25,8 @@ W rozmowie często mówimy o tym, czego nie wiemy na pewno: dlaczego ktoś się 
 | Z życia | W stylu egzaminu | Egzamin |
 | --- | --- | --- |
 | *He must have missed the bus.* (Musiał spóźnić się na autobus.) | Uzupełnij: She isn't here. She ___ (must / forget) about the meeting. → **must have forgotten** | MP · MR |
-| *It's bound to happen sooner or later.* (To się na pewno prędzej czy później zdarzy.) | Transformacja: I'm sure this will happen. BOUND → This is ___ happen. → **bound to** | MR · B2 |
-| *I doubt that he'll come.* (Wątpię, żeby przyszedł.) | Wybierz: I doubt that he ___ to the party. a) won't come b) will come c) doesn't come → **b** | MR · B2 |
+| *It's bound to happen sooner or later.* (To się na pewno prędzej czy później zdarzy.) | Transformacja: I'm sure that she will win. BOUND → She ___ win. → **is bound to** | MR · B2 |
+| *I doubt that he'll come.* (Wątpię, żeby przyszedł.) | Wybierz: I doubt that she ___ the exam. a) won't pass b) will pass c) doesn't pass → **b** | MP · MR |
 
 ## Spekulowanie o przyszłości
 

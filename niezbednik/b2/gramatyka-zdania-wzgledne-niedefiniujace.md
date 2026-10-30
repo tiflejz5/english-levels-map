@@ -54,8 +54,8 @@ Na B1 używasz *who, which, that*. Na B2 rozróżniasz dwa typy zdań względnyc
 | Z życia | W stylu egzaminu | Egzamin |
 | --- | --- | --- |
 | *My boss, who is usually calm, shouted at everyone.* (Mój szef, który zwykle jest spokojny, nakrzyczał na wszystkich.) | Uzupełnij: Warsaw, ___ is the capital of Poland, has 1.8 million people. → **which** | MP · MR |
-| *She passed all her exams, which surprised everybody.* (Zdała wszystkie egzaminy, co wszystkich zaskoczyło.) | Wybierz: He failed the test, ___ was a surprise. a) what b) that c) which → **c** | MR · B2 |
-| *The people who live next door are very noisy.* (Ludzie, którzy mieszkają obok, są bardzo głośni.) | Wybierz: My sister, ___ lives in Gdańsk, is a nurse. a) that b) who c) what → **b** | MR · B2 |
+| *She passed all her exams, which surprised everybody.* (Zdała wszystkie egzaminy, co wszystkich zaskoczyło.) | Wybierz: He failed the test, ___ was a surprise. a) what b) that c) which → **c** | MP · MR |
+| *My brother, who lives in Gdańsk, is a nurse.* (Mój brat, który mieszka w Gdańsku, jest pielęgniarzem.) | Wybierz: My sister, ___ lives in Gdańsk, is a nurse. a) that b) who c) what → **b** | MP · MR |
 
 ## Typowe błędy Polaków
 

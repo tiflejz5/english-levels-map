@@ -27,9 +27,9 @@ W szybkiej dyskusji – na spotkaniu czy przy stole – trzeba umieć wejść w 
 
 | Z życia | W stylu egzaminu | Egzamin |
 | --- | --- | --- |
-| *Sorry to interrupt, but can I just add something?* (Przepraszam, że przerywam, ale czy mogę coś dodać?) | Wybierz: Chcesz się włączyć do rozmowy. a) Wait! b) Sorry, can I just come in here? c) Stop talking. → **b** | MP · MR |
-| *If I could just finish what I was saying …* (Gdybym mógł tylko dokończyć, co mówiłem…) | Uzupełnij: Sorry, I haven't ___ (finish) yet. → **finished** | MP · MR |
-| *Anyway, back to what I was saying.* (W każdym razie wracając do tego, co mówiłem.) | Wybierz: Wracasz do swojego wątku po dygresji. a) Anyway, the point is … b) Never mind it. c) Please you wait. → **a** | MR · B2 |
+| *Sorry to interrupt, but can I just add something?* (Przepraszam, że przerywam, ale czy mogę coś dodać?) | Wybierz uprzejme wejście w rozmowę: a) Wait! b) Sorry, can I just come in here? c) Stop talking. → **b** | MP · MR |
+| *If I could just finish what I was saying …* (Gdybym mógł tylko dokończyć, co mówiłem…) | Uzupełnij: Sorry, can I just ___ (finish) my point? → **finish** | MP · MR |
+| *Anyway, back to what I was saying.* (W każdym razie wracając do tego, co mówiłem.) | Wybierz sposób powrotu do wątku po dygresji: a) Anyway, the point is … b) Never mind it. c) Please you wait. → **a** | MP · MR |
 
 ## Gdy ktoś Ci przerywa
 

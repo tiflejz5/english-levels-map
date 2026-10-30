@@ -64,9 +64,9 @@ Na B1 znasz stronę bierną w podstawowych czasach. Na B2 używasz jej swobodnie
 
 | Z życia | W stylu egzaminu | Egzamin |
 | --- | --- | --- |
-| *I had my hair cut yesterday.* (Wczoraj obciąłem włosy u fryzjera.) | Transformacja: A mechanic repaired my car. HAD → I ___ repaired. → **had my car** | MP · MR · B2 |
-| *The results are being analysed right now.* (Wyniki są właśnie analizowane.) | Wybierz: The road ___ at the moment. a) is repairing b) is being repaired c) has repaired → **b** | MR · B2 |
-| *The decision should have been made months ago.* (Decyzję trzeba było podjąć kilka miesięcy temu.) | Uzupełnij: Nobody told me. I ___ (not / inform) about the change. → **wasn't informed** | MR · B2 |
+| *I had my hair cut yesterday.* (Wczoraj obciąłem włosy u fryzjera.) | Transformacja: A mechanic repaired my car. HAD → I ___ repaired. → **had my car** | MR · B2 |
+| *The results are being analysed right now.* (Wyniki są właśnie analizowane.) | Wybierz: The road ___ at the moment. a) is repairing b) is being repaired c) has repaired → **b** | MP · MR |
+| *Nobody told me about the change.* (Nikt mi nie powiedział o zmianie.) | Uzupełnij: I ___ (not / tell) about the change yet, so I don't know. → **haven't been told** | MR |
 
 ## Typowe błędy Polaków
 

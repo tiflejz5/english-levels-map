@@ -30,8 +30,8 @@ Słowa, które „chodzą w parach”. Po polsku mówimy „mocna kawa” i „m
 | Z życia | W stylu egzaminu | Egzamin |
 | --- | --- | --- |
 | *Heavy rain is forecast for the weekend.* (Na weekend zapowiadają ulewny deszcz.) | Uzupełnij (heavy / strong): We drank ___ coffee after dinner. → **strong** | MP · MR |
-| *He made great progress last year.* (W zeszłym roku zrobił duże postępy.) | Wybierz: She ___ an effort to learn faster. a) did b) took c) made → **c** | MR · B2 |
-| *I'm actually quite busy today.* (Właściwie jestem dziś dość zajęty.) | Słowotwórstwo: His ___ (decide) to leave surprised us. → **decision** | MR · B2 · C1 |
+| *He made great progress last year.* (W zeszłym roku zrobił duże postępy.) | Wybierz: She ___ an effort to learn faster. a) did b) took c) made → **c** | MP · MR |
+| *She's highly recommended by her clients.* (Jest gorąco polecana przez klientów.) | Słowotwórstwo: The hotel offers an ___ (impress) view of the lake. → **impressive** | MR · B2 |
 
 ## Idiomy codzienne
 

@@ -26,9 +26,9 @@ Wiele osób na B2 dobrze mówi, ale gubi się, gdy native speakerzy rozmawiają 
 
 | Z życia | W stylu egzaminu | Egzamin |
 | --- | --- | --- |
-| *Sorry, could you say that again?* (Przepraszam, czy możesz to powtórzyć?) | Wybierz: Nie zrozumiałeś rozmówcy. a) What? b) Sorry, could you say that again? c) I don't hear you. → **b** | MP · MR |
-| *Could you speak a bit more slowly, please?* (Czy mógłbyś mówić trochę wolniej?) | Uzupełnij: Could you speak a bit more ___ , please? (wolniej) → **slowly** | MP · MR |
-| *I didn't catch the last word.* (Nie dosłyszałem ostatniego słowa.) | Wybierz: I didn't ___ what she said. a) catch b) take c) hold → **a** | MR · B2 |
+| *Sorry, could you say that again?* (Przepraszam, czy możesz to powtórzyć?) | Wybierz: Nie zrozumiałeś rozmówcy. Najuprzejmiejsza reakcja to: a) What? b) Pardon? Could you repeat that, please? c) I don't hear you. → **b** | MP · MR |
+| *Could you speak a bit more slowly, please?* (Czy mógłbyś mówić trochę wolniej?) | Uzupełnij: Sorry, I didn't ___ the last word. (dosłyszeć) → **catch** | MP · MR |
+| *He spoke so fast that I missed half of it.* (Mówił tak szybko, że połowę mi umknęła.) | Wybierz: She speaks so fast that I can't follow ___ she says. a) what b) that c) which → **a** | MP · MR |
 
 ## Mowa łączona (connected speech)
 
