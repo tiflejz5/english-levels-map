@@ -3924,3 +3924,12 @@ a.notes-item-title { color: var(--accent); text-decoration: underline; text-unde
 .home-exams { margin: 8px 0 32px; }
 .home-exams-title { margin: 0 0 12px; font-size: var(--fs-lg); }
 .home-exams-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+
+/* ===================== C1: KRAINY — symbole w panelu i nagłówku poziomu ===================== */
+.ring-land { display: inline-flex; color: var(--lvl); }
+.sb-item.is-level .ring-land { color: var(--lvl-ink); }
+.sb-item.is-level { min-height: 58px; padding-block: 3px; }
+.sb-ring-wrap { row-gap: 2px; }
+.sb-ring-code { font-size: 0.625rem; font-weight: 700; line-height: 1; letter-spacing: .04em; color: var(--ink-muted); }
+.sidebar.is-expanded .sb-ring-code, :root[data-sidebar="pinned"] .sb-ring-code { display: none; }
+.level-kicker { display: inline-flex; align-items: center; gap: 6px; color: var(--lvl-ink); }
