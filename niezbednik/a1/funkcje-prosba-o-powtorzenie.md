@@ -25,6 +25,14 @@ Na A1 nie zrozumiesz wszystkiego – i to normalne. Ważne, żeby umieć to grze
 | Can you write it down, please? | Możesz to zapisać? |
 | Sorry, my English isn't very good. | Przepraszam, mój angielski nie jest zbyt dobry. |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *Pardon? Could you say that again?* (Słucham? Możesz to powtórzyć?) | Wybierz reakcję: Nie usłyszałeś nauczyciela. a) What? b) Sorry, can you repeat that, please? c) Repeat! → **b** | E8 · MP |
+| *Sorry, I don't understand.* (Przepraszam, nie rozumiem.) | Przetłumacz fragment: Can you ___ (mówić) more slowly, please? → **speak** | E8 |
+| *Can you spell that, please?* (Możesz to przeliterować?) | Wybierz: – My name is Kasia Wójcik. – ___ a) Can you spell your surname, please? b) What is your spell? c) Spell it! → **a** | E8 · MP |
+
 ## Uprzejmiej: could
 
 *Could you repeat that, please?* / *Could you say that again?* – grzeczniejsza wersja, dobra w pracy i z obcymi.

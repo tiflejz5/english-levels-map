@@ -26,6 +26,14 @@ Gdy rezerwujesz hotel, zapisujesz się do lekarza czy podajesz e-mail, każda li
 
 *Can you spell that, please?* – Możesz przeliterować? *Double L* = LL. *@* = *at*, *.* = *dot*.
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *My phone number is 555 201 304.* (Mój numer telefonu to 555 201 304.) | Uzupełnij słowem: My birthday is on the ___ of May. (5) → **fifth** | E8 · MP |
+| *It's half past seven. Let's go!* (Jest wpół do ósmej. Chodźmy!) | Wybierz: 8.15 to a) a quarter to eight b) a quarter past eight c) half past eight → **b** | E8 |
+| *Can you spell your name, please?* (Możesz przeliterować swoje imię?) | Wybierz: How do you say 13? a) thirteen b) thirty c) three → **a** | E8 · MP |
+
 ## Numer telefonu
 
 Mówimy cyfra po cyfrze: *0* = *oh* lub *zero*, *77* = *double seven*.

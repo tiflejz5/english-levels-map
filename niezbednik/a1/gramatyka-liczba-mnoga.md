@@ -56,6 +56,14 @@ Większość rzeczowników dostaje w liczbie mnogiej końcówkę **-s**. Do zapa
 | My feet hurt. | Bolą mnie stopy. |
 | Where are my glasses? | Gdzie są moje okulary? |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *I've got two children.* (Mam dwoje dzieci.) | Uzupełnij liczbą mnogą: There are three ___ (woman) in my team. → **women** | E8 · MP |
+| *My feet hurt after the match.* (Bolą mnie stopy po meczu.) | Wybierz: Many ___ live in big cities. a) peoples b) people c) person → **b** | E8 |
+| *These trousers are too long.* (Te spodnie są za długie.) | Popraw błąd: My trousers is new. → **My trousers are new.** | E8 |
+
 ## Typowe błędy Polaków
 
 - ❌ *childrens, peoples* → ✅ *children, people* – to już liczba mnoga.

@@ -39,6 +39,14 @@ Słowa-sygnały: *tomorrow, tonight, next week, next year, this weekend, on Satu
 | Are they going to move? | Czy oni zamierzają się przeprowadzić? |
 | Be careful! You're going to fall! | Uważaj! Zaraz spadniesz! |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *I'm going to visit my mum on Sunday.* (W niedzielę odwiedzę mamę.) | Uzupełnij formą going to: We ___ (watch) a film tonight. → **are going to watch** | E8 · MP |
+| *Look at those clouds! It's going to rain.* (Patrz na te chmury! Będzie padać.) | Wybierz: Look at the sky! It ___ rain. a) is going to b) goes to c) going to → **a** | E8 |
+| *He isn't going to cook tonight.* (Dziś wieczorem on nie będzie gotował.) | Popraw błąd: She going to buy a new phone. → **She is going to buy a new phone.** | E8 |
+
 ## Typowe błędy Polaków
 
 - ❌ *I going to travel.* → ✅ *I'm going to travel.* – nie pomijaj *am/is/are*.

@@ -40,6 +40,14 @@ summary: Jak powiedzieć, że coś gdzieś jest (albo czegoś nie ma).
 | Are there any good restaurants nearby? | Czy w pobliżu są jakieś dobre restauracje? |
 | How many rooms are there? | Ile jest pokoi? |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *There's a supermarket near my flat.* (Koło mojego mieszkania jest supermarket.) | Uzupełnij: ___ two banks in this street. → **There are** | E8 · MP |
+| *Is there a toilet here?* (Czy jest tu toaleta?) | Wybierz: ___ any milk in the fridge? a) Are there b) Is there c) There is → **b** | E8 |
+| *There isn't any water in the bottle.* (W butelce nie ma wody.) | Popraw błąd: In my city is a castle. → **There is a castle in my city.** | E8 |
+
 ## Typowe błędy Polaków
 
 - ❌ *In my city is a castle.* → ✅ *There's a castle in my city.*

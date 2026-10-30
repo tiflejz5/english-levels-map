@@ -52,6 +52,14 @@ Z *to be* i *can* nie dodajemy *do/does* – przestawiamy tylko kolejność.
 | When do you finish work? | Kiedy kończysz pracę? |
 | How many people work here? | Ile osób tu pracuje? |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *Why are you late?* (Dlaczego się spóźniłeś?) | Wybierz: ___ is your favourite singer? a) Who b) Where c) When → **a** | E8 · MP |
+| *How much is this jacket?* (Ile kosztuje ta kurtka?) | Popraw błąd: Where you live? → **Where do you live?** | E8 |
+| *What time is it?* (Która jest godzina?) | Uzupełnij: How ___ people are there in your class? → **many** | E8 · MP |
+
 ## Typowe błędy Polaków
 
 - ❌ *Where you live?* → ✅ *Where **do** you live?*

@@ -47,6 +47,14 @@ Przyimki rzadko tłumaczą się 1:1 z polskiego, dlatego najlepiej uczyć się i
 | I was born in March. | Urodziłem się w marcu. |
 | See you next week! | Do zobaczenia w przyszłym tygodniu! |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *My keys are on the table.* (Moje klucze są na stole.) | Uzupełnij (in / at / on): I live ___ Gdańsk. → **in** | E8 · MP |
+| *She's at work now.* (Ona jest teraz w pracy.) | Wybierz: We have English ___ Monday. a) in b) at c) on → **c** | E8 |
+| *The cat is under the sofa.* (Kot jest pod kanapą.) | Popraw błąd: I'm in home now. → **I'm at home now.** | E8 |
+
 ## Typowe błędy Polaków
 
 - ❌ *in Monday* → ✅ *on Monday*

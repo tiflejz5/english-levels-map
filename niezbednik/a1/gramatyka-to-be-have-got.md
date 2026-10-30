@@ -47,6 +47,14 @@ W amerykańskim angielskim (i coraz częściej w brytyjskim) używa się po pros
 | Have you got a pen? – Yes, I have. | Masz długopis? – Tak. |
 | How old are you? – I'm 25. | Ile masz lat? – 25. |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *I'm a teacher. I've got two brothers.* (Jestem nauczycielem. Mam dwóch braci.) | Uzupełnij: She ___ (have got) a new phone. → **has got** | E8 · MP |
+| *Are you tired?* (Jesteś zmęczony?) | Wybierz: ___ you got a car? a) Have b) Do c) Are → **a** | E8 |
+| *She's a doctor at the hospital.* (Ona jest lekarką w szpitalu.) | Popraw błąd: She teacher in our school. → **She is a teacher in our school.** | E8 |
+
 ## Typowe błędy Polaków
 
 - ❌ *I have 25 years.* → ✅ *I'm 25.*

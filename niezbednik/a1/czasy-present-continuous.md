@@ -46,6 +46,14 @@ Present Continuous opisuje czynność, która trwa teraz – w momencie mówieni
 | We're waiting for the bus. | Czekamy na autobus. |
 | Look! The baby is smiling. | Spójrz! Dziecko się uśmiecha. |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *I'm cooking dinner. Can I call you back?* (Gotuję obiad. Mogę oddzwonić?) | Uzupełnij: Be quiet! The baby ___ (sleep). → **is sleeping** | E8 · MP |
+| *It's raining, so we're staying at home.* (Pada, więc zostajemy w domu.) | Wybierz: What are you doing now? – I ___ a book. a) read b) am reading c) reading → **b** | E8 |
+| *They aren't listening to the teacher.* (Oni nie słuchają nauczyciela.) | Popraw błąd: I reading a magazine now. → **I am reading a magazine now.** | E8 |
+
 ## Present Simple czy Continuous?
 
 | Present Simple – zawsze, zwykle | Present Continuous – teraz |

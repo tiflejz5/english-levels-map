@@ -42,6 +42,14 @@ Uważaj na różnicę: **this** /ðɪs/ – krótkie i, **these** /ðiːz/ – d
 | I'm busy this week. | W tym tygodniu jestem zajęty. |
 | That's a good idea! | To dobry pomysł! |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *This is my sister, Ola.* (To moja siostra, Ola.) | Uzupełnij: ___ shoes over there are cheap. (daleko, liczba mnoga) → **Those** | E8 · MP |
+| *Is that your car?* (Czy tamto to twój samochód?) | Wybierz: How much are ___ apples here in my hand? a) this b) that c) these → **c** | E8 |
+| *These apples are delicious.* (Te jabłka są pyszne.) | Popraw błąd: This shoes are nice. → **These shoes are nice.** | E8 |
+
 ## Typowe błędy Polaków
 
 - ❌ *This shoes are nice.* → ✅ ***These** shoes are nice.* – l.mn. wymaga *these/those*.

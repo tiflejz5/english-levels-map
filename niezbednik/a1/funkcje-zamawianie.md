@@ -34,6 +34,14 @@ W kawiarni, sklepie czy restauracji rozmowa idzie zawsze tym samym torem. Kilka 
 | Can I have the bill, please? (BrE) / the check (AmE) | Poproszę rachunek. |
 | Keep the change. | Reszty nie trzeba. |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *Can I have a tea with milk, please?* (Poproszę herbatę z mlekiem.) | Wybierz reakcję: Zamawiasz kawę w kawiarni. a) Give me a coffee. b) I want coffee. c) Can I have a coffee, please? → **c** | E8 · MP |
+| *How much is it?* (Ile to kosztuje?) | Uzupełnij: How ___ is this T-shirt? – It's ten pounds. → **much** | E8 |
+| *Anything else? – No, that's all, thanks.* (Coś jeszcze? – Nie, to wszystko, dziękuję.) | Wybierz: Chcesz zapłacić kartą. a) Can I pay by card? b) I pay card. c) Do you can card? → **a** | E8 |
+
 ## Przykładowy dialog
 
 > **Barista:** Hi! What can I get you?

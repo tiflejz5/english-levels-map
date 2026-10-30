@@ -44,6 +44,14 @@ Decyduje **wymowa** następnego słowa, nie pisownia:
 | She's at work. | Jest w pracy. |
 | He has an old car. | Ma stary samochód. |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *I'm an engineer.* (Jestem inżynierem.) | Uzupełnij a / an: She is ___ architect. → **an** | E8 · MP |
+| *There's a café near here. The café is very nice.* (Niedaleko jest kawiarnia. Ta kawiarnia jest bardzo fajna.) | Wybierz: Can you close ___ window, please? a) a b) the c) – → **b** | E8 |
+| *I love music.* (Uwielbiam muzykę.) | Popraw błąd: I'm teacher in a school. → **I'm a teacher in a school.** | E8 |
+
 ## Typowe błędy Polaków
 
 - ❌ *I'm teacher.* → ✅ *I'm **a** teacher.*

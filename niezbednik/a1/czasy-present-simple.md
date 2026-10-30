@@ -48,6 +48,14 @@ Present Simple opisuje rzeczy stałe: fakty, zwyczaje, rutynę, rozkłady jazdy.
 | He usually goes to work by bus. | Zwykle jeździ do pracy autobusem. |
 | The shop opens at 9. | Sklep otwiera się o 9. |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *She works in a bank and he teaches English.* (Ona pracuje w banku, a on uczy angielskiego.) | Uzupełnij: My brother ___ (not / like) horror films. → **doesn't like** | E8 · MP |
+| *Does your sister speak English?* (Czy twoja siostra mówi po angielsku?) | Wybierz: ___ you live near the school? a) Does b) Do c) Are → **b** | E8 |
+| *The shop opens at nine.* (Sklep otwiera się o dziewiątej.) | Popraw błąd: He go to work by bus every day. → **He goes to work by bus every day.** | E8 |
+
 ## Typowe błędy Polaków
 
 - ❌ *She work in a bank.* → ✅ *She work**s** in a bank.* – w 3. osobie zawsze -s.
