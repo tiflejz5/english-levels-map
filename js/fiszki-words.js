@@ -399,7 +399,115 @@ window.ELM = window.ELM || {};
   // PODKREŚLANIE ZAPISANYCH SŁÓW (krok 7) — odświeżane po dodaniu słowa i zmianie ustawienia
   // =====================================================================
 
-  function refreshHighlights() { /* uzupełnia krok 7 */ }
+  const HL_MAX = 300;
+  const HL_SKIP = "a, code, pre, kbd, h1, h2, h3, h4, h5, h6, mark, button, script, style, .fw-saved, .ex-passage-text, .ex-transcript, .ex-set-transcript, " + NEVER;
+  let hlObserver = null, hlTimer = 0, hlTip = null, hlNoted = false;
+
+  function clearHighlights() {
+    document.querySelectorAll("span.fw-saved").forEach(function (s) {
+      const parent = s.parentNode;
+      if (!parent) return;
+      parent.replaceChild(document.createTextNode(s.textContent), s);
+      parent.normalize();
+    });
+  }
+
+  function escapeRe(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
+
+  function tip() {
+    if (!hlTip) {
+      hlTip = el("div", { class: "fw-tip", role: "tooltip", id: "fw-tip", hidden: true });
+      document.body.appendChild(hlTip);
+    }
+    return hlTip;
+  }
+
+  function showTip(target) {
+    const t = tip();
+    t.textContent = target.dataset.meaning ? target.dataset.meaning : "Zapisane w Moich słowach (bez znaczenia)";
+    t.hidden = false;
+    const r = target.getBoundingClientRect(), tr = t.getBoundingClientRect();
+    const left = Math.max(8, Math.min(window.innerWidth - tr.width - 8, r.left + r.width / 2 - tr.width / 2));
+    const top = r.top - tr.height - 6 >= 8 ? r.top - tr.height - 6 : r.bottom + 6;
+    t.style.left = left + "px";
+    t.style.top = top + "px";
+    target.setAttribute("aria-describedby", "fw-tip");
+  }
+
+  function hideTip(target) { if (hlTip) hlTip.hidden = true; if (target) target.removeAttribute("aria-describedby"); }
+
+  function onTipEvent(e) {
+    const s = e.target.closest && e.target.closest("span.fw-saved");
+    if (!s) return;
+    if (e.type === "mouseover" || e.type === "focusin") showTip(s); else hideTip(s);
+  }
+
+  /** Podkreśla zapisane słowa w tekstach (bez nagłówków, linków, kodu i tekstów zadań); ≤ 300 słów. */
+  function applyHighlights() {
+    if (hlObserver) hlObserver.disconnect();
+    clearHighlights();
+    try {
+      if (!hasProfile() || !prefs().highlightWords) return;
+      const all = cards().slice().sort(function (a, b) { return String(b.addedAt || b.createdAt || "").localeCompare(String(a.addedAt || a.createdAt || "")); });
+      if (!all.length) return;
+      const used = all.slice(0, HL_MAX);
+      if (all.length > HL_MAX && !hlNoted) { hlNoted = true; say("Podkreślam " + HL_MAX + " najnowszych słów z " + all.length + "."); }
+      const byKey = new Map();
+      used.forEach(function (c) { const w = wordOf(c); if (w) byKey.set(L().wordKey(w), c); });
+      const words = used.map(wordOf).filter(Boolean).sort(function (a, b) { return b.length - a.length; });
+      if (!words.length) return;
+      const re = new RegExp("(?<![\\p{L}\\p{N}_])(" + words.map(escapeRe).join("|") + ")(?![\\p{L}\\p{N}_])", "giu");
+      document.querySelectorAll(AREAS).forEach(function (root) {
+        if (root.closest(HL_SKIP)) return;
+        const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+          acceptNode: function (n) {
+            const p = n.parentElement;
+            return p && !p.closest(HL_SKIP) && n.nodeValue.length > 2 ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+          }
+        });
+        const nodes = [];
+        let n;
+        while ((n = walker.nextNode())) nodes.push(n);
+        nodes.forEach(function (node) {
+          const text = node.nodeValue;
+          re.lastIndex = 0;
+          let m, last = 0, frag = null;
+          while ((m = re.exec(text))) {
+            frag = frag || document.createDocumentFragment();
+            if (m.index > last) frag.appendChild(document.createTextNode(text.slice(last, m.index)));
+            const card = byKey.get(L().wordKey(m[1]));
+            frag.appendChild(el("span", { class: "fw-saved", tabindex: "0", "data-meaning": (card && card.hint) || "", text: m[1] }));
+            last = m.index + m[1].length;
+          }
+          if (frag) {
+            if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+            node.parentNode.replaceChild(frag, node);
+          }
+        });
+      });
+    } finally {
+      if (hlObserver && prefs().highlightWords) hlObserver.observe(document.getElementById("view") || document.body, { childList: true, subtree: true });
+    }
+  }
+
+  function refreshHighlights() {
+    clearTimeout(hlTimer);
+    hlTimer = setTimeout(applyHighlights, 150);
+  }
+
+  (function initHighlights() {
+    hlObserver = new MutationObserver(function (list) {
+      // własne zmiany (span.fw-saved) są odpinane przez disconnect; reagujemy na nową treść widoku
+      if (list.some(function (m) { return m.addedNodes.length; })) refreshHighlights();
+    });
+    document.addEventListener("mouseover", onTipEvent);
+    document.addEventListener("mouseout", onTipEvent);
+    document.addEventListener("focusin", onTipEvent);
+    document.addEventListener("focusout", onTipEvent);
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && hlTip) hlTip.hidden = true; });
+    window.addEventListener("hashchange", refreshHighlights);
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", refreshHighlights); else refreshHighlights();
+  })();
 
   function prefsChanged() {
     hideMenu();
