@@ -167,6 +167,22 @@ if (fs.existsSync(regFile)) readJson(regFile).exams.forEach(function (exam) {
 add({ id: "fiszki", group: "exercises", title: "Fiszki", summary: "Powtórki słówek, kolokacji i czasowników frazowych w rosnących odstępach.", text: "fiszki flashcards powtórki active recall talie", category: "Fiszki", route: "#/fiszki" });
 add({ id: "fiszki:bledy", group: "exercises", title: "Moje błędy (fiszki)", summary: "Talia fiszek z wpisów Dziennika błędów.", text: "fiszki moje błędy dziennik", category: "Fiszki", route: "#/fiszki/talia/u-moje-bledy" });
 add({ id: "fiszki:slowa", group: "exercises", title: "Moje słowa", summary: "Słowa i wyrażenia zaznaczone w tekstach, ze zdaniem i znaczeniem.", text: "moje słowa słowniczek osobisty zapisane słówka fiszki zaznaczenie", category: "Fiszki", route: "#/fiszki/moje-slowa" });
+// Pisanie: wzorcowe wypracowania z komentarzami (zadania z modelNotes w trening/pisanie.json)
+add({ id: "pisanie", group: "exercises", title: "Wzorcowe wypracowania", summary: "Teksty modelowe z komentarzami na marginesie: realizacja polecenia, łączniki, rejestr, zakres i uwagi.", text: "pisanie wzorce wypracowania komentarze rozprawka essay email list writing model", category: "Pisanie", route: "#/pisanie" });
+(function () {
+  const regFile = path.join(ROOT, "dane", "egzaminy-manifest.json");
+  const exams = fs.existsSync(regFile) ? readJson(regFile).exams : [];
+  const label = {};
+  exams.forEach(function (e) { label[e.id] = e.label; });
+  fs.readdirSync(N).filter(function (d) { return fs.existsSync(path.join(N, d, "trening", "pisanie.json")); }).forEach(function (d) {
+    const j = readJson(path.join(N, d, "trening", "pisanie.json"));
+    (j.tasks || []).forEach(function (t) {
+      if (!t.model || !t.modelNotes) return;
+      add({ id: "wzorzec:" + d + ":" + t.id, group: "exercises", title: "Wzorzec: " + (t.title || t.id), summary: (t.modelNotes.summary || [])[0] || "", text: "wzorcowe wypracowanie komentarze " + (label[d] || d) + " " + t.genre, category: "Pisanie", route: "#/pisanie/wzorce/" + d + "/" + t.id });
+    });
+  });
+})();
+
 // Skróty do talii wbudowanych po tytule (bez kart): tematyczne A1–B1, egzaminacyjne, czasowniki frazowe itd.
 readJson(path.join(ROOT, "dane", "fiszki", "index.json")).decks.forEach(function (d) {
   add({ id: "fiszki:talia:" + d.id, group: "exercises", title: d.title + " (fiszki)", summary: d.description, text: "fiszki talia " + d.title + " " + d.level, category: "Fiszki", route: "#/fiszki/talia/" + d.id });

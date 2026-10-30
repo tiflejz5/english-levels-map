@@ -202,6 +202,7 @@ window.ELM = window.ELM || {};
   //   "#/statystyki"      → Statystyki (js/stats-page.js)
   //   "#/notatki"         → Moje notatki (js/notes.js)
   //   "#/fiszki[/…]"      → Fiszki (js/fiszki.js)
+  //   "#/pisanie[/…]"     → Pisanie: wzorce z komentarzami (js/pisanie.js)
   //   "#/<egzamin>[/…]"   → egzamin z rejestru dane/egzaminy-manifest.json (js/exam-core.js)
   // =====================================================================
 
@@ -219,6 +220,7 @@ window.ELM = window.ELM || {};
     const statsRoute = ELM.statsPage ? ELM.statsPage.parseRoute(hash) : null;
     const notesRoute = ELM.notes ? ELM.notes.parseRoute(hash) : null;
     const fiszkiRoute = ELM.fiszki ? ELM.fiszki.parseRoute(hash) : null;
+    const pisanieRoute = ELM.pisanie ? ELM.pisanie.parseRoute(hash) : null;
     state.route = null;
     state.c1Route = null;
     state.toolRoute = null;
@@ -249,6 +251,9 @@ window.ELM = window.ELM || {};
     } else if (fiszkiRoute) {
       state.view = "fiszki";
       state.toolRoute = fiszkiRoute;
+    } else if (pisanieRoute) {
+      state.view = "pisanie"; // wzorcowe wypracowania z komentarzami (js/pisanie.js)
+      state.toolRoute = pisanieRoute;
     } else if (c1) {
       state.view = "c1"; // zakładka „Certyfikat C1”
       state.c1Route = c1;
