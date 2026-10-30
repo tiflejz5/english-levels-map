@@ -75,6 +75,11 @@ window.ELM = window.ELM || {};
   // =====================================================================
 
   function render(view) {
+    if (!ELM.recorder) {
+      view.appendChild(el("p", { class: "tool-note", role: "status", text: "Wczytuję trener…" }));
+      ELM.loadModule("js/recorder.js").then(function () { if (view.isConnected) c1().render(ELM.state.c1Route); }, function (err) { console.warn(err.message); });
+      return "Trening Speaking";
+    }
     const S = ELM.C1 && ELM.C1.trainers["trening-speaking"];
     const found = c1().findTrainer("trening-speaking");
     if (!S || !found) { view.appendChild(c1().notFound("Brak danych trenera Speaking.")); return null; }

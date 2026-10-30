@@ -240,7 +240,7 @@ window.ELM = window.ELM || {};
       const saved = el("span", { class: "c1-saved", "aria-live": "polite", text: drafts[task.id] ? "Szkic zapisany" : "" });
       paintCounter(area.value);
 
-      const phrasesBtn = ELM.pisanieZwroty && task.genre ? el("button", { type: "button", class: "btn btn-secondary btn-small zw-open", "aria-expanded": "false", "aria-controls": "zw-panel",
+      const phrasesBtn = task.genre ? el("button", { type: "button", class: "btn btn-secondary btn-small zw-open", "aria-expanded": "false", "aria-controls": "zw-panel",
         onclick: function () { togglePhrases(); } }, ELM.ui.withIcon("notebook-text", "Zwroty")) : null;
       view.appendChild(el("div", { class: "c1-writing-bar" }, [
         ELM.c1.timer({ key: cfg.timerKey(task), seconds: T.timeMinutes * 60, label: "Czas", exam: true }),
@@ -306,7 +306,9 @@ window.ELM = window.ELM || {};
             el("p", { class: "tool-note zw-panel-foot" }, el("a", { href: ELM.pisanie.HASH + "/zwroty", text: "Cały bank zwrotów" }))
           ]);
           view.appendChild(panel);
-          ELM.pisanieZwroty.load().then(function () { fillPhrases(body); });
+          ELM.loadModule("js/pisanie-zwroty.js").then(function () { return ELM.pisanieZwroty.load(); }).then(function () { fillPhrases(body); }, function () {
+            body.replaceChildren(el("p", { class: "tool-note", text: "Nie udało się wczytać zwrotów. Odśwież stronę." }));
+          });
         }
         const open = panel.hidden;
         panel.hidden = !open;

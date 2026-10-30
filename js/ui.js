@@ -192,6 +192,13 @@ window.ELM = window.ELM || {};
     return loading[src];
   }
 
+  /** Moduł JS (albo plik danych) ładowany na żądanie, z tym samym ?v=… co skrypty startowe (index.html). Zwraca Promise. */
+  function loadModule(file) {
+    const tag = document.querySelector('script[src*="js/ui.js"]');
+    const m = tag && /[?&]v=([\w.-]+)/.exec(tag.getAttribute("src") || "");
+    return loadScript(file + (m ? "?v=" + m[1] : ""));
+  }
+
   /**
    * GSAP + opcjonalne wtyczki, np. ELM.loadGsap(["DrawSVGPlugin", "MotionPathPlugin"]).
    * Wtyczki są rejestrowane raz. Zwraca Promise<gsap>.
@@ -272,6 +279,7 @@ window.ELM = window.ELM || {};
   ELM.icon = icon;
   ELM.logo = logo;
   ELM.loadGsap = loadGsap;
+  ELM.loadModule = loadModule;
   ELM.loadScript = loadScript; // dane ładowane na żądanie (np. ćwiczenia, Laboratorium czasów)
   ELM.reducedMotion = reducedMotion;
   ELM.ui = { icon: icon, withIcon: withIcon, logo: logo, logoMark: logoMark, progressRing: progressRing, setRing: setRing, toast: toast, hideToast: hideToast };

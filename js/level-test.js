@@ -340,6 +340,15 @@ window.ELM = window.ELM || {};
 
   function render() {
     const view = document.getElementById("view");
+    if (!ELM.LEVEL_TEST) {
+      // 60 pytań ładuje się dopiero po wejściu na #/test-poziomu
+      view.className = "view tool-view lt-view";
+      view.replaceChildren(el("p", { class: "tool-note", role: "status", text: "Wczytuję pytania…" }));
+      ELM.loadModule("niezbednik/test-poziomu-dane.js").then(function () {
+        if (ELM.state.view === "leveltest") render();
+      }, function (err) { console.warn(err.message + " — uruchom: npm run build"); ELM.LEVEL_TEST = { version: 1, questions: [] }; if (ELM.state.view === "leveltest") render(); });
+      return;
+    }
     const profile = ELM.app.getActiveProfile();
     if (run && (!profile || run.profileId !== profile.id)) run = null; // zmiana profilu = nowe podejście
     view.className = "view tool-view lt-view";
