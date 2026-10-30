@@ -88,6 +88,14 @@
       "level": "A1-B1",
       "file": "temat-zdrowie.json",
       "count": 40
+    },
+    {
+      "id": "temat-emocje",
+      "title": "Emocje i charakter",
+      "description": "Słowa i wyrażenia o uczuciach, nastroju i cechach charakteru. Od A1 do B1.",
+      "level": "A1-B1",
+      "file": "temat-emocje.json",
+      "count": 40
     }
   ]
 }
