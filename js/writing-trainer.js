@@ -25,6 +25,7 @@
  *   lowScope                co się ocenia poniżej warnBelow (mianownik), np. „treść”, „realizacja zadania”
  *   lowNote(n, T)           opcjonalnie: własna uwaga w samoocenie poniżej warnBelow (zamiast lowScope)
  *   partGroups(T)           opcjonalnie: [{ label, tasks }] — lista zadań w grupach (B2: Part 1 / Part 2)
+ *   modelHref(task)         opcjonalnie: adres wzorca z komentarzami (#/pisanie/wzorce/…) — link w zadaniu z modelNotes
  *   choices()               opcjonalnie: obiekt { grupa: idZadania } — wybór jednego z dwóch zadań
  *                           (zadania z choiceGroup, opis grupy w T.choiceGroups; spec 06, 4.1)
  * Szkic zapisuje się automatycznie; pole tekstowe bez sprawdzania pisowni (jak na egzaminie).
@@ -303,6 +304,7 @@ window.ELM = window.ELM || {};
           cfg.examExtras && T.rubric ? rubric(T, n) : null,
           cfg.examExtras && task.model ? compare(area.value, task) : null,
           el("div", { class: "c1-writing-actions" }, [
+            cfg.modelHref && task.modelNotes ? el("a", { class: "btn btn-primary", href: cfg.modelHref(task) }, ELM.ui.withIcon("pencil", "Wzorzec z komentarzami")) : null,
             page ? el("a", { class: "btn btn-secondary", href: page.href }, ["Więcej o gatunku: " + page.label, ELM.icon("chevron-right", { size: 18 })]) : null,
             el("button", { type: "button", class: "btn btn-secondary", onclick: function () { copyText(area.value, copyStatus); } }, "Kopiuj tekst"),
             copyStatus
