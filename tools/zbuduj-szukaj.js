@@ -160,6 +160,10 @@ if (fs.existsSync(regFile)) readJson(regFile).exams.forEach(function (exam) {
 add({ id: "fiszki", group: "exercises", title: "Fiszki", summary: "Powtórki słówek, kolokacji i czasowników frazowych w rosnących odstępach.", text: "fiszki flashcards powtórki active recall talie", category: "Fiszki", route: "#/fiszki" });
 add({ id: "fiszki:bledy", group: "exercises", title: "Moje błędy (fiszki)", summary: "Talia fiszek z wpisów Dziennika błędów.", text: "fiszki moje błędy dziennik", category: "Fiszki", route: "#/fiszki/talia/u-moje-bledy" });
 add({ id: "fiszki:slowa", group: "exercises", title: "Moje słowa", summary: "Słowa i wyrażenia zaznaczone w tekstach, ze zdaniem i znaczeniem.", text: "moje słowa słowniczek osobisty zapisane słówka fiszki zaznaczenie", category: "Fiszki", route: "#/fiszki/moje-slowa" });
+// Skróty do talii wbudowanych po tytule (bez kart): tematyczne A1–B1, egzaminacyjne, czasowniki frazowe itd.
+readJson(path.join(ROOT, "dane", "fiszki", "index.json")).decks.forEach(function (d) {
+  add({ id: "fiszki:talia:" + d.id, group: "exercises", title: d.title + " (fiszki)", summary: d.description, text: "fiszki talia " + d.title + " " + d.level, category: "Fiszki", route: "#/fiszki/talia/" + d.id });
+});
 
 // ---------- Ćwiczenia (zestawy tematów i mixy) ----------
 const topicTitle = {};

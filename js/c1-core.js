@@ -364,6 +364,7 @@ window.ELM = window.ELM || {};
     wireTasks(article, id);
     if (ELM.callouts) ELM.callouts.apply(article);
     view.appendChild(article);
+    if (id === "przeglad" && ELM.fiszki && ELM.fiszki.examTile) { const ft = ELM.fiszki.examTile("certyfikat-c1"); if (ft) view.appendChild(ft); }
     const nav = pageNav(id);
     if (nav) view.appendChild(nav);
     return doc.meta.title || found.page.label;

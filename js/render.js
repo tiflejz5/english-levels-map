@@ -344,6 +344,11 @@ window.ELM = window.ELM || {};
       ul.appendChild(li);
     });
     section.appendChild(ul);
+    // Pod słownictwem A1–B1: link do talii tematycznych fiszek (lista przefiltrowana po poziomie)
+    if (cat.id === "cat_vocabulary" && /^(A1|A2|B1)$/.test(level.id) && ELM.fiszki) {
+      section.appendChild(el("p", { class: "fc-themes-link" }, el("a", { class: "btn btn-secondary", href: "#/fiszki/tematy/" + level.id.toLowerCase() },
+        ELM.ui.withIcon("layers", "Fiszki tematyczne: Dom, Jedzenie, Praca, Podróże, Zdrowie, Emocje, Technologia"))));
+    }
     return section;
   }
 

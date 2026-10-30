@@ -1193,6 +1193,17 @@ test("sanitizeState: uszkodzone dane, nieznana wersja, zbyt długie pola, przyci
   assert.strictEqual(Object.keys(s.daily)[0], "2025-01-11");
 });
 
+console.log("\nEgzaminy z tagów karty (paczka v6, spec 15)");
+test("examsOf: e8, mp, mr, b2, c1; matura = MP + MR; bez powtórzeń, stała kolejność, wielkość liter bez znaczenia", function () {
+  const codes = function (tags) { return FL.examsOf({ tags: tags }).map(function (e) { return e.code; }); };
+  assert.deepStrictEqual(codes(["slownictwo", "e8", "matura"]), ["e8", "mp", "mr"]);
+  assert.deepStrictEqual(codes(["MR", "matura", "B2"]), ["mp", "mr", "b2"]);
+  assert.deepStrictEqual(codes(["c1", "kolokacje"]), ["c1"]);
+  assert.deepStrictEqual(codes([]), []);
+  assert.deepStrictEqual(FL.examsOf({}), []);
+  assert.deepStrictEqual(FL.examsOf(null), []);
+});
+
 console.log("\nMoje słowa (paczka v6, spec 14)");
 test("wordFromSelection: 1–6 słów i do 60 znaków, przestankowe brzegi i {}| usuwane, bez liter → pusto", function () {
   assert.strictEqual(FL.wordFromSelection("  commute, "), "commute");
