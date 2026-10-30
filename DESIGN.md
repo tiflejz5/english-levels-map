@@ -437,6 +437,26 @@ Pominięte. Aplikacja nie jest w React, a brief dopuszczał ten krok tylko dla R
   - Słuchanie ma panel `--surface-2` z „Odtwórz”, licznikiem „Odsłuchy: n/2” i notą o głosie syntezowanym.
 - **„W trakcie pracy”.** Karta z ilustracją SVG (kompas na rusztowaniu, w tokenach), plakietką w `--warning-soft`, opisem z rejestru i przyciskami „Wróć do Dziś” oraz „Zobacz: Egzamin ósmoklasisty”. Bez pustych tabel i martwych linków.
 
+### 3.14 Komponenty paczki v6 (rozbudowa v6, etapy 1–11)
+
+Wszystkie na istniejących tokenach (bez nowych kolorów), z parami sprawdzanymi przez `node tools/kontrast.js`, celami ≥ 44 px i szanowaniem `prefers-reduced-motion`.
+
+- **Callout „Życie i egzamin” (`.callout-real-exam`).**
+  - Tło `--info-bg`, obwódka `--info-border`, lewy pasek 4 px w `--accent` (`inset box-shadow`), ikona na `--surface` z pierścieniem.
+  - W środku tabela „Z życia” / „W stylu egzaminu” bez minimalnej szerokości; do 640 px każdy wiersz staje się kartą (etykieta z `data-label` nad treścią), bez przewijania w poziomie.
+  - Wiersze zawsze zaczynają się od chipów egzaminów, więc kolor nigdy nie jest jedynym nośnikiem informacji.
+- **Chipy egzaminów.**
+  - W tekście: `.exam-chip` (pigułka, lewy pasek 4 px w `--exam`, tekst „E8”, „MP”, „MR”, „B2”, „C1”; strefa trafienia powiększona o `::before` do ≥ 44 px).
+  - W lewym panelu: `.sb-item.exam-chip` z odznaką `.exam-chip-badge` (kolor egzaminu + dolny pasek w drugim kolorze). Certyfikat C1 używa tego samego komponentu (granat `--c1-navy`, złoto `--c1-gold`), a jego sekcje pojawiają się tylko wewnątrz C1, jak u pozostałych egzaminów.
+- **Komentarze na marginesie (`.wz-*`, widok wzorca w Pisaniu).**
+  - Kotwica `.wz-anchor`: tło 16% koloru typu komentarza (`--wz`) i dolna kreska, więc typ rozpoznaje się też po ikonie i podpisie, nie tylko po kolorze.
+  - Od 1024 px komentarze stoją w prawym marginesie na wysokości kotwic, a cienka linia SVG (`.wz-line`) łączy je z tekstem; węziej kotwica ma numer i rozwija komentarz pod akapitem.
+  - Filtry typów (`.wz-filter`, ≥ 44 px, `aria-pressed`; wyłączony = przekreślony i przygaszony). Druk: komentarze jako przypisy.
+- **Znaczek poziomu (`.lvl-stamp`).** Mała odznaka na kółku poziomu (`.sb-ring-wrap`) w panelu, na Szlaku i w nagłówku poziomu po zaliczeniu testu końcowego; zawsze z tekstem „zaliczony” (`.lvl-passed-label`, `.trail-passed`), a nie samym kolorem. Znaczek zostaje po późniejszej porażce.
+- **Menu zaznaczenia (`.fc-sel-menu`).** Pływający pasek przy zaznaczonym tekście w obszarach `[data-fc-selectable]` („Do Moich słów”, „Dodaj znaczenie”): `position: fixed`, `z-index: 60`, przyciski `min-height: 44px`, `mousedown` nie gubi zaznaczenia, Escape zamyka.
+- **Bank zwrotów i panel „Zwroty” (`.zw-*`).** Filtry w `.journal-filters`, spis grup przyklejony z lewej od 900 px albo poziomy pasek chipów, gwiazdka ulubionych z tekstem i `aria-pressed`; panel w trenerze pisania z boku od 900 px, na telefonie arkusz od dołu (animacja tylko przy `prefers-reduced-motion: no-preference`).
+- **Trener mówienia i nagrywanie (`.sp-*`, `.rec-*`).** Zakładki części (`role="tablist"`, strzałki, Home/End), czerwona kropka i tekst „Nagrywanie 0:23” (kropka pulsuje tylko bez `prefers-reduced-motion`), lista prób z odtwarzaczem, Pobierz i Usuń, numerowane opcje wyboru ilustracji, pasek postępu trybu „Cały egzamin”.
+
 ## 4. Ruch
 
 - **Proste rzeczy tylko w CSS.** Hover, focus, pojawianie się i przejścia kolorów robi CSS. Animujemy `opacity` i `transform`. Wyjątek to krótkie przejście kolorów przy zmianie motywu (klasa `html.theme-anim`).
@@ -613,3 +633,7 @@ Ograniczenie: audyt automatyczny nie zastępuje testu z czytnikiem ekranu (NVDA 
   - Certyfikat C1: tokeny sekcji (kość słoniowa / północny granat ze złotem), nagłówek z liczbą dni, arkusz egzaminacyjny, tryb skupienia trenerów.
   - Kontrola jakości: `defer` skryptów, szybszy szlak, poprawki nazw dostępnych.
   - Bez nowych kluczy `localStorage` i bez zmian w plikach `.md` i danych.
+
+- **Paczka v6 (etapy 1–11).**
+  - Nowe komponenty opisane w 3.14: callout „Życie i egzamin”, chipy egzaminów (także C1 w panelu), komentarze na marginesie, znaczek poziomu, menu zaznaczenia, bank zwrotów, trener mówienia z nagrywaniem.
+  - Kontrola końcowa: pełny walidator v6 w `npm run validate` i `build`, przegląd 360 / 768 / 1280 px w obu motywach.

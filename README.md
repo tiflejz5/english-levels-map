@@ -198,6 +198,43 @@ Specyfikacja: `docs/rozbudowa-v6/spec/18-trener-mowienia.md`. Jeden silnik (`js/
 - **Walidacja:** `node tools/waliduj-mowienie.js` (część `npm run validate` i `npm run build`; te same reguły co część `mowienie` w `docs/rozbudowa-v6/scripts/validate_v6.py`): unikalne id, liczby elementów, długości opisów, minimalne pule, id w B2.
 - **Dodawanie kart:** dopisz karty w `mowienie.json` (unikalne `id`, nie zmieniaj istniejących – są kluczami w `seen`), uruchom `npm run build`, zwiększ `?v=…` w `index.html`.
 
+## Paczka v6: spis adresów, kluczy i plików danych
+
+Zbiorcza ściąga po kontroli końcowej (szczegóły: sekcje etapów powyżej i `docs/rozbudowa-v6/`).
+
+| Adres | Co to jest |
+|---|---|
+| `#/<poziom>/test` (np. `#/a1/test`) | test końcowy poziomu i znaczek „zaliczony” (`js/level-final.js`) |
+| `#/<poziom>/sciaga` | ściąga poziomu do druku A4 (`css/print.css`, `tools/sciagi-pdf.js`) |
+| `#/fiszki/moje-slowa`, `#/fiszki/talia/<id>` | Moje słowa; talie tematyczne i egzaminacyjne |
+| `#/pisanie`, `#/pisanie/wzorce/<egzamin>/<id>` | wzorcowe wypracowania z komentarzami |
+| `#/pisanie/zwroty[/<grupa>]` | bank zwrotów do pisania |
+| `#/matura-podstawowa/trening-mowienie` | trener matury ustnej (link także z matury rozszerzonej) |
+| `#/certyfikat-b2/trening-mowienie` | trener Speaking B2 (pula 10 / 14 / 10 / 10, Cały egzamin) |
+| `#/egzamin-osmoklasisty/trening-mowienie` | Mówienie A2, trening dodatkowy (E8 nie ma części ustnej) |
+| `#/certyfikat-c1/trening-speaking` | trener C1 (nagrywanie przez wspólny `js/recorder.js`) |
+
+| Nowy klucz localStorage (per profil, w eksporcie / imporcie / resecie) | Zawartość |
+|---|---|
+| `elm_leveltests_v1` | wyniki testów końcowych i znaczki poziomów |
+| `elm_phrases_v1` | ulubione zwroty z banku zwrotów |
+| `elm_speaking_v1` (pola opcjonalne `seen`, `full`) | historia sesji mówienia, widziane karty (losowanie bez powtórek) |
+
+**Skrypty ładowane na żądanie** (`ELM.loadModule`, z tym samym `?v=` co skrypty startowe; nie ma ich w `index.html`): `js/pisanie-wzorzec.js`, `js/pisanie-zwroty.js` (po wejściu do widoku albo otwarciu panelu „Zwroty”), `js/recorder.js` i `js/speaking-trainer.js` (po wejściu do trenera mówienia), `niezbednik/test-poziomu-dane.js`. Nowy moduł widoku dopisuj tak samo, a nie do `index.html`.
+
+Fiszki „Moje słowa” leżą w stanie fiszek (`js/fiszki-store.js`) i są w eksporcie razem z nim. Nagrania z mikrofonu **nie są** nigdzie zapisywane.
+
+| Plik danych (źródło) | Generowany plik / ładowanie |
+|---|---|
+| `niezbednik/test-poziomu/pytania.json`, `niezbednik/testy-poziomow/<poziom>.json` | `test-poziomu-dane.js` i `testy-poziomow/<poziom>.js` (oba na żądanie po wejściu na test) |
+| `niezbednik/sciagi/<poziom>.md` | wbudowane w `niezbednik-dane.js` |
+| `dane/fiszki/*.json` | `dane/fiszki/talie/*.js` (na żądanie, po wejściu do talii) |
+| `niezbednik/*/trening/pisanie.json` (`modelNotes`) | `niezbednik/<egzamin>-dane.js` (na żądanie po wejściu do egzaminu) |
+| `dane/pisanie/zwroty.json` | `dane/pisanie/zwroty-dane.js` (na żądanie po wejściu do banku lub panelu) |
+| `niezbednik/*/trening/mowienie.json` | `niezbednik/<egzamin>-dane.js` |
+
+**Walidacja:** `npm run validate` i `npm run build` kończą się pełnym walidatorem v6 (`tools/waliduj-v6.js`: ściągi w Node oraz całość `docs/rozbudowa-v6/scripts/validate_v6.py`, gdy jest Python 3) obok walidatorów `tools/waliduj-*.js`. PDF-y ściąg: `node tools/sciagi-pdf.js` (wymaga `playwright-core`, `--browser msedge`).
+
 ## Testy
 
 ```bash
