@@ -3839,3 +3839,36 @@ a.notes-item-title { color: var(--accent); text-decoration: underline; text-unde
   @keyframes zw-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
 }
 @media print { .zw-panel { display: none; } }
+/* ===================== MÓWIENIE: nagrywanie i trenery (paczka v6, spec 18) ===================== */
+.rec-link { margin: 8px 0 0; }
+.rec-indicator { display: flex; align-items: center; gap: 8px; margin: 10px 0 0; font-weight: 650; color: var(--danger); }
+.rec-indicator[hidden] { display: none; }
+.rec-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--danger); }
+@media (prefers-reduced-motion: no-preference) { .rec-dot { animation: rec-pulse 1.2s ease-in-out infinite; } @keyframes rec-pulse { 50% { opacity: .35; } } }
+.rec-list { display: grid; gap: 10px; margin: 10px 0 0; padding: 0; list-style: none; }
+.rec-item { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 6px 12px; }
+.rec-item audio { width: 100%; min-width: 0; }
+.rec-item-label { font-weight: 650; }
+.rec-item-actions { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 8px; }
+.rec-item-actions .btn { min-height: 44px; }
+.rec-btn:disabled { opacity: .6; cursor: not-allowed; }
+
+.sp-flow { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 10px 0; }
+.sp-switch { margin: 6px 0; }
+.sp-note-banner { margin: 0 0 14px; padding: 12px 14px; border-left: 4px solid var(--accent); border-radius: var(--radius); background: var(--accent-soft); font-weight: 600; }
+.sp-situation { margin: 0 0 10px; }
+.sp-elements { margin: 6px 0 12px; padding-left: 22px; }
+.sp-elements li { margin-bottom: 4px; }
+.sp-lines { display: grid; gap: 8px; margin: 10px 0; padding: 0; list-style: none; }
+.sp-line { padding: 10px 14px; border: 1px solid var(--line-strong, var(--line)); border-radius: var(--radius); background: var(--surface); }
+.sp-line-who { display: block; margin-bottom: 2px; color: var(--ink-muted); font-size: var(--fs-xs); font-weight: 650; letter-spacing: .04em; text-transform: uppercase; }
+.sp-phrases { margin: 10px 0; }
+.sp-phrases summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; font-weight: 600; }
+.sp-phrases ul { margin: 4px 0; padding-left: 22px; }
+.sp-options-num { counter-reset: spo; list-style: none; display: grid; gap: 8px; margin: 8px 0; padding: 0; }
+.sp-options-num li { counter-increment: spo; position: relative; padding: 10px 14px 10px 44px; border: 1px solid var(--line-strong, var(--line)); border-radius: var(--radius); background: var(--surface); }
+.sp-options-num li::before { content: counter(spo); position: absolute; left: 12px; top: 10px; display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; background: var(--inverse-bg); color: var(--inverse-text); font-weight: 700; font-size: var(--fs-sm); }
+.sp-full-steps { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; padding: 0; list-style: none; }
+.sp-full-steps li { padding: 4px 12px; border: 1px solid var(--line-strong, var(--line)); border-radius: var(--radius-pill); font-size: var(--fs-sm); color: var(--ink-muted); }
+.sp-full-steps li[aria-current="step"] { background: var(--accent-soft); border-color: var(--accent); color: var(--ink); font-weight: 700; }
+.sp-recordings { display: grid; gap: 12px; margin: 12px 0; }
