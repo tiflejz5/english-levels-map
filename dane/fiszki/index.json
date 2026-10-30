@@ -56,6 +56,14 @@
       "level": "A1-B1",
       "file": "temat-dom.json",
       "count": 40
+    },
+    {
+      "id": "temat-jedzenie",
+      "title": "Jedzenie i gotowanie",
+      "description": "Słowa i wyrażenia o jedzeniu, posiłkach i gotowaniu. Od A1 do B1.",
+      "level": "A1-B1",
+      "file": "temat-jedzenie.json",
+      "count": 39
     }
   ]
 }
