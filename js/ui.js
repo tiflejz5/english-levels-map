@@ -69,6 +69,22 @@ window.ELM = window.ELM || {};
     return LANDS[levelId] ? levelId + " · " + LANDS[levelId].name : levelId;
   }
 
+  /**
+   * Pieczątka w kolorze krainy (--lvl z klasy lvl-X rodzica albo własnej): okrągła, z ptaszkiem.
+   * opts: size (px, domyślnie 20), fresh — animacja „odbicia” (C3; bez ruchu przy reduced motion, CSS).
+   */
+  function stamp(levelId, opts) {
+    opts = opts || {};
+    const size = opts.size || 20;
+    const s = document.createElement("span");
+    s.className = "stamp lvl-" + levelId + (opts.fresh ? " is-fresh" : "");
+    s.setAttribute("aria-hidden", "true");
+    s.style.width = size + "px";
+    s.style.height = size + "px";
+    s.appendChild(icon("check", { size: Math.round(size * 0.62), "stroke-width": 3 }));
+    return s;
+  }
+
   /** [ikona, tekst] — np. el("button", …, ELM.ui.withIcon("plus", "Dodaj błąd")). */
   function withIcon(name, text, opts) {
     return [icon(name, Object.assign({ size: 18 }, opts || {})), document.createTextNode(text)];
@@ -323,5 +339,5 @@ window.ELM = window.ELM || {};
   ELM.loadModule = loadModule;
   ELM.loadScript = loadScript; // dane ładowane na żądanie (np. ćwiczenia, Laboratorium czasów)
   ELM.reducedMotion = reducedMotion;
-  ELM.ui = { icon: icon, withIcon: withIcon, landIcon: landIcon, landLabel: landLabel, LANDS: LANDS, pageHead: pageHead, logo: logo, logoMark: logoMark, progressRing: progressRing, setRing: setRing, toast: toast, hideToast: hideToast };
+  ELM.ui = { icon: icon, withIcon: withIcon, landIcon: landIcon, stamp: stamp, landLabel: landLabel, LANDS: LANDS, pageHead: pageHead, logo: logo, logoMark: logoMark, progressRing: progressRing, setRing: setRing, toast: toast, hideToast: hideToast };
 })(window.ELM);

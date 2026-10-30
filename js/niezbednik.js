@@ -355,6 +355,14 @@ window.ELM = window.ELM || {};
     const article = el("article", { class: "md home" }, ELM.markdown.render(doc.blocks));
     linkLevelTable(article);
     if (ELM.callouts) ELM.callouts.apply(article);
+    // Szlak w wariancie kompaktowym nad tabelą „Poziomy w skrócie” (mapa krain, spec 19 C2)
+    if (ELM.today && ELM.today.compactTrail) {
+      const levels = Array.prototype.find.call(article.querySelectorAll(".md-section"), function (s) {
+        const h = s.querySelector("h2");
+        return h && h.textContent.trim().toLowerCase() === "poziomy w skrócie";
+      });
+      if (levels) article.insertBefore(ELM.today.compactTrail(), levels);
+    }
     // Sekcja „Twoje egzaminy” (kafle-okładki moich egzaminów) pod wstępem strony głównej
     if (ELM.c1 && ELM.examCover) ELM.c1.insertAfterIntro(article, ELM.examCover.homeSection());
     view.appendChild(article);

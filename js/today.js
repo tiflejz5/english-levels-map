@@ -269,6 +269,59 @@ window.ELM = window.ELM || {};
     return { w: 1000, h: 280, pts: pts };
   }
 
+  /** Zamknięta, lekko nieregularna warstwica (deterministyczna; gładka krzywa przez 12 punktów) — logika blob z gen_krainy.py. */
+  function blobPath(cx, cy, rx, ry, seed, k) {
+    const pts = [];
+    for (let i = 0; i < 12; i++) {
+      const a = 2 * Math.PI * i / 12;
+      const wob = 1 + 0.09 * Math.sin(3 * a + seed) + 0.05 * Math.cos(5 * a + seed * 1.7);
+      pts.push([cx + rx * k * wob * Math.cos(a), cy + ry * k * wob * Math.sin(a)]);
+    }
+    const f = function (n) { return n.toFixed(1); };
+    let d = "M" + f(pts[0][0]) + " " + f(pts[0][1]);
+    const n = pts.length;
+    for (let i = 0; i < n; i++) {
+      const p0 = pts[(i + n - 1) % n], p1 = pts[i], p2 = pts[(i + 1) % n], p3 = pts[(i + 2) % n];
+      const c1 = [p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6];
+      const c2 = [p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6];
+      d += " C" + f(c1[0]) + " " + f(c1[1]) + " " + f(c2[0]) + " " + f(c2[1]) + " " + f(p2[0]) + " " + f(p2[1]);
+    }
+    return d + "Z";
+  }
+
+  /** Teren: plama --lvl-x-soft + warstwice --lvl-x; liczba warstwic rośnie od A1 (3) do C2 (8). */
+  function terrainGroup(g, vertical) {
+    const group = svgEl("g", { class: "trail-terrain" });
+    const rx = vertical ? 58 : 80, ry = vertical ? 46 : 64;
+    ELM.LEVEL_IDS.forEach(function (id, i) {
+      const l = id.toLowerCase();
+      const x = g.pts[i][0], y = g.pts[i][1];
+      const land = svgEl("g", { class: "trail-land", style: "--land:var(--lvl-" + l + ");--land-soft:var(--lvl-" + l + "-soft)" });
+      land.appendChild(svgEl("path", { class: "trail-land-fill", d: blobPath(x, y, rx, ry, i * 1.3, 1) }));
+      const rings = 3 + i;
+      for (let r = 0; r < rings; r++) {
+        land.appendChild(svgEl("path", {
+          class: "trail-contour", d: blobPath(x + r * 2, y - r * 1.5, rx, ry, i * 1.3 + r * 0.4, 1 - r * (0.8 / rings)),
+          "stroke-opacity": (0.22 + 0.05 * r).toFixed(2)
+        }));
+      }
+      group.appendChild(land);
+    });
+    return group;
+  }
+
+  /** Róża wiatrów w wolnym rogu mapy. */
+  function windRose() {
+    const rose = svgEl("g", { class: "trail-rose", transform: "translate(44 48)" });
+    rose.appendChild(svgEl("circle", { r: 16 }));
+    rose.appendChild(svgEl("path", { d: "M0-22v44M-22 0h44" }));
+    rose.appendChild(svgEl("path", { class: "trail-rose-needle", d: "M0-16 4 0H-4z" }));
+    const n = svgEl("text", { y: -26, "text-anchor": "middle" });
+    n.textContent = "N";
+    rose.appendChild(n);
+    return rose;
+  }
+
   /** Gładka ścieżka przez punkty (Catmull-Rom → krzywe Béziera). */
   function smoothPath(pts) {
     let d = "M" + pts[0][0] + " " + pts[0][1];
@@ -296,6 +349,27 @@ window.ELM = window.ELM || {};
     return len;
   }
 
+  /**
+   * Szlak w wariancie kompaktowym (strona główna, nad tabelą „Poziomy w skrócie”): bez nagłówka karty i róży wiatrów.
+   * Zwraca element; rysuje się, gdy dostanie szerokość (ResizeObserver), i przerysowuje przy zmianie układu poziomy/pionowy.
+   */
+  function compactTrail() {
+    const stats = levelStats();
+    const stage = el("div", { class: "trail-stage" });
+    const wrap = el("section", { class: "trail-compact", "aria-label": "Szlak A1 → C2: postęp w krainach" }, stage);
+    let last = null;
+    function draw() {
+      if (!stage.clientWidth) return;
+      const vertical = stage.clientWidth < 480;
+      if (last === vertical) return;
+      last = vertical;
+      drawTrail(stage, stats, { compact: true });
+    }
+    if (window.ResizeObserver) new ResizeObserver(draw).observe(stage);
+    requestAnimationFrame(draw);
+    return wrap;
+  }
+
   function trailTile(stats) {
     const wrap = el("section", { class: "card bento-tile bento-trail", "aria-labelledby": "trail-title" }, [
       el("div", { class: "trail-head" }, [
@@ -309,8 +383,9 @@ window.ELM = window.ELM || {};
     return wrap;
   }
 
-  /** Rysuje szlak w kontenerze (po wstawieniu do DOM — potrzebna szerokość). */
-  function drawTrail(stage, stats) {
+  /** Rysuje szlak w kontenerze (po wstawieniu do DOM — potrzebna szerokość). opts.compact: bez róży wiatrów (strona główna). */
+  function drawTrail(stage, stats, opts) {
+    opts = opts || {};
     const vertical = stage.clientWidth < 480;
     const g = geometry(vertical);
     const cur = currentIndex(stats);
@@ -320,20 +395,13 @@ window.ELM = window.ELM || {};
     if (vertical) stage.style.height = g.h + "px"; else stage.style.removeProperty("height");
 
     const svg = svgEl("svg", { class: "trail-svg", viewBox: "0 0 " + g.w + " " + g.h, "aria-hidden": "true", focusable: "false" });
-    const defs = svgEl("defs");
-    const grad = svgEl("linearGradient", { id: "trail-grad", gradientUnits: "userSpaceOnUse", x1: g.pts[0][0], y1: g.pts[0][1], x2: g.pts[5][0], y2: g.pts[5][1] });
-    ["a1", "a2", "b1", "b2", "c1", "c2"].forEach(function (l, i) {
-      const s = svgEl("stop", { offset: (i / 5).toFixed(2) });
-      s.setAttribute("style", "stop-color: var(--lvl-" + l + ")");
-      grad.appendChild(s);
-    });
-    defs.appendChild(grad);
-    svg.appendChild(defs);
+    svg.appendChild(terrainGroup(g, vertical));
     const d = smoothPath(g.pts);
     const base = svgEl("path", { d: d, class: "trail-base", id: "trail-path" });
-    const done = svgEl("path", { d: d, class: "trail-done", stroke: "url(#trail-grad)" });
+    const done = svgEl("path", { d: d, class: "trail-done" });
     svg.appendChild(base);
     svg.appendChild(done);
+    if (!vertical && !opts.compact) svg.appendChild(windRose());
     // Znacznik „tu jesteś” (pinezka mapy)
     // Zewnętrzna grupa jedzie po ścieżce (x, y = punkt ścieżki), wewnętrzna unosi pinezkę nad stację
     const marker = svgEl("g", { class: "trail-marker" });
@@ -364,11 +432,11 @@ window.ELM = window.ELM || {};
         "aria-label": "Poziom " + s.id + (name ? ", " + name : "") + ": " + s.percent + "% punktów „Umiem”" + (here ? " – tu jesteś" : "") + (passed ? ". " + passed : "")
       }, [
         el("span", { class: "trail-ring" }, [
-          ELM.ui.progressRing(s.percent, { size: 56, stroke: 5, text: s.id }),
-          passed ? ELM.levelFinal.stamp(s.id, { hideText: true, size: 14 }) : null // pieczątka: ikona nagrody, nie tylko kolor
+          ELM.ui.progressRing(s.percent, { size: 56, stroke: 5, node: ELM.ui.landIcon(s.id, { size: 26 }) }),
+          passed ? ELM.ui.stamp(s.id, { size: 20 }) : null // pieczątka ✓ w kolorze krainy (tekst „Zaliczony …” obok)
         ]),
         el("span", { class: "trail-label", "aria-hidden": "true" }, [
-          el("span", { class: "trail-name", text: name || s.id }),
+          el("span", { class: "trail-name", text: ELM.ui.landLabel(s.id) }),
           el("span", { class: "trail-pct num", text: s.percent + "%" }),
           passed ? el("span", { class: "trail-passed", text: "Zaliczony " + ELM.levelFinal.fmtDate(ELM.levelFinal.passedAt(s.id)) }) : null,
           here ? el("span", { class: "trail-here", text: "Tu jesteś" }) : null
@@ -458,5 +526,5 @@ window.ELM = window.ELM || {};
     });
   }
 
-  ELM.today = { HASH: HASH, parseRoute: parseRoute, render: render };
+  ELM.today = { HASH: HASH, parseRoute: parseRoute, render: render, compactTrail: compactTrail };
 })(window.ELM);
