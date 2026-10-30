@@ -1695,11 +1695,9 @@ textarea.field { overflow: auto; }
 .bento-tip { grid-column: span 12; flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: space-between; border-color: var(--info-border); background: var(--info-bg); }
 .bento-trail { grid-column: span 12; }
 .bento-streak { grid-column: span 5; }
-.bento-add { grid-column: span 3; }
-.bento-continue { grid-column: span 4; }
+.bento-shortcuts { grid-column: span 12; }
 .bento-exam { grid-column: span 4; }
 /* Z egzaminem: seria | egzamin | dodaj błąd, a „Kontynuuj” w osobnym, szerokim rzędzie */
-.bento.has-exam .bento-continue { grid-column: span 12; }
 
 .tile-title { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: 620; letter-spacing: -0.01em; margin: 0; }
 .tile-big { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 10px; margin: 0; }
@@ -1826,11 +1824,11 @@ textarea.field { overflow: auto; }
 @media (max-width: 1023px) {
   .bento { grid-template-columns: repeat(6, minmax(0, 1fr)); }
   .bento-hero, .bento-reviews { grid-column: span 6; }
-  .bento-streak, .bento-add, .bento-exam { grid-column: span 3; }
+  .bento-streak, .bento-exam { grid-column: span 3; }
   .bento-reviews { flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: space-between; }
   .bento-reviews .tile-title { flex-basis: 100%; }
   .bento-reviews .tile-action, .bento-reviews .tile-empty { margin-top: 0; }
-  .bento-tip, .bento-trail, .bento-continue, .bento.has-exam .bento-continue { grid-column: span 6; }
+  .bento-trail, .bento-shortcuts { grid-column: span 6; }
 }
 /* Telefon: jedna kolumna */
 @media (max-width: 640px) {
@@ -3841,3 +3839,20 @@ a.notes-item-title { color: var(--accent); text-decoration: underline; text-unde
 
 /* A3: etykieta nad nagłówkiem strony narzędzia */
 .eyebrow { margin: 0 0 6px; font-size: var(--fs-xs); font-weight: 600; letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--accent); }
+
+/* A5: wiersze zamiast kart (cienka linia, bez cienia i tła, hover --row-hover) */
+.row-list { list-style: none; margin: 0; padding: 0; }
+.row-list > li { border-top: 1px solid var(--line); }
+.row {
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 14px;
+  width: 100%; min-height: 56px; padding: 8px; border: 0; background: none; color: inherit;
+  font: inherit; text-align: left; text-decoration: none; cursor: pointer; border-radius: 0;
+  transition: background var(--dur-fast) var(--ease-out);
+}
+.row:hover { background: var(--row-hover); }
+.row-icon, .row-chev { display: inline-flex; color: var(--accent); }
+.row-body { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.row-title { font-weight: 600; }
+.row-desc { font-size: var(--fs-sm); color: var(--ink-muted); overflow-wrap: anywhere; }
+.row:hover .row-chev { transform: translateX(3px); }
+.row-chev { transition: transform var(--dur-fast) var(--ease-out); }

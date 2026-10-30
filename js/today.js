@@ -235,44 +235,38 @@ window.ELM = window.ELM || {};
     ]);
   }
 
-  function continueTile() {
-    const last = pd().lastPage();
-    return tile("bento-continue", "Kontynuuj", [
-      el("h2", { class: "tile-title" }, ["Kontynuuj"]),
-      last
-        ? el("a", { class: "today-continue", href: last.hash }, [
-          el("span", { class: "continue-icon", "aria-hidden": "true" }, ELM.icon("notebook-text", { size: 20 })),
-          el("span", { class: "continue-text", text: last.title || last.hash }),
-          el("span", { class: "c1-home-tile-arrow", "aria-hidden": "true" }, ELM.icon("chevron-right", { size: 20 }))
-        ])
-        : el("p", { class: "tool-note" }, ["Tu pojawi się ostatnio otwarta podstrona. ",
-          el("a", { href: ELM.app.levelHash(ELM.state.ui.levelId) }, "Otwórz poziom " + ELM.state.ui.levelId)])
-    ]);
-  }
-
-  function addTile() {
-    return tile("bento-add", "Dodaj błąd", [
-      el("h2", { class: "tile-title" }, ["Masz nowy błąd?"]),
-      el("p", { class: "tool-note", text: "Zapisz go od razu – jutro wróci jako powtórka." }),
-      el("button", {
-        type: "button",
-        class: "btn btn-secondary tile-action",
-        onclick: function () { ELM.journal.openForm().then(function (r) { if (r) render(); }); }
-      }, ELM.ui.withIcon("plus", "Dodaj błąd"))
-    ]);
-  }
-
-  /** Zachęta do testu poziomu dla profilu bez żadnych postępów i bez wyniku testu. */
-  function testTip() {
-    if (!ELM.levelTest) return null;
-    const profile = ELM.app.getActiveProfile();
-    if (!profile || Object.keys(profile.progress).length || pd().lastTest()) return null;
-    return el("section", { class: "card bento-tile bento-tip", "aria-label": "Test poziomu" }, [
-      el("div", { class: "today-tip-body" }, [
-        el("h2", { class: "tile-title", text: "Nie wiesz, od czego zacząć?" }),
-        el("p", { class: "tool-note", text: "Szybki test poziomu: 12 pytań, ok. 6 minut." })
+  /** Wiersz listy „Na skróty”: ikona, tytuł, opis, chevron. Element to <a> albo <button>. */
+  function shortcutRow(tag, attrs, icon, title, desc) {
+    return el("li", null, el(tag, Object.assign({ class: "row" }, attrs), [
+      el("span", { class: "row-icon", "aria-hidden": "true" }, ELM.icon(icon, { size: 20 })),
+      el("span", { class: "row-body" }, [
+        el("span", { class: "row-title", text: title }),
+        desc ? el("span", { class: "row-desc", text: desc }) : null
       ]),
-      el("a", { class: "btn btn-primary", href: ELM.levelTest.HASH }, ELM.ui.withIcon("target", "Zrób test poziomu"))
+      el("span", { class: "row-chev", "aria-hidden": "true" }, ELM.icon("chevron-right", { size: 20 }))
+    ]));
+  }
+
+  /** Jedna lista skrótów zamiast osobnych kafli: Kontynuuj, Dodaj błąd, test poziomu. */
+  function shortcutsTile() {
+    const last = pd().lastPage();
+    const rows = [
+      last
+        ? shortcutRow("a", { href: last.hash }, "notebook-text", "Kontynuuj", last.title || last.hash)
+        : shortcutRow("a", { href: ELM.app.levelHash(ELM.state.ui.levelId) }, "notebook-text", "Otwórz poziom " + ELM.state.ui.levelId, "Tu pojawi się ostatnio otwarta podstrona."),
+      shortcutRow("button", {
+        type: "button",
+        onclick: function () { ELM.journal.openForm().then(function (r) { if (r) render(); }); }
+      }, "plus", "Dodaj błąd", "Zapisz go od razu – jutro wróci jako powtórka.")
+    ];
+    // Test poziomu: tylko dla profilu bez żadnych postępów i bez wyniku testu
+    const profile = ELM.levelTest ? ELM.app.getActiveProfile() : null;
+    if (profile && !Object.keys(profile.progress).length && !pd().lastTest()) {
+      rows.push(shortcutRow("a", { href: ELM.levelTest.HASH }, "target", "Zrób test poziomu", "Nie wiesz, od czego zacząć? 12 pytań, ok. 6 minut."));
+    }
+    return tile("bento-shortcuts", "Na skróty", [
+      el("h2", { class: "tile-title" }, ["Na skróty"]),
+      el("ul", { class: "row-list" }, rows)
     ]);
   }
 
@@ -428,13 +422,11 @@ window.ELM = window.ELM || {};
     view.replaceChildren(el("div", { class: "bento" + (exam ? " has-exam" : "") }, [
       heroTile(stats, streak, due),
       reviewsTile(due),
-      testTip(),
       ELM.levelFinal ? ELM.levelFinal.todayTip(stats) : null, // „Gotowy na test końcowy A1?” przy ≥ 70% „Umiem”
       trail,
       streakTile(),
       exam,
-      addTile(),
-      continueTile(),
+      shortcutsTile(),
       ELM.fiszki ? ELM.fiszki.todayTile() : null // kafelek „Fiszki do powtórki” (spec 10, 5.5)
     ]));
     document.title = "Dziś · English Levels Map";
