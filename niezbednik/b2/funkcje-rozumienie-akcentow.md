@@ -22,6 +22,14 @@ Wiele osób na B2 dobrze mówi, ale gubi się, gdy native speakerzy rozmawiają 
 | Szkocki | *r* „drgające”, krótkie samogłoski, *wee* (mały), *aye* (tak) |
 | Indyjski | wyraźne spółgłoski, sylabiczny rytm |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *Sorry, could you say that again?* (Przepraszam, czy możesz to powtórzyć?) | Wybierz: Nie zrozumiałeś rozmówcy. a) What? b) Sorry, could you say that again? c) I don't hear you. → **b** | MP · MR |
+| *Could you speak a bit more slowly, please?* (Czy mógłbyś mówić trochę wolniej?) | Uzupełnij: Could you speak a bit more ___ , please? (wolniej) → **slowly** | MP · MR |
+| *I didn't catch the last word.* (Nie dosłyszałem ostatniego słowa.) | Wybierz: I didn't ___ what she said. a) catch b) take c) hold → **a** | MR · B2 |
+
 ## Mowa łączona (connected speech)
 
 Native speakerzy nie wymawiają słów osobno – łączą je i skracają.

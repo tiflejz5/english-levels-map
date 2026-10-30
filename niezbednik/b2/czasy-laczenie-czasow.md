@@ -23,6 +23,14 @@ Na B2 nie chodzi już o pojedyncze czasy, tylko o to, żeby **łączyć je w jed
 | used to / would | dawne nawyki w tle | *We **used to** go there every summer.* |
 | Present Perfect / Present | komentarz z dzisiejszej perspektywy | *I**'ve** never **forgotten** that day. I still **think** about it.* |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *I was walking home when I realised I had left my phone at work.* (Szedłem do domu, kiedy zdałem sobie sprawę, że zostawiłem telefon w pracy.) | Uzupełnij: When I got to the station, the train ___ (already / leave). → **had already left** | MP · MR |
+| *I didn't know that it would change my life.* (Nie wiedziałem, że to zmieni moje życie.) | Wybierz: She told me she ___ the exam if she studied harder. a) will pass b) would pass c) passes → **b** | MR · B2 |
+| *We had been driving for hours when the car broke down.* (Jechaliśmy od kilku godzin, kiedy samochód się zepsuł.) | Przetłumacz fragment: We ___ (jechaliśmy od godziny) when it started to snow. (czas ciągły w przeszłości) → **had been driving for an hour** | MR · B2 |
+
 ## Przykładowa opowieść
 
 > *A few years ago I **was living** in Dublin. I **had been working** at a café for about six months and I **was getting** a bit bored. One evening, while I **was closing** up, a man **came** in and **asked** for a coffee. We **started** talking, and it **turned out** he **had been looking** for someone who spoke Polish for his company. I **had** no idea that conversation **would change** everything. A month later I **was working** in his office. I**'ve been** in marketing ever since, and I still **meet** him for coffee now and then.*

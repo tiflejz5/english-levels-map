@@ -50,6 +50,14 @@ W mowie: *should've, could've, must've, might've* – wymawiane /ʃʊdəv/, /kʊ
 | You shouldn't have bought me a present! | Niepotrzebnie kupiłeś mi prezent! (uprzejmie) |
 | You could have warned me! | Mogłeś mnie ostrzec! |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *It must have rained during the night.* (W nocy musiało padać.) | Uzupełnij: We missed the train. We ___ (should / leave) earlier. → **should have left** | MP · MR |
+| *She can't have forgotten – I reminded her twice.* (Niemożliwe, żeby zapomniała – przypominałem jej dwa razy.) | Wybierz: He ___ seen it – he was abroad. a) mustn't have b) can't have c) shouldn't have → **b** | MR · B2 |
+| *I may have left my keys at work.* (Może zostawiłem klucze w pracy.) | Transformacja: Perhaps she took the wrong bus. MIGHT → She ___ the wrong bus. → **might have taken** | MR · B2 · C1 |
+
 ## Typowe błędy Polaków
 
 - ❌ *He must be tired yesterday.* → ✅ *He **must have been** tired yesterday.*

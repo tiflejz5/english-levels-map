@@ -52,6 +52,14 @@ Past Perfect Continuous to „Present Perfect Continuous przesunięty w przeszł
 | I hadn't been feeling well, so I went to the doctor. | Od jakiegoś czasu źle się czułem, więc poszedłem do lekarza. |
 | She'd been planning the trip for months. | Planowała tę podróż od miesięcy. |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *She had been working there for ten years before she got promoted.* (Pracowała tam dziesięć lat, zanim dostała awans.) | Uzupełnij: His eyes were red. He ___ (cry). → **had been crying** | MP · MR |
+| *How long had you been living there before you moved?* (Jak długo tam mieszkałeś, zanim się przeprowadziłeś?) | Wybierz: They ___ for hours when the police arrived. a) argued b) had been arguing c) have argued → **b** | MR · B2 |
+| *I hadn't been feeling well, so I went to the doctor.* (Źle się czułem, więc poszedłem do lekarza.) | Transformacja: I started feeling ill a week before I went to the doctor. FOR → I ___ for a week when I went to the doctor. → **had been feeling ill** | MR · B2 · C1 |
+
 ## Typowe błędy Polaków
 
 - ❌ *I was waiting for two hours when he finally came.* → ✅ *I **had been waiting** for two hours when he finally came.* – długość trwania do momentu w przeszłości.

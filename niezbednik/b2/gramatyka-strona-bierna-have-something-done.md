@@ -60,6 +60,14 @@ Na B1 znasz stronę bierną w podstawowych czasach. Na B2 używasz jej swobodnie
 | I need to get my eyes tested. | Muszę zbadać wzrok. |
 | He had his phone stolen on the bus. | Ukradli mu telefon w autobusie. |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *I had my hair cut yesterday.* (Wczoraj obciąłem włosy u fryzjera.) | Transformacja: A mechanic repaired my car. HAD → I ___ repaired. → **had my car** | MP · MR · B2 |
+| *The results are being analysed right now.* (Wyniki są właśnie analizowane.) | Wybierz: The road ___ at the moment. a) is repairing b) is being repaired c) has repaired → **b** | MR · B2 |
+| *The decision should have been made months ago.* (Decyzję trzeba było podjąć kilka miesięcy temu.) | Uzupełnij: Nobody told me. I ___ (not / inform) about the change. → **wasn't informed** | MR · B2 |
+
 ## Typowe błędy Polaków
 
 - ❌ *I cut my hair* (gdy był fryzjer) → ✅ *I **had** my hair cut.*

@@ -50,6 +50,14 @@ Wymowa w mowie: *I'd've told you* /aɪdəv/.
 | If he weren't so stubborn, he would have apologised. | Gdyby nie był taki uparty, przeprosiłby. |
 | If I'd taken that job, I'd be living in Berlin now. | Gdybym przyjął tamtą pracę, mieszkałbym teraz w Berlinie. |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *If we'd booked earlier, it would have been cheaper.* (Gdybyśmy zarezerwowali wcześniej, byłoby taniej.) | Uzupełnij: If I ___ (know) about the party, I would have come. → **had known** | MP · MR |
+| *If I hadn't moved to Kraków, I wouldn't know my wife.* (Gdybym nie przeprowadził się do Krakowa, nie znałbym żony.) | Transformacja: I didn't study, so I failed. IF → If I ___, I wouldn't have failed. → **had studied** | MR · B2 |
+| *What would you have done in my position?* (Co byś zrobił na moim miejscu?) | Wybierz: If she ___ harder, she would have passed. a) studied b) had studied c) would study → **b** | MR · B2 |
+
 ## Typowe błędy Polaków
 
 - ❌ *If I would have known, I would have come.* → ✅ *If I **had known**, I would have come.* – nigdy *would* po *if*.

@@ -39,6 +39,14 @@ Polacy mówiący po angielsku często brzmią zbyt bezpośrednio – nie dlatego
 | Do it now. | Could you possibly do it now? |
 | That's a stupid question. | That's an interesting question. |
 
+## Życie i egzamin
+
+| Z życia | W stylu egzaminu | Egzamin |
+| --- | --- | --- |
+| *It's not really my cup of tea.* (To nie bardzo w moim guście.) | Wybierz najgrzeczniejszą wersję: a) Your idea is bad. b) I'm not sure that idea would work. c) That won't work. → **b** | MP · MR |
+| *I noticed you were a bit late again this morning.* (Zauważyłem, że dziś rano znów trochę się spóźniłeś.) | Wybierz: a) Could I have a coffee, please? b) I want a coffee. c) Give me a coffee. → **a** | MP · MR |
+| *I'm afraid I can't make it on Friday.* (Obawiam się, że w piątek nie dam rady.) | Wybierz: – Do you like my painting? – ___ a) It's ugly. b) No. c) It's not really my style. → **c** | MR · B2 |
+
 ## Uwaga: nie przesadzaj
 
 Zbyt dużo łagodzenia sprawia, że komunikat ginie. Przy ważnych sprawach (bezpieczeństwo, terminy) bądź jasny: *I'm afraid this is a serious problem and we need to fix it today.*
