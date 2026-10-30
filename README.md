@@ -128,6 +128,17 @@ Specyfikacja: `docs/rozbudowa-v6/spec/14-slowniczek-osobisty.md`. Osobisty słow
 - **Ustawienia nauki (menu profilu):** „Pokazuj menu przy zaznaczeniu tekstu” (domyślnie włączone) i „Podkreślaj moje słowa w tekstach” (domyślnie wyłączone; podkreśla do 300 najnowszych słów w tekstach, nie w nagłówkach, linkach, kodzie ani zadaniach, a znaczenie pokazuje po najechaniu lub fokusie).
 - **Dane:** bez nowych kluczy localStorage. Karty są w `elm.<profil>.fiszki` (`userCards`), z opcjonalnymi polami `word`, `source` (`route`, `title`), `addedAt` i `examples`; starsze zapisy działają bez zmian. Preferencje `selectionMenu` i `highlightWords` są w `elm_learnprefs_v1`. Dodanie słowa nie jest dniem nauki (nie liczy się do serii).
 
+## Talie tematyczne i egzaminacyjne (rozbudowa v6, etap 5)
+
+Specyfikacja: `docs/rozbudowa-v6/spec/15-talie-tematyczne-i-egzaminacyjne.md`. Dziesięć nowych talii wbudowanych w formacie fiszek (spec 10); silnik fiszek się nie zmienia, dochodzą dane, oznaczenia egzaminów i kafelki.
+
+- **Talie** (`dane/fiszki/<id>.json` + wpis w `dane/fiszki/index.json`, wszystkie domyślnie **wyłączone**): tematyczne A1–B1 (30–40 kart, ok. 60% `typed`, ok. 40% `cloze`, od A1 do B1): `temat-dom`, `temat-jedzenie`, `temat-praca`, `temat-podroze`, `temat-zdrowie`, `temat-emocje`, `temat-technologia`; egzaminacyjne: `egz-e8` (40 kart), `egz-matura` (50), `egz-b2-first` (50). Nowa talia = nowy plik JSON + wpis w indeksie, potem `node tools/zbuduj-fiszki.js` (część `npm run build`).
+- **Chipy egzaminów** z tagów karty (bez nowego pola): `e8`, `mp`, `mr`, `matura` (= MP + MR), `b2`, `c1`. Na przodzie i tyle karty pokazują się małe chipy „E8”, „MP”, „MR”, „B2”, „C1” z podpisem „Przydatne na:”, tekstem dostępnym (np. „egzamin ósmoklasisty”) i podpowiedzią „Wyrażenia typowe dla zadań tego egzaminu. Oryginalne zdania, nie z arkuszy.” Chip znaczy „przydatne na tym egzaminie”, nie „było w arkuszu”. Działa też dla starszych kart z tagami (np. `slownictwo-podstawowe`). Logika: `ELM.fiszkiLogic.examsOf(card)` (z testami w `tools/testy.js`).
+- **Przeglądanie talii:** filtr „Egzamin” (E8, MP, MR, B2, C1) w widoku kart talii, widoczny, gdy talia ma karty z tagami egzaminów.
+- **Strony egzaminów:** na stronie „Przegląd” E8, MP, MR, B2 i Certyfikatu C1 jest kafelek „Fiszki do egzaminu” (nazwa talii, liczba kart, stan Nowe / W nauce / Opanowane i przycisk „Włącz i ucz się” albo „Ucz się”). Mapowanie: E8 → `egz-e8`, MP i MR → `egz-matura`, B2 → `egz-b2-first`, C1 → `czasowniki-frazowe` i `kolokacje`.
+- **Poziomy A1–B1:** pod listą w kategorii „Słownictwo” jest link „Fiszki tematyczne: …” do widoku `#/fiszki/tematy/<a1|a2|b1>` (talie z kartami na danym poziomie; `#/fiszki/tematy` pokazuje wszystkie). W wyszukiwarce każda talia ma skrót po tytule.
+- **Walidator:** `node tools/waliduj-fiszki.js` (część `npm run validate`) po starym sprawdzeniu z `scripts/validate_fiszki.py` sprawdza talie z spec 15: liczba kart w zakresie, `count` w `index.json`, id `<talia>-NNN`, dokładnie jedna luka w `cloze`, poziomy kart tematycznych (A1/A2/B1, kolejność niemalejąca), tag egzaminu na kartach egzaminacyjnych. Ostrzega (bez błędu) o duplikatach odpowiedzi między taliami, proporcjach typów i liczbie kolokacji. Pełne sprawdzenie: `python3 docs/rozbudowa-v6/scripts/validate_v6.py . --only fiszki`.
+
 ## Testy
 
 ```bash

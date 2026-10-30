@@ -3678,3 +3678,4 @@ a.notes-item-title { color: var(--accent); text-decoration: underline; text-unde
 .fc-exam-deck { display: flex; flex-direction: column; gap: 2px; }
 .fc-exam-deck-title { margin: 0; }
 .fc-themes-link { margin: 16px 0 0; }
+.fiszki-view .chip-filter + .fc-deck-list { margin-top: 16px; }

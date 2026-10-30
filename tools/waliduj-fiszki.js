@@ -44,7 +44,7 @@ const THEME = ["temat-dom", "temat-jedzenie", "temat-praca", "temat-podroze", "t
 const EXAM = { "egz-e8": [40, 40], "egz-matura": [50, 50], "egz-b2-first": [50, 50] };
 const EXAM_TAGS = ["e8", "mp", "mr", "matura", "b2", "c1"];
 const LEVELS = ["A1", "A2", "B1"];
-const REQUIRE_ALL = false; // true: talie z tabeli w spec 15 muszą istnieć (włączane po dodaniu wszystkich)
+const REQUIRE_ALL = true; // talie z tabeli w spec 15 muszą istnieć
 
 const errors = [];
 const warnings = [];
