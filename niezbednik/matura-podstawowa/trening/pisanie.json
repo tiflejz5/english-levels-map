@@ -58,7 +58,75 @@
         "Czy mam 100–150 wyrazów?",
         "Czy mam wstęp i zakończenie?"
       ],
-      "model": "Hi Ben,\nThanks for your last message. I'm really happy that you are coming to Poland! On your first day we will have lunch at my house and then I'll show you around our school. You can meet my friends there. In October the weather here is usually cool and sometimes rainy, so please bring a warm jacket and an umbrella.\nCould you tell me if you are on a special diet or if you have any allergies? My mum is planning the menu and she wants to be sure that you can eat everything. I'd also like to take you to the old town on Saturday because it is beautiful and there are many cafés there. I'm sure you will love it.\nWrite back soon,\nXYZ"
+      "model": "Hi Ben,\nThanks for your last message. I'm really happy that you are coming to Poland! On your first day we will have lunch at my house and then I'll show you around our school. You can meet my friends there. In October the weather here is usually cool and sometimes rainy, so please bring a warm jacket and an umbrella.\nCould you tell me if you are on a special diet or if you have any allergies? My mum is planning the menu and she wants to be sure that you can eat everything. I'd also like to take you to the old town on Saturday because it is beautiful and there are many cafés there. I'm sure you will love it.\nWrite back soon,\nXYZ",
+      "modelNotes": {
+        "summary": [
+          "Wszystkie cztery podpunkty polecenia mają osobne zdania: pierwszy dzień, pogoda, dieta i alergie oraz miejsce do pokazania.",
+          "Tekst ma dwa akapity i wyraźną logikę: najpierw plan i pogoda, potem pytanie o dietę i propozycja wycieczki.",
+          "Ton jest przyjazny i swobodny, a zdania są poprawne i zróżnicowane (will, I'll, Present Continuous, I'd like).",
+          "Uzasadnienie miejsca (beautiful) jest ogólnikowe – to najsłabsze zdanie tekstu."
+        ],
+        "annotations": [
+          {
+            "anchor": "Thanks for your last message",
+            "type": "struktura",
+            "criterion": "spojnosc",
+            "note": "Nawiązanie do poprzedniej wiadomości: odpowiedź wpisuje się w korespondencję, a nie zaczyna od zera."
+          },
+          {
+            "anchor": "I'm really happy that you are coming to Poland",
+            "type": "rejestr",
+            "criterion": "zakres",
+            "note": "Skrót I'm i emocjonalna fraza (really happy) – typowy, przyjazny ton listu do kolegi z wymiany."
+          },
+          {
+            "anchor": "On your first day we will have lunch at my house",
+            "type": "punkty",
+            "criterion": "tresc",
+            "element": 1,
+            "note": "Podpunkt 1: jak spędzicie pierwszy dzień. Will + konkretny plan (obiad w domu)."
+          },
+          {
+            "anchor": "and then I'll show you around our school",
+            "type": "lacznik",
+            "criterion": "spojnosc",
+            "note": "And then układa plan dnia w kolejności – obiad, potem szkoła."
+          },
+          {
+            "anchor": "In October the weather here is usually cool and sometimes rainy",
+            "type": "punkty",
+            "criterion": "tresc",
+            "element": 2,
+            "note": "Podpunkt 2: pogoda w październiku. Usually i sometimes pokazują zakres częstotliwości, a nie jedną etykietę."
+          },
+          {
+            "anchor": "if you are on a special diet or if you have any allergies",
+            "type": "punkty",
+            "criterion": "tresc",
+            "element": 3,
+            "note": "Podpunkt 3: pytanie o dietę i alergie – obie części polecenia są w jednym pytaniu pośrednim."
+          },
+          {
+            "anchor": "My mum is planning the menu and she wants to be sure",
+            "type": "zakres",
+            "criterion": "zakres",
+            "note": "Present Continuous dla planu i uzasadnienie pytania – struktura wykraczająca poza samo pytanie."
+          },
+          {
+            "anchor": "because it is beautiful and there are many cafés there",
+            "type": "uwaga",
+            "criterion": "zakres",
+            "note": "Do poprawy: beautiful to ogólnik. Konkret (np. the market square and old houses) uczyniłby propozycję barwniejszą."
+          },
+          {
+            "anchor": "I'd also like to take you to the old town on Saturday",
+            "type": "punkty",
+            "criterion": "tresc",
+            "element": 4,
+            "note": "Podpunkt 4: miejsce do pokazania z terminem. I'd like to take you to… to uprzejma, naturalna propozycja."
+          }
+        ]
+      }
     },
     {
       "id": "blog-trip",
@@ -79,7 +147,75 @@
         "Czy mam 100–150 wyrazów?",
         "Czy mam wstęp i zakończenie?"
       ],
-      "model": "Hello everyone!\nLast weekend I went to Kraków with my class. We travelled by train, and it took about three hours. The best part of the trip was the visit to Wawel Castle, because the view of the river was fantastic and our guide told us many interesting stories.\nUnfortunately, there was a problem on Sunday. Our train was delayed and we waited at the station for an hour, so we were tired when we got home. However, it did not spoil the whole trip.\nI think you should definitely go to Kraków if you have time. Book your tickets early and wear comfortable shoes, because you will walk a lot. See you next time!\nXYZ"
+      "model": "Hello everyone!\nLast weekend I went to Kraków with my class. We travelled by train, and it took about three hours. The best part of the trip was the visit to Wawel Castle, because the view of the river was fantastic and our guide told us many interesting stories.\nUnfortunately, there was a problem on Sunday. Our train was delayed and we waited at the station for an hour, so we were tired when we got home. However, it did not spoil the whole trip.\nI think you should definitely go to Kraków if you have time. Book your tickets early and wear comfortable shoes, because you will walk a lot. See you next time!\nXYZ",
+      "modelNotes": {
+        "summary": [
+          "Wpis zawiera wszystkie cztery podpunkty: dokąd i z kim, ulubiony moment, problem i rada dla czytelników.",
+          "Akapity mają jasne role: relacja z wyjazdu, problem w osobnym akapicie i zakończenie z radami.",
+          "Zastosowano łącznik kontrastu (However), przysłówek postawy (Unfortunately) i uzasadnienia (because), więc tekst jest spójny.",
+          "Jedno zdanie zajmuje miejsce w limicie bez wpływu na treść – to dobra okazja, by zobaczyć, jak planować słowa."
+        ],
+        "annotations": [
+          {
+            "anchor": "Last weekend I went to Kraków with my class",
+            "type": "punkty",
+            "criterion": "tresc",
+            "element": 1,
+            "note": "Podpunkt 1: dokąd i z kim – Past Simple, miejsce i towarzystwo w jednym zdaniu."
+          },
+          {
+            "anchor": "We travelled by train, and it took about three hours",
+            "type": "uwaga",
+            "criterion": "tresc",
+            "note": "Do poprawy: poprawna, ale zbędna informacja – nie dotyczy żadnego podpunktu, a zajmuje miejsce w limicie. Lepiej dodać szczegół o ulubionym momencie."
+          },
+          {
+            "anchor": "The best part of the trip was the visit to Wawel Castle",
+            "type": "punkty",
+            "criterion": "tresc",
+            "element": 2,
+            "note": "Podpunkt 2: co podobało się najbardziej – jasne wskazanie z superlatywem (the best)."
+          },
+          {
+            "anchor": "the view of the river was fantastic and our guide told us many interesting stories",
+            "type": "zakres",
+            "criterion": "zakres",
+            "note": "Dwa konkretne powody po because: widok i przewodnik. Fantastic jest poprawne, ale podstawowe – można je zastąpić np. breathtaking. Fantastic i interesting stories to bogatsze słownictwo niż nice."
+          },
+          {
+            "anchor": "Unfortunately, there was a problem on Sunday",
+            "type": "struktura",
+            "criterion": "spojnosc",
+            "note": "Początek nowego akapitu zapowiada problem – czytelnik wie, że zmienia się temat."
+          },
+          {
+            "anchor": "Our train was delayed and we waited at the station for an hour",
+            "type": "punkty",
+            "criterion": "tresc",
+            "element": 3,
+            "note": "Podpunkt 3: opis problemu – opóźniony pociąg, z konsekwencją (godzina oczekiwania)."
+          },
+          {
+            "anchor": "However, it did not spoil the whole trip",
+            "type": "lacznik",
+            "criterion": "spojnosc",
+            "note": "However wyraźnie przeciwstawia problem ogólnej ocenie wyjazdu – dobry łącznik kontrastu."
+          },
+          {
+            "anchor": "I think you should definitely go to Kraków if you have time",
+            "type": "punkty",
+            "criterion": "tresc",
+            "element": 4,
+            "note": "Podpunkt 4: rada dla czytelników. Should + definitely wyraźnie podpowiada decyzję."
+          },
+          {
+            "anchor": "Book your tickets early and wear comfortable shoes",
+            "type": "rejestr",
+            "criterion": "zakres",
+            "note": "Tryb rozkazujący skierowany do czytelników – ton bloga, nie oficjalnego tekstu."
+          }
+        ]
+      }
     },
     {
       "id": "forum-sport",
@@ -100,7 +236,75 @@
         "Czy mam 100–150 wyrazów?",
         "Czy mam wstęp i zakończenie?"
       ],
-      "model": "Hi everyone,\nI saw your question about sport after school and I'd like to share my experience. I play basketball twice a week with my school team. We train on Tuesdays and Thursdays and we have a match every second Saturday.\nI love this sport because it is fast and I can spend time with my friends. It also helps me forget about homework and stress. Last Saturday we played against another school and we won by four points! I scored six points myself, so I was really proud.\nIf you want to try it, you can join us next Thursday at 5 p.m. in the school gym. We always need new players, and nobody will laugh at you if you make mistakes. Let me know!\nXYZ"
+      "model": "Hi everyone,\nI saw your question about sport after school and I'd like to share my experience. I play basketball twice a week with my school team. We train on Tuesdays and Thursdays and we have a match every second Saturday.\nI love this sport because it is fast and I can spend time with my friends. It also helps me forget about homework and stress. Last Saturday we played against another school and we won by four points! I scored six points myself, so I was really proud.\nIf you want to try it, you can join us next Thursday at 5 p.m. in the school gym. We always need new players, and nobody will laugh at you if you make mistakes. Let me know!\nXYZ",
+      "modelNotes": {
+        "summary": [
+          "Wpis odpowiada na pytanie z forum i realizuje wszystkie podpunkty: sport i częstotliwość, powód, ostatni mecz i zaproszenie.",
+          "Narracja jest konkretna (twice a week, won by four points), co przekonuje egzaminatora o prawdziwości relacji.",
+          "Ton jest rozmowny, z bezpośrednim zwrotem do pytającego i prostym zaproszeniem.",
+          "Jedno zdanie powtarza wcześniejszą informację i zabiera słowa z limitu."
+        ],
+        "annotations": [
+          {
+            "anchor": "I saw your question about sport after school and I'd like to share my experience",
+            "type": "struktura",
+            "criterion": "spojnosc",
+            "note": "Pierwsze zdanie nawiązuje do pytania z forum i zapowiada, co będzie dalej."
+          },
+          {
+            "anchor": "I play basketball twice a week with my school team",
+            "type": "punkty",
+            "criterion": "tresc",
+            "element": 1,
+            "note": "Podpunkt 1: jaki sport i jak często – twice a week to konkretna częstotliwość."
+          },
+          {
+            "anchor": "We train on Tuesdays and Thursdays and we have a match every second Saturday",
+            "type": "uwaga",
+            "criterion": "zakres",
+            "note": "Do poprawy: szczegóły powtarzają twice a week i nie służą żadnemu podpunktowi. Miejsce w limicie lepiej wykorzystać na powód lub mecz."
+          },
+          {
+            "anchor": "because it is fast and I can spend time with my friends",
+            "type": "punkty",
+            "criterion": "tresc",
+            "element": 2,
+            "note": "Podpunkt 2: dlaczego lubię ten sport – dwa powody połączone and."
+          },
+          {
+            "anchor": "It also helps me forget about homework and stress",
+            "type": "lacznik",
+            "criterion": "spojnosc",
+            "note": "Also dodaje trzeci powód i porządkuje uzasadnienie w jednym akapicie."
+          },
+          {
+            "anchor": "Last Saturday we played against another school and we won by four points",
+            "type": "punkty",
+            "criterion": "tresc",
+            "element": 3,
+            "note": "Podpunkt 3: ostatni mecz. Przeciwnik i wynik pokazują, że to relacja z konkretnego wydarzenia."
+          },
+          {
+            "anchor": "nobody will laugh at you if you make mistakes",
+            "type": "zakres",
+            "criterion": "zakres",
+            "note": "Pierwszy okres warunkowy w zdaniu pokazującym empatię – poprawny i naturalny, dobrze dopasowany do rozmówcy."
+          },
+          {
+            "anchor": "you can join us next Thursday at 5 p.m. in the school gym",
+            "type": "punkty",
+            "criterion": "tresc",
+            "element": 4,
+            "note": "Podpunkt 4: zaproszenie z terminem i miejscem – konkretne i łatwe do zrealizowania."
+          },
+          {
+            "anchor": "Let me know",
+            "type": "rejestr",
+            "criterion": "zakres",
+            "note": "Krótka prośba o odpowiedź – ton forum, bez formuł z listu formalnego."
+          }
+        ]
+      }
     },
     {
       "id": "email-complaint",
@@ -121,7 +325,69 @@
         "Czy mam 100–150 wyrazów?",
         "Czy mam wstęp i zakończenie?"
       ],
-      "model": "Dear Sir or Madam,\nI'm writing to complain about a product that I bought from your shop. On 3 October I ordered a pair of wireless headphones, and they arrived two days later.\nUnfortunately, the left headphone does not work at all, and the sound in the right one is very quiet. I have charged them several times, but nothing has changed. I have attached a photo of the product and a copy of the receipt.\nCould you tell me whether I can have my money back or get a new pair? I would prefer a new pair, but I will accept a refund, too. I would be grateful if you could answer as soon as possible, because I need the headphones for school.\nYours faithfully,\nXYZ"
+      "model": "Dear Sir or Madam,\nI'm writing to complain about a product that I bought from your shop. On 3 October I ordered a pair of wireless headphones, and they arrived two days later.\nUnfortunately, the left headphone does not work at all, and the sound in the right one is very quiet. I have charged them several times, but nothing has changed. I have attached a photo of the product and a copy of the receipt.\nCould you tell me whether I can have my money back or get a new pair? I would prefer a new pair, but I will accept a refund, too. I would be grateful if you could answer as soon as possible, because I need the headphones for school.\nYours faithfully,\nXYZ",
+      "modelNotes": {
+        "summary": [
+          "Reklamacja zawiera wszystkie podpunkty: co i kiedy kupiono, na czym polega usterka, prośba o zwrot lub wymianę oraz o szybką odpowiedź.",
+          "Struktura jest logiczna: cel maila, zamówienie, opis problemu, żądanie i uprzejme zakończenie.",
+          "Ton jest formalny (Dear Sir or Madam, Yours faithfully, would be grateful), z konkretnymi szczegółami: data, załączniki.",
+          "Najsłabszym punktem jest skrót w pierwszym zdaniu – w formalnym mailu lepiej unikać skrótów."
+        ],
+        "annotations": [
+          {
+            "anchor": "I'm writing to complain about a product",
+            "type": "uwaga",
+            "criterion": "zakres",
+            "note": "Do poprawy: w formalnym mailu lepiej I am writing (bez skrótu). Pozostałe zdania mają pełne formy, więc ten skrót wyróżnia się na minus."
+          },
+          {
+            "anchor": "On 3 October I ordered a pair of wireless headphones",
+            "type": "punkty",
+            "criterion": "tresc",
+            "element": 1,
+            "note": "Podpunkt 1: co i kiedy kupiono – data i przedmiot w jednym zdaniu."
+          },
+          {
+            "anchor": "Unfortunately, the left headphone does not work at all",
+            "type": "struktura",
+            "criterion": "spojnosc",
+            "note": "Zdanie otwierające akapit o usterce: od razu widać, że zaczyna się opis problemu."
+          },
+          {
+            "anchor": "and the sound in the right one is very quiet",
+            "type": "punkty",
+            "criterion": "tresc",
+            "element": 2,
+            "note": "Podpunkt 2: druga część usterki – obie wady są nazwane konkretnie."
+          },
+          {
+            "anchor": "I have charged them several times, but nothing has changed",
+            "type": "lacznik",
+            "criterion": "spojnosc",
+            "note": "But wprowadza kontrast między próbą naprawy a brakiem efektu. Present Perfect pasuje do skutków do dziś."
+          },
+          {
+            "anchor": "I have attached a photo of the product and a copy of the receipt",
+            "type": "zakres",
+            "criterion": "zakres",
+            "note": "Typowe słownictwo reklamacji (attach, receipt) i Present Perfect – podnosi zakres i wiarygodność."
+          },
+          {
+            "anchor": "whether I can have my money back or get a new pair",
+            "type": "punkty",
+            "criterion": "tresc",
+            "element": 3,
+            "note": "Podpunkt 3: zwrot pieniędzy lub nowy produkt – obie opcje podane w jednym pytaniu pośrednim."
+          },
+          {
+            "anchor": "I would be grateful if you could answer as soon as possible",
+            "type": "rejestr",
+            "criterion": "zakres",
+            "element": 4,
+            "note": "Podpunkt 4 (szybka odpowiedź) w formalnej formule would be grateful if you could – grzeczne, ale stanowcze."
+          }
+        ]
+      }
     },
     {
       "id": "blog-hobby",
@@ -142,7 +408,75 @@
         "Czy mam 100–150 wyrazów?",
         "Czy mam wstęp i zakończenie?"
       ],
-      "model": "Hi, readers!\nToday I want to write about my hobby, which is photography. I take pictures of nature, mostly in the forest near my house. I started three years ago when my dad gave me his old camera.\nMy biggest success was last spring, when my photo of a fox won a school competition. I was very surprised, because I didn't think it was good enough. The prize was a small tripod, which I use every day now.\nIf you would like to start, you don't need an expensive camera. Your phone is enough. Go for a walk, look around and take pictures of things that you like. After some time you will notice small details that you have never seen before. Good luck!\nXYZ"
+      "model": "Hi, readers!\nToday I want to write about my hobby, which is photography. I take pictures of nature, mostly in the forest near my house. I started three years ago when my dad gave me his old camera.\nMy biggest success was last spring, when my photo of a fox won a school competition. I was very surprised, because I didn't think it was good enough. The prize was a small tripod, which I use every day now.\nIf you would like to start, you don't need an expensive camera. Your phone is enough. Go for a walk, look around and take pictures of things that you like. After some time you will notice small details that you have never seen before. Good luck!\nXYZ",
+      "modelNotes": {
+        "summary": [
+          "Wpis realizuje wszystkie cztery podpunkty: hobby, początek, największy sukces i rada, jak zacząć.",
+          "Narracja jest chronologiczna (three years ago, last spring), a rada na końcu daje czytelnikowi coś praktycznego.",
+          "Zdania względne (which I use every day now) i uzasadnienia (because) pokazują zróżnicowanie struktur.",
+          "Początek mógłby szybciej przejść do rzeczy – pierwsze zdanie zapowiada temat zamiast od razu go rozwijać."
+        ],
+        "annotations": [
+          {
+            "anchor": "Today I want to write about",
+            "type": "uwaga",
+            "criterion": "zakres",
+            "note": "Do poprawy: zapowiedź tematu zajmuje słowa limitu. Wystarczyłoby od razu napisać, że hobby to fotografia."
+          },
+          {
+            "anchor": "my hobby, which is photography",
+            "type": "punkty",
+            "criterion": "tresc",
+            "element": 1,
+            "note": "Podpunkt 1: czym się interesuję – zdanie względne zamiast samego rzeczownika."
+          },
+          {
+            "anchor": "I started three years ago when my dad gave me his old camera",
+            "type": "punkty",
+            "criterion": "tresc",
+            "element": 2,
+            "note": "Podpunkt 2: od kiedy – okres (three years ago) i okoliczność, czyli prezent od taty."
+          },
+          {
+            "anchor": "when my photo of a fox won a school competition",
+            "type": "punkty",
+            "criterion": "tresc",
+            "element": 3,
+            "note": "Podpunkt 3: największy sukces – konkretna historia (lis, szkolny konkurs)."
+          },
+          {
+            "anchor": "I was very surprised, because I didn't think it was good enough",
+            "type": "lacznik",
+            "criterion": "spojnosc",
+            "note": "Because wyjaśnia emocję. Good enough pokazuje frazę, która wykracza poza prosty przymiotnik."
+          },
+          {
+            "anchor": "which I use every day now",
+            "type": "zakres",
+            "criterion": "zakres",
+            "note": "Zdanie względne dodaje informację o nagrodzie bez osobnego zdania – płynne, choć nie wykracza poza standard."
+          },
+          {
+            "anchor": "If you would like to start",
+            "type": "struktura",
+            "criterion": "spojnosc",
+            "note": "Rada otwarta zdaniem z If: od razu widać, że akapit dotyczy podpunktu 4."
+          },
+          {
+            "anchor": "you don't need an expensive camera",
+            "type": "rejestr",
+            "criterion": "zakres",
+            "note": "Rozmowna, krótka rada z don't – ton bloga skierowanego do rówieśników."
+          },
+          {
+            "anchor": "Go for a walk, look around and take pictures of things that you like",
+            "type": "punkty",
+            "criterion": "tresc",
+            "element": 4,
+            "note": "Podpunkt 4: jak zacząć – trzy proste polecenia, które czytelnik może wykonać od razu."
+          }
+        ]
+      }
     },
     {
       "id": "email-invite",
@@ -163,7 +497,76 @@
         "Czy mam 100–150 wyrazów?",
         "Czy mam wstęp i zakończenie?"
       ],
-      "model": "Hi Anna,\nI hope you are well. I'm writing because our class is going to the cinema next Saturday at 6 p.m., and I'd love you to come with us. We want to see the new science fiction film, which has great reviews.\nI chose this film because many people in our class like this genre and the story is supposed to be exciting. I've also heard that the special effects are amazing.\nWould you prefer to sit in the front or at the back? And do you want to meet in front of the cinema or go there together from school? Please let me know by Friday so that I can book the tickets.\nSee you soon,\nXYZ"
+      "model": "Hi Anna,\nI hope you are well. I'm writing because our class is going to the cinema next Saturday at 6 p.m., and I'd love you to come with us. We want to see the new science fiction film, which has great reviews.\nI chose this film because many people in our class like this genre and the story is supposed to be exciting. I've also heard that the special effects are amazing.\nWould you prefer to sit in the front or at the back? And do you want to meet in front of the cinema or go there together from school? Please let me know by Friday so that I can book the tickets.\nSee you soon,\nXYZ",
+      "modelNotes": {
+        "summary": [
+          "Zaproszenie na film realizuje wszystkie cztery podpunkty, ale pierwszy tylko częściowo – brakuje tytułu filmu.",
+          "Tekst ma logiczną kolejność: zaproszenie, uzasadnienie, pytania o miejsce i prośba o odpowiedź.",
+          "Struktury (is supposed to be, I've also heard that) i dobre pytania o preferencje pokazują wyraźny zakres językowy.",
+          "Ton jest uprzejmy, nieformalny i bez błędów, więc o ocenie decyduje głównie pełność treści."
+        ],
+        "annotations": [
+          {
+            "anchor": "I hope you are well",
+            "type": "rejestr",
+            "criterion": "zakres",
+            "note": "Uprzejmy, nieformalny początek – ton odpowiedni dla koleżanki z klasy."
+          },
+          {
+            "anchor": "our class is going to the cinema next Saturday at 6 p.m.",
+            "type": "punkty",
+            "criterion": "tresc",
+            "element": 1,
+            "note": "Podpunkt 1: kiedy – dzień i godzina podane dokładnie."
+          },
+          {
+            "anchor": "and I'd love you to come with us",
+            "type": "struktura",
+            "criterion": "spojnosc",
+            "note": "Zaproszenie wprost po informacji o terminie – tekst ma jasny cel."
+          },
+          {
+            "anchor": "We want to see the new science fiction film",
+            "type": "uwaga",
+            "criterion": "tresc",
+            "element": 1,
+            "note": "Do poprawy: podpunkt 1 pyta o film, a tekst podaje tylko gatunek. Tytuł byłby pełniejszą odpowiedzią."
+          },
+          {
+            "anchor": "I chose this film because many people in our class like this genre",
+            "type": "punkty",
+            "criterion": "tresc",
+            "element": 2,
+            "note": "Podpunkt 2: dlaczego ten film – powód nawiązuje do gustu klasy."
+          },
+          {
+            "anchor": "the story is supposed to be exciting",
+            "type": "zakres",
+            "criterion": "zakres",
+            "note": "Be supposed to wyraża powszechną opinię, a nie własną – ciekawsze niż sam przymiotnik exciting."
+          },
+          {
+            "anchor": "I've also heard that the special effects are amazing",
+            "type": "lacznik",
+            "criterion": "spojnosc",
+            "note": "Also dodaje kolejny argument. I've heard that to informacja z drugiej ręki – brzmi wiarygodnie i naturalnie."
+          },
+          {
+            "anchor": "Would you prefer to sit in the front or at the back?",
+            "type": "punkty",
+            "criterion": "tresc",
+            "element": 3,
+            "note": "Podpunkt 3: pytanie o preferencje co do miejsca – grzeczne Would you prefer."
+          },
+          {
+            "anchor": "Please let me know by Friday so that I can book the tickets",
+            "type": "punkty",
+            "criterion": "tresc",
+            "element": 4,
+            "note": "Podpunkt 4: prośba o odpowiedź do piątku z uzasadnieniem (so that)."
+          }
+        ]
+      }
     }
   ]
 }
