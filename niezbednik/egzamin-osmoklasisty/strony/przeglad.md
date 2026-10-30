@@ -41,3 +41,9 @@ summary: Jak wygląda arkusz, ile trwa, co sprawdza i jak liczy się wynik.
 2. Przejdź strony części egzaminu i zrób zestawy ćwiczeń.
 3. Raz w tygodniu napisz tekst w trenerze pisania.
 4. Błędy wpadają do dziennika błędów, wracaj do nich co kilka dni.
+
+## Trening mówienia (dodatkowo)
+
+Na egzaminie ósmoklasisty nie ma części ustnej. To trening, który pomaga w pisaniu i w szkole: losowane karty z opisem, sytuacją i pytaniem „co wolisz?”, timer i nagrywanie.
+
+[Mówienie A2 – trening dodatkowy](#/egzamin-osmoklasisty/trening-mowienie)

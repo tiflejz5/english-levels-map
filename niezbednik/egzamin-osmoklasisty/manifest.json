@@ -134,12 +134,21 @@
     },
     {
       "id": "trening",
-      "label": "Trener pisania",
-      "trainer": {
-        "id": "trening-pisanie",
-        "file": "trening/pisanie.json",
-        "label": "Wypowiedź pisemna"
-      }
+      "label": "Trenery",
+      "trainers": [
+        {
+          "id": "trening-pisanie",
+          "file": "trening/pisanie.json",
+          "label": "Wypowiedź pisemna",
+          "type": "writing"
+        },
+        {
+          "id": "trening-mowienie",
+          "file": "trening/mowienie.json",
+          "label": "Mówienie A2 (dodatkowo)",
+          "type": "speaking"
+        }
+      ]
     }
   ],
   "links": [
