@@ -117,12 +117,15 @@ window.ELM = window.ELM || {};
     });
   }
 
+  /** Wartość ui.categoryId dla filtra „Wszystkie” (lista poziomu bez wyboru jednej kategorii). */
+  const ALL_CATEGORIES = "all";
+
   /** Pilnuje, żeby wybrany poziom i kategoria istniały. */
   function fixUi() {
     const ui = state.ui;
     if (ELM.LEVEL_IDS.indexOf(ui.levelId) === -1) ui.levelId = ELM.LEVEL_IDS[0];
     const cats = state.content.categories;
-    if (!cats.some(function (c) { return c.id === ui.categoryId; })) {
+    if (ui.categoryId !== ALL_CATEGORIES && !cats.some(function (c) { return c.id === ui.categoryId; })) {
       ui.categoryId = cats.length ? cats[0].id : null;
     }
   }
@@ -328,7 +331,7 @@ window.ELM = window.ELM || {};
   /** Powrót z podstrony do listy (poziom + kategoria punktu). */
   function goToList(target) {
     if (target.levelId) state.ui.levelId = target.levelId;
-    if (target.categoryId && state.content.categories.some(function (c) { return c.id === target.categoryId; })) {
+    if (target.categoryId && state.ui.categoryId !== ALL_CATEGORIES && state.content.categories.some(function (c) { return c.id === target.categoryId; })) {
       state.ui.categoryId = target.categoryId;
     }
     saveUI();
@@ -614,6 +617,7 @@ window.ELM = window.ELM || {};
     levelHash: levelHash,
     goToList: goToList,
     selectCategory: selectCategory,
+    ALL_CATEGORIES: ALL_CATEGORIES,
     refreshProgress: refreshProgress,
     refreshLearning: refreshLearning,
     reportSaveError: reportSaveError,
