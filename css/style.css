@@ -3714,3 +3714,73 @@ a.notes-item-title { color: var(--accent); text-decoration: underline; text-unde
   .callout-real-exam td::before { content: attr(data-label); display: block; margin-bottom: 2px; font-size: var(--fs-xs); font-weight: 650; letter-spacing: .04em; text-transform: uppercase; color: var(--ink-muted); }
   .exam-chips { white-space: normal; }
 }
+
+/* ===================== PISANIE: wzorcowe wypracowania z komentarzami (paczka v6, spec 17) ===================== */
+.pisanie-view .wz-exam-block { margin: 28px 0; }
+.wz-exam-title { display: flex; align-items: center; gap: 10px; }
+.wz-exam { border: 1px solid var(--line-strong, var(--line)); border-left: 4px solid var(--exam, var(--accent)); background: var(--surface); color: var(--ink); font-weight: 700; }
+.wz-genre-title { margin: 18px 0 8px; font-size: var(--fs-md); }
+.wz-card-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
+.wz-card { padding: 0; }
+.wz-card-link { display: flex; flex-direction: column; gap: 8px; min-height: 44px; padding: 14px 16px; color: var(--ink); text-decoration: none; }
+.wz-card-link:hover .wz-card-title { text-decoration: underline; }
+.wz-card-title { font-weight: 650; }
+.wz-card-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.wz-jump { margin: 8px 0 0; }
+.wz-ps-list { margin: 8px 0; padding-left: 20px; }
+.wz-page-section { margin: 28px 0; }
+
+.wz-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0 0 12px; }
+.wz-prompt { margin: 0 0 14px; }
+.wz-prompt summary { cursor: pointer; font-weight: 650; min-height: 44px; display: flex; align-items: center; }
+.wz-prompt-text { white-space: pre-line; max-width: 70ch; margin: 4px 0 0; }
+.wz-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin: 8px 0; }
+.wz-filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.wz-filter { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 6px 12px; border: 1px solid var(--line-strong, var(--line)); border-radius: var(--radius-pill); background: var(--surface); color: var(--ink); font: inherit; font-size: var(--fs-sm-plus); cursor: pointer; }
+.wz-filter[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); font-weight: 650; }
+.wz-filter[aria-pressed="false"] { opacity: .75; text-decoration: line-through; }
+.wz-filter:focus-visible, .wz-anchor:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.wz-count { font-weight: 700; }
+.wz-legend { margin: 6px 0 12px; }
+.wz-legend summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; font-weight: 600; }
+.wz-legend dl { margin: 4px 0; }
+.wz-legend-row { display: flex; flex-wrap: wrap; gap: 4px 12px; padding: 4px 0; }
+.wz-legend-row dt { font-weight: 650; min-width: 11rem; display: flex; align-items: center; gap: 6px; }
+.wz-legend-row dd { margin: 0; color: var(--ink-muted); }
+
+.wz-layout { position: relative; display: block; margin: 12px 0 24px; }
+.wz-layout.is-wide { display: grid; grid-template-columns: minmax(0, 66ch) minmax(240px, 1fr); column-gap: 56px; align-items: start; }
+.wz-text { font-size: var(--fs-md); line-height: 1.75; max-width: 66ch; }
+.wz-p { margin: 0 0 1.1em; }
+.wz-margin { position: relative; }
+.wz-layout:not(.is-wide) .wz-margin { display: none; }
+.wz-lines { position: absolute; inset: 0; pointer-events: none; overflow: visible; }
+.wz-layout:not(.is-wide) .wz-lines { display: none; }
+.wz-line { fill: none; stroke: var(--line-strong, var(--line)); stroke-width: 1; opacity: .8; }
+.wz-line.is-active { stroke: var(--accent); stroke-width: 1.5; opacity: 1; }
+
+/* kotwica: delikatne tło w kolorze typu + numer; kolor nie jest jedynym nośnikiem */
+.wz-t-punkty { --wz: var(--accent); }
+.wz-t-lacznik { --wz: var(--success); }
+.wz-t-rejestr { --wz: var(--info-border, var(--accent)); --wz-ink: var(--accent); }
+.wz-t-struktura { --wz: var(--ink-muted); }
+.wz-t-zakres { --wz: var(--c1-gold, var(--accent)); }
+.wz-t-uwaga { --wz: var(--warning); }
+.wz-anchor { position: relative; cursor: pointer; border-radius: 3px; padding: 0 1px; background: color-mix(in srgb, var(--wz, var(--accent)) 16%, transparent); border-bottom: 2px solid var(--wz, var(--accent)); }
+.wz-anchor.is-off { background: none; border-bottom-color: transparent; cursor: text; }
+.wz-anchor.is-off .wz-num { display: none; }
+.wz-anchor.is-active, .wz-anchor.is-hover { background: color-mix(in srgb, var(--wz, var(--accent)) 32%, transparent); }
+.wz-num { display: inline-grid; place-items: center; min-width: 1.35em; height: 1.35em; margin-left: 3px; padding: 0 3px; border-radius: 999px; background: var(--ink); color: var(--surface); font-size: .62em; font-weight: 700; line-height: 1; vertical-align: super; }
+.wz-note { position: relative; margin: 8px 0 12px; padding: 10px 14px; border: 1px solid var(--line); border-left: 4px solid var(--wz, var(--accent)); border-radius: var(--radius); background: var(--surface); font-size: var(--fs-sm-plus); }
+.wz-layout.is-wide .wz-note { position: absolute; left: 0; right: 0; margin: 0; }
+.wz-note.is-active, .wz-note.is-hover { box-shadow: 0 0 0 2px var(--accent); }
+.wz-note[hidden] { display: none; }
+.wz-note-head { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin: 0 0 4px; }
+.wz-badge { display: inline-grid; place-items: center; min-width: 1.6em; height: 1.6em; border-radius: 999px; background: var(--ink); color: var(--surface); font-size: var(--fs-xs); font-weight: 700; }
+.wz-note-icon { display: inline-flex; color: var(--ink); }
+.wz-note-crit { color: var(--ink-muted); font-size: var(--fs-xs); }
+.wz-note-crit::before { content: "· "; }
+.wz-note-text { margin: 0; }
+.wz-footnotes { display: none; }
+.wz-why, .wz-crit { margin: 20px 0; }
+.wz-crit table { width: 100%; max-width: 36rem; }
