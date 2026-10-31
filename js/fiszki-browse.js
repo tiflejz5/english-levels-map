@@ -27,8 +27,12 @@ window.ELM = window.ELM || {};
   let pending = null;       // wypełnienie formularza (prefill)
   let importTarget = null;  // talia wybrana przed wejściem w import
 
-  function crumb(label, extra) {
-    return el("p", { class: "c1-back" }, [el("a", { href: HASH }, ELM.ui.withIcon("chevron-left", "Fiszki")), extra ? el("span", { class: "tool-note", text: " · " + extra }) : null]);
+  /** Okruszki: „Fiszki i błędy › Talie › <talia>” (bez etykiety: kończy się na „Talie”). */
+  function crumb(label) {
+    const items = [{ label: "Fiszki i błędy", href: "#/powtorki" }];
+    items.push(label ? { label: "Talie", href: HASH } : { label: "Talie" });
+    if (label) items.push({ label: label });
+    return ELM.ui.breadcrumbs(items);
   }
 
   function statusOf(x) {
@@ -55,8 +59,9 @@ window.ELM = window.ELM || {};
     if (!d) { view.appendChild(crumb()); view.appendChild(el("p", { class: "empty-state-text", text: "Nie ma takiej talii." })); return; }
     if (filter.deck !== deckId) { filter.deck = deckId; filter.query = ""; filter.status = "all"; filter.exam = "all"; }
     const cards = F().cardsOf(deckId);
-    view.appendChild(crumb(null, d.builtIn ? "talia wbudowana (tylko do odczytu, karty można zawiesić)" : "Twoja talia"));
+    view.appendChild(crumb(d.title));
     view.appendChild(F().head(d.title, d.description));
+    view.appendChild(el("p", { class: "tool-note", text: d.builtIn ? "Talia wbudowana (tylko do odczytu, karty można zawiesić)." : "Twoja talia." }));
     view.appendChild(F().bar(L().deckStats(cards, st().cards, now())));
 
     const s = st().settings;
@@ -216,7 +221,7 @@ window.ELM = window.ELM || {};
       back: existing.type === "typed" && existing.accepted ? existing.accepted.join("|") : existing.back || "", hint: existing.hint || "", example: existing.example || "", note: existing.note || "", tags: (existing.tags || []).join(" ")
     } : Object.assign({ deck: route.deck, type: "basic", front: "", back: "", hint: "", example: "", note: "", tags: "" }, pending || {});
     pending = null;
-    view.appendChild(crumb(null, existing ? "edycja karty" : "nowa karta"));
+    view.appendChild(crumb(existing ? "Edycja karty" : "Nowa karta"));
     view.appendChild(F().head(existing ? "Edytuj kartę" : "Nowa karta", "Karta z luką: zaznacz odpowiedź w {{podwójnych nawiasach}}, alternatywy oddziel kreską: {{gave up|quit}}."));
     if (!decks.length && !fill.newDeck) {
       fill.newDeck = true;
@@ -330,7 +335,7 @@ window.ELM = window.ELM || {};
   // =====================================================================
 
   function renderImport(view) {
-    view.appendChild(crumb(null, "import"));
+    view.appendChild(crumb("Import"));
     view.appendChild(F().head("Import fiszek", "Plik TSV albo CSV (UTF-8, separator: tabulator albo średnik). Kolumny: typ; przód; tył; podpowiedź; przykład; notatka; tagi. Pliki z Anki (przód, tył, tagi, luki {{c1::…}}) też działają."));
     const decks = userDecks();
     const target = el("select", { id: "fc-i-deck", class: "field" }, decks.map(function (d) { return el("option", { value: d.id, selected: d.id === importTarget, text: d.title }); })

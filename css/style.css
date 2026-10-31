@@ -4137,3 +4137,19 @@ a.pw-row-label:hover { text-decoration: underline; }
 .streak-card .week-day.is-today .week-dot { box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--accent); }
 .pw-card.is-today.is-zero { flex-direction: row; }
 .today-row > .bento-shortcuts { padding: 18px 22px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); }
+
+/* ===================== v8 TREŚCI: okruszki (S1) ===================== */
+.breadcrumbs { margin: 0 0 8px; }
+.breadcrumbs ol { display: flex; flex-wrap: wrap; align-items: center; margin: 0; padding: 0; list-style: none; }
+.breadcrumbs li { display: inline-flex; align-items: center; font-size: var(--fs-sm); color: var(--ink); font-weight: 600; }
+.breadcrumbs li + li::before { content: "›"; margin: 0 8px; color: var(--ink-muted); font-weight: 400; }
+.breadcrumbs a { display: inline-flex; align-items: center; min-height: 44px; color: var(--accent); text-decoration: none; }
+.breadcrumbs a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.breadcrumbs .bc-back-icon { display: none; }
+.page-head .breadcrumbs { margin: 0; }
+@media (max-width: 639px) {
+  .breadcrumbs li:not(.is-parent) { display: none; }
+  .breadcrumbs li.is-parent::before { content: none; }
+  .breadcrumbs li.is-parent a { margin-left: -4px; }
+  .breadcrumbs .bc-back-icon { display: inline-flex; margin-right: 2px; }
+}

@@ -183,15 +183,12 @@ window.ELM = window.ELM || {};
     view.dataset.file = route.file;
     view.replaceChildren();
 
-    const back = el("button", {
-      type: "button",
-      class: "crumb back-btn",
-      onclick: function () { goBack(found); }
-    }, ELM.ui.withIcon("chevron-left", "Wróć do listy " + levelId));
+    // Okruszki: „Poziom A1 › Czasy › Present Simple” (poziom i kategoria wracają do listy, z jej przewinięciem)
+    const levelCrumb = { label: "Poziom " + levelId, href: "#/" + levelId.toLowerCase(), onclick: function () { goBack(found); } };
 
     if (!found || !hasPage(found.item)) {
       U.setScroll(0);
-      view.appendChild(el("div", { class: "page-head" }, back));
+      view.appendChild(el("div", { class: "page-head" }, ELM.ui.breadcrumbs([levelCrumb, { label: found ? found.item.label : "Brak podstrony" }])));
       view.appendChild(el("div", { class: "empty-state" }, [
         el("p", { class: "empty-state-text", text: found ? "Brak pliku z treścią tej podstrony." : "Nie znaleziono takiej podstrony." }),
         found ? el("p", { class: "empty-state-hint", text: found.item.label }) : null
@@ -207,12 +204,9 @@ window.ELM = window.ELM || {};
     const categoryName = (levelEntry.categoryLabels || {})[found.item.category] ||
       data().index.categories[found.item.category] || "";
 
+    const pageTitle = doc.meta.title || found.item.label;
     view.appendChild(el("div", { class: "page-head" }, [
-      back,
-      el("span", { class: "page-crumb" }, [
-        el("span", { class: "level-dot", "aria-hidden": "true" }),
-        found.level + (categoryName ? " · " + categoryName : "")
-      ]),
+      ELM.ui.breadcrumbs([levelCrumb].concat(categoryName ? [{ label: categoryName, href: levelCrumb.href, onclick: levelCrumb.onclick }] : [], [{ label: pageTitle }])),
       ELM.notes ? ELM.notes.button(found.item.id, { title: found.level + " · " + (doc.meta.title || found.item.label), route: location.hash }) : null,
       info ? umiemToggle(info.essential) : null
     ]));
@@ -224,12 +218,6 @@ window.ELM = window.ELM || {};
     view.appendChild(article);
     // „Sprawdź się”: zestawy zadań tematu i link do Laboratorium czasów (indeks wczytywany na żądanie)
     if (ELM.exercises) view.appendChild(ELM.exercises.topicSection(found.item.id));
-    view.appendChild(el("div", { class: "page-foot" }, el("button", {
-      type: "button",
-      class: "btn btn-secondary",
-      onclick: function () { goBack(found); }
-    }, ELM.ui.withIcon("chevron-left", "Wróć do listy " + found.level))));
-
     document.title = (doc.meta.title || found.item.label) + " · English Levels Map";
     if (ELM.profileData) ELM.profileData.setLastPage(location.hash, found.level + " · " + (doc.meta.title || found.item.label));
     U.setScroll(keepScroll);
@@ -259,9 +247,9 @@ window.ELM = window.ELM || {};
     view.className = "view page-view sciaga-view lvl-" + levelId;
     view.dataset.file = route.file;
     view.replaceChildren();
-    const back = el("a", { class: "crumb back-btn", href: "#/" + levelId.toLowerCase() }, ELM.ui.withIcon("chevron-left", "Wróć do listy " + levelId));
+    const levelCrumb = { label: "Poziom " + levelId, href: "#/" + levelId.toLowerCase() };
     if (!text) {
-      view.appendChild(el("div", { class: "page-head" }, back));
+      view.appendChild(el("div", { class: "page-head" }, ELM.ui.breadcrumbs([levelCrumb, { label: "Ściąga" }])));
       view.appendChild(el("div", { class: "empty-state" }, el("p", { class: "empty-state-text", text: "Nie ma jeszcze ściągi dla poziomu " + levelId + "." })));
       document.title = "English Levels Map (A1–C2)";
       return;
@@ -269,7 +257,7 @@ window.ELM = window.ELM || {};
     const doc = ELM.markdown.parse(text);
     const title = doc.meta.title || "Ściąga " + levelId;
     view.appendChild(el("div", { class: "page-head sciaga-tools" }, [
-      back,
+      ELM.ui.breadcrumbs([levelCrumb, { label: "Ściąga" }]),
       el("button", { type: "button", class: "btn btn-primary sciaga-print", onclick: printSciaga }, ELM.ui.withIcon("download", "Drukuj"))
     ]));
     view.appendChild(el("header", { class: "sciaga-head" }, [

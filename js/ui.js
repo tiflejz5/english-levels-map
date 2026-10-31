@@ -144,6 +144,48 @@ window.ELM = window.ELM || {};
   }
 
   // =====================================================================
+  // OKRUSZKI (paczka v8, S1): jeden komponent nad h1 na wszystkich stronach treści
+  // =====================================================================
+
+  /**
+   * ELM.ui.breadcrumbs([{ label, href?, onclick? }, …]) → <nav class="breadcrumbs">: „Poziom A1 › Czasy › Present Simple”.
+   * Ostatni element bez href to bieżąca strona (aria-current="page"). Poniżej 640 px (CSS) widać tylko „‹ rodzic”
+   * (przedostatni element; przy jednym elemencie — on sam). onclick (np. powrót do listy z przewinięciem) dostaje zdarzenie
+   * po preventDefault; href zostaje dla kliknięcia środkowym przyciskiem i dla czytników ekranu.
+   */
+  function breadcrumbs(items) {
+    const nav = document.createElement("nav");
+    nav.className = "breadcrumbs";
+    nav.setAttribute("aria-label", "Okruszki");
+    const ol = document.createElement("ol");
+    const parentIndex = items.length > 1 ? items.length - 2 : 0;
+    items.forEach(function (it, i) {
+      const li = document.createElement("li");
+      if (i === parentIndex) li.className = "is-parent";
+      if (it.href) {
+        const a = document.createElement("a");
+        a.href = it.href;
+        if (i === parentIndex) {
+          const ic = document.createElement("span");
+          ic.className = "bc-back-icon";
+          ic.setAttribute("aria-hidden", "true");
+          ic.appendChild(icon("chevron-left", { size: 16 }));
+          a.appendChild(ic);
+        }
+        a.appendChild(document.createTextNode(it.label));
+        if (it.onclick) a.addEventListener("click", function (e) { e.preventDefault(); it.onclick(e); });
+        li.appendChild(a);
+      } else {
+        li.textContent = it.label;
+        if (i === items.length - 1) li.setAttribute("aria-current", "page");
+      }
+      ol.appendChild(li);
+    });
+    nav.appendChild(ol);
+    return nav;
+  }
+
+  // =====================================================================
   // LOGO: kompas w okręgu ze szlakiem w gradiencie marki (krainy A1 → C2)
   // =====================================================================
 
@@ -369,5 +411,5 @@ window.ELM = window.ELM || {};
   ELM.loadModule = loadModule;
   ELM.loadScript = loadScript; // dane ładowane na żądanie (np. ćwiczenia, Laboratorium czasów)
   ELM.reducedMotion = reducedMotion;
-  ELM.ui = { icon: icon, withIcon: withIcon, emptyState: emptyState, landIcon: landIcon, stamp: stamp, landLabel: landLabel, LANDS: LANDS, pageHead: pageHead, logo: logo, logoMark: logoMark, progressRing: progressRing, setRing: setRing, toast: toast, hideToast: hideToast };
+  ELM.ui = { breadcrumbs: breadcrumbs, icon: icon, withIcon: withIcon, emptyState: emptyState, landIcon: landIcon, stamp: stamp, landLabel: landLabel, LANDS: LANDS, pageHead: pageHead, logo: logo, logoMark: logoMark, progressRing: progressRing, setRing: setRing, toast: toast, hideToast: hideToast };
 })(window.ELM);

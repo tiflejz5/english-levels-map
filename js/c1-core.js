@@ -213,10 +213,7 @@ window.ELM = window.ELM || {};
   // =====================================================================
 
   function crumb(text) {
-    return el("p", { class: "c1-crumb" }, [
-      el("a", { href: BASE, text: "Certyfikat C1" }),
-      text ? " · " + text : null
-    ]);
+    return ELM.ui.breadcrumbs(text ? [{ label: "Certyfikat C1", href: BASE }, { label: text }] : [{ label: "Certyfikat C1", href: BASE }]);
   }
 
   function notFound(message) {

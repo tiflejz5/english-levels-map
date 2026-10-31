@@ -1174,7 +1174,7 @@ window.ELM = window.ELM || {};
 
   function head(title, lead) {
     return el("header", { class: "tool-head" }, [
-      el("p", { class: "tool-eyebrow" }, el("a", { class: "crumb", href: BASE }, ELM.ui.withIcon("chevron-left", "Centrum ćwiczeń"))),
+      ELM.ui.breadcrumbs([{ label: "Centrum ćwiczeń", href: BASE }, { label: title }]),
       el("h1", { class: "tool-title", text: title }),
       lead ? el("p", { class: "tool-lead", text: lead }) : null
     ]);

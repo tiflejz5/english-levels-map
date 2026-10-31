@@ -106,7 +106,7 @@ window.ELM = window.ELM || {};
 
   function render(view, route) {
     document.title = "Bank zwrotów · Pisanie · English Levels Map";
-    view.appendChild(el("p", { class: "c1-back" }, el("a", { href: ELM.pisanie.HASH }, ELM.ui.withIcon("chevron-left", "Pisanie"))));
+    view.appendChild(ELM.ui.breadcrumbs([{ label: "Pisanie", href: ELM.pisanie.HASH }, { label: "Bank zwrotów" }]));
     view.appendChild(ELM.pisanie.head("Bank zwrotów do pisania", "Zwroty według funkcji: od prostych do formalnych. Wybierz poziom, rejestr i gatunek, skopiuj frazę albo zapisz ją do powtórek."));
     const body = el("div", { class: "zw-root" }, el("p", { class: "tool-note", role: "status", text: "Wczytuję zwroty…" }));
     view.appendChild(body);

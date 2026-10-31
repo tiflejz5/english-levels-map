@@ -257,7 +257,7 @@ window.ELM = window.ELM || {};
   }
 
   function renderThemes(view, level) {
-    view.appendChild(el("p", { class: "c1-back" }, el("a", { href: HASH }, ELM.ui.withIcon("chevron-left", "Talie"))));
+    view.appendChild(ELM.ui.breadcrumbs([{ label: "Fiszki i błędy", href: HOME }, { label: "Talie", href: HASH }, { label: "Tematy" }]));
     view.appendChild(head("Fiszki tematyczne", "Słowa i wyrażenia o codziennych tematach, od A1 do B1. Każda talia włącza się osobno."));
     const levels = ["", "A1", "A2", "B1"];
     view.appendChild(el("div", { class: "chip-filter", role: "group", "aria-label": "Poziom" }, levels.map(function (l) {
