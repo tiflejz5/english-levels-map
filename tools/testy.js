@@ -1788,5 +1788,53 @@ test("speechText: układanie i tłumaczenie dopiero po sprawdzeniu, dopasowanie 
   assert.strictEqual(f({ type: "multiple-choice", prompt: "Which is correct?", options: ["a", "b"], correct: 0 }, false), "Which is correct?", "pytanie bez luki jest czytane w całości");
 });
 
+console.log("\nKontrola v8: przeplatanie kolejki (poprawki po recenzji)");
+test("interleave: gdy rodzaju nie da się rozdzielić, nadal nie dwa razy ten sam temat z rzędu", function () {
+  const R = global.ELM.reviews;
+  const items = [];
+  for (let i = 0; i < 6; i++) items.push({ kind: "card", id: "a" + i, due: i, topic: "d1" });
+  for (let i = 0; i < 6; i++) items.push({ kind: "card", id: "b" + i, due: 10 + i, topic: "d2" });
+  const out = R.interleave(items);
+  assert.strictEqual(out.length, 12);
+  for (let i = 1; i < out.length; i++) assert.notStrictEqual(out[i].topic, out[i - 1].topic, "temat z rzędu na " + i);
+});
+test("queueFrom: cztery zaległe błędy z rzędu rozdzielone nowymi kartami i zadaniami (≤ 2 tego samego rodzaju)", function () {
+  const R = global.ELM.reviews, FLg = global.ELM.fiszkiLogic, HM = global.ELM.fiszkiHarmonogram;
+  const NOW = new Date(2026, 10, 10, 12, 0, 0).getTime();
+  const st = FLg.sanitizeState(FLg.emptyState());
+  st.settings.enabledDecks = ["d1", "d2"];
+  const mist = [1, 2, 3, 4].map(function (i) { return { id: "u-mb-" + i, deck: "u-moje-bledy", type: "basic", front: "a", back: "b", tags: [] }; });
+  st.userDecks.push({ id: "u-moje-bledy", title: "Moje błędy", system: "mistakes" });
+  st.userCards = mist;
+  mist.forEach(function (m, i) { st.cards[m.id] = Object.assign(HM.newCard(), { state: "review", interval: 3, due: new Date(2026, 10, 5 + i, 5).getTime(), reps: 2 }); });
+  const cards = { d1: [1, 2, 3, 4, 5].map(function (i) { return { id: "d1-00" + i, deck: "d1" }; }), d2: [1, 2, 3, 4, 5].map(function (i) { return { id: "d2-00" + i, deck: "d2" }; }), "u-moje-bledy": mist };
+  const ctx = { state: st, decks: [{ id: "d1", count: 5 }, { id: "d2", count: 5 }, { id: "u-moje-bledy", count: 4 }], weak: [],
+    cardsOf: function (id) { return cards[id] || []; }, deckOf: function (id) { return /^u-mb/.test(id) ? "u-moje-bledy" : id.replace(/-\d{3}$/, ""); } };
+  const q = R.queueFrom(ctx, NOW);
+  assert.strictEqual(q.length, 14, "4 zaległe + 10 nowych");
+  for (let i = 2; i < q.length; i++) assert.ok(!(q[i].kind === q[i - 1].kind && q[i].kind === q[i - 2].kind && q[i].kind === "mistake"), "trzeci błąd z rzędu na " + i);
+  for (let i = 1; i < q.length; i++) assert.notStrictEqual(q[i].topic, q[i - 1].topic, "temat z rzędu na " + i);
+  assert.strictEqual(q[0].id, "u-mb-1", "najstarsza zaległa nadal pierwsza");
+  assert.strictEqual(R.summaryFrom(ctx, NOW).total, q.length);
+});
+
+test("interleave: losowe listy — gdy rozdzielenie tematów jest możliwe (żaden temat > połowy), nigdy ten sam temat z rzędu", function () {
+  const R = global.ELM.reviews;
+  let seed = 12345;
+  const rnd = function () { seed = (seed * 1103515245 + 12345) % 2147483648; return seed / 2147483648; };
+  for (let trial = 0; trial < 300; trial++) {
+    const n = 2 + Math.floor(rnd() * 40), topics = 1 + Math.floor(rnd() * 4);
+    const items = [];
+    for (let i = 0; i < n; i++) items.push({ kind: ["card", "mistake", "exercise"][Math.floor(rnd() * 3)], id: "x" + i, due: i, topic: "t" + Math.floor(rnd() * topics) });
+    const counts = {};
+    items.forEach(function (it) { counts[it.topic] = (counts[it.topic] || 0) + 1; });
+    const feasible = Object.keys(counts).every(function (t) { return counts[t] <= Math.ceil(n / 2); });
+    const out = R.interleave(items);
+    assert.strictEqual(out.length, n);
+    if (!feasible) continue;
+    for (let i = 1; i < out.length; i++) assert.notStrictEqual(out[i].topic, out[i - 1].topic, "próba " + trial + ", pozycja " + i);
+  }
+});
+
 console.log("\nWynik: " + passed + " ok, " + failures.length + " błędów");
 if (failures.length) process.exit(1);

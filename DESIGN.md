@@ -723,3 +723,9 @@ Ograniczenie: audyt automatyczny nie zastępuje testu z czytnikiem ekranu (NVDA 
 - **Paczka v8, etap „treści” (spec 20 S1–S5), jeden commit na punkt.**
   - `ELM.ui.breadcrumbs`, `topicNav` + `ELM.learn.topicNeighbors`, `js/toc.js`, `ELM.exLogic.bestSetLabel` + `ELM.exercises.setLabels`, `js/shortcuts.js` + `ELM.exLogic.speechText` (testy w `tools/testy.js`).
   - Skrót „zawieś” w sesji powtórek: S → W; `?v=129`.
+
+- **Paczka v8, kontrola końcowa (niezależna recenzja).**
+  - `interleave` w `js/reviews.js`: gdy nie da się spełnić obu reguł, spada do „sam temat”, potem „sam rodzaj”; przeplatana jest cała kolejka (nowe wchodzą wcześniej tylko wtedy, gdy trzeba), a temat zajmujący połowę reszty idzie od razu (bez bloku jednego tematu na końcu). Test losowy: przy wykonalnym rozdzieleniu nigdy ten sam temat z rzędu.
+  - Popover „+N” zamyka się po wyjściu fokusu (Tab poza listę), Esc i klik poza jak dotąd.
+  - Cele ≥ 44 px: etykieta „Umiem”, przyciski filtrów, linki punktów listy, „‹ Fiszki i błędy”, linki karty powtórek; zakładki Fiszek i błędów mieszczą się na 360 px bez przewijania.
+  - Sprawdzone przez eksport → reset → import (prawdziwy kod menu danych): dziennik, karty (w tym własna talia), moje egzaminy, postęp, wyniki, stary plik bez fiszek.

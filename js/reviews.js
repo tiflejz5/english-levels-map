@@ -5,7 +5,7 @@
  *   Czysta logika (testy: node tools/testy.js), bez DOM i localStorage:
  *     queueFrom(ctx, now)      → [{ kind: "card"|"mistake"|"exercise", id, due, topic }]
  *                                 zaległe najstarsze pierwsze, przeplatanie (≤ 2 tego samego rodzaju i
- *                                 nie dwa razy ten sam temat z rzędu), nowe na końcu; limity i granica dnia 04:00 jak w fiszkach
+ *                                 nie dwa razy ten sam temat z rzędu, gdy da się tego uniknąć), nowe na końcu; limity i granica dnia 04:00 jak w fiszkach
  *     summaryFrom(ctx, now)    → { card, mistake, exercise, total } — te same liczby bez wczytywania talii
  *     interleave(items)        przeplatanie
  *     weakTasks(rec, today)    kandydaci ze słabych punktów z dziennika podejść
@@ -86,20 +86,30 @@ window.ELM = window.ELM || {};
     return (ctx.state.daily || {})[L().studyDay(now)] || {};
   }
 
-  /** Przeplatanie: pierwszy element, który nie łamie reguł (≤ 2 tego samego rodzaju, nie ten sam temat z rzędu); gdy żaden — pierwszy. */
+  /**
+   * Przeplatanie: z pozostałych bierze pierwszy element spełniający oba warunki (≤ 2 tego samego rodzaju z rzędu, nie ten sam
+   * temat dwa razy z rzędu); gdy takiego nie ma — spełniający sam temat, potem sam rodzaj, na końcu pierwszy z brzegu.
+   * Kolejność wejściowa jest preferencją (zaległe najstarsze, nowe na końcu), więc dalsze elementy wchodzą tylko, gdy trzeba.
+   */
   function interleave(list) {
     const rest = list.slice(), out = [];
     while (rest.length) {
       const last = out[out.length - 1];
       let run = 0;
       for (let i = out.length - 1; i >= 0 && out[i].kind === (last && last.kind); i--) run++;
-      let pick = 0;
-      for (let i = 0; i < rest.length; i++) {
-        const it = rest[i];
-        const kindOk = !last || it.kind !== last.kind || run < MAX_SAME_KIND;
-        const topicOk = !last || !it.topic || it.topic !== last.topic;
-        if (kindOk && topicOk) { pick = i; break; }
-      }
+      const kindOk = function (it) { return !last || it.kind !== last.kind || run < MAX_SAME_KIND; };
+      const topicOk = function (it) { return !last || !it.topic || it.topic !== last.topic; };
+      const first = function (pred) { for (let i = 0; i < rest.length; i++) if (pred(rest[i])) return i; return -1; };
+      // Temat, który zajmuje co najmniej połowę reszty, musi iść teraz (inaczej na końcu zostałby blok jednego tematu)
+      const counts = {};
+      rest.forEach(function (it) { if (it.topic) counts[it.topic] = (counts[it.topic] || 0) + 1; });
+      const crowded = Object.keys(counts).find(function (t) { return counts[t] * 2 >= rest.length && (!last || last.topic !== t) && rest.length > 1; });
+      let pick = crowded ? first(function (it) { return it.topic === crowded && kindOk(it); }) : -1;
+      if (crowded && pick < 0) pick = first(function (it) { return it.topic === crowded; }); // temat ważniejszy niż rodzaj
+      if (pick < 0) pick = first(function (it) { return kindOk(it) && topicOk(it); });
+      if (pick < 0) pick = first(topicOk);
+      if (pick < 0) pick = first(kindOk);
+      if (pick < 0) pick = 0;
       out.push(rest.splice(pick, 1)[0]);
     }
     return out;
@@ -135,7 +145,8 @@ window.ELM = window.ELM || {};
       return { kind: kindOf(id, c.deck), id: id, due: cards[id] ? cards[id].due : 0, topic: c.topic || c.deck || "" };
     };
     const due = q.learning.concat(q.review).map(mk).sort(function (a, b) { return a.due - b.due; });
-    return interleave(due).concat(interleave(q.fresh.concat(exTake.map(function (w) { return exKey(w.id); })).map(mk)));
+    // Cała kolejka naraz: zaległe najpierw, nowe na końcu, a nowe wchodzą wcześniej tylko, gdy reguły przeplatania tego wymagają
+    return interleave(due.concat(q.fresh.concat(exTake.map(function (w) { return exKey(w.id); })).map(mk)));
   }
 
   /** Te same liczby co queueFrom, ale bez zawartości talii (plakietka paska, Dziś): z mapy stanów i liczności talii. */

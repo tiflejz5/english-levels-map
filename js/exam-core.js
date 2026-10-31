@@ -716,6 +716,19 @@ window.ELM = window.ELM || {};
     refreshPopover();
     placePopover();
     node.addEventListener("keydown", onPopoverKey);
+    // Tab poza listę zamyka popover (bez pułapki fokusu): fokus poza popoverem i poza przyciskiem „+N” (także gdy trafił do paska przeglądarki)
+    let pointerInside = false;
+    node.addEventListener("pointerdown", function () { pointerInside = true; setTimeout(function () { pointerInside = false; }, 80); });
+    node.addEventListener("focusout", function (e) {
+      const to = e.relatedTarget;
+      if (to && (node.contains(to) || (to.closest && to.closest("#exam-more")))) return;
+      setTimeout(function () {
+        if (!popover || popover.node !== node || pointerInside) return;
+        const a = document.activeElement;
+        if (a && (node.contains(a) || (a.closest && a.closest("#exam-more")))) return;
+        closePopover(false);
+      }, 0);
+    });
     document.addEventListener("pointerdown", onPopoverOutside, true);
     window.addEventListener("resize", placePopover);
     window.addEventListener("hashchange", closeOnRoute);
