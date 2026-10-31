@@ -4197,3 +4197,14 @@ a.pw-row-label:hover { text-decoration: underline; }
 .kbd-list dt { margin: 0; white-space: nowrap; }
 .kbd-list dd { margin: 0; color: var(--ink); }
 .kbd-list kbd { display: inline-block; min-width: 26px; padding: 2px 8px; border: 1px solid var(--line-strong); border-bottom-width: 2px; border-radius: var(--radius-xs); background: var(--surface); color: var(--ink); font: 650 var(--fs-sm) var(--font); text-align: center; }
+
+/* ===================== v8 KONTROLA: cele ≥ 44 px, zakładki na 360 px ===================== */
+.umiem { min-height: 44px; min-width: 44px; justify-content: center; }
+.segmented-btn { min-height: 44px; }
+.ess-link { display: inline-flex; align-items: center; min-height: 44px; }
+.c1-back a { display: inline-flex; align-items: center; min-height: 44px; }
+.pw-links a, .pw-links .btn-link, .pw-zero-link { min-width: 44px; }
+@media (max-width: 479px) {
+  .pw-tab { padding: 0 8px; font-size: var(--fs-sm); }
+  .pw-tabs { gap: 0; }
+}
