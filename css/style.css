@@ -4153,3 +4153,14 @@ a.pw-row-label:hover { text-decoration: underline; }
   .breadcrumbs li.is-parent a { margin-left: -4px; }
   .breadcrumbs .bc-back-icon { display: inline-flex; margin-right: 2px; }
 }
+
+/* ===================== v8 TREŚCI: poprzedni / następny temat (S2) ===================== */
+.topic-nav { display: flex; flex-wrap: wrap; align-items: stretch; justify-content: space-between; gap: 12px; }
+.topic-nav-link { display: inline-flex; align-items: center; gap: 10px; min-height: 56px; max-width: 100%; padding: 8px 16px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--ink); text-decoration: none; transition: border-color var(--transition), background var(--transition); }
+.topic-nav-link:hover { border-color: var(--line-control); background: var(--surface-raised); }
+.topic-nav-link.is-next { margin-left: auto; text-align: right; }
+.topic-nav-link > span { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.topic-nav-kicker { font-size: var(--fs-xs); font-weight: 650; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-muted); }
+.topic-nav-title { font-size: var(--fs-sm-plus); font-weight: 600; overflow-wrap: anywhere; }
+.topic-nav .icon { flex-shrink: 0; color: var(--accent); }
+@media (max-width: 639px) { .topic-nav { flex-direction: column; } .topic-nav-link.is-next { margin-left: 0; } .topic-nav-gap { display: none; } }

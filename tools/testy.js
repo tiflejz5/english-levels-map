@@ -1736,5 +1736,16 @@ console.log("\nDziś v8: przebyta mapa i najbliższe terminy powtórek (spec 20,
   });
 })();
 
+console.log("\nTreści v8: sąsiedzi tematu (S2)");
+test("topicNeighbors: poprzedni i następny w kolejności poziomu, brzegi i nieznany temat", function () {
+  const ids = ["a", "b", "c"];
+  assert.deepStrictEqual(global.ELM.learn.topicNeighbors(ids, "b"), { prev: "a", next: "c" });
+  assert.deepStrictEqual(global.ELM.learn.topicNeighbors(ids, "a"), { prev: null, next: "b" });
+  assert.deepStrictEqual(global.ELM.learn.topicNeighbors(ids, "c"), { prev: "b", next: null });
+  assert.deepStrictEqual(global.ELM.learn.topicNeighbors(ids, "x"), { prev: null, next: null });
+  assert.deepStrictEqual(global.ELM.learn.topicNeighbors(["a"], "a"), { prev: null, next: null });
+  assert.deepStrictEqual(global.ELM.learn.topicNeighbors(undefined, "a"), { prev: null, next: null });
+});
+
 console.log("\nWynik: " + passed + " ok, " + failures.length + " błędów");
 if (failures.length) process.exit(1);
