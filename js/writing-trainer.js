@@ -213,7 +213,7 @@ window.ELM = window.ELM || {};
         const n = cfg.countWords(text, task);
         const c = cfg.counter(n, T);
         counter.className = "c1-words " + c.cls;
-        counter.replaceChildren(el("strong", { text: cfg.wordsLabel(n) }), el("span", { class: "c1-words-hint", text: c.hint }));
+        counter.replaceChildren(el("strong", { text: cfg.wordsLabel(n) }), el("span", { class: "c1-words-hint", text: String(c.hint || "").replace(/^\s*·\s*/, "") })); // podpowiedź w osobnym wierszu o stałej wysokości (pasek nie zmienia wysokości przy pisaniu)
       }
 
       const area = el("textarea", {

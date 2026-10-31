@@ -2669,22 +2669,22 @@ window.ELM.C1 = {
      "n": 1,
      "options": {
       "A": "make",
-      "B": "take",
+      "B": "give",
       "C": "get",
-      "D": "give"
+      "D": "take"
      },
-     "answer": "B",
+     "answer": "D",
      "explanation": "Take the plunge = zdecydować się na ryzykowny krok."
     },
     {
      "n": 2,
      "options": {
-      "A": "underestimate",
-      "B": "undervalue",
+      "A": "undervalue",
+      "B": "underestimate",
       "C": "understate",
       "D": "underrate"
      },
-     "answer": "A",
+     "answer": "B",
      "explanation": "Underestimate the costs = nie docenić kosztów (liczby, ilości)."
     },
     {
@@ -2702,55 +2702,55 @@ window.ELM.C1 = {
      "n": 4,
      "options": {
       "A": "hit",
-      "B": "strike",
-      "C": "put",
+      "B": "put",
+      "C": "strike",
       "D": "set"
      },
-     "answer": "B",
+     "answer": "C",
      "explanation": "Strike a balance = znaleźć równowagę."
     },
     {
      "n": 5,
      "options": {
-      "A": "lose",
+      "A": "break",
       "B": "drop",
       "C": "miss",
-      "D": "break"
+      "D": "lose"
      },
-     "answer": "A",
+     "answer": "D",
      "explanation": "Lose heart = stracić zapał."
     },
     {
      "n": 6,
      "options": {
-      "A": "ground",
+      "A": "base",
       "B": "root",
-      "C": "base",
+      "C": "ground",
       "D": "core"
      },
-     "answer": "C",
+     "answer": "A",
      "explanation": "Customer base = grono klientów."
     },
     {
      "n": 7,
      "options": {
-      "A": "overcome",
-      "B": "outweigh",
+      "A": "outweigh",
+      "B": "overcome",
       "C": "outrun",
       "D": "overtake"
      },
-     "answer": "B",
+     "answer": "A",
      "explanation": "Outweigh = przeważać (korzyści przewyższają wysiłek)."
     },
     {
      "n": 8,
      "options": {
-      "A": "take",
-      "B": "put",
+      "A": "put",
+      "B": "take",
       "C": "hold",
       "D": "keep"
      },
-     "answer": "A",
+     "answer": "B",
      "explanation": "Take something to heart = wziąć sobie do serca."
     }
    ]
@@ -2767,89 +2767,89 @@ window.ELM.C1 = {
     {
      "n": 1,
      "options": {
-      "A": "cast",
-      "B": "throw",
+      "A": "throw",
+      "B": "cast",
       "C": "drop",
       "D": "hand"
      },
-     "answer": "A",
+     "answer": "B",
      "explanation": "Cast a critical eye over = przyjrzeć się krytycznie."
     },
     {
      "n": 2,
      "options": {
       "A": "turn",
-      "B": "go",
+      "B": "make",
       "C": "get",
-      "D": "make"
+      "D": "go"
      },
-     "answer": "B",
+     "answer": "D",
      "explanation": "Go viral = rozprzestrzenić się błyskawicznie w sieci."
     },
     {
      "n": 3,
      "options": {
-      "A": "trail",
-      "B": "track",
+      "A": "track",
+      "B": "trail",
       "C": "path",
       "D": "trace"
      },
-     "answer": "B",
+     "answer": "A",
      "explanation": "A proven track record = udokumentowane osiągnięcia."
     },
     {
      "n": 4,
      "options": {
-      "A": "heat",
-      "B": "spur",
+      "A": "spur",
+      "B": "heat",
       "C": "edge",
       "D": "point"
      },
-     "answer": "B",
+     "answer": "A",
      "explanation": "On the spur of the moment = pod wpływem chwili (in the heat of the moment wymaga in)."
     },
     {
      "n": 5,
      "options": {
-      "A": "wary",
+      "A": "careless",
       "B": "alert",
       "C": "attentive",
-      "D": "careless"
+      "D": "wary"
      },
-     "answer": "A",
+     "answer": "D",
      "explanation": "Be wary of = uważać na; alert i attentive łączą się z to."
     },
     {
      "n": 6,
      "options": {
-      "A": "exposed",
+      "A": "revealed",
       "B": "opened",
-      "C": "revealed",
+      "C": "exposed",
       "D": "displayed"
      },
-     "answer": "A",
+     "answer": "C",
      "explanation": "Be exposed to = mieć styczność z."
     },
     {
      "n": 7,
      "options": {
       "A": "duty",
-      "B": "blame",
-      "C": "responsibility",
+      "B": "responsibility",
+      "C": "blame",
       "D": "charge"
      },
-     "answer": "C",
+     "answer": "B",
      "explanation": "The responsibility for… lies with… = odpowiedzialność spoczywa na…"
     },
     {
      "n": 8,
      "options": {
-      "A": "doubt",
+      "A": "suspicion",
       "B": "question",
-      "C": "suspicion",
+      "C": "doubt",
       "D": "uncertainty"
      },
-     "answer": "A",
+     "answer": "C",
      "explanation": "If in doubt = w razie wątpliwości."
     }
    ]
@@ -2866,67 +2866,67 @@ window.ELM.C1 = {
     {
      "n": 1,
      "options": {
-      "A": "make",
-      "B": "do",
+      "A": "do",
+      "B": "make",
       "C": "take",
       "D": "get"
      },
-     "answer": "A",
+     "answer": "B",
      "explanation": "Make a change = dokonać zmiany."
     },
     {
      "n": 2,
      "options": {
-      "A": "keen",
-      "B": "fond",
+      "A": "fond",
+      "B": "keen",
       "C": "interested",
       "D": "eager"
      },
-     "answer": "A",
+     "answer": "B",
      "explanation": "Be keen on = przepadać za; fond of, interested in, eager to."
     },
     {
      "n": 3,
      "options": {
       "A": "missed",
-      "B": "lost",
+      "B": "left",
       "C": "dropped",
-      "D": "left"
+      "D": "lost"
      },
-     "answer": "B",
+     "answer": "D",
      "explanation": "Lose your mind = zwariować."
     },
     {
      "n": 4,
      "options": {
-      "A": "considered",
+      "A": "wondered",
       "B": "thought",
-      "C": "wondered",
+      "C": "considered",
       "D": "supposed"
      },
-     "answer": "A",
+     "answer": "C",
      "explanation": "Consider + -ing = rozważać; thought wymaga about."
     },
     {
      "n": 5,
      "options": {
-      "A": "gave",
-      "B": "paid",
+      "A": "paid",
+      "B": "gave",
       "C": "set",
       "D": "took"
      },
-     "answer": "B",
+     "answer": "A",
      "explanation": "Pay off = opłacić się."
     },
     {
      "n": 6,
      "options": {
-      "A": "fame",
+      "A": "reputation",
       "B": "popularity",
-      "C": "reputation",
+      "C": "fame",
       "D": "recognition"
      },
-     "answer": "C",
+     "answer": "A",
      "explanation": "Gain a reputation for = zyskać renomę."
     },
     {
@@ -2934,21 +2934,21 @@ window.ELM.C1 = {
      "options": {
       "A": "jump",
       "B": "step",
-      "C": "leap",
-      "D": "move"
+      "C": "move",
+      "D": "leap"
      },
-     "answer": "C",
+     "answer": "D",
      "explanation": "A leap of faith = skok na głęboką wodę."
     },
     {
      "n": 8,
      "options": {
       "A": "stay",
-      "B": "stand",
-      "C": "put",
+      "B": "put",
+      "C": "stand",
       "D": "lie"
      },
-     "answer": "B",
+     "answer": "C",
      "explanation": "Stand in your way = stać na przeszkodzie."
     }
    ]
@@ -2965,23 +2965,23 @@ window.ELM.C1 = {
     {
      "n": 1,
      "options": {
-      "A": "make",
+      "A": "pull",
       "B": "take",
-      "C": "pull",
+      "C": "make",
       "D": "reach"
      },
-     "answer": "A",
+     "answer": "C",
      "explanation": "Make a comeback = wrócić do łask."
     },
     {
      "n": 2,
      "options": {
-      "A": "rising",
-      "B": "raising",
+      "A": "raising",
+      "B": "rising",
       "C": "arising",
       "D": "lifting"
      },
-     "answer": "A",
+     "answer": "B",
      "explanation": "Rise jest nieprzechodnie: sales have been rising. Raise wymaga dopełnienia."
     },
     {
@@ -2998,12 +2998,12 @@ window.ELM.C1 = {
     {
      "n": 4,
      "options": {
-      "A": "brink",
-      "B": "rim",
+      "A": "rim",
+      "B": "brink",
       "C": "corner",
       "D": "border"
      },
-     "answer": "A",
+     "answer": "B",
      "explanation": "On the brink of extinction = na progu wyginięcia."
     },
     {
@@ -3020,34 +3020,34 @@ window.ELM.C1 = {
     {
      "n": 6,
      "options": {
-      "A": "drawbacks",
+      "A": "harms",
       "B": "damages",
       "C": "losses",
-      "D": "harms"
+      "D": "drawbacks"
      },
-     "answer": "A",
+     "answer": "D",
      "explanation": "Not without its drawbacks = nie bez wad."
     },
     {
      "n": 7,
      "options": {
-      "A": "keep",
+      "A": "stay",
       "B": "hold",
-      "C": "stay",
+      "C": "keep",
       "D": "go"
      },
-     "answer": "A",
+     "answer": "C",
      "explanation": "Keep up with demand = nadążać za popytem."
     },
     {
      "n": 8,
      "options": {
-      "A": "seen",
+      "A": "noticed",
       "B": "looked",
       "C": "watched",
-      "D": "noticed"
+      "D": "seen"
      },
-     "answer": "A",
+     "answer": "D",
      "explanation": "Remains to be seen = to się dopiero okaże."
     }
    ]
@@ -3075,67 +3075,67 @@ window.ELM.C1 = {
     {
      "n": 2,
      "options": {
-      "A": "make",
-      "B": "do",
+      "A": "do",
+      "B": "make",
       "C": "bring",
       "D": "set"
      },
-     "answer": "A",
+     "answer": "B",
      "explanation": "Make room for = zrobić miejsce dla."
     },
     {
      "n": 3,
      "options": {
-      "A": "done",
+      "A": "put",
       "B": "made",
-      "C": "put",
+      "C": "done",
       "D": "got"
      },
-     "answer": "A",
+     "answer": "C",
      "explanation": "Easier said than done = łatwiej powiedzieć niż zrobić."
     },
     {
      "n": 4,
      "options": {
-      "A": "fetches",
-      "B": "buys",
+      "A": "buys",
+      "B": "fetches",
       "C": "earns",
       "D": "wins"
      },
-     "answer": "A",
+     "answer": "B",
      "explanation": "Fetch a high price = osiągać wysoką cenę."
     },
     {
      "n": 5,
      "options": {
-      "A": "converting",
+      "A": "translating",
       "B": "exchanging",
       "C": "replacing",
-      "D": "translating"
+      "D": "converting"
      },
-     "answer": "A",
+     "answer": "D",
      "explanation": "Convert X into Y = przekształcać X w Y."
     },
     {
      "n": 6,
      "options": {
-      "A": "push",
+      "A": "take",
       "B": "hold",
       "C": "lay",
-      "D": "take"
+      "D": "push"
      },
-     "answer": "A",
+     "answer": "D",
      "explanation": "Push up prices = podbijać ceny."
     },
     {
      "n": 7,
      "options": {
-      "A": "outweigh",
+      "A": "overlook",
       "B": "overcome",
-      "C": "overlook",
+      "C": "outweigh",
       "D": "outlast"
      },
-     "answer": "A",
+     "answer": "C",
      "explanation": "Outweigh = przeważać nad."
     },
     {
@@ -3163,23 +3163,23 @@ window.ELM.C1 = {
     {
      "n": 1,
      "options": {
-      "A": "ashamed",
+      "A": "regretting",
       "B": "embarrassing",
       "C": "humiliating",
-      "D": "regretting"
+      "D": "ashamed"
      },
-     "answer": "A",
+     "answer": "D",
      "explanation": "Be ashamed of = wstydzić się czegoś."
     },
     {
      "n": 2,
      "options": {
-      "A": "part",
+      "A": "portion",
       "B": "section",
-      "C": "portion",
+      "C": "part",
       "D": "segment"
      },
-     "answer": "A",
+     "answer": "C",
      "explanation": "An essential part of = istotna część."
     },
     {
@@ -3196,23 +3196,23 @@ window.ELM.C1 = {
     {
      "n": 4,
      "options": {
-      "A": "pointed",
-      "B": "pulled",
+      "A": "pulled",
+      "B": "pointed",
       "C": "picked",
       "D": "pushed"
      },
-     "answer": "A",
+     "answer": "B",
      "explanation": "Point out = wskazywać na."
     },
     {
      "n": 5,
      "options": {
-      "A": "described",
+      "A": "announced",
       "B": "explained",
-      "C": "announced",
+      "C": "described",
       "D": "reported"
      },
-     "answer": "A",
+     "answer": "C",
      "explanation": "Describe X as Y = określać X jako Y."
     },
     {
@@ -3229,23 +3229,23 @@ window.ELM.C1 = {
     {
      "n": 7,
      "options": {
-      "A": "fearful",
+      "A": "frightening",
       "B": "fearing",
       "C": "feared",
-      "D": "frightening"
+      "D": "fearful"
      },
-     "answer": "A",
+     "answer": "D",
      "explanation": "Be fearful of = bać się czegoś."
     },
     {
      "n": 8,
      "options": {
-      "A": "fostering",
-      "B": "raising",
+      "A": "raising",
+      "B": "fostering",
       "C": "growing",
       "D": "feeding"
      },
-     "answer": "A",
+     "answer": "B",
      "explanation": "Foster an atmosphere = pielęgnować atmosferę."
     }
    ]

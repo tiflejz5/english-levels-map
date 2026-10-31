@@ -10,89 +10,89 @@
     {
       "n": 1,
       "options": {
-        "A": "cast",
-        "B": "throw",
+        "A": "throw",
+        "B": "cast",
         "C": "drop",
         "D": "hand"
       },
-      "answer": "A",
+      "answer": "B",
       "explanation": "Cast a critical eye over = przyjrzeć się krytycznie."
     },
     {
       "n": 2,
       "options": {
         "A": "turn",
-        "B": "go",
+        "B": "make",
         "C": "get",
-        "D": "make"
+        "D": "go"
       },
-      "answer": "B",
+      "answer": "D",
       "explanation": "Go viral = rozprzestrzenić się błyskawicznie w sieci."
     },
     {
       "n": 3,
       "options": {
-        "A": "trail",
-        "B": "track",
+        "A": "track",
+        "B": "trail",
         "C": "path",
         "D": "trace"
       },
-      "answer": "B",
+      "answer": "A",
       "explanation": "A proven track record = udokumentowane osiągnięcia."
     },
     {
       "n": 4,
       "options": {
-        "A": "heat",
-        "B": "spur",
+        "A": "spur",
+        "B": "heat",
         "C": "edge",
         "D": "point"
       },
-      "answer": "B",
+      "answer": "A",
       "explanation": "On the spur of the moment = pod wpływem chwili (in the heat of the moment wymaga in)."
     },
     {
       "n": 5,
       "options": {
-        "A": "wary",
+        "A": "careless",
         "B": "alert",
         "C": "attentive",
-        "D": "careless"
+        "D": "wary"
       },
-      "answer": "A",
+      "answer": "D",
       "explanation": "Be wary of = uważać na; alert i attentive łączą się z to."
     },
     {
       "n": 6,
       "options": {
-        "A": "exposed",
+        "A": "revealed",
         "B": "opened",
-        "C": "revealed",
+        "C": "exposed",
         "D": "displayed"
       },
-      "answer": "A",
+      "answer": "C",
       "explanation": "Be exposed to = mieć styczność z."
     },
     {
       "n": 7,
       "options": {
         "A": "duty",
-        "B": "blame",
-        "C": "responsibility",
+        "B": "responsibility",
+        "C": "blame",
         "D": "charge"
       },
-      "answer": "C",
+      "answer": "B",
       "explanation": "The responsibility for… lies with… = odpowiedzialność spoczywa na…"
     },
     {
       "n": 8,
       "options": {
-        "A": "doubt",
+        "A": "suspicion",
         "B": "question",
-        "C": "suspicion",
+        "C": "doubt",
         "D": "uncertainty"
       },
-      "answer": "A",
+      "answer": "C",
       "explanation": "If in doubt = w razie wątpliwości."
     }
   ]

@@ -4208,3 +4208,21 @@ a.pw-row-label:hover { text-decoration: underline; }
   .pw-tab { padding: 0 8px; font-size: var(--fs-sm); }
   .pw-tabs { gap: 0; }
 }
+
+/* ===================== Trener pisania: pasek (czas, licznik słów, Zwroty) i pole o stałych wymiarach ===================== */
+/* Kolumny na stałe, licznik w dwóch wierszach (liczba słów + podpowiedź o zarezerwowanej wysokości): pasek nie zmienia
+   wysokości, gdy zmienia się tekst („54 słowa” → „55 słów”, „za mało” → „w normie”), więc pole tekstu się nie przesuwa. */
+.c1-writing-bar { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; justify-content: stretch; column-gap: 20px; row-gap: 8px; }
+.c1-writing-bar > .c1-timer { justify-self: start; }
+.c1-words { display: flex; flex-direction: column; justify-content: center; min-width: 0; min-height: 4.4rem; line-height: 1.25; }
+.c1-words strong { line-height: 1.15; white-space: nowrap; }
+.c1-words-hint { display: block; min-height: 2.6em; margin-top: 2px; font-size: var(--fs-sm); line-height: 1.3; }
+.c1-writing-bar > .zw-open { justify-self: end; }
+/* Pole tekstu: stała wysokość niezależna od liczby słów (przewija się w środku), zmiana rozmiaru tylko ręcznie */
+.c1-writing-area { height: clamp(360px, 62vh, 640px); min-height: 360px; overflow-y: auto; }
+@media (max-width: 760px) {
+  .c1-writing-bar { grid-template-columns: minmax(0, 1fr) auto; }
+  .c1-writing-bar > .c1-timer { grid-column: 1 / -1; }
+  .c1-words-hint { min-height: 3.9em; }
+  .c1-writing-area { height: clamp(280px, 50vh, 460px); min-height: 280px; }
+}

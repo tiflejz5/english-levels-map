@@ -11,22 +11,22 @@
       "n": 1,
       "options": {
         "A": "did",
-        "B": "took",
-        "C": "went",
+        "B": "went",
+        "C": "took",
         "D": "made"
       },
-      "answer": "B",
+      "answer": "C",
       "explanation": "take a trip = wybrać się na wycieczkę."
     },
     {
       "n": 2,
       "options": {
-        "A": "left",
+        "A": "leaves",
         "B": "was leaving",
-        "C": "leaves",
+        "C": "left",
         "D": "has left"
       },
-      "answer": "A",
+      "answer": "C",
       "explanation": "Past Simple: pociąg odjeżdżał o szóstej (left)."
     },
     {
@@ -43,45 +43,45 @@
     {
       "n": 4,
       "options": {
-        "A": "built",
+        "A": "has built",
         "B": "builded",
         "C": "was built",
-        "D": "has built"
+        "D": "built"
       },
-      "answer": "A",
+      "answer": "D",
       "explanation": "Past Simple, nieregularny: build, built."
     },
     {
       "n": 5,
       "options": {
-        "A": "At",
-        "B": "In",
+        "A": "In",
+        "B": "At",
         "C": "On",
         "D": "By"
       },
-      "answer": "B",
+      "answer": "A",
       "explanation": "in the afternoon."
     },
     {
       "n": 6,
       "options": {
         "A": "drink",
-        "B": "drinking",
+        "B": "to drink",
         "C": "drunk",
-        "D": "to drink"
+        "D": "drinking"
       },
-      "answer": "B",
+      "answer": "D",
       "explanation": "Zwrot z -ing opisujący czynność: drinking hot chocolate."
     },
     {
       "n": 7,
       "options": {
-        "A": "had",
-        "B": "made",
+        "A": "made",
+        "B": "had",
         "C": "took",
         "D": "gave"
       },
-      "answer": "A",
+      "answer": "B",
       "explanation": "have a great time = świetnie się bawić."
     },
     {

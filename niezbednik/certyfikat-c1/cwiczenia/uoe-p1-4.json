@@ -10,23 +10,23 @@
     {
       "n": 1,
       "options": {
-        "A": "make",
+        "A": "pull",
         "B": "take",
-        "C": "pull",
+        "C": "make",
         "D": "reach"
       },
-      "answer": "A",
+      "answer": "C",
       "explanation": "Make a comeback = wrócić do łask."
     },
     {
       "n": 2,
       "options": {
-        "A": "rising",
-        "B": "raising",
+        "A": "raising",
+        "B": "rising",
         "C": "arising",
         "D": "lifting"
       },
-      "answer": "A",
+      "answer": "B",
       "explanation": "Rise jest nieprzechodnie: sales have been rising. Raise wymaga dopełnienia."
     },
     {
@@ -43,12 +43,12 @@
     {
       "n": 4,
       "options": {
-        "A": "brink",
-        "B": "rim",
+        "A": "rim",
+        "B": "brink",
         "C": "corner",
         "D": "border"
       },
-      "answer": "A",
+      "answer": "B",
       "explanation": "On the brink of extinction = na progu wyginięcia."
     },
     {
@@ -65,34 +65,34 @@
     {
       "n": 6,
       "options": {
-        "A": "drawbacks",
+        "A": "harms",
         "B": "damages",
         "C": "losses",
-        "D": "harms"
+        "D": "drawbacks"
       },
-      "answer": "A",
+      "answer": "D",
       "explanation": "Not without its drawbacks = nie bez wad."
     },
     {
       "n": 7,
       "options": {
-        "A": "keep",
+        "A": "stay",
         "B": "hold",
-        "C": "stay",
+        "C": "keep",
         "D": "go"
       },
-      "answer": "A",
+      "answer": "C",
       "explanation": "Keep up with demand = nadążać za popytem."
     },
     {
       "n": 8,
       "options": {
-        "A": "seen",
+        "A": "noticed",
         "B": "looked",
         "C": "watched",
-        "D": "noticed"
+        "D": "seen"
       },
-      "answer": "A",
+      "answer": "D",
       "explanation": "Remains to be seen = to się dopiero okaże."
     }
   ]

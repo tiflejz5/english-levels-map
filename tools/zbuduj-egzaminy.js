@@ -61,6 +61,9 @@ exams.forEach(function (exam) {
         // Format C1 rozpoznajemy po typie (transformacje mają własne „items”, ale to nie zadania silnika)
         const c1 = !!json && C1_TYPES.indexOf(json.type) !== -1;
         if (c1) exercises[s.id] = json;
+        // Zestaw „wybierz A–D”: rozkład poprawnych liter (≤ 50% jednej litery, ≤ 2 z rzędu); błąd przerywa build
+        const spread = c1 ? require("./rozklad-regula").check(json) : null;
+        if (spread) { console.error("BŁĄD rozkładu odpowiedzi w " + exam.id + "/" + s.id + ": " + spread + " (napraw: node tools/rozklad-odpowiedzi.js)"); process.exit(1); }
         sets[s.id] = {
           exam: exam.id, label: s.label, group: g.label, maxScore: s.maxScore || null, format: c1 ? "c1" : "items",
           href: c1 ? "#" + exam.route + "/cwiczenia/" + s.id : "#/cwiczenia/zestaw/" + s.id
