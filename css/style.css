@@ -4190,3 +4190,10 @@ a.pw-row-label:hover { text-decoration: underline; }
 .ess-set { display: inline-flex; align-items: center; gap: 5px; margin-left: 10px; padding: 1px 9px; border: 1px solid var(--line); border-radius: var(--radius-pill); background: var(--surface); color: var(--ink-muted); font-size: var(--fs-xs-plus); font-weight: 600; line-height: 1.5; white-space: nowrap; vertical-align: 1px; }
 .ess-set-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--lvl, var(--accent)); }
 .ess-set.is-high { color: var(--ink); }
+
+/* ===================== v8 TREŚCI: okienko skrótów (S5) ===================== */
+.dialog-shortcuts .dialog-inner { max-width: 460px; }
+.kbd-list { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 10px 18px; margin: 0 0 12px; align-items: baseline; }
+.kbd-list dt { margin: 0; white-space: nowrap; }
+.kbd-list dd { margin: 0; color: var(--ink); }
+.kbd-list kbd { display: inline-block; min-width: 26px; padding: 2px 8px; border: 1px solid var(--line-strong); border-bottom-width: 2px; border-radius: var(--radius-xs); background: var(--surface); color: var(--ink); font: 650 var(--fs-sm) var(--font); text-align: center; }

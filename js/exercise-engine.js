@@ -577,7 +577,7 @@ window.ELM = window.ELM || {};
     // (długie opcje A–H, np. B2 Listening Part 3, zostają jedna pod drugą)
     const row = item.fixedOrder && (letters || p.choice.options.length <= 4);
     nodes.push(el("div", { class: "ex-options" + (row ? " is-row" : "") + (letters ? " is-letters" : ""), role: "radiogroup", "aria-labelledby": "ex-prompt" }, options));
-    if (!done) nodes.push(el("p", { class: "tool-note ex-keys-hint", text: "Klawiatura: cyfry 1–" + options.length + " wybierają odpowiedź, Enter sprawdza." }));
+    if (!done) nodes.push(el("p", { class: "tool-note ex-keys-hint", text: "Klawiatura: cyfry 1–" + options.length + " lub litery A–" + String.fromCharCode(64 + Math.min(options.length, 8)) + " wybierają odpowiedź, Enter sprawdza, S czyta zdanie, ? pokazuje skróty." }));
     return nodes;
   }
 
@@ -1671,6 +1671,12 @@ window.ELM = window.ELM || {};
       check();
       return;
     }
+    // S: odsłuch zdania (przed sprawdzeniem luka jest pauzą), działa też po sprawdzeniu; nie w polach tekstowych
+    if (!typing && (e.key === "s" || e.key === "S")) {
+      const text = X().speechText(p.item, !!p.res);
+      if (text && (p.item.kind !== "listening")) { e.preventDefault(); if (ELM.shortcuts) ELM.shortcuts.speak(text); }
+      return;
+    }
     if (p.res || typing) return;
     if (p.item.type === "match" && /^[1-9]$/.test(e.key)) {
       // Cyfry wybierają element prawej kolumny (po wybraniu lewej)
@@ -1684,9 +1690,13 @@ window.ELM = window.ELM || {};
       }
       return;
     }
-    if (p.item.type === "multiple-choice" && /^[1-9]$/.test(e.key)) {
-      const i = Number(e.key) - 1;
-      if (i < p.choice.options.length) { e.preventDefault(); p.st.chosen = i; repaint(i === 0 ? "first" : "opt-" + i); }
+    if (p.item.type === "multiple-choice" && (/^[1-9]$/.test(e.key) || /^[a-hA-H]$/.test(e.key))) {
+      const opts = p.choice.options;
+      let i = -1;
+      if (/^[1-9]$/.test(e.key)) i = Number(e.key) - 1;
+      else if (opts.every(function (o) { return /^[A-H]$/.test(String(o.text).trim()); })) i = opts.findIndex(function (o) { return String(o.text).trim() === e.key.toUpperCase(); }); // opcje to same litery (B2 Reading): litera = opcja o tej treści
+      else i = e.key.toLowerCase().charCodeAt(0) - 97; // A–D = pierwsza do czwartej opcja
+      if (i >= 0 && i < opts.length) { e.preventDefault(); p.st.chosen = i; repaint(i === 0 ? "first" : "opt-" + i); }
     } else if (p.item.type === "reorder" && e.key === "Backspace" && p.st.line.length) {
       e.preventDefault();
       p.st.line.pop();

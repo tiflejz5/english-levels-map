@@ -522,7 +522,44 @@ window.ELM = window.ELM || {};
     return top ? { score: top.score, total: top.total, high: top.pct >= 0.8, text: "zestaw " + top.score + "/" + top.total } : null;
   }
 
+  /**
+   * Zdanie do odsłuchu klawiszem S (paczka v8, S5): przed sprawdzeniem luka to pauza (" … "), po sprawdzeniu — wzorcowa odpowiedź.
+   * Zwraca tekst albo "" (typ bez zdania do odczytania: dopasowanie, dyktando, układanie przed sprawdzeniem).
+   */
+  function speechText(item, answered) {
+    const PAUSE = " … ";
+    const tidy = function (t) { return String(t).replace(/\s+/g, " ").replace(/\s+([,.;!?])/g, "$1").trim(); };
+    const lines = function (t) { return String(t || "").split("\n").map(function (l) { return l.replace(/^[A-Z][A-Za-z0-9 ]{0,12}:\s+/, ""); }).join(" "); };
+    if (!item) return "";
+    switch (item.type) {
+      case "multiple-choice": {
+        const gap = /_{2,}/;
+        const text = lines(item.prompt);
+        if (!gap.test(text)) return tidy(text);
+        return tidy(text.replace(gap, answered ? item.options[item.correct] : PAUSE));
+      }
+      case "short-answer":
+        return tidy(lines(item.prompt).replace(/_{2,}/, answered ? item.accepted[0] : PAUSE));
+      case "gap-fill":
+        return tidy(String(item.text).replace(/\{\{(\d+)\}\}/g, function (m, n) {
+          const g = item.gaps[Number(n) - 1];
+          return answered && g ? g.accepted[0] : PAUSE;
+        }));
+      case "transformation":
+        return tidy([item.before, answered ? item.answers[0] : PAUSE, item.after].filter(Boolean).join(" "));
+      case "reorder":
+        return answered ? tidy(item.answers[0]) : "";
+      case "translate":
+        return answered ? tidy(item.accepted[0]) : "";
+      case "find-error":
+        return tidy((item.tokens || []).join(" "));
+      default:
+        return "";
+    }
+  }
+
   ELM.exLogic = {
+    speechText: speechText,
     bestSetLabel: bestSetLabel,
     TYPES: TYPES,
     normalize: normalize,

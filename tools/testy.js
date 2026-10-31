@@ -1760,5 +1760,33 @@ test("bestSetLabel: najlepszy zestaw tematu, próg 80% (kropka), brak wyników =
   assert.strictEqual(f([{ score: 0, total: 6 }]).text, "zestaw 0/6");
 });
 
+console.log("\nTreści v8: odsłuch zdania klawiszem S (S5)");
+test("speechText: luka jako pauza przed sprawdzeniem, odpowiedź po sprawdzeniu (wybór, uzupełnianie, transformacja)", function () {
+  const f = global.ELM.exLogic.speechText;
+  const mc = { type: "multiple-choice", prompt: "My brother ___ football every Saturday.", options: ["play", "plays", "playing"], correct: 1 };
+  assert.strictEqual(f(mc, false), "My brother … football every Saturday.");
+  assert.strictEqual(f(mc, true), "My brother plays football every Saturday.");
+  const gf = { type: "gap-fill", text: "She {{1}} to school and {{2}} home.", gaps: [{ accepted: ["goes"] }, { accepted: ["comes", "walks"] }] };
+  assert.strictEqual(f(gf, false), "She … to school and … home.");
+  assert.strictEqual(f(gf, true), "She goes to school and comes home.");
+  const tr = { type: "transformation", before: "I wish I", after: "more time.", answers: ["had"] };
+  assert.strictEqual(f(tr, false), "I wish I … more time.");
+  assert.strictEqual(f(tr, true), "I wish I had more time.");
+  const sa = { type: "short-answer", prompt: "A: Where is Tom?\nB: He ___ at home.", accepted: ["is"] };
+  assert.strictEqual(f(sa, false), "Where is Tom? He … at home.", "etykiety mówców nie są czytane");
+});
+test("speechText: układanie i tłumaczenie dopiero po sprawdzeniu, dopasowanie i dyktando bez zdania, błąd w zdaniu: całe zdanie", function () {
+  const f = global.ELM.exLogic.speechText;
+  assert.strictEqual(f({ type: "reorder", answers: ["She likes tea."] }, false), "");
+  assert.strictEqual(f({ type: "reorder", answers: ["She likes tea."] }, true), "She likes tea.");
+  assert.strictEqual(f({ type: "translate", accepted: ["I am tired."] }, false), "");
+  assert.strictEqual(f({ type: "translate", accepted: ["I am tired."] }, true), "I am tired.");
+  assert.strictEqual(f({ type: "find-error", tokens: ["He", "go", "home", "."] }, false), "He go home.");
+  assert.strictEqual(f({ type: "match", pairs: [["a", "b"]] }, true), "");
+  assert.strictEqual(f({ type: "dictation", text: "x" }, false), "");
+  assert.strictEqual(f(null, false), "");
+  assert.strictEqual(f({ type: "multiple-choice", prompt: "Which is correct?", options: ["a", "b"], correct: 0 }, false), "Which is correct?", "pytanie bez luki jest czytane w całości");
+});
+
 console.log("\nWynik: " + passed + " ok, " + failures.length + " błędów");
 if (failures.length) process.exit(1);

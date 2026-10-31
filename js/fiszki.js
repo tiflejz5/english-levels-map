@@ -644,10 +644,10 @@ window.ELM = window.ELM || {};
     root.appendChild(el("div", { class: "fc-tools" }, [
       el("button", { type: "button", class: "btn btn-link btn-small", disabled: !session.undo.length, onclick: undoLast }, ELM.ui.withIcon("undo-2", "Cofnij (Z)")),
       own ? el("a", { class: "btn btn-link btn-small", href: HASH + "/talia/" + card.deck + "/karta/" + card.id }, ELM.ui.withIcon("pencil", "Edytuj (E)")) : null,
-      el("button", { type: "button", class: "btn btn-link btn-small", onclick: function () { setAside("suspend"); } }, ELM.ui.withIcon("pause", "Zawieś (S)")),
+      el("button", { type: "button", class: "btn btn-link btn-small", onclick: function () { setAside("suspend"); } }, ELM.ui.withIcon("pause", "Zawieś (W)")),
       el("button", { type: "button", class: "btn btn-link btn-small", onclick: function () { setAside("bury"); } }, ELM.ui.withIcon("clock", "Odłóż do jutra (B)"))
     ]));
-    root.appendChild(el("p", { class: "tool-note fc-keys", text: "Skróty: Spacja – pokaż / Dobrze, 1–4 – oceny, Z – cofnij, S – zawieś, B – odłóż" + (own ? ", E – edytuj" : "") + "." }));
+    root.appendChild(el("p", { class: "tool-note fc-keys", text: "Skróty: Spacja – pokaż / Dobrze, 1–4 – oceny, S – odsłuch, Z – cofnij, W – zawieś, B – odłóż" + (own ? ", E – edytuj" : "") + ", ? – lista." }));
     root.appendChild(liveNode);
 
     // Fokus: pole wpisywania albo główny przycisk
@@ -655,6 +655,15 @@ window.ELM = window.ELM || {};
       const target = !session.revealed && input ? input : root.querySelector(session.revealed ? ".fc-grade.is-suggested, .fc-grade.is-good" : ".fc-reveal");
       if (target) target.focus({ preventScroll: true });
     }, 0);
+  }
+
+  /** Zdanie karty do odsłuchu (S): luka cloze jako pauza, po odsłonięciu odpowiedź; tekst polski nie jest czytany głosem angielskim. */
+  function cardSpeech(card, revealed) {
+    const c = card.type === "cloze" ? L().parseCloze(card.text) : null;
+    if (c && c.ok) return (c.before + (revealed ? c.answers[0] : " … ") + c.after).replace(/\s+/g, " ").trim();
+    const front = String(card.front || ""), back = String(card.back || "");
+    if (front && !L().isPolish(front)) return front;
+    return revealed && back && !L().isPolish(back) ? back : "";
   }
 
   function reveal() {
@@ -752,7 +761,13 @@ window.ELM = window.ELM || {};
     } else if (["1", "2", "3", "4"].indexOf(k) !== -1 && session.revealed) {
       e.preventDefault(); grade(GRADE_INFO[Number(k) - 1].id);
     } else if (k === "z") { e.preventDefault(); undoLast(); }
-    else if (k === "s") { e.preventDefault(); setAside("suspend"); }
+    else if (k === "s") { // odsłuch zdania z karty (luka jest pauzą do odsłonięcia odpowiedzi)
+      e.preventDefault();
+      const text = cardSpeech(cardById(session.current) || {}, session.revealed);
+      if (text && ELM.shortcuts) ELM.shortcuts.speak(text);
+      else if (!text) ELM.ui.toast({ text: "Ta karta nie ma zdania po angielsku do odsłuchu.", icon: "volume-x" });
+    }
+    else if (k === "w") { e.preventDefault(); setAside("suspend"); }
     else if (k === "b") { e.preventDefault(); setAside("bury"); }
     else if (k === "e" && /^u-/.test(session.current)) {
       e.preventDefault();
