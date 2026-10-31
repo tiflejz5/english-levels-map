@@ -12,7 +12,8 @@
  *   c1Route  — widok zakładki „Certyfikat C1” (view "c1"), patrz js/c1-core.js
  *   toolRoute — widoki nauki: "today" (#/dzis, js/today.js),
  *              "leveltest" (#/test-poziomu, js/level-test.js),
- *              "journal" (#/bledy, js/journal.js)
+ *              "powtorki" (#/powtorki, js/powtorki.js: Fiszki i błędy, zakładka „Na dziś”)
+ *              "journal" (#/powtorki/moje-bledy, js/journal.js)
  */
 window.ELM = window.ELM || {};
 
@@ -199,13 +200,15 @@ window.ELM = window.ELM || {};
   //   "#/a1/<podstrona>"  → podstrona punktu (niezbędnik)
   //   "#/dzis"            → strona „Dziś”
   //   "#/test-poziomu"    → szybki test poziomu
-  //   "#/bledy[/powtorki]" → dziennik błędów i sesja powtórek
+  //   "#/powtorki[/na-dzis]" → Fiszki i błędy, zakładka „Na dziś” (js/powtorki.js)
+  //   "#/powtorki/talie[/…]" → zakładka „Talie” (js/fiszki.js); "#/powtorki/moje-slowa" → „Moje słowa”
+  //   "#/powtorki/moje-bledy" → zakładka „Moje błędy” (js/journal.js)
+  //   "#/powtorki/sesja[?tylko=bledy|slabe|talie|talia:<id>]" → sesja powtórek (js/fiszki.js)
+  //   stare adresy #/fiszki…, #/bledy[/powtorki] przekierowuje ELM.reviews.redirectFor
   //   "#/cwiczenia/zestaw|mix/<id>", "#/cwiczenia/sesja" → sesja zadań (js/exercise-engine.js)
   //   "#/laboratorium-czasow[/…]" → Laboratorium czasów (js/tense-lab.js)
   //   "#/statystyki"      → Statystyki (js/stats-page.js)
   //   "#/notatki"         → Moje notatki (js/notes.js)
-  //   "#/powtorki[/…]"    → przekierowanie do "#/fiszki[/…]" (Fiszki i błędy; widok połączony w etapie 2)
-  //   "#/fiszki[/…]"      → Fiszki (js/fiszki.js)
   //   "#/pisanie[/…]"     → Pisanie: wzorce z komentarzami (js/pisanie.js)
   //   "#/<egzamin>[/…]"   → egzamin z rejestru dane/egzaminy-manifest.json (js/exam-core.js)
   // =====================================================================
@@ -213,14 +216,13 @@ window.ELM = window.ELM || {};
   /** Odczytuje adres i ustawia state.view, state.route i wybrany poziom. */
   function applyRoute() {
     let hash = location.hash || "";
-    // „Fiszki i błędy”: #/powtorki (widok połączony dojdzie w etapie 2) na razie prowadzi do Fiszek
-    if (/^#\/powtorki(\/|$)/.test(hash)) {
-      hash = "#/fiszki" + hash.slice("#/powtorki".length);
-      history.replaceState(null, "", hash);
-    }
+    // Stare adresy (#/fiszki…, #/bledy…) przekierowują do widoku „Fiszki i błędy” (location.replace: bez wpisu w historii)
+    const legacy = ELM.reviews ? ELM.reviews.redirectFor(hash) : null;
+    if (legacy) { location.replace(legacy); hash = legacy; }
     const level = /^#\/([abcABC][12])\/?$/.exec(hash);
     const c1 = ELM.c1 ? ELM.c1.parseRoute(hash) : null;
     const exam = ELM.exams ? ELM.exams.parseRoute(hash) : null;
+    const powtorki = ELM.powtorki ? ELM.powtorki.parseRoute(hash) : null;
     const journal = ELM.journal ? ELM.journal.parseRoute(hash) : null;
     const today = ELM.today ? ELM.today.parseRoute(hash) : null;
     const levelTest = ELM.levelTest ? ELM.levelTest.parseRoute(hash) : null;
@@ -242,6 +244,9 @@ window.ELM = window.ELM || {};
     } else if (today) {
       state.view = "today";
       state.toolRoute = today;
+    } else if (powtorki) {
+      state.view = "powtorki"; // „Fiszki i błędy”, zakładka „Na dziś” (js/powtorki.js)
+      state.toolRoute = powtorki;
     } else if (journal) {
       state.view = "journal";
       state.toolRoute = journal;
@@ -462,6 +467,8 @@ window.ELM = window.ELM || {};
     const ids = profilesData.profiles.map(function (p) { return p.id; });
     if (ELM.profileData) ELM.profileData.applyImport(learning || null, ids);
     if (ELM.fiszkiStore) ELM.fiszkiStore.applyImport(fiszki || null, ids);
+    if (!fiszki && ELM.fiszkiStore) ELM.fiszkiStore.clearMigrationFlags(); // stary plik: Dziennik z pliku dostaje karty „Moje błędy”
+    if (ELM.reviews) ELM.reviews.resetMigrationMemo();
     profilesChanged();
   }
 

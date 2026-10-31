@@ -108,7 +108,7 @@ window.ELM = window.ELM || {};
       return { text: "Dzisiejszy dzień nauki zaliczony. Możesz zrobić coś jeszcze albo spokojnie odpocząć." };
     }
     if (due > 0) {
-      return { text: due + " " + plural(due, "błąd czeka", "błędy czekają", "błędów czeka") + " na powtórkę – to dobry start na dziś.", href: ELM.journal.REVIEW, cta: "Zacznij powtórki" };
+      return { text: due + " " + plural(due, "pozycja czeka", "pozycje czekają", "pozycji czeka") + " na powtórkę – to dobry start na dziś.", href: "#/powtorki/sesja", cta: "Powtarzaj teraz" };
     }
     const next = nextItem(cur.id);
     if (!anyDone && next) {
@@ -445,7 +445,7 @@ window.ELM = window.ELM || {};
     const stats = levelStats();
     const today = learn().today();
     const streak = learn().streak(pd().activityDays(), today);
-    const due = pd().dueCount();
+    const due = ELM.reviews ? ELM.reviews.count() : 0; // Fiszki i błędy: jedna liczba (fiszki + Moje błędy + słabe punkty)
     const exams = ELM.examCover ? ELM.examCover.todayTiles() : []; // moje egzaminy (maks. 2), najbliższa data pierwsza
     const trail = trailTile(stats);
 
@@ -453,13 +453,12 @@ window.ELM = window.ELM || {};
     view.dataset.file = HASH;
     view.replaceChildren(el("div", { class: "bento" + (exams.length ? " has-exam" : "") }, [
       heroTile(stats, streak, due),
-      reviewsTile(due),
+      ELM.powtorki ? ELM.powtorki.todayCard() : reviewsTile(due), // „Fiszki i błędy”: liczba, rozbicie, „Powtarzaj teraz”
       ELM.levelFinal ? ELM.levelFinal.todayTip(stats) : null, // „Gotowy na test końcowy A1?” przy ≥ 70% „Umiem”
       trail,
       streakTile(),
       exams,
-      shortcutsTile(),
-      ELM.fiszki ? ELM.fiszki.todayTile() : null // kafelek „Fiszki do powtórki” (spec 10, 5.5)
+      shortcutsTile()
     ]));
     document.title = "Dziś · English Levels Map";
     U.setScroll(keepScroll);

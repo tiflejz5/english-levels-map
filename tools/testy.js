@@ -1449,5 +1449,242 @@ test("navSplit: tylko moje + reszta w „+N”, bieżący egzamin zostaje, brak 
   assert.strictEqual(EL.navSplit(reg, ["x"]).hidden.length, 5);
 });
 
+console.log("\nPowtórki v8: migracja Dziennika błędów do kart „Moje błędy” (spec 20, R1)");
+(function () {
+  const FLg = global.ELM.fiszkiLogic;
+  const NOW = new Date(2026, 10, 10, 12, 0, 0).getTime(); // 10.11.2026, południe
+  const entry = function (id, review, extra) { return Object.assign({ id: id, createdAt: "2026-11-01", context: "She ___ to school.", myAnswer: "go", correct: "goes", rule: "3. osoba: -s", source: "", category: "Gramatyka", itemId: "", ref: "", review: review }, extra || {}); };
+  const entries = [
+    entry("err-s0", { stage: 0, due: "2026-11-11", mastered: false }),
+    entry("err-s1", { stage: 1, due: "2026-11-12", mastered: false }),
+    entry("err-s2", { stage: 2, due: "2026-11-17", mastered: false }, { context: "Jaki czas?\nZdanie bez luki" }),
+    entry("err-m", { stage: 2, due: "2026-10-01", mastered: true }),
+    entry("err-late", { stage: 1, due: "2026-11-05", mastered: false })
+  ];
+  const fresh = function () { return FLg.sanitizeState(FLg.emptyState()); };
+
+  test("migracja: wpis bez karty dostaje kartę w talii „Moje błędy” (włączonej), znacznik migratedJournal", function () {
+    const st = fresh();
+    assert.strictEqual(FLg.migrateJournal(st, entries, NOW), 5);
+    assert.strictEqual(st.userCards.length, 5);
+    assert.ok(st.userDecks.some(function (d) { return d.id === "u-moje-bledy" && d.system === "mistakes"; }));
+    assert.ok(st.settings.enabledDecks.indexOf("u-moje-bledy") !== -1);
+    assert.strictEqual(st.settings.migratedJournal, true);
+    assert.strictEqual(st.userCards[0].type, "cloze");
+    assert.strictEqual(st.userCards[2].type, "basic");
+    assert.strictEqual(st.userCards[0].sourceItemId, "journal:err-s0");
+  });
+  test("migracja: etap 0/1/2 → interwał 1/3/7 dni, termin = review.due", function () {
+    const st = fresh();
+    FLg.migrateJournal(st, entries, NOW);
+    [["err-s0", 1, "2026-11-11"], ["err-s1", 3, "2026-11-12"], ["err-s2", 7, "2026-11-17"]].forEach(function (x) {
+      const c = st.cards[FLg.journalCardId({ id: x[0] })];
+      assert.strictEqual(c.state, "review");
+      assert.strictEqual(c.interval, x[1]);
+      assert.strictEqual(c.due, FLg.dayStart(x[2]));
+    });
+  });
+  test("migracja: opanowany → interwał 21 dni, termin nie wcześniej niż jutro (bez zalewu „dziś”)", function () {
+    const st = fresh();
+    FLg.migrateJournal(st, entries, NOW);
+    const c = st.cards[FLg.journalCardId({ id: "err-m" })];
+    assert.strictEqual(c.interval, 21);
+    assert.ok(c.due >= FLg.dayEnd(NOW));
+  });
+  test("migracja: zaległy wpis zostaje zaległy (termin w przeszłości)", function () {
+    const st = fresh();
+    FLg.migrateJournal(st, entries, NOW);
+    const c = st.cards[FLg.journalCardId({ id: "err-late" })];
+    assert.strictEqual(c.due, FLg.dayStart("2026-11-05"));
+    assert.ok(c.due < NOW);
+  });
+  test("migracja: druga migracja nic nie zmienia", function () {
+    const st = fresh();
+    FLg.migrateJournal(st, entries, NOW);
+    const before = JSON.stringify(st);
+    assert.strictEqual(FLg.migrateJournal(st, entries, NOW + 3600000), 0);
+    assert.strictEqual(JSON.stringify(st), before);
+  });
+  test("migracja: wpis z kartą dodaną wcześniej ręcznie (sourceItemId) nie dostaje drugiej", function () {
+    const st = fresh();
+    FLg.ensureMistakesDeck(st);
+    st.userCards.push({ id: "u-stara", deck: "u-moje-bledy", type: "basic", front: "a", back: "b", tags: [], sourceItemId: "journal:err-s0" });
+    assert.strictEqual(FLg.migrateJournal(st, entries, NOW), 4);
+    assert.strictEqual(st.userCards.length, 5);
+  });
+  test("stan po migracji przechodzi sanitizeState bez zmian (eksport → import), z kluczem ex: i exNew", function () {
+    const st = fresh();
+    FLg.migrateJournal(st, entries, NOW);
+    st.cards["ex:a1-czasy-present-simple-1-3"] = FLg.journalCardState({ stage: 1, due: "2026-11-12" }, NOW);
+    st.daily["2026-11-10"] = { new: 1, reviews: 0, again: 0, good: 0, answers: 1, minutes: 0, exNew: 1 };
+    const round = FLg.sanitizeState(JSON.parse(JSON.stringify(st)));
+    assert.deepStrictEqual(round, st);
+    assert.ok(round.cards["ex:a1-czasy-present-simple-1-3"]);
+    assert.strictEqual(round.settings.migratedJournal, true);
+    assert.strictEqual(round.daily["2026-11-10"].exNew, 1);
+  });
+  test("sanitizeState: zły klucz ex: jest odrzucany", function () {
+    const st = fresh();
+    st.cards["ex:../zly"] = FLg.newJournalState(NOW);
+    st.cards["ex:"] = FLg.newJournalState(NOW);
+    assert.deepStrictEqual(Object.keys(FLg.sanitizeState(JSON.parse(JSON.stringify(st))).cards), []);
+  });
+  test("nowy wpis: karta od razu, pierwsza powtórka jutro", function () {
+    const s = FLg.newJournalState(NOW);
+    assert.strictEqual(s.state, "review");
+    assert.strictEqual(s.interval, 1);
+    assert.strictEqual(s.due, FLg.dayEnd(NOW));
+  });
+})();
+
+console.log("\nPowtórki v8: kolejka Fiszki i błędy (spec 20, R2)");
+require(path.join(__dirname, "..", "js", "reviews.js"));
+(function () {
+  const R = global.ELM.reviews;
+  const FLg = global.ELM.fiszkiLogic;
+  const HM = global.ELM.fiszkiHarmonogram;
+  const DAYMS = 86400000;
+  const NOW = new Date(2026, 10, 10, 12, 0, 0).getTime(); // 10.11.2026, 12:00
+  const at = function (d, h, m) { return new Date(2026, 10, d, h, m || 0, 0).getTime(); };
+  const rev = function (due, interval) { return Object.assign(HM.newCard(), { state: "review", interval: interval || 3, due: due, reps: 2 }); };
+
+  // talie: d1 (4 karty), d2 (3 karty), „Moje błędy” (3 karty użytkownika)
+  function makeCtx(over) {
+    const st = FLg.sanitizeState(FLg.emptyState());
+    st.settings.enabledDecks = ["d1", "d2"];
+    const userCards = ["u-mb-1", "u-mb-2", "u-mb-3"].map(function (id) { return { id: id, deck: "u-moje-bledy", type: "basic", front: "a", back: "b", tags: [] }; });
+    st.userDecks.push({ id: "u-moje-bledy", title: "Moje błędy", system: "mistakes" });
+    st.userCards = userCards;
+    const decks = [{ id: "d1", count: 4 }, { id: "d2", count: 3 }, { id: "u-moje-bledy", count: 3 }];
+    const cards = { d1: [1, 2, 3, 4].map(function (i) { return { id: "d1-00" + i, deck: "d1" }; }), d2: [1, 2, 3].map(function (i) { return { id: "d2-00" + i, deck: "d2" }; }), "u-moje-bledy": userCards };
+    const ctx = Object.assign({
+      state: st, decks: decks, weak: [],
+      cardsOf: function (id) { return cards[id] || []; },
+      deckOf: function (id) { return /^u-mb/.test(id) ? "u-moje-bledy" : id.replace(/-\d{3}$/, ""); }
+    }, over || {});
+    return ctx;
+  }
+  const ids = function (q) { return q.map(function (x) { return x.id; }); };
+
+  test("kolejka: pusto, gdy nie ma kart do zrobienia (limit nowych 0)", function () {
+    const ctx = makeCtx();
+    ctx.state.settings.newPerDay = 0;
+    assert.deepStrictEqual(R.queueFrom(ctx, NOW), []);
+    assert.deepStrictEqual(R.summaryFrom(ctx, NOW), { card: 0, mistake: 0, exercise: 0, total: 0 });
+  });
+  test("kolejka: zaległe najstarsze pierwsze, nowe na końcu, rodzaje: karta / błąd / zadanie", function () {
+    const ctx = makeCtx({ weak: [{ id: "a1-x-1", topic: "t1" }] });
+    ctx.state.settings.newPerDay = 2;
+    ctx.state.cards["d1-001"] = rev(at(9, 5));            // zaległa o dzień
+    ctx.state.cards["u-mb-1"] = rev(at(5, 5));            // najstarsza
+    ctx.state.cards["ex:a1-x-2"] = rev(at(8, 5));         // zadanie
+    ctx.state.cards["d2-001"] = rev(at(10, 5));           // dziś rano
+    ctx.state.cards["d2-002"] = rev(at(12, 5));           // pojutrze: poza dniem
+    const q = R.queueFrom(ctx, NOW);
+    assert.strictEqual(q[0].id, "u-mb-1", "najstarsza zaległa pierwsza");
+    assert.strictEqual(ids(q).indexOf("d2-002"), -1);
+    assert.deepStrictEqual(q.slice(0, 4).map(function (x) { return x.kind; }).sort(), ["card", "card", "exercise", "mistake"]);
+    assert.ok(q.slice(4).every(function (x) { return x.due === 0; }), "nowe na końcu");
+    assert.strictEqual(q.length, 6, "4 zaległe + 2 nowe (limit)");
+  });
+  test("kolejka: przeplatanie — najwyżej 2 tego samego rodzaju i nie ten sam temat z rzędu", function () {
+    const items = [];
+    for (let i = 0; i < 4; i++) items.push({ kind: "card", id: "c" + i, due: i, topic: "d1" });
+    for (let i = 0; i < 3; i++) items.push({ kind: "mistake", id: "m" + i, due: 10 + i, topic: "u-moje-bledy" });
+    items.push({ kind: "exercise", id: "e0", due: 20, topic: "t1" }, { kind: "card", id: "c9", due: 21, topic: "d2" });
+    const out = R.interleave(items);
+    assert.strictEqual(out.length, items.length);
+    for (let i = 1; i < out.length; i++) assert.notStrictEqual(out[i].topic, out[i - 1].topic, "temat z rzędu na " + i);
+    for (let i = 2; i < out.length; i++) assert.ok(!(out[i].kind === out[i - 1].kind && out[i].kind === out[i - 2].kind), "trzeci rodzaj z rzędu na " + i);
+  });
+  test("kolejka: limit powtórek na dzień wspólny dla kart, błędów i zadań (najstarsze zostają)", function () {
+    const ctx = makeCtx();
+    ctx.state.settings.reviewsPerDay = 3;
+    ctx.state.settings.newPerDay = 0;
+    ctx.state.cards["d1-001"] = rev(at(9, 5));
+    ctx.state.cards["d1-002"] = rev(at(8, 5));
+    ctx.state.cards["u-mb-1"] = rev(at(7, 5));
+    ctx.state.cards["ex:a1-x-9"] = rev(at(6, 5));
+    ctx.state.cards["d2-001"] = rev(at(5, 5));
+    const q = R.queueFrom(ctx, NOW);
+    assert.deepStrictEqual(ids(q).sort(), ["d2-001", "ex:a1-x-9", "u-mb-1"].sort());
+    ctx.state.daily["2026-11-10"] = { new: 0, reviews: 2, again: 0, good: 0, answers: 2, minutes: 0 };
+    assert.strictEqual(R.queueFrom(ctx, NOW).length, 1);
+  });
+  test("kolejka: limit nowych 10 dziennie, w tym najwyżej 3 nowe zadania ze słabych punktów", function () {
+    const weak = [1, 2, 3, 4, 5].map(function (i) { return { id: "w-" + i, topic: "t" + i }; });
+    const ctx = makeCtx({ weak: weak });
+    let q = R.queueFrom(ctx, NOW);
+    assert.strictEqual(q.filter(function (x) { return x.kind === "exercise"; }).length, 3);
+    assert.strictEqual(q.length, 10, "10 nowych: 7 kart i 3 zadania");
+    assert.strictEqual(q[q.length - 1].kind === "exercise" || q[q.length - 2].kind === "exercise", true);
+    ctx.state.daily["2026-11-10"] = { new: 2, reviews: 0, again: 0, good: 0, answers: 2, minutes: 0, exNew: 2 };
+    q = R.queueFrom(ctx, NOW);
+    assert.strictEqual(q.filter(function (x) { return x.kind === "exercise"; }).length, 1, "zostało 3 − 2 = 1");
+    assert.strictEqual(q.length, 8, "limit nowych 10 − 2 zrobione");
+  });
+  test("kolejka: granica dnia 04:00 — karta z terminem po północy, ale przed 04:00, należy do dzisiejszego dnia nauki", function () {
+    const ctx = makeCtx();
+    ctx.state.settings.newPerDay = 0;
+    ctx.state.cards["d1-001"] = rev(at(11, 2, 0));   // jutro 02:00
+    ctx.state.cards["d1-002"] = rev(at(11, 5, 0));   // jutro 05:00
+    assert.deepStrictEqual(ids(R.queueFrom(ctx, at(10, 23, 0))), ["d1-001"]);
+    assert.deepStrictEqual(ids(R.queueFrom(ctx, at(11, 1, 0))), ["d1-001"], "01:00 to jeszcze dzień nauki 10.11");
+    assert.deepStrictEqual(ids(R.queueFrom(ctx, at(11, 6, 0))).sort(), ["d1-001", "d1-002"], "po 04:00 oba są na dziś (koniec dnia nauki 12.11 04:00)");
+  });
+  test("kolejka: wyłączona talia pomijana, „Moje błędy” zawsze w kolejce, zawieszone i odłożone pomijane", function () {
+    const ctx = makeCtx();
+    ctx.state.settings.newPerDay = 0;
+    ctx.state.settings.enabledDecks = ["d1"];
+    ctx.state.cards["d2-001"] = rev(at(9, 5));
+    ctx.state.cards["u-mb-2"] = rev(at(9, 5));
+    ctx.state.cards["d1-001"] = Object.assign(rev(at(9, 5)), { suspended: true });
+    ctx.state.cards["d1-002"] = Object.assign(rev(at(9, 5)), { buriedUntil: NOW + 3600000 });
+    assert.deepStrictEqual(ids(R.queueFrom(ctx, NOW)), ["u-mb-2"]);
+  });
+  test("count / breakdown (summaryFrom) zgadzają się z długością i rodzajami kolejki", function () {
+    const ctx = makeCtx({ weak: [{ id: "w1", topic: "t1" }, { id: "w2", topic: "t2" }] });
+    ctx.state.settings.newPerDay = 5;
+    ctx.state.cards["d1-001"] = rev(at(9, 5));
+    ctx.state.cards["d2-001"] = Object.assign(HM.newCard(), { state: "learning", due: NOW - 1000 });
+    ctx.state.cards["u-mb-1"] = rev(at(8, 5));
+    ctx.state.cards["ex:old-1"] = rev(at(7, 5));
+    const q = R.queueFrom(ctx, NOW), s = R.summaryFrom(ctx, NOW);
+    assert.strictEqual(s.total, q.length);
+    ["card", "mistake", "exercise"].forEach(function (k) { assert.strictEqual(s[k], q.filter(function (x) { return x.kind === k; }).length, k); });
+  });
+  test("estimateMinutes: karta 0,3, błąd 0,5, zadanie 0,7 min (zaokrąglone, min. 1 gdy coś jest)", function () {
+    assert.strictEqual(R.estimateMinutes({ card: 10, mistake: 0, exercise: 0 }), 3);
+    assert.strictEqual(R.estimateMinutes({ card: 11, mistake: 4, exercise: 3 }), 7);
+    assert.strictEqual(R.estimateMinutes({ card: 1, mistake: 0, exercise: 0 }), 1);
+    assert.strictEqual(R.estimateMinutes({ card: 0, mistake: 0, exercise: 0 }), 0);
+  });
+  test("weakTasks: błędne zadania z słabych tematów bez poprawnej odpowiedzi w 14 dni; dyktanda pomijane bez głosu", function () {
+    const row = function (id, topic, ok, day, type) { return { itemId: id, topic: topic, correct: ok, day: day, type: type || "gap-fill" }; };
+    const items = [];
+    for (let i = 0; i < 6; i++) items.push(row("t-" + i, "slaby", false, "2026-11-0" + (i % 5 + 1)));
+    items.push(row("solved", "slaby", false, "2026-11-01"), row("solved", "slaby", true, "2026-11-09"));
+    items.push(row("dyk", "slaby", false, "2026-11-08", "dictation"));
+    for (let i = 0; i < 6; i++) items.push(row("ok-" + i, "dobry", i < 5, "2026-11-05"));
+    const rec = { items: items, aggregates: {} };
+    global.ELM.learn.today = function () { return "2026-11-10"; };
+    const all = R.weakTasks(rec, "2026-11-10");
+    assert.ok(all.every(function (w) { return w.topic === "slaby"; }));
+    assert.ok(all.some(function (w) { return w.id === "dyk"; }));
+    assert.ok(!all.some(function (w) { return w.id === "solved"; }), "rozwiązane poprawnie w 14 dniach");
+    assert.ok(!R.weakTasks(rec, "2026-11-10", { noVoice: true }).some(function (w) { return w.id === "dyk"; }));
+    assert.deepStrictEqual(R.weakTasks({ items: [], aggregates: {} }, "2026-11-10"), []);
+  });
+  test("redirectFor: stare adresy → #/powtorki/…", function () {
+    const m = {
+      "#/fiszki": "#/powtorki/talie", "#/fiszki/": "#/powtorki/talie", "#/fiszki/talia/kolokacje": "#/powtorki/talie/talia/kolokacje",
+      "#/fiszki/moje-slowa": "#/powtorki/moje-slowa", "#/fiszki/import": "#/powtorki/talie/import", "#/fiszki/tematy/a1": "#/powtorki/talie/tematy/a1",
+      "#/fiszki/sesja": "#/powtorki/sesja?tylko=talie", "#/bledy": "#/powtorki/moje-bledy", "#/bledy/powtorki": "#/powtorki/sesja?tylko=bledy"
+    };
+    Object.keys(m).forEach(function (k) { assert.strictEqual(R.redirectFor(k), m[k], k); });
+    ["#/dzis", "#/powtorki", "#/powtorki/talie", "#/cwiczenia", ""].forEach(function (k) { assert.strictEqual(R.redirectFor(k), null, k); });
+  });
+})();
+
 console.log("\nWynik: " + passed + " ok, " + failures.length + " błędów");
 if (failures.length) process.exit(1);

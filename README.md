@@ -12,7 +12,7 @@ Czysty HTML + CSS + JavaScript. Bez frameworków i bez kroku budowania; npm słu
 - **Certyfikat C1:** strategie do każdej części egzaminu, 19 zestawów Use of English, które sprawdzają się same, trener Writing (timer, licznik słów) i trener Speaking (timery, nagrywanie). Trener mówienia jest też dla matury ustnej i B2 First, a dla E8 jako trening dodatkowy.
 - **Dziś** (`#/dzis`, na górze lewego panelu): powtórki na dziś, seria nauki („Dni z rzędu”, „Najdłuższa seria”), ostatnie 7 dni, postęp na poziomach A1–C2, „Kontynuuj” (ostatnio otwarta podstrona), odliczanie do egzaminu C1 i skrót „Dodaj błąd”.
 - **Szybki test poziomu** (`#/test-poziomu`): 12 pytań adaptacyjnych z puli 60 (gramatyka, słownictwo, czytanie), szacowany poziom (orientacyjnie), lista błędnych pytań z linkami do niezbędnika.
-- **Dziennik błędów** (`#/bledy`) z powtórkami po 1, 3 i 7 dniach (`#/bledy/powtorki`) i plakietką liczby powtórek na dziś. Błędy z ćwiczeń Certyfikatu C1 i z testu poziomu można dodać jednym przyciskiem.
+- **Fiszki i błędy** (`#/powtorki`): jedna kolejka powtórek (fiszki z talii, „Moje błędy” z Dziennika i słabe punkty z ćwiczeń), jedna plakietka w pasku, zakładki Na dziś / Talie / Moje błędy / Moje słowa i wspólna sesja `#/powtorki/sesja`. Błędy z ćwiczeń Certyfikatu C1 i z testu poziomu można dodać jednym przyciskiem.
 - **Menu profilu** (prawy górny róg): lista profili z przełączaniem, zmiana nazwy (✎), usuwanie z potwierdzeniem (✕), „+ Dodaj profil” oraz sekcja **Dane** (Eksportuj / Importuj / Resetuj).
 - **Motyw jasny i ciemny** (przycisk obok menu profilu).
 - Działa na telefonie, tablecie i komputerze (sprawdzane przy 360, 390, 768, 1024 i 1280 px).
@@ -47,9 +47,17 @@ Instrukcja obsługi dla nauczyciela (po polsku): [docs/INSTRUKCJA.md](docs/INSTR
 
 ## Dziennik błędów i powtórki
 
+### Fiszki i błędy (paczka v8, etap „powtórki”)
+
+- **Adresy:** `#/powtorki` (Na dziś), `#/powtorki/talie[/…]` (talie, import, tematy, przeglądanie i edycja kart), `#/powtorki/moje-bledy` (dotychczasowy Dziennik błędów ze stanem karty zamiast etapu 1/3/7), `#/powtorki/moje-slowa`, `#/powtorki/sesja` z opcjonalnym `?tylko=bledy|slabe|talie|talia:<id>` i `&max=10` (krótka sesja). Stare adresy przekierowują przez `location.replace`: `#/fiszki` → `#/powtorki/talie`, `#/fiszki/…` → `#/powtorki/talie/…`, `#/fiszki/moje-slowa` → `#/powtorki/moje-slowa`, `#/fiszki/sesja` → `#/powtorki/sesja?tylko=talie`, `#/bledy` → `#/powtorki/moje-bledy`, `#/bledy/powtorki` → `#/powtorki/sesja?tylko=bledy` (`ELM.reviews.redirectFor`, testy w `tools/testy.js`).
+- **Migracja Dziennika** (jednorazowa, idempotentna, `ELM.fiszkiLogic.migrateJournal`): wpis bez karty dostaje kartę w talii „Moje błędy”. Stan z pola `review`: etap 0/1/2 → karta w powtórkach z interwałem 1/3/7 dni i terminem `review.due` (zaległy zostaje zaległy), opanowany → interwał 21 dni, termin 21 dni po ostatnim terminie, nie wcześniej niż od jutra. Znacznik: opcjonalne `settings.migratedJournal: true` w kluczu fiszek; pole `review` we wpisie zostaje. Po imporcie starego pliku (bez części „fiszki”) znacznik jest zerowany, żeby wpisy z pliku też dostały karty. Karta ma stałe id `u-mb-<id wpisu>`, więc druga migracja niczego nie dubluje.
+- **Słabe punkty:** zadania z tematów o trafności < 70% (≥ 5 prób), niezrobione poprawnie przez 14 dni (`ELM.reviews.weakTasks`). Stan zadania w mapie `cards` fiszek pod kluczem `ex:<idZadania>`, ocena automatyczna (poprawnie = Dobrze, błędnie = Znowu), maks. 3 nowe zadania dziennie w limicie 10 nowych; w `daily[dzień]` opcjonalne pole `exNew` je liczy. Dyktanda bez głosu angielskiego są pomijane. Zadanie otwiera się w widoku silnika ćwiczeń (`ELM.exercises.startSingle`) z wyjaśnieniem.
+- **Kolejka** (`js/reviews.js`, czysta logika): `ELM.reviews.queue(now)` → `[{ kind: "card"|"mistake"|"exercise", id, due }]`, zaległe najstarsze pierwsze, przeplatanie (≤ 2 tego samego rodzaju z rzędu, nie ten sam temat dwa razy z rzędu), nowe na końcu, limity dnia i granica 04:00 jak w fiszkach. `count()` zasila plakietkę paska, Dziś i tytuł widoku, `breakdown()` → `{ card, mistake, exercise }`, `estimateMinutes`: karta 0,3, błąd 0,5, zadanie 0,7 min. Zadanie ocenione „Znowu” nie wraca w tej samej sesji.
+- **Bez nowych kluczy localStorage:** `settings.migratedJournal`, klucze `ex:` w `cards` i `daily[…].exNew` są opcjonalnymi polami w kluczu fiszek (`elm.<profil>.fiszki`), czytanymi tolerancyjnie; eksport i import je zachowują, stare pliki działają. Ustawienie „Automatycznie dodawaj błędy z ćwiczeń do fiszek” zniknęło (karta powstaje zawsze).
+
 - **Wpis:** kontekst / pytanie (wymagane), moja odpowiedź, poprawna odpowiedź (wymagana), reguła / dlaczego, źródło (np. „Arkusz 1 RUE, Part 4, pyt. 29”), kategoria (Use of English, Reading, Writing, Listening, Speaking, Gramatyka, Słownictwo, Inne) i opcjonalny punkt niezbędnika (wyszukiwalna lista z `niezbednik/index.json`; zapisujemy id, a we wpisie pokazujemy link).
 - **Lista:** filtry „Do powtórki dziś”, „Wszystkie”, „Opanowane”, filtr kategorii, wyszukiwanie, edycja i usuwanie (z potwierdzeniem).
-- **Harmonogram:** stała `REVIEW_STEPS = [1, 3, 7]` w `js/learning.js` (zmień tablicę, żeby zmienić odstępy). Nowy wpis ma pierwszą powtórkę jutro. „Wiedziałem(am)” przesuwa wpis na następny etap (licząc od dnia powtórki), po ostatnim etapie wpis jest „opanowany”. „Znowu błąd” cofa go do pierwszego etapu (jutro). Zaległe powtórki są po prostu „do zrobienia dziś”.
+- **Harmonogram (paczka v8):** wszystko planuje `schedule()` z `js/fiszki-harmonogram.js`; `REVIEW_STEPS = [1, 3, 7]` w `js/learning.js` nie steruje już powtórkami (zostaje w danych wpisu dla zgodności eksportu). Każdy wpis ma kartę w systemowej talii „Moje błędy”; nowy wpis (ręczny i automatyczny z zadań) dostaje ją od razu, z pierwszą powtórką jutro. Powtórka wpisu to ocena karty w sesji (Znowu / Trudne / Dobrze / Łatwe).
 - **Ćwiczenia C1** (Part 1–4): przy błędnej, wpisanej odpowiedzi przycisk „Dodaj do dziennika błędów” otwiera formularz wstępnie wypełniony treścią zadania, odpowiedzią, poprawną odpowiedzią, wyjaśnieniem i nazwą zestawu. Nic nie zapisuje się bez „Zapisz”. To samo zadanie z tą samą odpowiedzią nie zostanie dodane drugi raz (pole `ref` wpisu).
 
 ## Seria nauki
@@ -124,7 +132,7 @@ Specyfikacja: `docs/rozbudowa-v6/spec/14-slowniczek-osobisty.md`. Osobisty słow
 - **Zasięg zaznaczania:** podstrony Niezbędnika, podsumowania poziomów, strony egzaminów i Certyfikatu C1, Laboratorium czasów oraz teksty i transkrypty zadań (te dopiero po sprawdzeniu odpowiedzi). Polski tekst (także kolumna „Polski” w tabelach) nie jest proponowany do zapisu.
 - **Zdanie:** `extractSentence` w `js/fiszki-logic.js` (czysta funkcja z testami w `tools/testy.js`) wycina zdanie z bloku tekstu, pomija skróty i inicjały, a długie zdanie skraca do ok. 220 znaków wokół słowa. `makeCloze` zamienia słowo na lukę.
 - **Talia:** systemowa talia `u-moje-slowa` (`system: "words"`), domyślnie włączona w nauce. Karta bez znaczenia pokazuje podpowiedź pierwszej litery; tył ma znaczenie, dalsze przykłady i link do źródła.
-- **Widok:** `#/fiszki/moje-slowa` – lista z wyszukiwaniem, sortowaniem (najnowsze, A–Z, najsłabiej znane), filtrem „bez znaczenia”, edycją znaczenia w miejscu, zawieszaniem, usuwaniem (z potwierdzeniem) i eksportem CSV (`słowo;znaczenie;zdanie;źródło`). Status słowa jest podany tekstem. Kafelek „Moje słowa” jest na stronie Fiszki, skrót „Moje słowa” w wyszukiwarce, a liczba słów (i opanowanych) w Statystykach.
+- **Widok:** `#/powtorki/moje-slowa` – lista z wyszukiwaniem, sortowaniem (najnowsze, A–Z, najsłabiej znane), filtrem „bez znaczenia”, edycją znaczenia w miejscu, zawieszaniem, usuwaniem (z potwierdzeniem) i eksportem CSV (`słowo;znaczenie;zdanie;źródło`). Status słowa jest podany tekstem. Kafelek „Moje słowa” jest na stronie Fiszki, skrót „Moje słowa” w wyszukiwarce, a liczba słów (i opanowanych) w Statystykach.
 - **Ustawienia nauki (menu profilu):** „Pokazuj menu przy zaznaczeniu tekstu” (domyślnie włączone) i „Podkreślaj moje słowa w tekstach” (domyślnie wyłączone; podkreśla do 300 najnowszych słów w tekstach, nie w nagłówkach, linkach, kodzie ani zadaniach, a znaczenie pokazuje po najechaniu lub fokusie).
 - **Dane:** bez nowych kluczy localStorage. Karty są w `elm.<profil>.fiszki` (`userCards`), z opcjonalnymi polami `word`, `source` (`route`, `title`), `addedAt` i `examples`; starsze zapisy działają bez zmian. Preferencje `selectionMenu` i `highlightWords` są w `elm_learnprefs_v1`. Dodanie słowa nie jest dniem nauki (nie liczy się do serii).
 
@@ -136,7 +144,7 @@ Specyfikacja: `docs/rozbudowa-v6/spec/15-talie-tematyczne-i-egzaminacyjne.md`. D
 - **Chipy egzaminów** z tagów karty (bez nowego pola): `e8`, `mp`, `mr`, `matura` (= MP + MR), `b2`, `c1`. Na przodzie i tyle karty pokazują się małe chipy „E8”, „MP”, „MR”, „B2”, „C1” z podpisem „Przydatne na:”, tekstem dostępnym (np. „egzamin ósmoklasisty”) i podpowiedzią „Wyrażenia typowe dla zadań tego egzaminu. Oryginalne zdania, nie z arkuszy.” Chip znaczy „przydatne na tym egzaminie”, nie „było w arkuszu”. Działa też dla starszych kart z tagami (np. `slownictwo-podstawowe`). Logika: `ELM.fiszkiLogic.examsOf(card)` (z testami w `tools/testy.js`).
 - **Przeglądanie talii:** filtr „Egzamin” (E8, MP, MR, B2, C1) w widoku kart talii, widoczny, gdy talia ma karty z tagami egzaminów.
 - **Strony egzaminów:** na stronie „Przegląd” E8, MP, MR, B2 i Certyfikatu C1 jest kafelek „Fiszki do egzaminu” (nazwa talii, liczba kart, stan Nowe / W nauce / Opanowane i przycisk „Włącz i ucz się” albo „Ucz się”). Mapowanie: E8 → `egz-e8`, MP i MR → `egz-matura`, B2 → `egz-b2-first`, C1 → `czasowniki-frazowe` i `kolokacje`.
-- **Poziomy A1–B1:** pod listą w kategorii „Słownictwo” jest link „Fiszki tematyczne: …” do widoku `#/fiszki/tematy/<a1|a2|b1>` (talie z kartami na danym poziomie; `#/fiszki/tematy` pokazuje wszystkie). W wyszukiwarce każda talia ma skrót po tytule.
+- **Poziomy A1–B1:** pod listą w kategorii „Słownictwo” jest link „Fiszki tematyczne: …” do widoku `#/powtorki/talie/tematy/<a1|a2|b1>` (talie z kartami na danym poziomie; `#/fiszki/tematy` pokazuje wszystkie). W wyszukiwarce każda talia ma skrót po tytule.
 - **Walidator:** `node tools/waliduj-fiszki.js` (część `npm run validate`) po starym sprawdzeniu z `scripts/validate_fiszki.py` sprawdza talie z spec 15: liczba kart w zakresie, `count` w `index.json`, id `<talia>-NNN`, dokładnie jedna luka w `cloze`, poziomy kart tematycznych (A1/A2/B1, kolejność niemalejąca), tag egzaminu na kartach egzaminacyjnych. Ostrzega (bez błędu) o duplikatach odpowiedzi między taliami, proporcjach typów i liczbie kolokacji. Pełne sprawdzenie: `python3 docs/rozbudowa-v6/scripts/validate_v6.py . --only fiszki`.
 
 ## Ściągi poziomów i druk (rozbudowa v6, etap 6)
@@ -206,7 +214,7 @@ Zbiorcza ściąga po kontroli końcowej (szczegóły: sekcje etapów powyżej i 
 |---|---|
 | `#/<poziom>/test` (np. `#/a1/test`) | test końcowy poziomu i znaczek „zaliczony” (`js/level-final.js`) |
 | `#/<poziom>/sciaga` | ściąga poziomu do druku A4 (`css/print.css`, `tools/sciagi-pdf.js`) |
-| `#/fiszki/moje-slowa`, `#/fiszki/talia/<id>` | Moje słowa; talie tematyczne i egzaminacyjne |
+| `#/powtorki/moje-slowa`, `#/powtorki/talie/talia/<id>` | Moje słowa; talie tematyczne i egzaminacyjne (stare `#/fiszki/…` przekierowują) |
 | `#/pisanie`, `#/pisanie/wzorce/<egzamin>/<id>` | wzorcowe wypracowania z komentarzami |
 | `#/pisanie/zwroty[/<grupa>]` | bank zwrotów do pisania |
 | `#/matura-podstawowa/trening-mowienie` | trener matury ustnej (link także z matury rozszerzonej) |
@@ -401,7 +409,7 @@ Specyfikacje: [docs/rozbudowa-v2/](docs/rozbudowa-v2/00-CZYTAJ-TO.md).
 | `#/statystyki` | Statystyki: podsumowanie, trafność wg tematu / typu / poziomu, najsłabsze miejsca, trend 12 tygodni, aktywność, dziennik | `js/stats-page.js` |
 | `#/cwiczenia/slabe[/<temat>]` | trening słabych punktów (tematy z ≥ 5 próbami i trafnością < 70%) | `js/exercise-engine.js` |
 | `#/notatki` | Moje notatki | `js/notes.js` |
-| `#/powtorki[/…]` | „Fiszki i błędy”: na razie przekierowanie do `#/fiszki[/…]` (widok połączony w etapie 2 paczki v8) | `js/app.js` |
+| `#/powtorki[/…]` | „Fiszki i błędy”: Na dziś, Talie, Moje błędy, Moje słowa, sesja (szczegóły w sekcji „Dziennik błędów i powtórki”) | `js/powtorki.js`, `js/fiszki.js`, `js/journal.js`, `js/reviews.js` |
 
 - **Dziennik podejść:** każda odpowiedź w zadaniach trafia do `elm_attempts_v1`, także przy przerwanej sesji. Liczenie (agregaty, trend, słabe tematy, wagi losowania, sugestia „Umiem”) jest w `js/learning-stats.js` (bez DOM, testy w `tools/testy.js`).
 - **Automatyczne błędy w Dzienniku błędów:**

@@ -90,13 +90,10 @@ window.ELM = window.ELM || {};
     if (!box) return;
     const st = ELM.state;
     const hasProfile = app().hasProfiles();
-    const due = hasProfile && ELM.profileData ? ELM.profileData.dueCount() : 0;
-    const cardsDue = hasProfile && ELM.fiszki ? ELM.fiszki.badgeCount() : 0; // fiszki do powtórki dziś (w tym nowe)
-    // Jedna plakietka: dzisiejsze fiszki + powtórki z dziennika (docelowo ELM.reviews.count(), etap 2)
-    const reviews = cardsDue + due;
+    const reviews = hasProfile && ELM.reviews ? ELM.reviews.count() : 0; // jedna liczba: fiszki + Moje błędy + słabe punkty
     const items = [
       { href: "#/dzis", label: "Dziś", icon: "sunrise", active: st.view === "today" },
-      { href: "#/powtorki", label: "Fiszki i błędy", icon: "layers", active: st.view === "fiszki" || st.view === "journal",
+      { href: "#/powtorki", label: "Fiszki i błędy", icon: "layers", active: st.view === "powtorki" || st.view === "fiszki" || st.view === "journal",
         badge: reviews ? String(reviews) : null, badgeLabel: reviews ? reviews + " do powtórki" : null },
       { href: "#/cwiczenia", label: "Ćwiczenia", icon: "dumbbell", active: st.view === "exercises" && !finalTestLevel() },
       { href: "#/laboratorium-czasow", label: "Lab czasów", icon: "flask-conical", active: st.view === "lab" },
@@ -199,6 +196,7 @@ window.ELM = window.ELM || {};
     if (ELM.state.view === "home") return ELM.niezbednik.renderHome();
     if (ELM.state.view === "c1") return ELM.c1.render(ELM.state.c1Route);
     if (ELM.state.view === "exam") return ELM.exams.render(ELM.state.toolRoute);
+    if (ELM.state.view === "powtorki") return ELM.powtorki.render();
     if (ELM.state.view === "journal") return ELM.journal.render(ELM.state.toolRoute);
     if (ELM.state.view === "today") return ELM.today.render();
     if (ELM.state.view === "leveltest") return ELM.levelTest.render();
@@ -367,7 +365,7 @@ window.ELM = window.ELM || {};
     }
     // Pod słownictwem A1–B1: link do talii tematycznych fiszek (lista przefiltrowana po poziomie)
     if ((!cat || cat.id === "cat_vocabulary") && /^(A1|A2|B1)$/.test(level.id) && ELM.fiszki) {
-      section.appendChild(el("p", { class: "fc-themes-link" }, el("a", { class: "btn btn-secondary", href: "#/fiszki/tematy/" + level.id.toLowerCase() },
+      section.appendChild(el("p", { class: "fc-themes-link" }, el("a", { class: "btn btn-secondary", href: "#/powtorki/talie/tematy/" + level.id.toLowerCase() },
         ELM.ui.withIcon("layers", "Fiszki tematyczne: Dom, Jedzenie, Praca, Podróże, Zdrowie, Emocje, Technologia"))));
     }
     return section;

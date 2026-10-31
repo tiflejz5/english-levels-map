@@ -170,7 +170,7 @@ W zakładce C1 `js/app.js` ustawia `data-section="certyfikat"` na `<html>` (poza
 ### 3.1 Lewy panel (etap 2)
 
 - **v8 (pasek wg szkicu A):**
-  - Kolejność: Dziś, **Fiszki i błędy** (`#/powtorki`, ikona `layers`, jedna plakietka = dzisiejsze fiszki + powtórki z dziennika; docelowo `ELM.reviews.count()`), Ćwiczenia, Lab czasów, Pisanie, linia, poziomy, linia, **Moje egzaminy**, „+N”, pinezka. Test poziomu, Statystyki i Moje notatki przeniesione do menu profilu, sekcja „Moje” nad „Dane”.
+  - Kolejność: Dziś, **Fiszki i błędy** (`#/powtorki`, ikona `layers`, jedna plakietka = `ELM.reviews.count()`: fiszki + Moje błędy + słabe punkty), Ćwiczenia, Lab czasów, Pisanie, linia, poziomy, linia, **Moje egzaminy**, „+N”, pinezka. Test poziomu, Statystyki i Moje notatki przeniesione do menu profilu, sekcja „Moje” nad „Dane”.
   - Kółka krain 36 px bez kodu pod spodem (nazwę niesie `aria-label`). Zaliczony poziom (`is-passed`): pełne tło `--lvl-soft` i pieczątka ✓ (`ELM.ui.stamp`). Bieżąca kraina (`is-current`, `ELM.today.currentLevelId()`): obwódka 2 px w kolorze krainy, krycie 0.35, odstęp 4 px, w `aria-label` „Bieżąca kraina”. Uwaga: przy kryciu 0.35 obwódka ma kontrast ok. 1.4–1.8:1 (poniżej 3:1 dla elementów graficznych); stan niosą też `aria-label` i „Tu jesteś” na Dziś.
   - Moje egzaminy: kafelek 44×44 z kodem i odliczaniem („15 d”, „dziś”), C1 granat i złoto; podział i kolejność w czystej `ELM.examLogic.navSplit` (brak moich = wszystkie jak dawniej, bez „+N”; otwarty egzamin zostaje w pasku). Chip C1 rysuje teraz `js/exam-core.js`, `js/c1-core.js` tylko sekcje.
   - „+N” (`#exam-more`, `aria-haspopup="dialog"`, `aria-label="Pokaż pozostałe egzaminy (N)"`): popover `.exam-pop` w `body` (`position: fixed`, na telefonie arkusz od dołu) z listą egzaminów, linkiem i przełącznikiem „Przypnij” (`ELM.examMy.pin/unpin`). Fokus wchodzi do listy, Esc i klik poza zamykają, Esc oddaje fokus przyciskowi; otwarty popover trzyma panel rozwinięty (`ELM.sidebar.hold`).
@@ -485,6 +485,14 @@ Wszystkie na istniejących tokenach (bez nowych kolorów), z parami sprawdzanymi
 - **Bank zwrotów i panel „Zwroty” (`.zw-*`).** Filtry w `.journal-filters`, spis grup przyklejony z lewej od 900 px albo poziomy pasek chipów, gwiazdka ulubionych z tekstem i `aria-pressed`; panel w trenerze pisania z boku od 900 px, na telefonie arkusz od dołu (animacja tylko przy `prefers-reduced-motion: no-preference`).
 - **Trener mówienia i nagrywanie (`.sp-*`, `.rec-*`).** Zakładki części (`role="tablist"`, strzałki, Home/End), czerwona kropka i tekst „Nagrywanie 0:23” (kropka pulsuje tylko bez `prefers-reduced-motion`), lista prób z odtwarzaczem, Pobierz i Usuń, numerowane opcje wyboru ilustracji, pasek postępu trybu „Cały egzamin”.
 
+### 3.15 Fiszki i błędy (paczka v8, etap „powtórki”)
+
+- **Widok `#/powtorki`:** nagłówek `pageHead` (etykieta „Nauka”, tytuł „Fiszki i błędy”, chip „N do powtórki” z `ELM.reviews.count()`), pod nim zakładki `role="tablist"` (`.pw-tabs`, linki `role="tab"` z `aria-selected`, tabindex 0 tylko na aktywnej; strzałki, Home i End przesuwają fokus, Enter i Spacja otwierają): Na dziś, Talie, Moje błędy, Moje słowa. Stan zakładki jest w adresie. Pliki: `js/powtorki.js` (nagłówek, zakładki, karta), `js/fiszki.js`, `js/journal.js`, `js/fiszki-words.js` (treść zakładek), `js/reviews.js` (liczby i kolejka).
+- **Karta „Na dziś”** (`ELM.powtorki.card`, ta sama jako kafelek `bento-reviews` na Dziś): liczba (Fraunces), „do powtórki · ok. N min”, trzy wiersze (fiszki z talii, błędy z dziennika, słabe punkty z ćwiczeń). Znacznik wiersza ma inny kształt (kwadrat, kółko, romb), więc nie opiera się na kolorze; niepusty wiersz jest linkiem do sesji `?tylko=…`. Dalej „Powtarzaj teraz”, „Krótka sesja (10)” (od 11 pozycji) i linki „Talie”, „Moje błędy”, „+ Dodaj błąd”. Po ukończeniu: `ELM.ui.emptyState({ art: "brak-powtorek" })` z najbliższym terminem. Układ: trzy kolumny od 900 px, dwie do 599 px, jedna poniżej; cele ≥ 44 px.
+- **Sesja `#/powtorki/sesja`:** jeden pasek postępu na całą sesję, pozycje w istniejących widokach: fiszka (oceny 1–4, skróty jak dotąd), błąd (karta z talii „Moje błędy”), zadanie (widok silnika ćwiczeń: `startSingle` z hookami `progress`, `nextLabel`, `renderDone`; wynik wraca do sesji, poprawnie = Dobrze, błędnie = Znowu). Filtry `?tylko=bledy|slabe|talie|talia:<id>`, `&max=10`. Podsumowanie: liczba pozycji, % Dobrze lub Łatwe, czas, ile jutro, rozbicie na rodzaje, najtrudniejsze; ≥ 5 pozycji = dzień nauki (`ELM.markActivity`).
+- **Moje błędy:** etykieta stanu wpisu pochodzi z karty („Do powtórki dziś”, „W nauce”, „Powtórka za N dni”, „Opanowane” przy interwale ≥ 21 dni, „Zawieszona”), filtry „Do powtórki dziś” / „Wszystkie” / „Opanowane” liczone ze stanu karty; przycisk „Dodaj do fiszek” zniknął (każdy wpis ma kartę).
+- Kontrast: nowe pary w `tools/kontrast.js` (zakładki, licznik, linki karty, znaczniki wierszy).
+
 ## 4. Ruch
 
 - **Proste rzeczy tylko w CSS.** Hover, focus, pojawianie się i przejścia kolorów robi CSS. Animujemy `opacity` i `transform`. Wyjątek to krótkie przejście kolorów przy zmianie motywu (klasa `html.theme-anim`).
@@ -685,3 +693,8 @@ Ograniczenie: audyt automatyczny nie zastępuje testu z czytnikiem ekranu (NVDA 
 - **Paczka v8, etap „pasek” (szkic A).**
   - Nowa kolejność paska i jedna pozycja „Fiszki i błędy” (`#/powtorki` przekierowuje do `#/fiszki`, widok połączony w etapie 2), pieczątka ✓ i obwódka bieżącej krainy, tylko moje egzaminy z „+N” i popoverem, sekcja „Moje” w menu profilu, ta sama zawartość w szufladzie na telefonie.
   - `ELM.examLogic.navSplit` (test w `tools/testy.js`), nowe pary w `tools/kontrast.js` (+N, popover, kafelki egzaminów), `?v=126`.
+
+- **Paczka v8, etap „powtórki” (spec 20 R1–R3).**
+  - Jeden harmonogram (`schedule()`), migracja Dziennika do kart „Moje błędy” (`settings.migratedJournal`, stałe id `u-mb-…`), nowe wpisy od razu z kartą, słabe punkty jako `ex:<id>` w mapie `cards` (+ opcjonalne `daily[…].exNew`).
+  - `js/reviews.js`: `queue` / `count` / `breakdown` / `estimateMinutes` / `weakTasks` / `redirectFor` z testami (kolejność, przeplatanie, limity, granica dnia 04:00, pusto, zgodność `count` z długością kolejki).
+  - Widok `#/powtorki` (Na dziś / Talie / Moje błędy / Moje słowa), sesja `#/powtorki/sesja` z filtrami, kafelek Dziś, przekierowania `#/fiszki…` i `#/bledy…`, `?v=127`.

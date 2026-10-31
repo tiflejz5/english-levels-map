@@ -4002,7 +4002,7 @@ a.chip-btn { text-decoration: none; }
 .exam-chip-badge.is-tile { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; width: 44px; height: 44px; min-width: 44px; padding: 0; border-radius: 12px; }
 .exam-tile-code { font-size: var(--fs-sm); font-weight: 800; line-height: 1; letter-spacing: 0.02em; }
 .exam-tile-days { font-size: 0.6875rem; font-weight: 600; line-height: 1; white-space: nowrap; }
-.exam-chip.is-c1 .exam-tile-code { color: var(--c1-gold); font-family: var(--font-display); font-size: var(--fs-base); }
+.exam-chip.is-c1 .exam-tile-code { color: var(--c1-gold); font-family: var(--font-display); font-size: var(--fs-sm-plus); }
 .exam-chip.is-soon .exam-chip-badge.is-tile { box-shadow: inset 0 0 0 1px var(--line-strong); }
 .sb-item.exam-chip { min-height: 44px; padding-block: 0; }
 
@@ -4043,3 +4043,42 @@ a.exam-pop-link:hover { background: var(--hover); }
 @media (max-height: 900px) { .sidebar.is-expanded .sb-tagline { display: none; } }
 a.menu-action { text-decoration: none; }
 .menu-action { gap: 10px; }
+
+/* ===================== v8 FISZKI I BŁĘDY: widok #/powtorki, zakładki, karta „Na dziś” (DESIGN.md 3.15) ===================== */
+.pw-head { margin-bottom: 20px; }
+.pw-count { display: inline-block; margin-left: 14px; padding: 4px 12px; border-radius: var(--radius-pill); background: var(--accent-soft); color: var(--accent); font-family: var(--font); font-size: var(--fs-sm); font-weight: 650; letter-spacing: 0; vertical-align: middle; }
+.pw-tabs { display: flex; gap: 4px; margin-top: 4px; border-bottom: 1px solid var(--line); overflow-x: auto; scrollbar-width: none; }
+.pw-tabs::-webkit-scrollbar { display: none; }
+.pw-tab { flex: 0 0 auto; display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-bottom: 3px solid transparent; border-radius: var(--radius-sm) var(--radius-sm) 0 0; color: var(--ink-muted); font-weight: 600; text-decoration: none; white-space: nowrap; }
+.pw-tab:hover { background: var(--hover); color: var(--ink); }
+.pw-tab.is-active { color: var(--ink); border-bottom-color: var(--accent); }
+@media (max-width: 479px) { .pw-tab { padding: 0 11px; } .pw-count { display: block; margin: 8px 0 0; width: fit-content; } }
+
+.pw-card { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr) minmax(0, 1fr); gap: 24px 36px; align-items: center; margin: 20px 0 24px; padding: 28px 32px; }
+.pw-card-label { margin: 0 0 6px; font-family: var(--font-display); font-size: var(--fs-lg); font-weight: 650; color: var(--ink); }
+.pw-card-count { margin: 0; }
+.pw-card-sub { margin: 6px 0 0; color: var(--ink-muted); font-size: var(--fs-sm-plus); }
+.pw-rows { list-style: none; margin: 0; padding: 0; }
+.pw-row { display: flex; align-items: center; gap: 12px; min-height: 44px; border-bottom: 1px solid var(--line); }
+.pw-row:last-child { border-bottom: 0; }
+.pw-dot { flex: 0 0 auto; width: 10px; height: 10px; border-radius: 3px; background: var(--lvl-a2); }
+.pw-row.is-mistake .pw-dot { background: var(--lvl-b2); border-radius: 50%; }
+.pw-row.is-exercise .pw-dot { background: var(--lvl-c1); transform: rotate(45deg); }
+.pw-row-label { flex: 1; min-width: 0; display: inline-flex; align-items: center; min-height: 44px; color: var(--ink); text-decoration: none; }
+a.pw-row-label:hover { text-decoration: underline; }
+.pw-row-n { font-weight: 700; }
+.pw-card-actions { display: flex; flex-direction: column; gap: 10px; }
+.pw-card-buttons { display: flex; flex-direction: column; gap: 8px; }
+.pw-start { min-height: 48px; justify-content: center; }
+.pw-links { display: flex; flex-wrap: wrap; gap: 0 16px; margin: 0; }
+.pw-links a, .pw-links .btn-link { display: inline-flex; align-items: center; min-height: 44px; padding: 0; font-size: var(--fs-sm); font-weight: 600; text-decoration: none; color: var(--accent); }
+.pw-links a:hover, .pw-links .btn-link:hover { text-decoration: underline; }
+@media (max-width: 899px) { .pw-card { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .pw-card-actions { grid-column: 1 / -1; } }
+@media (max-width: 599px) { .pw-card { grid-template-columns: minmax(0, 1fr); padding: 20px; gap: 16px; } }
+/* Kafelek na stronie Dziś: ta sama karta w jednej kolumnie */
+.pw-card.is-compact { display: flex; flex-direction: column; align-items: stretch; margin: 0; padding: 22px 24px; gap: 10px; }
+.pw-card.is-compact .pw-card-label { font-size: var(--fs-sm-plus); }
+.pw-card.is-compact .pw-card-actions { margin-top: 4px; }
+.fc-sum-kinds { margin: 8px 0 0; }
+.ex-head .fc-progress { max-width: 560px; }
+.ex-head .fc-progress-text { margin: 6px 0 4px; }

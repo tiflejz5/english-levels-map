@@ -524,6 +524,7 @@ window.ELM = window.ELM || {};
   }
 
   const ID = /^[a-z0-9][a-z0-9-]{0,80}$/;
+  const EX_KEY = /^ex:[a-z0-9][a-z0-9-]{0,99}$/; // stan zadania ze słabych punktów (paczka v8, spec 20 R1)
   const DAY_RE = /^\d{4}-\d{2}-\d{2}$/;
 
   function num(v, min, max) { return typeof v === "number" && isFinite(v) && v >= min && v <= max; }
@@ -575,7 +576,7 @@ window.ELM = window.ELM || {};
     const out = emptyState();
     const cards = raw.cards && typeof raw.cards === "object" ? raw.cards : {};
     Object.keys(cards).slice(0, 20000).forEach(function (id) {
-      if (!ID.test(id) && !/^u-[a-z0-9-]{1,60}$/.test(id)) return;
+      if (!ID.test(id) && !/^u-[a-z0-9-]{1,60}$/.test(id) && !EX_KEY.test(id)) return;
       const s = sanitizeCardState(cards[id]);
       if (s) out.cards[id] = s;
     });
@@ -594,7 +595,7 @@ window.ELM = window.ELM || {};
     const s = raw.settings && typeof raw.settings === "object" ? raw.settings : {};
     if (num(s.newPerDay, 0, 999)) out.settings.newPerDay = Math.floor(s.newPerDay);
     if (num(s.reviewsPerDay, 0, 9999)) out.settings.reviewsPerDay = Math.floor(s.reviewsPerDay);
-    ["typeAnswerFirst", "fuzz", "autoAddMistakes"].forEach(function (k) { if (typeof s[k] === "boolean") out.settings[k] = s[k]; });
+    ["typeAnswerFirst", "fuzz", "autoAddMistakes", "migratedJournal"].forEach(function (k) { if (typeof s[k] === "boolean") out.settings[k] = s[k]; });
     ["enabledDecks", "randomDecks"].forEach(function (k) {
       if (Array.isArray(s[k])) out.settings[k] = s[k].filter(function (id) { return typeof id === "string" && (ID.test(id) || /^u-[a-z0-9-]{1,60}$/.test(id)); }).slice(0, 200);
     });
@@ -605,6 +606,7 @@ window.ELM = window.ELM || {};
       out.daily[d] = { new: num(x.new, 0, 1e5) ? Math.floor(x.new) : 0, reviews: num(x.reviews, 0, 1e5) ? Math.floor(x.reviews) : 0,
         again: num(x.again, 0, 1e5) ? Math.floor(x.again) : 0, good: num(x.good, 0, 1e5) ? Math.floor(x.good) : 0,
         answers: num(x.answers, 0, 1e5) ? Math.floor(x.answers) : 0, minutes: num(x.minutes, 0, 1440) ? Math.round(x.minutes) : 0 };
+      if (num(x.exNew, 1, 1e3)) out.daily[d].exNew = Math.floor(x.exNew); // nowe zadania ze słabych punktów danego dnia (limit 3)
     });
     out.daily = pruneDaily(out.daily, 400);
     return out;
@@ -629,7 +631,93 @@ window.ELM = window.ELM || {};
     return EXAMS.filter(function (e) { return has(e.code); });
   }
 
+  // =====================================================================
+  // DZIENNIK BŁĘDÓW → KARTY „MOJE BŁĘDY” (paczka v8, spec 20 R1)
+  // =====================================================================
+
+  const MISTAKES_DECK = "u-moje-bledy";
+  const JOURNAL_STEPS = [1, 3, 7]; // dawne REVIEW_STEPS (js/learning.js): interwały po etapie wpisu
+  const MASTERED_INTERVAL = 21;
+  const DAY_MS = 86400000;
+
+  /** Klucz, po którym wpis dziennika rozpoznaje swoją kartę (jak dotąd: ref zadania albo journal:<id>). */
+  function journalSource(e) { return e.ref ? String(e.ref) : "journal:" + e.id; }
+
+  /** Stały id karty wpisu (migracja i nowe wpisy dają to samo, więc druga migracja nic nie dubluje). */
+  function journalCardId(e) { return "u-mb-" + String(e.id || "x").toLowerCase().replace(/[^a-z0-9-]/g, "-").slice(0, 50); }
+
+  /** Karta z wpisu: cloze, gdy kontekst ma lukę ___, inaczej zwykła (przód = kontekst, tył = poprawna + reguła). */
+  function journalCard(e) {
+    const correct = String(e.correct || "").replace(/[{}|]/g, " ").replace(/\s+/g, " ").trim().slice(0, 200);
+    const rule = String(e.rule || "").slice(0, 500);
+    const gapLine = String(e.context || "").split("\n").find(function (l) { return /_{3,}/.test(l); });
+    if (gapLine && correct) {
+      const res = makeCard({ type: "cloze", front: gapLine.replace(/_{3,}/, "{{" + correct + "}}").slice(0, 500), back: rule });
+      if (!res.error) return res.card;
+    }
+    return makeCard({ type: "basic", front: String(e.context || "").slice(0, 500) || "?", back: correct || "—", note: rule }).card;
+  }
+
+  function reviewState(interval, due, reps) {
+    return { state: "review", step: 0, ease: 2.5, interval: interval, pendingInterval: 0, lapses: 0, reps: reps, due: due };
+  }
+
+  /** Stan nowej karty wpisu: pierwsza powtórka jutro (jak dawny etap 0). */
+  function newJournalState(now) { return reviewState(1, dayEnd(now), 0); }
+
+  /**
+   * Stan karty z pola review wpisu { stage, due: "RRRR-MM-DD", mastered }.
+   * Opanowany: interwał 21 dni, termin 21 dni po ostatnim terminie, nie wcześniej niż od jutra (migracja nie zalewa „dziś”).
+   * Pozostałe: interwał JOURNAL_STEPS[stage], termin = review.due (zaległy zostaje zaległy).
+   */
+  function journalCardState(review, now) {
+    const r = review || {};
+    const base = DAY_RE.test(r.due || "") ? dayStart(r.due) : dayEnd(now);
+    if (r.mastered === true) return reviewState(MASTERED_INTERVAL, Math.max(base + MASTERED_INTERVAL * DAY_MS, dayEnd(now)), JOURNAL_STEPS.length);
+    const stage = Math.max(0, Math.min(JOURNAL_STEPS.length - 1, Math.floor(Number(r.stage) || 0)));
+    return reviewState(JOURNAL_STEPS[stage], base, stage);
+  }
+
+  function ensureMistakesDeck(state) {
+    let d = state.userDecks.find(function (x) { return x.id === MISTAKES_DECK; });
+    if (!d) {
+      d = { id: MISTAKES_DECK, title: "Moje błędy", createdAt: new Date(0).toISOString(), system: "mistakes" };
+      state.userDecks.push(d);
+      if (state.settings.enabledDecks.indexOf(MISTAKES_DECK) === -1) state.settings.enabledDecks.push(MISTAKES_DECK);
+    }
+    return d;
+  }
+
+  function hasJournalCard(state, e) {
+    const sid = journalSource(e), id = journalCardId(e);
+    return state.userCards.some(function (c) { return c.id === id || c.sourceItemId === sid; });
+  }
+
+  /**
+   * Migracja jednorazowa i idempotentna: wpis bez karty → karta w talii „Moje błędy” ze stanem z review.
+   * Zmienia przekazany stan (sanitized). Zwraca liczbę dodanych kart; znacznik settings.migratedJournal ustawia zawsze.
+   * Pole review we wpisie zostaje (zgodność eksportu).
+   */
+  function migrateJournal(state, entries, now) {
+    let added = 0;
+    (entries || []).forEach(function (e) {
+      if (!e || !e.id || hasJournalCard(state, e)) return;
+      const card = journalCard(e);
+      if (!card) return;
+      ensureMistakesDeck(state);
+      const id = journalCardId(e);
+      state.userCards.push(Object.assign({ id: id, deck: MISTAKES_DECK, createdAt: String(e.createdAt || "") + "T12:00:00.000Z", sourceItemId: journalSource(e) }, card));
+      if (!state.cards[id]) state.cards[id] = journalCardState(e.review, now);
+      added++;
+    });
+    state.settings.migratedJournal = true;
+    return added;
+  }
+
   ELM.fiszkiLogic = {
+    MISTAKES_DECK: MISTAKES_DECK, journalSource: journalSource, journalCardId: journalCardId, journalCard: journalCard,
+    newJournalState: newJournalState, journalCardState: journalCardState, ensureMistakesDeck: ensureMistakesDeck,
+    hasJournalCard: hasJournalCard, migrateJournal: migrateJournal,
     EXAMS: EXAMS, examsOf: examsOf,
     VERSION: VERSION, MAX_FIELD: MAX_FIELD, MAX_IMPORT: MAX_IMPORT, DAY_HOUR: DAY_HOUR, TYPES: TYPES, DEFAULT_SETTINGS: DEFAULT_SETTINGS,
     normalize: normalize, levenshtein: levenshtein, checkAnswer: checkAnswer,

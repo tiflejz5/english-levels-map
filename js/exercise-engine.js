@@ -1236,7 +1236,7 @@ window.ELM = window.ELM || {};
     const done = !!p.res;
     view.appendChild(el("header", { class: "tool-head ex-head" }, [
       el("p", { class: "tool-eyebrow" }, el("a", { href: backLink().href }, run.title)),
-      progressDots()
+      run.hooks && run.hooks.progress ? run.hooks.progress() : progressDots() // powtórki (js/fiszki.js): jeden pasek postępu całej sesji
     ]));
     let body;
     if (p.item.type === "multiple-choice") body = bodyChoice(p);
@@ -1251,7 +1251,7 @@ window.ELM = window.ELM || {};
 
     const last = run.i === run.items.length - 1;
     const primary = done
-      ? el("button", { type: "button", class: "btn btn-primary ex-next", onclick: next }, last ? "Zobacz wynik" : ELM.ui.withIcon("arrow-right", "Dalej"))
+      ? el("button", { type: "button", class: "btn btn-primary ex-next", onclick: next }, last ? ((run.hooks && run.hooks.nextLabel) || "Zobacz wynik") : ELM.ui.withIcon("arrow-right", "Dalej"))
       : el("button", { type: "button", class: "btn btn-primary ex-check", "data-fk": "check", onclick: check },
         run.mode === "exam" ? (last ? "Zakończ i zobacz wynik" : ELM.ui.withIcon("arrow-right", "Dalej")) : "Sprawdź");
 
@@ -1394,7 +1394,7 @@ window.ELM = window.ELM || {};
         lines.length ? el("p", { text: lines.join(" ") }) : null,
         off ? el("p", { class: "tool-note", text: "Automatyczne dodawanie błędów do dziennika jest wyłączone (menu profilu → Ustawienia nauki)." }) : null,
         j.added.length ? el("p", { class: "ex-journal-actions" }, [
-          el("a", { class: "btn btn-secondary btn-small", href: "#/bledy" }, "Zobacz"),
+          el("a", { class: "btn btn-secondary btn-small", href: "#/powtorki/moje-bledy" }, "Zobacz"),
           el("button", { type: "button", class: "btn btn-link btn-small", onclick: function () {
             j.added.slice().reverse().forEach(function (x) { pd().undoAuto(x.undo); });
             j.added = [];
@@ -1551,6 +1551,32 @@ window.ELM = window.ELM || {};
   }
 
   /**
+   * Jedno zadanie w sesji „Fiszki i błędy” (js/fiszki.js, paczka v8): zadanie ze słabych punktów w widoku silnika
+   * (sprawdzenie, wyjaśnienie, dziennik podejść). cfg: { item, back: { href, label }, progress(), onDone({ correct, skipped }) }.
+   * Po „Dalej” silnik oddaje wynik przez onDone i nie rysuje własnego ekranu wyniku.
+   */
+  function startSingle(cfg) {
+    let reported = false;
+    newRun({
+      key: "single:", title: cfg.back.label, items: [cfg.item], mode: "learn", isMix: true, isWeak: true, back: cfg.back,
+      hooks: {
+        progress: cfg.progress, nextLabel: "Dalej",
+        finish: function (r, s) { return { correct: s.total > 0 && s.score === s.total, skipped: !!(r.items[0].res && r.items[0].res.skipped) }; },
+        renderDone: function (view, r) {
+          if (reported) return;
+          reported = true;
+          cfg.onDone(r.final);
+        }
+      }
+    });
+    run.phase = "item";
+    run.fixedRoute = { kind: "single" };
+    render(run.fixedRoute);
+    U.setScroll(0);
+    focusLater("[data-fk='first']");
+  }
+
+  /**
    * Test końcowy poziomu: sesja w trybie Egzamin pod adresem #/<poziom>/test. cfg: { level, title, items, hooks, back }
    * hooks: finish(run, { score, total }) → wynik zapisany w elm_leveltests_v1, renderDone(view, run, api),
    * afterFinish(run). Bez „Powtórz tylko błędne” i bez wyniku zestawu w elm_exercises_v1.
@@ -1586,7 +1612,7 @@ window.ELM = window.ELM || {};
 
   function render(route) {
     const view = document.getElementById("view");
-    route = route || parseRoute(location.hash);
+    route = route || parseRoute(location.hash) || (run && run.fixedRoute); // sesja powtórek (startSingle) działa pod adresem #/powtorki/sesja
     if (!route) return;
     if (route.kind === "hub") return ELM.exerciseHub.render(route);
     const profile = ELM.app.getActiveProfile();
@@ -1726,6 +1752,7 @@ window.ELM = window.ELM || {};
     loadTopicItems: loadTopicItems,
     startCustom: startCustom,
     startFinal: startFinal,
+    startSingle: startSingle,
     currentItem: currentItem,
     textSelectable: textSelectable,
     topicSection: topicSection,
