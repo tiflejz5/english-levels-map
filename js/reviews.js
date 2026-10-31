@@ -257,26 +257,36 @@ window.ELM = window.ELM || {};
     return queueFrom(ctxNow(), at || now());
   }
 
-  /** Najbliższy termin (ms) po chwili t wśród kart i zadań z zapisanym stanem albo null. */
-  function nextDue(t) {
-    if (!active()) return null;
-    const ctx = ctxNow();
+  /**
+   * Co dalej, gdy na dziś zrobione: { next: najbliższy termin (ms) po „now” albo null, tomorrow: ile pozycji wypada jutro
+   * (następny dzień nauki, granica 04:00) }. Karty włączonych talii, „Moje błędy” i zadania z zapisanym stanem.
+   */
+  function upcomingFrom(ctx, now) {
     const ids = {};
     eligibleDecks(ctx).forEach(function (d) { ids[d.id] = true; });
-    let best = null;
+    const end = L().dayEnd(now);
+    let next = null, tomorrow = 0;
     Object.keys(ctx.state.cards).forEach(function (id) {
       const x = ctx.state.cards[id];
       if (x.state === "new" || x.suspended) return;
       if (!isEx(id)) { const deck = ctx.deckOf(id); if (!deck || !ids[deck]) return; }
       const due = Math.max(x.due, x.buriedUntil || 0);
-      if (due > t && (best === null || due < best)) best = due;
+      if (due > now && (next === null || due < next)) next = due;
+      if (due >= end && due < end + 86400000) tomorrow++;
     });
-    return best;
+    return { next: next, tomorrow: tomorrow };
   }
+
+  function upcoming(at) {
+    return active() ? upcomingFrom(ctxNow(), at || now()) : { next: null, tomorrow: 0 };
+  }
+
+  /** Najbliższy termin (ms) po chwili t wśród kart i zadań z zapisanym stanem albo null. */
+  function nextDue(t) { return upcoming(t).next; }
 
   ELM.reviews = {
     EX_NEW_PER_DAY: EX_NEW_PER_DAY, MINUTES: MINUTES, exKey: exKey, isEx: isEx, kindOf: kindOf,
-    weakTasks: weakTasks, interleave: interleave, queueFrom: queueFrom, summaryFrom: summaryFrom,
+    weakTasks: weakTasks, interleave: interleave, queueFrom: queueFrom, summaryFrom: summaryFrom, upcomingFrom: upcomingFrom, upcoming: upcoming,
     estimateMinutes: estimateMinutes, redirectFor: redirectFor,
     ensureMigrated: ensureMigrated, queue: queue, count: count, breakdown: breakdown, nextDue: nextDue,
     ctx: ctxNow, resetMigrationMemo: function () { migratedFor = null; }

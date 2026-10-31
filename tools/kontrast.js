@@ -155,7 +155,8 @@ pairs.push(
     ["on-accent", "lvl-" + l, null, 3, "ptaszek „Umiem” / wypełnienie " + L],
     ["lvl-" + l + "-ink", "bg", null, 4.5, "etykieta krainy " + L + " nad nagłówkiem / tło"],
     ["ink", "lvl-" + l + "-glow", "surface", 4.5, "marker słowa-klucza " + L + " / karta zadania"],
-    ["lvl-" + l, "lvl-" + l + "-soft", null, 3, "symbol krainy " + L + " / plama na Szlaku"]
+    ["lvl-" + l, "lvl-" + l + "-soft", null, 3, "symbol krainy " + L + " / plama na Szlaku"],
+    ["lvl-" + l + "-ink", "surface", null, 4.5, "Dziś: nazwa bieżącej krainy " + L + " / karta mapy"]
   );
 });
 

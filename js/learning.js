@@ -120,6 +120,19 @@
       return out;
     },
 
+    /**
+     * „Przebyta mapa” na Dziś: średnia z procentów „Umiem” poziomów (stats: [{ id, percent }] w kolejności A1…C2),
+     * zaokrąglona do całości, oraz odcinki paska: [{ id, percent }] (percent 0–100, poza zakresem przycinany).
+     */
+    mapProgress: function (stats) {
+      const segments = (stats || []).map(function (s) {
+        const p = Number(s.percent);
+        return { id: s.id, percent: isFinite(p) ? Math.max(0, Math.min(100, p)) : 0 };
+      });
+      const sum = segments.reduce(function (t, s) { return t + s.percent; }, 0);
+      return { percent: segments.length ? Math.round(sum / segments.length) : 0, segments: segments };
+    },
+
     // ---------- Test poziomu (adaptacyjny) ----------
 
     LEVELS: ["A1", "A2", "B1", "B2", "C1", "C2"],

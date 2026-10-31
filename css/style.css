@@ -4075,10 +4075,65 @@ a.pw-row-label:hover { text-decoration: underline; }
 .pw-links a:hover, .pw-links .btn-link:hover { text-decoration: underline; }
 @media (max-width: 899px) { .pw-card { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .pw-card-actions { grid-column: 1 / -1; } }
 @media (max-width: 599px) { .pw-card { grid-template-columns: minmax(0, 1fr); padding: 20px; gap: 16px; } }
-/* Kafelek na stronie Dziś: ta sama karta w jednej kolumnie */
-.pw-card.is-compact { display: flex; flex-direction: column; align-items: stretch; margin: 0; padding: 22px 24px; gap: 10px; }
-.pw-card.is-compact .pw-card-label { font-size: var(--fs-sm-plus); }
-.pw-card.is-compact .pw-card-actions { margin-top: 4px; }
 .fc-sum-kinds { margin: 8px 0 0; }
 .ex-head .fc-progress { max-width: 560px; }
 .ex-head .fc-progress-text { margin: 6px 0 4px; }
+
+/* ===================== v8 DZIŚ wg szkicu A: karta mapy, karta „Fiszki i błędy”, rząd Seria | egzamin (DESIGN.md 3.2) ===================== */
+.today-stack { display: flex; flex-direction: column; gap: var(--space-4); margin-top: var(--space-2); }
+.today-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-4); }
+.today-row > * { min-width: 0; margin: 0; }
+
+.map-card { padding: 24px 28px 0; gap: 0; }
+.map-top { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 16px 40px; }
+.map-hello { flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.map-hello .today-date { margin: 0; }
+.map-land { color: var(--lvl-ink); font-weight: 700; }
+.map-card .hero-title { font-size: var(--fs-2xl); }
+.map-progress { flex: 0 0 300px; max-width: 100%; }
+.map-progress-row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.map-progress-label { color: var(--ink-muted); font-size: var(--fs-sm-plus); }
+.map-progress-pct { font-family: var(--font-display); font-size: var(--fs-2xl); font-weight: 640; letter-spacing: -0.02em; line-height: 1.1; color: var(--ink); }
+.map-segments { display: flex; gap: 6px; margin-top: 8px; }
+.map-seg { flex: 1 1 0; height: 6px; border-radius: 3px; background: var(--line); overflow: hidden; }
+.map-seg-fill { display: block; height: 100%; border-radius: 3px; background: var(--lvl); }
+.map-card .trail-stage { margin-top: 12px; }
+.map-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 20px; margin: 4px -28px 0; padding: 14px 28px; border-top: 1px solid var(--line); }
+.map-foot-text { flex: 1 1 320px; min-width: 0; }
+.map-next { margin: 0; color: var(--ink); }
+.map-ready { display: inline-flex; align-items: center; min-height: 44px; font-size: var(--fs-sm); font-weight: 600; color: var(--accent); text-decoration: none; }
+.map-ready:hover { text-decoration: underline; }
+.map-cta { min-height: 44px; gap: 4px; flex-shrink: 0; }
+
+.pw-card.is-today { grid-template-columns: 220px minmax(0, 1fr) 240px; margin: 0; padding: 24px 28px; }
+.pw-card.is-today.is-zero { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 16px; padding: 10px 24px; }
+.pw-zero-text { margin: 0; color: var(--ink); }
+.pw-zero-link { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; text-decoration: none; color: var(--accent); }
+.pw-zero-link:hover { text-decoration: underline; }
+@media (max-width: 899px) { .pw-card.is-today { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+
+.streak-card { flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 16px; }
+.streak-main .tile-title { margin: 0; }
+.streak-main .tool-note { margin: 2px 0 0; }
+.streak-card .week-dots { margin: 0; flex-wrap: nowrap; gap: 6px; }
+.streak-card .week-day { min-width: 0; }
+
+@media (max-width: 799px) {
+  .today-row { grid-template-columns: minmax(0, 1fr); }
+  .map-card { padding: 20px 18px 0; }
+  .map-progress { flex-basis: 100%; }
+  .map-foot { margin: 4px -18px 0; padding: 14px 18px; }
+  .map-cta { width: 100%; justify-content: center; }
+}
+@media (max-width: 599px) {
+  .pw-card.is-today { grid-template-columns: minmax(0, 1fr); padding: 20px; }
+  .pw-card.is-today .pw-start { width: 100%; }
+}
+.today-row > .bento-exam, .today-row > .bento-shortcuts { grid-column: auto; }
+.streak-main { flex: 1 1 200px; min-width: 0; }
+.streak-card .week-dots { flex: 0 0 auto; gap: 5px; }
+.streak-card .week-dot { width: 18px; height: 18px; border-width: 2px; }
+.streak-card .week-dot .icon { width: 10px; height: 10px; }
+.streak-card .week-day.is-today .week-dot { box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--accent); }
+.pw-card.is-today.is-zero { flex-direction: row; }
+.today-row > .bento-shortcuts { padding: 18px 22px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); }

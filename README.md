@@ -60,6 +60,10 @@ Instrukcja obsługi dla nauczyciela (po polsku): [docs/INSTRUKCJA.md](docs/INSTR
 - **Harmonogram (paczka v8):** wszystko planuje `schedule()` z `js/fiszki-harmonogram.js`; `REVIEW_STEPS = [1, 3, 7]` w `js/learning.js` nie steruje już powtórkami (zostaje w danych wpisu dla zgodności eksportu). Każdy wpis ma kartę w systemowej talii „Moje błędy”; nowy wpis (ręczny i automatyczny z zadań) dostaje ją od razu, z pierwszą powtórką jutro. Powtórka wpisu to ocena karty w sesji (Znowu / Trudne / Dobrze / Łatwe).
 - **Ćwiczenia C1** (Part 1–4): przy błędnej, wpisanej odpowiedzi przycisk „Dodaj do dziennika błędów” otwiera formularz wstępnie wypełniony treścią zadania, odpowiedzią, poprawną odpowiedzią, wyjaśnieniem i nazwą zestawu. Nic nie zapisuje się bez „Zapisz”. To samo zadanie z tą samą odpowiedzią nie zostanie dodane drugi raz (pole `ref` wpisu).
 
+## Strona „Dziś” (paczka v8)
+
+`#/dzis` to trzy karty i rząd: **karta mapy** (data, kraina, powitanie, „Przebyta mapa” = średnia z procentów „Umiem” 6 poziomów z paskiem 6 odcinków, Szlak topograficzny, stopka „Następny przystanek” z przyciskiem „Idź dalej szlakiem”), **karta „Fiszki i błędy”** (liczba z `ELM.reviews.count()`, rozbicie na fiszki / błędy / słabe punkty, „Powtarzaj teraz”; gdy nic nie czeka, niska karta „Na dziś zrobione. Następne: jutro (N).”) i rząd **Seria | mój egzamin** (bez moich egzaminów: „Na skróty” z Testem poziomu i Statystykami). Gotowość na test końcowy (≥ 70% „Umiem”) podpowiada stopka karty mapy. Nowych kluczy localStorage nie ma; kod: `js/today.js`, `js/powtorki.js`, `ELM.learn.mapProgress` w `js/learning.js`.
+
 ## Seria nauki
 
 Dzień nauki to dzień z co najmniej jedną aktywnością: zmiana „Umiem”, sprawdzone ćwiczenie C1, ukończona sesja powtórek, dodany wpis do dziennika, „Skończyłem” w trenerze Writing, timer trenera odliczony do końca albo ukończony test poziomu. Każde z tych miejsc wywołuje jedną funkcję `ELM.markActivity()`.
