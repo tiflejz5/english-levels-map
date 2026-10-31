@@ -507,7 +507,23 @@ window.ELM = window.ELM || {};
     return out;
   }
 
+  /**
+   * Etykieta „zestaw 8/10” na liście poziomu (paczka v8, S4): z najlepszych wyników zestawów tematu
+   * ([{ score, total }]) wybiera zestaw o najwyższym procencie (remis: więcej punktów). → { score, total, high, text } albo null.
+   * high = wynik ≥ 80% (kropka w kolorze krainy).
+   */
+  function bestSetLabel(bests) {
+    let top = null;
+    (bests || []).forEach(function (b) {
+      if (!b || !(b.total > 0) || !(b.score >= 0)) return;
+      const pct = b.score / b.total;
+      if (!top || pct > top.pct || (pct === top.pct && b.total > top.total)) top = { score: b.score, total: b.total, pct: pct };
+    });
+    return top ? { score: top.score, total: top.total, high: top.pct >= 0.8, text: "zestaw " + top.score + "/" + top.total } : null;
+  }
+
   ELM.exLogic = {
+    bestSetLabel: bestSetLabel,
     TYPES: TYPES,
     normalize: normalize,
     shuffle: shuffle,

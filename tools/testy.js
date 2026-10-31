@@ -1747,5 +1747,18 @@ test("topicNeighbors: poprzedni i następny w kolejności poziomu, brzegi i niez
   assert.deepStrictEqual(global.ELM.learn.topicNeighbors(undefined, "a"), { prev: null, next: null });
 });
 
+console.log("\nTreści v8: etykieta zestawu na liście poziomu (S4)");
+test("bestSetLabel: najlepszy zestaw tematu, próg 80% (kropka), brak wyników = null", function () {
+  const f = global.ELM.exLogic.bestSetLabel;
+  assert.deepStrictEqual(f([{ score: 8, total: 10 }]), { score: 8, total: 10, high: true, text: "zestaw 8/10" });
+  assert.strictEqual(f([{ score: 7, total: 10 }]).high, false);
+  assert.strictEqual(f([{ score: 7, total: 10 }, { score: 5, total: 5 }]).text, "zestaw 5/5", "wyższy procent wygrywa");
+  assert.strictEqual(f([{ score: 5, total: 5 }, { score: 10, total: 10 }]).text, "zestaw 10/10", "remis: więcej punktów");
+  assert.strictEqual(f([null, undefined, { score: 3, total: 0 }]), null);
+  assert.strictEqual(f([]), null);
+  assert.strictEqual(f(undefined), null);
+  assert.strictEqual(f([{ score: 0, total: 6 }]).text, "zestaw 0/6");
+});
+
 console.log("\nWynik: " + passed + " ok, " + failures.length + " błędów");
 if (failures.length) process.exit(1);

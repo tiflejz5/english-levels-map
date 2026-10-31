@@ -4185,3 +4185,8 @@ a.pw-row-label:hover { text-decoration: underline; }
   .toc-list { padding-left: 0; list-style: none; }
   .toc-list a.is-current { box-shadow: -17px 0 0 -14px var(--accent); }
 }
+
+/* ===================== v8 TREŚCI: etykieta zestawu na liście poziomu (S4) ===================== */
+.ess-set { display: inline-flex; align-items: center; gap: 5px; margin-left: 10px; padding: 1px 9px; border: 1px solid var(--line); border-radius: var(--radius-pill); background: var(--surface); color: var(--ink-muted); font-size: var(--fs-xs-plus); font-weight: 600; line-height: 1.5; white-space: nowrap; vertical-align: 1px; }
+.ess-set-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--lvl, var(--accent)); }
+.ess-set.is-high { color: var(--ink); }

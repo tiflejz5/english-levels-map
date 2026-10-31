@@ -1714,6 +1714,22 @@ window.ELM = window.ELM || {};
   }
 
   /**
+   * Etykiety zestawów dla listy poziomu (S4): Promise<{ <idTematu>: { score, total, high, text } }> — tylko tematy z rozwiązanym zestawem.
+   * Wywoływane po wczytaniu indeksu, więc lista rysuje się od razu, a etykiety dochodzą po chwili.
+   */
+  function setLabels(topicIds) {
+    return loadIndex().then(function (index) {
+      const out = {};
+      topicIds.forEach(function (t) {
+        const bests = (index.topics[t] || []).map(function (id) { const sc = pd().setScore(id); return sc ? sc.best : null; });
+        const label = X().bestSetLabel(bests);
+        if (label) out[t] = label;
+      });
+      return out;
+    });
+  }
+
+  /**
    * Sekcja na końcu strony tematu. Zwraca element od razu (pusty i ukryty);
    * wypełnia go po wczytaniu indeksu, jeśli temat ma zestawy albo kartę w Labie czasów.
    */
@@ -1756,6 +1772,7 @@ window.ELM = window.ELM || {};
     currentItem: currentItem,
     textSelectable: textSelectable,
     topicSection: topicSection,
+    setLabels: setLabels,
     setCard: setCard,
     typesText: typesText,
     topicInfo: topicInfo
