@@ -21,67 +21,67 @@
     {
       "n": 2,
       "options": {
-        "A": "make",
-        "B": "do",
+        "A": "do",
+        "B": "make",
         "C": "bring",
         "D": "set"
       },
-      "answer": "A",
+      "answer": "B",
       "explanation": "Make room for = zrobić miejsce dla."
     },
     {
       "n": 3,
       "options": {
-        "A": "done",
+        "A": "put",
         "B": "made",
-        "C": "put",
+        "C": "done",
         "D": "got"
       },
-      "answer": "A",
+      "answer": "C",
       "explanation": "Easier said than done = łatwiej powiedzieć niż zrobić."
     },
     {
       "n": 4,
       "options": {
-        "A": "fetches",
-        "B": "buys",
+        "A": "buys",
+        "B": "fetches",
         "C": "earns",
         "D": "wins"
       },
-      "answer": "A",
+      "answer": "B",
       "explanation": "Fetch a high price = osiągać wysoką cenę."
     },
     {
       "n": 5,
       "options": {
-        "A": "converting",
+        "A": "translating",
         "B": "exchanging",
         "C": "replacing",
-        "D": "translating"
+        "D": "converting"
       },
-      "answer": "A",
+      "answer": "D",
       "explanation": "Convert X into Y = przekształcać X w Y."
     },
     {
       "n": 6,
       "options": {
-        "A": "push",
+        "A": "take",
         "B": "hold",
         "C": "lay",
-        "D": "take"
+        "D": "push"
       },
-      "answer": "A",
+      "answer": "D",
       "explanation": "Push up prices = podbijać ceny."
     },
     {
       "n": 7,
       "options": {
-        "A": "outweigh",
+        "A": "overlook",
         "B": "overcome",
-        "C": "overlook",
+        "C": "outweigh",
         "D": "outlast"
       },
-      "answer": "A",
+      "answer": "C",
       "explanation": "Outweigh = przeważać nad."
     },
     {

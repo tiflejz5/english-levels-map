@@ -32,45 +32,45 @@
     {
       "n": 3,
       "options": {
-        "A": "make",
+        "A": "get",
         "B": "do",
-        "C": "get",
+        "C": "make",
         "D": "take"
       },
-      "answer": "A",
+      "answer": "C",
       "explanation": "make friends."
     },
     {
       "n": 4,
       "options": {
-        "A": "do",
-        "B": "make",
+        "A": "make",
+        "B": "do",
         "C": "give",
         "D": "put"
       },
-      "answer": "B",
+      "answer": "A",
       "explanation": "make a difference."
     },
     {
       "n": 5,
       "options": {
-        "A": "care",
+        "A": "matter",
         "B": "mind",
         "C": "worry",
-        "D": "matter"
+        "D": "care"
       },
-      "answer": "A",
+      "answer": "D",
       "explanation": "care about something."
     },
     {
       "n": 6,
       "options": {
-        "A": "benefit",
+        "A": "earn",
         "B": "profit",
         "C": "gain",
-        "D": "earn"
+        "D": "benefit"
       },
-      "answer": "A",
+      "answer": "D",
       "explanation": "benefit someone = przynieść korzyść."
     }
   ]

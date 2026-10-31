@@ -11,6 +11,9 @@
  *   - „słowo kluczowe w zdaniu” — konstrukcja the more…, the more… powtarza THE.
  * Te uwagi są listą znanych wyjątków (KNOWN); każda inna uwaga zatrzymuje walidację.
  *
+ * Dodatkowo (tools/rozklad-regula.js): w zestawach z gaps[].options = { A, B, C, D } żadna litera nie jest
+ * poprawna w więcej niż 50% luk i nie więcej niż 2 razy z rzędu (dotyczy też B2 i matur).
+ *
  * Użycie (z folderu projektu):
  *   node tools/waliduj-c1-uoe.js
  */
@@ -51,4 +54,11 @@ if (unknown.length) {
   console.error("BŁĘDY:\n" + unknown.map(function (e) { return "  - " + e; }).join("\n"));
   process.exit(1);
 }
+// Rozkład poprawnych liter w zestawach „wybierz A, B, C lub D” (C1, B2, matury): ≤ 50% jednej litery i ≤ 2 z rzędu
+const letters = require("./rozklad-regula").checkAll();
+if (letters.length) {
+  console.error("BŁĘDY rozkładu odpowiedzi (napraw: node tools/rozklad-odpowiedzi.js):\n" + letters.map(function (e) { return "  - " + e.file + ": " + e.error; }).join("\n"));
+  process.exit(1);
+}
+console.log("Rozkład poprawnych liter A–D: OK");
 console.log("OK");

@@ -11,22 +11,22 @@
       "n": 1,
       "options": {
         "A": "make",
-        "B": "take",
+        "B": "give",
         "C": "get",
-        "D": "give"
+        "D": "take"
       },
-      "answer": "B",
+      "answer": "D",
       "explanation": "Take the plunge = zdecydować się na ryzykowny krok."
     },
     {
       "n": 2,
       "options": {
-        "A": "underestimate",
-        "B": "undervalue",
+        "A": "undervalue",
+        "B": "underestimate",
         "C": "understate",
         "D": "underrate"
       },
-      "answer": "A",
+      "answer": "B",
       "explanation": "Underestimate the costs = nie docenić kosztów (liczby, ilości)."
     },
     {
@@ -44,55 +44,55 @@
       "n": 4,
       "options": {
         "A": "hit",
-        "B": "strike",
-        "C": "put",
+        "B": "put",
+        "C": "strike",
         "D": "set"
       },
-      "answer": "B",
+      "answer": "C",
       "explanation": "Strike a balance = znaleźć równowagę."
     },
     {
       "n": 5,
       "options": {
-        "A": "lose",
+        "A": "break",
         "B": "drop",
         "C": "miss",
-        "D": "break"
+        "D": "lose"
       },
-      "answer": "A",
+      "answer": "D",
       "explanation": "Lose heart = stracić zapał."
     },
     {
       "n": 6,
       "options": {
-        "A": "ground",
+        "A": "base",
         "B": "root",
-        "C": "base",
+        "C": "ground",
         "D": "core"
       },
-      "answer": "C",
+      "answer": "A",
       "explanation": "Customer base = grono klientów."
     },
     {
       "n": 7,
       "options": {
-        "A": "overcome",
-        "B": "outweigh",
+        "A": "outweigh",
+        "B": "overcome",
         "C": "outrun",
         "D": "overtake"
       },
-      "answer": "B",
+      "answer": "A",
       "explanation": "Outweigh = przeważać (korzyści przewyższają wysiłek)."
     },
     {
       "n": 8,
       "options": {
-        "A": "take",
-        "B": "put",
+        "A": "put",
+        "B": "take",
         "C": "hold",
         "D": "keep"
       },
-      "answer": "A",
+      "answer": "B",
       "explanation": "Take something to heart = wziąć sobie do serca."
     }
   ]

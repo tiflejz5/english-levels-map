@@ -1836,5 +1836,18 @@ test("interleave: losowe listy — gdy rozdzielenie tematów jest możliwe (żad
   }
 });
 
+console.log("\nRozkład poprawnych liter w zestawach A–D (tools/rozklad-regula.js)");
+test("rozklad-regula: ≤ 50% jednej litery i ≤ 2 z rzędu; dane w repozytorium spełniają regułę", function () {
+  const R = require(path.join(__dirname, "rozklad-regula.js"));
+  const mk = function (seq) { return { gaps: seq.split("").map(function (a, i) { return { n: i + 1, options: { A: "a", B: "b", C: "c", D: "d" }, answer: a }; }) }; };
+  assert.strictEqual(R.check(mk("BDAADCCB")), null);
+  assert.ok(/8 z 8/.test(R.check(mk("AAAAAAAA"))));
+  assert.ok(/5 z 8/.test(R.check(mk("AABBBAAA")) || ""), "A5 z 8 przekracza 50%");
+  assert.ok(/z rzędu/.test(R.check(mk("AAABCDBC"))));
+  assert.strictEqual(R.check(mk("AA")), null, "za mało luk, by reguła miała sens");
+  assert.strictEqual(R.check({ items: [] }), null);
+  assert.deepStrictEqual(R.checkAll(), []);
+});
+
 console.log("\nWynik: " + passed + " ok, " + failures.length + " błędów");
 if (failures.length) process.exit(1);

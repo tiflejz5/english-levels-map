@@ -10,89 +10,89 @@
     {
       "n": 1,
       "options": {
-        "A": "rewarding",
-        "B": "reliable",
+        "A": "reliable",
+        "B": "rewarding",
         "C": "reasonable",
         "D": "relevant"
       },
-      "answer": "A",
+      "answer": "B",
       "explanation": "rewarding = dający satysfakcję."
     },
     {
       "n": 2,
       "options": {
-        "A": "practice",
+        "A": "practically",
         "B": "practise",
         "C": "practical",
-        "D": "practically"
+        "D": "practice"
       },
-      "answer": "A",
+      "answer": "D",
       "explanation": "Rzeczownik po a little: practice (BrE rzeczownik)."
     },
     {
       "n": 3,
       "options": {
-        "A": "do",
-        "B": "make",
+        "A": "make",
+        "B": "do",
         "C": "take",
         "D": "have"
       },
-      "answer": "B",
+      "answer": "A",
       "explanation": "make a mistake."
     },
     {
       "n": 4,
       "options": {
-        "A": "begin",
-        "B": "start",
+        "A": "start",
+        "B": "begin",
         "C": "open",
         "D": "go"
       },
-      "answer": "B",
+      "answer": "A",
       "explanation": "start with = zacząć od."
     },
     {
       "n": 5,
       "options": {
         "A": "exchange",
-        "B": "share",
+        "B": "spread",
         "C": "divide",
-        "D": "spread"
+        "D": "share"
       },
-      "answer": "B",
+      "answer": "D",
       "explanation": "share ideas = dzielić się pomysłami."
     },
     {
       "n": 6,
       "options": {
-        "A": "give",
+        "A": "take",
         "B": "put",
-        "C": "take",
+        "C": "give",
         "D": "hold"
       },
-      "answer": "A",
+      "answer": "C",
       "explanation": "give up = poddać się."
     },
     {
       "n": 7,
       "options": {
-        "A": "make",
+        "A": "cause",
         "B": "do",
-        "C": "cause",
+        "C": "make",
         "D": "create"
       },
-      "answer": "A",
+      "answer": "C",
       "explanation": "make mistakes."
     },
     {
       "n": 8,
       "options": {
-        "A": "satisfaction",
-        "B": "satisfied",
+        "A": "satisfied",
+        "B": "satisfaction",
         "C": "satisfy",
         "D": "satisfying"
       },
-      "answer": "A",
+      "answer": "B",
       "explanation": "Rzeczownik po the: satisfaction."
     }
   ]

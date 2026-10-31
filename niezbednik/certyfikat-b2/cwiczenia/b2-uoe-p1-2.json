@@ -10,23 +10,23 @@
     {
       "n": 1,
       "options": {
-        "A": "choosing",
+        "A": "preferring",
         "B": "deciding",
         "C": "judging",
-        "D": "preferring"
+        "D": "choosing"
       },
-      "answer": "A",
+      "answer": "D",
       "explanation": "choose to work = decydować się pracować."
     },
     {
       "n": 2,
       "options": {
-        "A": "benefits",
-        "B": "profits",
+        "A": "profits",
+        "B": "benefits",
         "C": "gains",
         "D": "rewards"
       },
-      "answer": "A",
+      "answer": "B",
       "explanation": "the main benefits."
     },
     {
@@ -65,34 +65,34 @@
     {
       "n": 6,
       "options": {
-        "A": "challenges",
+        "A": "fights",
         "B": "problems",
-        "C": "fights",
+        "C": "challenges",
         "D": "difficulties"
       },
-      "answer": "A",
+      "answer": "C",
       "explanation": "face new challenges (kolokacja)."
     },
     {
       "n": 7,
       "options": {
         "A": "measure",
-        "B": "monitor",
+        "B": "weigh",
         "C": "count",
-        "D": "weigh"
+        "D": "monitor"
       },
-      "answer": "B",
+      "answer": "D",
       "explanation": "monitor how well = śledzić, jak dobrze."
     },
     {
       "n": 8,
       "options": {
-        "A": "balance",
+        "A": "scale",
         "B": "level",
-        "C": "scale",
+        "C": "balance",
         "D": "rate"
       },
-      "answer": "A",
+      "answer": "C",
       "explanation": "keep a balance between."
     }
   ]
