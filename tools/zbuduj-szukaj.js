@@ -164,9 +164,9 @@ if (fs.existsSync(regFile)) readJson(regFile).exams.forEach(function (exam) {
 });
 
 // ---------- Fiszki: tylko skróty (karty nie trafiają do indeksu — za duży szum, spec 10, 5.5) ----------
-add({ id: "fiszki", group: "exercises", title: "Fiszki", summary: "Powtórki słówek, kolokacji i czasowników frazowych w rosnących odstępach.", text: "fiszki flashcards powtórki active recall talie", category: "Fiszki", route: "#/fiszki" });
-add({ id: "fiszki:bledy", group: "exercises", title: "Moje błędy (fiszki)", summary: "Talia fiszek z wpisów Dziennika błędów.", text: "fiszki moje błędy dziennik", category: "Fiszki", route: "#/fiszki/talia/u-moje-bledy" });
-add({ id: "fiszki:slowa", group: "exercises", title: "Moje słowa", summary: "Słowa i wyrażenia zaznaczone w tekstach, ze zdaniem i znaczeniem.", text: "moje słowa słowniczek osobisty zapisane słówka fiszki zaznaczenie", category: "Fiszki", route: "#/fiszki/moje-slowa" });
+add({ id: "fiszki", group: "exercises", title: "Fiszki i błędy", summary: "Jedna kolejka powtórek: fiszki z talii, Moje błędy i słabe punkty z ćwiczeń, w rosnących odstępach.", text: "fiszki flashcards powtórki active recall talie dziennik błędów słabe punkty", category: "Fiszki", route: "#/powtorki" });
+add({ id: "fiszki:bledy", group: "exercises", title: "Moje błędy (fiszki)", summary: "Talia fiszek z wpisów Dziennika błędów.", text: "fiszki moje błędy dziennik", category: "Fiszki", route: "#/powtorki/talie/talia/u-moje-bledy" });
+add({ id: "fiszki:slowa", group: "exercises", title: "Moje słowa", summary: "Słowa i wyrażenia zaznaczone w tekstach, ze zdaniem i znaczeniem.", text: "moje słowa słowniczek osobisty zapisane słówka fiszki zaznaczenie", category: "Fiszki", route: "#/powtorki/moje-slowa" });
 // Pisanie: wzorcowe wypracowania z komentarzami (zadania z modelNotes w trening/pisanie.json)
 add({ id: "pisanie", group: "exercises", title: "Wzorcowe wypracowania", summary: "Teksty modelowe z komentarzami na marginesie: realizacja polecenia, łączniki, rejestr, zakres i uwagi.", text: "pisanie wzorce wypracowania komentarze rozprawka essay email list writing model", category: "Pisanie", route: "#/pisanie" });
 (function () {
@@ -196,7 +196,7 @@ add({ id: "pisanie", group: "exercises", title: "Wzorcowe wypracowania", summary
 
 // Skróty do talii wbudowanych po tytule (bez kart): tematyczne A1–B1, egzaminacyjne, czasowniki frazowe itd.
 readJson(path.join(ROOT, "dane", "fiszki", "index.json")).decks.forEach(function (d) {
-  add({ id: "fiszki:talia:" + d.id, group: "exercises", title: d.title + " (fiszki)", summary: d.description, text: "fiszki talia " + d.title + " " + d.level, category: "Fiszki", route: "#/fiszki/talia/" + d.id });
+  add({ id: "fiszki:talia:" + d.id, group: "exercises", title: d.title + " (fiszki)", summary: d.description, text: "fiszki talia " + d.title + " " + d.level, category: "Fiszki", route: "#/powtorki/talie/talia/" + d.id });
 });
 
 // ---------- Ćwiczenia (zestawy tematów i mixy) ----------

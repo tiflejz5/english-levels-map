@@ -439,6 +439,7 @@ window.ELM = window.ELM || {};
     entries().unshift(entry);
     save("journal");
     markActivity();
+    if (ELM.fiszki) ELM.fiszki.autoAddFromJournal(entry); // każdy wpis ma kartę „Moje błędy” od razu (paczka v8)
     return entry;
   }
 
@@ -450,6 +451,7 @@ window.ELM = window.ELM || {};
     if (!merged) return null;
     list[i] = merged;
     save("journal");
+    if (ELM.fiszki) ELM.fiszki.journalUpdated(merged);
     return merged;
   }
 
@@ -457,8 +459,9 @@ window.ELM = window.ELM || {};
     const list = entries();
     const i = list.findIndex(function (e) { return e.id === id; });
     if (i === -1) return;
-    list.splice(i, 1);
+    const gone = list.splice(i, 1)[0];
     save("journal");
+    if (ELM.fiszki) ELM.fiszki.journalRemoved(gone);
   }
 
   /** Wynik powtórki: known = true („Wiedziałem(am)”) / false („Znowu błąd”). */
@@ -753,16 +756,14 @@ window.ELM = window.ELM || {};
     meta[itemId] = m;
     save("journal");
     save("autojournal");
+    if (ELM.fiszki) ELM.fiszki.journalWrong(existing); // karta wraca na jutro
     return { action: plan.action, entry: existing, undo: { kind: "update", itemId: itemId, entryId: existing.id, before: before } };
   }
 
-  /** Poprawna odpowiedź: zaliczenie powtórki, jeśli wpis tego zadania jest do powtórki dziś lub zaległy. */
+  /** Poprawna odpowiedź: karta wpisu tego zadania, jeśli jest na dziś lub zaległa, dostaje „Dobrze” (harmonogram fiszek). */
   function recordCorrect(itemId) {
     const entry = activeId() ? entryForItem(itemId) : null;
-    const plan = ELM.stats.planCorrect(entry, learn().today());
-    if (!plan) return null;
-    entry.review = plan.review;
-    save("journal");
+    if (!entry || !ELM.fiszki || !ELM.fiszki.journalCorrect(entry)) return null;
     return { action: "review", entry: entry };
   }
 
@@ -788,10 +789,12 @@ window.ELM = window.ELM || {};
     const ids = new Set(Object.keys(meta).map(function (k) { return meta[k].entryId; }));
     const list = entries();
     const before = list.length;
-    for (let i = list.length - 1; i >= 0; i--) if (ids.has(list[i].id)) list.splice(i, 1);
+    const removed = [];
+    for (let i = list.length - 1; i >= 0; i--) if (ids.has(list[i].id)) removed.push(list.splice(i, 1)[0]);
     record("autojournal", activeId()).items = {};
     save("journal");
     save("autojournal");
+    if (ELM.fiszki) removed.forEach(function (e) { ELM.fiszki.journalRemoved(e); });
     return before - list.length;
   }
 

@@ -231,8 +231,10 @@ window.ELM = window.ELM || {};
 
   function journalTile(today) {
     const all = pd().entries();
-    const active = all.filter(function (e) { return !e.review.mastered; });
-    const due = all.filter(function (e) { return learn().isDue(e.review, today); }).length;
+    // Stan z kart „Moje błędy” (harmonogram fiszek), nie ze starego pola review
+    const isMastered = function (e) { const i = ELM.fiszki ? ELM.fiszki.mistakeInfo(e) : null; return !!(i && i.mastered); };
+    const active = all.filter(function (e) { return !isMastered(e); });
+    const due = ELM.reviews ? ELM.reviews.breakdown().mistake : 0;
     const mastered = all.length - active.length;
     const count = function (key) {
       const m = {};
@@ -244,13 +246,13 @@ window.ELM = window.ELM || {};
       return el("div", { class: "st-stat" }, [el("p", { class: "st-stat-label", text: label }), href && n ? el("a", { class: "st-stat-value", href: href, text: String(n) }) : el("p", { class: "st-stat-value", text: String(n) })]);
     };
     return tile("Dziennik błędów", "st-journal", all.length ? [
-      el("div", { class: "st-stats is-three" }, [stat("Aktywne", active.length), stat("Do powtórki dziś", due, "#/bledy/powtorki"), stat("Opanowane", mastered)]),
+      el("div", { class: "st-stats is-three" }, [stat("Aktywne", active.length), stat("Do powtórki dziś", due, "#/powtorki/sesja?tylko=bledy"), stat("Opanowane", mastered)]),
       cats.length ? el("p", { class: "st-tops" }, [el("span", { class: "review-label", text: "Najczęstsze kategorie: " }), cats.map(function (c) { return c.k + " (" + c.n + ")"; }).join(", ")]) : null,
       topics.length ? el("p", { class: "st-tops" }, [el("span", { class: "review-label", text: "Najczęstsze tematy: " })].concat(topics.map(function (t, i) {
         const info = topic(t.k);
         return [i ? ", " : "", info ? el("a", { href: info.href, text: info.title }) : t.k, " (" + t.n + ")"];
       }))) : null,
-      el("p", null, el("a", { class: "btn btn-secondary btn-small", href: "#/bledy" }, "Otwórz dziennik"))
+      el("p", null, el("a", { class: "btn btn-secondary btn-small", href: "#/powtorki/moje-bledy" }, "Otwórz Moje błędy"))
     ] : [emptyNote("Dziennik jest pusty. Błędy z zadań trafiają tu same – możesz to wyłączyć w menu profilu.")]);
   }
 

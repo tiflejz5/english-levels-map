@@ -134,7 +134,15 @@ pairs.push(
   ["ink-muted", "surface-2", null, 4.5, "pasek: tekst „+N” i podpisy / tło panelu"],
   ["line-control", "surface-2", null, 3, "pasek: przerywany obrys „+N” / tło panelu"],
   ["ink", "surface", null, 4.5, "popover „+N”: nazwa egzaminu / tło"],
-  ["ink-muted", "surface", null, 4.5, "popover „+N”: poziom i instytucja / tło"]
+  ["ink-muted", "surface", null, 4.5, "popover „+N”: poziom i instytucja / tło"],
+  // Fiszki i błędy (v8): zakładki, licznik w nagłówku, karta „Na dziś”
+  ["ink-muted", "bg", null, 4.5, "zakładki Fiszek i błędów: nieaktywna / tło"],
+  ["accent", "bg", null, 3, "zakładki: wskaźnik aktywnej / tło"],
+  ["accent", "accent-soft", "bg", 4.5, "licznik „N do powtórki” w nagłówku: tekst / tło"],
+  ["accent", "surface", null, 4.5, "karta „Na dziś”: linki „Talie”, „Moje błędy”, „+ Dodaj błąd” / karta"],
+  ["lvl-a2", "surface", null, 3, "karta „Na dziś”: znacznik fiszek / karta"],
+  ["lvl-b2", "surface", null, 3, "karta „Na dziś”: znacznik błędów / karta"],
+  ["lvl-c1", "surface", null, 3, "karta „Na dziś”: znacznik zadań / karta"]
 );
 ["a1", "a2", "b1", "b2", "c1", "c2"].forEach(function (l) {
   const L = l.toUpperCase();

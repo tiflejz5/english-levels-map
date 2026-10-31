@@ -1,8 +1,8 @@
 /*
- * journal.js — „Dziennik błędów” (#/bledy) i sesja powtórek (#/bledy/powtorki).
+ * journal.js — zakładka „Moje błędy” (#/powtorki/moje-bledy); sesja powtórek jest wspólna (#/powtorki/sesja, js/fiszki.js).
  *
  * Dane: ELM.profileData (klucz elm_journal_v1, osobno dla każdego profilu).
- * Harmonogram: ELM.learn.REVIEW_STEPS (po 1, 3 i 7 dniach).
+ * Harmonogram: schedule() z js/fiszki-harmonogram.js — każdy wpis ma kartę w talii „Moje błędy” (paczka v8).
  * Treść wpisana przez użytkownika trafia do strony wyłącznie jako tekst.
  */
 window.ELM = window.ELM || {};
@@ -13,8 +13,8 @@ window.ELM = window.ELM || {};
   const U = ELM.utils;
   const el = U.el;
 
-  const BASE = "#/bledy";
-  const REVIEW = "#/bledy/powtorki";
+  const BASE = "#/powtorki/moje-bledy";                 // zakładka „Moje błędy” (wcześniej #/bledy)
+  const REVIEW = "#/powtorki/sesja?tylko=bledy";         // sesja tylko z błędami (wcześniej #/bledy/powtorki)
 
   function pd() { return ELM.profileData; }
   function learn() { return ELM.learn; }
@@ -22,17 +22,12 @@ window.ELM = window.ELM || {};
   // Filtry listy (pamiętane do odświeżenia strony)
   const filters = { status: "due", category: "", query: "", auto: false };
 
-  // Sesja powtórek (w pamięci; nowa sesja przy każdym „Zacznij powtórki”)
-  let session = null;
-
   // =====================================================================
   // ADRESY
   // =====================================================================
 
   function parseRoute(hash) {
-    const m = /^#\/bledy(\/powtorki)?\/?$/.exec(hash || "");
-    if (!m) return null;
-    return { kind: m[1] ? "review" : "list" };
+    return /^#[/]powtorki[/]moje-bledy[/]?$/.test(hash || "") ? { kind: "list" } : null;
   }
 
   // =====================================================================
@@ -228,18 +223,24 @@ window.ELM = window.ELM || {};
 
   function plural(n, one, few, many) { return ELM.c1 ? ELM.c1.plural(n, one, few, many) : many; }
 
+  /** Stan karty wpisu (talia „Moje błędy”, harmonogram fiszek) zamiast etapu 1/3/7. */
   function reviewLabel(e) {
-    if (e.review.mastered) return { text: "Opanowane", cls: "is-mastered" };
-    const d = learn().diffDays(learn().today(), e.review.due);
-    if (d <= 0) return { text: "Do powtórki dziś", cls: "is-due" };
-    if (d === 1) return { text: "Powtórka jutro", cls: "" };
+    const info = ELM.fiszki ? ELM.fiszki.mistakeInfo(e) : null;
+    if (!info) return { text: "Nowa karta", cls: "" };
+    if (info.suspended) return { text: "Zawieszona", cls: "" };
+    if (info.mastered) return { text: "Opanowane", cls: "is-mastered" };
+    if (info.state === "learning" || info.state === "relearning") return { text: "W nauce", cls: "is-due" };
+    const d = Math.ceil((info.due - Date.now()) / 86400000);
+    if (info.due < ELM.fiszkiLogic.dayEnd(Date.now())) return { text: "Do powtórki dziś", cls: "is-due" };
+    if (d <= 1) return { text: "Powtórka jutro", cls: "" };
     return { text: "Powtórka za " + d + " " + plural(d, "dzień", "dni", "dni"), cls: "" };
   }
 
   function matches(e) {
-    const today = learn().today();
-    if (filters.status === "due" && !learn().isDue(e.review, today)) return false;
-    if (filters.status === "mastered" && !e.review.mastered) return false;
+    const info = ELM.fiszki ? ELM.fiszki.mistakeInfo(e) : null;
+    const dueNow = info ? (info.state !== "new" && !info.suspended && info.due < ELM.fiszkiLogic.dayEnd(Date.now())) : false;
+    if (filters.status === "due" && !dueNow) return false;
+    if (filters.status === "mastered" && !(info && info.mastered)) return false;
     if (filters.category && e.category !== filters.category) return false;
     if (filters.auto && !pd().isAutoEntry(e)) return false;
     const q = filters.query.trim().toLocaleLowerCase("pl");
@@ -277,14 +278,6 @@ window.ELM = window.ELM || {};
         link ? el("div", { class: "journal-row" }, [el("dt", { text: "Niezbędnik" }), el("dd", null, link)]) : null
       ]),
       el("div", { class: "journal-actions" }, [
-        // Fiszki (spec 10, 5.4): karta w talii „Moje błędy”, bez duplikatów
-        ELM.fiszki ? (ELM.fiszki.hasJournalCard(e)
-          ? el("span", { class: "journal-in-fiszki" }, [ELM.icon("check", { size: 14 }), " W fiszkach"])
-          : el("button", {
-            type: "button", class: "btn btn-secondary btn-small",
-            "aria-label": "Dodaj do fiszek: " + e.context.slice(0, 60),
-            onclick: function () { const r = ELM.fiszki.addFromJournal(e, { onUndo: rerender }); if (r.status !== "no-profile") rerender(); }
-          }, ELM.ui.withIcon("layers", "Dodaj do fiszek"))) : null,
         el("button", {
           type: "button",
           class: "btn btn-secondary btn-small",
@@ -325,9 +318,9 @@ window.ELM = window.ELM || {};
 
   function renderList(view) {
     const all = pd().entries();
-    const due = pd().dueCount();
+    const due = ELM.reviews ? ELM.reviews.breakdown().mistake : 0;
 
-    view.appendChild(ELM.ui.pageHead({ eyebrow: "Twoje postępy · Dziennik błędów", title: "Dziennik błędów", lead: "Zapisuj błędy z ćwiczeń i arkuszy, a potem powtarzaj je po 1, 3 i 7 dniach. Po ostatniej udanej powtórce wpis jest opanowany." }));
+    view.appendChild(ELM.powtorki.header("bledy", "Zapisuj błędy z ćwiczeń i arkuszy – każdy ma kartę, która wraca w rosnących odstępach (harmonogram fiszek). Karta opanowana wraca raz na kilka tygodni."));
 
     view.appendChild(el("div", { class: "tool-actions" }, [
       due
@@ -447,106 +440,6 @@ window.ELM = window.ELM || {};
     paint();
   }
 
-  // =====================================================================
-  // SESJA POWTÓREK
-  // =====================================================================
-
-  function startSession() {
-    const p = ELM.app.getActiveProfile();
-    session = { profileId: p ? p.id : null, ids: pd().dueEntries().map(function (e) { return e.id; }), index: 0, revealed: false, known: 0, again: 0, done: false };
-  }
-
-  function renderReview(view) {
-    const profile = ELM.app.getActiveProfile();
-    if (!session || session.profileId !== (profile ? profile.id : null)) startSession();
-    if (!session.ids.length && !session.done) {
-      view.appendChild(el("header", { class: "tool-head" }, [el("h1", { class: "tool-title", text: "Powtórki" })]));
-      view.appendChild(ELM.ui.emptyState({
-        art: "brak-powtorek", title: "Na dziś czysto – nie masz żadnych powtórek.",
-        action: el("a", { class: "btn btn-secondary", href: BASE }, "Wróć do dziennika")
-      }));
-      session = null;
-      return;
-    }
-
-    const total = session.ids.length;
-    view.appendChild(el("header", { class: "tool-head" }, [
-      el("p", { class: "c1-crumb" }, [el("a", { href: BASE }, "Dziennik błędów"), " · Powtórki"]),
-      el("h1", { class: "tool-title", text: "Powtórki" })
-    ]));
-
-    if (session.done) {
-      view.appendChild(el("section", { class: "card review-summary", "aria-live": "polite" }, [
-        el("h2", { class: "section-title", text: "Sesja zakończona" }),
-        el("p", { text: "Powtórzone: " + total + ". Wiedziałeś(aś): " + session.known + ". Do ponownej powtórki jutro: " + session.again + "." }),
-        el("p", { class: "tool-note", text: session.again ? "Błędy, które wracają, to dokładnie te, nad którymi warto popracować. Do jutra!" : "Świetna robota – wszystko poszło gładko!" }),
-        el("div", { class: "tool-actions" }, [
-          el("a", { class: "btn btn-primary", href: BASE }, "Wróć do dziennika"),
-          el("a", { class: "btn btn-secondary", href: "#/dzis" }, "Strona „Dziś”")
-        ])
-      ]));
-      return;
-    }
-
-    const entry = pd().getEntry(session.ids[session.index]);
-    if (!entry) { session.index++; return finishOrNext(); }
-
-    const percent = Math.round((session.index / total) * 100);
-    view.appendChild(el("div", { class: "review-progress" }, [
-      el("div", {
-        class: "progress", role: "progressbar", "aria-valuemin": "0", "aria-valuemax": String(total),
-        "aria-valuenow": String(session.index), "aria-label": "Postęp sesji"
-      }, el("div", { class: "progress-fill", style: "transform:scaleX(" + percent / 100 + ")" })),
-      el("span", { class: "progress-text", text: (session.index + 1) + " z " + total })
-    ]));
-
-    const answerBox = el("div", { class: "review-answer", hidden: !session.revealed }, [
-      entry.myAnswer ? el("p", { class: "journal-row is-wrong" }, [el("span", { class: "review-label", text: "Twoja wcześniejsza odpowiedź: " }), el("span", { text: entry.myAnswer })]) : null,
-      el("p", { class: "journal-row is-right" }, [el("span", { class: "review-label", text: "Poprawnie: " }), el("strong", { text: entry.correct })]),
-      entry.rule ? el("p", { class: "journal-rule", text: entry.rule }) : null,
-      itemLink(entry.itemId) ? el("p", null, ["Niezbędnik: ", itemLink(entry.itemId)]) : null
-    ]);
-
-    const knownBtn = el("button", { type: "button", class: "btn btn-primary review-btn is-known", onclick: function () { answer(true); } }, ELM.ui.withIcon("check", "Wiedziałem(am)"));
-    const againBtn = el("button", { type: "button", class: "btn btn-secondary review-btn is-again", onclick: function () { answer(false); } }, ELM.ui.withIcon("rotate-ccw", "Znowu błąd"));
-    const showBtn = el("button", {
-      type: "button",
-      class: "btn btn-primary",
-      onclick: function () { session.revealed = true; rerender(); focusLater(".review-known"); }
-    }, ELM.ui.withIcon("eye", "Pokaż odpowiedź"));
-    knownBtn.classList.add("review-known");
-
-    view.appendChild(el("section", { class: "card review-card" + catClass(entry.category), "aria-live": "polite" }, [
-      el("div", { class: "journal-entry-head" }, [
-        el("span", { class: "c1-chip", text: entry.category }),
-        entry.source ? el("span", { class: "journal-source", text: entry.source }) : null
-      ]),
-      el("p", { class: "review-context", text: entry.context }),
-      answerBox,
-      el("div", { class: "tool-actions" }, session.revealed ? [knownBtn, againBtn] : [showBtn])
-    ]));
-    if (!session.revealed) focusLater(".review-card .btn-primary");
-
-    function answer(known) {
-      pd().reviewEntry(entry.id, known);
-      if (known) session.known++; else session.again++;
-      session.index++;
-      session.revealed = false;
-      finishOrNext();
-    }
-  }
-
-  function finishOrNext() {
-    if (session.index >= session.ids.length) {
-      session.done = true;
-      ELM.markActivity(); // ukończona sesja powtórek = dzień nauki
-      if (ELM.celebrate) ELM.celebrate.check({ event: "review" });
-    }
-    ELM.app.refreshLearning();
-    rerender();
-    if (session.done) focusLater(".review-summary .btn-primary");
-  }
-
   function focusLater(selector) {
     setTimeout(function () { const b = document.querySelector(selector); if (b) b.focus(); }, 0);
   }
@@ -566,16 +459,13 @@ window.ELM = window.ELM || {};
     view.className = "view tool-view journal-view";
     view.dataset.file = key;
     view.replaceChildren();
-    if (route.kind === "review") renderReview(view);
-    else { session = null; renderList(view); }
-    document.title = (route.kind === "review" ? "Powtórki" : "Dziennik błędów") + " · English Levels Map";
+    renderList(view);
+    document.title = "Moje błędy · Fiszki i błędy · English Levels Map";
     U.setScroll(keepScroll);
   }
 
-  /** Nowa sesja przy wejściu na #/bledy/powtorki z innego widoku. */
-  function onEnter(route) {
-    if (route && route.kind === "review") startSession();
-  }
+  /** Wejście na widok: nic do przygotowania (sesja jest w js/fiszki.js). */
+  function onEnter() {}
 
   ELM.journal = {
     BASE: BASE,

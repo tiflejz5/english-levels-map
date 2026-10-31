@@ -108,9 +108,17 @@ window.ELM = window.ELM || {};
 
   function clearAll() { storedIds().forEach(removeProfile); }
 
+  /** Po imporcie starego pliku (bez części „fiszki”) Dziennik mógł się zmienić: migracja do kart „Moje błędy” ma wrócić (idempotentna). */
+  function clearMigrationFlags() {
+    storedIds().forEach(function (pid) {
+      const d = load(pid);
+      if (d.settings.migratedJournal) { d.settings.migratedJournal = false; save(pid); }
+    });
+  }
+
   ELM.fiszkiStore = {
     keyOf: keyOf, data: data, load: load, save: save,
     exportData: exportData, parseImport: parseImport, applyImport: applyImport,
-    removeProfile: removeProfile, clearAll: clearAll
+    removeProfile: removeProfile, clearAll: clearAll, clearMigrationFlags: clearMigrationFlags
   };
 })(window.ELM);

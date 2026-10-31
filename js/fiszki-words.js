@@ -18,8 +18,8 @@ window.ELM = window.ELM || {};
 
   const U = ELM.utils;
   const el = U.el;
-  const HASH = "#/fiszki";
-  const WORDS_HASH = "#/fiszki/moje-slowa";
+  const HASH = "#/powtorki/talie";
+  const WORDS_HASH = "#/powtorki/moje-slowa";
   const WORDS_ID = "u-moje-slowa";
   const WORDS_TITLE = "Moje słowa";
 
@@ -269,7 +269,7 @@ window.ELM = window.ELM || {};
   });
 
   // =====================================================================
-  // WIDOK #/fiszki/moje-slowa (spec 14, sekcja 5)
+  // WIDOK #/powtorki/moje-slowa (spec 14, sekcja 5)
   // =====================================================================
 
   const view = { query: "", sort: "newest", noMeaning: false };
@@ -321,8 +321,7 @@ window.ELM = window.ELM || {};
 
   function renderView(root) {
     const all = cards();
-    root.appendChild(el("p", { class: "c1-back" }, el("a", { href: "#/fiszki" }, ELM.ui.withIcon("chevron-left", "Fiszki"))));
-    root.appendChild(F().head("Moje słowa", "Słowa i wyrażenia zaznaczone w tekstach – każde ze zdaniem, z którego pochodzi."));
+    root.appendChild(ELM.powtorki.header("slowa", "Słowa i wyrażenia zaznaczone w tekstach – każde ze zdaniem, z którego pochodzi."));
     if (!all.length) {
       root.appendChild(ELM.ui.emptyState({
         class: "fw-empty", art: "pusty-notes", title: "Nie zapisałeś jeszcze żadnego słowa.", hint: "Zaznacz słowo albo wyrażenie w dowolnym tekście (strona niezbędnika, podsumowanie, egzamin, Laboratorium), a potem wybierz „Do Moich słów” albo naciśnij klawisz M. Karta z luką trafi tutaj i do codziennych powtórek."
@@ -332,7 +331,7 @@ window.ELM = window.ELM || {};
     root.appendChild(F().bar(L().deckStats(all, st().cards, Date.now())));
 
     const actions = [
-      el("a", { class: "btn btn-primary", href: "#/fiszki/sesja" }, ELM.ui.withIcon("play", "Ucz się teraz")),
+      el("a", { class: "btn btn-primary", href: "#/powtorki/sesja?tylko=talia:" + WORDS_ID }, ELM.ui.withIcon("play", "Ucz się teraz")),
       el("button", { type: "button", class: "btn btn-secondary", onclick: function () {
         F().downloadText("moje-slowa.csv", "﻿" + L().exportWordsCsv(cards()), "text/csv;charset=utf-8");
       } }, ELM.ui.withIcon("download", "Eksportuj CSV"))

@@ -16,7 +16,7 @@ window.ELM = window.ELM || {};
 
   const U = ELM.utils;
   const el = U.el;
-  const HASH = "#/fiszki";
+  const HASH = "#/powtorki/talie";
 
   function F() { return ELM.fiszki.internal; }
   function L() { return ELM.fiszkiLogic; }
