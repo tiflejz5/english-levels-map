@@ -215,7 +215,7 @@ window.ELM = window.ELM || {};
     // Ramki „Na egzaminie …” po wyjaśnieniu, przed „Życie i egzamin” (A8; dane: powiazania.json)
     if (ELM.c1) ELM.c1.insertExamBoxes(article, ELM.exams ? ELM.exams.examBoxesFor(found.item.id) : ELM.c1.examBoxFor(found.item.id));
     if (ELM.callouts) ELM.callouts.apply(article); // wyróżnione sekcje i tabele (js/callouts.js)
-    view.appendChild(article);
+    view.appendChild(ELM.toc ? ELM.toc.wrap(article) : article); // spis treści przy ≥ 4 sekcjach (js/toc.js)
     // „Sprawdź się”: zestawy zadań tematu i link do Laboratorium czasów (indeks wczytywany na żądanie)
     if (ELM.exercises) view.appendChild(ELM.exercises.topicSection(found.item.id));
     view.appendChild(topicNav(found));
