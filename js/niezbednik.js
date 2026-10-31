@@ -183,15 +183,12 @@ window.ELM = window.ELM || {};
     view.dataset.file = route.file;
     view.replaceChildren();
 
-    const back = el("button", {
-      type: "button",
-      class: "crumb back-btn",
-      onclick: function () { goBack(found); }
-    }, ELM.ui.withIcon("chevron-left", "Wróć do listy " + levelId));
+    // Okruszki: „Poziom A1 › Czasy › Present Simple” (poziom i kategoria wracają do listy, z jej przewinięciem)
+    const levelCrumb = { label: "Poziom " + levelId, href: "#/" + levelId.toLowerCase(), onclick: function () { goBack(found); } };
 
     if (!found || !hasPage(found.item)) {
       U.setScroll(0);
-      view.appendChild(el("div", { class: "page-head" }, back));
+      view.appendChild(el("div", { class: "page-head" }, ELM.ui.breadcrumbs([levelCrumb, { label: found ? found.item.label : "Brak podstrony" }])));
       view.appendChild(el("div", { class: "empty-state" }, [
         el("p", { class: "empty-state-text", text: found ? "Brak pliku z treścią tej podstrony." : "Nie znaleziono takiej podstrony." }),
         found ? el("p", { class: "empty-state-hint", text: found.item.label }) : null
@@ -207,12 +204,9 @@ window.ELM = window.ELM || {};
     const categoryName = (levelEntry.categoryLabels || {})[found.item.category] ||
       data().index.categories[found.item.category] || "";
 
+    const pageTitle = doc.meta.title || found.item.label;
     view.appendChild(el("div", { class: "page-head" }, [
-      back,
-      el("span", { class: "page-crumb" }, [
-        el("span", { class: "level-dot", "aria-hidden": "true" }),
-        found.level + (categoryName ? " · " + categoryName : "")
-      ]),
+      ELM.ui.breadcrumbs([levelCrumb].concat(categoryName ? [{ label: categoryName, href: levelCrumb.href, onclick: levelCrumb.onclick }] : [], [{ label: pageTitle }])),
       ELM.notes ? ELM.notes.button(found.item.id, { title: found.level + " · " + (doc.meta.title || found.item.label), route: location.hash }) : null,
       info ? umiemToggle(info.essential) : null
     ]));
@@ -221,19 +215,61 @@ window.ELM = window.ELM || {};
     // Ramki „Na egzaminie …” po wyjaśnieniu, przed „Życie i egzamin” (A8; dane: powiazania.json)
     if (ELM.c1) ELM.c1.insertExamBoxes(article, ELM.exams ? ELM.exams.examBoxesFor(found.item.id) : ELM.c1.examBoxFor(found.item.id));
     if (ELM.callouts) ELM.callouts.apply(article); // wyróżnione sekcje i tabele (js/callouts.js)
-    view.appendChild(article);
+    view.appendChild(ELM.toc ? ELM.toc.wrap(article) : article); // spis treści przy ≥ 4 sekcjach (js/toc.js)
     // „Sprawdź się”: zestawy zadań tematu i link do Laboratorium czasów (indeks wczytywany na żądanie)
     if (ELM.exercises) view.appendChild(ELM.exercises.topicSection(found.item.id));
-    view.appendChild(el("div", { class: "page-foot" }, el("button", {
-      type: "button",
-      class: "btn btn-secondary",
-      onclick: function () { goBack(found); }
-    }, ELM.ui.withIcon("chevron-left", "Wróć do listy " + found.level))));
-
+    view.appendChild(topicNav(found));
     document.title = (doc.meta.title || found.item.label) + " · English Levels Map";
     if (ELM.profileData) ELM.profileData.setLastPage(location.hash, found.level + " · " + (doc.meta.title || found.item.label));
     U.setScroll(keepScroll);
   }
+
+  // =====================================================================
+  // POPRZEDNI / NASTĘPNY TEMAT (paczka v8, S2)
+  // =====================================================================
+
+  let topicLinks = null; // { prev, next } dla bieżącej podstrony: { href, label } — dla skrótów [ i ]
+
+  function shortLabel(item) {
+    const t = metaOf(item).title;
+    return t || String(item.label).replace(/\s*\(.*\)\s*$/, "");
+  }
+
+  /** Nawigacja na końcu podstrony: „‹ Poprzedni: …” i „Następny temat: … ›”; na końcu poziomu „Zacznij krainę A2 ›”. */
+  function topicNav(found) {
+    const lvl = data().index.levels.find(function (l) { return l.level === found.level; });
+    const avail = lvl ? lvl.items.filter(hasPage) : [];
+    const n = ELM.learn.topicNeighbors(avail.map(function (i) { return i.id; }), found.item.id);
+    const byId = function (id) { return id ? avail.find(function (i) { return i.id === id; }) : null; };
+    const prev = byId(n.prev), next = byId(n.next);
+    const nextLevel = ELM.LEVEL_IDS[ELM.LEVEL_IDS.indexOf(found.level) + 1] || null;
+    topicLinks = {
+      prev: prev ? { href: routeOf(prev), label: shortLabel(prev) } : null,
+      next: next ? { href: routeOf(next), label: shortLabel(next) }
+        : nextLevel ? { href: ELM.app.levelHash(nextLevel), label: "Zacznij krainę " + nextLevel } : null
+    };
+    const items = [];
+    items.push(topicLinks.prev
+      ? el("a", { class: "topic-nav-link is-prev", href: topicLinks.prev.href, rel: "prev" }, [ELM.icon("chevron-left", { size: 18 }), el("span", null, [el("span", { class: "topic-nav-kicker", text: "Poprzedni" }), el("span", { class: "topic-nav-title", text: topicLinks.prev.label })])])
+      : el("span", { class: "topic-nav-gap" }));
+    if (topicLinks.next) {
+      items.push(el("a", { class: "topic-nav-link is-next", href: topicLinks.next.href, rel: "next" }, [
+        el("span", null, [el("span", { class: "topic-nav-kicker", text: next ? "Następny temat" : "Koniec poziomu " + found.level }), el("span", { class: "topic-nav-title", text: topicLinks.next.label })]),
+        ELM.icon("chevron-right", { size: 18 })
+      ]));
+    }
+    return el("nav", { class: "page-foot topic-nav", "aria-label": "Poprzedni i następny temat" }, items);
+  }
+
+  // Skróty: [ poprzedni temat, ] następny temat (poza polami tekstowymi)
+  document.addEventListener("keydown", function (e) {
+    if (!ELM.state || ELM.state.view !== "page" || !topicLinks || e.ctrlKey || e.metaKey || e.altKey) return;
+    const t = e.target;
+    if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.tagName === "SELECT" || t.isContentEditable)) return;
+    if (document.querySelector(".dialog-backdrop, dialog[open]")) return;
+    const link = e.key === "[" ? topicLinks.prev : e.key === "]" ? topicLinks.next : null;
+    if (link) { e.preventDefault(); location.hash = link.href; }
+  });
 
   // =====================================================================
   // ŚCIĄGA POZIOMU (niezbednik/sciagi/<poziom>.md), adres #/a2/sciaga (spec v6 16, sekcja 1)
@@ -259,9 +295,9 @@ window.ELM = window.ELM || {};
     view.className = "view page-view sciaga-view lvl-" + levelId;
     view.dataset.file = route.file;
     view.replaceChildren();
-    const back = el("a", { class: "crumb back-btn", href: "#/" + levelId.toLowerCase() }, ELM.ui.withIcon("chevron-left", "Wróć do listy " + levelId));
+    const levelCrumb = { label: "Poziom " + levelId, href: "#/" + levelId.toLowerCase() };
     if (!text) {
-      view.appendChild(el("div", { class: "page-head" }, back));
+      view.appendChild(el("div", { class: "page-head" }, ELM.ui.breadcrumbs([levelCrumb, { label: "Ściąga" }])));
       view.appendChild(el("div", { class: "empty-state" }, el("p", { class: "empty-state-text", text: "Nie ma jeszcze ściągi dla poziomu " + levelId + "." })));
       document.title = "English Levels Map (A1–C2)";
       return;
@@ -269,7 +305,7 @@ window.ELM = window.ELM || {};
     const doc = ELM.markdown.parse(text);
     const title = doc.meta.title || "Ściąga " + levelId;
     view.appendChild(el("div", { class: "page-head sciaga-tools" }, [
-      back,
+      ELM.ui.breadcrumbs([levelCrumb, { label: "Ściąga" }]),
       el("button", { type: "button", class: "btn btn-primary sciaga-print", onclick: printSciaga }, ELM.ui.withIcon("download", "Drukuj"))
     ]));
     view.appendChild(el("header", { class: "sciaga-head" }, [

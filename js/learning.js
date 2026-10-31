@@ -133,6 +133,16 @@
       return { percent: segments.length ? Math.round(sum / segments.length) : 0, segments: segments };
     },
 
+    /**
+     * Sąsiedzi tematu na liście poziomu (kolejność z niezbednik/index.json, tylko tematy z podstroną).
+     * ids — id tematów poziomu w kolejności, id — bieżący. → { prev, next } (id albo null; nieznany temat: oba null).
+     */
+    topicNeighbors: function (ids, id) {
+      const i = (ids || []).indexOf(id);
+      if (i === -1) return { prev: null, next: null };
+      return { prev: i > 0 ? ids[i - 1] : null, next: i < ids.length - 1 ? ids[i + 1] : null };
+    },
+
     // ---------- Test poziomu (adaptacyjny) ----------
 
     LEVELS: ["A1", "A2", "B1", "B2", "C1", "C2"],

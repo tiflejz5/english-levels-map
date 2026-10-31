@@ -126,7 +126,7 @@ window.ELM = window.ELM || {};
   // =====================================================================
 
   function crumb(e, text) {
-    return el("p", { class: "c1-crumb" }, [el("a", { href: base(e), text: e.label }), text ? " · " + text : null]);
+    return ELM.ui.breadcrumbs(text ? [{ label: e.label, href: base(e) }, { label: text }] : [{ label: e.label, href: base(e) }]);
   }
 
   function notFound(e, message) {

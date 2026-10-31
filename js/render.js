@@ -314,7 +314,7 @@ window.ELM = window.ELM || {};
       }),
       el("span", { class: "visually-hidden", text: "Umiem" })
     ]);
-    li = el("li", { class: "ess-item" + (done ? " is-done" : "") + (pageLink ? " has-page" : "") }, [
+    li = el("li", { class: "ess-item" + (done ? " is-done" : "") + (pageLink ? " has-page" : ""), "data-topic": pageLink ? pageLink.item.id : null }, [
       checkbox,
       el("div", { class: "ess-text", id: textId }, pageLink
         // Punkt z podstroną: tekst jest linkiem
@@ -362,6 +362,21 @@ window.ELM = window.ELM || {};
     if (!any) {
       section.appendChild(emptyState("Brak punktów w tej kategorii."));
       return section;
+    }
+    // Etykiety „zestaw 8/10” przed strzałką (najlepszy wynik zestawu tematu), dopisywane po wczytaniu indeksu ćwiczeń (S4)
+    if (ELM.exercises && ELM.exercises.setLabels) {
+      const rows = section.querySelectorAll("li[data-topic]");
+      const topics = Array.prototype.map.call(rows, function (r) { return r.getAttribute("data-topic"); });
+      ELM.exercises.setLabels(topics).then(function (labels) {
+        Array.prototype.forEach.call(rows, function (row) {
+          const lab = labels[row.getAttribute("data-topic")];
+          const arrow = row.querySelector(".ess-link-arrow");
+          if (!lab || !arrow || row.querySelector(".ess-set")) return;
+          arrow.parentNode.insertBefore(el("span", { class: "ess-set" + (lab.high ? " is-high" : ""), title: "Najlepszy wynik zestawu zadań z tego tematu" }, [
+            lab.high ? el("span", { class: "ess-set-dot", "aria-hidden": "true" }) : null, lab.text
+          ]), arrow);
+        });
+      });
     }
     // Pod słownictwem A1–B1: link do talii tematycznych fiszek (lista przefiltrowana po poziomie)
     if ((!cat || cat.id === "cat_vocabulary") && /^(A1|A2|B1)$/.test(level.id) && ELM.fiszki) {

@@ -4137,3 +4137,63 @@ a.pw-row-label:hover { text-decoration: underline; }
 .streak-card .week-day.is-today .week-dot { box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--accent); }
 .pw-card.is-today.is-zero { flex-direction: row; }
 .today-row > .bento-shortcuts { padding: 18px 22px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); }
+
+/* ===================== v8 TREŚCI: okruszki (S1) ===================== */
+.breadcrumbs { margin: 0 0 8px; }
+.breadcrumbs ol { display: flex; flex-wrap: wrap; align-items: center; margin: 0; padding: 0; list-style: none; }
+.breadcrumbs li { display: inline-flex; align-items: center; font-size: var(--fs-sm); color: var(--ink); font-weight: 600; }
+.breadcrumbs li + li::before { content: "›"; margin: 0 8px; color: var(--ink-muted); font-weight: 400; }
+.breadcrumbs a { display: inline-flex; align-items: center; min-height: 44px; color: var(--accent); text-decoration: none; }
+.breadcrumbs a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.breadcrumbs .bc-back-icon { display: none; }
+.page-head .breadcrumbs { margin: 0; }
+@media (max-width: 639px) {
+  .breadcrumbs li:not(.is-parent) { display: none; }
+  .breadcrumbs li.is-parent::before { content: none; }
+  .breadcrumbs li.is-parent a { margin-left: -4px; }
+  .breadcrumbs .bc-back-icon { display: inline-flex; margin-right: 2px; }
+}
+
+/* ===================== v8 TREŚCI: poprzedni / następny temat (S2) ===================== */
+.topic-nav { display: flex; flex-wrap: wrap; align-items: stretch; justify-content: space-between; gap: 12px; }
+.topic-nav-link { display: inline-flex; align-items: center; gap: 10px; min-height: 56px; max-width: 100%; padding: 8px 16px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--ink); text-decoration: none; transition: border-color var(--transition), background var(--transition); }
+.topic-nav-link:hover { border-color: var(--line-control); background: var(--surface-raised); }
+.topic-nav-link.is-next { margin-left: auto; text-align: right; }
+.topic-nav-link > span { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.topic-nav-kicker { font-size: var(--fs-xs); font-weight: 650; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-muted); }
+.topic-nav-title { font-size: var(--fs-sm-plus); font-weight: 600; overflow-wrap: anywhere; }
+.topic-nav .icon { flex-shrink: 0; color: var(--accent); }
+@media (max-width: 639px) { .topic-nav { flex-direction: column; } .topic-nav-link.is-next { margin-left: 0; } .topic-nav-gap { display: none; } }
+
+/* ===================== v8 TREŚCI: spis treści podstrony (S3) ===================== */
+.toc-target { scroll-margin-top: 24px; }
+.toc-target:focus { outline: none; }
+.page-toc.is-inline { margin: 0 0 20px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+.page-toc.is-inline summary { display: flex; align-items: center; min-height: 44px; padding: 0 16px; font-weight: 650; cursor: pointer; }
+.page-toc.is-inline .toc-list { padding: 0 16px 12px 36px; }
+.toc-list { margin: 0; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 2px; }
+.toc-list a { display: inline-flex; align-items: center; min-height: 36px; color: var(--ink-muted); text-decoration: none; font-size: var(--fs-sm); line-height: 1.35; }
+.toc-list a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+.toc-list a.is-current { color: var(--ink); font-weight: 650; }
+.page-aside, .page-toc.is-side { display: none; }
+.toc-title { margin: 0 0 8px; font-size: var(--fs-xs); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-muted); }
+@media (min-width: 1200px) {
+  .page-toc.is-inline { display: none; }
+  .page-with-toc .page-body { display: grid; grid-template-columns: minmax(0, var(--w-text)) 240px; gap: 40px; }
+  .page-aside { display: block; }
+  .page-toc.is-side { display: block; position: sticky; top: 24px; align-self: start; max-height: calc(100vh - 48px); overflow-y: auto; padding-left: 16px; border-left: 1px solid var(--line); }
+  .toc-list { padding-left: 0; list-style: none; }
+  .toc-list a.is-current { box-shadow: -17px 0 0 -14px var(--accent); }
+}
+
+/* ===================== v8 TREŚCI: etykieta zestawu na liście poziomu (S4) ===================== */
+.ess-set { display: inline-flex; align-items: center; gap: 5px; margin-left: 10px; padding: 1px 9px; border: 1px solid var(--line); border-radius: var(--radius-pill); background: var(--surface); color: var(--ink-muted); font-size: var(--fs-xs-plus); font-weight: 600; line-height: 1.5; white-space: nowrap; vertical-align: 1px; }
+.ess-set-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--lvl, var(--accent)); }
+.ess-set.is-high { color: var(--ink); }
+
+/* ===================== v8 TREŚCI: okienko skrótów (S5) ===================== */
+.dialog-shortcuts .dialog-inner { max-width: 460px; }
+.kbd-list { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 10px 18px; margin: 0 0 12px; align-items: baseline; }
+.kbd-list dt { margin: 0; white-space: nowrap; }
+.kbd-list dd { margin: 0; color: var(--ink); }
+.kbd-list kbd { display: inline-block; min-width: 26px; padding: 2px 8px; border: 1px solid var(--line-strong); border-bottom-width: 2px; border-radius: var(--radius-xs); background: var(--surface); color: var(--ink); font: 650 var(--fs-sm) var(--font); text-align: center; }

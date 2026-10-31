@@ -180,7 +180,7 @@ window.ELM = window.ELM || {};
       let saveTimer = null;
 
       view.appendChild(cfg.crumb(sectionLabel));
-      view.appendChild(el("p", { class: "c1-back" }, el("a", { href: cfg.href() }, ELM.ui.withIcon("chevron-left", "Wszystkie zadania"))));
+
       view.appendChild(el("h1", { class: "c1-title", text: task.title }));
       view.appendChild(el("p", { class: "c1-chips" }, cfg.chips(task, T, false).map(function (c) { return el("span", { class: "c1-chip", text: c }); })));
 

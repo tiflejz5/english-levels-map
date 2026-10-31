@@ -1736,5 +1736,57 @@ console.log("\nDziś v8: przebyta mapa i najbliższe terminy powtórek (spec 20,
   });
 })();
 
+console.log("\nTreści v8: sąsiedzi tematu (S2)");
+test("topicNeighbors: poprzedni i następny w kolejności poziomu, brzegi i nieznany temat", function () {
+  const ids = ["a", "b", "c"];
+  assert.deepStrictEqual(global.ELM.learn.topicNeighbors(ids, "b"), { prev: "a", next: "c" });
+  assert.deepStrictEqual(global.ELM.learn.topicNeighbors(ids, "a"), { prev: null, next: "b" });
+  assert.deepStrictEqual(global.ELM.learn.topicNeighbors(ids, "c"), { prev: "b", next: null });
+  assert.deepStrictEqual(global.ELM.learn.topicNeighbors(ids, "x"), { prev: null, next: null });
+  assert.deepStrictEqual(global.ELM.learn.topicNeighbors(["a"], "a"), { prev: null, next: null });
+  assert.deepStrictEqual(global.ELM.learn.topicNeighbors(undefined, "a"), { prev: null, next: null });
+});
+
+console.log("\nTreści v8: etykieta zestawu na liście poziomu (S4)");
+test("bestSetLabel: najlepszy zestaw tematu, próg 80% (kropka), brak wyników = null", function () {
+  const f = global.ELM.exLogic.bestSetLabel;
+  assert.deepStrictEqual(f([{ score: 8, total: 10 }]), { score: 8, total: 10, high: true, text: "zestaw 8/10" });
+  assert.strictEqual(f([{ score: 7, total: 10 }]).high, false);
+  assert.strictEqual(f([{ score: 7, total: 10 }, { score: 5, total: 5 }]).text, "zestaw 5/5", "wyższy procent wygrywa");
+  assert.strictEqual(f([{ score: 5, total: 5 }, { score: 10, total: 10 }]).text, "zestaw 10/10", "remis: więcej punktów");
+  assert.strictEqual(f([null, undefined, { score: 3, total: 0 }]), null);
+  assert.strictEqual(f([]), null);
+  assert.strictEqual(f(undefined), null);
+  assert.strictEqual(f([{ score: 0, total: 6 }]).text, "zestaw 0/6");
+});
+
+console.log("\nTreści v8: odsłuch zdania klawiszem S (S5)");
+test("speechText: luka jako pauza przed sprawdzeniem, odpowiedź po sprawdzeniu (wybór, uzupełnianie, transformacja)", function () {
+  const f = global.ELM.exLogic.speechText;
+  const mc = { type: "multiple-choice", prompt: "My brother ___ football every Saturday.", options: ["play", "plays", "playing"], correct: 1 };
+  assert.strictEqual(f(mc, false), "My brother … football every Saturday.");
+  assert.strictEqual(f(mc, true), "My brother plays football every Saturday.");
+  const gf = { type: "gap-fill", text: "She {{1}} to school and {{2}} home.", gaps: [{ accepted: ["goes"] }, { accepted: ["comes", "walks"] }] };
+  assert.strictEqual(f(gf, false), "She … to school and … home.");
+  assert.strictEqual(f(gf, true), "She goes to school and comes home.");
+  const tr = { type: "transformation", before: "I wish I", after: "more time.", answers: ["had"] };
+  assert.strictEqual(f(tr, false), "I wish I … more time.");
+  assert.strictEqual(f(tr, true), "I wish I had more time.");
+  const sa = { type: "short-answer", prompt: "A: Where is Tom?\nB: He ___ at home.", accepted: ["is"] };
+  assert.strictEqual(f(sa, false), "Where is Tom? He … at home.", "etykiety mówców nie są czytane");
+});
+test("speechText: układanie i tłumaczenie dopiero po sprawdzeniu, dopasowanie i dyktando bez zdania, błąd w zdaniu: całe zdanie", function () {
+  const f = global.ELM.exLogic.speechText;
+  assert.strictEqual(f({ type: "reorder", answers: ["She likes tea."] }, false), "");
+  assert.strictEqual(f({ type: "reorder", answers: ["She likes tea."] }, true), "She likes tea.");
+  assert.strictEqual(f({ type: "translate", accepted: ["I am tired."] }, false), "");
+  assert.strictEqual(f({ type: "translate", accepted: ["I am tired."] }, true), "I am tired.");
+  assert.strictEqual(f({ type: "find-error", tokens: ["He", "go", "home", "."] }, false), "He go home.");
+  assert.strictEqual(f({ type: "match", pairs: [["a", "b"]] }, true), "");
+  assert.strictEqual(f({ type: "dictation", text: "x" }, false), "");
+  assert.strictEqual(f(null, false), "");
+  assert.strictEqual(f({ type: "multiple-choice", prompt: "Which is correct?", options: ["a", "b"], correct: 0 }, false), "Which is correct?", "pytanie bez luki jest czytane w całości");
+});
+
 console.log("\nWynik: " + passed + " ok, " + failures.length + " błędów");
 if (failures.length) process.exit(1);

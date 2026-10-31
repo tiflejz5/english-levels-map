@@ -11,6 +11,7 @@
 @page { size: A4; margin: 12mm; }
 
 @media print {
+  .page-toc { display: none !important; }
   html, body { background: #fff !important; color: #000 !important; }
   body { font-size: 10.5pt; line-height: 1.4; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .app { display: block !important; }
