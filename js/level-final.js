@@ -313,6 +313,14 @@ window.ELM = window.ELM || {};
    * Podpowiedź na „Dziś”: najniższy poziom z ≥ 70% „Umiem” bez zaliczonego testu końcowego.
    * stats = [{ id, percent, … }] jak w ELM.today. Zwraca kafelek albo null.
    */
+  /** Poziom gotowy na test końcowy (≥ 70% „Umiem”, jeszcze niezaliczony) z listy statystyk poziomów albo null (karta mapy na Dziś). */
+  function readyLevel(stats) {
+    if (!ELM.app.getActiveProfile()) return null;
+    const passed = pd().passedLevels();
+    return stats.find(function (x) { return x.total !== 0 && x.percent >= READY_PERCENT && !passed[x.id]; }) || null;
+  }
+
+
   function todayTip(stats) {
     if (!ELM.app.getActiveProfile()) return null;
     const passed = pd().passedLevels();
@@ -331,6 +339,6 @@ window.ELM = window.ELM || {};
     DRAW: DRAW, PASS: PASS, MINUTES: MINUTES,
     renderStart: renderStart, load: load, fmtDate: fmtDate,
     passedAt: passedAt, passedText: passedText, stamp: stamp, headerLabel: headerLabel,
-    card: card, todayTip: todayTip
+    card: card, todayTip: todayTip, readyLevel: readyLevel, testHash: testHash
   };
 })(window.ELM);

@@ -100,73 +100,84 @@ window.ELM = window.ELM || {};
     return "Dobry wieczór";
   }
 
-  /** Jedno zdanie zachęty zależne od stanu (bez presji). */
-  function nudge(stats, streak, due) {
-    const anyDone = stats.some(function (s) { return s.done > 0; });
-    const cur = stats[currentIndex(stats)];
-    if (streak.activeToday) {
-      return { text: "Dzisiejszy dzień nauki zaliczony. Możesz zrobić coś jeszcze albo spokojnie odpocząć." };
-    }
-    if (due > 0) {
-      return { text: due + " " + plural(due, "pozycja czeka", "pozycje czekają", "pozycji czeka") + " na powtórkę – to dobry start na dziś.", href: "#/powtorki/sesja", cta: "Powtarzaj teraz" };
-    }
-    const next = nextItem(cur.id);
-    if (!anyDone && next) {
-      return { text: "Na początek jeden punkt z poziomu " + cur.id + ": „" + next.text + "”. To zajmie kilka minut.", href: next.href, cta: "Otwórz" };
-    }
+  /** Miejscownik krainy: „na Wzgórzach”, „w Lesie” (do zdania „Następny przystanek …”). */
+  const LOCATIVE = { A1: "na Polanie", A2: "w Lesie", B1: "na Wzgórzach", B2: "nad Jeziorem", C1: "w Górach", C2: "na Szczycie" };
+
+  /** Opis paska „Przebyta mapa” dla czytnika ekranu: „Przebyta mapa: 41%. A1 100%, A2 100%, …”. */
+  function mapSummary(mp) {
+    return "Przebyta mapa: " + mp.percent + "%. " + mp.segments.map(function (s) { return s.id + " " + Math.round(s.percent) + "%"; }).join(", ") + ".";
+  }
+
+  /**
+   * Stopka karty mapy: „Następny przystanek na Wzgórzach: Past Perfect · do końca krainy 16 punktów” i przycisk.
+   * Poziom ukończony: „Zrób test końcowy B1” (gdy niezaliczony) albo „Zacznij krainę A2”.
+   */
+  function mapFooter(stats) {
+    const idx = currentIndex(stats);
+    const cur = stats[idx];
+    const remaining = cur.total - cur.done;
+    const next = cur.percent < 100 ? nextItem(cur.id) : null;
+    const ready = ELM.levelFinal ? ELM.levelFinal.readyLevel(stats) : null;
+    let text, cta = null, extra = null;
     if (next) {
-      return { text: "Propozycja na dziś: „" + next.text + "” (" + cur.id + ").", href: next.href, cta: "Otwórz" };
+      text = ["Następny przystanek " + LOCATIVE[cur.id] + ": ", el("strong", { text: next.text }), " · do końca krainy " + remaining + " " + plural(remaining, "punkt", "punkty", "punktów")];
+      cta = { href: next.href, label: "Idź dalej szlakiem" };
+      if (ready) extra = ready;
+    } else {
+      const passed = pd().passedLevels()[cur.id];
+      const following = ELM.LEVEL_IDS[idx + 1];
+      if (!passed && ELM.levelFinal) {
+        text = ["Cała kraina " + cur.id + " ma „Umiem”. Czas na test końcowy poziomu."];
+        cta = { href: ELM.levelFinal.testHash(cur.id), label: "Zrób test końcowy " + cur.id };
+      } else if (following) {
+        text = ["Kraina " + cur.id + " przebyta. Dalej: ", el("strong", { text: ELM.ui.landLabel(following) }), "."];
+        cta = { href: ELM.app.levelHash(following), label: "Zacznij krainę " + following };
+      } else {
+        text = ["Cała mapa przebyta. Powtórki i ćwiczenia pomogą utrzymać formę."];
+      }
     }
-    return { text: "Cała mapa ma „Umiem”. Powtórki i ćwiczenia C1 pomogą utrzymać formę." };
+    return el("footer", { class: "map-foot" }, [
+      el("div", { class: "map-foot-text" }, [
+        el("p", { class: "map-next" }, text),
+        extra ? el("a", { class: "btn-link map-ready", href: ELM.levelFinal.testHash(extra.id) }, "Gotowy na test końcowy " + extra.id + "? Zrób test") : null
+      ]),
+      cta ? el("a", { class: "btn btn-secondary map-cta", href: cta.href }, [cta.label, ELM.icon("chevron-right", { size: 18 })]) : null
+    ]);
+  }
+
+  /**
+   * Karta mapy (zastępuje hero i osobny Szlak): data i kraina, powitanie, „Przebyta mapa” z paskiem 6 odcinków,
+   * Szlak topograficzny w środku karty, stopka z następnym przystankiem. Zwraca element; ._stage to kontener Szlaku.
+   */
+  function mapCard(stats) {
+    const p = ELM.app.getActiveProfile();
+    const d = dateOf(learn().today());
+    const cur = stats[currentIndex(stats)];
+    const mp = learn().mapProgress(stats);
+    const stage = el("div", { class: "trail-stage" });
+    const card = el("section", { class: "card bento-tile map-card", "aria-labelledby": "today-title" }, [
+      el("div", { class: "map-top" }, [
+        el("div", { class: "map-hello" }, [
+          el("p", { class: "today-date" }, [DAY_NAMES[d.getDay()] + ", " + d.getDate() + " " + MONTHS[d.getMonth()] + " · kraina ", el("strong", { class: "map-land lvl-" + cur.id, text: ELM.ui.landLabel(cur.id) })]),
+          el("h1", { class: "hero-title", id: "today-title", text: greetingWord() + (p ? ", " + p.name : "") })
+        ]),
+        el("div", { class: "map-progress" }, [
+          el("div", { class: "map-progress-row" }, [el("span", { class: "map-progress-label", text: "Przebyta mapa" }), el("span", { class: "map-progress-pct num", text: mp.percent + "%" })]),
+          el("div", { class: "map-segments", role: "img", "aria-label": mapSummary(mp) }, mp.segments.map(function (seg) {
+            return el("span", { class: "map-seg lvl-" + seg.id, "aria-hidden": "true" }, el("span", { class: "map-seg-fill", style: "width:" + seg.percent + "%" }));
+          }))
+        ])
+      ]),
+      stage,
+      mapFooter(stats)
+    ]);
+    card._stage = stage;
+    return card;
   }
 
   // =====================================================================
   // KAFELKI
   // =====================================================================
-
-  function heroTile(stats, streak, due) {
-    const p = ELM.app.getActiveProfile();
-    const d = dateOf(learn().today());
-    const done = stats.reduce(function (t, s) { return t + s.done; }, 0);
-    const total = stats.reduce(function (t, s) { return t + s.total; }, 0);
-    const percent = total ? Math.round(done / total * 100) : 0;
-    const n = nudge(stats, streak, due);
-    return el("section", { class: "card bento-tile bento-hero", "aria-labelledby": "today-title" }, [
-      el("div", { class: "hero-text" }, [
-        el("p", { class: "today-date", text: DAY_NAMES[d.getDay()] + ", " + d.getDate() + " " + MONTHS[d.getMonth()] }),
-        el("h1", { class: "hero-title", id: "today-title", text: greetingWord() + (p ? ", " + p.name : "") }),
-        el("p", { class: "hero-nudge" }, [
-          n.text,
-          n.href ? el("a", { class: "hero-cta", href: n.href }, [n.cta, ELM.icon("arrow-right", { size: 16 })]) : null
-        ])
-      ]),
-      el("div", { class: "hero-ring" }, [
-        ELM.ui.progressRing(percent, { size: 132, stroke: 10, brand: true, label: "Twoja mapa: " + percent + "% punktów „Umiem” we wszystkich poziomach", text: percent + "%" }),
-        el("p", { class: "hero-ring-label" }, [el("strong", { text: "Twoja mapa" }), el("span", { class: "num", text: done + " z " + total + " umiem" })])
-      ])
-    ]);
-  }
-
-  function reviewsTile(due) {
-    return tile("bento-reviews", "Powtórki na dziś", due
-      ? [
-        el("h2", { class: "tile-title" }, ["Powtórki na dziś"]),
-        el("p", { class: "tile-big" }, [bigNumber(due), el("span", { class: "tile-unit", text: plural(due, "błąd do powtórki", "błędy do powtórki", "błędów do powtórki") })]),
-        el("a", { class: "btn btn-primary tile-action", href: ELM.journal.REVIEW }, ELM.ui.withIcon("rotate-ccw", "Zacznij powtórki"))
-      ]
-      : [
-        el("h2", { class: "tile-title" }, ["Powtórki na dziś"]),
-        ELM.ui.emptyState({ art: "brak-powtorek", title: "Na dziś czysto", hint: "Nowe błędy zapisuj w dzienniku – wrócą jutro.", class: "es-tile" })
-      ]);
-  }
-
-  /** Płomień (SVG) — ozdoba kafla serii. */
-  function flameArt(lit) {
-    const svg = svgEl("svg", { class: "flame-art" + (lit ? " is-lit" : ""), viewBox: "0 0 32 32", width: 36, height: 36, "aria-hidden": "true", focusable: "false" });
-    svg.appendChild(svgEl("path", { class: "flame-outer", d: "M16 3c1.2 4.4 6.5 7 7.8 12.6C25.2 21.9 21.3 29 16 29S6.6 24.6 6.6 19.3c0-3.6 2-6.1 3.9-7.6.1 2.4 1.2 4 2.7 4.5C12.6 11.6 14.4 7.5 16 3Z" }));
-    svg.appendChild(svgEl("path", { class: "flame-inner", d: "M16 15.5c.6 2.2 3.4 3.4 3.4 6.3 0 2.4-1.6 4.2-3.4 4.2s-3.4-1.6-3.4-3.8c0-2.6 2.6-3.8 3.4-6.7Z" }));
-    return svg;
-  }
 
   function streakMessage(s) {
     if (s.activeToday) return s.current > 1 ? "Dzisiejszy dzień zaliczony. Seria rośnie." : "Dzisiejszy dzień zaliczony.";
@@ -174,25 +185,22 @@ window.ELM = window.ELM || {};
     return "Liczy się każdy dzień z jedną aktywnością: „Umiem”, ćwiczenie albo powtórka.";
   }
 
+  /** Seria: „Seria · 6 dni”, podpis i 7 kropek ostatnich dni (z opisami dla czytnika ekranu). */
   function streakTile() {
     const today = learn().today();
     const days = pd().activityDays();
     const s = learn().streak(days, today);
     const week = learn().lastDays(days, today, 7);
-    return tile("bento-streak", "Seria nauki", [
-      el("h2", { class: "tile-title" }, ["Seria nauki"]),
-      !days.length ? ELM.ui.emptyState({ art: "pierwszy-dzien", title: "Pierwszy dzień serii", hint: streakMessage(s), class: "es-tile" }) : null,
-      !days.length ? null : el("div", { class: "streak-row" }, [
-        flameArt(s.current > 0),
-        el("p", { class: "tile-big" }, [bigNumber(s.current), el("span", { class: "tile-unit", text: plural(s.current, "dzień z rzędu", "dni z rzędu", "dni z rzędu") })])
+    return el("section", { class: "card bento-tile streak-card", "aria-labelledby": "streak-title" }, [
+      el("div", { class: "streak-main" }, [
+        el("h2", { class: "tile-title", id: "streak-title", text: "Seria · " + s.current + " " + plural(s.current, "dzień", "dni", "dni") }),
+        el("p", { class: "tool-note", text: s.current ? "każdy dzień nauki to krok na szlaku" : streakMessage(s) })
       ]),
-      !days.length ? null : el("p", { class: "tool-note", text: streakMessage(s) + " Najdłuższa seria: " + s.longest + " " + plural(s.longest, "dzień", "dni", "dni") + "." }),
       el("ol", { class: "week-dots", "aria-label": "Ostatnie 7 dni" }, week.map(function (d) {
         const js = dateOf(d.day);
         const isToday = d.day === today;
         return el("li", { class: "week-day" + (d.active ? " is-active" : "") + (isToday ? " is-today" : "") }, [
           el("span", { class: "week-dot", "aria-hidden": "true" }, d.active ? ELM.icon("check", { size: 12 }) : null),
-          el("span", { class: "week-label", "aria-hidden": "true", text: isToday ? "Dziś" : DAY_SHORT[js.getDay()] }),
           el("span", { class: "visually-hidden", text: (isToday ? "dziś, " : "") + DAY_NAMES[js.getDay()] + " " + d.day.slice(8, 10) + "." + d.day.slice(5, 7) + ": " + (d.active ? "dzień nauki" : "bez aktywności") })
         ]);
       }))
@@ -211,23 +219,11 @@ window.ELM = window.ELM || {};
     ]));
   }
 
-  /** Jedna lista skrótów zamiast osobnych kafli: Kontynuuj, Dodaj błąd, test poziomu. */
+  /** „Na skróty” (gdy nie ma moich egzaminów): Test poziomu i Statystyki. */
   function shortcutsTile() {
-    const last = pd().lastPage();
-    const rows = [
-      last
-        ? shortcutRow("a", { href: last.hash }, "notebook-text", "Kontynuuj", last.title || last.hash)
-        : shortcutRow("a", { href: ELM.app.levelHash(ELM.state.ui.levelId) }, "notebook-text", "Otwórz poziom " + ELM.state.ui.levelId, "Tu pojawi się ostatnio otwarta podstrona."),
-      shortcutRow("button", {
-        type: "button",
-        onclick: function () { ELM.journal.openForm().then(function (r) { if (r) render(); }); }
-      }, "plus", "Dodaj błąd", "Zapisz go od razu – jutro wróci jako powtórka.")
-    ];
-    // Test poziomu: tylko dla profilu bez żadnych postępów i bez wyniku testu
-    const profile = ELM.levelTest ? ELM.app.getActiveProfile() : null;
-    if (profile && !Object.keys(profile.progress).length && !pd().lastTest()) {
-      rows.push(shortcutRow("a", { href: ELM.levelTest.HASH }, "target", "Zrób test poziomu", "Nie wiesz, od czego zacząć? 12 pytań, ok. 6 minut."));
-    }
+    const rows = [];
+    if (ELM.levelTest) rows.push(shortcutRow("a", { href: ELM.levelTest.HASH }, "target", "Test poziomu", "12 pytań, ok. 6 minut – sprawdź, od czego zacząć."));
+    rows.push(shortcutRow("a", { href: "#/statystyki" }, "chart-column", "Statystyki", "Trafność, najsłabsze tematy i aktywność."));
     return tile("bento-shortcuts", "Na skróty", [
       el("h2", { class: "tile-title" }, ["Na skróty"]),
       el("ul", { class: "row-list" }, rows)
@@ -349,19 +345,6 @@ window.ELM = window.ELM || {};
     return wrap;
   }
 
-  function trailTile(stats) {
-    const wrap = el("section", { class: "card bento-tile bento-trail", "aria-labelledby": "trail-title" }, [
-      el("div", { class: "trail-head" }, [
-        el("h2", { class: "tile-title", id: "trail-title", text: "Szlak A1 → C2" }),
-        el("p", { class: "tool-note", text: "Procent punktów „Umiem” we wszystkich kategoriach poziomu. Pieczątka oznacza zaliczony test końcowy poziomu." })
-      ])
-    ]);
-    const stage = el("div", { class: "trail-stage" });
-    wrap.appendChild(stage);
-    wrap._stats = stats;
-    return wrap;
-  }
-
   /** Rysuje szlak w kontenerze (po wstawieniu do DOM — potrzebna szerokość). opts.compact: bez róży wiatrów (strona główna). */
   function drawTrail(stage, stats, opts) {
     opts = opts || {};
@@ -443,27 +426,20 @@ window.ELM = window.ELM || {};
     const view = document.getElementById("view");
     const keepScroll = view.dataset.file === HASH ? U.getScroll() : 0;
     const stats = levelStats();
-    const today = learn().today();
-    const streak = learn().streak(pd().activityDays(), today);
-    const due = ELM.reviews ? ELM.reviews.count() : 0; // Fiszki i błędy: jedna liczba (fiszki + Moje błędy + słabe punkty)
-    const exams = ELM.examCover ? ELM.examCover.todayTiles() : []; // moje egzaminy (maks. 2), najbliższa data pierwsza
-    const trail = trailTile(stats);
+    const map = mapCard(stats);
+    const exam = ELM.examCover ? ELM.examCover.todayTiles()[0] : null; // mój egzamin z najbliższą datą (mini okładka)
 
     view.className = "view tool-view today-view";
     view.dataset.file = HASH;
-    view.replaceChildren(el("div", { class: "bento" + (exams.length ? " has-exam" : "") }, [
-      heroTile(stats, streak, due),
-      ELM.powtorki ? ELM.powtorki.todayCard() : reviewsTile(due), // „Fiszki i błędy”: liczba, rozbicie, „Powtarzaj teraz”
-      ELM.levelFinal ? ELM.levelFinal.todayTip(stats) : null, // „Gotowy na test końcowy A1?” przy ≥ 70% „Umiem”
-      trail,
-      streakTile(),
-      exams,
-      shortcutsTile()
+    view.replaceChildren(el("div", { class: "today-stack" }, [
+      map,
+      ELM.powtorki ? ELM.powtorki.todayCard() : null, // „Fiszki i błędy”: stan z liczbą albo niska karta zerowa
+      el("div", { class: "today-row" }, [streakTile(), exam || shortcutsTile()])
     ]));
     document.title = "Dziś · English Levels Map";
     U.setScroll(keepScroll);
 
-    const stage = trail.querySelector(".trail-stage");
+    const stage = map._stage;
     let parts = drawTrail(stage, stats);
     // Szlak poziomy ↔ pionowy przy zmianie szerokości
     if (trailObserver) trailObserver.disconnect();

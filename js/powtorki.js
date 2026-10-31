@@ -85,15 +85,17 @@ window.ELM = window.ELM || {};
 
   /**
    * Karta: liczba pozycji na dziś, rozbicie na fiszki / błędy / zadania, „Powtarzaj teraz” i „Krótka sesja (10)”.
-   * opts.compact — wersja kafelka na stronie Dziś. Gdy nic nie czeka: stan pusty z najbliższym terminem.
+   * opts.today — wersja na stronie Dziś (siatka 220 px / 1fr / 240 px, bez „Krótka sesja”); gdy nic nie czeka, niska karta z jedną linijką.
+   * Na zakładce „Na dziś” stan zerowy to stan pusty z najbliższym terminem.
    */
   function card(opts) {
     opts = opts || {};
     const b = ELM.reviews.breakdown();
     const minutes = ELM.reviews.estimateMinutes(b);
-    const titleId = "pw-card-title" + (opts.compact ? "-tile" : "");
-    const section = el("section", { class: "card pw-card" + (opts.compact ? " is-compact" : ""), "aria-labelledby": titleId });
+    const titleId = "pw-card-title" + (opts.today ? "-today" : "");
+    const section = el("section", { class: "card pw-card" + (opts.today ? " is-today" : ""), "aria-labelledby": titleId });
 
+    if (!b.total && opts.today) return zeroCard();
     if (!b.total) {
       const next = ELM.reviews.nextDue(Date.now());
       section.appendChild(el("h2", { class: "tile-title", id: titleId, text: "Fiszki i błędy" }));
@@ -102,8 +104,7 @@ window.ELM = window.ELM || {};
         hint: next ? "Najbliższa powtórka: " + ELM.fiszki.internal.fmtWhen(next) + "." : "Włącz talię, zapisz błąd albo zrób kilka ćwiczeń – wrócą tu w rosnących odstępach.",
         class: "es-tile"
       }));
-      if (!opts.compact) section.appendChild(links());
-      else section.appendChild(el("a", { class: "btn btn-secondary tile-action", href: HOME }, ELM.ui.withIcon("layers", "Otwórz Fiszki i błędy")));
+      section.appendChild(links());
       return section;
     }
 
@@ -122,9 +123,22 @@ window.ELM = window.ELM || {};
       ]);
     })));
     const actions = [el("a", { class: "btn btn-primary pw-start", href: "#/powtorki/sesja" }, "Powtarzaj teraz")];
-    if (b.total > 10 && !opts.compact) actions.push(el("a", { class: "btn btn-secondary", href: "#/powtorki/sesja?max=10" }, "Krótka sesja (10)"));
-    section.appendChild(el("div", { class: "pw-card-actions" }, [el("div", { class: "pw-card-buttons" }, actions), opts.compact ? null : links()]));
+    if (b.total > 10 && !opts.today) actions.push(el("a", { class: "btn btn-secondary", href: "#/powtorki/sesja?max=10" }, "Krótka sesja (10)"));
+    section.appendChild(el("div", { class: "pw-card-actions" }, [el("div", { class: "pw-card-buttons" }, actions), links()]));
     return section;
+  }
+
+  /** Dziś, gdy wszystko zrobione: niska karta z jedną linijką („Na dziś zrobione. Następne: jutro (6).”) i linkiem „Talie”. */
+  function zeroCard() {
+    const u = ELM.reviews.upcoming();
+    let text = "Na dziś zrobione.";
+    if (u.tomorrow) text += " Następne: jutro (" + u.tomorrow + ").";
+    else if (u.next) text += " Następne: " + ELM.fiszki.internal.fmtWhen(u.next) + ".";
+    else text += " Włącz talię albo zapisz błąd – wrócą tu w rosnących odstępach.";
+    return el("section", { class: "card pw-card is-today is-zero", "aria-label": "Fiszki i błędy" }, [
+      el("p", { class: "pw-zero-text" }, [el("strong", { text: "Fiszki i błędy" }), " · ", text]),
+      el("a", { class: "btn-link pw-zero-link", href: "#/powtorki/talie" }, "Talie")
+    ]);
   }
 
   function links() {
@@ -135,11 +149,11 @@ window.ELM = window.ELM || {};
     ]);
   }
 
-  /** Kafelek na stronie Dziś (bento): ta sama karta w wersji kompaktowej. */
+  /** Karta na stronie Dziś (ta sama liczba co w pasku): stan z liczbą albo niska karta zerowa. */
   function todayCard() {
     if (!hasProfile() || !ELM.reviews) return null;
-    const n = card({ compact: true });
-    n.classList.add("bento-tile", "bento-reviews");
+    const n = card({ today: true });
+    n.classList.add("bento-tile", "pw-today");
     return n;
   }
 

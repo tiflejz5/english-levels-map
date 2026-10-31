@@ -1686,5 +1686,55 @@ require(path.join(__dirname, "..", "js", "reviews.js"));
   });
 })();
 
+console.log("\nDziś v8: przebyta mapa i najbliższe terminy powtórek (spec 20, D)");
+(function () {
+  const L2 = global.ELM.learn;
+  const R = global.ELM.reviews;
+  const FLg = global.ELM.fiszkiLogic;
+  const HM = global.ELM.fiszkiHarmonogram;
+  const lv = function (arr) { return arr.map(function (p, i) { return { id: ["A1", "A2", "B1", "B2", "C1", "C2"][i], percent: p }; }); };
+
+  test("mapProgress: średnia procentów 6 poziomów (zaokrąglona) i odcinki paska", function () {
+    const m = L2.mapProgress(lv([100, 100, 46, 0, 0, 0]));
+    assert.strictEqual(m.percent, 41);
+    assert.deepStrictEqual(m.segments.map(function (s) { return s.percent; }), [100, 100, 46, 0, 0, 0]);
+    assert.strictEqual(m.segments.length, 6);
+    assert.strictEqual(m.segments[2].id, "B1");
+  });
+  test("mapProgress: nowy profil 0%, cała mapa 100%, zaokrąglenie", function () {
+    assert.strictEqual(L2.mapProgress(lv([0, 0, 0, 0, 0, 0])).percent, 0);
+    assert.strictEqual(L2.mapProgress(lv([100, 100, 100, 100, 100, 100])).percent, 100);
+    assert.strictEqual(L2.mapProgress(lv([1, 0, 0, 0, 0, 0])).percent, 0, "1/6 = 0,17 → 0");
+    assert.strictEqual(L2.mapProgress(lv([50, 0, 0, 0, 0, 0])).percent, 8, "50/6 = 8,3 → 8");
+    assert.strictEqual(L2.mapProgress(lv([100, 0, 0, 0, 0, 0])).percent, 17, "100/6 = 16,7 → 17");
+  });
+  test("mapProgress: wartości spoza zakresu przycięte, pusta lista i NaN to 0", function () {
+    const m = L2.mapProgress(lv([150, -20, NaN, 0, 0, 0]));
+    assert.deepStrictEqual(m.segments.map(function (s) { return s.percent; }), [100, 0, 0, 0, 0, 0]);
+    assert.strictEqual(m.percent, 17);
+    assert.deepStrictEqual(L2.mapProgress([]), { percent: 0, segments: [] });
+    assert.strictEqual(L2.mapProgress(undefined).percent, 0);
+  });
+
+  test("upcomingFrom: najbliższy termin i liczba pozycji na jutro (granica dnia 04:00)", function () {
+    const NOW = new Date(2026, 10, 10, 12, 0, 0).getTime();
+    const at = function (d, h) { return new Date(2026, 10, d, h, 0, 0).getTime(); };
+    const st = FLg.sanitizeState(FLg.emptyState());
+    st.settings.enabledDecks = ["d1"];
+    const rev = function (due) { return Object.assign(HM.newCard(), { state: "review", interval: 3, due: due, reps: 2 }); };
+    st.cards["d1-001"] = rev(at(11, 9));          // jutro
+    st.cards["d1-002"] = rev(at(11, 20));         // jutro
+    st.cards["ex:a-1"] = rev(at(11, 6));          // jutro (zadanie)
+    st.cards["d1-003"] = rev(at(13, 9));          // za 3 dni
+    st.cards["d2-001"] = rev(at(11, 9));          // wyłączona talia: pomijana
+    st.cards["d1-004"] = rev(at(10, 9));          // dziś rano (już minęło): nie jest „następne”
+    const ctx = { state: st, decks: [{ id: "d1", count: 4 }, { id: "d2", count: 1 }], deckOf: function (id) { return id.replace(/-\d{3}$/, ""); } };
+    const u = R.upcomingFrom(ctx, NOW);
+    assert.strictEqual(u.next, at(11, 6));
+    assert.strictEqual(u.tomorrow, 3);
+    assert.deepStrictEqual(R.upcomingFrom({ state: FLg.sanitizeState(FLg.emptyState()), decks: [], deckOf: function () { return null; } }, NOW), { next: null, tomorrow: 0 });
+  });
+})();
+
 console.log("\nWynik: " + passed + " ok, " + failures.length + " błędów");
 if (failures.length) process.exit(1);
