@@ -64,6 +64,14 @@ Instrukcja obsługi dla nauczyciela (po polsku): [docs/INSTRUKCJA.md](docs/INSTR
 
 `#/dzis` to trzy karty i rząd: **karta mapy** (data, kraina, powitanie, „Przebyta mapa” = średnia z procentów „Umiem” 6 poziomów z paskiem 6 odcinków, Szlak topograficzny, stopka „Następny przystanek” z przyciskiem „Idź dalej szlakiem”), **karta „Fiszki i błędy”** (liczba z `ELM.reviews.count()`, rozbicie na fiszki / błędy / słabe punkty, „Powtarzaj teraz”; gdy nic nie czeka, niska karta „Na dziś zrobione. Następne: jutro (N).”) i rząd **Seria | mój egzamin** (bez moich egzaminów: „Na skróty” z Testem poziomu i Statystykami). Gotowość na test końcowy (≥ 70% „Umiem”) podpowiada stopka karty mapy. Nowych kluczy localStorage nie ma; kod: `js/today.js`, `js/powtorki.js`, `ELM.learn.mapProgress` w `js/learning.js`.
 
+## Strony treści i zadania (paczka v8, etap „treści”)
+
+- **Okruszki** nad nagłówkiem na stronach tematów, ściągach, egzaminach i Certyfikacie C1, w fiszkach, Pisaniu i silniku ćwiczeń (`ELM.ui.breadcrumbs`); na telefonie tylko „‹ rodzic”.
+- **Poprzedni / następny temat** na końcu podstrony (kolejność z `niezbednik/index.json`, po ostatnim temacie „Zacznij krainę …”), skróty `[` i `]`.
+- **Spis treści** przy ≥ 4 sekcjach `##`: z prawej od 1200 px (przyklejony, ze scrollspy), niżej `<details>` „Na tej stronie”; ukryty w druku.
+- **Etykieta „zestaw 8/10”** na liście poziomu: najlepszy wynik zestawów tematu, kropka w kolorze krainy od 80%.
+- **Skróty klawiszowe:** w zadaniach 1–4 i A–D wybierają odpowiedź, Enter sprawdza, **S** czyta zdanie (luka jako pauza), **?** pokazuje listę dla bieżącego widoku. W sesji powtórek S czyta zdanie karty, a „Zawieś” to teraz **W**. Skróty nie działają w polach tekstowych (poza Enter). Nowych kluczy localStorage nie ma; kod: `js/shortcuts.js`, `js/toc.js`, `js/niezbednik.js`, `js/exercise-engine.js`.
+
 ## Seria nauki
 
 Dzień nauki to dzień z co najmniej jedną aktywnością: zmiana „Umiem”, sprawdzone ćwiczenie C1, ukończona sesja powtórek, dodany wpis do dziennika, „Skończyłem” w trenerze Writing, timer trenera odliczony do końca albo ukończony test poziomu. Każde z tych miejsc wywołuje jedną funkcję `ELM.markActivity()`.
