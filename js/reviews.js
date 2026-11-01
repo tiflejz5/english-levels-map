@@ -217,17 +217,28 @@ window.ELM = window.ELM || {};
 
   let migratedFor = null; // profil, dla którego migrację już sprawdziliśmy w tej karcie
 
-  /** Migracja jednorazowa (settings.migratedJournal), idempotentna; zwraca liczbę dodanych kart. */
+  let repairedFor = null;
+
+  /**
+   * Migracja jednorazowa (settings.migratedJournal) i naprawa kart zbudowanych starym journalCard (settings.journalCardsV2);
+   * obie idempotentne. Zwraca liczbę dodanych i przebudowanych kart.
+   */
   function ensureMigrated() {
     if (!active()) return 0;
     const pid = ELM.app.getActiveProfile().id;
     const st = F().st();
-    if (st.settings.migratedJournal) { migratedFor = pid; return 0; }
-    if (migratedFor === pid) return 0;
-    migratedFor = pid;
-    const added = L().migrateJournal(st, ELM.profileData.entries(), now());
-    F().saveState();
-    return added;
+    let changed = 0;
+    if (!st.settings.migratedJournal && migratedFor !== pid) {
+      migratedFor = pid;
+      changed += L().migrateJournal(st, ELM.profileData.entries(), now());
+    } else if (st.settings.migratedJournal) migratedFor = pid;
+    if (!st.settings.journalCardsV2 && repairedFor !== pid) {
+      repairedFor = pid;
+      changed += L().repairJournalCards(st, ELM.profileData.entries());
+      changed++; // zmieniony znacznik settings.journalCardsV2 trzeba zapisać
+    } else if (st.settings.journalCardsV2) repairedFor = pid;
+    if (changed) F().saveState();
+    return changed;
   }
 
   function noVoice() { return !!(ELM.exercises && ELM.exercises.noEnglishVoice && ELM.exercises.noEnglishVoice()); }
@@ -300,6 +311,6 @@ window.ELM = window.ELM || {};
     weakTasks: weakTasks, interleave: interleave, queueFrom: queueFrom, summaryFrom: summaryFrom, upcomingFrom: upcomingFrom, upcoming: upcoming,
     estimateMinutes: estimateMinutes, redirectFor: redirectFor,
     ensureMigrated: ensureMigrated, queue: queue, count: count, breakdown: breakdown, nextDue: nextDue,
-    ctx: ctxNow, resetMigrationMemo: function () { migratedFor = null; }
+    ctx: ctxNow, resetMigrationMemo: function () { migratedFor = null; repairedFor = null; }
   };
 })(window.ELM);

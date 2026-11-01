@@ -4226,3 +4226,8 @@ a.pw-row-label:hover { text-decoration: underline; }
   .c1-words-hint { min-height: 3.9em; }
   .c1-writing-area { height: clamp(280px, 50vh, 460px); min-height: 280px; }
 }
+
+/* ===================== Błędy z dziennika w sesji: przód karty z pełnym kontekstem, oryginalne zadanie ===================== */
+.fc-text { white-space: pre-line; }
+.mt-task { margin-top: 12px; }
+.mt-task .c1-cloze-text { margin-top: 0; }
