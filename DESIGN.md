@@ -729,3 +729,8 @@ Ograniczenie: audyt automatyczny nie zastępuje testu z czytnikiem ekranu (NVDA 
   - Popover „+N” zamyka się po wyjściu fokusu (Tab poza listę), Esc i klik poza jak dotąd.
   - Cele ≥ 44 px: etykieta „Umiem”, przyciski filtrów, linki punktów listy, „‹ Fiszki i błędy”, linki karty powtórek; zakładki Fiszek i błędów mieszczą się na 360 px bez przewijania.
   - Sprawdzone przez eksport → reset → import (prawdziwy kod menu danych): dziennik, karty (w tym własna talia), moje egzaminy, postęp, wyniki, stary plik bez fiszek.
+
+- **Poprawka „podpowiedź w kartach Moje błędy”.**
+  - `journalCard` (js/fiszki-logic.js) buduje kartę z całego kontekstu wpisu (cloze z luką w swojej linii, akceptowane odpowiedzi „A – make”, „make”, „A”; przy transformacji z silnika sama luka), `.fc-text` z `white-space: pre-line`.
+  - Pozycja „błąd” z ref do zadania pokazuje oryginalne zadanie (`js/mistake-task.js`: `parseRef`, `viewFor`, `singleExercise`; `ELM.c1Exercises.single`, `ELM.exercises.startSingle` z `noJournal`).
+  - Naprawa istniejących kart: `repairJournalCards` + `settings.journalCardsV2`. Kontekst wpisów z silnika uzupełniony o wyrazy do ułożenia, podpowiedzi przy lukach i listę par; `?v=132`.

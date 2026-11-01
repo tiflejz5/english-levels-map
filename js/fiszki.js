@@ -415,7 +415,7 @@ window.ELM = window.ELM || {};
     session = {
       filter: filter, queue: queue, pool: learning, exTopic: exTopic, total: q.length,
       done: 0, current: null, revealed: false, typed: null, undo: [], startedAt: t,
-      grades: { again: 0, hard: 0, good: 0, easy: 0 }, againById: {}, kinds: { card: 0, mistake: 0, exercise: 0 }, finished: false, root: null,
+      grades: { again: 0, hard: 0, good: 0, easy: 0 }, againById: {}, kinds: { card: 0, mistake: 0, exercise: 0 }, finished: false, root: null, taskFallback: {},
       profileId: app().getActiveProfile().id
     };
     advance();
@@ -569,6 +569,36 @@ window.ELM = window.ELM || {};
     }, function () { finishExercise(id, { skipped: true }); });
   }
 
+  /** Wpis dziennika, z którego powstała karta „Moje błędy” (po sourceItemId albo id karty). */
+  function journalEntryOf(card) {
+    if (!ELM.profileData) return null;
+    return ELM.profileData.entries().find(function (e) { return L().journalSource(e) === card.sourceItemId || L().journalCardId(e) === card.id; }) || null;
+  }
+
+  /** Pozycja „błąd” z ref: oryginalne zadanie (silnik ćwiczeń albo widok luki C1 / egzaminu), ocena automatyczna jak dla zadań. */
+  function paintMistakeTask(root, card, entry) {
+    const id = card.id;
+    root.appendChild(el("div", { class: "fc-session-top" }, [
+      el("a", { class: "c1-back fc-back", href: HOME }, ELM.ui.withIcon("chevron-left", "Fiszki i błędy")),
+      progressBlock()
+    ]));
+    root.appendChild(el("p", { class: "tool-note", role: "status", text: "Wczytuję zadanie…" }));
+    ELM.mistakeTask.load(entry).then(function (desc) {
+      if (!session || session.current !== id) return;
+      if (!desc) { session.taskFallback[id] = true; paintSession(); return; } // zadania nie ma (usunięty zestaw): karta z pełnym kontekstem
+      const done = function (res) { finishExercise(id, res); };
+      if (desc.kind === "engine") {
+        ELM.exercises.startSingle({ item: desc.item, back: { href: HOME, label: "Fiszki i błędy" }, progress: progressBlock, noJournal: true, onDone: done });
+      } else {
+        root.replaceChildren(el("div", { class: "fc-session-top" }, [
+          el("a", { class: "c1-back fc-back", href: HOME }, ELM.ui.withIcon("chevron-left", "Fiszki i błędy")),
+          progressBlock()
+        ]));
+        ELM.mistakeTask.mount(root, desc, entry, done);
+      }
+    }, function () { session.taskFallback[id] = true; paintSession(); });
+  }
+
   function paintSession() {
     const root = session && session.root;
     if (!root) return;
@@ -578,6 +608,11 @@ window.ELM = window.ELM || {};
     if (/^ex:/.test(session.current)) { paintExercise(root); return; }
     const card = cardById(session.current);
     if (!card) { advance(); paintSession(); return; }
+    // Błąd z dziennika, który ma ref do zadania: oryginalne zadanie z jego podpowiedzią (js/mistake-task.js); bez ref albo bez zadania — karta
+    if (card.deck === MISTAKES_ID && !session.taskFallback[card.id]) {
+      const entry = journalEntryOf(card);
+      if (entry && ELM.mistakeTask && ELM.mistakeTask.viewFor(entry) === "task") { paintMistakeTask(root, card, entry); return; }
+    }
     const deck = deckById(card.deck);
     root.appendChild(el("div", { class: "fc-session-top" }, [
       el("a", { class: "c1-back fc-back", href: HOME }, ELM.ui.withIcon("chevron-left", "Fiszki i błędy")),
@@ -745,6 +780,7 @@ window.ELM = window.ELM || {};
   /** Skróty sesji: nie działają w polach tekstowych (poza Enter, obsługiwanym przez pole). */
   function onKey(e) {
     if (session && session.current && /^ex:/.test(session.current)) return; // zadanie: skróty ma silnik ćwiczeń
+    if (document.querySelector(".mt-task, .ex-view .ex-card")) return;       // błąd z ref: zadanie z własnymi skrótami
     if (!session || !session.root || !document.contains(session.root) || e.ctrlKey || e.metaKey || e.altKey) return;
     const t = e.target;
     if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.tagName === "SELECT" || t.isContentEditable)) return;

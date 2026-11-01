@@ -1849,5 +1849,122 @@ test("rozklad-regula: ≤ 50% jednej litery i ≤ 2 z rzędu; dane w repozytoriu
   assert.deepStrictEqual(R.checkAll(), []);
 });
 
+console.log("\nKarty „Moje błędy”: pełny kontekst i podpowiedź zadania (poprawka po v8)");
+require(path.join(__dirname, "..", "js", "mistake-task.js"));
+(function () {
+  const FLg = global.ELM.fiszkiLogic, MT = global.ELM.mistakeTask, HM = global.ELM.fiszkiHarmonogram;
+  const NOW = new Date(2026, 10, 10, 12, 0, 0).getTime();
+  const entry = function (id, over) { return Object.assign({ id: id, createdAt: "2026-11-01", context: "", myAnswer: "x", correct: "", rule: "reguła", source: "", category: "Use of English", itemId: "", ref: "", review: { stage: 1, due: "2026-11-12", mastered: false } }, over || {}); };
+  const wf = entry("err-wf", { ref: "c1:uoe-p3-1:2", context: "Many teachers also welcome the _____ in time spent marking homework.\nSłowo bazowe: REDUCE", correct: "reduction" });
+  const abcd = entry("err-abcd", { ref: "c1:uoe-p1-4:1", context: "Few people would have predicted that vinyl records would _____ a comeback.\nA – make, B – take, C – pull, D – reach", correct: "A – make" });
+  const tr = entry("err-tr", { ref: "ex:a2-transf-1-03", context: "Wish for more time\nWISH\nI wish I ___ more time.", correct: "I wish I had more time." });
+  const bracket = entry("err-br", { ref: "ex:a1-czasy-present-simple-1-05", context: "She ___ (go) to school every day.", correct: "goes" });
+  const manual = entry("err-man", { context: "Jak powiedzieć: dawno temu?\nPodpowiedź: ago", correct: "a long time ago" });
+
+  test("journalCard: słowotwórstwo — przód ma słowo bazowe obok luki (cały kontekst, luka w swojej linii)", function () {
+    const c = FLg.journalCard(wf);
+    assert.strictEqual(c.type, "cloze");
+    assert.ok(/Many teachers also welcome the \{\{reduction\}\} in time/.test(c.text));
+    assert.ok(/\nSłowo bazowe: REDUCE$/.test(c.text), "słowo bazowe w osobnej linii: " + JSON.stringify(c.text));
+    const p = FLg.parseCloze(c.text);
+    assert.ok(p.ok && p.answers[0] === "reduction" && /Słowo bazowe: REDUCE/.test(p.after));
+  });
+  test("journalCard: wybór A–D — opcje na przodzie, odpowiedź akceptowana jako „A – make”, „make” i „A”", function () {
+    const c = FLg.journalCard(abcd);
+    assert.strictEqual(c.type, "cloze");
+    assert.ok(/A – make, B – take, C – pull, D – reach/.test(c.text));
+    const p = FLg.parseCloze(c.text);
+    assert.deepStrictEqual(p.answers, ["A – make", "make", "A"]);
+    assert.ok(/^Few people would have predicted that vinyl records would \{\{/.test(c.text));
+  });
+  test("journalCard: transformacja — słowo kluczowe na przodzie, odpowiedź to sama luka (bez powtórzonej części zdania)", function () {
+    const c = FLg.journalCard(tr);
+    assert.strictEqual(c.type, "cloze");
+    assert.ok(/^Wish for more time\nWISH\nI wish I \{\{had\}\} more time\.$/.test(c.text), JSON.stringify(c.text));
+  });
+  test("journalCard: czasownik w nawiasie zostaje w linii z luką", function () {
+    const c = FLg.journalCard(bracket);
+    assert.strictEqual(c.text, "She {{goes}} (go) to school every day.");
+  });
+  test("journalCard: wpis ręczny bez ref i bez luki — zwykła karta z całym kontekstem (podział na linie), tył = poprawna odpowiedź", function () {
+    const c = FLg.journalCard(manual);
+    assert.strictEqual(c.type, "basic");
+    assert.strictEqual(c.front, "Jak powiedzieć: dawno temu?\nPodpowiedź: ago");
+    assert.strictEqual(c.back, "a long time ago");
+    assert.strictEqual(c.note, "reguła");
+  });
+
+  test("naprawa kart (journalCardsV2): stara karta z wpisu odzyskuje podpowiedź, stan powtórek bez zmian, druga naprawa nic nie zmienia", function () {
+    const st = FLg.sanitizeState(FLg.emptyState());
+    const entries = [wf, abcd, tr, bracket, manual];
+    // stare karty: dokładnie to, co robił stary journalCard
+    FLg.ensureMistakesDeck(st);
+    entries.forEach(function (e) {
+      const legacy = FLg.journalCardLegacy(e);
+      st.userCards.push(Object.assign({ id: FLg.journalCardId(e), deck: "u-moje-bledy", createdAt: "2026-11-01T12:00:00.000Z", sourceItemId: FLg.journalSource(e) }, legacy));
+      st.cards[FLg.journalCardId(e)] = FLg.journalCardState(e.review, NOW);
+    });
+    const before = JSON.parse(JSON.stringify(st.cards));
+    assert.ok(!/Słowo bazowe/.test(st.userCards[0].text), "stara karta bez podpowiedzi");
+    assert.strictEqual(FLg.repairJournalCards(st, entries), 3, "przebudowane: słowotwórstwo, wybór A–D, transformacja (nawias i wpis ręczny były kompletne)");
+    assert.ok(/Słowo bazowe: REDUCE/.test(st.userCards[0].text));
+    assert.ok(/A – make, B – take/.test(st.userCards[1].text));
+    assert.ok(/WISH/.test(st.userCards[2].text));
+    assert.ok(/Podpowiedź: ago/.test(st.userCards[4].front));
+    assert.deepStrictEqual(st.cards, before, "stan powtórek (interwał, termin) bez zmian");
+    assert.strictEqual(st.settings.journalCardsV2, true);
+    const snap = JSON.stringify(st);
+    assert.strictEqual(FLg.repairJournalCards(st, entries), 0);
+    assert.strictEqual(JSON.stringify(st), snap, "druga naprawa nic nie zmienia");
+    // eksport → import zachowuje znacznik i karty
+    const round = FLg.sanitizeState(JSON.parse(JSON.stringify(st)));
+    assert.strictEqual(round.settings.journalCardsV2, true);
+    assert.deepStrictEqual(round.userCards.map(function (c) { return c.text || c.front; }), st.userCards.map(function (c) { return c.text || c.front; }));
+  });
+  test("naprawa kart: karta edytowana ręcznie przez użytkownika zostaje nietknięta", function () {
+    const st = FLg.sanitizeState(FLg.emptyState());
+    FLg.ensureMistakesDeck(st);
+    const legacy = FLg.journalCardLegacy(wf);
+    st.userCards.push(Object.assign({ id: FLg.journalCardId(wf), deck: "u-moje-bledy", sourceItemId: FLg.journalSource(wf) }, legacy, { note: "moja notatka" }));
+    assert.strictEqual(FLg.repairJournalCards(st, [wf]), 0);
+    assert.strictEqual(st.userCards[0].note, "moja notatka");
+    assert.ok(!/Słowo bazowe/.test(st.userCards[0].text));
+  });
+  test("nowa migracja i nowy wpis budują karty w nowym formacie", function () {
+    const st = FLg.sanitizeState(FLg.emptyState());
+    FLg.migrateJournal(st, [wf, manual], NOW);
+    assert.ok(/Słowo bazowe: REDUCE/.test(st.userCards[0].text));
+    assert.strictEqual(FLg.repairJournalCards(st, [wf, manual]), 0, "nowe karty nie wymagają naprawy");
+  });
+
+  test("mistakeTask.parseRef / viewFor: wpis z ref do zadania → widok zadania, bez ref albo nieznany ref → karta", function () {
+    assert.deepStrictEqual(MT.parseRef("ex:a1-czasy-present-simple-1-05"), { kind: "ex", itemId: "a1-czasy-present-simple-1-05" });
+    assert.deepStrictEqual(MT.parseRef("c1:uoe-p1-4:3"), { kind: "set", prefix: "c1", setId: "uoe-p1-4", n: 3 });
+    assert.deepStrictEqual(MT.parseRef("b2:b2-uoe-p1-1:8"), { kind: "set", prefix: "b2", setId: "b2-uoe-p1-1", n: 8 });
+    assert.strictEqual(MT.parseRef("journal:err-1"), null);
+    assert.strictEqual(MT.parseRef(""), null);
+    assert.strictEqual(MT.viewFor(wf), "task");
+    assert.strictEqual(MT.viewFor(tr), "task");
+    assert.strictEqual(MT.viewFor(manual), "card");
+    assert.strictEqual(MT.viewFor(entry("x", { ref: "coś-ręcznego" })), "card");
+    assert.strictEqual(MT.viewFor(null), "card");
+  });
+  test("mistakeTask.singleExercise: cloze — tylko zdanie z tą luką, jej podpowiedź zostaje; transformacja — jedno zdanie", function () {
+    const ex = { id: "s", type: "word-formation", maxScore: 8, instructions: "i", text: "First {{1}} sentence. Many teachers welcome the {{2}} in time and the {{3}} too. Last {{4}}.", gaps: [1, 2, 3, 4].map(function (n) { return { n: n, stem: "STEM" + n, accept: ["a" + n] }; }) };
+    const one = MT.singleExercise(ex, 2);
+    assert.strictEqual(one.text, "Many teachers welcome the {{2}} in time and the … too.");
+    assert.strictEqual(one.gaps.length, 1);
+    assert.strictEqual(one.gaps[0].stem, "STEM2");
+    assert.strictEqual(one.maxScore, 1);
+    assert.strictEqual(ex.gaps.length, 4, "oryginał bez zmian");
+    assert.strictEqual(MT.singleExercise(ex, 9), null);
+    const tex = { id: "t", type: "transformation", wordLimit: [2, 5], items: [{ n: 1, first: "a", keyword: "K1", parts: ["x"] }, { n: 2, first: "b", keyword: "K2", parts: ["y"] }] };
+    const t2 = MT.singleExercise(tex, 2);
+    assert.strictEqual(t2.items.length, 1);
+    assert.strictEqual(t2.items[0].keyword, "K2");
+    assert.deepStrictEqual(t2.wordLimit, [2, 5]);
+  });
+})();
+
 console.log("\nWynik: " + passed + " ok, " + failures.length + " błędów");
 if (failures.length) process.exit(1);

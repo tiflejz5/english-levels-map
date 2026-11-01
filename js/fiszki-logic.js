@@ -595,7 +595,7 @@ window.ELM = window.ELM || {};
     const s = raw.settings && typeof raw.settings === "object" ? raw.settings : {};
     if (num(s.newPerDay, 0, 999)) out.settings.newPerDay = Math.floor(s.newPerDay);
     if (num(s.reviewsPerDay, 0, 9999)) out.settings.reviewsPerDay = Math.floor(s.reviewsPerDay);
-    ["typeAnswerFirst", "fuzz", "autoAddMistakes", "migratedJournal"].forEach(function (k) { if (typeof s[k] === "boolean") out.settings[k] = s[k]; });
+    ["typeAnswerFirst", "fuzz", "autoAddMistakes", "migratedJournal", "journalCardsV2"].forEach(function (k) { if (typeof s[k] === "boolean") out.settings[k] = s[k]; });
     ["enabledDecks", "randomDecks"].forEach(function (k) {
       if (Array.isArray(s[k])) out.settings[k] = s[k].filter(function (id) { return typeof id === "string" && (ID.test(id) || /^u-[a-z0-9-]{1,60}$/.test(id)); }).slice(0, 200);
     });
@@ -646,8 +646,8 @@ window.ELM = window.ELM || {};
   /** Stały id karty wpisu (migracja i nowe wpisy dają to samo, więc druga migracja nic nie dubluje). */
   function journalCardId(e) { return "u-mb-" + String(e.id || "x").toLowerCase().replace(/[^a-z0-9-]/g, "-").slice(0, 50); }
 
-  /** Karta z wpisu: cloze, gdy kontekst ma lukę ___, inaczej zwykła (przód = kontekst, tył = poprawna + reguła). */
-  function journalCard(e) {
+  /** Stara wersja karty z wpisu (do rozpoznania kart niezmienionych przez użytkownika przy naprawie, journalCardsV2). */
+  function journalCardLegacy(e) {
     const correct = String(e.correct || "").replace(/[{}|]/g, " ").replace(/\s+/g, " ").trim().slice(0, 200);
     const rule = String(e.rule || "").slice(0, 500);
     const gapLine = String(e.context || "").split("\n").find(function (l) { return /_{3,}/.test(l); });
@@ -656,6 +656,89 @@ window.ELM = window.ELM || {};
       if (!res.error) return res.card;
     }
     return makeCard({ type: "basic", front: String(e.context || "").slice(0, 500) || "?", back: correct || "—", note: rule }).card;
+  }
+
+  function cleanAnswer(s) { return String(s == null ? "" : s).replace(/[{}|]/g, " ").replace(/\s+/g, " ").trim(); }
+
+  /**
+   * Akceptowane odpowiedzi luki z pola „correct” wpisu: „A – make” → „A – make”, „make”, „A”; pełne zdanie wzorcowe
+   * (transformacja z silnika zadań: „przed odpowiedź po”) → sama odpowiedź bez tekstu przed i po luką.
+   */
+  function gapAnswers(line, correct) {
+    let c = cleanAnswer(correct).slice(0, 200);
+    if (!c) return [];
+    const parts = String(line).split(/_{3,}/);
+    const before = cleanAnswer(parts[0]), after = cleanAnswer(parts[1] || "");
+    const low = c.toLowerCase();
+    if ((before || after) && low.length > before.length + after.length && low.indexOf(before.toLowerCase()) === 0 && low.slice(low.length - after.length) === after.toLowerCase()) {
+      const mid = c.slice(before.length, c.length - after.length).trim();
+      if (mid) c = mid;
+    }
+    const out = [c];
+    const m = /^([A-H])\s*[–-]\s*(.+)$/.exec(c);
+    if (m) { out.push(m[2].trim(), m[1]); }
+    return out.filter(function (x, i) { return x && out.indexOf(x) === i; });
+  }
+
+  /**
+   * Karta z wpisu dziennika. Przód pokazuje CAŁY kontekst wpisu (wszystkie linie, z podziałem na wiersze): zdanie z luką,
+   * ale też opcje A–D, słowo bazowe, słowo kluczowe transformacji i formę w nawiasie, czyli to, co jest podpowiedzią zadania.
+   * Z luką ___ → cloze (luka w swojej linii; akceptowane odpowiedzi z pola „correct”), bez luki → zwykła karta
+   * (przód = kontekst, tył = poprawna odpowiedź). Reguła wpisu idzie do „Uwaga” po odsłonięciu.
+   */
+  function journalCard(e) {
+    const rule = String(e.rule || "").slice(0, 500);
+    const correct = cleanAnswer(e.correct).slice(0, 200);
+    const lines = String(e.context || "").replace(/\r/g, "").split("\n").map(function (l) { return l.replace(/[{}]/g, "").replace(/[ \t]+/g, " ").trim(); });
+    while (lines.length && !lines[lines.length - 1]) lines.pop();
+    let gi = lines.findIndex(function (l) { return /_{3,}/.test(l); });
+    if (gi !== -1 && correct) {
+      const answers = gapAnswers(lines[gi], e.correct);
+      let work = lines.slice();
+      for (let tries = 0; tries < lines.length; tries++) {
+        const text = work.map(function (l, i) { return i === gi ? l.replace(/_{3,}/, "{{" + answers.join("|") + "}}") : l; }).join("\n");
+        if (text.length <= MAX_FIELD) {
+          const res = makeCard({ type: "cloze", front: text, back: rule });
+          if (!res.error) return res.card;
+          break;
+        }
+        // za długi kontekst: ucinamy od końca linie spoza luki (podpowiedzi krótkie, zwykle wcześniej niż długi tekst)
+        let cut = -1;
+        for (let i = work.length - 1; i >= 0; i--) if (i !== gi) { cut = i; break; }
+        if (cut === -1) break;
+        work.splice(cut, 1);
+        if (cut < gi) gi--;
+      }
+    }
+    return makeCard({ type: "basic", front: lines.join("\n").slice(0, MAX_FIELD) || "?", back: correct || "—", note: rule }).card;
+  }
+
+  function sameCardContent(a, b) {
+    if (!a || !b) return false;
+    return ["type", "text", "front", "back", "note", "hint"].every(function (k) { return String(a[k] || "") === String(b[k] || ""); });
+  }
+
+  /**
+   * Naprawa kart „Moje błędy” zbudowanych starym journalCard (wycinał z kontekstu tylko linię z luką, więc znikała podpowiedź:
+   * słowo bazowe, opcje A–D, słowo kluczowe, forma w nawiasie): karta niezmieniona przez użytkownika jest budowana od nowa
+   * z wpisu dziennika (sourceItemId → wpis). Stan powtórek (cards[id]) zostaje bez zmian. Idempotentna; znacznik
+   * settings.journalCardsV2. Zwraca liczbę przebudowanych kart.
+   */
+  function repairJournalCards(state, entries) {
+    let fixed = 0;
+    (entries || []).forEach(function (e) {
+      if (!e || !e.id) return;
+      const sid = journalSource(e), id = journalCardId(e);
+      const c = state.userCards.find(function (x) { return x.deck === MISTAKES_DECK && (x.id === id || x.sourceItemId === sid); });
+      if (!c) return;
+      const legacy = journalCardLegacy(e), fresh = journalCard(e);
+      if (!sameCardContent(c, legacy) || sameCardContent(c, fresh)) return; // edytowana ręcznie albo już poprawna
+      ["type", "front", "back", "text", "note", "accepted", "hint", "example"].forEach(function (k) { delete c[k]; });
+      Object.keys(fresh).forEach(function (k) { if (k !== "tags" || !c.tags) c[k] = fresh[k]; });
+      fixed++;
+    });
+    state.settings.journalCardsV2 = true;
+    return fixed;
   }
 
   function reviewState(interval, due, reps) {
@@ -718,6 +801,7 @@ window.ELM = window.ELM || {};
     MISTAKES_DECK: MISTAKES_DECK, journalSource: journalSource, journalCardId: journalCardId, journalCard: journalCard,
     newJournalState: newJournalState, journalCardState: journalCardState, ensureMistakesDeck: ensureMistakesDeck,
     hasJournalCard: hasJournalCard, migrateJournal: migrateJournal,
+    journalCardLegacy: journalCardLegacy, gapAnswers: gapAnswers, repairJournalCards: repairJournalCards,
     EXAMS: EXAMS, examsOf: examsOf,
     VERSION: VERSION, MAX_FIELD: MAX_FIELD, MAX_IMPORT: MAX_IMPORT, DAY_HOUR: DAY_HOUR, TYPES: TYPES, DEFAULT_SETTINGS: DEFAULT_SETTINGS,
     normalize: normalize, levenshtein: levenshtein, checkAnswer: checkAnswer,

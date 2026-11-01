@@ -94,7 +94,7 @@ window.ELM = window.ELM || {};
    * (z ref = klucz zadania, do wykrywania duplikatów).
    */
   function journalButton(getPrefill) {
-    if (!ELM.journal) return null;
+    if (!ELM.journal || current.noJournal) return null; // w sesji powtórek wpis już istnieje
     const btn = el("button", {
       type: "button",
       class: "btn btn-secondary btn-small c1-journal-btn",
@@ -399,7 +399,21 @@ window.ELM = window.ELM || {};
     return ex.title;
   }
 
+  /**
+   * Jedna luka / jedno zdanie zestawu w sesji „Fiszki i błędy” (js/mistake-task.js): ten sam widok luki albo transformacji co w zestawie
+   * (opcje A–D, słowo bazowe, słowo kluczowe, część zdania przed i po luce), bez „Dodaj do dziennika”.
+   * ex — zestaw zawężony przez ELM.mistakeTask.singleExercise. → { node, check() → punkty, max }
+   */
+  function single(ex, opts) {
+    opts = opts || {};
+    current = { refPrefix: opts.refPrefix || null, category: opts.category || "Use of English", noJournal: true };
+    const tr = ex.type === "transformation";
+    const control = tr ? buildTransformation(ex) : buildCloze(ex);
+    return { node: control.node, check: control.check, max: tr ? itemMax(ex.items[0]) : ex.gaps.length };
+  }
+
   ELM.c1Exercises = {
+    single: single,
     render: render,
     renderWith: renderWith,
     // do testów i ewentualnego użycia gdzie indziej

@@ -285,10 +285,14 @@ window.ELM = window.ELM || {};
     const item = p.item;
     let context;
     if (item.type === "multiple-choice") context = String(item.prompt || "") + "\n" + item.options.join(" / ");
-    else if (item.type === "reorder") context = (item.context ? item.context + " – " : "") + "Ułóż zdanie";
+    else if (item.type === "reorder") context = (item.context ? item.context + " – " : "") + "Ułóż zdanie z wyrazów: " + p.tokens.map(function (t) { return t.text; }).join(" / ");
     else if (item.type === "find-error") context = item.tokens.join(" ");
-    else if (item.type === "gap-fill") context = (item.context ? item.context + "\n" : "") + gapText(item, function () { return "___"; });
-    else if (item.type === "match") context = item.prompt || "Dopasuj pary";
+    else if (item.type === "gap-fill") {
+      // podpowiedzi przy lukach (np. forma bazowa w nawiasie) dopisane pod zdaniem — bez nich wpis nie wskazuje, jak ma brzmieć luka
+      const hints = item.gaps.map(function (g, i) { return g.hint ? "Luka " + (i + 1) + ": " + g.hint : null; }).filter(Boolean);
+      context = (item.context ? item.context + "\n" : "") + gapText(item, function () { return "___"; }) + (hints.length ? "\n" + hints.join("\n") : "");
+    }
+    else if (item.type === "match") context = (item.prompt || "Dopasuj pary") + "\n" + item.pairs.map(function (x) { return x[0]; }).join(" / ") + "\n" + item.pairs.map(function (x) { return x[1]; }).join(" / ");
     else if (item.type === "transformation") context = item.source + "\n" + String(item.keyword).toUpperCase() + "\n" + [item.before, "___", item.after].filter(Boolean).join(" ");
     else if (item.type === "translate") context = "Przetłumacz: " + item.source;
     else if (item.type === "dictation") context = "Dyktando: " + item.text;
@@ -309,6 +313,7 @@ window.ELM = window.ELM || {};
 
   /** Błędna odpowiedź → wpis w dzienniku (bez duplikatów); toast z „Cofnij” tylko w zwykłym zestawie w trybie Nauki. */
   function toJournal(p, withToast) {
+    if (run.hooks && run.hooks.noJournal) return; // zadanie z wpisu dziennika w sesji powtórek: ocenia je karta „Moje błędy”
     const r = pd().recordWrong(p.item.id, journalFields(p));
     if (!r) return;
     if (r.action === "limit") { run.journal.limit = true; p.journalLimit = true; return; }
@@ -335,6 +340,7 @@ window.ELM = window.ELM || {};
 
   /** Poprawna odpowiedź na zadanie z wpisem do powtórki dziś / zaległym = zaliczona powtórka. */
   function creditReview(p) {
+    if (run.hooks && run.hooks.noJournal) return;
     const r = pd().recordCorrect(p.item.id);
     if (!r) return;
     p.reviewed = true;
@@ -1560,7 +1566,7 @@ window.ELM = window.ELM || {};
     newRun({
       key: "single:", title: cfg.back.label, items: [cfg.item], mode: "learn", isMix: true, isWeak: true, back: cfg.back,
       hooks: {
-        progress: cfg.progress, nextLabel: "Dalej",
+        progress: cfg.progress, nextLabel: "Dalej", noJournal: !!cfg.noJournal,
         finish: function (r, s) { return { correct: s.total > 0 && s.score === s.total, skipped: !!(r.items[0].res && r.items[0].res.skipped) }; },
         renderDone: function (view, r) {
           if (reported) return;
