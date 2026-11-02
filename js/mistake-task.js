@@ -32,6 +32,18 @@ window.ELM = window.ELM || {};
     return null;
   }
 
+  function norm(s) { return String(s == null ? "" : s).replace(/\s+/g, " ").trim().toLowerCase(); }
+
+  /** Czy dwa teksty (reguła z wpisu i wyjaśnienie zadania) to ta sama treść — wtedy pokazujemy ją raz. */
+  function sameText(a, b) { return !!norm(a) && norm(a) === norm(b); }
+
+  /** Wyjaśnienie zadania zawężonego do jednej luki / jednego zdania. */
+  function explanationOf(ex) {
+    if (!ex) return "";
+    if (ex.type === "transformation") return ex.items && ex.items[0] ? ex.items[0].explanation : "";
+    return ex.gaps && ex.gaps[0] ? ex.gaps[0].explanation : "";
+  }
+
   function viewFor(entry) { return entry && parseRef(entry.ref) ? "task" : "card"; }
 
   /** Zdanie z luką n (pozostałe luki jako „…”), z markerem {{n}}, żeby zadanie rysowało się istniejącym widokiem luki. */
@@ -115,8 +127,10 @@ window.ELM = window.ELM || {};
     const check = el("button", { type: "button", class: "btn btn-primary", onclick: function () {
       if (score !== null) { onDone({ correct: score === part.max }); return; }
       score = part.check();
-      result.replaceChildren(el("strong", { text: score === part.max ? "Dobrze" : "Błędnie" }));
-      if (entry.rule) rule.hidden = false;
+      const ok = score === part.max;
+      result.replaceChildren(el("strong", { text: ok ? "Dobrze" : "Błędnie" }));
+      if (!ok) part.showAnswers(); // błędna albo pusta odpowiedź: pokaż poprawną (przy dobrej nie zdradzamy modelu)
+      if (entry.rule && !sameText(entry.rule, explanationOf(ex))) rule.hidden = false; // wyjaśnienie zadania już jest pod odpowiedzią — nie dublujemy
       check.textContent = "Dalej";
       check.focus({ preventScroll: true });
     } }, "Sprawdź");
@@ -130,5 +144,5 @@ window.ELM = window.ELM || {};
     setTimeout(function () { const f = root.querySelector("select, input"); if (f) f.focus({ preventScroll: true }); }, 0);
   }
 
-  ELM.mistakeTask = { parseRef: parseRef, viewFor: viewFor, singleText: singleText, singleExercise: singleExercise, load: load, mount: mount };
+  ELM.mistakeTask = { sameText: sameText, explanationOf: explanationOf, parseRef: parseRef, viewFor: viewFor, singleText: singleText, singleExercise: singleExercise, load: load, mount: mount };
 })(window.ELM);

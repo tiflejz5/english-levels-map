@@ -164,7 +164,9 @@ window.ELM = window.ELM || {};
           })));
         }
       }
-      if (r.showAnswer) parts.push(el("p", { class: "c1-answer" }, [el("span", { text: "Odpowiedź: " }), el("strong", { text: r.item.model })]));
+      // Poprawna odpowiedź: na żądanie („Pokaż odpowiedzi”) albo od razu po błędnej / pustej odpowiedzi; przy poprawnej nie zdradzamy modelu
+      const wrongRow = !!r.result && r.result.score < itemMax(r.item);
+      if (r.showAnswer || wrongRow) parts.push(el("p", { class: "c1-answer" }, [el("span", { text: "Odpowiedź: " }), el("strong", { text: r.item.model })]));
       if (r.result || r.showAnswer) parts.push(el("p", { class: "c1-explanation", text: r.item.explanation }));
       if (r.result && r.result.score < itemMax(r.item) && r.input.value.trim()) {
         const answer = r.input.value.trim();
@@ -252,10 +254,18 @@ window.ELM = window.ELM || {};
         s.control.classList.toggle("is-ok", !!s.result && s.result.ok);
         s.control.classList.toggle("is-bad", !!s.result && !s.result.ok);
         if (!s.result && !showAnswers) return;
+        const wrong = !!s.result && !s.result.ok;
+        // wybór A–D: właściwa opcja oznaczona na liście (po błędnej odpowiedzi albo na żądanie)
+        if (type === "multiple-choice-cloze") {
+          Array.prototype.forEach.call(s.control.options, function (o) {
+            if (!o.value) return;
+            o.textContent = o.value + " – " + g.options[o.value] + ((wrong || showAnswers) && o.value === g.answer ? "  ✓ poprawna" : "");
+          });
+        }
         items.push(el("li", { value: g.n }, [
           s.result ? mark(s.result.ok) : null,
           s.result && s.result.msg ? el("span", { class: "c1-feedback-msg", text: s.result.msg }) : null,
-          showAnswers
+          showAnswers || wrong
             ? el("span", { class: "c1-answer" }, [el("span", { text: "Odpowiedź: " }), el("strong", { text: correctText(g) })])
             : null,
           el("span", { class: "c1-explanation", text: g.explanation }),
@@ -402,14 +412,14 @@ window.ELM = window.ELM || {};
   /**
    * Jedna luka / jedno zdanie zestawu w sesji „Fiszki i błędy” (js/mistake-task.js): ten sam widok luki albo transformacji co w zestawie
    * (opcje A–D, słowo bazowe, słowo kluczowe, część zdania przed i po luce), bez „Dodaj do dziennika”.
-   * ex — zestaw zawężony przez ELM.mistakeTask.singleExercise. → { node, check() → punkty, max }
+   * ex — zestaw zawężony przez ELM.mistakeTask.singleExercise. → { node, check() → punkty, showAnswers(), max }
    */
   function single(ex, opts) {
     opts = opts || {};
     current = { refPrefix: opts.refPrefix || null, category: opts.category || "Use of English", noJournal: true };
     const tr = ex.type === "transformation";
     const control = tr ? buildTransformation(ex) : buildCloze(ex);
-    return { node: control.node, check: control.check, max: tr ? itemMax(ex.items[0]) : ex.gaps.length };
+    return { node: control.node, check: control.check, showAnswers: control.showAnswers, max: tr ? itemMax(ex.items[0]) : ex.gaps.length };
   }
 
   ELM.c1Exercises = {

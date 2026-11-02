@@ -1966,5 +1966,17 @@ require(path.join(__dirname, "..", "js", "mistake-task.js"));
   });
 })();
 
+test("mistakeTask: wyjaśnienie nie dubluje się (ta sama treść reguły i wyjaśnienia zadania = raz), widok dla zadań bez ref bez zmian", function () {
+  const MT = global.ELM.mistakeTask;
+  assert.ok(MT.sameText("A proven track record = osiągnięcia.", "  a proven  track record = osiągnięcia. "));
+  assert.ok(!MT.sameText("inna reguła", "wyjaśnienie zadania"));
+  assert.ok(!MT.sameText("", ""), "puste teksty nie są „takie same” (nic do ukrycia)");
+  assert.strictEqual(MT.explanationOf({ type: "word-formation", gaps: [{ n: 2, explanation: "E1" }] }), "E1");
+  assert.strictEqual(MT.explanationOf({ type: "transformation", items: [{ n: 1, explanation: "E2" }] }), "E2");
+  assert.strictEqual(MT.explanationOf(null), "");
+  assert.strictEqual(MT.viewFor({ context: "x", correct: "y" }), "card", "wpis bez ref: karta, mount nie jest wołany");
+  assert.strictEqual(MT.viewFor({ ref: "ex:a1-x-1-01" }), "task");
+});
+
 console.log("\nWynik: " + passed + " ok, " + failures.length + " błędów");
 if (failures.length) process.exit(1);

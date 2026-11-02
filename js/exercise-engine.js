@@ -1157,8 +1157,8 @@ window.ELM = window.ELM || {};
     }
     const sentence = item.type === "translate" || item.type === "dictation";
     if (sentence && !res.correct && res.diff) lines.push(diffView(res.diff));
-    // Dopasowanie: poprawne pary widać na liście powyżej
-    if ((!res.correct && item.type !== "match") || item.type === "reorder" || item.type === "find-error") {
+    // „Poprawnie: …” po błędzie dla każdego typu (też dopasowanie: pary zapisane tekstem pod listą)
+    if (!res.correct || item.type === "reorder" || item.type === "find-error") {
       const model = sentence && !res.skipped ? (item.type === "translate" ? item.accepted : [item.text].concat(item.accepted || []))[res.closest || 0] : modelAnswer(item);
       lines.push(el("p", { class: "journal-row is-right" }, [el("span", { class: "review-label", text: res.skipped ? "Tekst: " : "Poprawnie: " }), el("strong", { lang: sentence ? "en" : null, text: model })]));
     }
