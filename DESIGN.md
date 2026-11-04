@@ -738,3 +738,15 @@ Ograniczenie: audyt automatyczny nie zastępuje testu z czytnikiem ekranu (NVDA 
   - `fuzzed()` bez minimum ±1 d (poniżej 20 d zapis = podgląd; wcześniej Łatwe na nowej karcie dawało 3 d zamiast 4 d).
   - `mergeStates` + `mergeStored` w `fiszki-store.js`: zapis scala się z localStorage, zdarzenie `storage` synchronizuje karty przeglądarki; `force` dla cofnięcia i importu. Klucze bez zmian.
   - Komunikat „Następna powtórka: za N dni” po ocenie, „Na dziś / Na później” w legendzie talii; `?v=134`.
+- **v9 (dopracowanie wyglądu, bez zmian treści).** Reguły w sekcji „v9 DOPRACOWANIE WYGLĄDU” na końcu `css/style.css`, pozostałe zmiany w miejscu.
+  - Kafelki egzaminów w pasku: tło karty, kod w kolorze atramentu, kolor egzaminu tylko jako kropka 6 px; lista w pasku wygasa u dołu zamiast ucinać kafelek.
+  - Logo: znak kompasu jednolity w kolorze `--ink` (gradient marki zostaje tylko w pierścieniu postępu).
+  - Etykiety bez wersalików i rozstrzelenia (zwykła wielkość liter, kolor `--ink-muted`); `.eyebrow` nie używa już akcentu.
+  - Wagi: 700–900 i 650 zastąpione przez 600; przyciski i filtry 500.
+  - Bez kolorowych pasków na kartach (zestawy ćwiczeń, Laboratorium czasów); przykłady w kafelkach czasów w kolorze tekstu. Poziom oznacza plakietka A1–C2.
+  - Chipy egzaminów (E8, MP…) z kropką zamiast grubej lewej krawędzi.
+  - Baner egzaminu bez bocznego paska i bez powtórzonego „Ustaw datę”; „Przypnij do Dziś” w rzędzie z „Notatkami”.
+  - Ciemny motyw: hover bez niebieskiej poświaty, słabsze `--lvl-*-glow`.
+  - Filtry (`.chip-btn`) 36 px zamiast 44 px.
+  - Lekcja: „Notatki” i „Umiem” 40 px i `--radius-sm`; znacznik w spisie treści leży na linii spisu.
+  - Pisanie: „Bank zwrotów” jako jeden akapit; równiejsze odstępy wokół „Twoje egzaminy” i karty „Seria”.

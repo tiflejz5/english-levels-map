@@ -201,14 +201,17 @@ window.ELM = window.ELM || {};
     wikiExam = e;
     view.appendChild(el("div", { class: "c1-page-tools" }, [
       crumb(e, found.section.label),
-      ELM.notes ? ELM.notes.button(e.code.toLowerCase() + ":" + id, { title: e.code + " · " + (doc.meta.title || found.page.label), route: location.hash }) : null
+      el("div", { class: "c1-page-actions" }, [
+        id === "przeglad" ? ELM.examCover.pinButton(e) : null,
+        ELM.notes ? ELM.notes.button(e.code.toLowerCase() + ":" + id, { title: e.code + " · " + (doc.meta.title || found.page.label), route: location.hash }) : null
+      ])
     ]));
     const article = el("article", { class: "md c1-page exam-page" }, ELM.markdown.render(doc.blocks, { hiddenSections: HIDDEN_SECTIONS }));
     wikiExam = null; // kontekst linków [[id]] tylko na czas rysowania strony egzaminu
     if (id === "przeglad") {
       // Nota o aktualności (stan na październik 2026 + link do CKE) — chyba że treść strony już ją ma
       const hasNote = /Stan na październik 2026/i.test(text);
-      ELM.c1.insertAfterIntro(article, el("div", { class: "exam-overview-top" }, [ELM.examDate.cardFor(e), ELM.examCover.pinButton(e), hasNote ? null : sourcesNote(e)]));
+      ELM.c1.insertAfterIntro(article, el("div", { class: "exam-overview-top" }, [ELM.examDate.cardFor(e), hasNote ? null : sourcesNote(e)]));
     }
     wireTasks(e, article, id);
     if (ELM.callouts) ELM.callouts.apply(article);
