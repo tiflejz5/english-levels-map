@@ -120,7 +120,7 @@ window.ELM = window.ELM || {};
     return d.toLocaleDateString("pl-PL", { day: "numeric", month: "long" }) + " o " + hm;
   }
 
-  function saveState() { S().save(); refreshChrome(); }
+  function saveState(force) { S().save(null, force === true); refreshChrome(); }
 
   /** Plakietka w panelu i kafelek „Dziś” po zmianie danych. */
   function refreshChrome() {
@@ -279,6 +279,8 @@ window.ELM = window.ELM || {};
       el("p", { class: "fc-bar-legend" }, [
         el("span", { class: "fc-legend is-new", text: "Nowe: " + stats.new }),
         el("span", { class: "fc-legend is-learning", text: "W nauce: " + (stats.learning + stats.review) }),
+        el("span", { class: "fc-legend is-due", text: "Na dziś: " + stats.due }),
+        el("span", { class: "fc-legend is-later", text: "Na później: " + stats.later }),
         el("span", { class: "fc-legend is-mastered", text: "Opanowane: " + stats.mastered }),
         stats.suspended ? el("span", { class: "fc-legend", text: "Zawieszone: " + stats.suspended }) : null
       ])
@@ -447,6 +449,17 @@ window.ELM = window.ELM || {};
     return card.type === "typed" || (st().settings.typeAnswerFirst && (card.type === "cloze" || card.type === "basic"));
   }
 
+  /** „za 10 min”, „za 3 godziny”, „za 8 dni”, „za 1,3 mies.” — czas do następnej powtórki karty. */
+  function whenText(ms) {
+    const min = Math.round(ms / 60000);
+    if (min < 60) return "za " + Math.max(1, min) + " min";
+    if (ms < H().DAY) { const h = Math.round(ms / 3600000); return "za " + h + " " + plural(h, "godzinę", "godziny", "godzin"); }
+    const days = Math.round(ms / H().DAY);
+    if (days < 31) return "za " + days + " " + plural(days, "dzień", "dni", "dni");
+    if (days < 365) return "za " + (Math.round(days / 30.4 * 10) / 10).toString().replace(".", ",") + " mies.";
+    return "za " + (Math.round(days / 365 * 10) / 10).toString().replace(".", ",") + " r.";
+  }
+
   /** Ocena pozycji (fiszka, „Moje błędy”, zadanie): jeden harmonogram schedule(), liczniki dnia, stan w sesji. */
   function applyGrade(id, g) {
     const t = now();
@@ -460,6 +473,7 @@ window.ELM = window.ELM || {};
     if (prev && prev.again) next.again = prev.again;
     if (g === "again") next.again = (next.again || 0) + 1;
     st().cards[id] = next;
+    session.lastNote = "Następna powtórka: " + whenText(next.due - t); // pokazywane nad następną kartą (aria-live)
     const d = st().daily[dayKey] = st().daily[dayKey] || { new: 0, reviews: 0, again: 0, good: 0, answers: 0, minutes: 0 };
     if (!prev || prev.state === "new") { d.new++; if (/^ex:/.test(id)) d.exNew = (d.exNew || 0) + 1; }
     else if (prev.state === "review") d.reviews++;
@@ -495,11 +509,12 @@ window.ELM = window.ELM || {};
 
   function undoLast() {
     if (!session || !session.undo.length) return;
+    session.lastNote = null;
     const u = session.undo.pop();
     if (u.prev === undefined) delete st().cards[u.id]; else st().cards[u.id] = u.prev;
     const dayKey = today();
     if (u.daily === undefined) delete st().daily[dayKey]; else st().daily[dayKey] = u.daily;
-    saveState();
+    saveState(true); // cofnięcie celowo zmniejsza liczbę powtórek: bez scalania z zapisem
     session.queue = u.queue; session.pool = u.pool; session.done = u.done; session.grades = u.grades; session.againById = u.againById; session.kinds = u.kinds;
     session.finished = false;
     session.current = u.id; session.revealed = !/^ex:/.test(u.id); session.typed = null;
@@ -625,6 +640,7 @@ window.ELM = window.ELM || {};
       el("p", { class: "fc-card-meta" }, [deck ? el("span", { text: deck.title }) : null, el("span", { class: "fc-type", text: { basic: "Zwykła", cloze: "Luka", typed: "Wpisz" }[card.type] })]),
       el("div", { class: "fc-front" }, renderFront(card))
     ]);
+    if (session.lastNote) root.appendChild(el("p", { class: "fc-last-note", role: "status" }, [ELM.icon("check", { size: 16 }), " " + session.lastNote]));
     root.appendChild(cardNode);
 
     // Tryb wpisywania: pole, Enter sprawdza

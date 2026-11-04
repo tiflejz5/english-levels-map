@@ -4231,3 +4231,8 @@ a.pw-row-label:hover { text-decoration: underline; }
 .fc-text { white-space: pre-line; }
 .mt-task { margin-top: 12px; }
 .mt-task .c1-cloze-text { margin-top: 0; }
+
+/* Fiszki: komunikat po ocenie („Następna powtórka: za 8 dni”) i legenda talii */
+.fc-last-note { display: flex; align-items: center; gap: 6px; margin: 0 0 8px; font-size: var(--fs-sm); font-weight: 600; color: var(--success); }
+.fc-legend.is-due::before { background: var(--accent-bg); }
+.fc-legend.is-later::before { background: var(--line-control); }

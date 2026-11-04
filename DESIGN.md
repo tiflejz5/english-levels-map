@@ -734,3 +734,7 @@ Ograniczenie: audyt automatyczny nie zastępuje testu z czytnikiem ekranu (NVDA 
   - `journalCard` (js/fiszki-logic.js) buduje kartę z całego kontekstu wpisu (cloze z luką w swojej linii, akceptowane odpowiedzi „A – make”, „make”, „A”; przy transformacji z silnika sama luka), `.fc-text` z `white-space: pre-line`.
   - Pozycja „błąd” z ref do zadania pokazuje oryginalne zadanie (`js/mistake-task.js`: `parseRef`, `viewFor`, `singleExercise`; `ELM.c1Exercises.single`, `ELM.exercises.startSingle` z `noJournal`).
   - Naprawa istniejących kart: `repairJournalCards` + `settings.journalCardsV2`. Kontekst wpisów z silnika uzupełniony o wyrazy do ułożenia, podpowiedzi przy lukach i listę par; `?v=132`.
+- **Fiszki: harmonogram (fix/fiszki-harmonogram).**
+  - `fuzzed()` bez minimum ±1 d (poniżej 20 d zapis = podgląd; wcześniej Łatwe na nowej karcie dawało 3 d zamiast 4 d).
+  - `mergeStates` + `mergeStored` w `fiszki-store.js`: zapis scala się z localStorage, zdarzenie `storage` synchronizuje karty przeglądarki; `force` dla cofnięcia i importu. Klucze bez zmian.
+  - Komunikat „Następna powtórka: za N dni” po ocenie, „Na dziś / Na później” w legendzie talii; `?v=134`.
