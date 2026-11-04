@@ -218,7 +218,7 @@ window.ELM = window.ELM || {};
 
   /** Liczby do pasków talii: nowe / w nauce / opanowane (interwał ≥ 21 d) / reszta powtórek / zawieszone. */
   function deckStats(cards, state, now) {
-    const out = { total: 0, new: 0, learning: 0, review: 0, mastered: 0, suspended: 0, due: 0 };
+    const out = { total: 0, new: 0, learning: 0, review: 0, mastered: 0, suspended: 0, due: 0, later: 0 };
     (cards || []).forEach(function (c) {
       const x = state[c.id];
       out.total++;
@@ -227,7 +227,7 @@ window.ELM = window.ELM || {};
       else if (x.state === "learning" || x.state === "relearning") out.learning++;
       else if (x.interval >= 21) out.mastered++;
       else out.review++;
-      if (x && x.state !== "new" && !isHidden(x, now) && x.due < dayEnd(now)) out.due++;
+      if (x && x.state !== "new" && !isHidden(x, now)) { if (x.due < dayEnd(now)) out.due++; else out.later++; } // „na później”: terminy po dzisiejszym dniu nauki
     });
     return out;
   }
@@ -797,7 +797,28 @@ window.ELM = window.ELM || {};
     return added;
   }
 
+  /**
+   * Scalanie stanu z pamięci tej karty przeglądarki z zapisem w localStorage (druga karta mogła zapisać nowsze oceny):
+   * karta z większą liczbą powtórek (reps) wygrywa, talie i własne karty są dopisywane, dzienne liczniki to maksimum.
+   * Zmienia mem; zwraca true, gdy coś przejęto z zapisu. Bez tego zapis ze starszej karty przeglądarki cofał oceny (karta wracała jako nowa).
+   */
+  function mergeStates(mem, stored) {
+    let changed = false;
+    Object.keys(stored.cards || {}).forEach(function (id) {
+      const a = mem.cards[id], b = stored.cards[id];
+      if ((b.reps || 0) > (a ? (a.reps || 0) : 0)) { mem.cards[id] = b; changed = true; } // karta bez powtórek (np. zawieszona nowa) nie jest „nowsza”
+    });
+    Object.keys(stored.daily || {}).forEach(function (day) {
+      const s = stored.daily[day], m = mem.daily[day] || (mem.daily[day] = { new: 0, reviews: 0, again: 0, good: 0, answers: 0, minutes: 0 });
+      ["new", "reviews", "again", "good", "answers", "minutes", "exNew"].forEach(function (k) {
+        if ((s[k] || 0) > (m[k] || 0)) { m[k] = s[k]; changed = true; }
+      });
+    });
+    return changed;
+  }
+
   ELM.fiszkiLogic = {
+    mergeStates: mergeStates,
     MISTAKES_DECK: MISTAKES_DECK, journalSource: journalSource, journalCardId: journalCardId, journalCard: journalCard,
     newJournalState: newJournalState, journalCardState: journalCardState, ensureMistakesDeck: ensureMistakesDeck,
     hasJournalCard: hasJournalCard, migrateJournal: migrateJournal,

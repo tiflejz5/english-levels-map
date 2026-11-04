@@ -41,10 +41,24 @@ window.ELM = window.ELM || {};
     return memory[pid];
   }
 
-  function save(pid) {
+  /** Dołącza do pamięci to, co druga karta przeglądarki zapisała w międzyczasie (patrz fiszki-logic mergeStates). → true, gdy coś przejęto. */
+  function mergeStored(pid) {
+    if (!memory[pid]) return false;
+    try {
+      const raw = window.localStorage.getItem(keyOf(pid));
+      return raw ? L().mergeStates(memory[pid], L().sanitizeState(JSON.parse(raw))) : false;
+    } catch (e) { return false; }
+  }
+
+  /**
+   * Zapis stanu profilu. Domyślnie scala go z zapisem w localStorage (dwie karty przeglądarki nie nadpisują sobie ocen);
+   * force = true zapisuje stan z pamięci bez scalania (cofnięcie oceny, import), bo tam stan celowo się cofa albo zastępuje.
+   */
+  function save(pid, force) {
     pid = pid || activeId();
     if (!pid || !memory[pid]) return true;
     if (ELM.state && ELM.state.storageOk === false) return false;
+    if (!force) mergeStored(pid);
     try {
       memory[pid].daily = L().pruneDaily(memory[pid].daily, 400);
       window.localStorage.setItem(keyOf(pid), JSON.stringify(memory[pid]));
@@ -101,7 +115,7 @@ window.ELM = window.ELM || {};
   function applyImport(parsed, profileIds) {
     if (parsed) {
       storedIds().forEach(function (pid) { if (!parsed[pid]) removeProfile(pid); });
-      Object.keys(parsed).forEach(function (pid) { memory[pid] = parsed[pid]; save(pid); });
+      Object.keys(parsed).forEach(function (pid) { memory[pid] = parsed[pid]; save(pid, true); });
     }
     if (profileIds) storedIds().forEach(function (pid) { if (profileIds.indexOf(pid) === -1) removeProfile(pid); });
   }
@@ -116,7 +130,15 @@ window.ELM = window.ELM || {};
     });
   }
 
+  // Druga karta przeglądarki zapisała fiszki: przejmujemy nowsze oceny, żeby następny zapis stąd ich nie cofnął
+  window.addEventListener("storage", function (e) {
+    if (!e.key || e.key.indexOf(PREFIX) !== 0 || e.key.slice(-SUFFIX.length) !== SUFFIX) return;
+    const pid = e.key.slice(PREFIX.length, -SUFFIX.length);
+    if (memory[pid] && mergeStored(pid) && app() && app().refreshLearning) app().refreshLearning();
+  });
+
   ELM.fiszkiStore = {
+    mergeStored: mergeStored,
     keyOf: keyOf, data: data, load: load, save: save,
     exportData: exportData, parseImport: parseImport, applyImport: applyImport,
     removeProfile: removeProfile, clearAll: clearAll, clearMigrationFlags: clearMigrationFlags

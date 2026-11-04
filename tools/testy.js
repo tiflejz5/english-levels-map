@@ -1978,5 +1978,97 @@ test("mistakeTask: wyjaśnienie nie dubluje się (ta sama treść reguły i wyja
   assert.strictEqual(MT.viewFor({ ref: "ex:a1-x-1-01" }), "task");
 });
 
+console.log("\nFiszki: harmonogram i zapis (poprawka fix/fiszki-harmonogram)");
+(function () {
+  const FLg = global.ELM.fiszkiLogic, HM = global.ELM.fiszkiHarmonogram;
+  const DAYMS = 86400000;
+  const NOW = new Date(2026, 10, 10, 18, 0, 0).getTime();
+  const rev = function (iv, due, reps) { return Object.assign(HM.newCard(), { state: "review", interval: iv, due: due, reps: reps == null ? 3 : reps }); };
+
+  test("rozproszenie: interwały < 20 d zapisują się dokładnie tak, jak w podglądzie („Dobrze: 8 d” = 8 d, „Łatwe: 4 d” = 4 d)", function () {
+    for (let iv = 1; iv <= 9; iv++) {
+      ["hard", "good", "easy"].forEach(function (g) {
+        const base = rev(iv, NOW, 3);
+        const pv = HM.preview(base, NOW)[g];
+        if (pv.card.interval >= 20) return; // od 20 d rozrzut ±5% jest zamierzony (osobny test)
+        [0, 0.25, 0.5, 0.75, 1].forEach(function (r) {
+          const real = HM.schedule(base, g, NOW, null, { fuzz: true, random: function () { return r; } });
+          assert.strictEqual(real.due, pv.card.due, "iv " + iv + " " + g + " losowość " + r + ": " + real.interval + " d zamiast " + pv.card.interval + " d");
+        });
+      });
+    }
+    const graduating = HM.schedule(Object.assign(HM.newCard(), { state: "new" }), "easy", NOW, null, { fuzz: true, random: function () { return 0; } });
+    assert.strictEqual(graduating.interval, 4, "nowa karta + Łatwe = 4 d, nie 3 d");
+  });
+  test("rozproszenie: od 20 d nadal ±5% (20 d → 19–21 d), losowość z zewnątrz", function () {
+    const base = rev(8, NOW, 3); // Dobrze: 20 d
+    const lo = HM.schedule(base, "good", NOW, null, { fuzz: true, random: function () { return 0; } }).interval;
+    const hi = HM.schedule(base, "good", NOW, null, { fuzz: true, random: function () { return 1; } }).interval;
+    assert.strictEqual(HM.schedule(base, "good", NOW).interval, 20);
+    assert.deepStrictEqual([lo, hi], [19, 21]);
+  });
+  test("kilka dni nauki: Dobrze ×4 i Łatwe ×4 zwiększają interwał z każdą oceną (stan przeżywa zapis i odczyt)", function () {
+    let t = NOW, st = {};
+    const seq = [];
+    ["good", "good", "good", "good", "good", "good"].forEach(function (g) {
+      const base = st.state && st.state !== "new" ? st : HM.newCard();
+      st = FLg.sanitizeState({ version: 1, cards: { "k-001": HM.schedule(base, g, t, null, { fuzz: true, random: function () { return 0.5; } }) } }).cards["k-001"];
+      seq.push(st.state === "review" ? st.interval : 0);
+      t = st.due;
+    });
+    assert.deepStrictEqual(seq, [0, 1, 3, 8, 20, 50]);
+    let e = FLg.sanitizeState({ version: 1, cards: { "k-002": HM.schedule(HM.newCard(), "easy", NOW) } }).cards["k-002"];
+    const ivs = [e.interval];
+    for (let i = 0; i < 3; i++) { e = HM.schedule(e, "easy", e.due); ivs.push(e.interval); }
+    assert.ok(ivs[1] > ivs[0] && ivs[2] > ivs[1] && ivs[3] > ivs[2], "Łatwe zwiększa interwał za każdym razem: " + ivs.join(","));
+  });
+
+  test("zapis z dwóch kart przeglądarki: nieaktualna karta nie cofa ocen (mergeStates)", function () {
+    const stored = FLg.sanitizeState(FLg.emptyState());     // zapis po ocenie w karcie A
+    stored.cards["kolokacje-001"] = rev(8, NOW + 8 * DAYMS, 2);
+    stored.daily["2026-11-10"] = { new: 1, reviews: 3, again: 0, good: 3, answers: 4, minutes: 2 };
+    const stale = FLg.sanitizeState(FLg.emptyState());      // pamięć karty B sprzed oceny (karta jeszcze nowa)
+    stale.daily["2026-11-10"] = { new: 0, reviews: 1, again: 1, good: 0, answers: 1, minutes: 0 };
+    assert.strictEqual(FLg.mergeStates(stale, stored), true);
+    assert.strictEqual(stale.cards["kolokacje-001"].interval, 8, "ocena z karty A przejęta");
+    assert.strictEqual(stale.daily["2026-11-10"].reviews, 3, "dzienny licznik: maksimum");
+    assert.strictEqual(stale.daily["2026-11-10"].again, 1);
+    // pamięć nowsza niż zapis: zostaje
+    const fresh = FLg.sanitizeState(FLg.emptyState());
+    fresh.cards["kolokacje-001"] = rev(20, NOW + 20 * DAYMS, 5);
+    fresh.daily["2026-11-10"] = Object.assign({}, stored.daily["2026-11-10"]);
+    assert.strictEqual(FLg.mergeStates(fresh, stored), false);
+    assert.strictEqual(fresh.cards["kolokacje-001"].interval, 20);
+    // karta bez powtórek (np. zawieszona nowa) w zapisie nie jest „nowsza” od braku stanu
+    const s2 = FLg.sanitizeState(FLg.emptyState()); s2.cards["kolokacje-009"] = Object.assign(HM.newCard(), { suspended: true });
+    const m2 = FLg.sanitizeState(FLg.emptyState());
+    assert.strictEqual(FLg.mergeStates(m2, s2), false);
+    assert.strictEqual(m2.cards["kolokacje-009"], undefined);
+  });
+  test("deckStats: „na dziś” i „na później” (po granicy dnia nauki 04:00)", function () {
+    const cards = ["a", "b", "c", "d", "e"].map(function (x) { return { id: x }; });
+    const state = {
+      a: rev(3, NOW - 3600000),                                  // na dziś (zaległa)
+      b: rev(8, NOW + 8 * DAYMS),                                // na później
+      c: rev(1, new Date(2026, 10, 11, 2, 0, 0).getTime()),      // jutro 02:00 = jeszcze dzisiejszy dzień nauki
+      d: rev(1, new Date(2026, 10, 11, 9, 0, 0).getTime())       // jutro 09:00 = na później
+    };
+    const s = FLg.deckStats(cards, state, NOW);
+    assert.strictEqual(s.due, 2);
+    assert.strictEqual(s.later, 2);
+    assert.strictEqual(s.new, 1);
+  });
+  test("„Dodaj kolejne nowe karty” (extraNew) nie dotyka kart w powtórkach: kolejka nie zawiera nie-zaległych, stan bez zmian", function () {
+    const cards = [1, 2, 3, 4, 5, 6, 7].map(function (i) { return { id: "k-00" + i, deck: "k" }; });
+    const state = { "k-001": rev(8, NOW + 8 * DAYMS), "k-002": rev(3, NOW + 2 * DAYMS) };
+    const before = JSON.stringify(state);
+    const q = FLg.buildQueue({ cards: cards, state: state, now: NOW, settings: { newPerDay: 2, reviewsPerDay: 100 }, today: { new: 2 }, extraNew: 5 });
+    assert.deepStrictEqual(q.review, [], "karty z terminem po dzisiejszym dniu nie wracają");
+    assert.strictEqual(q.fresh.length, 5, "tylko nowe: 5 dodatkowych");
+    assert.ok(q.fresh.every(function (id) { return !state[id]; }));
+    assert.strictEqual(JSON.stringify(state), before, "buildQueue niczego nie zmienia");
+  });
+})();
+
 console.log("\nWynik: " + passed + " ok, " + failures.length + " błędów");
 if (failures.length) process.exit(1);

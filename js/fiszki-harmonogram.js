@@ -47,10 +47,13 @@ window.ELM = window.ELM || {};
     return g;
   }
 
-  /** Rozproszenie ±5% dla interwałów ≥ 3 d (zaokrąglone, co najmniej 1 d różnicy nie wymuszamy). */
+  /**
+   * Rozproszenie ±5% (w dół do pełnych dni) dla interwałów ≥ 3 d. Poniżej 20 d to 0 dni, więc „Dobrze: 8 d” z podglądu
+   * zapisuje się jako 8 d (wcześniej minimum ±1 d robiło z 4 d trzy, a z 3 d dwa); od 20 d rozrzut to ±5%.
+   */
   function fuzzed(days, opts) {
     if (!opts || !opts.fuzz || typeof opts.random !== "function" || days < 3) return days;
-    const delta = Math.max(1, Math.round(days * 0.05));
+    const delta = Math.floor(days * 0.05);
     return Math.max(1, days + Math.round((opts.random() * 2 - 1) * delta));
   }
 
