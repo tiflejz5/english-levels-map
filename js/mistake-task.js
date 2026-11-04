@@ -134,13 +134,24 @@ window.ELM = window.ELM || {};
       check.textContent = "Dalej";
       check.focus({ preventScroll: true });
     } }, "Sprawdź");
-    root.appendChild(el("section", { class: "card c1-ex c1-ex-" + ex.type + " mt-task" }, [
+    const section = el("section", { class: "card c1-ex c1-ex-" + ex.type + " mt-task" }, [
       el("p", { class: "tool-eyebrow", text: "Błąd z dziennika · " + (entry.source || ex.title) }),
       el("p", { class: "c1-ex-instr" }, ELM.markdown.inline(ex.instructions || "")),
       part.node,
       el("div", { class: "c1-ex-actions" }, [check, result]),
       rule
-    ]));
+    ]);
+    // Enter w polu odpowiedzi = Sprawdź (potem Dalej, bo fokus przechodzi na przycisk); w polu wieloliniowym Ctrl+Enter, Shift+Enter to nowa linia
+    section.addEventListener("keydown", function (e) {
+      if (e.key !== "Enter" || e.altKey || e.isComposing) return;
+      const t = e.target;
+      if (!t || t === check || t.tagName === "BUTTON" || t.tagName === "A") return;
+      if (t.tagName === "TEXTAREA" && !(e.ctrlKey || e.metaKey)) return;
+      if (t.tagName !== "TEXTAREA" && t.tagName !== "INPUT" && t.tagName !== "SELECT") return;
+      e.preventDefault();
+      check.click();
+    });
+    root.appendChild(section);
     setTimeout(function () { const f = root.querySelector("select, input"); if (f) f.focus({ preventScroll: true }); }, 0);
   }
 
