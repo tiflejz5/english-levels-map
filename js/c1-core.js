@@ -328,10 +328,13 @@ window.ELM = window.ELM || {};
     const doc = ELM.markdown.parse(text);
     view.appendChild(el("div", { class: "c1-page-tools" }, [
       crumb(found.section.label),
-      ELM.notes ? ELM.notes.button("c1:" + id, { title: "C1 · " + (doc.meta.title || found.page.label), route: location.hash }) : null
+      el("div", { class: "c1-page-actions" }, [
+        id === "przeglad" ? ELM.examCover.pinButton(examEntry()) : null,
+        ELM.notes ? ELM.notes.button("c1:" + id, { title: "C1 · " + (doc.meta.title || found.page.label), route: location.hash }) : null
+      ])
     ]));
     const article = el("article", { class: "md c1-page" }, ELM.markdown.render(doc.blocks, { hiddenSections: HIDDEN_SECTIONS }));
-    if (id === "przeglad") insertAfterIntro(article, el("div", { class: "exam-overview-top" }, [ELM.examDate.cardFor(examEntry()), ELM.examCover.pinButton(examEntry())]));
+    if (id === "przeglad") insertAfterIntro(article, el("div", { class: "exam-overview-top" }, [ELM.examDate.cardFor(examEntry())]));
     wireTasks(article, id);
     if (ELM.callouts) ELM.callouts.apply(article);
     view.appendChild(article);

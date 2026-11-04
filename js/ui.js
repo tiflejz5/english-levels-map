@@ -204,20 +204,16 @@ window.ELM = window.ELM || {};
 
   /** Sam znak (40 × 40). */
   function logoMark(size) {
-    const id = "brand-grad-" + (++gradientCounter);
     const svg = svgEl("svg", { class: "logo-mark", width: size || 34, height: size || 34, viewBox: "0 0 40 40", "aria-hidden": "true", focusable: "false" });
-    const defs = svgEl("defs");
-    brandGradient(defs, id, 4, 36, 36, 4);
-    svg.appendChild(defs);
     // Okrąg (granica mapy) i szlak kropkami od A1 (lewy dół) do C2 (prawa góra)
-    svg.appendChild(svgEl("circle", { cx: 20, cy: 20, r: 17, fill: "none", stroke: "url(#" + id + ")", "stroke-width": 2.6 }));
+    svg.appendChild(svgEl("circle", { cx: 20, cy: 20, r: 17, fill: "none", stroke: "currentColor", "stroke-width": 2.2 }));
     svg.appendChild(svgEl("path", {
       d: "M9.5 28.5c4-1.5 3.5-6.5 8-7.5s6.5 1.5 9.5-2.5 2.5-6 3.5-7.5",
-      fill: "none", stroke: "url(#" + id + ")", "stroke-width": 2.2, "stroke-linecap": "round", "stroke-dasharray": "0.1 4.2"
+      fill: "none", stroke: "currentColor", "stroke-width": 2.2, "stroke-linecap": "round", "stroke-dasharray": "0.1 4.2"
     }));
     // Igła kompasu (północ w gradiencie, południe w kolorze linii)
     const needle = svgEl("g", { transform: "rotate(40 20 20)" });
-    needle.appendChild(svgEl("path", { d: "M20 8.5 23.2 20h-6.4z", fill: "url(#" + id + ")" }));
+    needle.appendChild(svgEl("path", { d: "M20 8.5 23.2 20h-6.4z", fill: "currentColor" }));
     needle.appendChild(svgEl("path", { d: "M20 31.5 16.8 20h6.4z", class: "logo-needle-s" }));
     svg.appendChild(needle);
     svg.appendChild(svgEl("circle", { cx: 20, cy: 20, r: 2.1, class: "logo-pin" }));
