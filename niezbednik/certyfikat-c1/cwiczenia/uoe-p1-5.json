@@ -10,30 +10,30 @@
     {
       "n": 1,
       "options": {
-        "A": "access",
-        "B": "entry",
+        "A": "entry",
+        "B": "access",
         "C": "admission",
         "D": "entrance"
       },
-      "answer": "A",
+      "answer": "B",
       "explanation": "Access to = dostęp do."
     },
     {
       "n": 2,
       "options": {
         "A": "do",
-        "B": "make",
-        "C": "bring",
-        "D": "set"
+        "B": "bring",
+        "C": "set",
+        "D": "make"
       },
-      "answer": "B",
+      "answer": "D",
       "explanation": "Make room for = zrobić miejsce dla."
     },
     {
       "n": 3,
       "options": {
-        "A": "put",
-        "B": "made",
+        "A": "made",
+        "B": "put",
         "C": "done",
         "D": "got"
       },
@@ -44,30 +44,30 @@
       "n": 4,
       "options": {
         "A": "buys",
-        "B": "fetches",
-        "C": "earns",
+        "B": "earns",
+        "C": "fetches",
         "D": "wins"
       },
-      "answer": "B",
+      "answer": "C",
       "explanation": "Fetch a high price = osiągać wysoką cenę."
     },
     {
       "n": 5,
       "options": {
-        "A": "translating",
+        "A": "converting",
         "B": "exchanging",
         "C": "replacing",
-        "D": "converting"
+        "D": "translating"
       },
-      "answer": "D",
+      "answer": "A",
       "explanation": "Convert X into Y = przekształcać X w Y."
     },
     {
       "n": 6,
       "options": {
-        "A": "take",
-        "B": "hold",
-        "C": "lay",
+        "A": "hold",
+        "B": "lay",
+        "C": "take",
         "D": "push"
       },
       "answer": "D",
@@ -76,12 +76,12 @@
     {
       "n": 7,
       "options": {
-        "A": "overlook",
-        "B": "overcome",
-        "C": "outweigh",
+        "A": "overcome",
+        "B": "outweigh",
+        "C": "overlook",
         "D": "outlast"
       },
-      "answer": "C",
+      "answer": "B",
       "explanation": "Outweigh = przeważać nad."
     },
     {

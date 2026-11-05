@@ -10,8 +10,8 @@
     {
       "n": 1,
       "options": {
-        "A": "pull",
-        "B": "take",
+        "A": "take",
+        "B": "pull",
         "C": "make",
         "D": "reach"
       },
@@ -21,78 +21,78 @@
     {
       "n": 2,
       "options": {
-        "A": "raising",
-        "B": "rising",
+        "A": "rising",
+        "B": "raising",
         "C": "arising",
         "D": "lifting"
       },
-      "answer": "B",
+      "answer": "A",
       "explanation": "Rise jest nieprzechodnie: sales have been rising. Raise wymaga dopełnienia."
     },
     {
       "n": 3,
       "options": {
-        "A": "describe",
-        "B": "explain",
-        "C": "state",
+        "A": "explain",
+        "B": "state",
+        "C": "describe",
         "D": "tell"
       },
-      "answer": "A",
+      "answer": "C",
       "explanation": "Describe X as Y = określać X jako Y."
     },
     {
       "n": 4,
       "options": {
         "A": "rim",
-        "B": "brink",
-        "C": "corner",
-        "D": "border"
+        "B": "corner",
+        "C": "border",
+        "D": "brink"
       },
-      "answer": "B",
+      "answer": "D",
       "explanation": "On the brink of extinction = na progu wyginięcia."
     },
     {
       "n": 5,
       "options": {
-        "A": "considerable",
-        "B": "plentiful",
-        "C": "profound",
-        "D": "intense"
+        "A": "plentiful",
+        "B": "profound",
+        "C": "intense",
+        "D": "considerable"
       },
-      "answer": "A",
+      "answer": "D",
       "explanation": "A considerable number = spora liczba. Pozostałe nie łączą się z number."
     },
     {
       "n": 6,
       "options": {
-        "A": "harms",
-        "B": "damages",
+        "A": "damages",
+        "B": "drawbacks",
         "C": "losses",
-        "D": "drawbacks"
+        "D": "harms"
       },
-      "answer": "D",
+      "answer": "B",
       "explanation": "Not without its drawbacks = nie bez wad."
     },
     {
       "n": 7,
       "options": {
-        "A": "stay",
+        "A": "keep",
         "B": "hold",
-        "C": "keep",
+        "C": "stay",
         "D": "go"
       },
-      "answer": "C",
+      "answer": "A",
       "explanation": "Keep up with demand = nadążać za popytem."
     },
     {
       "n": 8,
       "options": {
-        "A": "noticed",
-        "B": "looked",
+        "A": "looked",
+        "B": "seen",
         "C": "watched",
-        "D": "seen"
+        "D": "noticed"
       },
-      "answer": "D",
+      "answer": "B",
       "explanation": "Remains to be seen = to się dopiero okaże."
     }
   ]

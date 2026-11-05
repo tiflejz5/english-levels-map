@@ -17,6 +17,7 @@ window.ELM = window.ELM || {};
 
   const PREFIX = "elm.";
   const SUFFIX = ".fiszki";
+  const C1_DECK = "certyfikat-c1";
   const memory = {}; // { profileId: stan }
   let saveFailed = false;
 
@@ -37,7 +38,18 @@ window.ELM = window.ELM || {};
         data = null;
       }
     }
+    // Paczka C1 v6 (spec 12, sekcja 3): talia „Certyfikat C1” włącza się raz w istniejącym profilu. Znacznik c1DeckV6 pamięta,
+    // że profil już ją „dostał”, więc wyłączona przez użytkownika nie wraca. Nowy profil dostaje sam znacznik (bez włączania).
+    const fresh = !data;
     memory[pid] = data || L().emptyState();
+    const set = memory[pid].settings;
+    if (set.c1DeckV6 !== true) {
+      set.c1DeckV6 = true;
+      if (!fresh) {
+        if (set.enabledDecks.indexOf(C1_DECK) === -1) set.enabledDecks.push(C1_DECK);
+        try { window.localStorage.setItem(keyOf(pid), JSON.stringify(memory[pid])); } catch (e3) { /* zapisze się przy następnej zmianie */ }
+      }
+    }
     return memory[pid];
   }
 

@@ -595,7 +595,7 @@ window.ELM = window.ELM || {};
     const s = raw.settings && typeof raw.settings === "object" ? raw.settings : {};
     if (num(s.newPerDay, 0, 999)) out.settings.newPerDay = Math.floor(s.newPerDay);
     if (num(s.reviewsPerDay, 0, 9999)) out.settings.reviewsPerDay = Math.floor(s.reviewsPerDay);
-    ["typeAnswerFirst", "fuzz", "autoAddMistakes", "migratedJournal", "journalCardsV2"].forEach(function (k) { if (typeof s[k] === "boolean") out.settings[k] = s[k]; });
+    ["typeAnswerFirst", "fuzz", "autoAddMistakes", "migratedJournal", "journalCardsV2", "c1DeckV6"].forEach(function (k) { if (typeof s[k] === "boolean") out.settings[k] = s[k]; });
     ["enabledDecks", "randomDecks"].forEach(function (k) {
       if (Array.isArray(s[k])) out.settings[k] = s[k].filter(function (id) { return typeof id === "string" && (ID.test(id) || /^u-[a-z0-9-]{1,60}$/.test(id)); }).slice(0, 200);
     });

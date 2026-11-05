@@ -1,0 +1,69 @@
+{
+  "note": "Grupy ćwiczeń są w manifest.json w sections[id='cwiczenia'].exerciseGroups (pole part). Dopisz poniższe zestawy na KONIEC listy sets w grupie o danym part. Nie zmieniaj istniejących wpisów.",
+  "addSets": {
+    "1": [
+      {
+        "id": "uoe-p1-7",
+        "file": "cwiczenia/uoe-p1-7.json",
+        "label": "The ethics of zoos",
+        "maxScore": 8
+      },
+      {
+        "id": "uoe-p1-8",
+        "file": "cwiczenia/uoe-p1-8.json",
+        "label": "Why we travel",
+        "maxScore": 8
+      }
+    ],
+    "2": [
+      {
+        "id": "uoe-p2-8",
+        "file": "cwiczenia/uoe-p2-8.json",
+        "label": "The lost art of letter writing",
+        "maxScore": 8
+      },
+      {
+        "id": "uoe-p2-9",
+        "file": "cwiczenia/uoe-p2-9.json",
+        "label": "Why we love lists",
+        "maxScore": 8
+      }
+    ],
+    "3": [
+      {
+        "id": "uoe-p3-8",
+        "file": "cwiczenia/uoe-p3-8.json",
+        "label": "Citizen science",
+        "maxScore": 8
+      },
+      {
+        "id": "uoe-p3-9",
+        "file": "cwiczenia/uoe-p3-9.json",
+        "label": "Fast fashion",
+        "maxScore": 8
+      }
+    ],
+    "4": [
+      {
+        "id": "uoe-p4-wyrazenia-idiomatyczne",
+        "file": "cwiczenia/uoe-p4-wyrazenia-idiomatyczne.json",
+        "label": "Wyrażenia idiomatyczne",
+        "maxScore": 12
+      },
+      {
+        "id": "uoe-p4-czas-nierzeczywisty",
+        "file": "cwiczenia/uoe-p4-czas-nierzeczywisty.json",
+        "label": "Czas nierzeczywisty i preferencje",
+        "maxScore": 12
+      }
+    ]
+  },
+  "replaceFiles": {
+    "note": "Te pliki zastępują wersje z paczki v5 (ta sama treść, poprawione rozmieszczenie poprawnych odpowiedzi A–D). Wpisy w manifeście bez zmian.",
+    "files": [
+      "cwiczenia/uoe-p1-4.json",
+      "cwiczenia/uoe-p1-5.json",
+      "cwiczenia/uoe-p1-6.json"
+    ]
+  }
+}

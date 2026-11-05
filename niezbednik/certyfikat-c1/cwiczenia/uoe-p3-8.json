@@ -1,0 +1,76 @@
+{
+  "id": "uoe-p3-8",
+  "part": 3,
+  "type": "word-formation",
+  "title": "Citizen science",
+  "instructions": "Utwórz od słowa podanego przy luce słowo, które pasuje do luki. Uważaj na przedrostki, liczbę mnogą i pisownię. Każda luka to 1 punkt.",
+  "maxScore": 8,
+  "text": "In recent years, ordinary people have made a remarkable {{1}} to scientific research. Through so-called citizen science projects, {{2}} with no formal training count birds, classify galaxies or record the weather. The data they collect would be {{3}} expensive to gather in any other way. Scientists were initially {{4}} about the quality of such data, but studies have shown that, with clear instructions, amateurs can be surprisingly {{5}}. Participants, for their part, report a deeper {{6}} of how science works. Some projects have even led to genuine {{7}}, such as the identification of new planets. Critics warn, however, that volunteers should not be used as a cheap {{8}} for professional researchers.",
+  "gaps": [
+    {
+      "n": 1,
+      "stem": "CONTRIBUTE",
+      "accept": [
+        "CONTRIBUTION"
+      ],
+      "explanation": "Make a contribution to = wnieść wkład w."
+    },
+    {
+      "n": 2,
+      "stem": "ENTHUSIASM",
+      "accept": [
+        "ENTHUSIASTS"
+      ],
+      "explanation": "Rzeczownik osobowy, liczba mnoga: enthusiasts."
+    },
+    {
+      "n": 3,
+      "stem": "PROHIBIT",
+      "accept": [
+        "PROHIBITIVELY"
+      ],
+      "explanation": "Przysłówek przed przymiotnikiem: prohibitively expensive = zaporowo drogi."
+    },
+    {
+      "n": 4,
+      "stem": "DOUBT",
+      "accept": [
+        "DOUBTFUL"
+      ],
+      "explanation": "Przymiotnik po be: doubtful about."
+    },
+    {
+      "n": 5,
+      "stem": "RELY",
+      "accept": [
+        "RELIABLE"
+      ],
+      "explanation": "Przymiotnik po be: reliable = wiarygodny."
+    },
+    {
+      "n": 6,
+      "stem": "UNDERSTAND",
+      "accept": [
+        "UNDERSTANDING"
+      ],
+      "explanation": "Rzeczownik po a deeper: understanding of."
+    },
+    {
+      "n": 7,
+      "stem": "DISCOVER",
+      "accept": [
+        "DISCOVERIES"
+      ],
+      "explanation": "Rzeczownik w liczbie mnogiej po genuine (bez przedimka)."
+    },
+    {
+      "n": 8,
+      "stem": "REPLACE",
+      "accept": [
+        "REPLACEMENT",
+        "REPLACEMENTS"
+      ],
+      "explanation": "Rzeczownik po a cheap: replacement for."
+    }
+  ]
+}

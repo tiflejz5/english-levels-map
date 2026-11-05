@@ -10,19 +10,19 @@
     {
       "n": 1,
       "options": {
-        "A": "regretting",
+        "A": "ashamed",
         "B": "embarrassing",
         "C": "humiliating",
-        "D": "ashamed"
+        "D": "regretting"
       },
-      "answer": "D",
+      "answer": "A",
       "explanation": "Be ashamed of = wstydzić się czegoś."
     },
     {
       "n": 2,
       "options": {
-        "A": "portion",
-        "B": "section",
+        "A": "section",
+        "B": "portion",
         "C": "part",
         "D": "segment"
       },
@@ -32,56 +32,56 @@
     {
       "n": 3,
       "options": {
-        "A": "pay",
-        "B": "take",
-        "C": "make",
-        "D": "spend"
+        "A": "take",
+        "B": "make",
+        "C": "spend",
+        "D": "pay"
       },
-      "answer": "A",
+      "answer": "D",
       "explanation": "Pay attention to = zwracać uwagę na."
     },
     {
       "n": 4,
       "options": {
         "A": "pulled",
-        "B": "pointed",
-        "C": "picked",
+        "B": "picked",
+        "C": "pointed",
         "D": "pushed"
       },
-      "answer": "B",
+      "answer": "C",
       "explanation": "Point out = wskazywać na."
     },
     {
       "n": 5,
       "options": {
-        "A": "announced",
-        "B": "explained",
-        "C": "described",
+        "A": "explained",
+        "B": "described",
+        "C": "announced",
         "D": "reported"
       },
-      "answer": "C",
+      "answer": "B",
       "explanation": "Describe X as Y = określać X jako Y."
     },
     {
       "n": 6,
       "options": {
-        "A": "Despite",
-        "B": "Although",
-        "C": "However",
-        "D": "Whereas"
+        "A": "Although",
+        "B": "However",
+        "C": "Whereas",
+        "D": "Despite"
       },
-      "answer": "A",
+      "answer": "D",
       "explanation": "Despite + this (rzeczownik/zaimek) = pomimo tego."
     },
     {
       "n": 7,
       "options": {
-        "A": "frightening",
+        "A": "fearful",
         "B": "fearing",
         "C": "feared",
-        "D": "fearful"
+        "D": "frightening"
       },
-      "answer": "D",
+      "answer": "A",
       "explanation": "Be fearful of = bać się czegoś."
     },
     {

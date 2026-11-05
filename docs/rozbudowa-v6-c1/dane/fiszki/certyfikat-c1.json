@@ -1,0 +1,658 @@
+{
+  "version": 1,
+  "id": "certyfikat-c1",
+  "title": "Certyfikat C1: wyrażenia, inwersja, przyimki, słowotwórstwo",
+  "description": "60 kart pod Cambridge C1 Advanced: stałe wyrażenia z Part 1 i 4, inwersja i konstrukcje z Part 4, przyimki zależne z Part 2, słowotwórstwo z Part 3.",
+  "level": "C1",
+  "cards": [
+    {
+      "type": "cloze",
+      "text": "The new law will {{come into force|come into effect}} next year.",
+      "hint": "wejść w życie",
+      "tags": [
+        "certyfikat-c1",
+        "wyrazenia"
+      ],
+      "id": "certyfikat-c1-001"
+    },
+    {
+      "type": "cloze",
+      "text": "Small businesses {{bore the brunt}} of the crisis.",
+      "hint": "najbardziej ucierpieć",
+      "tags": [
+        "certyfikat-c1",
+        "wyrazenia"
+      ],
+      "id": "certyfikat-c1-002"
+    },
+    {
+      "type": "cloze",
+      "text": "The proposal {{met with}} strong opposition.",
+      "hint": "spotkać się z",
+      "tags": [
+        "certyfikat-c1",
+        "wyrazenia"
+      ],
+      "id": "certyfikat-c1-003"
+    },
+    {
+      "type": "cloze",
+      "text": "We need to {{strike a balance}} between work and rest.",
+      "hint": "znaleźć równowagę",
+      "tags": [
+        "certyfikat-c1",
+        "wyrazenia"
+      ],
+      "id": "certyfikat-c1-004"
+    },
+    {
+      "type": "cloze",
+      "text": "His argument doesn't {{hold water}}.",
+      "hint": "trzymać się kupy",
+      "tags": [
+        "certyfikat-c1",
+        "wyrazenia"
+      ],
+      "id": "certyfikat-c1-005"
+    },
+    {
+      "type": "cloze",
+      "text": "The project is still {{in its infancy}}.",
+      "hint": "w powijakach",
+      "tags": [
+        "certyfikat-c1",
+        "wyrazenia"
+      ],
+      "id": "certyfikat-c1-006"
+    },
+    {
+      "type": "cloze",
+      "text": "{{In the long run}}, the investment will pay off.",
+      "hint": "na dłuższą metę",
+      "tags": [
+        "certyfikat-c1",
+        "wyrazenia"
+      ],
+      "id": "certyfikat-c1-007"
+    },
+    {
+      "type": "cloze",
+      "text": "This decision is {{bound to}} cause controversy.",
+      "hint": "na pewno (spowoduje)",
+      "tags": [
+        "certyfikat-c1",
+        "wyrazenia"
+      ],
+      "id": "certyfikat-c1-008"
+    },
+    {
+      "type": "cloze",
+      "text": "The article {{gave rise to}} a heated debate.",
+      "hint": "wywołać, dać początek",
+      "tags": [
+        "certyfikat-c1",
+        "wyrazenia"
+      ],
+      "id": "certyfikat-c1-009"
+    },
+    {
+      "type": "cloze",
+      "text": "She took the bad news {{in her stride}}.",
+      "hint": "przyjąć ze spokojem",
+      "tags": [
+        "certyfikat-c1",
+        "wyrazenia"
+      ],
+      "id": "certyfikat-c1-010"
+    },
+    {
+      "type": "cloze",
+      "text": "The results {{fell short of}} our expectations.",
+      "hint": "nie spełnić (oczekiwań)",
+      "tags": [
+        "certyfikat-c1",
+        "wyrazenia"
+      ],
+      "id": "certyfikat-c1-011"
+    },
+    {
+      "type": "cloze",
+      "text": "We must {{get to the bottom of}} this problem.",
+      "hint": "dotrzeć do sedna",
+      "tags": [
+        "certyfikat-c1",
+        "wyrazenia"
+      ],
+      "id": "certyfikat-c1-012"
+    },
+    {
+      "type": "cloze",
+      "text": "He {{is prone to}} exaggeration.",
+      "hint": "mieć skłonność do",
+      "tags": [
+        "certyfikat-c1",
+        "wyrazenia"
+      ],
+      "id": "certyfikat-c1-013"
+    },
+    {
+      "type": "cloze",
+      "text": "The company was {{in the red}} for three years.",
+      "hint": "na minusie, ze stratą",
+      "tags": [
+        "certyfikat-c1",
+        "wyrazenia"
+      ],
+      "id": "certyfikat-c1-014"
+    },
+    {
+      "type": "cloze",
+      "text": "We were {{taken aback}} by his reaction.",
+      "hint": "zaskoczony, zbity z tropu",
+      "tags": [
+        "certyfikat-c1",
+        "wyrazenia"
+      ],
+      "id": "certyfikat-c1-015"
+    },
+    {
+      "type": "cloze",
+      "text": "The hotel was {{a far cry from}} what the brochure promised.",
+      "hint": "daleko od, coś zupełnie innego niż",
+      "tags": [
+        "certyfikat-c1",
+        "wyrazenia"
+      ],
+      "id": "certyfikat-c1-016"
+    },
+    {
+      "type": "cloze",
+      "text": "She has {{a flair for}} languages.",
+      "hint": "talent do",
+      "tags": [
+        "certyfikat-c1",
+        "wyrazenia"
+      ],
+      "id": "certyfikat-c1-017"
+    },
+    {
+      "type": "cloze",
+      "text": "In an emergency, time is {{of the essence}}.",
+      "hint": "czas ma kluczowe znaczenie",
+      "tags": [
+        "certyfikat-c1",
+        "wyrazenia"
+      ],
+      "id": "certyfikat-c1-018"
+    },
+    {
+      "type": "cloze",
+      "text": "It took him years to {{come to terms with}} his loss.",
+      "hint": "pogodzić się z",
+      "tags": [
+        "certyfikat-c1",
+        "wyrazenia"
+      ],
+      "id": "certyfikat-c1-019"
+    },
+    {
+      "type": "cloze",
+      "text": "The sequel didn't {{live up to}} the hype.",
+      "hint": "sprostać",
+      "tags": [
+        "certyfikat-c1",
+        "wyrazenia"
+      ],
+      "id": "certyfikat-c1-020"
+    },
+    {
+      "type": "cloze",
+      "text": "The decision was made {{on the spur of the moment}}.",
+      "hint": "pod wpływem chwili",
+      "tags": [
+        "certyfikat-c1",
+        "wyrazenia"
+      ],
+      "id": "certyfikat-c1-021"
+    },
+    {
+      "type": "cloze",
+      "text": "Her comments were {{beside the point}}.",
+      "hint": "nie na temat",
+      "tags": [
+        "certyfikat-c1",
+        "wyrazenia"
+      ],
+      "id": "certyfikat-c1-022"
+    },
+    {
+      "type": "cloze",
+      "text": "The plan is {{by no means}} perfect.",
+      "hint": "bynajmniej",
+      "tags": [
+        "certyfikat-c1",
+        "wyrazenia"
+      ],
+      "id": "certyfikat-c1-023"
+    },
+    {
+      "type": "cloze",
+      "text": "His success was {{due to}} hard work.",
+      "hint": "wynikać z, zawdzięczać",
+      "tags": [
+        "certyfikat-c1",
+        "wyrazenia"
+      ],
+      "id": "certyfikat-c1-024"
+    },
+    {
+      "type": "cloze",
+      "text": "The two reports are {{at odds}} with each other.",
+      "hint": "sprzeczne",
+      "tags": [
+        "certyfikat-c1",
+        "wyrazenia"
+      ],
+      "id": "certyfikat-c1-025"
+    },
+    {
+      "type": "cloze",
+      "text": "{{On no account|Under no circumstances}} should you open this door.",
+      "hint": "pod żadnym pozorem (inwersja)",
+      "tags": [
+        "certyfikat-c1",
+        "gramatyka"
+      ],
+      "id": "certyfikat-c1-026"
+    },
+    {
+      "type": "cloze",
+      "text": "{{Little did}} she know what was coming.",
+      "hint": "w ogóle nie wiedziała (inwersja)",
+      "tags": [
+        "certyfikat-c1",
+        "gramatyka"
+      ],
+      "id": "certyfikat-c1-027"
+    },
+    {
+      "type": "cloze",
+      "text": "{{Not only}} did he lie, but he also blamed me.",
+      "hint": "nie tylko (inwersja)",
+      "tags": [
+        "certyfikat-c1",
+        "gramatyka"
+      ],
+      "id": "certyfikat-c1-028"
+    },
+    {
+      "type": "cloze",
+      "text": "{{Hardly|Scarcely}} had we arrived when it started to rain.",
+      "hint": "ledwie (inwersja)",
+      "tags": [
+        "certyfikat-c1",
+        "gramatyka"
+      ],
+      "id": "certyfikat-c1-029"
+    },
+    {
+      "type": "cloze",
+      "text": "{{Were}} I in your position, I would accept the offer.",
+      "hint": "gdybym był (warunek bez if)",
+      "tags": [
+        "certyfikat-c1",
+        "gramatyka"
+      ],
+      "id": "certyfikat-c1-030"
+    },
+    {
+      "type": "cloze",
+      "text": "{{Should}} you need any help, please contact me.",
+      "hint": "gdybyś potrzebował (warunek bez if)",
+      "tags": [
+        "certyfikat-c1",
+        "gramatyka"
+      ],
+      "id": "certyfikat-c1-031"
+    },
+    {
+      "type": "cloze",
+      "text": "{{Had}} I known, I would have helped.",
+      "hint": "gdybym wiedział (warunek bez if)",
+      "tags": [
+        "certyfikat-c1",
+        "gramatyka"
+      ],
+      "id": "certyfikat-c1-032"
+    },
+    {
+      "type": "cloze",
+      "text": "It's high time we {{left}}.",
+      "hint": "najwyższy czas, żebyśmy wyszli",
+      "tags": [
+        "certyfikat-c1",
+        "gramatyka"
+      ],
+      "id": "certyfikat-c1-033"
+    },
+    {
+      "type": "cloze",
+      "text": "I'd rather you {{didn't}} smoke in here.",
+      "hint": "wolałbym, żebyś nie",
+      "tags": [
+        "certyfikat-c1",
+        "gramatyka"
+      ],
+      "id": "certyfikat-c1-034"
+    },
+    {
+      "type": "cloze",
+      "text": "She {{is said to}} be the best surgeon in town.",
+      "hint": "podobno jest",
+      "tags": [
+        "certyfikat-c1",
+        "gramatyka"
+      ],
+      "id": "certyfikat-c1-035"
+    },
+    {
+      "type": "cloze",
+      "text": "He {{is thought to have}} left the country.",
+      "hint": "uważa się, że wyjechał",
+      "tags": [
+        "certyfikat-c1",
+        "gramatyka"
+      ],
+      "id": "certyfikat-c1-036"
+    },
+    {
+      "type": "cloze",
+      "text": "There is {{no point in|no use}} arguing about it.",
+      "hint": "nie ma sensu",
+      "tags": [
+        "certyfikat-c1",
+        "gramatyka"
+      ],
+      "id": "certyfikat-c1-037"
+    },
+    {
+      "type": "cloze",
+      "text": "{{What}} I need is a long holiday.",
+      "hint": "to, czego potrzebuję (emfaza)",
+      "tags": [
+        "certyfikat-c1",
+        "gramatyka"
+      ],
+      "id": "certyfikat-c1-038"
+    },
+    {
+      "type": "cloze",
+      "text": "She is adept {{at}} handling difficult clients.",
+      "hint": "biegła w",
+      "tags": [
+        "certyfikat-c1",
+        "przyimki"
+      ],
+      "id": "certyfikat-c1-039"
+    },
+    {
+      "type": "cloze",
+      "text": "He was accused {{of}} fraud.",
+      "hint": "oskarżony o",
+      "tags": [
+        "certyfikat-c1",
+        "przyimki"
+      ],
+      "id": "certyfikat-c1-040"
+    },
+    {
+      "type": "cloze",
+      "text": "The town is renowned {{for}} its cheese.",
+      "hint": "słynący z",
+      "tags": [
+        "certyfikat-c1",
+        "przyimki"
+      ],
+      "id": "certyfikat-c1-041"
+    },
+    {
+      "type": "cloze",
+      "text": "The design is {{in}} keeping with local tradition.",
+      "hint": "zgodny z",
+      "tags": [
+        "certyfikat-c1",
+        "przyimki"
+      ],
+      "id": "certyfikat-c1-042"
+    },
+    {
+      "type": "cloze",
+      "text": "The project's success hinges {{on|upon}} funding.",
+      "hint": "zależeć od",
+      "tags": [
+        "certyfikat-c1",
+        "przyimki"
+      ],
+      "id": "certyfikat-c1-043"
+    },
+    {
+      "type": "cloze",
+      "text": "He seemed oblivious {{to}} the risks.",
+      "hint": "nieświadomy",
+      "tags": [
+        "certyfikat-c1",
+        "przyimki"
+      ],
+      "id": "certyfikat-c1-044"
+    },
+    {
+      "type": "cloze",
+      "text": "Smoking is detrimental {{to}} your health.",
+      "hint": "szkodliwy dla",
+      "tags": [
+        "certyfikat-c1",
+        "przyimki"
+      ],
+      "id": "certyfikat-c1-045"
+    },
+    {
+      "type": "cloze",
+      "text": "The prisoners were deprived {{of}} sleep.",
+      "hint": "pozbawiony",
+      "tags": [
+        "certyfikat-c1",
+        "przyimki"
+      ],
+      "id": "certyfikat-c1-046"
+    },
+    {
+      "type": "cloze",
+      "text": "Contrary {{to}} expectations, the plan worked.",
+      "hint": "wbrew",
+      "tags": [
+        "certyfikat-c1",
+        "przyimki"
+      ],
+      "id": "certyfikat-c1-047"
+    },
+    {
+      "type": "cloze",
+      "text": "She takes pride {{in}} her work.",
+      "hint": "być dumnym z",
+      "tags": [
+        "certyfikat-c1",
+        "przyimki"
+      ],
+      "id": "certyfikat-c1-048"
+    },
+    {
+      "type": "typed",
+      "front": "ANXIOUS → rzeczownik",
+      "accepted": [
+        "anxiety"
+      ],
+      "back": "anxiety",
+      "hint": "niepokój",
+      "tags": [
+        "certyfikat-c1",
+        "slowotworstwo"
+      ],
+      "id": "certyfikat-c1-049"
+    },
+    {
+      "type": "typed",
+      "front": "PERSIST → rzeczownik",
+      "accepted": [
+        "persistence"
+      ],
+      "back": "persistence",
+      "hint": "wytrwałość",
+      "tags": [
+        "certyfikat-c1",
+        "slowotworstwo"
+      ],
+      "id": "certyfikat-c1-050"
+    },
+    {
+      "type": "typed",
+      "front": "SCEPTIC → przymiotnik",
+      "accepted": [
+        "sceptical",
+        "skeptical"
+      ],
+      "back": "sceptical",
+      "hint": "sceptyczny",
+      "tags": [
+        "certyfikat-c1",
+        "slowotworstwo"
+      ],
+      "id": "certyfikat-c1-051"
+    },
+    {
+      "type": "typed",
+      "front": "DIVERSE → rzeczownik",
+      "accepted": [
+        "diversity"
+      ],
+      "back": "diversity",
+      "hint": "różnorodność",
+      "tags": [
+        "certyfikat-c1",
+        "slowotworstwo"
+      ],
+      "id": "certyfikat-c1-052"
+    },
+    {
+      "type": "typed",
+      "front": "INEVITABLE → przysłówek",
+      "accepted": [
+        "inevitably"
+      ],
+      "back": "inevitably",
+      "hint": "nieuchronnie",
+      "tags": [
+        "certyfikat-c1",
+        "slowotworstwo"
+      ],
+      "id": "certyfikat-c1-053"
+    },
+    {
+      "type": "typed",
+      "front": "ACCESS → przymiotnik przeczący",
+      "accepted": [
+        "inaccessible"
+      ],
+      "back": "inaccessible",
+      "hint": "niedostępny",
+      "tags": [
+        "certyfikat-c1",
+        "slowotworstwo"
+      ],
+      "id": "certyfikat-c1-054"
+    },
+    {
+      "type": "typed",
+      "front": "COMPREHEND → przymiotnik",
+      "accepted": [
+        "comprehensible"
+      ],
+      "back": "comprehensible",
+      "hint": "zrozumiały",
+      "tags": [
+        "certyfikat-c1",
+        "slowotworstwo"
+      ],
+      "id": "certyfikat-c1-055"
+    },
+    {
+      "type": "typed",
+      "front": "DEPEND → przymiotnik przeczący",
+      "accepted": [
+        "independent"
+      ],
+      "back": "independent",
+      "hint": "niezależny",
+      "tags": [
+        "certyfikat-c1",
+        "slowotworstwo"
+      ],
+      "id": "certyfikat-c1-056"
+    },
+    {
+      "type": "typed",
+      "front": "REVERSE → przymiotnik przeczący",
+      "accepted": [
+        "irreversible"
+      ],
+      "back": "irreversible",
+      "hint": "nieodwracalny",
+      "tags": [
+        "certyfikat-c1",
+        "slowotworstwo"
+      ],
+      "id": "certyfikat-c1-057"
+    },
+    {
+      "type": "typed",
+      "front": "SIGNIFY → rzeczownik",
+      "accepted": [
+        "significance"
+      ],
+      "back": "significance",
+      "hint": "znaczenie, waga",
+      "tags": [
+        "certyfikat-c1",
+        "slowotworstwo"
+      ],
+      "id": "certyfikat-c1-058"
+    },
+    {
+      "type": "typed",
+      "front": "PROHIBIT → przysłówek",
+      "accepted": [
+        "prohibitively"
+      ],
+      "back": "prohibitively",
+      "hint": "zaporowo (drogi)",
+      "tags": [
+        "certyfikat-c1",
+        "slowotworstwo"
+      ],
+      "id": "certyfikat-c1-059"
+    },
+    {
+      "type": "typed",
+      "front": "ENCOURAGE → przysłówek zdaniowy",
+      "accepted": [
+        "encouragingly"
+      ],
+      "back": "encouragingly",
+      "hint": "co napawa optymizmem",
+      "tags": [
+        "certyfikat-c1",
+        "slowotworstwo"
+      ],
+      "id": "certyfikat-c1-060"
+    }
+  ]
+}

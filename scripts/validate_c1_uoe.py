@@ -17,6 +17,10 @@ for f in sorted(glob.glob(os.path.join(root,'certyfikat-c1','cwiczenia','*.json'
         if d['maxScore']!=len(d['gaps']) or len(d['gaps'])!=8: err(f"{n}: maxScore/liczba luk")
         for g in d['gaps']:
             if not g.get('explanation'): err(f"{n} luka {g['n']}: brak wyjaśnienia")
+            if t=='multiple-choice-cloze' and g['n']==1:
+                from collections import Counter
+                cnt=Counter(x['answer'] for x in d['gaps'])
+                if max(cnt.values())>3 or len(cnt)<3: err(f"{n}: złe rozłożenie poprawnych liter {dict(cnt)}")
             if t=='multiple-choice-cloze':
                 if g['answer'] not in g['options'] or len(set(g['options'].values()))!=4: err(f"{n} luka {g['n']}: opcje")
             else:

@@ -1,0 +1,70 @@
+{
+  "id": "uoe-p2-8",
+  "part": 2,
+  "type": "open-cloze",
+  "title": "The lost art of letter writing",
+  "instructions": "Wpisz w każdą lukę dokładnie jedno słowo. Skróty typu don't liczą się jako dwa słowa, więc nie są poprawną odpowiedzią. Każda luka to 1 punkt.",
+  "maxScore": 8,
+  "text": "There was a time {{1}} people wrote letters as a matter of course. Today, most of us would struggle to remember the last time we put pen {{2}} paper. {{3}} is not to say that we communicate less; on the contrary, we send more messages than ever. But the speed of email and instant messaging has come {{4}} a price. Messages are typed in a hurry and forgotten almost as quickly {{5}} they are read. A handwritten letter, by contrast, requires time and care, which is precisely {{6}} it is valued so highly by those who receive one. Historians, too, have reason to worry. Much of what we know about the past comes from private correspondence, {{7}} of which survives in archives. Future researchers may find {{8}} difficult to piece together our lives from deleted chats.",
+  "gaps": [
+    {
+      "n": 1,
+      "accept": [
+        "WHEN"
+      ],
+      "explanation": "There was a time when = był czas, kiedy."
+    },
+    {
+      "n": 2,
+      "accept": [
+        "TO"
+      ],
+      "explanation": "Put pen to paper = zacząć pisać (odręcznie)."
+    },
+    {
+      "n": 3,
+      "accept": [
+        "THIS",
+        "THAT"
+      ],
+      "explanation": "This is not to say that = nie oznacza to, że."
+    },
+    {
+      "n": 4,
+      "accept": [
+        "AT"
+      ],
+      "explanation": "Come at a price = mieć swoją cenę."
+    },
+    {
+      "n": 5,
+      "accept": [
+        "AS"
+      ],
+      "explanation": "As quickly as = tak szybko, jak."
+    },
+    {
+      "n": 6,
+      "accept": [
+        "WHY"
+      ],
+      "explanation": "Which is precisely why = i właśnie dlatego."
+    },
+    {
+      "n": 7,
+      "accept": [
+        "MUCH",
+        "SOME",
+        "MOST"
+      ],
+      "explanation": "Much of which = której duża część (zdanie względne)."
+    },
+    {
+      "n": 8,
+      "accept": [
+        "IT"
+      ],
+      "explanation": "Find it difficult to = mieć trudność z. It to podmiot formalny."
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "note": "Dopisz wpis na końcu tablicy decks w dane/fiszki/index.json. Nie zmieniaj istniejących wpisów. Talia ma być domyślnie włączona dla użytkownika (patrz spec 12).",
+  "addDecks": [
+    {
+      "id": "certyfikat-c1",
+      "title": "Certyfikat C1: wyrażenia, inwersja, przyimki, słowotwórstwo",
+      "description": "60 kart pod Cambridge C1 Advanced: stałe wyrażenia z Part 1 i 4, inwersja i konstrukcje z Part 4, przyimki zależne z Part 2, słowotwórstwo z Part 3.",
+      "level": "C1",
+      "file": "certyfikat-c1.json",
+      "count": 60
+    }
+  ]
+}

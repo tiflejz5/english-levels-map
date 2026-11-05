@@ -1,0 +1,23 @@
+{
+  "note": "Dla każdego itemId znajdź wpis w certyfikat-c1/powiazania.json (tablica links) i DOPISZ id do exercises, bez usuwania istniejących i bez duplikatów. Brak wpisu = pomiń i zgłoś.",
+  "addExercises": {
+    "c1-slownictwo": [
+      "uoe-p1-7",
+      "uoe-p1-8",
+      "uoe-p4-wyrazenia-idiomatyczne"
+    ],
+    "b2-slownictwo": [
+      "uoe-p3-8",
+      "uoe-p3-9"
+    ],
+    "b2-gramatyka-wish-if-only": [
+      "uoe-p4-czas-nierzeczywisty"
+    ],
+    "c1-gramatyka-cleft-sentences": [
+      "uoe-p2-8"
+    ],
+    "c1-funkcje-markery-dyskursu": [
+      "uoe-p2-9"
+    ]
+  }
+}
