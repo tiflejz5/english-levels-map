@@ -3534,8 +3534,8 @@ window.ELM.C1 = {
     {
      "n": 1,
      "options": {
-      "A": "pull",
-      "B": "take",
+      "A": "take",
+      "B": "pull",
       "C": "make",
       "D": "reach"
      },
@@ -3545,78 +3545,78 @@ window.ELM.C1 = {
     {
      "n": 2,
      "options": {
-      "A": "raising",
-      "B": "rising",
+      "A": "rising",
+      "B": "raising",
       "C": "arising",
       "D": "lifting"
      },
-     "answer": "B",
+     "answer": "A",
      "explanation": "Rise jest nieprzechodnie: sales have been rising. Raise wymaga dopełnienia."
     },
     {
      "n": 3,
      "options": {
-      "A": "describe",
-      "B": "explain",
-      "C": "state",
+      "A": "explain",
+      "B": "state",
+      "C": "describe",
       "D": "tell"
      },
-     "answer": "A",
+     "answer": "C",
      "explanation": "Describe X as Y = określać X jako Y."
     },
     {
      "n": 4,
      "options": {
       "A": "rim",
-      "B": "brink",
-      "C": "corner",
-      "D": "border"
+      "B": "corner",
+      "C": "border",
+      "D": "brink"
      },
-     "answer": "B",
+     "answer": "D",
      "explanation": "On the brink of extinction = na progu wyginięcia."
     },
     {
      "n": 5,
      "options": {
-      "A": "considerable",
-      "B": "plentiful",
-      "C": "profound",
-      "D": "intense"
+      "A": "plentiful",
+      "B": "profound",
+      "C": "intense",
+      "D": "considerable"
      },
-     "answer": "A",
+     "answer": "D",
      "explanation": "A considerable number = spora liczba. Pozostałe nie łączą się z number."
     },
     {
      "n": 6,
      "options": {
-      "A": "harms",
-      "B": "damages",
+      "A": "damages",
+      "B": "drawbacks",
       "C": "losses",
-      "D": "drawbacks"
+      "D": "harms"
      },
-     "answer": "D",
+     "answer": "B",
      "explanation": "Not without its drawbacks = nie bez wad."
     },
     {
      "n": 7,
      "options": {
-      "A": "stay",
+      "A": "keep",
       "B": "hold",
-      "C": "keep",
+      "C": "stay",
       "D": "go"
      },
-     "answer": "C",
+     "answer": "A",
      "explanation": "Keep up with demand = nadążać za popytem."
     },
     {
      "n": 8,
      "options": {
-      "A": "noticed",
-      "B": "looked",
+      "A": "looked",
+      "B": "seen",
       "C": "watched",
-      "D": "seen"
+      "D": "noticed"
      },
-     "answer": "D",
+     "answer": "B",
      "explanation": "Remains to be seen = to się dopiero okaże."
     }
    ]
@@ -3633,30 +3633,30 @@ window.ELM.C1 = {
     {
      "n": 1,
      "options": {
-      "A": "access",
-      "B": "entry",
+      "A": "entry",
+      "B": "access",
       "C": "admission",
       "D": "entrance"
      },
-     "answer": "A",
+     "answer": "B",
      "explanation": "Access to = dostęp do."
     },
     {
      "n": 2,
      "options": {
       "A": "do",
-      "B": "make",
-      "C": "bring",
-      "D": "set"
+      "B": "bring",
+      "C": "set",
+      "D": "make"
      },
-     "answer": "B",
+     "answer": "D",
      "explanation": "Make room for = zrobić miejsce dla."
     },
     {
      "n": 3,
      "options": {
-      "A": "put",
-      "B": "made",
+      "A": "made",
+      "B": "put",
       "C": "done",
       "D": "got"
      },
@@ -3667,30 +3667,30 @@ window.ELM.C1 = {
      "n": 4,
      "options": {
       "A": "buys",
-      "B": "fetches",
-      "C": "earns",
+      "B": "earns",
+      "C": "fetches",
       "D": "wins"
      },
-     "answer": "B",
+     "answer": "C",
      "explanation": "Fetch a high price = osiągać wysoką cenę."
     },
     {
      "n": 5,
      "options": {
-      "A": "translating",
+      "A": "converting",
       "B": "exchanging",
       "C": "replacing",
-      "D": "converting"
+      "D": "translating"
      },
-     "answer": "D",
+     "answer": "A",
      "explanation": "Convert X into Y = przekształcać X w Y."
     },
     {
      "n": 6,
      "options": {
-      "A": "take",
-      "B": "hold",
-      "C": "lay",
+      "A": "hold",
+      "B": "lay",
+      "C": "take",
       "D": "push"
      },
      "answer": "D",
@@ -3699,12 +3699,12 @@ window.ELM.C1 = {
     {
      "n": 7,
      "options": {
-      "A": "overlook",
-      "B": "overcome",
-      "C": "outweigh",
+      "A": "overcome",
+      "B": "outweigh",
+      "C": "overlook",
       "D": "outlast"
      },
-     "answer": "C",
+     "answer": "B",
      "explanation": "Outweigh = przeważać nad."
     },
     {
@@ -3732,19 +3732,19 @@ window.ELM.C1 = {
     {
      "n": 1,
      "options": {
-      "A": "regretting",
+      "A": "ashamed",
       "B": "embarrassing",
       "C": "humiliating",
-      "D": "ashamed"
+      "D": "regretting"
      },
-     "answer": "D",
+     "answer": "A",
      "explanation": "Be ashamed of = wstydzić się czegoś."
     },
     {
      "n": 2,
      "options": {
-      "A": "portion",
-      "B": "section",
+      "A": "section",
+      "B": "portion",
       "C": "part",
       "D": "segment"
      },
@@ -3754,56 +3754,56 @@ window.ELM.C1 = {
     {
      "n": 3,
      "options": {
-      "A": "pay",
-      "B": "take",
-      "C": "make",
-      "D": "spend"
+      "A": "take",
+      "B": "make",
+      "C": "spend",
+      "D": "pay"
      },
-     "answer": "A",
+     "answer": "D",
      "explanation": "Pay attention to = zwracać uwagę na."
     },
     {
      "n": 4,
      "options": {
       "A": "pulled",
-      "B": "pointed",
-      "C": "picked",
+      "B": "picked",
+      "C": "pointed",
       "D": "pushed"
      },
-     "answer": "B",
+     "answer": "C",
      "explanation": "Point out = wskazywać na."
     },
     {
      "n": 5,
      "options": {
-      "A": "announced",
-      "B": "explained",
-      "C": "described",
+      "A": "explained",
+      "B": "described",
+      "C": "announced",
       "D": "reported"
      },
-     "answer": "C",
+     "answer": "B",
      "explanation": "Describe X as Y = określać X jako Y."
     },
     {
      "n": 6,
      "options": {
-      "A": "Despite",
-      "B": "Although",
-      "C": "However",
-      "D": "Whereas"
+      "A": "Although",
+      "B": "However",
+      "C": "Whereas",
+      "D": "Despite"
      },
-     "answer": "A",
+     "answer": "D",
      "explanation": "Despite + this (rzeczownik/zaimek) = pomimo tego."
     },
     {
      "n": 7,
      "options": {
-      "A": "frightening",
+      "A": "fearful",
       "B": "fearing",
       "C": "feared",
-      "D": "fearful"
+      "D": "frightening"
      },
-     "answer": "D",
+     "answer": "A",
      "explanation": "Be fearful of = bać się czegoś."
     },
     {
