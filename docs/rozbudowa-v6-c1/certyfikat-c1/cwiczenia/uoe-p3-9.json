@@ -1,0 +1,75 @@
+{
+  "id": "uoe-p3-9",
+  "part": 3,
+  "type": "word-formation",
+  "title": "Fast fashion",
+  "instructions": "Utwórz od słowa podanego przy luce słowo, które pasuje do luki. Uważaj na przedrostki, liczbę mnogą i pisownię. Każda luka to 1 punkt.",
+  "maxScore": 8,
+  "text": "Clothes have never been cheaper or more {{1}} available. Fast-fashion brands release new collections every few weeks, encouraging {{2}} to buy far more than they need. The {{3}} cost of this model, however, is enormous. The industry is responsible for a {{4}} share of global carbon emissions, and working conditions in many factories remain {{5}}. {{6}}, a growing number of shoppers are changing their habits. Second-hand platforms and clothing rental services have seen a sharp rise in {{7}}, and some brands now promise to make their production more {{8}}.",
+  "gaps": [
+    {
+      "n": 1,
+      "stem": "READY",
+      "accept": [
+        "READILY"
+      ],
+      "explanation": "Przysłówek przed available: readily available = łatwo dostępny."
+    },
+    {
+      "n": 2,
+      "stem": "CONSUME",
+      "accept": [
+        "CONSUMERS"
+      ],
+      "explanation": "Rzeczownik osobowy w liczbie mnogiej."
+    },
+    {
+      "n": 3,
+      "stem": "ECOLOGY",
+      "accept": [
+        "ECOLOGICAL"
+      ],
+      "explanation": "Przymiotnik przed cost."
+    },
+    {
+      "n": 4,
+      "stem": "SIGNIFY",
+      "accept": [
+        "SIGNIFICANT"
+      ],
+      "explanation": "Przymiotnik przed share: a significant share."
+    },
+    {
+      "n": 5,
+      "stem": "ACCEPT",
+      "accept": [
+        "UNACCEPTABLE"
+      ],
+      "explanation": "Przymiotnik przeczący: conditions remain unacceptable."
+    },
+    {
+      "n": 6,
+      "stem": "ENCOURAGE",
+      "accept": [
+        "ENCOURAGINGLY"
+      ],
+      "explanation": "Przysłówek zdaniowy na początku: Encouragingly, = co napawa optymizmem."
+    },
+    {
+      "n": 7,
+      "stem": "POPULAR",
+      "accept": [
+        "POPULARITY"
+      ],
+      "explanation": "Rzeczownik po rise in."
+    },
+    {
+      "n": 8,
+      "stem": "SUSTAIN",
+      "accept": [
+        "SUSTAINABLE"
+      ],
+      "explanation": "Przymiotnik po more: more sustainable."
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "id": "uoe-p2-9",
+  "part": 2,
+  "type": "open-cloze",
+  "title": "Why we love lists",
+  "instructions": "Wpisz w każdą lukę dokładnie jedno słowo. Skróty typu don't liczą się jako dwa słowa, więc nie są poprawną odpowiedzią. Każda luka to 1 punkt.",
+  "maxScore": 8,
+  "text": "Whether it is the ten best beaches in Europe or the books you must read before you die, lists are everywhere. But why {{1}} they so appealing? Part of the answer lies {{2}} the way our brains handle information. Faced {{3}} an overwhelming amount of content, we welcome anything that promises to organise it. A list tells us in advance how long the text will be, so we know exactly what we are letting ourselves in {{4}}. Numbered items also give us a pleasant sense of progress {{5}} we move from one point to the next. Psychologists point out, however, that lists can oversimplify complex issues. {{6}} matter how carefully it is compiled, a top-ten ranking rarely reflects reality. Readers often treat the order as if it {{7}} based on objective criteria, when in fact it may reflect little more than the author's taste. Nevertheless, lists are unlikely to go out of fashion any time {{8}}.",
+  "gaps": [
+    {
+      "n": 1,
+      "accept": [
+        "ARE"
+      ],
+      "explanation": "Pytanie: why are they so appealing?"
+    },
+    {
+      "n": 2,
+      "accept": [
+        "IN"
+      ],
+      "explanation": "Lie in = tkwić w, polegać na."
+    },
+    {
+      "n": 3,
+      "accept": [
+        "WITH"
+      ],
+      "explanation": "Faced with = w obliczu."
+    },
+    {
+      "n": 4,
+      "accept": [
+        "FOR"
+      ],
+      "explanation": "Let yourself in for = pakować się w coś."
+    },
+    {
+      "n": 5,
+      "accept": [
+        "AS"
+      ],
+      "explanation": "As = w miarę jak."
+    },
+    {
+      "n": 6,
+      "accept": [
+        "NO"
+      ],
+      "explanation": "No matter how = bez względu na to, jak."
+    },
+    {
+      "n": 7,
+      "accept": [
+        "WERE",
+        "WAS"
+      ],
+      "explanation": "As if + forma przeszła (nierzeczywistość): as if it were."
+    },
+    {
+      "n": 8,
+      "accept": [
+        "SOON"
+      ],
+      "explanation": "Any time soon = w najbliższym czasie."
+    }
+  ]
+}

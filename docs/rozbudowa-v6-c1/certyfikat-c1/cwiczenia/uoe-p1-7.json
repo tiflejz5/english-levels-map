@@ -1,0 +1,99 @@
+{
+  "id": "uoe-p1-7",
+  "part": 1,
+  "type": "multiple-choice-cloze",
+  "title": "The ethics of zoos",
+  "instructions": "Wybierz słowo (A, B, C lub D), które najlepiej pasuje do luki. Każda luka to 1 punkt.",
+  "maxScore": 8,
+  "text": "Few institutions divide public opinion quite as {{1}} as zoos. Supporters argue that modern zoos play a {{2}} role in protecting endangered species, many of which would otherwise have {{3}} out long ago. Breeding programmes have, for example, {{4}} the Arabian oryx back from the brink. Critics, however, remain {{5}} that keeping wild animals in captivity can ever be justified. They point to animals {{6}} repetitive behaviour, such as pacing up and down, as evidence of stress. Zoos have responded by building larger, more natural enclosures, but for many campaigners this does not go far {{7}}. The debate is unlikely to be {{8}} any time soon.",
+  "gaps": [
+    {
+      "n": 1,
+      "options": {
+        "A": "steeply",
+        "B": "abruptly",
+        "C": "severely",
+        "D": "sharply"
+      },
+      "answer": "D",
+      "explanation": "Divide opinion sharply = ostro dzielić opinię. Steeply łączy się ze wzrostem i spadkiem (rise steeply)."
+    },
+    {
+      "n": 2,
+      "options": {
+        "A": "vital",
+        "B": "lively",
+        "C": "living",
+        "D": "vivid"
+      },
+      "answer": "A",
+      "explanation": "Play a vital role = odgrywać kluczową rolę."
+    },
+    {
+      "n": 3,
+      "options": {
+        "A": "passed",
+        "B": "gone",
+        "C": "died",
+        "D": "faded"
+      },
+      "answer": "C",
+      "explanation": "Die out = wyginąć (o gatunkach)."
+    },
+    {
+      "n": 4,
+      "options": {
+        "A": "carried",
+        "B": "brought",
+        "C": "taken",
+        "D": "fetched"
+      },
+      "answer": "B",
+      "explanation": "Bring something back from the brink = uratować coś w ostatniej chwili."
+    },
+    {
+      "n": 5,
+      "options": {
+        "A": "unbelieving",
+        "B": "discredited",
+        "C": "disputed",
+        "D": "unconvinced"
+      },
+      "answer": "D",
+      "explanation": "Remain unconvinced that = nadal nie być przekonanym, że."
+    },
+    {
+      "n": 6,
+      "options": {
+        "A": "appearing",
+        "B": "displaying",
+        "C": "exposing",
+        "D": "featuring"
+      },
+      "answer": "B",
+      "explanation": "Display behaviour = przejawiać zachowanie."
+    },
+    {
+      "n": 7,
+      "options": {
+        "A": "sufficient",
+        "B": "ample",
+        "C": "enough",
+        "D": "plenty"
+      },
+      "answer": "C",
+      "explanation": "Not go far enough = być niewystarczającym. Stałe wyrażenie z enough."
+    },
+    {
+      "n": 8,
+      "options": {
+        "A": "settled",
+        "B": "stilled",
+        "C": "calmed",
+        "D": "cured"
+      },
+      "answer": "A",
+      "explanation": "Settle a debate = rozstrzygnąć spór."
+    }
+  ]
+}

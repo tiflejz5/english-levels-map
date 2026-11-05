@@ -1,0 +1,99 @@
+{
+  "id": "uoe-p1-8",
+  "part": 1,
+  "type": "multiple-choice-cloze",
+  "title": "Why we travel",
+  "instructions": "Wybierz słowo (A, B, C lub D), które najlepiej pasuje do luki. Każda luka to 1 punkt.",
+  "maxScore": 8,
+  "text": "For most of human history, travel was {{1}} out of necessity rather than for pleasure. Today, tourism is one of the world's largest industries, and millions of people {{2}} off on holiday every year. But what {{3}} us to leave the comfort of home? For some, it is the chance to {{4}} new cultures at first hand. Others simply want to {{5}} away from the pressures of everyday life. Psychologists suggest that travel can also broaden the mind, {{6}} we are open to unfamiliar ideas. Yet the {{7}} growth of mass tourism has its downside. Residents of popular destinations increasingly complain that their cities have been {{8}} by visitors.",
+  "gaps": [
+    {
+      "n": 1,
+      "options": {
+        "A": "overtaken",
+        "B": "taken over",
+        "C": "undertaken",
+        "D": "undergone"
+      },
+      "answer": "C",
+      "explanation": "Undertake a journey = podjąć podróż. Undergo dotyczy np. operacji lub zmian."
+    },
+    {
+      "n": 2,
+      "options": {
+        "A": "get",
+        "B": "set",
+        "C": "put",
+        "D": "take"
+      },
+      "answer": "B",
+      "explanation": "Set off = wyruszyć."
+    },
+    {
+      "n": 3,
+      "options": {
+        "A": "drives",
+        "B": "rides",
+        "C": "steers",
+        "D": "pilots"
+      },
+      "answer": "A",
+      "explanation": "What drives us to do something = co nas skłania do."
+    },
+    {
+      "n": 4,
+      "options": {
+        "A": "practise",
+        "B": "attempt",
+        "C": "undergo",
+        "D": "experience"
+      },
+      "answer": "D",
+      "explanation": "Experience a culture at first hand = poznać kulturę z pierwszej ręki."
+    },
+    {
+      "n": 5,
+      "options": {
+        "A": "get",
+        "B": "come",
+        "C": "put",
+        "D": "take"
+      },
+      "answer": "A",
+      "explanation": "Get away from = uciec od, oderwać się od."
+    },
+    {
+      "n": 6,
+      "options": {
+        "A": "unless",
+        "B": "provided",
+        "C": "whereas",
+        "D": "despite"
+      },
+      "answer": "B",
+      "explanation": "Provided (that) = pod warunkiem, że. Sens: podróż poszerza horyzonty, jeśli jesteśmy otwarci."
+    },
+    {
+      "n": 7,
+      "options": {
+        "A": "hasty",
+        "B": "hurried",
+        "C": "rapid",
+        "D": "prompt"
+      },
+      "answer": "C",
+      "explanation": "Rapid growth = szybki wzrost. Hasty i hurried oznaczają pośpiech w działaniu."
+    },
+    {
+      "n": 8,
+      "options": {
+        "A": "overtaken",
+        "B": "overcome",
+        "C": "overdone",
+        "D": "overrun"
+      },
+      "answer": "D",
+      "explanation": "Be overrun by = być opanowanym, zalanym przez (tłumy)."
+    }
+  ]
+}

@@ -1,0 +1,114 @@
+{
+  "id": "uoe-p4-wyrazenia-idiomatyczne",
+  "part": 4,
+  "type": "transformation",
+  "title": "Wyrażenia idiomatyczne",
+  "focus": "In charge of, take into account, at a loss for, out of the question, make sense of, on the verge of",
+  "instructions": "Uzupełnij drugie zdanie tak, żeby znaczyło to samo co pierwsze. Użyj podanego słowa bez zmieniania go. Wpisz od 3 do 6 słów, łącznie ze słowem kluczowym (skróty typu doesn't liczą się jako dwa słowa). Każda odpowiedź jest warta 2 punkty – po 1 za każdą część.",
+  "maxScore": 12,
+  "items": [
+    {
+      "n": 1,
+      "first": "The manager has been responsible for the project since March.",
+      "keyword": "CHARGE",
+      "before": "The manager",
+      "after": "the project since March.",
+      "parts": [
+        [
+          "HAS BEEN"
+        ],
+        [
+          "IN CHARGE OF"
+        ]
+      ],
+      "model": "HAS BEEN IN CHARGE OF",
+      "explanation": "Be in charge of = odpowiadać za. Present Perfect z since."
+    },
+    {
+      "n": 2,
+      "first": "You should consider the cost before you decide.",
+      "keyword": "ACCOUNT",
+      "before": "You should take",
+      "after": "before you decide.",
+      "parts": [
+        [
+          "THE COST"
+        ],
+        [
+          "INTO ACCOUNT"
+        ]
+      ],
+      "model": "THE COST INTO ACCOUNT",
+      "explanation": "Take something into account = wziąć coś pod uwagę. Akceptowane też: into account the cost."
+    },
+    {
+      "n": 3,
+      "first": "I didn't know what to say when she asked me.",
+      "keyword": "LOSS",
+      "before": "I",
+      "after": "words when she asked me.",
+      "parts": [
+        [
+          "WAS"
+        ],
+        [
+          "AT A LOSS FOR"
+        ]
+      ],
+      "model": "WAS AT A LOSS FOR",
+      "explanation": "Be at a loss for words = nie wiedzieć, co powiedzieć."
+    },
+    {
+      "n": 4,
+      "first": "There's no way you can borrow money from him.",
+      "keyword": "QUESTION",
+      "before": "Borrowing money from him",
+      "after": ".",
+      "parts": [
+        [
+          "IS OUT OF"
+        ],
+        [
+          "THE QUESTION"
+        ]
+      ],
+      "model": "IS OUT OF THE QUESTION",
+      "explanation": "Out of the question = wykluczone."
+    },
+    {
+      "n": 5,
+      "first": "His explanation was impossible to understand.",
+      "keyword": "SENSE",
+      "before": "I couldn't",
+      "after": "his explanation.",
+      "parts": [
+        [
+          "MAKE ANY",
+          "MAKE"
+        ],
+        [
+          "SENSE OF"
+        ]
+      ],
+      "model": "MAKE ANY SENSE OF",
+      "explanation": "Make sense of = zrozumieć, połapać się w."
+    },
+    {
+      "n": 6,
+      "first": "The company is about to go bankrupt.",
+      "keyword": "VERGE",
+      "before": "The company is",
+      "after": "bankruptcy.",
+      "parts": [
+        [
+          "ON THE"
+        ],
+        [
+          "VERGE OF"
+        ]
+      ],
+      "model": "ON THE VERGE OF",
+      "explanation": "On the verge of = na skraju."
+    }
+  ]
+}
