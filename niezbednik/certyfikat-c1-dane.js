@@ -121,6 +121,18 @@ window.ELM.C1 = {
         "file": "cwiczenia/uoe-p4-spojniki-przyczyna.json",
         "label": "Spójniki, przyczyna i przeciwieństwo",
         "maxScore": 12
+       },
+       {
+        "id": "uoe-p4-wyrazenia-idiomatyczne",
+        "file": "cwiczenia/uoe-p4-wyrazenia-idiomatyczne.json",
+        "label": "Wyrażenia idiomatyczne",
+        "maxScore": 12
+       },
+       {
+        "id": "uoe-p4-czas-nierzeczywisty",
+        "file": "cwiczenia/uoe-p4-czas-nierzeczywisty.json",
+        "label": "Czas nierzeczywisty i preferencje",
+        "maxScore": 12
        }
       ]
      },
@@ -168,6 +180,18 @@ window.ELM.C1 = {
         "id": "uoe-p3-7",
         "file": "cwiczenia/uoe-p3-7.json",
         "label": "A short history of coffee",
+        "maxScore": 8
+       },
+       {
+        "id": "uoe-p3-8",
+        "file": "cwiczenia/uoe-p3-8.json",
+        "label": "Citizen science",
+        "maxScore": 8
+       },
+       {
+        "id": "uoe-p3-9",
+        "file": "cwiczenia/uoe-p3-9.json",
+        "label": "Fast fashion",
         "maxScore": 8
        }
       ]
@@ -217,6 +241,18 @@ window.ELM.C1 = {
         "file": "cwiczenia/uoe-p2-7.json",
         "label": "The case for boredom",
         "maxScore": 8
+       },
+       {
+        "id": "uoe-p2-8",
+        "file": "cwiczenia/uoe-p2-8.json",
+        "label": "The lost art of letter writing",
+        "maxScore": 8
+       },
+       {
+        "id": "uoe-p2-9",
+        "file": "cwiczenia/uoe-p2-9.json",
+        "label": "Why we love lists",
+        "maxScore": 8
        }
       ]
      },
@@ -258,6 +294,18 @@ window.ELM.C1 = {
         "id": "uoe-p1-6",
         "file": "cwiczenia/uoe-p1-6.json",
         "label": "Learning from failure",
+        "maxScore": 8
+       },
+       {
+        "id": "uoe-p1-7",
+        "file": "cwiczenia/uoe-p1-7.json",
+        "label": "The ethics of zoos",
+        "maxScore": 8
+       },
+       {
+        "id": "uoe-p1-8",
+        "file": "cwiczenia/uoe-p1-8.json",
+        "label": "Why we travel",
         "maxScore": 8
        }
       ]
@@ -1641,6 +1689,238 @@ window.ELM.C1 = {
     }
    ]
   },
+  "uoe-p4-wyrazenia-idiomatyczne": {
+   "id": "uoe-p4-wyrazenia-idiomatyczne",
+   "part": 4,
+   "type": "transformation",
+   "title": "Wyrażenia idiomatyczne",
+   "focus": "In charge of, take into account, at a loss for, out of the question, make sense of, on the verge of",
+   "instructions": "Uzupełnij drugie zdanie tak, żeby znaczyło to samo co pierwsze. Użyj podanego słowa bez zmieniania go. Wpisz od 3 do 6 słów, łącznie ze słowem kluczowym (skróty typu doesn't liczą się jako dwa słowa). Każda odpowiedź jest warta 2 punkty – po 1 za każdą część.",
+   "maxScore": 12,
+   "items": [
+    {
+     "n": 1,
+     "first": "The manager has been responsible for the project since March.",
+     "keyword": "CHARGE",
+     "before": "The manager",
+     "after": "the project since March.",
+     "parts": [
+      [
+       "HAS BEEN"
+      ],
+      [
+       "IN CHARGE OF"
+      ]
+     ],
+     "model": "HAS BEEN IN CHARGE OF",
+     "explanation": "Be in charge of = odpowiadać za. Present Perfect z since."
+    },
+    {
+     "n": 2,
+     "first": "You should consider the cost before you decide.",
+     "keyword": "ACCOUNT",
+     "before": "You should take",
+     "after": "before you decide.",
+     "parts": [
+      [
+       "THE COST"
+      ],
+      [
+       "INTO ACCOUNT"
+      ]
+     ],
+     "model": "THE COST INTO ACCOUNT",
+     "explanation": "Take something into account = wziąć coś pod uwagę. Akceptowane też: into account the cost."
+    },
+    {
+     "n": 3,
+     "first": "I didn't know what to say when she asked me.",
+     "keyword": "LOSS",
+     "before": "I",
+     "after": "words when she asked me.",
+     "parts": [
+      [
+       "WAS"
+      ],
+      [
+       "AT A LOSS FOR"
+      ]
+     ],
+     "model": "WAS AT A LOSS FOR",
+     "explanation": "Be at a loss for words = nie wiedzieć, co powiedzieć."
+    },
+    {
+     "n": 4,
+     "first": "There's no way you can borrow money from him.",
+     "keyword": "QUESTION",
+     "before": "Borrowing money from him",
+     "after": ".",
+     "parts": [
+      [
+       "IS OUT OF"
+      ],
+      [
+       "THE QUESTION"
+      ]
+     ],
+     "model": "IS OUT OF THE QUESTION",
+     "explanation": "Out of the question = wykluczone."
+    },
+    {
+     "n": 5,
+     "first": "His explanation was impossible to understand.",
+     "keyword": "SENSE",
+     "before": "I couldn't",
+     "after": "his explanation.",
+     "parts": [
+      [
+       "MAKE ANY",
+       "MAKE"
+      ],
+      [
+       "SENSE OF"
+      ]
+     ],
+     "model": "MAKE ANY SENSE OF",
+     "explanation": "Make sense of = zrozumieć, połapać się w."
+    },
+    {
+     "n": 6,
+     "first": "The company is about to go bankrupt.",
+     "keyword": "VERGE",
+     "before": "The company is",
+     "after": "bankruptcy.",
+     "parts": [
+      [
+       "ON THE"
+      ],
+      [
+       "VERGE OF"
+      ]
+     ],
+     "model": "ON THE VERGE OF",
+     "explanation": "On the verge of = na skraju."
+    }
+   ]
+  },
+  "uoe-p4-czas-nierzeczywisty": {
+   "id": "uoe-p4-czas-nierzeczywisty",
+   "part": 4,
+   "type": "transformation",
+   "title": "Czas nierzeczywisty i preferencje",
+   "focus": "It's time, would rather, as if, supposing, haven't… for, never… before",
+   "instructions": "Uzupełnij drugie zdanie tak, żeby znaczyło to samo co pierwsze. Użyj podanego słowa bez zmieniania go. Wpisz od 3 do 6 słów, łącznie ze słowem kluczowym (skróty typu doesn't liczą się jako dwa słowa). Każda odpowiedź jest warta 2 punkty – po 1 za każdą część.",
+   "maxScore": 12,
+   "items": [
+    {
+     "n": 1,
+     "first": "You should start revising for your exams now.",
+     "keyword": "TIME",
+     "before": "It's",
+     "after": "revising for your exams.",
+     "parts": [
+      [
+       "TIME YOU",
+       "HIGH TIME YOU"
+      ],
+      [
+       "STARTED"
+      ]
+     ],
+     "model": "TIME YOU STARTED",
+     "explanation": "It's (high) time + podmiot + czas przeszły = najwyższy czas, żeby."
+    },
+    {
+     "n": 2,
+     "first": "I'd prefer you not to tell anyone about this.",
+     "keyword": "RATHER",
+     "before": "I'd",
+     "after": "anyone about this.",
+     "parts": [
+      [
+       "RATHER YOU"
+      ],
+      [
+       "DIDN'T TELL",
+       "DID NOT TELL"
+      ]
+     ],
+     "model": "RATHER YOU DIDN'T TELL",
+     "explanation": "Would rather + podmiot + czas przeszły. Didn't liczy się jako dwa słowa."
+    },
+    {
+     "n": 3,
+     "first": "He talks as though he knows everything, but he doesn't.",
+     "keyword": "IF",
+     "before": "He talks",
+     "after": "everything.",
+     "parts": [
+      [
+       "AS IF"
+      ],
+      [
+       "HE KNEW",
+       "HE KNOWS"
+      ]
+     ],
+     "model": "AS IF HE KNEW",
+     "explanation": "As if + czas przeszły podkreśla nierzeczywistość. Forma he knows też jest poprawna."
+    },
+    {
+     "n": 4,
+     "first": "What would you do if you lost your job?",
+     "keyword": "SUPPOSING",
+     "before": "What would you do,",
+     "after": "your job?",
+     "parts": [
+      [
+       "SUPPOSING"
+      ],
+      [
+       "YOU LOST",
+       "YOU WERE TO LOSE"
+      ]
+     ],
+     "model": "SUPPOSING YOU LOST",
+     "explanation": "Supposing = przypuśćmy, że. Po nim czas przeszły dla sytuacji hipotetycznej."
+    },
+    {
+     "n": 5,
+     "first": "I last saw Tom three years ago.",
+     "keyword": "SEEN",
+     "before": "I",
+     "after": "three years.",
+     "parts": [
+      [
+       "HAVEN'T SEEN",
+       "HAVE NOT SEEN"
+      ],
+      [
+       "TOM FOR"
+      ]
+     ],
+     "model": "HAVEN'T SEEN TOM FOR",
+     "explanation": "Last… ago → haven't… for. Haven't liczy się jako dwa słowa."
+    },
+    {
+     "n": 6,
+     "first": "It's the first time I have eaten sushi.",
+     "keyword": "NEVER",
+     "before": "I",
+     "after": "sushi before.",
+     "parts": [
+      [
+       "HAVE NEVER"
+      ],
+      [
+       "EATEN"
+      ]
+     ],
+     "model": "HAVE NEVER EATEN",
+     "explanation": "It's the first time… → I have never… before."
+    }
+   ]
+  },
   "uoe-p3-1": {
    "id": "uoe-p3-1",
    "part": 3,
@@ -2172,6 +2452,157 @@ window.ELM.C1 = {
     }
    ]
   },
+  "uoe-p3-8": {
+   "id": "uoe-p3-8",
+   "part": 3,
+   "type": "word-formation",
+   "title": "Citizen science",
+   "instructions": "Utwórz od słowa podanego przy luce słowo, które pasuje do luki. Uważaj na przedrostki, liczbę mnogą i pisownię. Każda luka to 1 punkt.",
+   "maxScore": 8,
+   "text": "In recent years, ordinary people have made a remarkable {{1}} to scientific research. Through so-called citizen science projects, {{2}} with no formal training count birds, classify galaxies or record the weather. The data they collect would be {{3}} expensive to gather in any other way. Scientists were initially {{4}} about the quality of such data, but studies have shown that, with clear instructions, amateurs can be surprisingly {{5}}. Participants, for their part, report a deeper {{6}} of how science works. Some projects have even led to genuine {{7}}, such as the identification of new planets. Critics warn, however, that volunteers should not be used as a cheap {{8}} for professional researchers.",
+   "gaps": [
+    {
+     "n": 1,
+     "stem": "CONTRIBUTE",
+     "accept": [
+      "CONTRIBUTION"
+     ],
+     "explanation": "Make a contribution to = wnieść wkład w."
+    },
+    {
+     "n": 2,
+     "stem": "ENTHUSIASM",
+     "accept": [
+      "ENTHUSIASTS"
+     ],
+     "explanation": "Rzeczownik osobowy, liczba mnoga: enthusiasts."
+    },
+    {
+     "n": 3,
+     "stem": "PROHIBIT",
+     "accept": [
+      "PROHIBITIVELY"
+     ],
+     "explanation": "Przysłówek przed przymiotnikiem: prohibitively expensive = zaporowo drogi."
+    },
+    {
+     "n": 4,
+     "stem": "DOUBT",
+     "accept": [
+      "DOUBTFUL"
+     ],
+     "explanation": "Przymiotnik po be: doubtful about."
+    },
+    {
+     "n": 5,
+     "stem": "RELY",
+     "accept": [
+      "RELIABLE"
+     ],
+     "explanation": "Przymiotnik po be: reliable = wiarygodny."
+    },
+    {
+     "n": 6,
+     "stem": "UNDERSTAND",
+     "accept": [
+      "UNDERSTANDING"
+     ],
+     "explanation": "Rzeczownik po a deeper: understanding of."
+    },
+    {
+     "n": 7,
+     "stem": "DISCOVER",
+     "accept": [
+      "DISCOVERIES"
+     ],
+     "explanation": "Rzeczownik w liczbie mnogiej po genuine (bez przedimka)."
+    },
+    {
+     "n": 8,
+     "stem": "REPLACE",
+     "accept": [
+      "REPLACEMENT",
+      "REPLACEMENTS"
+     ],
+     "explanation": "Rzeczownik po a cheap: replacement for."
+    }
+   ]
+  },
+  "uoe-p3-9": {
+   "id": "uoe-p3-9",
+   "part": 3,
+   "type": "word-formation",
+   "title": "Fast fashion",
+   "instructions": "Utwórz od słowa podanego przy luce słowo, które pasuje do luki. Uważaj na przedrostki, liczbę mnogą i pisownię. Każda luka to 1 punkt.",
+   "maxScore": 8,
+   "text": "Clothes have never been cheaper or more {{1}} available. Fast-fashion brands release new collections every few weeks, encouraging {{2}} to buy far more than they need. The {{3}} cost of this model, however, is enormous. The industry is responsible for a {{4}} share of global carbon emissions, and working conditions in many factories remain {{5}}. {{6}}, a growing number of shoppers are changing their habits. Second-hand platforms and clothing rental services have seen a sharp rise in {{7}}, and some brands now promise to make their production more {{8}}.",
+   "gaps": [
+    {
+     "n": 1,
+     "stem": "READY",
+     "accept": [
+      "READILY"
+     ],
+     "explanation": "Przysłówek przed available: readily available = łatwo dostępny."
+    },
+    {
+     "n": 2,
+     "stem": "CONSUME",
+     "accept": [
+      "CONSUMERS"
+     ],
+     "explanation": "Rzeczownik osobowy w liczbie mnogiej."
+    },
+    {
+     "n": 3,
+     "stem": "ECOLOGY",
+     "accept": [
+      "ECOLOGICAL"
+     ],
+     "explanation": "Przymiotnik przed cost."
+    },
+    {
+     "n": 4,
+     "stem": "SIGNIFY",
+     "accept": [
+      "SIGNIFICANT"
+     ],
+     "explanation": "Przymiotnik przed share: a significant share."
+    },
+    {
+     "n": 5,
+     "stem": "ACCEPT",
+     "accept": [
+      "UNACCEPTABLE"
+     ],
+     "explanation": "Przymiotnik przeczący: conditions remain unacceptable."
+    },
+    {
+     "n": 6,
+     "stem": "ENCOURAGE",
+     "accept": [
+      "ENCOURAGINGLY"
+     ],
+     "explanation": "Przysłówek zdaniowy na początku: Encouragingly, = co napawa optymizmem."
+    },
+    {
+     "n": 7,
+     "stem": "POPULAR",
+     "accept": [
+      "POPULARITY"
+     ],
+     "explanation": "Rzeczownik po rise in."
+    },
+    {
+     "n": 8,
+     "stem": "SUSTAIN",
+     "accept": [
+      "SUSTAINABLE"
+     ],
+     "explanation": "Przymiotnik po more: more sustainable."
+    }
+   ]
+  },
   "uoe-p2-1": {
    "id": "uoe-p2-1",
    "part": 2,
@@ -2653,6 +3084,144 @@ window.ELM.C1 = {
       "AN"
      ],
      "explanation": "An unexpected source = nieoczekiwane źródło."
+    }
+   ]
+  },
+  "uoe-p2-8": {
+   "id": "uoe-p2-8",
+   "part": 2,
+   "type": "open-cloze",
+   "title": "The lost art of letter writing",
+   "instructions": "Wpisz w każdą lukę dokładnie jedno słowo. Skróty typu don't liczą się jako dwa słowa, więc nie są poprawną odpowiedzią. Każda luka to 1 punkt.",
+   "maxScore": 8,
+   "text": "There was a time {{1}} people wrote letters as a matter of course. Today, most of us would struggle to remember the last time we put pen {{2}} paper. {{3}} is not to say that we communicate less; on the contrary, we send more messages than ever. But the speed of email and instant messaging has come {{4}} a price. Messages are typed in a hurry and forgotten almost as quickly {{5}} they are read. A handwritten letter, by contrast, requires time and care, which is precisely {{6}} it is valued so highly by those who receive one. Historians, too, have reason to worry. Much of what we know about the past comes from private correspondence, {{7}} of which survives in archives. Future researchers may find {{8}} difficult to piece together our lives from deleted chats.",
+   "gaps": [
+    {
+     "n": 1,
+     "accept": [
+      "WHEN"
+     ],
+     "explanation": "There was a time when = był czas, kiedy."
+    },
+    {
+     "n": 2,
+     "accept": [
+      "TO"
+     ],
+     "explanation": "Put pen to paper = zacząć pisać (odręcznie)."
+    },
+    {
+     "n": 3,
+     "accept": [
+      "THIS",
+      "THAT"
+     ],
+     "explanation": "This is not to say that = nie oznacza to, że."
+    },
+    {
+     "n": 4,
+     "accept": [
+      "AT"
+     ],
+     "explanation": "Come at a price = mieć swoją cenę."
+    },
+    {
+     "n": 5,
+     "accept": [
+      "AS"
+     ],
+     "explanation": "As quickly as = tak szybko, jak."
+    },
+    {
+     "n": 6,
+     "accept": [
+      "WHY"
+     ],
+     "explanation": "Which is precisely why = i właśnie dlatego."
+    },
+    {
+     "n": 7,
+     "accept": [
+      "MUCH",
+      "SOME",
+      "MOST"
+     ],
+     "explanation": "Much of which = której duża część (zdanie względne)."
+    },
+    {
+     "n": 8,
+     "accept": [
+      "IT"
+     ],
+     "explanation": "Find it difficult to = mieć trudność z. It to podmiot formalny."
+    }
+   ]
+  },
+  "uoe-p2-9": {
+   "id": "uoe-p2-9",
+   "part": 2,
+   "type": "open-cloze",
+   "title": "Why we love lists",
+   "instructions": "Wpisz w każdą lukę dokładnie jedno słowo. Skróty typu don't liczą się jako dwa słowa, więc nie są poprawną odpowiedzią. Każda luka to 1 punkt.",
+   "maxScore": 8,
+   "text": "Whether it is the ten best beaches in Europe or the books you must read before you die, lists are everywhere. But why {{1}} they so appealing? Part of the answer lies {{2}} the way our brains handle information. Faced {{3}} an overwhelming amount of content, we welcome anything that promises to organise it. A list tells us in advance how long the text will be, so we know exactly what we are letting ourselves in {{4}}. Numbered items also give us a pleasant sense of progress {{5}} we move from one point to the next. Psychologists point out, however, that lists can oversimplify complex issues. {{6}} matter how carefully it is compiled, a top-ten ranking rarely reflects reality. Readers often treat the order as if it {{7}} based on objective criteria, when in fact it may reflect little more than the author's taste. Nevertheless, lists are unlikely to go out of fashion any time {{8}}.",
+   "gaps": [
+    {
+     "n": 1,
+     "accept": [
+      "ARE"
+     ],
+     "explanation": "Pytanie: why are they so appealing?"
+    },
+    {
+     "n": 2,
+     "accept": [
+      "IN"
+     ],
+     "explanation": "Lie in = tkwić w, polegać na."
+    },
+    {
+     "n": 3,
+     "accept": [
+      "WITH"
+     ],
+     "explanation": "Faced with = w obliczu."
+    },
+    {
+     "n": 4,
+     "accept": [
+      "FOR"
+     ],
+     "explanation": "Let yourself in for = pakować się w coś."
+    },
+    {
+     "n": 5,
+     "accept": [
+      "AS"
+     ],
+     "explanation": "As = w miarę jak."
+    },
+    {
+     "n": 6,
+     "accept": [
+      "NO"
+     ],
+     "explanation": "No matter how = bez względu na to, jak."
+    },
+    {
+     "n": 7,
+     "accept": [
+      "WERE",
+      "WAS"
+     ],
+     "explanation": "As if + forma przeszła (nierzeczywistość): as if it were."
+    },
+    {
+     "n": 8,
+     "accept": [
+      "SOON"
+     ],
+     "explanation": "Any time soon = w najbliższym czasie."
     }
    ]
   },
@@ -3247,6 +3816,204 @@ window.ELM.C1 = {
      },
      "answer": "B",
      "explanation": "Foster an atmosphere = pielęgnować atmosferę."
+    }
+   ]
+  },
+  "uoe-p1-7": {
+   "id": "uoe-p1-7",
+   "part": 1,
+   "type": "multiple-choice-cloze",
+   "title": "The ethics of zoos",
+   "instructions": "Wybierz słowo (A, B, C lub D), które najlepiej pasuje do luki. Każda luka to 1 punkt.",
+   "maxScore": 8,
+   "text": "Few institutions divide public opinion quite as {{1}} as zoos. Supporters argue that modern zoos play a {{2}} role in protecting endangered species, many of which would otherwise have {{3}} out long ago. Breeding programmes have, for example, {{4}} the Arabian oryx back from the brink. Critics, however, remain {{5}} that keeping wild animals in captivity can ever be justified. They point to animals {{6}} repetitive behaviour, such as pacing up and down, as evidence of stress. Zoos have responded by building larger, more natural enclosures, but for many campaigners this does not go far {{7}}. The debate is unlikely to be {{8}} any time soon.",
+   "gaps": [
+    {
+     "n": 1,
+     "options": {
+      "A": "steeply",
+      "B": "abruptly",
+      "C": "severely",
+      "D": "sharply"
+     },
+     "answer": "D",
+     "explanation": "Divide opinion sharply = ostro dzielić opinię. Steeply łączy się ze wzrostem i spadkiem (rise steeply)."
+    },
+    {
+     "n": 2,
+     "options": {
+      "A": "vital",
+      "B": "lively",
+      "C": "living",
+      "D": "vivid"
+     },
+     "answer": "A",
+     "explanation": "Play a vital role = odgrywać kluczową rolę."
+    },
+    {
+     "n": 3,
+     "options": {
+      "A": "passed",
+      "B": "gone",
+      "C": "died",
+      "D": "faded"
+     },
+     "answer": "C",
+     "explanation": "Die out = wyginąć (o gatunkach)."
+    },
+    {
+     "n": 4,
+     "options": {
+      "A": "carried",
+      "B": "brought",
+      "C": "taken",
+      "D": "fetched"
+     },
+     "answer": "B",
+     "explanation": "Bring something back from the brink = uratować coś w ostatniej chwili."
+    },
+    {
+     "n": 5,
+     "options": {
+      "A": "unbelieving",
+      "B": "discredited",
+      "C": "disputed",
+      "D": "unconvinced"
+     },
+     "answer": "D",
+     "explanation": "Remain unconvinced that = nadal nie być przekonanym, że."
+    },
+    {
+     "n": 6,
+     "options": {
+      "A": "appearing",
+      "B": "displaying",
+      "C": "exposing",
+      "D": "featuring"
+     },
+     "answer": "B",
+     "explanation": "Display behaviour = przejawiać zachowanie."
+    },
+    {
+     "n": 7,
+     "options": {
+      "A": "sufficient",
+      "B": "ample",
+      "C": "enough",
+      "D": "plenty"
+     },
+     "answer": "C",
+     "explanation": "Not go far enough = być niewystarczającym. Stałe wyrażenie z enough."
+    },
+    {
+     "n": 8,
+     "options": {
+      "A": "settled",
+      "B": "stilled",
+      "C": "calmed",
+      "D": "cured"
+     },
+     "answer": "A",
+     "explanation": "Settle a debate = rozstrzygnąć spór."
+    }
+   ]
+  },
+  "uoe-p1-8": {
+   "id": "uoe-p1-8",
+   "part": 1,
+   "type": "multiple-choice-cloze",
+   "title": "Why we travel",
+   "instructions": "Wybierz słowo (A, B, C lub D), które najlepiej pasuje do luki. Każda luka to 1 punkt.",
+   "maxScore": 8,
+   "text": "For most of human history, travel was {{1}} out of necessity rather than for pleasure. Today, tourism is one of the world's largest industries, and millions of people {{2}} off on holiday every year. But what {{3}} us to leave the comfort of home? For some, it is the chance to {{4}} new cultures at first hand. Others simply want to {{5}} away from the pressures of everyday life. Psychologists suggest that travel can also broaden the mind, {{6}} we are open to unfamiliar ideas. Yet the {{7}} growth of mass tourism has its downside. Residents of popular destinations increasingly complain that their cities have been {{8}} by visitors.",
+   "gaps": [
+    {
+     "n": 1,
+     "options": {
+      "A": "overtaken",
+      "B": "taken over",
+      "C": "undertaken",
+      "D": "undergone"
+     },
+     "answer": "C",
+     "explanation": "Undertake a journey = podjąć podróż. Undergo dotyczy np. operacji lub zmian."
+    },
+    {
+     "n": 2,
+     "options": {
+      "A": "get",
+      "B": "set",
+      "C": "put",
+      "D": "take"
+     },
+     "answer": "B",
+     "explanation": "Set off = wyruszyć."
+    },
+    {
+     "n": 3,
+     "options": {
+      "A": "drives",
+      "B": "rides",
+      "C": "steers",
+      "D": "pilots"
+     },
+     "answer": "A",
+     "explanation": "What drives us to do something = co nas skłania do."
+    },
+    {
+     "n": 4,
+     "options": {
+      "A": "practise",
+      "B": "attempt",
+      "C": "undergo",
+      "D": "experience"
+     },
+     "answer": "D",
+     "explanation": "Experience a culture at first hand = poznać kulturę z pierwszej ręki."
+    },
+    {
+     "n": 5,
+     "options": {
+      "A": "get",
+      "B": "come",
+      "C": "put",
+      "D": "take"
+     },
+     "answer": "A",
+     "explanation": "Get away from = uciec od, oderwać się od."
+    },
+    {
+     "n": 6,
+     "options": {
+      "A": "unless",
+      "B": "provided",
+      "C": "whereas",
+      "D": "despite"
+     },
+     "answer": "B",
+     "explanation": "Provided (that) = pod warunkiem, że. Sens: podróż poszerza horyzonty, jeśli jesteśmy otwarci."
+    },
+    {
+     "n": 7,
+     "options": {
+      "A": "hasty",
+      "B": "hurried",
+      "C": "rapid",
+      "D": "prompt"
+     },
+     "answer": "C",
+     "explanation": "Rapid growth = szybki wzrost. Hasty i hurried oznaczają pośpiech w działaniu."
+    },
+    {
+     "n": 8,
+     "options": {
+      "A": "overtaken",
+      "B": "overcome",
+      "C": "overdone",
+      "D": "overrun"
+     },
+     "answer": "D",
+     "explanation": "Be overrun by = być opanowanym, zalanym przez (tłumy)."
     }
    ]
   }
@@ -4112,7 +4879,8 @@ window.ELM.C1 = {
     ],
     "note": "I regret… → I wish I had… i It's a pity… → If only… pojawiają się regularnie w transformacjach.",
     "exercises": [
-     "uoe-p4-warunki"
+     "uoe-p4-warunki",
+     "uoe-p4-czas-nierzeczywisty"
     ]
    },
    {
@@ -4134,7 +4902,8 @@ window.ELM.C1 = {
     ],
     "note": "What I need is… i It was… who… pojawiają się w Part 4 i Part 2. W Speaking pomagają podkreślić opinię.",
     "exercises": [
-     "uoe-p4-inwersja-emfaza"
+     "uoe-p4-inwersja-emfaza",
+     "uoe-p2-8"
     ]
    },
    {
@@ -4222,7 +4991,9 @@ window.ELM.C1 = {
      "uoe-p1-1",
      "uoe-p3-5",
      "uoe-p3-6",
-     "uoe-p1-5"
+     "uoe-p1-5",
+     "uoe-p3-8",
+     "uoe-p3-9"
     ]
    },
    {
@@ -4238,7 +5009,10 @@ window.ELM.C1 = {
      "uoe-p1-4",
      "uoe-p1-6",
      "uoe-p3-7",
-     "uoe-p4-czasowniki-frazowe"
+     "uoe-p4-czasowniki-frazowe",
+     "uoe-p1-7",
+     "uoe-p1-8",
+     "uoe-p4-wyrazenia-idiomatyczne"
     ]
    },
    {
@@ -4265,7 +5039,9 @@ window.ELM.C1 = {
      "Reading – Part 7"
     ],
     "note": "Markery dyskursu porządkują tekst w Writing i są wskazówkami przy wstawianiu akapitów w Reading Part 7.",
-    "exercises": []
+    "exercises": [
+     "uoe-p2-9"
+    ]
    },
    {
     "itemId": "c1-funkcje-parafrazowanie",

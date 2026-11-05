@@ -1,0 +1,118 @@
+{
+  "id": "uoe-p4-czas-nierzeczywisty",
+  "part": 4,
+  "type": "transformation",
+  "title": "Czas nierzeczywisty i preferencje",
+  "focus": "It's time, would rather, as if, supposing, haven't… for, never… before",
+  "instructions": "Uzupełnij drugie zdanie tak, żeby znaczyło to samo co pierwsze. Użyj podanego słowa bez zmieniania go. Wpisz od 3 do 6 słów, łącznie ze słowem kluczowym (skróty typu doesn't liczą się jako dwa słowa). Każda odpowiedź jest warta 2 punkty – po 1 za każdą część.",
+  "maxScore": 12,
+  "items": [
+    {
+      "n": 1,
+      "first": "You should start revising for your exams now.",
+      "keyword": "TIME",
+      "before": "It's",
+      "after": "revising for your exams.",
+      "parts": [
+        [
+          "TIME YOU",
+          "HIGH TIME YOU"
+        ],
+        [
+          "STARTED"
+        ]
+      ],
+      "model": "TIME YOU STARTED",
+      "explanation": "It's (high) time + podmiot + czas przeszły = najwyższy czas, żeby."
+    },
+    {
+      "n": 2,
+      "first": "I'd prefer you not to tell anyone about this.",
+      "keyword": "RATHER",
+      "before": "I'd",
+      "after": "anyone about this.",
+      "parts": [
+        [
+          "RATHER YOU"
+        ],
+        [
+          "DIDN'T TELL",
+          "DID NOT TELL"
+        ]
+      ],
+      "model": "RATHER YOU DIDN'T TELL",
+      "explanation": "Would rather + podmiot + czas przeszły. Didn't liczy się jako dwa słowa."
+    },
+    {
+      "n": 3,
+      "first": "He talks as though he knows everything, but he doesn't.",
+      "keyword": "IF",
+      "before": "He talks",
+      "after": "everything.",
+      "parts": [
+        [
+          "AS IF"
+        ],
+        [
+          "HE KNEW",
+          "HE KNOWS"
+        ]
+      ],
+      "model": "AS IF HE KNEW",
+      "explanation": "As if + czas przeszły podkreśla nierzeczywistość. Forma he knows też jest poprawna."
+    },
+    {
+      "n": 4,
+      "first": "What would you do if you lost your job?",
+      "keyword": "SUPPOSING",
+      "before": "What would you do,",
+      "after": "your job?",
+      "parts": [
+        [
+          "SUPPOSING"
+        ],
+        [
+          "YOU LOST",
+          "YOU WERE TO LOSE"
+        ]
+      ],
+      "model": "SUPPOSING YOU LOST",
+      "explanation": "Supposing = przypuśćmy, że. Po nim czas przeszły dla sytuacji hipotetycznej."
+    },
+    {
+      "n": 5,
+      "first": "I last saw Tom three years ago.",
+      "keyword": "SEEN",
+      "before": "I",
+      "after": "three years.",
+      "parts": [
+        [
+          "HAVEN'T SEEN",
+          "HAVE NOT SEEN"
+        ],
+        [
+          "TOM FOR"
+        ]
+      ],
+      "model": "HAVEN'T SEEN TOM FOR",
+      "explanation": "Last… ago → haven't… for. Haven't liczy się jako dwa słowa."
+    },
+    {
+      "n": 6,
+      "first": "It's the first time I have eaten sushi.",
+      "keyword": "NEVER",
+      "before": "I",
+      "after": "sushi before.",
+      "parts": [
+        [
+          "HAVE NEVER"
+        ],
+        [
+          "EATEN"
+        ]
+      ],
+      "model": "HAVE NEVER EATEN",
+      "explanation": "It's the first time… → I have never… before."
+    }
+  ]
+}

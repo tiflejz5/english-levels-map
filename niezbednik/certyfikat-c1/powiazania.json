@@ -64,7 +64,8 @@
       ],
       "note": "I regret… → I wish I had… i It's a pity… → If only… pojawiają się regularnie w transformacjach.",
       "exercises": [
-        "uoe-p4-warunki"
+        "uoe-p4-warunki",
+        "uoe-p4-czas-nierzeczywisty"
       ]
     },
     {
@@ -86,7 +87,8 @@
       ],
       "note": "What I need is… i It was… who… pojawiają się w Part 4 i Part 2. W Speaking pomagają podkreślić opinię.",
       "exercises": [
-        "uoe-p4-inwersja-emfaza"
+        "uoe-p4-inwersja-emfaza",
+        "uoe-p2-8"
       ]
     },
     {
@@ -174,7 +176,9 @@
         "uoe-p1-1",
         "uoe-p3-5",
         "uoe-p3-6",
-        "uoe-p1-5"
+        "uoe-p1-5",
+        "uoe-p3-8",
+        "uoe-p3-9"
       ]
     },
     {
@@ -190,7 +194,10 @@
         "uoe-p1-4",
         "uoe-p1-6",
         "uoe-p3-7",
-        "uoe-p4-czasowniki-frazowe"
+        "uoe-p4-czasowniki-frazowe",
+        "uoe-p1-7",
+        "uoe-p1-8",
+        "uoe-p4-wyrazenia-idiomatyczne"
       ]
     },
     {
@@ -217,7 +224,9 @@
         "Reading – Part 7"
       ],
       "note": "Markery dyskursu porządkują tekst w Writing i są wskazówkami przy wstawianiu akapitów w Reading Part 7.",
-      "exercises": []
+      "exercises": [
+        "uoe-p2-9"
+      ]
     },
     {
       "itemId": "c1-funkcje-parafrazowanie",
