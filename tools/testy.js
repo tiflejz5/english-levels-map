@@ -1193,6 +1193,33 @@ test("sanitizeState: uszkodzone dane, nieznana wersja, zbyt długie pola, przyci
   assert.strictEqual(Object.keys(s.daily)[0], "2025-01-11");
 });
 
+console.log("\nTalia Certyfikat C1: jednorazowe włączenie (paczka C1 v6, spec 12)");
+test("fiszki-store: istniejący profil dostaje talię certyfikat-c1 raz; wyłączona nie wraca; nowy profil bez włączania", function () {
+  if (!global.addEventListener) global.addEventListener = function () {};
+  const storePath = path.join(__dirname, "..", "js", "fiszki-store.js");
+  require(storePath);
+  const key = global.ELM.fiszkiStore.keyOf("pc1");
+  const old = FL.sanitizeState({ version: 1, cards: { "kolokacje-001": { state: "review", ease: 2.5, interval: 5, due: 5, reps: 3 } }, settings: { enabledDecks: ["kolokacje"] } });
+  delete old.settings.c1DeckV6;
+  global.localStorage.setItem(key, JSON.stringify(old));
+  let st = global.ELM.fiszkiStore.load("pc1");
+  assert.deepStrictEqual(st.settings.enabledDecks, ["kolokacje", "certyfikat-c1"]);
+  assert.strictEqual(st.settings.c1DeckV6, true);
+  assert.strictEqual(st.cards["kolokacje-001"].reps, 3); // stan nauki bez zmian
+  // użytkownik wyłącza talię i zapisuje; ponowne wczytanie z localStorage jej nie włącza
+  st.settings.enabledDecks.splice(st.settings.enabledDecks.indexOf("certyfikat-c1"), 1);
+  global.ELM.fiszkiStore.save("pc1", true);
+  delete require.cache[require.resolve(storePath)];
+  require(storePath);
+  st = global.ELM.fiszkiStore.load("pc1");
+  assert.deepStrictEqual(st.settings.enabledDecks, ["kolokacje"]);
+  // profil bez zapisu: domyślne talie, bez certyfikat-c1, ale ze znacznikiem
+  const fresh = global.ELM.fiszkiStore.load("pnowy");
+  assert.ok(fresh.settings.enabledDecks.indexOf("certyfikat-c1") === -1);
+  assert.strictEqual(fresh.settings.c1DeckV6, true);
+  global.localStorage.removeItem(key);
+});
+
 console.log("\nUlubione zwroty: elm_phrases_v1 (paczka v6, spec 17)");
 test("elm_phrases_v1: klucz w KEYS, gwiazdka przełącza się per profil i zapisuje w localStorage", function () {
   assert.strictEqual(PD.KEYS.phrases, "elm_phrases_v1");
