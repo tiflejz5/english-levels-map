@@ -86,6 +86,18 @@ window.ELM = window.ELM || {};
       actions.push(el("button", { type: "button", class: "btn btn-secondary", onclick: function () { renameDeck(d); } }, ELM.ui.withIcon("pencil", "Zmień nazwę")));
       actions.push(el("button", { type: "button", class: "btn btn-danger", onclick: function () { deleteDeck(d); } }, ELM.ui.withIcon("trash", "Usuń talię")));
     }
+    // „Nauka teraz”: sesja z tej talii poza planem dnia (bez limitów; nowe, w nauce i zaległe karty)
+    const stats = L().deckStats(cards, st().cards, now());
+    const studyNow = stats.new + stats.learning + stats.due;
+    const study = studyNow
+      ? el("a", { class: "btn btn-primary", href: "#/powtorki/sesja?tylko=talia:" + deckId + "&poza=1" }, ELM.ui.withIcon("play", "Nauka teraz"))
+      : el("button", { type: "button", class: "btn btn-primary", disabled: true }, ELM.ui.withIcon("play", "Nauka teraz"));
+    view.appendChild(el("div", { class: "fc-study-now" }, [
+      study,
+      el("span", { class: "tool-note", text: studyNow
+        ? "Poza planem dnia, bez limitów: " + studyNow + " " + (studyNow === 1 ? "karta" : (studyNow % 10 >= 2 && studyNow % 10 <= 4 && (studyNow % 100 < 12 || studyNow % 100 > 14)) ? "karty" : "kart") + " (nowe, w nauce i zaległe)."
+        : "Nic do nauki teraz – pozostałe karty wrócą w swoich terminach." })
+    ]));
     view.appendChild(el("div", { class: "fc-actions" }, actions));
     view.appendChild(opts);
 
