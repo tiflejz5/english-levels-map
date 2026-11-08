@@ -379,11 +379,12 @@ window.ELM = window.ELM || {};
     const v = m ? decodeURIComponent(m[1]) : "";
     const mx = /[?&]max=(\d{1,3})/.exec(location.hash || "");
     const max = mx ? Number(mx[1]) : 0; // „Krótka sesja (10)”
+    const offPlan = /[?&]poza=1(&|$)/.test(location.hash || ""); // „Nauka teraz”: talia poza planem dnia
     if (v === "bledy") return { kind: "mistake", label: "Moje błędy", max: max };
     if (v === "slabe") return { kind: "exercise", label: "Słabe punkty", max: max };
     if (v === "talie") return { kind: "card", label: "Fiszki z talii", max: max };
     const d = /^talia:([a-z0-9-]+)$/.exec(v);
-    if (d) { const deck = deckById(d[1]); return { kind: "all", deck: d[1], label: deck ? deck.title : "Talia", max: max }; }
+    if (d) { const deck = deckById(d[1]); return { kind: "all", deck: d[1], label: deck ? deck.title : "Talia", max: max, offPlan: offPlan }; }
     return { kind: "all", label: max ? "Krótka sesja" : "", max: max };
   }
 
@@ -392,7 +393,9 @@ window.ELM = window.ELM || {};
     const ctx = ELM.reviews.ctx();
     ctx.extraNew = extraNew || 0;
     if (filter.deck) {
-      ctx.state = Object.assign({}, ctx.state, { settings: Object.assign({}, ctx.state.settings, { enabledDecks: [filter.deck] }) });
+      // „Nauka teraz” (offPlan): bez dziennych limitów nowych kart i powtórek, także dla talii wyłączonej z nauki.
+      const lim = filter.offPlan ? { newPerDay: 99999, reviewsPerDay: 99999 } : {};
+      ctx.state = Object.assign({}, ctx.state, { settings: Object.assign({}, ctx.state.settings, lim, { enabledDecks: [filter.deck] }) });
       ctx.weak = [];
     }
     const q = ELM.reviews.queueFrom(ctx, now()).filter(function (it) {
