@@ -99,10 +99,12 @@ window.ELM = window.ELM || {};
       type: "button",
       class: "btn btn-secondary btn-small c1-journal-btn",
       onclick: function () {
-        ELM.journal.openForm({ prefill: getPrefill() }).then(function (saved) {
-          if (!saved) return;
-          btn.replaceChildren.apply(btn, ELM.ui.withIcon("check", "Dodano do dziennika"));
-          btn.disabled = true;
+        ELM.app.withProfile("Dziennik błędów zapisuje się w profilu.", function () {
+          ELM.journal.openForm({ prefill: getPrefill() }).then(function (saved) {
+            if (!saved) return;
+            btn.replaceChildren.apply(btn, ELM.ui.withIcon("check", "Dodano do dziennika"));
+            btn.disabled = true;
+          });
         });
       }
     }, "Dodaj do dziennika błędów");

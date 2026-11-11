@@ -487,6 +487,15 @@ window.ELM = window.ELM || {};
     return !!getActiveProfile();
   }
 
+  /**
+   * Tryb gościa (spec v7 14, P1): wykonuje akcję zapisującą. Z profilem od razu; bez profilu pokazuje okno
+   * „Utwórz profil…” i wykonuje akcję po jego utworzeniu (strona zostaje ta sama). reason — dopisek w oknie.
+   */
+  function withProfile(reason, fn) {
+    if (getActiveProfile()) { fn(); return; }
+    ELM.profiles.requireProfile({ reason: reason }).then(function (ok) { if (ok) fn(); });
+  }
+
   /** Ustawia state.progress na postęp aktywnego profilu (bez profilu: pusty). */
   function syncProgress() {
     const active = getActiveProfile();
@@ -643,6 +652,8 @@ window.ELM = window.ELM || {};
     replaceProfiles: replaceProfiles,
     getActiveProfile: getActiveProfile,
     hasProfiles: hasProfiles,
+    withProfile: withProfile,
+    renderAll: renderAll,
     addProfile: addProfile,
     selectProfile: selectProfile,
     profilesChanged: profilesChanged,

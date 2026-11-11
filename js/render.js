@@ -188,10 +188,14 @@ window.ELM = window.ELM || {};
   // TREŚĆ POZIOMU (prawa część)
   // =====================================================================
 
+  /** Widoki, które pokazują dane profilu: bez profilu mają kartę powitalną zamiast treści. */
+  const PERSONAL_VIEWS = ["today", "powtorki", "journal", "fiszki", "stats", "notes", "leveltest", "szlak"];
+
   function renderMain(opts) {
     opts = opts || {};
-    // Bez żadnego profilu: ekran powitalny z „Dodaj profil” (na każdym adresie)
-    if (!app().hasProfiles()) return ELM.profiles.renderWelcome();
+    // Tryb gościa (spec v7 14, P1): treści publiczne działają bez profilu, a akcje zapisujące proszą o profil
+    // (ELM.profiles.requireProfile). Strony osobiste bez profilu pokazują kartę powitalną pod tym samym adresem.
+    if (!app().hasProfiles() && PERSONAL_VIEWS.indexOf(ELM.state.view) !== -1) return ELM.profiles.renderWelcome({ personal: true });
     // Strona główna, zakładka „Certyfikat C1” albo podstrona zamiast listy
     if (ELM.state.view === "home") return ELM.niezbednik.renderHome();
     if (ELM.state.view === "c1") return ELM.c1.render(ELM.state.c1Route);
@@ -307,6 +311,12 @@ window.ELM = window.ELM || {};
         checked: done,
         "aria-describedby": textId,
         onchange: function (e) {
+          if (!app().hasProfiles()) { // tryb gościa: najpierw profil, potem zaznaczenie (lista przerysuje się sama)
+            const input = e.target, on = input.checked;
+            input.checked = !on;
+            app().withProfile("Zaznaczenia „Umiem” zapisują się w profilu.", function () { app().setProgress(item.id, on); app().renderAll(); });
+            return;
+          }
           app().setProgress(item.id, e.target.checked);
           li.classList.toggle("is-done", e.target.checked);
           checkbox.classList.toggle("is-fresh", e.target.checked); // pieczątka „odbija się” tylko przy zaznaczeniu

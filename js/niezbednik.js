@@ -433,6 +433,12 @@ window.ELM = window.ELM || {};
         checked: done,
         "aria-label": "Umiem: " + essential.text,
         onchange: function (e) {
+          if (!ELM.app.hasProfiles()) { // tryb gościa: najpierw profil, potem zaznaczenie (strona przerysuje się sama)
+            const input = e.target, on = input.checked;
+            input.checked = !on;
+            ELM.app.withProfile("Zaznaczenia „Umiem” zapisują się w profilu.", function () { ELM.app.setProgress(essential.id, on); ELM.app.renderAll(); });
+            return;
+          }
           ELM.app.setProgress(essential.id, e.target.checked);
           label.classList.toggle("is-fresh", e.target.checked); // pieczątka „odbija się” tylko przy zaznaczeniu
         }

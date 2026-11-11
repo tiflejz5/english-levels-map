@@ -4256,3 +4256,8 @@ a.pw-row-label:hover { text-decoration: underline; }
 /* Lekcja: „Notatki” i „Umiem” jako para tej samej wysokości i promienia */
 .page-head :is(.notes-btn, .umiem) { min-height: 40px; border-radius: var(--radius-sm); }
 .page-head .umiem { padding: 4px 14px 4px 8px; }
+
+/* Tryb gościa (spec v7 14, P1): uwaga „bez profilu” i okno tworzenia profilu */
+.guest-note { margin: 0 0 14px; padding: 10px 14px; border: 1px dashed var(--line-strong); border-radius: var(--radius-sm); background: var(--surface-2); }
+.guest-note .btn { vertical-align: baseline; }
+.dialog-guest .field { margin-top: 6px; }

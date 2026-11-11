@@ -985,7 +985,7 @@ window.ELM = window.ELM || {};
 
   /** Formularz nowej karty z zaznaczonym tekstem jako przodem (dotychczasowe zachowanie, bez zmian). */
   function openFromSelection(text) {
-    if (!hasProfile()) { ELM.ui.toast({ text: "Dodaj profil, żeby zapisywać fiszki.", icon: "layers" }); return; }
+    if (!hasProfile()) { app().withProfile("Fiszki zapisują się w profilu.", function () { openFromSelection(text); }); return; }
     ELM.fiszkiBrowse.prefill({ type: "basic", front: text });
     const own = st().userDecks.filter(function (d) { return !d.system; });
     if (ELM.fiszkiWords) ELM.fiszkiWords.hideMenu();

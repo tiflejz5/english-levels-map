@@ -407,5 +407,18 @@ window.ELM = window.ELM || {};
   ELM.loadModule = loadModule;
   ELM.loadScript = loadScript; // dane ładowane na żądanie (np. ćwiczenia, Laboratorium czasów)
   ELM.reducedMotion = reducedMotion;
-  ELM.ui = { breadcrumbs: breadcrumbs, icon: icon, withIcon: withIcon, emptyState: emptyState, landIcon: landIcon, stamp: stamp, landLabel: landLabel, LANDS: LANDS, pageHead: pageHead, logo: logo, logoMark: logoMark, progressRing: progressRing, setRing: setRing, toast: toast, hideToast: hideToast };
+  /**
+   * Tryb gościa: uwaga „oglądasz bez profilu” z przyciskiem „Utwórz profil”. Zwraca null, gdy profil jest.
+   * what — co się nie zapisuje (np. „wyniki zadań”).
+   */
+  function guestNote(what) {
+    if (!ELM.app || !ELM.app.getActiveProfile || ELM.app.getActiveProfile()) return null;
+    const el = ELM.utils.el;
+    return el("p", { class: "tool-note guest-note", role: "note" }, [
+      "Oglądasz bez profilu, więc " + what + " się nie zapisują. ",
+      el("button", { type: "button", class: "btn btn-link btn-small", onclick: function () { ELM.app.withProfile("", function () { ELM.app.renderAll(); }); } }, "Utwórz profil")
+    ]);
+  }
+
+  ELM.ui = { guestNote: guestNote, breadcrumbs: breadcrumbs, icon: icon, withIcon: withIcon, emptyState: emptyState, landIcon: landIcon, stamp: stamp, landLabel: landLabel, LANDS: LANDS, pageHead: pageHead, logo: logo, logoMark: logoMark, progressRing: progressRing, setRing: setRing, toast: toast, hideToast: hideToast };
 })(window.ELM);

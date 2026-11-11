@@ -155,7 +155,7 @@ window.ELM = window.ELM || {};
       const starBtn = el("button", { type: "button", class: "btn btn-link btn-small zw-star" + (isStar ? " is-on" : ""), "aria-pressed": isStar ? "true" : "false",
         "aria-label": (isStar ? "Usuń z ulubionych: " : "Dodaj do ulubionych: ") + label,
         onclick: function () {
-          if (!hasProfile()) { say("Dodaj profil, żeby zapisywać ulubione zwroty."); return; }
+          if (!hasProfile()) { ELM.app.withProfile("Ulubione zwroty zapisują się w profilu.", function () { starBtn.click(); }); return; }
           pd().togglePhraseStar(p.id);
           paint(true);
           const again = root.querySelector('[data-pid="' + p.id + '"] .zw-star');
