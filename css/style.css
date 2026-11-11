@@ -4265,3 +4265,11 @@ a.pw-row-label:hover { text-decoration: underline; }
 /* Nowe osobno od „do powtórki” (spec v7 14, P3) */
 .pw-count-new { background: var(--surface-3); color: var(--ink-muted); }
 .pw-card-new { margin: 4px 0 0; color: var(--ink-muted); font-size: var(--fs-sm-plus); font-weight: 600; }
+
+/* Laboratorium czasów: szkielet do czasu wczytania danych (spec v7 14, P4) */
+.lab-tile.is-skeleton { display: block; min-height: 112px; border-color: var(--line); background: linear-gradient(90deg, var(--surface-2) 0%, var(--surface-3) 50%, var(--surface-2) 100%); background-size: 200% 100%; box-shadow: none; animation: lab-shimmer 1.6s ease-in-out infinite; pointer-events: none; }
+.lab-skel-bar { height: 18px; margin: 0 0 14px; border-radius: var(--radius-xs); background: var(--surface-3); max-width: 560px; }
+.lab-skel-wide { height: 120px; max-width: 100%; border-radius: var(--radius); }
+.lab-skel-short { max-width: 320px; }
+@keyframes lab-shimmer { from { background-position: 100% 0; } to { background-position: -100% 0; } }
+@media (prefers-reduced-motion: reduce) { .lab-tile.is-skeleton { animation: none; } }
