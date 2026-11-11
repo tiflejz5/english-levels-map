@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "id": "szlak-a1-03",
+  "topic": "a1-gramatyka-zaimki",
+  "level": "A1",
+  "title": "Przystanek: Zaimki",
+  "intro": "4 szybkie pytania. Zaliczenie od 3 dobrych odpowiedzi.",
+  "passage": null,
+  "passScore": 3,
+  "items": [
+    {
+      "id": "szlak-a1-03-01",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "This is Anna. ___ is my sister.",
+      "options": [
+        "He",
+        "She",
+        "Hers",
+        "Her"
+      ],
+      "correct": 1,
+      "explanation": "Podmiot zdania to zaimek osobowy: she."
+    },
+    {
+      "id": "szlak-a1-03-02",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "Tom and I are friends. ___ live in Lublin.",
+      "options": [
+        "Our",
+        "They",
+        "We",
+        "Us"
+      ],
+      "correct": 2,
+      "explanation": "Tom i ja = my: we."
+    },
+    {
+      "id": "szlak-a1-03-03",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "Is this ___ phone, Mark?",
+      "options": [
+        "yours",
+        "your",
+        "you're",
+        "you"
+      ],
+      "correct": 1,
+      "explanation": "Przed rzeczownikiem stoi zaimek dzierżawczy: your phone."
+    },
+    {
+      "id": "szlak-a1-03-04",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "My parents love ___ dog.",
+      "options": [
+        "they're",
+        "their",
+        "there",
+        "them"
+      ],
+      "correct": 1,
+      "explanation": "Ich pies = their dog. There i they're to inne słowa, które brzmią tak samo."
+    }
+  ]
+}

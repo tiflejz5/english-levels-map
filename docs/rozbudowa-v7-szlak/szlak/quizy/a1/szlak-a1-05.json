@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "id": "szlak-a1-05",
+  "topic": "a1-funkcje-liczby-godzina-data",
+  "level": "A1",
+  "title": "Przystanek: Liczby, godzina, dni i miesiące",
+  "intro": "4 szybkie pytania. Zaliczenie od 3 dobrych odpowiedzi.",
+  "passage": null,
+  "passScore": 3,
+  "items": [
+    {
+      "id": "szlak-a1-05-01",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "Która godzina? (15:30)",
+      "options": [
+        "It's thirty past three.",
+        "It's half past three.",
+        "It's three and half.",
+        "It's half to three."
+      ],
+      "correct": 1,
+      "explanation": "Wpół do czwartej po angielsku to half past three (pół po trzeciej)."
+    },
+    {
+      "id": "szlak-a1-05-02",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "My birthday is ___ May.",
+      "options": [
+        "on",
+        "of",
+        "in",
+        "at"
+      ],
+      "correct": 2,
+      "explanation": "Miesiące z in: in May. Konkretna data z on: on 5 May."
+    },
+    {
+      "id": "szlak-a1-05-03",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "The day after Monday is ___.",
+      "options": [
+        "Thursday",
+        "Tuesday",
+        "Sunday",
+        "Wednesday"
+      ],
+      "correct": 1,
+      "explanation": "Po poniedziałku jest wtorek: Tuesday."
+    },
+    {
+      "id": "szlak-a1-05-04",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "Jak zapisać 40 słownie?",
+      "options": [
+        "fourteen",
+        "fourty",
+        "forty",
+        "forteen"
+      ],
+      "correct": 2,
+      "explanation": "Forty, bez u. Fourteen to 14."
+    }
+  ]
+}

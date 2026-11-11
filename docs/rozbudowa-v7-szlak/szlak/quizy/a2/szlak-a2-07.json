@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "id": "szlak-a2-07",
+  "topic": "a2-funkcje-porownywanie-preferencje",
+  "level": "A2",
+  "title": "Przystanek: Porównania i zakupy",
+  "intro": "4 szybkie pytania. Zaliczenie od 3 dobrych odpowiedzi.",
+  "passage": null,
+  "passScore": 3,
+  "items": [
+    {
+      "id": "szlak-a2-07-01",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "I ___ tea to coffee.",
+      "options": [
+        "like better",
+        "prefer",
+        "more like",
+        "would rather"
+      ],
+      "correct": 1,
+      "explanation": "Prefer X to Y = wolę X od Y."
+    },
+    {
+      "id": "szlak-a2-07-02",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "I'd rather ___ at home tonight.",
+      "options": [
+        "to stay",
+        "staying",
+        "stayed",
+        "stay"
+      ],
+      "correct": 3,
+      "explanation": "Would rather + forma podstawowa."
+    },
+    {
+      "id": "szlak-a2-07-03",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "Can I ___ these jeans on?",
+      "options": [
+        "test",
+        "prove",
+        "try",
+        "wear"
+      ],
+      "correct": 2,
+      "explanation": "Try on = przymierzyć."
+    },
+    {
+      "id": "szlak-a2-07-04",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "Do you take cards or only ___?",
+      "options": [
+        "change",
+        "cash",
+        "receipt",
+        "price"
+      ],
+      "correct": 1,
+      "explanation": "Cash = gotówka. Change to reszta."
+    }
+  ]
+}

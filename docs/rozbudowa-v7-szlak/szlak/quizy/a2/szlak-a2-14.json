@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "id": "szlak-a2-14",
+  "topic": "a2-funkcje-propozycje-zaproszenia",
+  "level": "A2",
+  "title": "Przystanek: Propozycje i zaproszenia",
+  "intro": "4 szybkie pytania. Zaliczenie od 3 dobrych odpowiedzi.",
+  "passage": null,
+  "passScore": 3,
+  "items": [
+    {
+      "id": "szlak-a2-14-01",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "___ you like to come to my party?",
+      "options": [
+        "Would",
+        "Are",
+        "Will",
+        "Do"
+      ],
+      "correct": 0,
+      "explanation": "Zaproszenie: Would you like to…?"
+    },
+    {
+      "id": "szlak-a2-14-02",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "Let's ___ to the cinema tonight.",
+      "options": [
+        "going",
+        "we go",
+        "go",
+        "to go"
+      ],
+      "correct": 2,
+      "explanation": "Let's + forma podstawowa."
+    },
+    {
+      "id": "szlak-a2-14-03",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "— Would you like a drink? — ___",
+      "options": [
+        "Yes, give.",
+        "Yes, I like.",
+        "Yes, I'd like.",
+        "Yes, please."
+      ],
+      "correct": 3,
+      "explanation": "Przyjęcie propozycji: Yes, please."
+    },
+    {
+      "id": "szlak-a2-14-04",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "Jak uprzejmie odmówić?",
+      "options": [
+        "I can't, I don't want.",
+        "I'd love to, but I'm busy.",
+        "No, I'm not like.",
+        "No, I don't want."
+      ],
+      "correct": 1,
+      "explanation": "I'd love to, but… brzmi uprzejmie."
+    }
+  ]
+}

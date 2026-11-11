@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "id": "szlak-a2-19",
+  "topic": "a2-slownictwo",
+  "level": "A2",
+  "title": "Przystanek: Praca",
+  "intro": "4 szybkie pytania. Zaliczenie od 3 dobrych odpowiedzi.",
+  "passage": null,
+  "passScore": 3,
+  "items": [
+    {
+      "id": "szlak-a2-19-01",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "She ___ a lot of money.",
+      "options": [
+        "wins",
+        "earns",
+        "gains",
+        "makes up"
+      ],
+      "correct": 1,
+      "explanation": "Earn money = zarabiać."
+    },
+    {
+      "id": "szlak-a2-19-02",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "I work ___ an office.",
+      "options": [
+        "in",
+        "to",
+        "by",
+        "on"
+      ],
+      "correct": 0,
+      "explanation": "Work in an office."
+    },
+    {
+      "id": "szlak-a2-19-03",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "He ___ for a new job last month.",
+      "options": [
+        "wrote",
+        "requested",
+        "applied",
+        "asked"
+      ],
+      "correct": 2,
+      "explanation": "Apply for a job = ubiegać się o pracę."
+    },
+    {
+      "id": "szlak-a2-19-04",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "My boss gave me a day ___.",
+      "options": [
+        "off",
+        "free",
+        "away",
+        "out"
+      ],
+      "correct": 0,
+      "explanation": "A day off = dzień wolny."
+    }
+  ]
+}

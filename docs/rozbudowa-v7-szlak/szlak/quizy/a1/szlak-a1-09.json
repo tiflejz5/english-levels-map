@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "id": "szlak-a1-09",
+  "topic": "a1-gramatyka-there-is-there-are",
+  "level": "A1",
+  "title": "Przystanek: There is, there are: mój dom",
+  "intro": "4 szybkie pytania. Zaliczenie od 3 dobrych odpowiedzi.",
+  "passage": null,
+  "passScore": 3,
+  "items": [
+    {
+      "id": "szlak-a1-09-01",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "There ___ two bedrooms in my flat.",
+      "options": [
+        "is",
+        "have",
+        "be",
+        "are"
+      ],
+      "correct": 3,
+      "explanation": "Liczba mnoga: there are."
+    },
+    {
+      "id": "szlak-a1-09-02",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "___ there a bathroom upstairs?",
+      "options": [
+        "Is",
+        "Has",
+        "Does",
+        "Are"
+      ],
+      "correct": 0,
+      "explanation": "Pytanie: Is there…? (jedna rzecz)."
+    },
+    {
+      "id": "szlak-a1-09-03",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "There isn't ___ sofa in the living room.",
+      "options": [
+        "a",
+        "some",
+        "an",
+        "any"
+      ],
+      "correct": 0,
+      "explanation": "Jedna policzalna rzecz w przeczeniu: there isn't a sofa."
+    },
+    {
+      "id": "szlak-a1-09-04",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "Gotujesz w… In the ___.",
+      "options": [
+        "kitchen",
+        "garage",
+        "bathroom",
+        "bedroom"
+      ],
+      "correct": 0,
+      "explanation": "Kitchen = kuchnia."
+    }
+  ]
+}

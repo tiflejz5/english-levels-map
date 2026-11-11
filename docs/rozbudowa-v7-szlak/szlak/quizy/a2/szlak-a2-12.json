@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "id": "szlak-a2-12",
+  "topic": "a2-czasy-present-continuous-plany",
+  "level": "A2",
+  "title": "Przystanek: Plany: Present Continuous",
+  "intro": "4 szybkie pytania. Zaliczenie od 3 dobrych odpowiedzi.",
+  "passage": null,
+  "passScore": 3,
+  "items": [
+    {
+      "id": "szlak-a2-12-01",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "I ___ Tom tomorrow at six. It's in my diary.",
+      "options": [
+        "met",
+        "meet",
+        "am meeting",
+        "will meeting"
+      ],
+      "correct": 2,
+      "explanation": "Ustalone spotkanie: Present Continuous."
+    },
+    {
+      "id": "szlak-a2-12-02",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "What ___ you doing this weekend?",
+      "options": [
+        "will",
+        "do",
+        "are",
+        "did"
+      ],
+      "correct": 2,
+      "explanation": "Pytanie o plany: What are you doing…?"
+    },
+    {
+      "id": "szlak-a2-12-03",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "We ___ to Gdańsk on Friday. We've got the tickets.",
+      "options": [
+        "are going",
+        "will going",
+        "went",
+        "go"
+      ],
+      "correct": 0,
+      "explanation": "Ustalony plan: are going."
+    },
+    {
+      "id": "szlak-a2-12-04",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "She isn't ___ to the party tonight.",
+      "options": [
+        "to come",
+        "comes",
+        "coming",
+        "come"
+      ],
+      "correct": 2,
+      "explanation": "Isn't + -ing."
+    }
+  ]
+}

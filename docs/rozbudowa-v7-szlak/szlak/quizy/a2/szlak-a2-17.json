@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "id": "szlak-a2-17",
+  "topic": "a2-gramatyka-pytania-o-podmiot",
+  "level": "A2",
+  "title": "Przystanek: Pytania o podmiot",
+  "intro": "4 szybkie pytania. Zaliczenie od 3 dobrych odpowiedzi.",
+  "passage": null,
+  "passScore": 3,
+  "items": [
+    {
+      "id": "szlak-a2-17-01",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "Who ___ you yesterday? (ktoś do ciebie zadzwonił)",
+      "options": [
+        "called",
+        "calls",
+        "did called",
+        "did call"
+      ],
+      "correct": 0,
+      "explanation": "Pytanie o podmiot: bez did. Who called you?"
+    },
+    {
+      "id": "szlak-a2-17-02",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "Who ___ you call yesterday? (ty do kogoś dzwoniłeś)",
+      "options": [
+        "do",
+        "have",
+        "did",
+        "was"
+      ],
+      "correct": 2,
+      "explanation": "Pytanie o dopełnienie: z did."
+    },
+    {
+      "id": "szlak-a2-17-03",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "What ___ to your phone?",
+      "options": [
+        "was happen",
+        "happens did",
+        "happened",
+        "did happen"
+      ],
+      "correct": 2,
+      "explanation": "Pytanie o podmiot: What happened?"
+    },
+    {
+      "id": "szlak-a2-17-04",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "Which team ___ the match?",
+      "options": [
+        "won",
+        "wins did",
+        "did won",
+        "did win"
+      ],
+      "correct": 0,
+      "explanation": "Pytanie o podmiot: Which team won?"
+    }
+  ]
+}

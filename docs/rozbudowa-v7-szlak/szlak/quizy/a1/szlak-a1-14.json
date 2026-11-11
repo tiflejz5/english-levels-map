@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "id": "szlak-a1-14",
+  "topic": "a1-funkcje-lubie-nie-lubie",
+  "level": "A1",
+  "title": "Przystanek: Lubię i nie lubię",
+  "intro": "4 szybkie pytania. Zaliczenie od 3 dobrych odpowiedzi.",
+  "passage": null,
+  "passScore": 3,
+  "items": [
+    {
+      "id": "szlak-a1-14-01",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "I like ___ books.",
+      "options": [
+        "read",
+        "reads",
+        "reading",
+        "to reading"
+      ],
+      "correct": 2,
+      "explanation": "Like + -ing: I like reading."
+    },
+    {
+      "id": "szlak-a1-14-02",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "She doesn't ___ fish.",
+      "options": [
+        "likes",
+        "like",
+        "liking",
+        "to like"
+      ],
+      "correct": 1,
+      "explanation": "Po doesn't czasownik bez -s."
+    },
+    {
+      "id": "szlak-a1-14-03",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "— Do you like jazz? — No, I ___.",
+      "options": [
+        "doesn't",
+        "not",
+        "am not",
+        "don't"
+      ],
+      "correct": 3,
+      "explanation": "Krótka odpowiedź: No, I don't."
+    },
+    {
+      "id": "szlak-a1-14-04",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "I ___ love chocolate!",
+      "options": [
+        "too",
+        "much",
+        "really",
+        "very"
+      ],
+      "correct": 2,
+      "explanation": "Wzmocnienie czasownika: really love. Very łączy się z przymiotnikiem."
+    }
+  ]
+}

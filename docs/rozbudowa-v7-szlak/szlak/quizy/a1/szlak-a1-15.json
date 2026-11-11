@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "id": "szlak-a1-15",
+  "topic": "a1-gramatyka-przyimki-miejsca-czasu",
+  "level": "A1",
+  "title": "Przystanek: Przyimki miejsca i czasu",
+  "intro": "4 szybkie pytania. Zaliczenie od 3 dobrych odpowiedzi.",
+  "passage": null,
+  "passScore": 3,
+  "items": [
+    {
+      "id": "szlak-a1-15-01",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "The meeting is ___ Monday.",
+      "options": [
+        "at",
+        "—",
+        "in",
+        "on"
+      ],
+      "correct": 3,
+      "explanation": "Dni tygodnia z on."
+    },
+    {
+      "id": "szlak-a1-15-02",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "I get up ___ 7 o'clock.",
+      "options": [
+        "at",
+        "on",
+        "in",
+        "to"
+      ],
+      "correct": 0,
+      "explanation": "Godziny z at."
+    },
+    {
+      "id": "szlak-a1-15-03",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "The cat is ___ the table. (pod stołem)",
+      "options": [
+        "in",
+        "on",
+        "next",
+        "under"
+      ],
+      "correct": 3,
+      "explanation": "Pod = under."
+    },
+    {
+      "id": "szlak-a1-15-04",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "We go skiing ___ winter.",
+      "options": [
+        "at",
+        "in",
+        "to",
+        "on"
+      ],
+      "correct": 1,
+      "explanation": "Pory roku z in."
+    }
+  ]
+}
