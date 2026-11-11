@@ -445,6 +445,7 @@ window.ELM = window.ELM || {};
         list.splice(index, 1);
         if (ELM.profileData) ELM.profileData.removeProfile(profileId);
         if (ELM.fiszkiStore) ELM.fiszkiStore.removeProfile(profileId);
+        if (ELM.szlakStore) ELM.szlakStore.removeProfile(profileId);
         if (data().activeId === profileId) {
           // Po usunięciu ostatniego profilu: brak aktywnego → ekran powitalny
           data().activeId = list.length ? list[Math.min(index, list.length - 1)].id : null;
@@ -535,6 +536,7 @@ window.ELM = window.ELM || {};
         thenTest = false;
         app().addProfile(v.name);
         if (goTest) location.hash = ELM.levelTest.HASH;
+        else if (ELM.szlak && /^#\/dzis\/?$/.test(location.hash)) location.hash = ELM.szlak.HASH; // pierwsze uruchomienie: wybór „test poziomu albo od A1” na Szlaku
       }
     }, [
       el("label", { class: "field-label", for: "welcome-name", text: "Nazwa profilu" }),

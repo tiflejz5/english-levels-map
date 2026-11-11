@@ -285,6 +285,7 @@ window.ELM = window.ELM || {};
     grid.appendChild(activityTile(today));
     grid.appendChild(journalTile(today));
     if (ELM.fiszki) { const f = ELM.fiszki.statsTile(); if (f) grid.appendChild(f); } // sekcja „Fiszki” (spec 10, 5.5)
+    if (ELM.szlak) { const z = ELM.szlak.statsTile(); if (z) grid.appendChild(z); } // sekcja „Szlak” (spec v7 13, 4.2)
     view.appendChild(grid);
     U.setScroll(0);
   }

@@ -92,6 +92,7 @@ window.ELM = window.ELM || {};
     const hasProfile = app().hasProfiles();
     const reviews = hasProfile && ELM.reviews ? ELM.reviews.dueCount() : 0; // jedna liczba: DO POWTÓRKI (fiszki + Moje błędy + słabe punkty); nowe karty osobno (spec v7 14, P3)
     const items = [
+      { href: "#/szlak", label: "Szlak", icon: "route", active: st.view === "szlak" },
       { href: "#/dzis", label: "Dziś", icon: "sunrise", active: st.view === "today" },
       { href: "#/powtorki", label: "Fiszki i błędy", icon: "layers", active: st.view === "powtorki" || st.view === "fiszki" || st.view === "journal",
         badge: reviews ? String(reviews) : null, badgeLabel: reviews ? reviews + " do powtórki" : null },
@@ -210,6 +211,7 @@ window.ELM = window.ELM || {};
     if (ELM.state.view === "notes") return ELM.notes.render();
     if (ELM.state.view === "fiszki") return ELM.fiszki.render();
     if (ELM.state.view === "pisanie") return ELM.pisanie.render();
+    if (ELM.state.view === "szlak") return ELM.szlak.render(ELM.state.toolRoute);
     if (ELM.state.route) return ELM.niezbednik.renderPage(ELM.state.route);
     ELM.niezbednik.computeLinks();
     const view = document.getElementById("view");
@@ -261,7 +263,8 @@ window.ELM = window.ELM || {};
           el("span", { class: "level-code-big", text: level.id }),
           name ? el("span", { class: "level-name", text: name }) : null
         ]),
-        rest ? el("p", { class: "level-desc" }, U.formatText(rest)) : null
+        rest ? el("p", { class: "level-desc" }, U.formatText(rest)) : null,
+        ELM.szlak ? ELM.szlak.levelLink(level.id) : null // „Zobacz Polanę na szlaku”
       ]),
       el("div", { class: "level-hero-ring" }, [
         ring,

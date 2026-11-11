@@ -232,6 +232,7 @@ window.ELM = window.ELM || {};
     const notesRoute = ELM.notes ? ELM.notes.parseRoute(hash) : null;
     const fiszkiRoute = ELM.fiszki ? ELM.fiszki.parseRoute(hash) : null;
     const pisanieRoute = ELM.pisanie ? ELM.pisanie.parseRoute(hash) : null;
+    const szlakRoute = ELM.szlak ? ELM.szlak.parseRoute(hash) : null;
     state.route = null;
     state.c1Route = null;
     state.toolRoute = null;
@@ -265,6 +266,9 @@ window.ELM = window.ELM || {};
     } else if (fiszkiRoute) {
       state.view = "fiszki";
       state.toolRoute = fiszkiRoute;
+    } else if (szlakRoute) {
+      state.view = "szlak"; // Szlak nauki A1 → C2 (js/szlak.js)
+      state.toolRoute = szlakRoute;
     } else if (pisanieRoute) {
       state.view = "pisanie"; // wzorcowe wypracowania z komentarzami (js/pisanie.js)
       state.toolRoute = pisanieRoute;
@@ -462,11 +466,12 @@ window.ELM = window.ELM || {};
    * dane nauki (dziennik, aktywność, test) albo null (stary plik bez nich); fiszki — zaimportowane
    * fiszki ({ <profileId>: stan }) albo null. Dane nauki i fiszki profili, których już nie ma, są usuwane.
    */
-  function replaceProfiles(profilesData, learning, fiszki) {
+  function replaceProfiles(profilesData, learning, fiszki, szlak) {
     state.profiles = profilesData;
     const ids = profilesData.profiles.map(function (p) { return p.id; });
     if (ELM.profileData) ELM.profileData.applyImport(learning || null, ids);
     if (ELM.fiszkiStore) ELM.fiszkiStore.applyImport(fiszki || null, ids);
+    if (ELM.szlakStore) ELM.szlakStore.applyImport(szlak || null, ids);
     if (!fiszki && ELM.fiszkiStore) ELM.fiszkiStore.clearMigrationFlags(); // stary plik: Dziennik z pliku dostaje karty „Moje błędy”
     if (ELM.reviews) ELM.reviews.resetMigrationMemo();
     profilesChanged();
