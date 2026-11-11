@@ -164,6 +164,13 @@
             "future-perfect"
           ],
           "why": "Zakończone przed przyszłym punktem."
+        },
+        {
+          "label": "Będzie trwać już od jakiegoś czasu do tego momentu (jak długo)",
+          "result": [
+            "future-perfect-continuous"
+          ],
+          "why": "Liczymy, jak długo coś będzie trwało do przyszłego punktu."
         }
       ]
     }

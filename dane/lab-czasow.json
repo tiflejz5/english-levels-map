@@ -994,6 +994,120 @@
       "setTags": [
         "future-perfect"
       ]
+    },
+    {
+      "id": "future-perfect-continuous",
+      "name": "Future Perfect Continuous",
+      "namePl": "Przyszłość dokonana ciągła",
+      "group": "future",
+      "aspect": "perfect-continuous",
+      "level": "B2",
+      "summary": "Jak długo coś będzie już trwało w danym momencie w przyszłości.",
+      "formation": {
+        "affirmative": "will have been + czasownik-ing",
+        "negative": "will not have been + czasownik-ing",
+        "question": "Will + podmiot + have been + czasownik-ing?"
+      },
+      "uses": [
+        {
+          "label": "Jak długo do przyszłego momentu",
+          "en": "By June I will have been working here for ten years.",
+          "pl": "W czerwcu minie dziesięć lat, odkąd tu pracuję."
+        },
+        {
+          "label": "Rocznice i okrągłe liczby",
+          "en": "Next month we will have been living in Kraków for five years.",
+          "pl": "W przyszłym miesiącu minie pięć lat, odkąd mieszkamy w Krakowie."
+        },
+        {
+          "label": "Przyczyna stanu w przyszłości",
+          "en": "She'll be exhausted when she gets home – she will have been driving for eight hours.",
+          "pl": "Będzie wykończona, kiedy wróci do domu – będzie za kierownicą już osiem godzin."
+        }
+      ],
+      "signals": [
+        "for",
+        "by",
+        "by the time",
+        "by then",
+        "how long",
+        "this time next year"
+      ],
+      "scenes": [
+        {
+          "id": "duration-until",
+          "label": "Trwa do momentu",
+          "description": "Czynność zaczęła się wcześniej i w przyszłym momencie będzie trwać już od pewnego czasu.",
+          "elements": [
+            {
+              "kind": "range",
+              "from": -0.3,
+              "to": 0.75,
+              "label": "will have been working"
+            },
+            {
+              "kind": "marker",
+              "at": 0.75,
+              "label": "czerwiec"
+            }
+          ]
+        },
+        {
+          "id": "cause",
+          "label": "Skutek w przyszłości",
+          "description": "Długie działanie wyjaśnia stan w przyszłym momencie (zmęczenie, brudne ręce, mokre włosy).",
+          "elements": [
+            {
+              "kind": "range",
+              "from": 0.1,
+              "to": 0.7,
+              "label": "will have been driving"
+            },
+            {
+              "kind": "result",
+              "at": 0.7,
+              "label": "wykończona"
+            }
+          ]
+        }
+      ],
+      "traps": [
+        "Po polsku: „w czerwcu minie dziesięć lat, odkąd tu pracuję” albo „będę tu pracować już dziesięć lat”. Po angielsku nie I will work here for ten years, tylko I will have been working here for ten years.",
+        "Czasowniki stanu (know, own, believe, have = mieć) nie mają formy ciągłej: By May we will have known each other for ten years (Future Perfect), nie will have been knowing.",
+        "W zdaniu czasowym po when, by the time, until nie ma will: By the time she arrives (nie will arrive), I will have been waiting for two hours."
+      ],
+      "contrasts": [
+        {
+          "with": "future-perfect",
+          "rule": "Perfect Continuous = jak długo coś będzie trwać do momentu (nacisk na czas). Future Perfect = co lub ile będzie zrobione (nacisk na wynik).",
+          "examples": [
+            "By six I will have been writing for five hours.",
+            "By six I will have written ten pages."
+          ]
+        },
+        {
+          "with": "future-continuous",
+          "rule": "Perfect Continuous = trwa od jakiegoś czasu aż do momentu (for…). Future Continuous = trwa w samym momencie, bez liczenia, jak długo.",
+          "examples": [
+            "By nine I will have been working for three hours.",
+            "At nine I will be working."
+          ]
+        },
+        {
+          "with": "present-perfect-continuous",
+          "rule": "Present Perfect Continuous liczy czas do teraz, Future Perfect Continuous do momentu w przyszłości.",
+          "examples": [
+            "I have been learning English for two years.",
+            "By June I will have been learning English for three years."
+          ]
+        }
+      ],
+      "niezbednikIds": [
+        "b2-czasy-future-continuous-perfect"
+      ],
+      "setTags": [
+        "future-perfect-continuous"
+      ]
     }
   ]
 }
