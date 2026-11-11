@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "id": "szlak-a2-15",
+  "topic": "a2-czasy-present-perfect-doswiadczenia",
+  "level": "A2",
+  "title": "Przystanek: Present Perfect: czy kiedyś…?",
+  "intro": "4 szybkie pytania. Zaliczenie od 3 dobrych odpowiedzi.",
+  "passage": null,
+  "passScore": 3,
+  "items": [
+    {
+      "id": "szlak-a2-15-01",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "Have you ever ___ to London?",
+      "options": [
+        "go",
+        "went",
+        "was",
+        "been"
+      ],
+      "correct": 3,
+      "explanation": "Have you ever been to…? = czy byłeś kiedyś w…?"
+    },
+    {
+      "id": "szlak-a2-15-02",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "I've ___ finished my homework.",
+      "options": [
+        "since",
+        "just",
+        "ever",
+        "yet"
+      ],
+      "correct": 1,
+      "explanation": "Just = właśnie, stoi między have i czasownikiem."
+    },
+    {
+      "id": "szlak-a2-15-03",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "She ___ never eaten sushi.",
+      "options": [
+        "has",
+        "have",
+        "did",
+        "is"
+      ],
+      "correct": 0,
+      "explanation": "She + has + III forma."
+    },
+    {
+      "id": "szlak-a2-15-04",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "Have you done it ___?",
+      "options": [
+        "just",
+        "yet",
+        "ever",
+        "since"
+      ],
+      "correct": 1,
+      "explanation": "Yet na końcu pytań i przeczeń = już / jeszcze."
+    }
+  ]
+}

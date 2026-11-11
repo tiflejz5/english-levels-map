@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "id": "szlak-a1-08",
+  "topic": "a1-gramatyka-this-that-these-those",
+  "level": "A1",
+  "title": "Przystanek: This, that, these, those",
+  "intro": "4 szybkie pytania. Zaliczenie od 3 dobrych odpowiedzi.",
+  "passage": null,
+  "passScore": 3,
+  "items": [
+    {
+      "id": "szlak-a1-08-01",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "(trzymasz książkę) ___ is my book.",
+      "options": [
+        "That",
+        "This",
+        "Those",
+        "These"
+      ],
+      "correct": 1,
+      "explanation": "Blisko, jedna rzecz: this."
+    },
+    {
+      "id": "szlak-a1-08-02",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "(wskazujesz dom w oddali) ___ house is big.",
+      "options": [
+        "These",
+        "This",
+        "Those",
+        "That"
+      ],
+      "correct": 3,
+      "explanation": "Daleko, jedna rzecz: that."
+    },
+    {
+      "id": "szlak-a1-08-03",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "(masz je na nogach) ___ shoes are new.",
+      "options": [
+        "These",
+        "That",
+        "Those",
+        "This"
+      ],
+      "correct": 0,
+      "explanation": "Blisko, kilka rzeczy: these."
+    },
+    {
+      "id": "szlak-a1-08-04",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "Look at ___ birds in the sky!",
+      "options": [
+        "these",
+        "this",
+        "that",
+        "those"
+      ],
+      "correct": 3,
+      "explanation": "Daleko, kilka rzeczy: those."
+    }
+  ]
+}

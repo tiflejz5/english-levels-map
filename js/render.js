@@ -90,8 +90,9 @@ window.ELM = window.ELM || {};
     if (!box) return;
     const st = ELM.state;
     const hasProfile = app().hasProfiles();
-    const reviews = hasProfile && ELM.reviews ? ELM.reviews.count() : 0; // jedna liczba: fiszki + Moje błędy + słabe punkty
+    const reviews = hasProfile && ELM.reviews ? ELM.reviews.dueCount() : 0; // jedna liczba: DO POWTÓRKI (fiszki + Moje błędy + słabe punkty); nowe karty osobno (spec v7 14, P3)
     const items = [
+      { href: "#/szlak", label: "Szlak", icon: "route", active: st.view === "szlak" },
       { href: "#/dzis", label: "Dziś", icon: "sunrise", active: st.view === "today" },
       { href: "#/powtorki", label: "Fiszki i błędy", icon: "layers", active: st.view === "powtorki" || st.view === "fiszki" || st.view === "journal",
         badge: reviews ? String(reviews) : null, badgeLabel: reviews ? reviews + " do powtórki" : null },
@@ -188,10 +189,14 @@ window.ELM = window.ELM || {};
   // TREŚĆ POZIOMU (prawa część)
   // =====================================================================
 
+  /** Widoki, które pokazują dane profilu: bez profilu mają kartę powitalną zamiast treści. */
+  const PERSONAL_VIEWS = ["today", "powtorki", "journal", "fiszki", "stats", "notes", "leveltest", "szlak"];
+
   function renderMain(opts) {
     opts = opts || {};
-    // Bez żadnego profilu: ekran powitalny z „Dodaj profil” (na każdym adresie)
-    if (!app().hasProfiles()) return ELM.profiles.renderWelcome();
+    // Tryb gościa (spec v7 14, P1): treści publiczne działają bez profilu, a akcje zapisujące proszą o profil
+    // (ELM.profiles.requireProfile). Strony osobiste bez profilu pokazują kartę powitalną pod tym samym adresem.
+    if (!app().hasProfiles() && PERSONAL_VIEWS.indexOf(ELM.state.view) !== -1) return ELM.profiles.renderWelcome({ personal: true });
     // Strona główna, zakładka „Certyfikat C1” albo podstrona zamiast listy
     if (ELM.state.view === "home") return ELM.niezbednik.renderHome();
     if (ELM.state.view === "c1") return ELM.c1.render(ELM.state.c1Route);
@@ -206,6 +211,7 @@ window.ELM = window.ELM || {};
     if (ELM.state.view === "notes") return ELM.notes.render();
     if (ELM.state.view === "fiszki") return ELM.fiszki.render();
     if (ELM.state.view === "pisanie") return ELM.pisanie.render();
+    if (ELM.state.view === "szlak") return ELM.szlak.render(ELM.state.toolRoute);
     if (ELM.state.route) return ELM.niezbednik.renderPage(ELM.state.route);
     ELM.niezbednik.computeLinks();
     const view = document.getElementById("view");
@@ -257,7 +263,8 @@ window.ELM = window.ELM || {};
           el("span", { class: "level-code-big", text: level.id }),
           name ? el("span", { class: "level-name", text: name }) : null
         ]),
-        rest ? el("p", { class: "level-desc" }, U.formatText(rest)) : null
+        rest ? el("p", { class: "level-desc" }, U.formatText(rest)) : null,
+        ELM.szlak ? ELM.szlak.levelLink(level.id) : null // „Zobacz Polanę na szlaku”
       ]),
       el("div", { class: "level-hero-ring" }, [
         ring,
@@ -307,6 +314,12 @@ window.ELM = window.ELM || {};
         checked: done,
         "aria-describedby": textId,
         onchange: function (e) {
+          if (!app().hasProfiles()) { // tryb gościa: najpierw profil, potem zaznaczenie (lista przerysuje się sama)
+            const input = e.target, on = input.checked;
+            input.checked = !on;
+            app().withProfile("Zaznaczenia „Umiem” zapisują się w profilu.", function () { app().setProgress(item.id, on); app().renderAll(); });
+            return;
+          }
           app().setProgress(item.id, e.target.checked);
           li.classList.toggle("is-done", e.target.checked);
           checkbox.classList.toggle("is-fresh", e.target.checked); // pieczątka „odbija się” tylko przy zaznaczeniu

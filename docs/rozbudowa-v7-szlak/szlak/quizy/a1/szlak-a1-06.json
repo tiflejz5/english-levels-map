@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "id": "szlak-a1-06",
+  "topic": "a1-gramatyka-przedimki",
+  "level": "A1",
+  "title": "Przystanek: Przedimki a, an, the",
+  "intro": "4 szybkie pytania. Zaliczenie od 3 dobrych odpowiedzi.",
+  "passage": null,
+  "passScore": 3,
+  "items": [
+    {
+      "id": "szlak-a1-06-01",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "I've got ___ apple.",
+      "options": [
+        "an",
+        "—",
+        "a",
+        "the"
+      ],
+      "correct": 0,
+      "explanation": "An przed samogłoską w wymowie: an apple."
+    },
+    {
+      "id": "szlak-a1-06-02",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "She is ___ doctor.",
+      "options": [
+        "an",
+        "—",
+        "a",
+        "the"
+      ],
+      "correct": 2,
+      "explanation": "Zawód zawsze z a/an: a doctor."
+    },
+    {
+      "id": "szlak-a1-06-03",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "Look at ___ moon!",
+      "options": [
+        "the",
+        "a",
+        "an",
+        "—"
+      ],
+      "correct": 0,
+      "explanation": "Jedyny w swoim rodzaju: the moon, the sun."
+    },
+    {
+      "id": "szlak-a1-06-04",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "I love ___ dogs. (psy w ogóle)",
+      "options": [
+        "an",
+        "—",
+        "a",
+        "the"
+      ],
+      "correct": 1,
+      "explanation": "Mówiąc ogólnie o rzeczach w liczbie mnogiej, nie używamy przedimka."
+    }
+  ]
+}

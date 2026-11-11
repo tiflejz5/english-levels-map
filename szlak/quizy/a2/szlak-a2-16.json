@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "id": "szlak-a2-16",
+  "topic": "a2-gramatyka-modalne-must-should",
+  "level": "A2",
+  "title": "Przystanek: Must, should, have to i zdrowie",
+  "intro": "4 szybkie pytania. Zaliczenie od 3 dobrych odpowiedzi.",
+  "passage": null,
+  "passScore": 3,
+  "items": [
+    {
+      "id": "szlak-a2-16-01",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "You ___ see a doctor. You look ill.",
+      "options": [
+        "should",
+        "must to",
+        "have",
+        "should to"
+      ],
+      "correct": 0,
+      "explanation": "Rada: should + forma podstawowa."
+    },
+    {
+      "id": "szlak-a2-16-02",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "In Poland you ___ drive on the right.",
+      "options": [
+        "have to",
+        "should",
+        "can't",
+        "could"
+      ],
+      "correct": 0,
+      "explanation": "Obowiązek wynikający z przepisów: have to."
+    },
+    {
+      "id": "szlak-a2-16-03",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "I've got a ___. My head hurts.",
+      "options": [
+        "sore head ache",
+        "head ill",
+        "headpain",
+        "headache"
+      ],
+      "correct": 3,
+      "explanation": "Ból głowy = headache."
+    },
+    {
+      "id": "szlak-a2-16-04",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "You ___ smoke here. It's forbidden.",
+      "options": [
+        "needn't",
+        "mustn't",
+        "don't have to",
+        "shouldn't to"
+      ],
+      "correct": 1,
+      "explanation": "Zakaz: mustn't. Don't have to znaczy nie musisz."
+    }
+  ]
+}

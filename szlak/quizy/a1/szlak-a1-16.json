@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "id": "szlak-a1-16",
+  "topic": "a1-funkcje-zamawianie",
+  "level": "A1",
+  "title": "Przystanek: Zamawianie: jedzenie i picie",
+  "intro": "4 szybkie pytania. Zaliczenie od 3 dobrych odpowiedzi.",
+  "passage": null,
+  "passScore": 3,
+  "items": [
+    {
+      "id": "szlak-a1-16-01",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "___ I have a coffee, please?",
+      "options": [
+        "Have",
+        "Am",
+        "Do",
+        "Can"
+      ],
+      "correct": 3,
+      "explanation": "Prośba: Can I have…?"
+    },
+    {
+      "id": "szlak-a1-16-02",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "How much ___ the sandwich?",
+      "options": [
+        "is",
+        "does",
+        "has",
+        "are"
+      ],
+      "correct": 0,
+      "explanation": "Jedna rzecz: How much is…?"
+    },
+    {
+      "id": "szlak-a1-16-03",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "— Anything else? — No, ___",
+      "options": [
+        "it's enough me.",
+        "nothing else give.",
+        "I'm all.",
+        "that's all, thanks."
+      ],
+      "correct": 3,
+      "explanation": "That's all, thanks = to wszystko, dziękuję."
+    },
+    {
+      "id": "szlak-a1-16-04",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "Które słowo to napój?",
+      "options": [
+        "bread",
+        "chicken",
+        "juice",
+        "cheese"
+      ],
+      "correct": 2,
+      "explanation": "Juice = sok."
+    }
+  ]
+}

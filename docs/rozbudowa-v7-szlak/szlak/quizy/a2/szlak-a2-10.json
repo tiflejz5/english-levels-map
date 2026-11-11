@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "id": "szlak-a2-10",
+  "topic": "a2-funkcje-pytanie-o-droge",
+  "level": "A2",
+  "title": "Przystanek: Pytanie o drogę i podróże",
+  "intro": "4 szybkie pytania. Zaliczenie od 3 dobrych odpowiedzi.",
+  "passage": null,
+  "passScore": 3,
+  "items": [
+    {
+      "id": "szlak-a2-10-01",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "Excuse me, how do I ___ to the station?",
+      "options": [
+        "arrive",
+        "reach to",
+        "get",
+        "find to"
+      ],
+      "correct": 2,
+      "explanation": "How do I get to…? = jak dojść do…?"
+    },
+    {
+      "id": "szlak-a2-10-02",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "Go straight on and ___ left at the lights.",
+      "options": [
+        "return",
+        "change",
+        "move",
+        "turn"
+      ],
+      "correct": 3,
+      "explanation": "Turn left = skręć w lewo."
+    },
+    {
+      "id": "szlak-a2-10-03",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "The bank is ___ the post office and the café.",
+      "options": [
+        "opposite to",
+        "between",
+        "among",
+        "next"
+      ],
+      "correct": 1,
+      "explanation": "Między dwoma miejscami: between."
+    },
+    {
+      "id": "szlak-a2-10-04",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "Our flight was ___, so we waited three hours.",
+      "options": [
+        "delayed",
+        "late off",
+        "missed",
+        "lost"
+      ],
+      "correct": 0,
+      "explanation": "Delayed = opóźniony."
+    }
+  ]
+}

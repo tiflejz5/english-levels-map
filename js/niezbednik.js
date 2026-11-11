@@ -218,6 +218,8 @@ window.ELM = window.ELM || {};
     view.appendChild(ELM.toc ? ELM.toc.wrap(article) : article); // spis treści przy ≥ 4 sekcjach (js/toc.js)
     // „Sprawdź się”: zestawy zadań tematu i link do Laboratorium czasów (indeks wczytywany na żądanie)
     if (ELM.exercises) view.appendChild(ELM.exercises.topicSection(found.item.id));
+    const szBar = ELM.szlak ? ELM.szlak.barFor(String(found.item.file).replace(/\.md$/, "")) : null; // „Przystanek N z M” (Szlak)
+    if (szBar) view.appendChild(szBar);
     view.appendChild(topicNav(found));
     document.title = (doc.meta.title || found.item.label) + " · English Levels Map";
     if (ELM.profileData) ELM.profileData.setLastPage(location.hash, found.level + " · " + (doc.meta.title || found.item.label));
@@ -433,6 +435,12 @@ window.ELM = window.ELM || {};
         checked: done,
         "aria-label": "Umiem: " + essential.text,
         onchange: function (e) {
+          if (!ELM.app.hasProfiles()) { // tryb gościa: najpierw profil, potem zaznaczenie (strona przerysuje się sama)
+            const input = e.target, on = input.checked;
+            input.checked = !on;
+            ELM.app.withProfile("Zaznaczenia „Umiem” zapisują się w profilu.", function () { ELM.app.setProgress(essential.id, on); ELM.app.renderAll(); });
+            return;
+          }
           ELM.app.setProgress(essential.id, e.target.checked);
           label.classList.toggle("is-fresh", e.target.checked); // pieczątka „odbija się” tylko przy zaznaczeniu
         }

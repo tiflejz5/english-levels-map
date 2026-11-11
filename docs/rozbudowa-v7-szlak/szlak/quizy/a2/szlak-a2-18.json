@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "id": "szlak-a2-18",
+  "topic": "a2-gramatyka-czasownik-ing-to",
+  "level": "A2",
+  "title": "Przystanek: -ing czy to? Uczucia",
+  "intro": "4 szybkie pytania. Zaliczenie od 3 dobrych odpowiedzi.",
+  "passage": null,
+  "passScore": 3,
+  "items": [
+    {
+      "id": "szlak-a2-18-01",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "I enjoy ___ in the sea.",
+      "options": [
+        "swimming",
+        "swam",
+        "to swim",
+        "swim"
+      ],
+      "correct": 0,
+      "explanation": "Enjoy + -ing."
+    },
+    {
+      "id": "szlak-a2-18-02",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "She wants ___ a doctor.",
+      "options": [
+        "become",
+        "to become",
+        "to becoming",
+        "becoming"
+      ],
+      "correct": 1,
+      "explanation": "Want + to."
+    },
+    {
+      "id": "szlak-a2-18-03",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "I'm ___ about the exam. I can't sleep.",
+      "options": [
+        "bored",
+        "relaxed",
+        "nervous",
+        "exciting"
+      ],
+      "correct": 2,
+      "explanation": "Nervous = zdenerwowany."
+    },
+    {
+      "id": "szlak-a2-18-04",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "The film was ___. I fell asleep.",
+      "options": [
+        "bored",
+        "interested",
+        "boring",
+        "excited"
+      ],
+      "correct": 2,
+      "explanation": "Rzecz jest boring, człowiek jest bored."
+    }
+  ]
+}

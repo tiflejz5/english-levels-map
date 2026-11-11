@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "id": "szlak-a1-21",
+  "topic": "a1-czasy-was-were",
+  "level": "A1",
+  "title": "Przystanek: Was i were",
+  "intro": "4 szybkie pytania. Zaliczenie od 3 dobrych odpowiedzi.",
+  "passage": null,
+  "passScore": 3,
+  "items": [
+    {
+      "id": "szlak-a1-21-01",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "I ___ at home yesterday.",
+      "options": [
+        "am",
+        "did",
+        "was",
+        "were"
+      ],
+      "correct": 2,
+      "explanation": "I + was."
+    },
+    {
+      "id": "szlak-a1-21-02",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "They ___ in Paris last week.",
+      "options": [
+        "were",
+        "was",
+        "been",
+        "are"
+      ],
+      "correct": 0,
+      "explanation": "They + were."
+    },
+    {
+      "id": "szlak-a1-21-03",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "___ you tired last night?",
+      "options": [
+        "Was",
+        "Were",
+        "Did",
+        "Are"
+      ],
+      "correct": 1,
+      "explanation": "Pytanie z you: Were you…?"
+    },
+    {
+      "id": "szlak-a1-21-04",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "The film ___ very good. I didn't like it.",
+      "options": [
+        "isn't",
+        "weren't",
+        "wasn't",
+        "didn't"
+      ],
+      "correct": 2,
+      "explanation": "The film (it) + wasn't."
+    }
+  ]
+}

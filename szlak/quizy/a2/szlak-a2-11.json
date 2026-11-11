@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "id": "szlak-a2-11",
+  "topic": "a2-funkcje-bilety-rezerwacje",
+  "level": "A2",
+  "title": "Przystanek: Bilety, rezerwacje i pogoda",
+  "intro": "4 szybkie pytania. Zaliczenie od 3 dobrych odpowiedzi.",
+  "passage": null,
+  "passScore": 3,
+  "items": [
+    {
+      "id": "szlak-a2-11-01",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "I'd like to ___ a table for two at 7 pm.",
+      "options": [
+        "order",
+        "book",
+        "take",
+        "buy"
+      ],
+      "correct": 1,
+      "explanation": "Book a table = zarezerwować stolik."
+    },
+    {
+      "id": "szlak-a2-11-02",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "A ___ ticket to Kraków, please. I'm coming back tomorrow.",
+      "options": [
+        "single",
+        "return",
+        "round",
+        "back"
+      ],
+      "correct": 1,
+      "explanation": "Bilet w obie strony: return (US: round-trip)."
+    },
+    {
+      "id": "szlak-a2-11-03",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "There's a problem with my room. The heating doesn't ___.",
+      "options": [
+        "make",
+        "work",
+        "go",
+        "run"
+      ],
+      "correct": 1,
+      "explanation": "Doesn't work = nie działa."
+    },
+    {
+      "id": "szlak-a2-11-04",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "It's very ___ today. Take an umbrella.",
+      "options": [
+        "rainy",
+        "rain",
+        "sunny",
+        "dry"
+      ],
+      "correct": 0,
+      "explanation": "Przymiotnik od rain: rainy."
+    }
+  ]
+}

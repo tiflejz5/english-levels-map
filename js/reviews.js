@@ -171,19 +171,23 @@ window.ELM = window.ELM || {};
     });
     review.sort(function (a, b) { return a.due - b.due; });
     review = review.slice(0, Math.max(0, s.reviewsPerDay - (t.reviews || 0)));
-    const out = { card: 0, mistake: 0, exercise: 0 };
-    learning.concat(review).forEach(function (it) { out[it.kind]++; });
+    // Do powtórki (due) i nowe (fresh) liczone osobno (spec v7 14, P3); card/mistake/exercise/total to jak dotąd cała kolejka dnia
+    const due = { card: 0, mistake: 0, exercise: 0 }, fresh = { card: 0, mistake: 0, exercise: 0 };
+    learning.concat(review).forEach(function (it) { due[it.kind]++; });
     const ex = exAvailable(ctx, t);
     let newLeft = Math.max(0, s.newPerDay - (t.new || 0));
     const exTake = Math.min(ex.fresh.length, ex.cap, newLeft);
     newLeft -= exTake;
     decks.forEach(function (d) {
       const take = Math.min(Math.max(0, d.count - (touched[d.id] || 0)), newLeft);
-      out[d.id === L().MISTAKES_DECK ? "mistake" : "card"] += take;
+      fresh[d.id === L().MISTAKES_DECK ? "mistake" : "card"] += take;
       newLeft -= take;
     });
-    out.exercise += exTake;
-    out.total = out.card + out.mistake + out.exercise;
+    fresh.exercise += exTake;
+    due.total = due.card + due.mistake + due.exercise;
+    fresh.total = fresh.card + fresh.mistake + fresh.exercise;
+    const out = { card: due.card + fresh.card, mistake: due.mistake + fresh.mistake, exercise: due.exercise + fresh.exercise, due: due, fresh: fresh };
+    out.total = due.total + fresh.total;
     return out;
   }
 
@@ -262,7 +266,7 @@ window.ELM = window.ELM || {};
     };
   }
 
-  const EMPTY = { card: 0, mistake: 0, exercise: 0, total: 0 };
+  const EMPTY = { card: 0, mistake: 0, exercise: 0, total: 0, due: { card: 0, mistake: 0, exercise: 0, total: 0 }, fresh: { card: 0, mistake: 0, exercise: 0, total: 0 } };
 
   function breakdown() {
     if (!active()) return Object.assign({}, EMPTY);
@@ -270,7 +274,12 @@ window.ELM = window.ELM || {};
     return summaryFrom(ctxNow(), now());
   }
 
+  /** Cała kolejka dnia: do powtórki + nowe do limitu. */
   function count() { return breakdown().total; }
+  /** Tylko „do powtórki” (plakietka w panelu, nagłówek Fiszek i błędów): learning/relearning i review z terminem do dziś. */
+  function dueCount() { return breakdown().due.total; }
+  /** Nowe karty i zadania na dziś (w limicie nowych). */
+  function freshCount() { return breakdown().fresh.total; }
 
   /** Pełna kolejka (talie wbudowane muszą być wczytane: ELM.fiszki.internal.loadDecks()). */
   function queue(at) {
@@ -309,7 +318,7 @@ window.ELM = window.ELM || {};
   ELM.reviews = {
     EX_NEW_PER_DAY: EX_NEW_PER_DAY, MINUTES: MINUTES, exKey: exKey, isEx: isEx, kindOf: kindOf,
     weakTasks: weakTasks, interleave: interleave, queueFrom: queueFrom, summaryFrom: summaryFrom, upcomingFrom: upcomingFrom, upcoming: upcoming,
-    estimateMinutes: estimateMinutes, redirectFor: redirectFor,
+    estimateMinutes: estimateMinutes, redirectFor: redirectFor, dueCount: dueCount, freshCount: freshCount,
     ensureMigrated: ensureMigrated, queue: queue, count: count, breakdown: breakdown, nextDue: nextDue,
     ctx: ctxNow, resetMigrationMemo: function () { migratedFor = null; repairedFor = null; }
   };

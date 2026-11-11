@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "id": "szlak-a1-18",
+  "topic": "a1-funkcje-prosba-o-powtorzenie",
+  "level": "A1",
+  "title": "Przystanek: Proszę powtórzyć",
+  "intro": "4 szybkie pytania. Zaliczenie od 3 dobrych odpowiedzi.",
+  "passage": null,
+  "passScore": 3,
+  "items": [
+    {
+      "id": "szlak-a1-18-01",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "Nie dosłyszałeś. Co mówisz?",
+      "options": [
+        "Again, please speak.",
+        "What you say?",
+        "Repeat you, please.",
+        "Sorry, can you repeat that?"
+      ],
+      "correct": 3,
+      "explanation": "Uprzejma prośba o powtórzenie: Sorry, can you repeat that?"
+    },
+    {
+      "id": "szlak-a1-18-02",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "Rozmówca mówi za szybko. Co mówisz?",
+      "options": [
+        "Can you speak slowlier?",
+        "Can you speak more slowly, please?",
+        "Speak more slow you, please.",
+        "Can you more slowly speak?"
+      ],
+      "correct": 1,
+      "explanation": "Slowly – more slowly."
+    },
+    {
+      "id": "szlak-a1-18-03",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "Nie znasz słowa queue. Jak zapytać?",
+      "options": [
+        "What means queue?",
+        "What does queue mean?",
+        "How queue mean?",
+        "What is mean queue?"
+      ],
+      "correct": 1,
+      "explanation": "What does … mean? = co znaczy…?"
+    },
+    {
+      "id": "szlak-a1-18-04",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "Jak zapytać o pisownię?",
+      "options": [
+        "How do you spell it?",
+        "How is it spell?",
+        "How do you write it letters?",
+        "How spell you it?"
+      ],
+      "correct": 0,
+      "explanation": "How do you spell it? = jak to się pisze?"
+    }
+  ]
+}

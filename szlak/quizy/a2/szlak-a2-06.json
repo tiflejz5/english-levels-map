@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "id": "szlak-a2-06",
+  "topic": "a2-gramatyka-stopniowanie-przymiotnikow",
+  "level": "A2",
+  "title": "Przystanek: Stopniowanie przymiotników",
+  "intro": "4 szybkie pytania. Zaliczenie od 3 dobrych odpowiedzi.",
+  "passage": null,
+  "passScore": 3,
+  "items": [
+    {
+      "id": "szlak-a2-06-01",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "My brother is ___ than me.",
+      "options": [
+        "the taller",
+        "taller",
+        "tallest",
+        "more tall"
+      ],
+      "correct": 1,
+      "explanation": "Krótki przymiotnik: tall – taller."
+    },
+    {
+      "id": "szlak-a2-06-02",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "This is the ___ film I've ever seen.",
+      "options": [
+        "best",
+        "goodest",
+        "most good",
+        "better"
+      ],
+      "correct": 0,
+      "explanation": "Good – better – the best."
+    },
+    {
+      "id": "szlak-a2-06-03",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "Russian is ___ than English for me.",
+      "options": [
+        "difficulter",
+        "more difficulter",
+        "more difficult",
+        "most difficult"
+      ],
+      "correct": 2,
+      "explanation": "Długi przymiotnik: more difficult."
+    },
+    {
+      "id": "szlak-a2-06-04",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "Tom is as old ___ Mark.",
+      "options": [
+        "that",
+        "than",
+        "like",
+        "as"
+      ],
+      "correct": 3,
+      "explanation": "Równość: as … as."
+    }
+  ]
+}

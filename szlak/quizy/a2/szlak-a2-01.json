@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "id": "szlak-a2-01",
+  "topic": "a2-czasy-past-simple",
+  "level": "A2",
+  "title": "Przystanek: Past Simple",
+  "intro": "4 szybkie pytania. Zaliczenie od 3 dobrych odpowiedzi.",
+  "passage": null,
+  "passScore": 3,
+  "items": [
+    {
+      "id": "szlak-a2-01-01",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "We ___ to Spain last summer.",
+      "options": [
+        "goed",
+        "go",
+        "gone",
+        "went"
+      ],
+      "correct": 3,
+      "explanation": "Go – went – gone. Last summer = Past Simple."
+    },
+    {
+      "id": "szlak-a2-01-02",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "She ___ the film yesterday.",
+      "options": [
+        "see",
+        "seen",
+        "sees",
+        "saw"
+      ],
+      "correct": 3,
+      "explanation": "See – saw – seen."
+    },
+    {
+      "id": "szlak-a2-01-03",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "I ___ my homework last night.",
+      "options": [
+        "not did",
+        "didn't did",
+        "didn't do",
+        "don't did"
+      ],
+      "correct": 2,
+      "explanation": "Po didn't czasownik w formie podstawowej."
+    },
+    {
+      "id": "szlak-a2-01-04",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "___ you call him yesterday?",
+      "options": [
+        "Were",
+        "Did",
+        "Do",
+        "Have"
+      ],
+      "correct": 1,
+      "explanation": "Pytanie w Past Simple: Did + forma podstawowa."
+    }
+  ]
+}

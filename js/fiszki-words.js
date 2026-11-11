@@ -160,7 +160,7 @@ window.ELM = window.ELM || {};
 
   /** „Do Moich słów”: karta z luką jednym kliknięciem; duplikat (to samo słowo) → „Pokaż” / „Dodaj drugi przykład”. */
   function addWord(i) {
-    if (!hasProfile()) { say("Dodaj profil, żeby zapisywać słowa."); return null; }
+    if (!hasProfile()) { ELM.app.withProfile("Słowa zapisują się w profilu.", function () { addWord(i); }); return null; }
     if (!i || !i.canWord) return null;
     const sentence = L().extractSentence(i.blockText, i.word);
     const dup = findByWord(i.word);
@@ -187,7 +187,7 @@ window.ELM = window.ELM || {};
 
   /** „Do Moich słów” z banku zwrotów: zwykła karta PL → EN ({ en, pl, example?, route, title }); duplikat (ta sama fraza) → „Pokaż”. */
   function addPhrase(p) {
-    if (!hasProfile()) { say("Dodaj profil, żeby zapisywać słowa."); return null; }
+    if (!hasProfile()) { ELM.app.withProfile("Słowa zapisują się w profilu.", function () { addPhrase(p); }); return null; }
     const phrase = String(p.en || "").replace(/\s*…\s*$/, "").replace(/\s+/g, " ").trim();
     if (!phrase || !p.pl) return null;
     const dup = findByWord(phrase);

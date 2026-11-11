@@ -60,12 +60,22 @@ window.ELM = window.ELM || {};
   // STAN: postęp, stacja „tu jesteś”, propozycja
   // =====================================================================
 
+  /**
+   * Stan krain na mapie. Postęp krainy = zaliczone przystanki Szlaku / wszystkie (spec v7 13, 3.3: na mapie szlak,
+   * na stronie poziomu checklista „Umiem”). Bez danych Szlaku: jak dotąd punkty „Umiem”. skipped: kraina przed punktem startu.
+   */
   function levelStats() {
-    return ELM.LEVEL_IDS.map(function (id) { return Object.assign({ id: id }, ELM.app.getLevelStats(id)); });
+    return ELM.LEVEL_IDS.map(function (id) {
+      const s = Object.assign({ id: id }, ELM.app.getLevelStats(id));
+      const li = ELM.szlak && ELM.szlak.ready() ? ELM.szlak.levelInfo(id) : null;
+      return li ? Object.assign(s, { done: li.done, total: li.total, percent: li.percent, skipped: li.skipped, szlak: true }) : s;
+    });
   }
 
   /** Pierwsza stacja z postępem poniżej 100% (gdy wszystko zrobione — ostatnia). */
   function currentIndex(stats) {
+    const sz = ELM.szlak && ELM.szlak.ready() ? ELM.szlak.current() : null; // Szlak: kraina bieżącego przystanku (po teście C1 = C1)
+    if (sz) { const k = stats.findIndex(function (s) { return s.id === sz.level; }); if (k !== -1) return k; }
     const i = stats.findIndex(function (s) { return s.total && s.percent < 100; });
     return i === -1 ? stats.length - 1 : i;
   }
@@ -116,11 +126,12 @@ window.ELM = window.ELM || {};
     const idx = currentIndex(stats);
     const cur = stats[idx];
     const remaining = cur.total - cur.done;
-    const next = cur.percent < 100 ? nextItem(cur.id) : null;
+    const sz = ELM.szlak && ELM.szlak.ready() ? ELM.szlak.current() : null;
+    const next = sz ? { text: sz.node.stop.title, href: ELM.szlak.HASH + "/" + sz.node.id } : (cur.percent < 100 ? nextItem(cur.id) : null);
     const ready = ELM.levelFinal ? ELM.levelFinal.readyLevel(stats) : null;
     let text, cta = null, extra = null;
     if (next) {
-      text = ["Następny przystanek " + LOCATIVE[cur.id] + ": ", el("strong", { text: next.text }), " · do końca krainy " + remaining + " " + plural(remaining, "punkt", "punkty", "punktów")];
+      text = ["Następny przystanek " + LOCATIVE[cur.id] + ": ", el("strong", { text: next.text }), " · do końca krainy " + remaining + " " + (sz ? plural(remaining, "przystanek", "przystanki", "przystanków") : plural(remaining, "punkt", "punkty", "punktów"))];
       cta = { href: next.href, label: "Idź dalej szlakiem" };
       if (ready) extra = ready;
     } else {
@@ -139,6 +150,7 @@ window.ELM = window.ELM || {};
     return el("footer", { class: "map-foot" }, [
       el("div", { class: "map-foot-text" }, [
         el("p", { class: "map-next" }, text),
+        sz ? el("p", { class: "map-unit num" }, "Odcinek " + sz.unit.index + " · " + sz.unit.title + " · " + sz.unit.done + "/" + sz.unit.total) : null,
         extra ? el("a", { class: "btn-link map-ready", href: ELM.levelFinal.testHash(extra.id) }, "Gotowy na test końcowy " + extra.id + "? Zrób test") : null
       ]),
       cta ? el("a", { class: "btn btn-secondary map-cta", href: cta.href }, [cta.label, ELM.icon("chevron-right", { size: 18 })]) : null
@@ -386,20 +398,21 @@ window.ELM = window.ELM || {};
       const here = i === cur;
       const passed = ELM.levelFinal ? ELM.levelFinal.passedText(s.id) : null; // „A1 zaliczony 12.11.2026” (test końcowy)
       list.appendChild(el("li", {
-        class: "trail-station lvl-" + s.id + (here ? " is-current" : "") + (s.percent >= 100 ? " is-done" : ""),
+        class: "trail-station lvl-" + s.id + (here ? " is-current" : "") + (s.percent >= 100 ? " is-done" : "") + (s.skipped ? " is-skipped" : ""),
         style: vertical ? "left:" + pt[0] + "px;top:" + pt[1] + "px" : "left:" + (pt[0] / g.w * 100) + "%;top:" + (pt[1] / g.h * 100) + "%"
       }, el("a", {
         class: "trail-link",
         href: ELM.app.levelHash(s.id),
-        "aria-label": "Poziom " + s.id + (name ? ", " + name : "") + ": " + s.percent + "% punktów „Umiem”" + (here ? " – tu jesteś" : "") + (passed ? ". " + passed : "")
+        "aria-label": "Poziom " + s.id + (name ? ", " + name : "") + ": " + (s.skipped ? "pominięte testem poziomu" : s.percent + (s.szlak ? "% przystanków szlaku" : "% punktów „Umiem”")) + (here ? " – tu jesteś" : "") + (passed ? ". " + passed : "")
       }, [
         el("span", { class: "trail-ring" }, [
-          ELM.ui.progressRing(s.percent, { size: 56, stroke: 5, node: ELM.ui.landIcon(s.id, { size: 26 }) }),
-          passed ? ELM.ui.stamp(s.id, { size: 20 }) : null // pieczątka ✓ w kolorze krainy (tekst „Zaliczony …” obok)
+          ELM.ui.progressRing(s.skipped ? 100 : s.percent, { size: 56, stroke: 5, node: ELM.ui.landIcon(s.id, { size: 26 }) }),
+          s.skipped ? el("span", { class: "trail-skip-badge", "aria-hidden": "true" }, ELM.icon("arrow-right", { size: 14 })) : null, // pominięte: strzałka zamiast znaczka
+          passed && !s.skipped ? ELM.ui.stamp(s.id, { size: 20 }) : null // pieczątka ✓ w kolorze krainy (tekst „Zaliczony …” obok)
         ]),
         el("span", { class: "trail-label", "aria-hidden": "true" }, [
           el("span", { class: "trail-name", text: ELM.ui.landLabel(s.id) }),
-          el("span", { class: "trail-pct num", text: s.percent + "%" }),
+          el("span", { class: "trail-pct num", text: s.skipped ? "pominięte" : s.percent + "%" }),
           passed ? el("span", { class: "trail-passed", text: "Zaliczony " + ELM.levelFinal.fmtDate(ELM.levelFinal.passedAt(s.id)) }) : null,
           here ? el("span", { class: "trail-here", text: "Tu jesteś" }) : null
         ])

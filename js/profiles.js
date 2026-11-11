@@ -120,7 +120,9 @@ window.ELM = window.ELM || {};
       ]),
       el("span", { class: "profile-caret", "aria-hidden": "true" }, ELM.icon("chevron-down", { size: 16 }))
     ]);
-    button.removeAttribute("aria-label"); // nazwa z widocznego tekstu + ukryty dopisek (WCAG 2.5.3)
+    // Nazwa dostępna zawiera widoczny tekst („Profil” + nazwa; WCAG 2.5.3). Poniżej ~480 px przycisk zwija się do awatara
+    // (spec v7 14, P5), więc pełna nazwa musi być w aria-label, a nie tylko w ukrytym tekście.
+    button.setAttribute("aria-label", active ? "Profil " + active.name + " – otwórz menu profilu" : "Profil – brak profilu, otwórz menu");
     button.setAttribute("aria-expanded", isOpen ? "true" : "false");
     root.classList.toggle("is-open", isOpen);
     menu.hidden = !isOpen;
@@ -443,6 +445,7 @@ window.ELM = window.ELM || {};
         list.splice(index, 1);
         if (ELM.profileData) ELM.profileData.removeProfile(profileId);
         if (ELM.fiszkiStore) ELM.fiszkiStore.removeProfile(profileId);
+        if (ELM.szlakStore) ELM.szlakStore.removeProfile(profileId);
         if (data().activeId === profileId) {
           // Po usunięciu ostatniego profilu: brak aktywnego → ekran powitalny
           data().activeId = list.length ? list[Math.min(index, list.length - 1)].id : null;
@@ -457,7 +460,53 @@ window.ELM = window.ELM || {};
   // EKRAN POWITALNY (gdy w przeglądarce nie ma żadnego profilu)
   // =====================================================================
 
-  function renderWelcome() {
+  /**
+   * Tryb gościa (spec v7 14, P1): akcja zapisująca (Umiem, notatka, wynik, fiszka…) bez profilu.
+   * Otwiera okno „Utwórz profil, żeby zapisywać postęp…” z polem nazwy. Zwraca Promise<boolean>:
+   * true = profil został utworzony (wołający wykonuje swoją akcję), false = anulowano.
+   * Z profilem aktywnym zwraca od razu true. Jedno okno naraz.
+   */
+  let pending = null;
+  function requireProfile(opts) {
+    opts = opts || {};
+    if (app().getActiveProfile()) return Promise.resolve(true);
+    if (pending) return pending;
+    const input = el("input", {
+      type: "text", class: "field", id: "guest-name", maxlength: String(MAX_NAME + 10), autocomplete: "off",
+      "aria-describedby": "guest-error", placeholder: "np. imię, nazwa klasy albo „Mój postęp”"
+    });
+    const error = el("p", { class: "dialog-error", id: "guest-error", "aria-live": "polite" });
+    function submit() {
+      const v = validateName(input.value, null);
+      if (v.error) { error.textContent = v.error; input.setAttribute("aria-invalid", "true"); input.focus(); return false; }
+      app().addProfile(v.name);
+      return true;
+    }
+    const dlg = ELM.dialogs.open({
+      title: "Utwórz profil",
+      className: "dialog-guest",
+      body: [
+        el("p", { text: (opts.reason ? opts.reason + " " : "") + "Utwórz profil, żeby zapisywać postęp (dane zostają w tej przeglądarce)." }),
+        el("label", { class: "field-label", for: "guest-name", text: "Nazwa profilu" }),
+        input,
+        error
+      ],
+      cancelValue: false,
+      actions: [
+        { label: "Nie teraz", value: false },
+        { label: "Utwórz profil", variant: "btn-primary", value: true, onClick: function () { return submit(); } }
+      ]
+    });
+    input.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") { e.preventDefault(); if (submit()) dlg.close(true); }
+    });
+    input.focus();
+    pending = dlg.result.then(function (ok) { pending = null; return !!ok; });
+    return pending;
+  }
+
+  function renderWelcome(opts) {
+    opts = opts || {};
     const view = document.getElementById("view");
     view.className = "view welcome-view";
     view.dataset.file = "#welcome";
@@ -487,6 +536,7 @@ window.ELM = window.ELM || {};
         thenTest = false;
         app().addProfile(v.name);
         if (goTest) location.hash = ELM.levelTest.HASH;
+        else if (ELM.szlak && /^#\/dzis\/?$/.test(location.hash)) location.hash = ELM.szlak.HASH; // pierwsze uruchomienie: wybór „test poziomu albo od A1” na Szlaku
       }
     }, [
       el("label", { class: "field-label", for: "welcome-name", text: "Nazwa profilu" }),
@@ -499,8 +549,9 @@ window.ELM = window.ELM || {};
     ]);
 
     view.appendChild(el("section", { class: "card welcome", "aria-labelledby": "welcome-title" }, [
-      el("h1", { id: "welcome-title", class: "welcome-title", text: "Witaj w English Levels Map" }),
-      el("p", { class: "welcome-lead", text: "Mapa umiejętności z angielskiego od A1 do C2: lista tego, co warto umieć na każdym poziomie, " +
+      el("h1", { id: "welcome-title", class: "welcome-title", text: opts.personal ? "Ta strona potrzebuje profilu" : "Witaj w English Levels Map" }),
+      opts.personal ? el("p", { class: "welcome-lead", text: "Dziś, fiszki, statystyki i notatki pokazują Twój postęp, więc trzeba je do kogoś przypisać. Utwórz profil, a wrócisz na tę samą stronę. Treści (poziomy, ćwiczenia, Lab czasów, egzaminy) możesz oglądać bez profilu." })
+        : el("p", { class: "welcome-lead", text: "Mapa umiejętności z angielskiego od A1 do C2: lista tego, co warto umieć na każdym poziomie, " +
         "wyjaśnienia z przykładami i ćwiczeniami oraz przygotowanie do certyfikatu C1." }),
       el("ul", { class: "welcome-list" }, [
         el("li", { text: "Zaznaczaj „Umiem” przy opanowanych punktach i śledź postęp na każdym poziomie." }),
@@ -515,6 +566,7 @@ window.ELM = window.ELM || {};
   ELM.profiles = {
     render: render,
     renderWelcome: renderWelcome,
+    requireProfile: requireProfile,
     bindEvents: bindEvents,
     validateName: validateName
   };

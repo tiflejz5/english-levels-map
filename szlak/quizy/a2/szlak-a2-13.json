@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "id": "szlak-a2-13",
+  "topic": "a2-czasy-future-will",
+  "level": "A2",
+  "title": "Przystanek: Will: decyzje i przewidywania",
+  "intro": "4 szybkie pytania. Zaliczenie od 3 dobrych odpowiedzi.",
+  "passage": null,
+  "passScore": 3,
+  "items": [
+    {
+      "id": "szlak-a2-13-01",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "— The phone's ringing. — I ___ get it.",
+      "options": [
+        "am going to",
+        "will to",
+        "am",
+        "will"
+      ],
+      "correct": 3,
+      "explanation": "Decyzja w chwili mówienia: will."
+    },
+    {
+      "id": "szlak-a2-13-02",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "I think it ___ rain tomorrow.",
+      "options": [
+        "going",
+        "does",
+        "is",
+        "will"
+      ],
+      "correct": 3,
+      "explanation": "Przewidywanie z I think: will."
+    },
+    {
+      "id": "szlak-a2-13-03",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "Don't worry, I ___ tell anyone.",
+      "options": [
+        "willn't",
+        "am not",
+        "don't",
+        "won't"
+      ],
+      "correct": 3,
+      "explanation": "Przeczenie od will: won't."
+    },
+    {
+      "id": "szlak-a2-13-04",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "— I'm cold. — I ___ close the window.",
+      "options": [
+        "do",
+        "will",
+        "am",
+        "would to"
+      ],
+      "correct": 1,
+      "explanation": "Spontaniczna oferta: I'll (I will)."
+    }
+  ]
+}

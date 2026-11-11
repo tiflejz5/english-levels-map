@@ -564,6 +564,52 @@ window.ELM = window.ELM || {};
   // RYSOWANIE
   // =====================================================================
 
+  /**
+   * Szkielet widoku do czasu wczytania danych (dane/lab-dane.js): układ siatki Mapy czasów jest znany z góry
+   * (kolumny i aspekty), więc wiersze i kolumny rysują się od razu, a kafelki są pustymi placeholderami.
+   * Dla pozostałych zakładek: trzy paski. Czytnik ekranu dostaje jeden komunikat „Wczytuję…”.
+   */
+  function skeleton(tab) {
+    const status = el("p", { class: "visually-hidden", role: "status", text: "Wczytuję Laboratorium…" });
+    if (tab !== "map") {
+      return el("div", { class: "lab-skeleton", "aria-busy": "true" }, [
+        status,
+        el("div", { class: "lab-skel-bar lab-skel-wide", "aria-hidden": "true" }),
+        el("div", { class: "lab-skel-bar", "aria-hidden": "true" }),
+        el("div", { class: "lab-skel-bar lab-skel-short", "aria-hidden": "true" })
+      ]);
+    }
+    return el("section", { class: "lab-section lab-skeleton", "aria-busy": "true", "aria-labelledby": "lab-map-title" }, [
+      status,
+      el("h2", { class: "section-title", id: "lab-map-title", text: "Mapa czasów" }),
+      el("div", { class: "lab-grid", "aria-hidden": "true" }, GROUPS.map(function (g) {
+        return el("div", { class: "lab-col lab-group-" + g.id }, [
+          el("p", { class: "lab-col-title" }, [g.label, el("span", { class: "lab-col-pl", text: " · " + g.pl })]),
+          el("ol", { class: "lab-col-list" }, ASPECTS.map(function (a) {
+            return el("li", null, [el("span", { class: "lab-aspect", text: a.label }), el("span", { class: "lab-tile is-skeleton" })]);
+          }))
+        ]);
+      }))
+    ]);
+  }
+
+  /** Wczytuje dane Laboratorium z wyprzedzeniem (bezczynność przeglądarki, najechanie na link), bez rysowania. */
+  function prefetch() {
+    if (ELM.LAB) return;
+    load();
+  }
+
+  function bindPrefetch() {
+    const near = function (e) { const a = e.target && e.target.closest && e.target.closest('a[href^="' + BASE + '"]'); if (a) prefetch(); };
+    ["pointerover", "focusin", "touchstart"].forEach(function (type) { document.addEventListener(type, near, { passive: true }); });
+    const conn = navigator.connection;
+    if (conn && conn.saveData) return; // tryb oszczędzania danych: tylko na żądanie
+    const idle = window.requestIdleCallback || function (fn) { return setTimeout(fn, 2500); };
+    idle(prefetch, { timeout: 5000 });
+  }
+  if (document.readyState === "complete") bindPrefetch();
+  else window.addEventListener("load", bindPrefetch, { once: true });
+
   function render(route) {
     route = route || parseRoute(location.hash) || { tab: "map" };
     const view = document.getElementById("view");
@@ -573,9 +619,14 @@ window.ELM = window.ELM || {};
     document.title = "Laboratorium czasów · English Levels Map";
     header(route.tab, route).forEach(function (n) { view.appendChild(n); });
     if (!ELM.LAB) {
-      view.appendChild(el("p", { class: "tool-note", role: "status", text: "Wczytuję Laboratorium…" }));
+      view.appendChild(skeleton(route.tab)); // szkielet układu zamiast samego napisu (spec v7 14, P4)
       load().then(function (data) {
-        if (!data) { view.appendChild(el("p", { class: "tool-note", text: "Nie udało się wczytać danych Laboratorium (dane/lab-dane.js)." })); return; }
+        if (!data) {
+          const sk = view.querySelector(".lab-skeleton");
+          if (sk) sk.remove();
+          view.appendChild(el("p", { class: "tool-note", text: "Nie udało się wczytać danych Laboratorium (dane/lab-dane.js)." }));
+          return;
+        }
         if (parseRoute(location.hash)) render(parseRoute(location.hash));
       });
       return;

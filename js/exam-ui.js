@@ -248,6 +248,19 @@ window.ELM = window.ELM || {};
     ]);
   }
 
+  /** Kafel wyboru egzaminu (strona główna, gdy nic nie jest przypięte): kod, nazwa, poziom i instytucja; bez odliczania i daty. */
+  function coverPick(e) {
+    return el("a", { class: "card exam-cover is-mini is-pick", href: href(e), "data-exam-cover": e.id, "data-variant": "pick", style: colorStyle(e) }, [
+      el("span", { class: "exam-cover-bar", "aria-hidden": "true" }),
+      el("span", { class: "exam-cover-code", "aria-hidden": "true", text: e.code }),
+      el("span", { class: "exam-cover-body" }, [
+        el("span", { class: "exam-cover-title", text: e.label }),
+        el("span", { class: "exam-cover-count", text: e.subtitle || "" })
+      ]),
+      el("span", { class: "exam-cover-chev", "aria-hidden": "true" }, ELM.icon("chevron-right", { size: 20 }))
+    ]);
+  }
+
   function cover(e, variant) {
     return variant === "compact" ? coverCompact(e) : variant === "mini" ? coverMini(e) : coverFull(e);
   }
@@ -270,10 +283,12 @@ window.ELM = window.ELM || {};
   function homeSection() {
     const mine = list();
     const section = el("section", { class: "home-exams", "aria-labelledby": "home-exams-title" }, [
-      el("h2", { id: "home-exams-title", class: "home-exams-title", text: "Twoje egzaminy" })
+      el("h2", { id: "home-exams-title", class: "home-exams-title", text: mine.length ? "Twoje egzaminy" : "Egzaminy" })
     ]);
     if (!mine.length) {
-      section.appendChild(el("p", { class: "tool-note", text: "Przygotowujesz się do egzaminu? Wybierz go w grupie Egzaminy w panelu." }));
+      // Nic nie jest przypięte (też w trybie gościa): kafelki wszystkich egzaminów zamiast samego zdania (spec v7 14, P6)
+      section.appendChild(el("p", { class: "tool-note", text: "Przygotowujesz się do egzaminu? Wybierz go. Na jego stronie możesz go przypiąć do Dziś." }));
+      section.appendChild(el("div", { class: "home-exams-grid" }, registry().exams.filter(function (e) { return e.status !== "hidden"; }).map(coverPick)));
       return section;
     }
     section.appendChild(el("div", { class: "home-exams-grid" }, mine.map(function (m) { return coverMini(byId(m.id)); })));

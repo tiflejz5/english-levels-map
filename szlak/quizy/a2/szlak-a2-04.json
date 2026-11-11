@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "id": "szlak-a2-04",
+  "topic": "a2-gramatyka-spojniki",
+  "level": "A2",
+  "title": "Przystanek: Spójniki and, but, because, so",
+  "intro": "4 szybkie pytania. Zaliczenie od 3 dobrych odpowiedzi.",
+  "passage": null,
+  "passScore": 3,
+  "items": [
+    {
+      "id": "szlak-a2-04-01",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "I was tired, ___ I went to bed early.",
+      "options": [
+        "so",
+        "but",
+        "because",
+        "or"
+      ],
+      "correct": 0,
+      "explanation": "So wprowadza skutek."
+    },
+    {
+      "id": "szlak-a2-04-02",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "I stayed at home ___ it was raining.",
+      "options": [
+        "but",
+        "and",
+        "because",
+        "so"
+      ],
+      "correct": 2,
+      "explanation": "Because wprowadza przyczynę."
+    },
+    {
+      "id": "szlak-a2-04-03",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "She likes tea, ___ she doesn't like coffee.",
+      "options": [
+        "then",
+        "but",
+        "because",
+        "so"
+      ],
+      "correct": 1,
+      "explanation": "But łączy przeciwieństwa."
+    },
+    {
+      "id": "szlak-a2-04-04",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "First we had lunch, ___ we went to the museum.",
+      "options": [
+        "or",
+        "then",
+        "but",
+        "because"
+      ],
+      "correct": 1,
+      "explanation": "Then = potem, kolejność zdarzeń."
+    }
+  ]
+}

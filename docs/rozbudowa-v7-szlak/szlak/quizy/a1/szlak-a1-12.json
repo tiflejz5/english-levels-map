@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "id": "szlak-a1-12",
+  "topic": "a1-gramatyka-szyk-zdania",
+  "level": "A1",
+  "title": "Przystanek: Szyk zdania",
+  "intro": "4 szybkie pytania. Zaliczenie od 3 dobrych odpowiedzi.",
+  "passage": null,
+  "passScore": 3,
+  "items": [
+    {
+      "id": "szlak-a1-12-01",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "Wybierz poprawne zdanie.",
+      "options": [
+        "I like very much coffee.",
+        "Very much I like coffee.",
+        "I very much coffee like.",
+        "I like coffee very much."
+      ],
+      "correct": 3,
+      "explanation": "Very much stoi po dopełnieniu: like coffee very much."
+    },
+    {
+      "id": "szlak-a1-12-02",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "Wybierz poprawne zdanie.",
+      "options": [
+        "Is cold today.",
+        "Today is cold it.",
+        "It's cold today.",
+        "Cold is today."
+      ],
+      "correct": 2,
+      "explanation": "Każde zdanie ma podmiot. Gdy nie ma kto, wstawiamy it."
+    },
+    {
+      "id": "szlak-a1-12-03",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "Wybierz poprawne zdanie.",
+      "options": [
+        "She speaks well English.",
+        "She well speaks English.",
+        "Well she speaks English.",
+        "She speaks English well."
+      ],
+      "correct": 3,
+      "explanation": "Nie rozdzielamy czasownika i dopełnienia: speaks English well."
+    },
+    {
+      "id": "szlak-a1-12-04",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "Wybierz poprawne zdanie.",
+      "options": [
+        "Has got my brother a new car.",
+        "My brother a new car has got.",
+        "My brother has got a new car.",
+        "My brother has a got new car."
+      ],
+      "correct": 2,
+      "explanation": "Szyk: podmiot + orzeczenie + dopełnienie."
+    }
+  ]
+}

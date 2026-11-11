@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "id": "szlak-a1-19",
+  "topic": "a1-czasy-present-continuous",
+  "level": "A1",
+  "title": "Przystanek: Present Continuous: co się dzieje",
+  "intro": "4 szybkie pytania. Zaliczenie od 3 dobrych odpowiedzi.",
+  "passage": null,
+  "passScore": 3,
+  "items": [
+    {
+      "id": "szlak-a1-19-01",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "Be quiet! The baby ___.",
+      "options": [
+        "sleeps",
+        "sleeping",
+        "is sleeping",
+        "are sleeping"
+      ],
+      "correct": 2,
+      "explanation": "Teraz, w tej chwili: is + -ing."
+    },
+    {
+      "id": "szlak-a1-19-02",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "What ___ you doing now?",
+      "options": [
+        "does",
+        "are",
+        "is",
+        "do"
+      ],
+      "correct": 1,
+      "explanation": "Pytanie w Present Continuous: are you doing."
+    },
+    {
+      "id": "szlak-a1-19-03",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "I ___ today. I'm on holiday.",
+      "options": [
+        "don't work",
+        "am not work",
+        "not working",
+        "am not working"
+      ],
+      "correct": 3,
+      "explanation": "Przeczenie: am not + -ing."
+    },
+    {
+      "id": "szlak-a1-19-04",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "Look! It ___.",
+      "options": [
+        "raining",
+        "rains",
+        "rain",
+        "is raining"
+      ],
+      "correct": 3,
+      "explanation": "Look! sygnalizuje, że coś dzieje się teraz."
+    }
+  ]
+}

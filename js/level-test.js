@@ -106,6 +106,7 @@ window.ELM = window.ELM || {};
       level: learn().LEVELS[idx],
       answers: run.asked.map(function (a) { return { id: a.q.id, level: a.q.level, chosen: a.chosen, correct: a.correct }; })
     });
+    if (run.saved && ELM.szlakStore) ELM.szlakStore.setStart(run.saved.level, "test"); // wynik testu ustawia punkt startu Szlaku (spec v7 13, 3.2)
     ELM.markActivity(); // ukończony test = dzień nauki
     if (ELM.celebrate) ELM.celebrate.check({ event: "test", level: run.saved && run.saved.level });
   }
@@ -244,9 +245,9 @@ window.ELM = window.ELM || {};
       el("p", { class: "lt-result-level" }, [el("strong", { class: "lt-result-code", text: level }), el("span", { class: "lt-result-note", text: "orientacyjnie" })]),
       desc ? el("p", { class: "tool-lead" }, U.formatText(desc)) : null,
       skillBreakdown(saved.answers),
-      el("p", null, el("a", { class: "wiki-link", href: ELM.app.levelHash(level) + "" }, "Podsumowanie poziomu " + level + " (pod listą umiejętności)")),
+      el("p", null, el("a", { class: "wiki-link", href: ELM.app.levelHash(level) + "" }, "Co umiesz na " + level)),
       el("div", { class: "tool-actions" }, [
-        el("a", { class: "btn btn-primary", href: ELM.app.levelHash(level) }, "Zacznij od poziomu " + level),
+        el("a", { class: "btn btn-primary", href: ELM.szlak ? ELM.szlak.HASH : ELM.app.levelHash(level), onclick: function () { if (ELM.szlakStore) ELM.szlakStore.setStart(level, "test", true); } }, "Zacznij szlak od " + level),
         el("button", { type: "button", class: "btn btn-secondary", onclick: function () { start(); render(); focusLater(".lt-option"); } }, "Powtórz test")
       ]),
       el("p", { class: "tool-note", text: DISCLAIMER + " Wynik z " + saved.date + "." })

@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "id": "szlak-a1-04",
+  "topic": "a1-funkcje-dane-osobowe",
+  "level": "A1",
+  "title": "Przystanek: Kim jesteś: dane osobowe",
+  "intro": "4 szybkie pytania. Zaliczenie od 3 dobrych odpowiedzi.",
+  "passage": null,
+  "passScore": 3,
+  "items": [
+    {
+      "id": "szlak-a1-04-01",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "— Where are you from? — ___",
+      "options": [
+        "I'm from Poland.",
+        "I'm in Poland from.",
+        "I'm Polish from.",
+        "I from Poland."
+      ],
+      "correct": 0,
+      "explanation": "Be from + kraj: I'm from Poland."
+    },
+    {
+      "id": "szlak-a1-04-02",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "— How old are you? — ___",
+      "options": [
+        "I have 22 years.",
+        "I'm 22 years.",
+        "I have 22.",
+        "I'm 22."
+      ],
+      "correct": 3,
+      "explanation": "Wiek podajemy z be: I'm 22 (lub I'm 22 years old). Nie: I have 22 years."
+    },
+    {
+      "id": "szlak-a1-04-03",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "— What do you do? — ___",
+      "options": [
+        "I do teacher.",
+        "I teach am.",
+        "I'm teacher.",
+        "I'm a teacher."
+      ],
+      "correct": 3,
+      "explanation": "Zawód z przedimkiem a/an: I'm a teacher."
+    },
+    {
+      "id": "szlak-a1-04-04",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "Kowalski is my ___.",
+      "options": [
+        "surname",
+        "first name",
+        "address",
+        "nickname"
+      ],
+      "correct": 0,
+      "explanation": "Nazwisko = surname (lub last name)."
+    }
+  ]
+}

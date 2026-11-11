@@ -1642,6 +1642,8 @@ window.ELM = window.ELM || {};
     if (run.phase === "intro") renderIntro(view);
     else if (run.phase === "item") renderItem(view);
     else renderDone(view);
+    const guest = ELM.ui.guestNote("wyniki, dziennik błędów i statystyki"); // tryb gościa (spec v7 14, P1)
+    if (guest) view.insertBefore(guest, view.firstChild);
   }
 
   /** Wejście z innego widoku: skończona sesja zaczyna się od ekranu startowego. */

@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "id": "szlak-a2-05",
+  "topic": "a2-funkcje-opisywanie",
+  "level": "A2",
+  "title": "Przystanek: Opisywanie ludzi i ubrań",
+  "intro": "4 szybkie pytania. Zaliczenie od 3 dobrych odpowiedzi.",
+  "passage": null,
+  "passScore": 3,
+  "items": [
+    {
+      "id": "szlak-a2-05-01",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "— What does she look like? — ___",
+      "options": [
+        "She's fine, thanks.",
+        "She looks at the window.",
+        "She likes pizza.",
+        "She's tall with long dark hair."
+      ],
+      "correct": 3,
+      "explanation": "What does she look like? pyta o wygląd."
+    },
+    {
+      "id": "szlak-a2-05-02",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "He's wearing a blue ___ and jeans.",
+      "options": [
+        "shoes",
+        "glasses",
+        "socks",
+        "shirt"
+      ],
+      "correct": 3,
+      "explanation": "A + liczba pojedyncza: a blue shirt."
+    },
+    {
+      "id": "szlak-a2-05-03",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "It's cold. Put on your ___.",
+      "options": [
+        "sandals",
+        "shorts",
+        "T-shirt",
+        "coat"
+      ],
+      "correct": 3,
+      "explanation": "Na zimno: coat (płaszcz)."
+    },
+    {
+      "id": "szlak-a2-05-04",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "My flat is small but very ___.",
+      "options": [
+        "cosily",
+        "cosiness",
+        "cosy",
+        "cose"
+      ],
+      "correct": 2,
+      "explanation": "Po very potrzebny przymiotnik: cosy (przytulny)."
+    }
+  ]
+}

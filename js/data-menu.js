@@ -35,7 +35,9 @@ window.ELM = window.ELM || {};
         progress: ELM.store.wrapExport("progress", ELM.state.profiles),
         learning: ELM.profileData.exportData(),
         // Fiszki (js/fiszki-store.js): { <profileId>: stan } — nowa część, starsze pliki jej nie mają
-        fiszki: ELM.fiszkiStore ? ELM.fiszkiStore.exportData() : undefined
+        fiszki: ELM.fiszkiStore ? ELM.fiszkiStore.exportData() : undefined,
+        // Szlak (js/szlak-store.js): { <profileId>: stan } — nowa część, starsze pliki jej nie mają
+        szlak: ELM.szlakStore ? ELM.szlakStore.exportData() : undefined
       }
     });
   }
@@ -80,12 +82,13 @@ window.ELM = window.ELM || {};
 
   /** Plik z obiema częściami: walidacja obu → jedno potwierdzenie → zapis. */
   function importBackup(obj) {
-    let content, profiles, learning, fiszki;
+    let content, profiles, learning, fiszki, szlak;
     try {
       if (!U.isPlainObject(obj.data) || !obj.data.content || !obj.data.progress) throw new Error("Plik kopii jest niekompletny.");
       if (typeof obj.version === "number" && obj.version > 2) throw new Error("Plik pochodzi z nowszej wersji aplikacji. Zaktualizuj pliki strony.");
       learning = ELM.profileData.parseImport(obj.data.learning);
       fiszki = ELM.fiszkiStore ? ELM.fiszkiStore.parseImport(obj.data.fiszki) : null; // brak w starym pliku → null
+      szlak = ELM.szlakStore ? ELM.szlakStore.parseImport(obj.data.szlak) : null;     // brak w starym pliku → null
       content = ELM.store.parseContentImport(JSON.stringify(obj.data.content));
       const parsed = ELM.store.parseProgressImport(JSON.stringify(obj.data.progress));
       if (parsed.type !== "profiles") throw new Error("Kopia nie zawiera listy profili.");
@@ -106,7 +109,7 @@ window.ELM = window.ELM || {};
     }).then(function (ok) {
       if (!ok) return false;
       app().replaceContent(content);
-      app().replaceProfiles(profiles, learning, fiszki);
+      app().replaceProfiles(profiles, learning, fiszki, szlak);
       ELM.dialogs.alert({ title: "Gotowe", message: "Dane zostały zaimportowane." });
       return true;
     });
@@ -202,6 +205,7 @@ window.ELM = window.ELM || {};
       ELM.store.clearAll();
       ELM.profileData.clearAll();
       if (ELM.fiszkiStore) ELM.fiszkiStore.clearAll(); // fiszki wszystkich profili (elm.<id>.fiszki)
+      if (ELM.szlakStore) ELM.szlakStore.clearAll(); // Szlak wszystkich profili (elm.<id>.szlak)
       if (ELM.search) ELM.search.clearRecent(); // ostatnie wyszukiwania (na urządzeniu)
       app().replaceProfiles(ELM.createEmptyProfiles());
       app().replaceContent(ELM.createDefaultData());

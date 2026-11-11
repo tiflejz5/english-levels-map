@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "id": "szlak-a1-22",
+  "topic": "a1-czasy-going-to",
+  "level": "A1",
+  "title": "Przystanek: Going to: plany",
+  "intro": "4 szybkie pytania. Zaliczenie od 3 dobrych odpowiedzi.",
+  "passage": null,
+  "passScore": 3,
+  "items": [
+    {
+      "id": "szlak-a1-22-01",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "I'm ___ visit my grandma tomorrow.",
+      "options": [
+        "going",
+        "go to",
+        "gonna to",
+        "going to"
+      ],
+      "correct": 3,
+      "explanation": "Plan: be going to + czasownik."
+    },
+    {
+      "id": "szlak-a1-22-02",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "She ___ going to buy a new phone.",
+      "options": [
+        "will",
+        "are",
+        "is",
+        "does"
+      ],
+      "correct": 2,
+      "explanation": "She + is going to."
+    },
+    {
+      "id": "szlak-a1-22-03",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "Look at the clouds! It's going ___.",
+      "options": [
+        "rain",
+        "to rain",
+        "raining",
+        "to raining"
+      ],
+      "correct": 1,
+      "explanation": "Widać znaki: going to + forma podstawowa."
+    },
+    {
+      "id": "szlak-a1-22-04",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "___ you going to watch the match?",
+      "options": [
+        "Is",
+        "Will",
+        "Are",
+        "Do"
+      ],
+      "correct": 2,
+      "explanation": "Pytanie: Are you going to…?"
+    }
+  ]
+}

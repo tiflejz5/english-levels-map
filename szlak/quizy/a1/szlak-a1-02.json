@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "id": "szlak-a1-02",
+  "topic": "a1-gramatyka-to-be-have-got",
+  "level": "A1",
+  "title": "Przystanek: To be i have got",
+  "intro": "4 szybkie pytania. Zaliczenie od 3 dobrych odpowiedzi.",
+  "passage": null,
+  "passScore": 3,
+  "items": [
+    {
+      "id": "szlak-a1-02-01",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "They ___ students.",
+      "options": [
+        "is",
+        "are",
+        "be",
+        "am"
+      ],
+      "correct": 1,
+      "explanation": "They + are."
+    },
+    {
+      "id": "szlak-a1-02-02",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "She ___ got two brothers.",
+      "options": [
+        "has",
+        "have",
+        "is",
+        "does"
+      ],
+      "correct": 0,
+      "explanation": "He/she/it + has got."
+    },
+    {
+      "id": "szlak-a1-02-03",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "___ you got a car?",
+      "options": [
+        "Are",
+        "Has",
+        "Have",
+        "Do"
+      ],
+      "correct": 2,
+      "explanation": "Pytanie z have got: Have you got…?"
+    },
+    {
+      "id": "szlak-a1-02-04",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "I ___ not hungry.",
+      "options": [
+        "are",
+        "am",
+        "do",
+        "is"
+      ],
+      "correct": 1,
+      "explanation": "I + am. Przeczenie: I am not (I'm not)."
+    }
+  ]
+}

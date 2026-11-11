@@ -123,6 +123,13 @@ Zapisujemy wyłącznie listę dni aktywności profilu. Serię liczy `ELM.learn.s
 2. Uruchom `node tools/zbuduj-niezbednik.js`. Skrypt sprawdza schemat, także `skill` i `passage`: błędne pytania pomija i wypisuje „UWAGA”, nieznane `itemId` usuwa (pytanie zostaje bez linku), ostrzega o braku `skill`, o długości tekstu i o poziomie z mniej niż 8 pytaniami albo bez którejś umiejętności, a na koniec wypisuje tabelę poziom × umiejętność. Potem tworzy `niezbednik/test-poziomu-dane.js`. Pełne sprawdzenie proporcji: `python3 docs/rozbudowa-v6/scripts/validate_v6.py . --only test`.
 3. Zwiększ `?v=…` w `index.html`.
 
+## Szlak i tryb gościa (paczka v7)
+
+- **Szlak** (`#/szlak`, `js/szlak.js`, logika `js/szlak-logic.js`, stan `js/szlak-store.js`): jedna droga przez krainy A1 → C2, 118 przystanków i 24 powtórki z `szlak/szlak.json`, odnogi egzaminów, arkusz przystanku (Przeczytaj, Sprawdź się, Zaliczone / Pomiń). Przystanek zalicza quiz ≥ 3/4, komplet „Umiem” albo (bez quizu) zestaw ≥ 80%. Quiz nigdy sam nie zaznacza „Umiem”. Krainy przed punktem startu (test poziomu albo wybór ręczny) są „pominięte”. Postęp krainy na mapie „Dziś” to zaliczone przystanki, na stronie poziomu zostaje checklista „Umiem”.
+- **Dane:** `szlak/szlak.json` i `szlak/quizy/<poziom>/*.json` (quizy A1–A2; B1–C2 w kolejnych paczkach: nowy plik i pole `quiz` przy przystanku, bez zmian w kodzie). `node tools/zbuduj-szlak.js` generuje `szlak/szlak-dane.js` i `szlak/quizy-<poziom>.js` (ładowane na żądanie). Walidacja: `npm run validate` uruchamia `scripts/validate_szlak.py` (pokrycie checklisty, strony, quizy).
+- **Tryb gościa:** treści publiczne działają bez profilu. Akcje zapisujące (`ELM.app.withProfile`) otwierają okno „Utwórz profil…” i po utworzeniu profilu same się wykonują. Strony osobiste (Dziś, Fiszki i błędy, Dziennik, Statystyki, Notatki, test poziomu, Szlak) bez profilu pokazują kartę powitalną pod tym samym adresem.
+- **Testy przeglądarkowe:** `npm run e2e` (`tools/e2e-start.js`, wymaga `playwright-core` i przeglądarki; bez nich się pomija).
+
 ## Testy końcowe poziomów A1–C2
 
 Specyfikacja: `docs/rozbudowa-v6/spec/13-test-poziomu-i-testy-koncowe.md` (sekcja 2). Różnią się od szybkiego testu poziomu: sprawdzają **cały poziom**, nie szacują go.
@@ -310,6 +317,7 @@ Nazwa profilu: spacje na początku i końcu są obcinane, najwyżej 30 znaków, 
 | `elm_learnprefs_v1` | ustawienia nauki **per profil**: `{ autoJournal: true / false }` (menu profilu → Ustawienia nauki) |
 | `elm_notes_v1`    | notatki **per profil**: `{ items: { <klucz strony>: { text, updatedAt, title, route } } }`, zwykły tekst ≤ 10 000 znaków |
 | `elm_exams_v1`    | egzaminy z rejestru (nie C1) **per profil**: `{ exams: { <id egzaminu>: { examDate, drafts: { <zadanie>: tekst }, tasks: { <strona>: { <nr>: true } } } }, my?: { <id egzaminu, także C1>: "pinned" \| "hidden" } }` (w eksporcie, imporcie i resecie). Pole `my` jest opcjonalne: ręczne przypięcie albo odpięcie egzaminu na stronie głównej i Dziś; jego brak = automat („Moje egzaminy”: ustawiona data albo ukończony zestaw), stary plik bez pola wczytuje się bez zmian |
+| `elm.<profil>.szlak` | stan Szlaku **per profil** (paczka v7, spec 13): `{ version: 1, start: { level, source: "test" \| "manual" \| "default", at } \| null, stops: { <id przystanku>: { done, via: "quiz" \| "umiem" \| "skip" \| "set", best?, at } }, reviews: { <id powtórki>: { best, of, at } } }`; w eksporcie (część `szlak` kopii), imporcie (stary plik bez niej nie kasuje Szlaku), resecie i przy usunięciu profilu; zaliczenie „Umiem” liczy się na bieżąco z checklisty, nie jest kopiowane |
 | `elm_search_recent_v1` | ostatnie wyszukiwania `{ version: 1, items: [...] }` (globalnie dla urządzenia, poza eksportem, czyszczone przez „Resetuj dane”) |
 
 Wpis dziennika: `{ id, createdAt: "RRRR-MM-DD", context, myAnswer, correct, rule, source, category, itemId, ref, review: { stage, due, mastered } }`. Przy zapisie i imporcie pola są sprawdzane i przycinane (np. kontekst do 2000 znaków, odpowiedzi do 1000, źródło do 200). Wpisy bez kontekstu albo poprawnej odpowiedzi są odrzucane. Usunięcie profilu usuwa też jego dziennik, serię i wynik testu.

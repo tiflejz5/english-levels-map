@@ -42,8 +42,9 @@ window.ELM = window.ELM || {};
       "aria-label": has ? "Notatki – ta strona ma notatkę" : "Notatki",
       "data-note-key": key,
       onclick: function () {
-        if (current && current.key === key && panel && !panel.hidden) close(true);
-        else open(key, meta, b);
+        if (current && current.key === key && panel && !panel.hidden) { close(true); return; }
+        // tryb gościa: notatki są częścią profilu — najpierw profil, potem otwarcie panelu
+        ELM.app.withProfile("Notatki zapisują się w profilu.", function () { open(key, meta, document.querySelector('[data-note-key="' + key + '"]') || b); });
       }
     }, [
       ELM.icon("notebook", { size: 16 }),

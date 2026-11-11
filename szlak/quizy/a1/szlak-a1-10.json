@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "id": "szlak-a1-10",
+  "topic": "a1-slownictwo",
+  "level": "A1",
+  "title": "Przystanek: Kolory i rodzina",
+  "intro": "4 szybkie pytania. Zaliczenie od 3 dobrych odpowiedzi.",
+  "passage": null,
+  "passScore": 3,
+  "items": [
+    {
+      "id": "szlak-a1-10-01",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "My mother's brother is my ___.",
+      "options": [
+        "uncle",
+        "nephew",
+        "cousin",
+        "grandfather"
+      ],
+      "correct": 0,
+      "explanation": "Brat mamy to wujek: uncle."
+    },
+    {
+      "id": "szlak-a1-10-02",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "My father's mother is my ___.",
+      "options": [
+        "grandmother",
+        "sister",
+        "niece",
+        "aunt"
+      ],
+      "correct": 0,
+      "explanation": "Mama taty to babcia: grandmother."
+    },
+    {
+      "id": "szlak-a1-10-03",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "The sky is ___.",
+      "options": [
+        "blue",
+        "green",
+        "brown",
+        "pink"
+      ],
+      "correct": 0,
+      "explanation": "Niebo jest niebieskie: blue."
+    },
+    {
+      "id": "szlak-a1-10-04",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "Black + white = ___",
+      "options": [
+        "grey",
+        "purple",
+        "orange",
+        "yellow"
+      ],
+      "correct": 0,
+      "explanation": "Czarny i biały dają szary: grey (US: gray)."
+    }
+  ]
+}

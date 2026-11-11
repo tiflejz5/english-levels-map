@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "id": "szlak-a1-07",
+  "topic": "a1-gramatyka-liczba-mnoga",
+  "level": "A1",
+  "title": "Przystanek: Liczba mnoga",
+  "intro": "4 szybkie pytania. Zaliczenie od 3 dobrych odpowiedzi.",
+  "passage": null,
+  "passScore": 3,
+  "items": [
+    {
+      "id": "szlak-a1-07-01",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "two ___",
+      "options": [
+        "childs",
+        "child",
+        "children",
+        "childrens"
+      ],
+      "correct": 2,
+      "explanation": "Child – children to liczba mnoga nieregularna."
+    },
+    {
+      "id": "szlak-a1-07-02",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "three ___",
+      "options": [
+        "boxies",
+        "boxs",
+        "box",
+        "boxes"
+      ],
+      "correct": 3,
+      "explanation": "Po -x dodajemy -es: boxes."
+    },
+    {
+      "id": "szlak-a1-07-03",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "These ___ are tall.",
+      "options": [
+        "mens",
+        "mans",
+        "man",
+        "men"
+      ],
+      "correct": 3,
+      "explanation": "Man – men."
+    },
+    {
+      "id": "szlak-a1-07-04",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "I've got two ___.",
+      "options": [
+        "babyes",
+        "babys",
+        "baby",
+        "babies"
+      ],
+      "correct": 3,
+      "explanation": "Spółgłoska + y → -ies: babies."
+    }
+  ]
+}

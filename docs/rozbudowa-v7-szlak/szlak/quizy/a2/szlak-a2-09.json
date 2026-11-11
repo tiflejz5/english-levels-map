@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "id": "szlak-a2-09",
+  "topic": "a2-gramatyka-policzalne-niepoliczalne",
+  "level": "A2",
+  "title": "Przystanek: Some, any, much, many",
+  "intro": "4 szybkie pytania. Zaliczenie od 3 dobrych odpowiedzi.",
+  "passage": null,
+  "passScore": 3,
+  "items": [
+    {
+      "id": "szlak-a2-09-01",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "How ___ water do you drink a day?",
+      "options": [
+        "lot",
+        "many",
+        "few",
+        "much"
+      ],
+      "correct": 3,
+      "explanation": "Water jest niepoliczalne: how much."
+    },
+    {
+      "id": "szlak-a2-09-02",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "There aren't ___ apples left.",
+      "options": [
+        "a",
+        "any",
+        "some",
+        "much"
+      ],
+      "correct": 1,
+      "explanation": "W przeczeniach: any."
+    },
+    {
+      "id": "szlak-a2-09-03",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "I need ___ information about the course.",
+      "options": [
+        "many",
+        "an",
+        "some",
+        "a few"
+      ],
+      "correct": 2,
+      "explanation": "Information jest niepoliczalne: some information."
+    },
+    {
+      "id": "szlak-a2-09-04",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "We haven't got ___ time.",
+      "options": [
+        "much",
+        "many",
+        "few",
+        "a few"
+      ],
+      "correct": 0,
+      "explanation": "Time (czas) jest niepoliczalne: much time."
+    }
+  ]
+}

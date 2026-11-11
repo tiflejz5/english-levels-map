@@ -26,6 +26,7 @@ window.ELM = window.ELM || {};
   const GROUPS = ["pages", "exams", "exercises", "lab", "notes", "journal"];
   const GROUP_LABEL = { pages: "Strony", exams: "Egzaminy", exercises: "Ćwiczenia", lab: "Laboratorium czasów", notes: "Moje notatki", journal: "Mój dziennik błędów" };
   const SHORTCUTS = [
+    { title: "Szlak", route: "#/szlak", icon: "route" },
     { title: "Dziś", route: "#/dzis", icon: "sunrise" },
     { title: "Lab czasów", route: "#/laboratorium-czasow", icon: "flask-conical" },
     { title: "Ćwiczenia", route: "#/cwiczenia", icon: "dumbbell" },

@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "id": "szlak-a2-02",
+  "topic": "a2-funkcje-opowiadanie-o-weekendzie",
+  "level": "A2",
+  "title": "Przystanek: Mój weekend i czas wolny",
+  "intro": "4 szybkie pytania. Zaliczenie od 3 dobrych odpowiedzi.",
+  "passage": null,
+  "passScore": 3,
+  "items": [
+    {
+      "id": "szlak-a2-02-01",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "— How was your weekend? — ___",
+      "options": [
+        "It goes great.",
+        "I was great weekend.",
+        "It is great.",
+        "It was great, thanks."
+      ],
+      "correct": 3,
+      "explanation": "Pytanie w przeszłości, odpowiedź też: It was…"
+    },
+    {
+      "id": "szlak-a2-02-02",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "On Saturday I ___ for a walk in the park.",
+      "options": [
+        "played",
+        "went",
+        "made",
+        "did"
+      ],
+      "correct": 1,
+      "explanation": "Go for a walk = iść na spacer."
+    },
+    {
+      "id": "szlak-a2-02-03",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "In my free time I ___ yoga.",
+      "options": [
+        "go",
+        "make",
+        "do",
+        "play"
+      ],
+      "correct": 2,
+      "explanation": "Do yoga, do sport. Play łączy się z grami z piłką."
+    },
+    {
+      "id": "szlak-a2-02-04",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "We ___ football on Sunday.",
+      "options": [
+        "played",
+        "went",
+        "did",
+        "made"
+      ],
+      "correct": 0,
+      "explanation": "Play football."
+    }
+  ]
+}

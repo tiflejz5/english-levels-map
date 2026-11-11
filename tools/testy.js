@@ -22,6 +22,7 @@ require(path.join(__dirname, "..", "js", "exam-logic.js"));
 require(path.join(__dirname, "..", "js", "final-logic.js"));
 require(path.join(__dirname, "..", "js", "fiszki-logic.js"));
 require(path.join(__dirname, "..", "js", "fiszki-harmonogram.js"));
+require(path.join(__dirname, "..", "js", "szlak-logic.js"));
 const L = global.ELM.learn;
 const X = global.ELM.exLogic;
 
@@ -1220,6 +1221,241 @@ test("fiszki-store: istniejący profil dostaje talię certyfikat-c1 raz; wyłąc
   global.localStorage.removeItem(key);
 });
 
+console.log("\nSzlak: logika (spec v7 13)");
+{
+  const SL = global.ELM.szlakLogic;
+  const data = { levels: [
+    { level: "A1", land: "Polana", units: [
+      { id: "a1-u1", title: "Pierwsze zdania", stops: [
+        { id: "a1-01", type: "lesson", title: "Przedstawianie", items: ["e_a1_f01"], page: "a1/x", quiz: "szlak-a1-01" },
+        { id: "a1-02", type: "lesson", title: "To be", items: ["e_a1_g05", "e_a1_g06"], page: "a1/y", quiz: "szlak-a1-02" },
+        { id: "a1-03", type: "lesson", title: "Czasy", items: ["e_a1_g07"], page: "a1/z", set: "a1-set-1" },
+        { id: "a1-u1-powtorka", type: "review", title: "Powtórka", from: ["a1-01", "a1-02", "a1-03"], size: 6 }
+      ] }
+    ] },
+    { level: "A2", land: "Las", units: [
+      { id: "a2-u1", title: "Dom", stops: [
+        { id: "a2-01", type: "lesson", title: "Dom", items: ["e_a2_v01"], page: "a2/x", quiz: "szlak-a2-01" },
+        { id: "a2-u1-powtorka", type: "review", title: "Powtórka", from: ["a2-01"], size: 6 }
+      ] }
+    ] },
+    { level: "C1", land: "Góry", units: [
+      { id: "c1-u1", title: "Styl", stops: [
+        { id: "c1-01", type: "lesson", title: "Styl", items: ["e_c1_g01"], page: "c1/x" },
+        { id: "c1-02", type: "lesson", title: "Rejestr", items: ["e_c1_f01"], page: "c1/y" },
+        { id: "c1-u1-powtorka", type: "review", title: "Powtórka", from: ["c1-01", "c1-02"], size: 6 }
+      ] }
+    ] }
+  ] };
+  const umiem = {}, setPct = {};
+  const env = { isUmiem: function (id) { return umiem[id] === true; }, setPercent: function (id) { return id in setPct ? setPct[id] : null; } };
+  const reset = function () { Object.keys(umiem).forEach(function (k) { delete umiem[k]; }); Object.keys(setPct).forEach(function (k) { delete setPct[k]; }); };
+  const stopOf = function (id) { let f = null; data.levels.forEach(function (l) { l.units.forEach(function (u) { u.stops.forEach(function (s) { if (s.id === id) f = s; }); }); }); return f; };
+
+  test("szlak stopStatus: quiz ≥ 3/4 zalicza (także po odznaczeniu „Umiem”), 2/4 nie", function () {
+    reset();
+    const st = SL.emptyState();
+    st.stops["a1-01"] = { done: true, via: "quiz", best: 3, at: "2026-11-12" };
+    assert.deepStrictEqual(SL.statusOf(stopOf("a1-01"), st, env), { status: "done", via: "quiz" });
+    umiem.e_a1_f01 = true; umiem.e_a1_f01 = false;                       // Umiem odznaczone: quiz zostaje
+    assert.strictEqual(SL.statusOf(stopOf("a1-01"), st, env).status, "done");
+    st.stops["a1-01"].best = 2;
+    assert.strictEqual(SL.statusOf(stopOf("a1-01"), st, env).status, "open", "2/4 to za mało");
+  });
+  test("szlak stopStatus: wszystkie punkty „Umiem” zaliczają, odznaczenie cofa (bez quizu)", function () {
+    reset();
+    const st = SL.emptyState();
+    umiem.e_a1_g05 = true;
+    assert.strictEqual(SL.statusOf(stopOf("a1-02"), st, env).status, "open", "tylko część punktów");
+    umiem.e_a1_g06 = true;
+    assert.deepStrictEqual(SL.statusOf(stopOf("a1-02"), st, env), { status: "done", via: "umiem" });
+    umiem.e_a1_g06 = false;
+    assert.strictEqual(SL.statusOf(stopOf("a1-02"), st, env).status, "open", "odznaczenie cofa zaliczenie");
+  });
+  test("szlak stopStatus: zestaw ≥ 80% zalicza tylko przystanek bez quizu; skip = pominięty, nie zaliczony", function () {
+    reset();
+    const st = SL.emptyState();
+    setPct["a1-set-1"] = 79;
+    assert.strictEqual(SL.statusOf(stopOf("a1-03"), st, env).status, "open");
+    setPct["a1-set-1"] = 80;
+    assert.deepStrictEqual(SL.statusOf(stopOf("a1-03"), st, env), { status: "done", via: "set" });
+    const withQuiz = { id: "x", type: "lesson", items: ["e_x"], quiz: "q", set: "a1-set-1" };
+    assert.strictEqual(SL.statusOf(withQuiz, st, env).status, "open", "przystanek z quizem nie zalicza się zestawem");
+    st.stops["a1-02"] = { done: false, via: "skip", at: "2026-11-12" };
+    assert.deepStrictEqual(SL.statusOf(stopOf("a1-02"), st, env), { status: "skipped", via: "skip" });
+    umiem.e_a1_g05 = true; umiem.e_a1_g06 = true;
+    assert.strictEqual(SL.statusOf(stopOf("a1-02"), st, env).status, "done", "pełne „Umiem” wygrywa z pominięciem");
+  });
+  test("szlak stopStatus: powtórka zaliczona po podejściu, wynik nie blokuje", function () {
+    const st = SL.emptyState();
+    assert.strictEqual(SL.statusOf(stopOf("a1-u1-powtorka"), st, env).status, "open");
+    st.reviews["a1-u1-powtorka"] = { best: 1, of: 6, at: "2026-11-12" };
+    assert.strictEqual(SL.statusOf(stopOf("a1-u1-powtorka"), st, env).status, "done");
+  });
+  test("szlak buildTrail: bieżący przystanek od punktu startu, krainy przed startem „pominięte”", function () {
+    reset();
+    let st = SL.emptyState();
+    let tr = SL.buildTrail(data, st, env);
+    assert.strictEqual(tr.current.id, "a1-01", "start A1: pierwszy przystanek");
+    umiem.e_a1_f01 = true;
+    tr = SL.buildTrail(data, st, env);
+    assert.strictEqual(tr.current.id, "a1-02");
+    st = SL.sanitizeState({ version: 1, start: { level: "C1", source: "test", at: "2026-11-12" } });
+    tr = SL.buildTrail(data, st, env);
+    assert.strictEqual(tr.current.id, "c1-01", "po teście C1: pierwszy niezaliczony przystanek C1");
+    const byId = function (id) { return tr.nodes.find(function (n) { return n.id === id; }); };
+    assert.deepStrictEqual([byId("a1-02").status, byId("a1-02").via], ["skipped", "start"], "A1 przed startem: pominięty testem");
+    assert.strictEqual(byId("a1-01").status, "done", "zaliczony przed startem zostaje zaliczony");
+    assert.strictEqual(byId("a2-01").status, "skipped");
+    assert.strictEqual(byId("c1-02").status, "open");
+    assert.strictEqual(byId("a1-u1-powtorka").status, "skipped");
+    umiem.e_c1_g01 = true;
+    assert.strictEqual(SL.buildTrail(data, st, env).current.id, "c1-02");
+    umiem.e_c1_f01 = true;
+    assert.strictEqual(SL.buildTrail(data, st, env).current, null, "wszystko zaliczone: brak bieżącego");
+  });
+  test("szlak: pominięty przystanek nie jest bieżący; postęp krainy i odcinka liczy tylko zaliczone", function () {
+    reset();
+    const st = SL.emptyState();
+    st.stops["a1-01"] = { done: false, via: "skip", at: "2026-11-12" };
+    umiem.e_a1_g05 = true; umiem.e_a1_g06 = true;                        // a1-02 zaliczony
+    const tr = SL.buildTrail(data, st, env);
+    assert.strictEqual(tr.current.id, "a1-03");
+    assert.deepStrictEqual(SL.levelProgress(tr, "A1"), { done: 1, total: 3, percent: 33 });
+    assert.deepStrictEqual(SL.levelProgress(tr, "C2"), { done: 0, total: 0, percent: 0 });
+    const u = SL.unitProgress(tr, "a1-u1");
+    assert.deepStrictEqual([u.done, u.total, u.index, u.count], [1, 3, 1, 1]);
+    assert.strictEqual(tr.nodes.find(function (n) { return n.id === "a1-02"; }).number, 2, "numer przystanku w krainie");
+  });
+  test("szlak pickReview: pytania z quizów odcinka po równo; fallback: zestawy → test końcowy → brak źródeł", function () {
+    const rng = (function () { let x = 7; return function () { x = (x * 16807) % 2147483647; return x / 2147483647; }; })();
+    const mk = function (p, n) { return Array.from({ length: n }, function (_, i) { return { id: p + i }; }); };
+    const stops = { "a1-01": stopOf("a1-01"), "a1-02": stopOf("a1-02"), "a1-03": stopOf("a1-03") };
+    const rev = stopOf("a1-u1-powtorka");
+    const quiz = { "a1-01": mk("q1-", 4), "a1-02": mk("q2-", 4), "a1-03": [] };
+    let r = SL.pickReview(rev, { stops: stops, quizItems: function (id) { return quiz[id]; }, setItems: function () { return []; }, finalItems: function () { return []; } }, rng);
+    assert.strictEqual(r.source, "quiz");
+    assert.strictEqual(r.items.length, 6);
+    assert.strictEqual(new Set(r.items.map(function (x) { return x.id; })).size, 6, "bez powtórzeń");
+    assert.strictEqual(r.items.filter(function (x) { return /^q1-/.test(x.id); }).length, 3, "po równo z przystanków");
+    r = SL.pickReview(rev, { stops: stops, quizItems: function () { return []; }, setItems: function (id) { return mk(id + ":", 10); }, finalItems: function () { return []; } }, rng);
+    assert.deepStrictEqual([r.source, r.items.length], ["set", 6], "tylko przystanek z zestawem daje pytania z zestawu");
+    r = SL.pickReview(rev, { stops: {}, quizItems: function () { return []; }, setItems: function () { return []; }, finalItems: function (lvl) { return lvl === "A1" ? mk("f", 30) : []; } }, rng);
+    assert.deepStrictEqual([r.source, r.items.length], ["final", 6]);
+    r = SL.pickReview(rev, { stops: {}, quizItems: function () { return []; }, setItems: function () { return []; }, finalItems: function () { return []; } }, rng);
+    assert.deepStrictEqual([r.source, r.items.length], [null, 0], "brak źródeł: węzeł pomijany");
+    const small = SL.pickReview({ id: "r", type: "review", from: ["a1-01"], size: 6 }, { stops: stops, quizItems: function () { return mk("s", 4); }, setItems: function () { return []; }, finalItems: function () { return []; } }, rng);
+    assert.strictEqual(small.items.length, 4, "mniej pytań niż size: wszystkie");
+  });
+  test("szlak effectiveStart: ręczny i z testu mają pierwszeństwo, bez testu A1", function () {
+    const none = SL.emptyState();
+    assert.deepStrictEqual([SL.effectiveStart(none, null).level, SL.effectiveStart(none, null).source], ["A1", "default"]);
+    assert.deepStrictEqual([SL.effectiveStart(none, "C1").level, SL.effectiveStart(none, "C1").source], ["C1", "test"]);
+    const manual = SL.sanitizeState({ version: 1, start: { level: "B1", source: "manual", at: "2026-11-12" } });
+    assert.strictEqual(SL.effectiveStart(manual, "C1").level, "B1");
+    const def = SL.sanitizeState({ version: 1, start: { level: "A1", source: "default" } });
+    assert.strictEqual(SL.effectiveStart(def, "B2").level, "B2", "domyślny start ustępuje wynikowi testu");
+  });
+  test("szlak sanitizeState: zły format i wersja → wyjątek, śmieci odfiltrowane, eksport → import bez zmian", function () {
+    assert.throws(function () { SL.sanitizeState(null); });
+    assert.throws(function () { SL.sanitizeState([]); });
+    assert.throws(function () { SL.sanitizeState({ version: 2 }); });
+    const s = SL.sanitizeState({
+      version: 1,
+      start: { level: "Z9", source: "test" },
+      stops: { "a1-05": { done: true, via: "quiz", best: 4, at: "2026-11-12T10:00:00Z" }, "ZŁY ID": { via: "quiz" }, "a1-06": { via: "magia" }, "a1-07": { done: true, via: "skip", best: 99 }, "a1-08": "x" },
+      reviews: { "a1-u1-powtorka": { best: 5, of: 6, at: "2026-11-12" }, "a1-u2-powtorka": { best: 9, of: 6 }, "a1-u3-powtorka": {} }
+    });
+    assert.strictEqual(s.start, null, "nieznany poziom startu");
+    assert.deepStrictEqual(Object.keys(s.stops).sort(), ["a1-05", "a1-07"]);
+    assert.strictEqual(s.stops["a1-05"].best, 4);
+    assert.strictEqual(s.stops["a1-07"].done, false, "skip nigdy nie jest „done”");
+    assert.strictEqual(s.stops["a1-07"].best, undefined, "best poza zakresem odrzucone");
+    assert.deepStrictEqual(Object.keys(s.reviews), ["a1-u1-powtorka"]);
+    assert.deepStrictEqual(SL.sanitizeState(JSON.parse(JSON.stringify(s))), s, "eksport → import bez zmian");
+    assert.strictEqual(SL.quizAverage(s), 100);
+    assert.strictEqual(SL.quizAverage(SL.emptyState()), null);
+  });
+}
+
+console.log("\nSzlak: magazyn elm.<id>.szlak, eksport, import, reset (spec v7 13)");
+{
+  require(path.join(__dirname, "..", "js", "szlak-store.js"));
+  const SS = global.ELM.szlakStore, SL = global.ELM.szlakLogic;
+  const key = function (pid) { return "elm." + pid + ".szlak"; };
+  const clean = function () { SS.clearAll(); ["pa", "pb"].forEach(function (p) { global.localStorage.removeItem(key(p)); }); };
+
+  test("szlakStore: zapis pod kluczem elm.<id>.szlak z version, quiz zapamiętuje najlepszy wynik, pominięcie nie nadpisuje zdanego quizu", function () {
+    clean();
+    activeProfile = "pa";
+    assert.strictEqual(SS.recordQuiz("a1-01", 2).done, false);
+    assert.strictEqual(SS.recordQuiz("a1-01", 4).done, true);
+    assert.strictEqual(SS.recordQuiz("a1-01", 1).best, 4, "gorsze podejście nie obniża najlepszego");
+    assert.strictEqual(SS.skipStop("a1-01"), false, "zaliczony quizem nie da się pominąć");
+    assert.strictEqual(SS.skipStop("a1-02"), true);
+    assert.strictEqual(SS.unskipStop("a1-02"), true);
+    SS.recordReview("a1-u1-powtorka", 5, 6);
+    assert.strictEqual(SS.recordReview("a1-u1-powtorka", 3, 6).best, 5);
+    assert.strictEqual(SS.setStart("C1", "test"), true);
+    assert.strictEqual(SS.setStart("B1", "manual"), true);
+    assert.strictEqual(SS.setStart("C2", "test"), false, "ręczny start nie jest nadpisywany testem");
+    assert.strictEqual(SS.setStart("C2", "test", true), true, "przycisk „Zacznij szlak od X” wymusza start");
+    const raw = JSON.parse(global.localStorage.getItem(key("pa")));
+    assert.strictEqual(raw.version, 1);
+    assert.deepStrictEqual([raw.start.level, raw.stops["a1-01"].best, raw.reviews["a1-u1-powtorka"].of], ["C2", 4, 6]);
+    assert.strictEqual(raw.stops["a1-02"], undefined);
+    assert.strictEqual(SS.setStart("Z9", "manual"), false);
+    activeProfile = "p1";
+  });
+  test("szlakStore: bez profilu nic się nie zapisuje (stan tymczasowy)", function () {
+    clean();
+    activeProfile = null;
+    assert.strictEqual(SS.recordQuiz("a1-01", 4), null);
+    assert.strictEqual(SS.skipStop("a1-01"), false);
+    assert.strictEqual(SS.recordReview("r", 1, 6), null);
+    assert.deepStrictEqual(SS.exportData(), {});
+    activeProfile = "p1";
+  });
+  test("szlakStore: eksport → reset → import przywraca dane; stary plik bez części „szlak” nie kasuje stanu", function () {
+    clean();
+    activeProfile = "pa"; SS.recordQuiz("a1-03", 3); SS.setStart("B2", "manual");
+    activeProfile = "pb"; SS.recordQuiz("a1-04", 4);
+    const exported = JSON.parse(JSON.stringify(SS.exportData()));
+    assert.deepStrictEqual(Object.keys(exported).sort(), ["pa", "pb"]);
+    // stary eksport (bez części szlak) → parseImport = null, applyImport(null) zostawia dane
+    assert.strictEqual(SS.parseImport(undefined), null);
+    assert.strictEqual(SS.parseImport(null), null);
+    SS.applyImport(null, ["pa", "pb"]);
+    assert.ok(global.localStorage.getItem(key("pa")), "stary plik nie usuwa Szlaku");
+    // reset
+    SS.clearAll();
+    assert.strictEqual(global.localStorage.getItem(key("pa")), null);
+    assert.strictEqual(global.localStorage.getItem(key("pb")), null);
+    // import z pliku: tylko profile z listy
+    SS.applyImport(SS.parseImport(exported), ["pa"]);
+    assert.ok(global.localStorage.getItem(key("pa")));
+    assert.strictEqual(global.localStorage.getItem(key("pb")), null, "profil spoza listy jest usuwany");
+    activeProfile = "pa";
+    assert.strictEqual(SS.data().stops["a1-03"].best, 3);
+    assert.strictEqual(SS.data().start.level, "B2");
+    activeProfile = "p1";
+  });
+  test("szlakStore: walidacja przy imporcie (zła część → wyjątek), uszkodzony zapis → kopia _corrupt_backup i pusty stan", function () {
+    assert.throws(function () { SS.parseImport("tekst"); });
+    assert.throws(function () { SS.parseImport([]); });
+    assert.throws(function () { SS.parseImport({ pa: { version: 9 } }); });
+    assert.deepStrictEqual(SS.parseImport({}), {});
+    clean();
+    global.localStorage.setItem(key("pb"), "{niepoprawny json");
+    activeProfile = "pb";
+    assert.deepStrictEqual(SS.data(), SL.emptyState());
+    assert.strictEqual(global.localStorage.getItem(key("pb") + "_corrupt_backup"), "{niepoprawny json");
+    global.localStorage.removeItem(key("pb") + "_corrupt_backup");
+    activeProfile = "p1";
+    clean();
+  });
+}
+
 console.log("\nUlubione zwroty: elm_phrases_v1 (paczka v6, spec 17)");
 test("elm_phrases_v1: klucz w KEYS, gwiazdka przełącza się per profil i zapisuje w localStorage", function () {
   assert.strictEqual(PD.KEYS.phrases, "elm_phrases_v1");
@@ -1597,7 +1833,8 @@ require(path.join(__dirname, "..", "js", "reviews.js"));
     const ctx = makeCtx();
     ctx.state.settings.newPerDay = 0;
     assert.deepStrictEqual(R.queueFrom(ctx, NOW), []);
-    assert.deepStrictEqual(R.summaryFrom(ctx, NOW), { card: 0, mistake: 0, exercise: 0, total: 0 });
+    const zero = R.summaryFrom(ctx, NOW);
+    assert.deepStrictEqual([zero.card, zero.mistake, zero.exercise, zero.total, zero.due.total, zero.fresh.total], [0, 0, 0, 0, 0, 0]);
   });
   test("kolejka: zaległe najstarsze pierwsze, nowe na końcu, rodzaje: karta / błąd / zadanie", function () {
     const ctx = makeCtx({ weak: [{ id: "a1-x-1", topic: "t1" }] });
@@ -1679,6 +1916,41 @@ require(path.join(__dirname, "..", "js", "reviews.js"));
     const q = R.queueFrom(ctx, NOW), s = R.summaryFrom(ctx, NOW);
     assert.strictEqual(s.total, q.length);
     ["card", "mistake", "exercise"].forEach(function (k) { assert.strictEqual(s[k], q.filter(function (x) { return x.kind === k; }).length, k); });
+  });
+  test("P3: nowe karty nie są „do powtórki” — świeży profil: 0 do powtórki, 10 nowych; zaległe osobno", function () {
+    const ctx = makeCtx();
+    ctx.state.settings.newPerDay = 10;
+    const fresh = R.summaryFrom(ctx, NOW);
+    assert.deepStrictEqual([fresh.due.total, fresh.fresh.total, fresh.total], [0, 10, 10], "świeży profil");
+    ctx.state.cards["d1-001"] = rev(at(9, 5));                                                    // review, termin wczoraj
+    ctx.state.cards["d2-001"] = Object.assign(HM.newCard(), { state: "learning", due: NOW - 1000 }); // w nauce, termin minął
+    ctx.state.cards["u-mb-1"] = rev(at(8, 5));                                                    // zaległy błąd
+    ctx.state.cards["d1-002"] = rev(at(20, 5), 8);                                                // review za 10 dni: ani zaległa, ani nowa
+    const s = R.summaryFrom(ctx, NOW);
+    assert.deepStrictEqual([s.due.card, s.due.mistake, s.due.exercise, s.due.total], [2, 1, 0, 3]);
+    assert.strictEqual(s.fresh.total, 6, "nowe: 10 kart w taliach minus 4 z zapisanym stanem");
+    assert.strictEqual(s.total, s.due.total + s.fresh.total, "total = cała kolejka dnia");
+    assert.strictEqual(R.queueFrom(ctx, NOW).length, s.total);
+    ctx.state.settings.newPerDay = 0;
+    assert.deepStrictEqual([R.summaryFrom(ctx, NOW).due.total, R.summaryFrom(ctx, NOW).fresh.total], [3, 0]);
+  });
+  test("P3 regresja: karta oceniona „Dobrze” z interwałem 8 d nie wraca do kolejki przez 7 dni (granica dnia 04:00)", function () {
+    const ctx = makeCtx();
+    ctx.state.settings.newPerDay = 0;
+    const base = Object.assign(HM.newCard(), { state: "review", interval: 3, due: NOW, reps: 3 });
+    const pv = HM.preview(base, NOW).good;
+    assert.strictEqual(pv.card.interval, 8, "podgląd: Dobrze = 8 d");
+    const rated = HM.schedule(base, "good", NOW, null, { fuzz: true, random: function () { return 0; } }); // także z rozproszeniem
+    assert.strictEqual(rated.interval, 8);
+    ctx.state.cards["d1-001"] = rated;
+    for (let day = 0; day <= 7; day++) {
+      [at(10 + day, 5), at(10 + day, 12), at(10 + day, 23, 59)].forEach(function (t) {
+        if (t < NOW) return;
+        assert.deepStrictEqual(ids(R.queueFrom(ctx, t)), [], "dzień +" + day + " (" + new Date(t).toISOString() + "): karta nie powinna wracać");
+        assert.strictEqual(R.summaryFrom(ctx, t).due.total, 0);
+      });
+    }
+    assert.deepStrictEqual(ids(R.queueFrom(ctx, at(18, 10))), ["d1-001"], "w 8. dniu wraca");
   });
   test("estimateMinutes: karta 0,3, błąd 0,5, zadanie 0,7 min (zaokrąglone, min. 1 gdy coś jest)", function () {
     assert.strictEqual(R.estimateMinutes({ card: 10, mistake: 0, exercise: 0 }), 3);
