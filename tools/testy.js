@@ -1378,6 +1378,84 @@ console.log("\nSzlak: logika (spec v7 13)");
   });
 }
 
+console.log("\nSzlak: magazyn elm.<id>.szlak, eksport, import, reset (spec v7 13)");
+{
+  require(path.join(__dirname, "..", "js", "szlak-store.js"));
+  const SS = global.ELM.szlakStore, SL = global.ELM.szlakLogic;
+  const key = function (pid) { return "elm." + pid + ".szlak"; };
+  const clean = function () { SS.clearAll(); ["pa", "pb"].forEach(function (p) { global.localStorage.removeItem(key(p)); }); };
+
+  test("szlakStore: zapis pod kluczem elm.<id>.szlak z version, quiz zapamiętuje najlepszy wynik, pominięcie nie nadpisuje zdanego quizu", function () {
+    clean();
+    activeProfile = "pa";
+    assert.strictEqual(SS.recordQuiz("a1-01", 2).done, false);
+    assert.strictEqual(SS.recordQuiz("a1-01", 4).done, true);
+    assert.strictEqual(SS.recordQuiz("a1-01", 1).best, 4, "gorsze podejście nie obniża najlepszego");
+    assert.strictEqual(SS.skipStop("a1-01"), false, "zaliczony quizem nie da się pominąć");
+    assert.strictEqual(SS.skipStop("a1-02"), true);
+    assert.strictEqual(SS.unskipStop("a1-02"), true);
+    SS.recordReview("a1-u1-powtorka", 5, 6);
+    assert.strictEqual(SS.recordReview("a1-u1-powtorka", 3, 6).best, 5);
+    assert.strictEqual(SS.setStart("C1", "test"), true);
+    assert.strictEqual(SS.setStart("B1", "manual"), true);
+    assert.strictEqual(SS.setStart("C2", "test"), false, "ręczny start nie jest nadpisywany testem");
+    assert.strictEqual(SS.setStart("C2", "test", true), true, "przycisk „Zacznij szlak od X” wymusza start");
+    const raw = JSON.parse(global.localStorage.getItem(key("pa")));
+    assert.strictEqual(raw.version, 1);
+    assert.deepStrictEqual([raw.start.level, raw.stops["a1-01"].best, raw.reviews["a1-u1-powtorka"].of], ["C2", 4, 6]);
+    assert.strictEqual(raw.stops["a1-02"], undefined);
+    assert.strictEqual(SS.setStart("Z9", "manual"), false);
+    activeProfile = "p1";
+  });
+  test("szlakStore: bez profilu nic się nie zapisuje (stan tymczasowy)", function () {
+    clean();
+    activeProfile = null;
+    assert.strictEqual(SS.recordQuiz("a1-01", 4), null);
+    assert.strictEqual(SS.skipStop("a1-01"), false);
+    assert.strictEqual(SS.recordReview("r", 1, 6), null);
+    assert.deepStrictEqual(SS.exportData(), {});
+    activeProfile = "p1";
+  });
+  test("szlakStore: eksport → reset → import przywraca dane; stary plik bez części „szlak” nie kasuje stanu", function () {
+    clean();
+    activeProfile = "pa"; SS.recordQuiz("a1-03", 3); SS.setStart("B2", "manual");
+    activeProfile = "pb"; SS.recordQuiz("a1-04", 4);
+    const exported = JSON.parse(JSON.stringify(SS.exportData()));
+    assert.deepStrictEqual(Object.keys(exported).sort(), ["pa", "pb"]);
+    // stary eksport (bez części szlak) → parseImport = null, applyImport(null) zostawia dane
+    assert.strictEqual(SS.parseImport(undefined), null);
+    assert.strictEqual(SS.parseImport(null), null);
+    SS.applyImport(null, ["pa", "pb"]);
+    assert.ok(global.localStorage.getItem(key("pa")), "stary plik nie usuwa Szlaku");
+    // reset
+    SS.clearAll();
+    assert.strictEqual(global.localStorage.getItem(key("pa")), null);
+    assert.strictEqual(global.localStorage.getItem(key("pb")), null);
+    // import z pliku: tylko profile z listy
+    SS.applyImport(SS.parseImport(exported), ["pa"]);
+    assert.ok(global.localStorage.getItem(key("pa")));
+    assert.strictEqual(global.localStorage.getItem(key("pb")), null, "profil spoza listy jest usuwany");
+    activeProfile = "pa";
+    assert.strictEqual(SS.data().stops["a1-03"].best, 3);
+    assert.strictEqual(SS.data().start.level, "B2");
+    activeProfile = "p1";
+  });
+  test("szlakStore: walidacja przy imporcie (zła część → wyjątek), uszkodzony zapis → kopia _corrupt_backup i pusty stan", function () {
+    assert.throws(function () { SS.parseImport("tekst"); });
+    assert.throws(function () { SS.parseImport([]); });
+    assert.throws(function () { SS.parseImport({ pa: { version: 9 } }); });
+    assert.deepStrictEqual(SS.parseImport({}), {});
+    clean();
+    global.localStorage.setItem(key("pb"), "{niepoprawny json");
+    activeProfile = "pb";
+    assert.deepStrictEqual(SS.data(), SL.emptyState());
+    assert.strictEqual(global.localStorage.getItem(key("pb") + "_corrupt_backup"), "{niepoprawny json");
+    global.localStorage.removeItem(key("pb") + "_corrupt_backup");
+    activeProfile = "p1";
+    clean();
+  });
+}
+
 console.log("\nUlubione zwroty: elm_phrases_v1 (paczka v6, spec 17)");
 test("elm_phrases_v1: klucz w KEYS, gwiazdka przełącza się per profil i zapisuje w localStorage", function () {
   assert.strictEqual(PD.KEYS.phrases, "elm_phrases_v1");

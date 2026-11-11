@@ -4297,7 +4297,7 @@ a.pw-row-label:hover { text-decoration: underline; }
 .sz-level-text { flex: 1; min-width: 180px; }
 .sz-level-title { margin: 0; font-size: var(--fs-xl); color: var(--lvl-ink); }
 .sz-level-sub { margin: 2px 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; font-size: var(--fs-sm); color: var(--lvl-ink); }
-.sz-level-sub .chip.is-here { background: var(--lvl); color: var(--surface); border-color: transparent; }
+.sz-level-sub .chip.is-here { background: var(--surface); color: var(--lvl-ink); border: 1px solid var(--lvl); font-weight: 650; }
 .sz-level-links { display: flex; flex-wrap: wrap; gap: 8px; }
 .sz-level.is-skipped { opacity: 0.82; }
 .sz-level-summary { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border: 1px dashed var(--line-strong); border-left: 6px solid var(--lvl); border-radius: var(--radius); background: var(--surface-2); cursor: pointer; font-weight: 600; color: var(--ink); }
@@ -4395,3 +4395,8 @@ a.pw-row-label:hover { text-decoration: underline; }
 .trail-station.is-skipped .trail-name, .trail-station.is-skipped .trail-pct { color: var(--ink-muted); }
 .trail-skip-badge { position: absolute; right: -4px; bottom: -4px; display: grid; place-content: center; width: 22px; height: 22px; border-radius: 50%; background: var(--surface); border: 2px solid var(--lvl); color: var(--lvl-ink); }
 .level-hero-text .sz-level-link { margin-top: 6px; padding-left: 0; }
+
+/* Szlak: numeracja kroków w arkuszu przystanku */
+.sz-steps { list-style: none; padding-left: 0; counter-reset: sz-step; }
+.sz-steps > li { counter-increment: sz-step; }
+.sz-steps > li > strong::before { content: "Krok " counter(sz-step) ": "; color: var(--ink-muted); font-weight: 600; }

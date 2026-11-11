@@ -179,6 +179,104 @@ async function main() {
     await s.ctx.close();
   });
 
+  console.log("\nSzlak (spec v7 13) i P2 punkt startu");
+  await test("Szlak: 6 krain, odcinki, 142 węzły w <ol>, bieżący przystanek wyróżniony; Enter otwiera arkusz, Esc zamyka i oddaje fokus", async function () {
+    const s = await session(1280, 900, true);
+    await visit(s.page, "#/szlak", 1800);
+    ok(await s.page.locator(".sz-level").count() === 6, "krainy: " + await s.page.locator(".sz-level").count());
+    ok(await s.page.locator(".sz-node").count() === 142, "węzły: " + await s.page.locator(".sz-node").count());
+    ok(await s.page.locator("ol.sz-stops").count() >= 22, "lista ol");
+    ok(await s.page.locator(".sz-node.is-current").count() === 1, "jeden bieżący przystanek");
+    ok(/bieżący/.test(await s.page.locator(".sz-node.is-current button").getAttribute("aria-label")), "stan nie tylko kolorem");
+    await s.page.focus(".sz-node.is-current button");
+    await s.page.keyboard.press("Enter");
+    await s.page.waitForSelector("dialog[open]");
+    await s.page.keyboard.press("Escape");
+    await s.page.waitForTimeout(300);
+    ok(await s.page.evaluate(function () { return !!document.activeElement.closest(".sz-node.is-current"); }), "fokus nie wrócił na węzeł");
+    ok(!s.page.errs.length, "błędy JS: " + s.page.errs[0]);
+    await s.ctx.close();
+  });
+  await test("quiz ≥ 3/4 zalicza przystanek i proponuje „Umiem”, ale go nie zaznacza", async function () {
+    const s = await session(1280, 900, true);
+    await visit(s.page, "#/szlak", 1800);
+    await s.page.click(".sz-node.is-current button");
+    await s.page.click("button:has-text('Quiz (4 pytania)')");
+    for (let i = 0; i < 4; i++) {
+      await s.page.waitForSelector(".ex-card .ex-option");
+      const idx = await s.page.evaluate(function () {
+        const it = ELM.exercises.currentItem();
+        const opts = [].slice.call(document.querySelectorAll(".ex-card .ex-option")).map(function (b) { return b.innerText.replace(/\s+/g, " ").trim().replace(/^\d /, ""); });
+        return opts.indexOf(it.options[it.correct].trim());
+      });
+      await s.page.locator(".ex-card .ex-option").nth(idx).click();
+      await s.page.click(".ex-check");
+      await s.page.click(".ex-next");
+      await s.page.waitForTimeout(200);
+    }
+    await s.page.waitForSelector(".sz-result");
+    ok(/Przystanek zaliczony/.test(await viewText(s.page)), "brak zaliczenia");
+    ok(await s.page.locator("button:has-text('Zaznacz „Umiem”')").count() === 1, "brak propozycji „Umiem”");
+    const progress = await s.page.evaluate(function () { return Object.keys(JSON.parse(localStorage.getItem("elm_profiles_v1")).profiles[0].progress).length; });
+    ok(progress === 0, "„Umiem” zaznaczone automatycznie");
+    const st = await s.page.evaluate(function () { return JSON.parse(localStorage.getItem("elm.p_e2e.szlak")); });
+    ok(st.version === 1 && st.stops["a1-01"] && st.stops["a1-01"].best === 4, "zapis w elm.<id>.szlak");
+    await s.ctx.close();
+  });
+  await test("P2: po teście poziomu C1 Dziś i Szlak wskazują pierwszy przystanek C1, wcześniejsze krainy są „pominięte”", async function () {
+    const s = await session(1280, 900, true);
+    await visit(s.page, "#/dzis", 1200);
+    await s.page.evaluate(function () { ELM.profileData.saveTest({ date: ELM.learn.today(), level: "C1", answers: [{ id: "x", level: "C1", chosen: 0, correct: true }] }); });
+    await visit(s.page, "#/dzis", 1500);
+    const t = await viewText(s.page);
+    ok(/kraina C1/.test(t), "Dziś nie pokazuje krainy C1: " + t.slice(0, 120));
+    ok(/Następny przystanek w Górach/.test(t), "Następny przystanek nie z C1");
+    ok(await s.page.locator(".trail-station.is-skipped").count() === 4, "pominięte stacje na mapie");
+    await visit(s.page, "#/szlak", 1500);
+    ok((await s.page.locator(".sz-node.is-current").getAttribute("data-stop")).indexOf("c1-") === 0, "bieżący przystanek spoza C1");
+    ok(await s.page.locator("details.sz-level.is-skipped").count() === 4, "krainy pominięte testem");
+    await s.ctx.close();
+  });
+  await test("pominięcie nie zalicza i nie jest bieżące; „Mimo to otwórz” przy dalszej krainie", async function () {
+    const s = await session(1280, 900, true);
+    await visit(s.page, "#/szlak", 1800);
+    await s.page.click(".sz-node.is-current button");
+    await s.page.click("button:has-text('Pomiń ten przystanek')");
+    await s.page.waitForTimeout(500);
+    ok((await s.page.locator(".sz-node.is-current").getAttribute("data-stop")) === "a1-02", "bieżący po pominięciu");
+    ok(await s.page.locator('.sz-node[data-stop="a1-01"]').getAttribute("class").then(function (c) { return /is-skipped/.test(c) && !/is-done/.test(c); }), "pominięty traktowany jak zaliczony");
+    await s.page.click('.sz-node[data-stop="a2-01"] button');
+    ok(/Zalecamy najpierw skończyć Polanę/.test(await s.page.innerText("dialog[open]")), "brak zalecenia");
+    await s.page.click("button:has-text('Mimo to otwórz')");
+    ok(/Czego się tu uczysz/i.test(await s.page.innerText("dialog[open]")), "arkusz nie otworzył treści");
+    await s.ctx.close();
+  });
+  await test("Szlak 320 px bez poziomego przewijania; prefers-reduced-motion wyłącza pulsowanie", async function () {
+    const s = await session(320, 740, true);
+    await visit(s.page, "#/szlak", 1500);
+    const d = await s.page.evaluate(function () { return [document.documentElement.scrollWidth, document.documentElement.clientWidth]; });
+    ok(d[0] <= d[1], "poziomy scroll " + d.join(">"));
+    await s.ctx.close();
+    const ctx = await browser.newContext({ viewport: { width: 1280, height: 800 }, reducedMotion: "reduce" });
+    await ctx.addInitScript(function () { localStorage.setItem("elm_profiles_v1", JSON.stringify({ version: 2, activeId: "p_e2e", profiles: [{ id: "p_e2e", name: "T", progress: {} }] })); });
+    const page = await ctx.newPage();
+    await page.goto(URL + "#/szlak"); await page.waitForTimeout(1500);
+    ok(await page.evaluate(function () { return getComputedStyle(document.querySelector(".sz-node.is-current .sz-circle")).animationName; }) === "none", "animacja przy reduced-motion");
+    await ctx.close();
+  });
+  await test("stary eksport (bez części „szlak”) importuje się bez błędów i nie kasuje Szlaku; nowy eksport zawiera część „szlak”", async function () {
+    const s = await session(1280, 900, true);
+    await visit(s.page, "#/szlak", 1500);
+    await s.page.evaluate(function () { ELM.szlakStore.recordQuiz("a1-01", 4); });
+    const exported = await s.page.evaluate(function () { return ELM.szlakStore.exportData(); });
+    ok(exported.p_e2e && exported.p_e2e.stops["a1-01"].best === 4, "eksport szlaku");
+    const res = await s.page.evaluate(function () {
+      try { const parsed = ELM.szlakStore.parseImport(undefined); ELM.szlakStore.applyImport(parsed, ["p_e2e"]); return { parsed: parsed, kept: !!localStorage.getItem("elm.p_e2e.szlak") }; } catch (e) { return { error: e.message }; }
+    });
+    ok(!res.error && res.parsed === null && res.kept, "stary plik: " + JSON.stringify(res));
+    await s.ctx.close();
+  });
+
   await browser.close();
   server.close();
   console.log("\nE2E: " + passed + " ok, " + failures.length + " błędów");
