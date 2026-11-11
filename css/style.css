@@ -4299,7 +4299,7 @@ a.pw-row-label:hover { text-decoration: underline; }
 .sz-level-sub { margin: 2px 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; font-size: var(--fs-sm); color: var(--lvl-ink); }
 .sz-level-sub .chip.is-here { background: var(--surface); color: var(--lvl-ink); border: 1px solid var(--lvl); font-weight: 650; }
 .sz-level-links { display: flex; flex-wrap: wrap; gap: 8px; }
-.sz-level.is-skipped { opacity: 0.82; }
+.sz-level.is-skipped .sz-level-head { border-left-style: dashed; }
 .sz-level-summary { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border: 1px dashed var(--line-strong); border-left: 6px solid var(--lvl); border-radius: var(--radius); background: var(--surface-2); cursor: pointer; font-weight: 600; color: var(--ink); }
 .sz-level.is-skipped[open] > .sz-level-summary { margin-bottom: 10px; }
 .sz-level-summary:focus-visible { outline: 3px solid var(--focus-color, var(--accent)); outline-offset: 2px; }
@@ -4400,3 +4400,7 @@ a.pw-row-label:hover { text-decoration: underline; }
 .sz-steps { list-style: none; padding-left: 0; counter-reset: sz-step; }
 .sz-steps > li { counter-increment: sz-step; }
 .sz-steps > li > strong::before { content: "Krok " counter(sz-step) ": "; color: var(--ink-muted); font-weight: 600; }
+
+/* Szlak: kontrast AA w nagłówku krainy (chipy i linki na tle koloru krainy) */
+.sz-level-sub .chip { background: var(--surface); color: var(--ink); border: 1px solid var(--line-strong); }
+.sz-level-links .btn-link { background: var(--surface); border: 1px solid var(--line-strong); }
