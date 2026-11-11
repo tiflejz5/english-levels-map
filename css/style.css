@@ -4261,3 +4261,7 @@ a.pw-row-label:hover { text-decoration: underline; }
 .guest-note { margin: 0 0 14px; padding: 10px 14px; border: 1px dashed var(--line-strong); border-radius: var(--radius-sm); background: var(--surface-2); }
 .guest-note .btn { vertical-align: baseline; }
 .dialog-guest .field { margin-top: 6px; }
+
+/* Nowe osobno od „do powtórki” (spec v7 14, P3) */
+.pw-count-new { background: var(--surface-3); color: var(--ink-muted); }
+.pw-card-new { margin: 4px 0 0; color: var(--ink-muted); font-size: var(--fs-sm-plus); font-weight: 600; }

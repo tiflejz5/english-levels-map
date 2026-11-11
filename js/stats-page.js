@@ -234,7 +234,7 @@ window.ELM = window.ELM || {};
     // Stan z kart „Moje błędy” (harmonogram fiszek), nie ze starego pola review
     const isMastered = function (e) { const i = ELM.fiszki ? ELM.fiszki.mistakeInfo(e) : null; return !!(i && i.mastered); };
     const active = all.filter(function (e) { return !isMastered(e); });
-    const due = ELM.reviews ? ELM.reviews.breakdown().mistake : 0;
+    const due = ELM.reviews ? ELM.reviews.breakdown().due.mistake : 0;
     const mastered = all.length - active.length;
     const count = function (key) {
       const m = {};

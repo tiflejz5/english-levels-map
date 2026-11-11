@@ -69,10 +69,12 @@ window.ELM = window.ELM || {};
 
   /** Nagłówek strony „Fiszki i błędy” (etykieta „Nauka”, liczba na dziś) z zakładkami; tab: dzis | talie | bledy | slowa. */
   function header(tab, lead) {
-    const count = hasProfile() && ELM.reviews ? ELM.reviews.count() : 0;
+    const count = hasProfile() && ELM.reviews ? ELM.reviews.dueCount() : 0;     // do powtórki
+    const fresh = hasProfile() && ELM.reviews ? ELM.reviews.freshCount() : 0;   // nowe dziś (osobno, spec v7 14, P3)
     const head = ELM.ui.pageHead({ eyebrow: "Nauka", title: "Fiszki i błędy", lead: lead });
     const h1 = head.querySelector("h1");
     if (h1 && count) h1.appendChild(el("span", { class: "pw-count num", text: count + " do powtórki", "aria-label": count + " " + plural(count, "pozycja", "pozycje", "pozycji") + " do powtórki dziś" }));
+    if (h1 && fresh) h1.appendChild(el("span", { class: "pw-count pw-count-new num", text: "Nowe dziś: " + fresh, "aria-label": "Nowe dziś: " + fresh }));
     return el("div", { class: "pw-head" }, [head, tabs(tab)]);
   }
 
@@ -90,8 +92,10 @@ window.ELM = window.ELM || {};
    */
   function card(opts) {
     opts = opts || {};
-    const b = ELM.reviews.breakdown();
-    const minutes = ELM.reviews.estimateMinutes(b);
+    const all = ELM.reviews.breakdown();
+    const due = all.due, fresh = all.fresh;
+    const b = all.total ? Object.assign({}, due.total ? due : fresh, { total: all.total }) : all; // główna liczba i rozbicie: do powtórki, a gdy nic nie zalega, nowe
+    const minutes = ELM.reviews.estimateMinutes(all);
     const titleId = "pw-card-title" + (opts.today ? "-today" : "");
     const section = el("section", { class: "card pw-card" + (opts.today ? " is-today" : ""), "aria-labelledby": titleId });
 
@@ -110,8 +114,9 @@ window.ELM = window.ELM || {};
 
     section.appendChild(el("div", { class: "pw-card-main" }, [
       el("h2", { class: "pw-card-label", id: titleId, text: "Fiszki i błędy" }),
-      el("p", { class: "pw-card-count" }, el("strong", { class: "num today-number", text: String(b.total) })),
-      el("p", { class: "pw-card-sub", text: "do powtórki · ok. " + minutes + " min" })
+      el("p", { class: "pw-card-count" }, el("strong", { class: "num today-number", text: String(due.total ? due.total : fresh.total) })),
+      el("p", { class: "pw-card-sub", text: (due.total ? "do powtórki" : "nowe na dziś") + " · ok. " + minutes + " min" }),
+      due.total && fresh.total ? el("p", { class: "pw-card-new num", text: "Nowe dziś: " + fresh.total }) : null
     ]));
     section.appendChild(el("ul", { class: "pw-rows" }, ROWS.map(function (r) {
       return el("li", { class: "pw-row is-" + r.kind }, [
@@ -122,7 +127,7 @@ window.ELM = window.ELM || {};
         el("span", { class: "pw-row-n num", text: String(b[r.kind]) })
       ]);
     })));
-    const actions = [el("a", { class: "btn btn-primary pw-start", href: "#/powtorki/sesja" }, "Powtarzaj teraz")];
+    const actions = [el("a", { class: "btn btn-primary pw-start", href: "#/powtorki/sesja" }, due.total ? "Powtarzaj teraz" : "Ucz się nowych")];
     if (b.total > 10 && !opts.today) actions.push(el("a", { class: "btn btn-secondary", href: "#/powtorki/sesja?max=10" }, "Krótka sesja (10)"));
     section.appendChild(el("div", { class: "pw-card-actions" }, [el("div", { class: "pw-card-buttons" }, actions), links()]));
     return section;

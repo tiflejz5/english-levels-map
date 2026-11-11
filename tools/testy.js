@@ -1597,7 +1597,8 @@ require(path.join(__dirname, "..", "js", "reviews.js"));
     const ctx = makeCtx();
     ctx.state.settings.newPerDay = 0;
     assert.deepStrictEqual(R.queueFrom(ctx, NOW), []);
-    assert.deepStrictEqual(R.summaryFrom(ctx, NOW), { card: 0, mistake: 0, exercise: 0, total: 0 });
+    const zero = R.summaryFrom(ctx, NOW);
+    assert.deepStrictEqual([zero.card, zero.mistake, zero.exercise, zero.total, zero.due.total, zero.fresh.total], [0, 0, 0, 0, 0, 0]);
   });
   test("kolejka: zaległe najstarsze pierwsze, nowe na końcu, rodzaje: karta / błąd / zadanie", function () {
     const ctx = makeCtx({ weak: [{ id: "a1-x-1", topic: "t1" }] });
@@ -1679,6 +1680,41 @@ require(path.join(__dirname, "..", "js", "reviews.js"));
     const q = R.queueFrom(ctx, NOW), s = R.summaryFrom(ctx, NOW);
     assert.strictEqual(s.total, q.length);
     ["card", "mistake", "exercise"].forEach(function (k) { assert.strictEqual(s[k], q.filter(function (x) { return x.kind === k; }).length, k); });
+  });
+  test("P3: nowe karty nie są „do powtórki” — świeży profil: 0 do powtórki, 10 nowych; zaległe osobno", function () {
+    const ctx = makeCtx();
+    ctx.state.settings.newPerDay = 10;
+    const fresh = R.summaryFrom(ctx, NOW);
+    assert.deepStrictEqual([fresh.due.total, fresh.fresh.total, fresh.total], [0, 10, 10], "świeży profil");
+    ctx.state.cards["d1-001"] = rev(at(9, 5));                                                    // review, termin wczoraj
+    ctx.state.cards["d2-001"] = Object.assign(HM.newCard(), { state: "learning", due: NOW - 1000 }); // w nauce, termin minął
+    ctx.state.cards["u-mb-1"] = rev(at(8, 5));                                                    // zaległy błąd
+    ctx.state.cards["d1-002"] = rev(at(20, 5), 8);                                                // review za 10 dni: ani zaległa, ani nowa
+    const s = R.summaryFrom(ctx, NOW);
+    assert.deepStrictEqual([s.due.card, s.due.mistake, s.due.exercise, s.due.total], [2, 1, 0, 3]);
+    assert.strictEqual(s.fresh.total, 6, "nowe: 10 kart w taliach minus 4 z zapisanym stanem");
+    assert.strictEqual(s.total, s.due.total + s.fresh.total, "total = cała kolejka dnia");
+    assert.strictEqual(R.queueFrom(ctx, NOW).length, s.total);
+    ctx.state.settings.newPerDay = 0;
+    assert.deepStrictEqual([R.summaryFrom(ctx, NOW).due.total, R.summaryFrom(ctx, NOW).fresh.total], [3, 0]);
+  });
+  test("P3 regresja: karta oceniona „Dobrze” z interwałem 8 d nie wraca do kolejki przez 7 dni (granica dnia 04:00)", function () {
+    const ctx = makeCtx();
+    ctx.state.settings.newPerDay = 0;
+    const base = Object.assign(HM.newCard(), { state: "review", interval: 3, due: NOW, reps: 3 });
+    const pv = HM.preview(base, NOW).good;
+    assert.strictEqual(pv.card.interval, 8, "podgląd: Dobrze = 8 d");
+    const rated = HM.schedule(base, "good", NOW, null, { fuzz: true, random: function () { return 0; } }); // także z rozproszeniem
+    assert.strictEqual(rated.interval, 8);
+    ctx.state.cards["d1-001"] = rated;
+    for (let day = 0; day <= 7; day++) {
+      [at(10 + day, 5), at(10 + day, 12), at(10 + day, 23, 59)].forEach(function (t) {
+        if (t < NOW) return;
+        assert.deepStrictEqual(ids(R.queueFrom(ctx, t)), [], "dzień +" + day + " (" + new Date(t).toISOString() + "): karta nie powinna wracać");
+        assert.strictEqual(R.summaryFrom(ctx, t).due.total, 0);
+      });
+    }
+    assert.deepStrictEqual(ids(R.queueFrom(ctx, at(18, 10))), ["d1-001"], "w 8. dniu wraca");
   });
   test("estimateMinutes: karta 0,3, błąd 0,5, zadanie 0,7 min (zaokrąglone, min. 1 gdy coś jest)", function () {
     assert.strictEqual(R.estimateMinutes({ card: 10, mistake: 0, exercise: 0 }), 3);

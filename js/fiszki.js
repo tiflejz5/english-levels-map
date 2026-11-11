@@ -103,10 +103,10 @@ window.ELM = window.ELM || {};
   /** Liczby na dziś bez wczytywania talii (plakietka, Dziś, „Na dziś”): jedna kolejka z js/reviews.js. */
   function dueSummary() {
     const b = ELM.reviews.breakdown();
-    return { total: b.total, card: b.card, mistake: b.mistake, exercise: b.exercise };
+    return { total: b.total, card: b.card, mistake: b.mistake, exercise: b.exercise, due: b.due, fresh: b.fresh };
   }
 
-  function badgeCount() { return hasProfile() ? ELM.reviews.count() : 0; }
+  function badgeCount() { return hasProfile() ? ELM.reviews.dueCount() : 0; }
 
   /** Najbliższy termin (ms) po chwili „t” wśród kart i zadań z zapisanym stanem albo null. */
   function nextDue(t) { return ELM.reviews.nextDue(t); }

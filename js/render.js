@@ -90,7 +90,7 @@ window.ELM = window.ELM || {};
     if (!box) return;
     const st = ELM.state;
     const hasProfile = app().hasProfiles();
-    const reviews = hasProfile && ELM.reviews ? ELM.reviews.count() : 0; // jedna liczba: fiszki + Moje błędy + słabe punkty
+    const reviews = hasProfile && ELM.reviews ? ELM.reviews.dueCount() : 0; // jedna liczba: DO POWTÓRKI (fiszki + Moje błędy + słabe punkty); nowe karty osobno (spec v7 14, P3)
     const items = [
       { href: "#/dzis", label: "Dziś", icon: "sunrise", active: st.view === "today" },
       { href: "#/powtorki", label: "Fiszki i błędy", icon: "layers", active: st.view === "powtorki" || st.view === "fiszki" || st.view === "journal",
