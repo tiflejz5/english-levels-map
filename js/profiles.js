@@ -120,7 +120,9 @@ window.ELM = window.ELM || {};
       ]),
       el("span", { class: "profile-caret", "aria-hidden": "true" }, ELM.icon("chevron-down", { size: 16 }))
     ]);
-    button.removeAttribute("aria-label"); // nazwa z widocznego tekstu + ukryty dopisek (WCAG 2.5.3)
+    // Nazwa dostępna zawiera widoczny tekst („Profil” + nazwa; WCAG 2.5.3). Poniżej ~480 px przycisk zwija się do awatara
+    // (spec v7 14, P5), więc pełna nazwa musi być w aria-label, a nie tylko w ukrytym tekście.
+    button.setAttribute("aria-label", active ? "Profil " + active.name + " – otwórz menu profilu" : "Profil – brak profilu, otwórz menu");
     button.setAttribute("aria-expanded", isOpen ? "true" : "false");
     root.classList.toggle("is-open", isOpen);
     menu.hidden = !isOpen;

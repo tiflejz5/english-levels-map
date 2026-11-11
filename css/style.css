@@ -4273,3 +4273,10 @@ a.pw-row-label:hover { text-decoration: underline; }
 .lab-skel-short { max-width: 320px; }
 @keyframes lab-shimmer { from { background-position: 100% 0; } to { background-position: -100% 0; } }
 @media (prefers-reduced-motion: reduce) { .lab-tile.is-skeleton { animation: none; } }
+
+/* Telefon (< 480 px): przycisk profilu zwija się do awatara; nazwa w aria-label i w menu (spec v7 14, P5) */
+@media (max-width: 479px) {
+  .profile-btn { padding: 5px; min-width: 44px; justify-content: center; gap: 0; }
+  .profile-btn .profile-btn-text, .profile-btn .profile-caret { display: none; }
+  .topbar-actions { gap: 6px; }
+}
