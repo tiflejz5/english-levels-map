@@ -244,9 +244,9 @@ window.ELM = window.ELM || {};
       el("p", { class: "lt-result-level" }, [el("strong", { class: "lt-result-code", text: level }), el("span", { class: "lt-result-note", text: "orientacyjnie" })]),
       desc ? el("p", { class: "tool-lead" }, U.formatText(desc)) : null,
       skillBreakdown(saved.answers),
-      el("p", null, el("a", { class: "wiki-link", href: ELM.app.levelHash(level) + "" }, "Podsumowanie poziomu " + level + " (pod listą umiejętności)")),
+      el("p", null, el("a", { class: "wiki-link", href: ELM.app.levelHash(level) + "" }, "Co umiesz na " + level)),
       el("div", { class: "tool-actions" }, [
-        el("a", { class: "btn btn-primary", href: ELM.app.levelHash(level) }, "Zacznij od poziomu " + level),
+        el("a", { class: "btn btn-primary", href: ELM.app.levelHash(level) }, "Zacznij szlak od " + level),
         el("button", { type: "button", class: "btn btn-secondary", onclick: function () { start(); render(); focusLater(".lt-option"); } }, "Powtórz test")
       ]),
       el("p", { class: "tool-note", text: DISCLAIMER + " Wynik z " + saved.date + "." })
