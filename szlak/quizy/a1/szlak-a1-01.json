@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "id": "szlak-a1-01",
+  "topic": "a1-funkcje-przedstawianie-sie",
+  "level": "A1",
+  "title": "Przystanek: Przedstawianie się",
+  "intro": "4 szybkie pytania. Zaliczenie od 3 dobrych odpowiedzi.",
+  "passage": null,
+  "passScore": 3,
+  "items": [
+    {
+      "id": "szlak-a1-01-01",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "— Hi, I'm Kasia. — Hi, Kasia. ___ to meet you.",
+      "options": [
+        "Good",
+        "Fine",
+        "Happy",
+        "Nice"
+      ],
+      "correct": 3,
+      "explanation": "Nice to meet you = miło cię poznać. To stały zwrot."
+    },
+    {
+      "id": "szlak-a1-01-02",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "Które zdanie służy do pożegnania?",
+      "options": [
+        "Good morning!",
+        "See you later!",
+        "How are you?",
+        "Nice to meet you."
+      ],
+      "correct": 1,
+      "explanation": "See you later! = do zobaczenia. Pozostałe to powitania."
+    },
+    {
+      "id": "szlak-a1-01-03",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "This ___ my friend, Tom.",
+      "options": [
+        "am",
+        "is",
+        "be",
+        "are"
+      ],
+      "correct": 1,
+      "explanation": "Przedstawiamy jedną osobę: this is."
+    },
+    {
+      "id": "szlak-a1-01-04",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "— How are you? — ___",
+      "options": [
+        "I'm from Poland.",
+        "I'm a student.",
+        "I'm fine, thanks.",
+        "I'm 20."
+      ],
+      "correct": 2,
+      "explanation": "Na pytanie o samopoczucie odpowiadamy I'm fine / I'm OK."
+    }
+  ]
+}

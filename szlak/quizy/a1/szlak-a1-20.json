@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "id": "szlak-a1-20",
+  "topic": "a1-slownictwo",
+  "level": "A1",
+  "title": "Przystanek: Zawody",
+  "intro": "4 szybkie pytania. Zaliczenie od 3 dobrych odpowiedzi.",
+  "passage": null,
+  "passScore": 3,
+  "items": [
+    {
+      "id": "szlak-a1-20-01",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "Pracuje w szpitalu i pomaga lekarzom: ___",
+      "options": [
+        "nurse",
+        "farmer",
+        "waiter",
+        "driver"
+      ],
+      "correct": 0,
+      "explanation": "Nurse = pielęgniarka, pielęgniarz."
+    },
+    {
+      "id": "szlak-a1-20-02",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "My dad is a ___. He cooks in a restaurant.",
+      "options": [
+        "butcher",
+        "cooker",
+        "kitchen",
+        "chef"
+      ],
+      "correct": 3,
+      "explanation": "Kucharz to chef albo cook. Cooker to kuchenka."
+    },
+    {
+      "id": "szlak-a1-20-03",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "She works in a school. She's a ___.",
+      "options": [
+        "nurse",
+        "teacher",
+        "pilot",
+        "student"
+      ],
+      "correct": 1,
+      "explanation": "Teacher = nauczyciel."
+    },
+    {
+      "id": "szlak-a1-20-04",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "I'm ___ engineer.",
+      "options": [
+        "a",
+        "—",
+        "an",
+        "the"
+      ],
+      "correct": 2,
+      "explanation": "An przed samogłoską: an engineer."
+    }
+  ]
+}

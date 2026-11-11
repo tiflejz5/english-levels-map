@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "id": "szlak-a1-13",
+  "topic": "a1-gramatyka-pytania-wh",
+  "level": "A1",
+  "title": "Przystanek: Pytania what, where, when",
+  "intro": "4 szybkie pytania. Zaliczenie od 3 dobrych odpowiedzi.",
+  "passage": null,
+  "passScore": 3,
+  "items": [
+    {
+      "id": "szlak-a1-13-01",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "___ do you live? — In Lublin.",
+      "options": [
+        "Who",
+        "When",
+        "What",
+        "Where"
+      ],
+      "correct": 3,
+      "explanation": "Pytanie o miejsce: where."
+    },
+    {
+      "id": "szlak-a1-13-02",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "___ is this jacket? — 50 euros.",
+      "options": [
+        "How old",
+        "How much",
+        "What",
+        "How many"
+      ],
+      "correct": 1,
+      "explanation": "Pytanie o cenę: how much."
+    },
+    {
+      "id": "szlak-a1-13-03",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "___ is your birthday? — In June.",
+      "options": [
+        "Who",
+        "Which",
+        "Where",
+        "When"
+      ],
+      "correct": 3,
+      "explanation": "Pytanie o czas: when."
+    },
+    {
+      "id": "szlak-a1-13-04",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "___ is that man? — My teacher.",
+      "options": [
+        "Where",
+        "Who",
+        "Whose",
+        "What"
+      ],
+      "correct": 1,
+      "explanation": "Pytanie o osobę: who."
+    }
+  ]
+}

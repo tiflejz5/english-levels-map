@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "id": "szlak-a2-20",
+  "topic": "a2-slownictwo",
+  "level": "A2",
+  "title": "Przystanek: Pierwsze phrasal verbs",
+  "intro": "4 szybkie pytania. Zaliczenie od 3 dobrych odpowiedzi.",
+  "passage": null,
+  "passScore": 3,
+  "items": [
+    {
+      "id": "szlak-a2-20-01",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "I ___ at 7 every day.",
+      "options": [
+        "get up",
+        "get in",
+        "get off",
+        "get on"
+      ],
+      "correct": 0,
+      "explanation": "Get up = wstawać."
+    },
+    {
+      "id": "szlak-a2-20-02",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "Can you ___ the light? It's dark.",
+      "options": [
+        "turn up",
+        "turn back",
+        "turn off",
+        "turn on"
+      ],
+      "correct": 3,
+      "explanation": "Turn on = włączyć."
+    },
+    {
+      "id": "szlak-a2-20-03",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "I'm ___ my keys. Have you seen them?",
+      "options": [
+        "looking for",
+        "looking at",
+        "looking after",
+        "looking up"
+      ],
+      "correct": 0,
+      "explanation": "Look for = szukać."
+    },
+    {
+      "id": "szlak-a2-20-04",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "Please ___ your shoes before you come in.",
+      "options": [
+        "take off",
+        "take on",
+        "take up",
+        "put on"
+      ],
+      "correct": 0,
+      "explanation": "Take off = zdjąć."
+    }
+  ]
+}

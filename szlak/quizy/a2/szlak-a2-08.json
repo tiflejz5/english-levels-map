@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "id": "szlak-a2-08",
+  "topic": "a2-gramatyka-przyslowki-czestotliwosci",
+  "level": "A2",
+  "title": "Przystanek: Jak często?",
+  "intro": "4 szybkie pytania. Zaliczenie od 3 dobrych odpowiedzi.",
+  "passage": null,
+  "passScore": 3,
+  "items": [
+    {
+      "id": "szlak-a2-08-01",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "I ___ late for work.",
+      "options": [
+        "am ever",
+        "never be",
+        "am never",
+        "never am"
+      ],
+      "correct": 2,
+      "explanation": "Przysłówek częstotliwości stoi po be: am never."
+    },
+    {
+      "id": "szlak-a2-08-02",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "She ___ to the gym on Mondays.",
+      "options": [
+        "goes usually",
+        "usually goes",
+        "is usually going",
+        "usually go"
+      ],
+      "correct": 1,
+      "explanation": "Przysłówek przed czasownikiem głównym: usually goes."
+    },
+    {
+      "id": "szlak-a2-08-03",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "How ___ do you see your grandparents?",
+      "options": [
+        "many",
+        "often",
+        "much",
+        "long"
+      ],
+      "correct": 1,
+      "explanation": "How often = jak często."
+    },
+    {
+      "id": "szlak-a2-08-04",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "We go to the cinema ___ a month.",
+      "options": [
+        "ones",
+        "one",
+        "once",
+        "one time a"
+      ],
+      "correct": 2,
+      "explanation": "Once a month = raz w miesiącu."
+    }
+  ]
+}

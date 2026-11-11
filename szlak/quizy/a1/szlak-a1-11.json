@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "id": "szlak-a1-11",
+  "topic": "a1-czasy-present-simple",
+  "level": "A1",
+  "title": "Przystanek: Present Simple: mój dzień",
+  "intro": "4 szybkie pytania. Zaliczenie od 3 dobrych odpowiedzi.",
+  "passage": null,
+  "passScore": 3,
+  "items": [
+    {
+      "id": "szlak-a1-11-01",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "He ___ to work by bus.",
+      "options": [
+        "is go",
+        "going",
+        "go",
+        "goes"
+      ],
+      "correct": 3,
+      "explanation": "He + czasownik z -es: goes."
+    },
+    {
+      "id": "szlak-a1-11-02",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "We ___ watch TV in the morning.",
+      "options": [
+        "doesn't",
+        "aren't",
+        "don't",
+        "not"
+      ],
+      "correct": 2,
+      "explanation": "We + don't + czasownik."
+    },
+    {
+      "id": "szlak-a1-11-03",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "I usually ___ a shower in the morning.",
+      "options": [
+        "do",
+        "get",
+        "make",
+        "have"
+      ],
+      "correct": 3,
+      "explanation": "Have a shower (lub take a shower) = brać prysznic."
+    },
+    {
+      "id": "szlak-a1-11-04",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "___ your brother live in London?",
+      "options": [
+        "Do",
+        "Has",
+        "Does",
+        "Is"
+      ],
+      "correct": 2,
+      "explanation": "Pytanie o he/she/it: Does…?"
+    }
+  ]
+}

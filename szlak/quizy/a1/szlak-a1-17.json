@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "id": "szlak-a1-17",
+  "topic": "a1-gramatyka-can-cant",
+  "level": "A1",
+  "title": "Przystanek: Can i can't",
+  "intro": "4 szybkie pytania. Zaliczenie od 3 dobrych odpowiedzi.",
+  "passage": null,
+  "passScore": 3,
+  "items": [
+    {
+      "id": "szlak-a1-17-01",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "She can ___ three languages.",
+      "options": [
+        "to speak",
+        "speaks",
+        "speaking",
+        "speak"
+      ],
+      "correct": 3,
+      "explanation": "Po can czasownik w formie podstawowej, bez to i bez -s."
+    },
+    {
+      "id": "szlak-a1-17-02",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "___ you swim?",
+      "options": [
+        "Do can",
+        "Are",
+        "Does",
+        "Can"
+      ],
+      "correct": 3,
+      "explanation": "Pytanie: Can you…?"
+    },
+    {
+      "id": "szlak-a1-17-03",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "I can't ___ you. It's too loud.",
+      "options": [
+        "hears",
+        "hear",
+        "hearing",
+        "to hear"
+      ],
+      "correct": 1,
+      "explanation": "Can't + forma podstawowa."
+    },
+    {
+      "id": "szlak-a1-17-04",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "— Can you help me? — Yes, of course I ___.",
+      "options": [
+        "can",
+        "am",
+        "help",
+        "do"
+      ],
+      "correct": 0,
+      "explanation": "Krótka odpowiedź powtarza can."
+    }
+  ]
+}

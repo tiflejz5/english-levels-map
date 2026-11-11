@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "id": "szlak-a2-03",
+  "topic": "a2-czasy-past-continuous",
+  "level": "A2",
+  "title": "Przystanek: Past Continuous: tło",
+  "intro": "4 szybkie pytania. Zaliczenie od 3 dobrych odpowiedzi.",
+  "passage": null,
+  "passScore": 3,
+  "items": [
+    {
+      "id": "szlak-a2-03-01",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "I ___ dinner when you called.",
+      "options": [
+        "am cooking",
+        "were cooking",
+        "cooked",
+        "was cooking"
+      ],
+      "correct": 3,
+      "explanation": "Tło przerwane innym wydarzeniem: Past Continuous."
+    },
+    {
+      "id": "szlak-a2-03-02",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "What ___ you doing at 8 pm yesterday?",
+      "options": [
+        "did",
+        "were",
+        "are",
+        "was"
+      ],
+      "correct": 1,
+      "explanation": "You + were + -ing."
+    },
+    {
+      "id": "szlak-a2-03-03",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "While they ___ TV, the lights went out.",
+      "options": [
+        "watched",
+        "watching",
+        "was watching",
+        "were watching"
+      ],
+      "correct": 3,
+      "explanation": "While + czynność w toku: were watching."
+    },
+    {
+      "id": "szlak-a2-03-04",
+      "type": "multiple-choice",
+      "kind": "form",
+      "prompt": "When I woke up, my parents ___ breakfast in the kitchen.",
+      "options": [
+        "was having",
+        "have",
+        "were having",
+        "had"
+      ],
+      "correct": 2,
+      "explanation": "Czynność trwała, gdy się obudziłem: were having."
+    }
+  ]
+}
